@@ -1,0 +1,115 @@
+/*
+Theme Name: GlobeAbc
+Theme URI: https://github.com/ervinpepic
+Author: Ervin Pepic
+Author URI: https://github.com/ervinpepic
+Description: Design GLobeAbc Aapplication for online ESL Teaching
+Template: language-school
+Version: 1.1.0
+License:
+License URI:
+Text Domain: https://globeabc.com
+Tags: one-column, two-columns, three-columns, four-columns, left-sidebar, right-sidebar, custom-background, custom-colors, custom-header, custom-menu, editor-style, featured-image-header, featured-images, flexible-header, full-width-template, microformats, post-formats, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready
+*/
+
+/*Custom color for headers and other blocks on all pages*/
+
+.headline_color {
+    background: rgb(254, 89, 105);
+    background: linear-gradient(90deg, rgba(254, 89, 105, 0.861782212885154) 27%, rgba(239, 187, 87, 1) 89%);
+}
+/*Justify text on both sides*/
+
+.justify-txt {
+    text-align: justify;
+}
+
+/*Changes the whole font size wherever this class is set*/
+
+.text-size {
+    font-size: 12pt;
+    line-height: 26pt;
+    font-family: 'Raleway', Arial, Helvetica, 'Nimbus Sans L', sans-serif;
+    font-weight: normal;
+    font-style: normal;
+}
+/*Text for statistic on front page*/
+
+.text-statistic {
+    font-family: 'Raleway', Arial, Helvetica, 'Nimbus Sans L', sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: normal;
+    font-style: normal;
+}
+.text-background-transparent {
+    font-weight: 300;
+    border-radius: 15px 50px;
+    background: rgba(206, 214, 214, 0.6);
+    padding: 20px;
+    width: auto;
+    height: auto;
+}
+/*Custom modificiation for choosing country and phone for applying or for demo session*/
+
+/*ID targeting flag padding for all three forms*/
+
+#flag_country_front_page, #flag_country_phone_front_page, #flag_country_country_dedicated_page, #flag_country_phone_dedicated_page, #flag_country_become_teacher {
+    padding: 0 0 0 50px;
+}
+/*Changing backround color on the country dropdown*/
+
+.country-list {
+    width: max-content;
+    z-index: 10 !important;
+}
+.intl-tel-input .country-list.dropup {
+    z-index:10 !important;
+}
+.intl-tel-input .country-list {
+    z-index: 10 !important;
+}
+.country-name {
+    color: #909195;
+    font-weight: bold;
+}
+.dial-code {
+    font-weight: bold;
+}
+
+/*Color for go tot the top button*/
+
+#slide_top {
+    background-color: rgb(236, 103, 96);
+}
+/* eblog svg icon on fornt page */
+
+.eblog {
+    margin-bottom: 35px;
+}
+.pl_img, .pl_content {
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+}
+
+#learn-press-course-tabs ul.learn-press-nav-tabs .course-nav {
+    display: none;
+}
+
+#learn-press-course-tabs ul.learn-press-nav-tabs {
+    display: none;
+}
+
+
+.counter-block .counter .number, .cmsmasters_course_title {
+    display: none;
+}
+
+#learn-press-course .learn-press-course-wishlist, #learn-press-profile .learn-press-course-wishlist {
+    margin-top: 35px;
+}
+
+.single-lp_course .course-meta {
+    display: none;
+}

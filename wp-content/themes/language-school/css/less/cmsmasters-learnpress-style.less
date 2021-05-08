@@ -1,0 +1,2067 @@
+/**
+ * @package 	WordPress
+ * @subpackage 	Language School
+ * @version 	1.1.7
+ * 
+ * LearnPress CSS Rules
+ * Created by CMSMasters
+ * 
+ */
+
+
+@import "general.less";
+
+
+/*-------------------------------------------------------------------------*/
+/*	LearnPress Page */
+/*-------------------------------------------------------------------------*/
+.learn-press-breadcrumb {
+	.dn;
+	margin:0;
+	
+	.cmsmasters_breadcrumbs & {
+		display:block;
+	}
+}
+
+.learnpress-page .lp-button {
+	padding:0 28px;
+	height:auto;
+}
+
+.learn-press-search-course-form {
+	position:relative;
+	margin-bottom:50px;
+	
+	.search-course-input {
+		padding-right:36px;
+	}
+	
+	.search-course-button {
+		.pos_abs(36px, 100%, auto, 0, 0, 0);
+		padding:0;
+		float:none;
+		.bd(0);
+		background:none;
+		text-indent:-9999px;
+		
+		&:before {
+			content:'\eaac';
+			font-family:'fontello';
+			font-size:15px;
+			line-height:15px;
+			font-weight:normal;
+			.pos_abs(1em, 1em, 5px, auto);
+			text-indent:0;
+		}
+	}
+}
+
+.learn-press-pagination {
+	padding-top:50px;
+	.tal;
+	
+	.page-numbers {
+		list-style:none;
+		padding:0;
+		
+		li {
+			.fl;
+			padding:0;
+			
+			&:before {
+				content:none;
+			}
+			
+			.page-numbers {
+				line-height:38px;
+				.tac;
+				.bd;
+				.bdl(0);
+				min-width:40px;
+				height:40px;
+				position:relative;
+				
+				&:before {
+					content:'';
+					.pos_abs(100%, 2px, -1px, -1px, -1px, auto);
+					.op(0);
+				}
+				
+				&:hover,
+				&.current {
+					&:before {
+						.op(1);
+					}
+				}
+			}
+			
+			&:first-child {
+				.page-numbers {
+					.bdl;
+				}
+			}
+		}
+	}
+}
+
+#learn_press_payment_form {
+	.bdt;
+	padding:20px 25px;
+	
+	ul {
+		padding:0;
+		margin:0;
+	}
+}
+
+#page {
+	.review-stars-rated {
+		position:relative;
+		width:80px;
+		height:16px;
+		margin-top:3px;
+		
+		.review-stars {
+			position:relative;
+			font-size:14px;
+			width:80px;
+			height:16px;
+			position:absolute;
+			left:0;
+			top:0;
+			
+			&:before {
+				position:absolute;
+				left:0;
+				top:0;
+				font-family:'fontello';
+				content:'\e8ab\e8ab\e8ab\e8ab\e8ab';
+				letter-spacing:3px;
+			}
+			
+			&.filled {
+				.ovh;
+				
+				&:before {
+					content:'\e8aa\e8aa\e8aa\e8aa\e8aa';
+					color:#f1c95c;
+				}
+			}
+		}
+	}
+}
+
+#review .review-fields > li > label .required {
+	height:auto;
+}
+
+.review-fields {
+	padding:0;
+	
+	li {
+		padding:0;
+		
+		&:before {
+			content:none;
+		}
+	}
+	
+	input[type="text"] {
+		width:100%;
+	}
+	
+	textarea {
+		width:100%;
+		min-height:100px;
+	}
+}
+
+.review-stars {
+	padding:0;
+	overflow:visible;
+	
+	> li {
+		width:20px;
+		height:20px;
+		padding:0;
+		
+		&:before {
+			content:none;
+		}
+		
+		span {
+			font-size:20px;
+			
+			&.dashicons-star-empty {
+				&:before {
+					font-family:'fontello';
+					content:'\e8ab';
+				}
+				
+				&.hover {
+					&:before {
+						font-family:'fontello';
+						content:'\e8aa';
+						color:#f1c95c;
+					}
+				}
+			}
+			
+			&:before {
+				width:20px;
+				height:20px;
+			}
+		}
+	}
+}
+
+.learn-press {
+	.lp-message,
+	.message {
+		padding:15px 20px;
+		.bd;
+		.bdrs(0);
+		position:relative;
+		
+		&:before {
+			content:'';
+			display:block;
+			width:2px;
+			position:absolute;
+			left:-1px;
+			top:-1px;
+			bottom:-1px;
+		}
+	}
+}
+
+.learn-press-notice,
+.learn-press-message,
+.learn-press-error {
+	margin:0 0 20px 0;
+	padding:8px 20px;
+	.bd;
+	.bdrs(0);
+	position:relative;
+	
+	&:before {
+		content:'';
+		position:absolute;
+		display:block;
+		width:2px;
+		left:-1px;
+		top:-1px;
+		bottom:-1px;
+	}
+	
+	p {
+		margin:0;
+		padding:0;
+	}
+}
+
+.cmsmasters_theme_icon_lpr_status:before {content:'\e802';}
+.cmsmasters_theme_icon_lpr_price:before {content:'\e829';}
+.cmsmasters_theme_icon_lpr_students:before {content:'\e8a1';}
+.cmsmasters_theme_icon_lpr_duration:before {content:'\e874';}
+.cmsmasters_theme_icon_lpr_wishlist:before {content:'\e866';}
+.cmsmasters_theme_icon_lpr_cat:before {content:'\e888';}
+.cmsmasters_theme_icon_lpr_tag:before {content:'\e854';}
+.cmsmasters_theme_icon_lpr_rate:before {content:'\e827';}
+.cmsmasters_theme_icon_lpr_wish:before { content: '\e889'; }
+.cmsmasters_theme_icon_lpr_instructor:before { content: '\e84b'; }
+.cmsmasters_theme_icon_lpr_lesson_standard:before { content: '\e884'; }
+.cmsmasters_theme_icon_lpr_lesson_video:before { content: '\e87d'; }
+.cmsmasters_theme_icon_lpr_lesson_audio:before { content: '\e860'; }
+
+
+/*---------------------------  Cart  */
+.table-orders,
+.order_details,
+.learn-press-checkout-review-order-table,
+.learn-press-cart-table {
+	margin-bottom:20px;
+	border-collapse:collapse;
+	
+	thead {
+		tr {
+			th {
+				padding:15px 20px;
+			}
+		}
+	}
+	
+	tbody {
+		tr {
+			.bd;
+		}
+		
+		th,
+		td {
+			padding:10px 20px;
+		}
+	}
+	
+	tfoot {
+		tr {
+			.bd;
+			
+			th,
+			td {
+				padding:10px 20px;
+			}
+		}
+	}
+}
+
+.learn-press-checkout-comment {
+	margin-bottom:20px;
+	
+	textarea {
+		height:115px;
+		width:50%;
+	}
+}
+
+.payment-methods,
+.form-fields {
+	padding:0;
+	
+	li {
+		&:before {
+			content:none;
+		}
+	}
+}
+
+/*---------------------------  Profile  */
+#learn-press-profile-header {
+	background:transparent;
+}
+
+.user-basic-info {
+	.user-avatar {
+		.fl;
+		margin-right:30px;
+		
+		.avatar {
+			.bdrs(50%);
+		}
+	}
+	
+	.user-nicename {
+		margin-bottom:10px;
+	}
+}
+
+.learn-press-tabs {
+	li {
+		padding:0;
+		
+		&:before {
+			content:none;
+		}
+	}
+}
+
+#user_courses {
+	> h3 {
+		padding-bottom:10px;
+		margin-bottom:30px;
+		.bdb;
+		position:relative;
+		
+		&:before {
+			content:'';
+			display:block;
+			width:50px;
+			height:2px;
+			position:absolute;
+			left:0;
+			bottom:-1px;
+		}
+	}
+}
+
+#user_quizzes {
+	.quiz-result-mark {
+		padding:10px 20px;
+		position:relative;
+		.bd;
+		margin-bottom:10px;
+		
+		&:before {
+			content:'';
+			width:2px;
+			display:block;
+			position:absolute;
+			top:-1px;
+			bottom:-1px;
+			left:-1px;
+		}
+	}
+	
+	.quiz-result-summary {
+		margin:0 0 20px;
+		
+		.quiz-result-field {
+			padding:10px 0;
+			.tar;
+			.ovh;
+			
+			> label {
+				.fl;
+				width:auto;
+				
+				&:before {
+					font-family:'fontello';
+					display:inline-block;
+					vertical-align:middle;
+					margin-right:13px;
+					font-size:16px;
+					margin-top:-1px;
+					font-weight:normal;
+				}
+				
+				
+			}
+			
+			&.correct {
+				label {
+					&:before {
+						content:'\e867';
+					}
+				}
+			}
+			
+			&.wrong {
+				label {
+					&:before {
+						content:'\e86c';
+					}
+				}
+			}
+			
+			&.empty {
+				label {
+					&:before {
+						content:'\e87b';
+					}
+				}
+			}
+			
+			&.time {
+				label {
+					&:before {
+						content:'\e880';
+					}
+				}
+			}
+		}
+	}
+}
+
+.learn-press-tab {
+	padding:40px 0 0;
+}
+
+.lp-tab-sections {
+	.section-tab {
+		padding:0;
+		
+		&:before {
+			content:none;
+		}
+	}
+}
+
+.lp-sub-menu {
+	li {
+		padding:0;
+		
+		&:before {
+			content:none;
+		}
+	}
+}
+
+.lp-list-table {
+	border-collapse:collapse;
+}
+
+.lp-course-buttons {
+	button {
+		padding:0 28px;
+	}
+}
+
+.learn-press-subtabs {
+	padding:0;
+	
+	li {
+		padding-left:25px;
+		
+		&:before {
+			left:9px;
+		}
+		
+		&:first-child {
+			padding-left:0;
+			
+			&:before {
+				content:none;
+			}
+		}
+	}
+}
+
+.become-teacher-form {
+	ul {
+		padding:0;
+		
+		li {
+			padding:0 0 10px;
+			
+			label {
+				min-width:100px;
+				padding-right:10px;
+				display:inline-block;
+			}
+			
+			&:before {
+				content:none;
+			}
+		}
+	}
+}
+
+.user-info {
+	margin-bottom:35px;
+}
+
+.question-passage {
+	margin-bottom:20px;
+}
+
+.learn-press-wishlist-courses {
+	padding:0;
+	margin:0;
+	
+	li {
+		margin-bottom:15px;
+		padding-top:15px;
+		.bdt;
+		
+		&:first-child {
+			.bdt(0);
+		}
+		
+		.course-wishlist {
+			.fr;
+		}
+		
+		&:after {
+			.cl_after;
+		}
+		
+		&:before {
+			content:none;
+		}
+	}
+}
+
+.user-profile-edit-form {
+	.user-profile-picture {
+		.profile-avatar-current {
+			.fl;
+		}
+		
+		img {
+			.bdrs(50%);
+		}
+		
+		.change-picture {
+			display:block;
+			.ovh;
+		}
+		
+		&:after {
+			.cl_after;
+		}
+	}
+	
+	.info-field {
+		width:50%;
+		.fl;
+		padding-right:20px;
+		margin-bottom:30px;
+		
+		&:nth-of-type(2n+1) {
+			.cl;
+		}
+		
+		input[type=text],
+		input[type=email],
+		input[type=url],
+		select,
+		textarea {
+			width:100%;
+		}
+	}
+	
+	.profile-field-name {
+		padding-bottom:6px;
+		margin:0;
+		font-weight:inherit;
+	}
+	
+	h2 {
+		.cl;
+	}
+}
+
+.lp-form-field-wrap {
+	padding:0;
+	
+	.lp-form-field {
+		padding:0;
+		
+		&:before {
+			content:none;
+		}
+	}
+}
+
+
+/*-------------------------------------------------------------------------*/
+/*	LearnPress Course Post */
+/*-------------------------------------------------------------------------*/
+.cmsmasters_lesson {
+	padding:60px 0;
+}
+
+.lp-single-course .course-price {
+	margin-bottom:30px;
+}
+
+.single-lp_course .content_wrap.fullwidth .middle_content {
+	padding-top:60px;
+}
+
+.course-content_coming_soon {
+	margin-top:30px;
+}
+
+.single-lp_course {
+	.course-meta {
+		margin-top:30px;
+		padding:0 0 13px;
+		margin-bottom:30px;
+		.ovh;
+		
+		.learn-press-course-status {
+			.fr;
+			position:relative;
+			
+			&:before {
+				content:'\e813';
+				font-family:'fontello';
+				font-size:16px;
+				display:inline-block;
+				vertical-align:middle;
+				margin-right:7px;
+			}
+		}
+		
+		.course-students {
+			padding:0;
+			display:inline-block;
+			margin-right:20px;
+			
+			&:before {
+				content:'\e8a1';
+				font-family:'fontello';
+				font-size:16px;
+				display:inline-block;
+				vertical-align:middle;
+				margin-right:7px;
+			}
+		}
+		
+		.course-author {
+			margin-right:20px;
+			
+			&:before {
+				content:'\e84b';
+				font-family:'fontello';
+				font-size:16px;
+				display:inline-block;
+				vertical-align:middle;
+				margin-right:7px;
+			}
+		}
+		
+		.course-origin-price {
+			.fr;
+			padding:0 0 0 3px;
+		}
+		
+		.course-price {
+			.fr;
+			font-weight:normal;
+			
+			&:before {
+				content:'\e829';
+				font-family:'fontello';
+				font-size:16px;
+				display:inline-block;
+				vertical-align:middle;
+				margin-right:7px;
+			}
+		}
+	}
+	
+	.learn-press-course-results-progress {
+		margin:0;
+		
+		.items-progress {
+			float:none;
+			width:auto;
+			margin:0;
+		}
+		
+		.course-progress {
+			float:none;
+			width:auto;
+			margin-right:0;
+		}
+		
+		.lp-course-progress-heading {
+			margin-bottom:30px;
+		}
+	}
+	
+	.course-students-list {
+		margin:0 0 50px;
+		
+		.students {
+			list-style:none;
+			padding:0;
+			
+			> li {
+				display:block;
+				padding:0;
+				margin:0 0 20px;
+				
+				&:before {
+					content:none;
+				}
+				
+				&:last-child {
+					margin-bottom:0;
+				}
+				
+				img {
+					.bdrs(50%);
+					margin-right:15px;
+				}
+			}
+		}
+	}
+	
+	.post_comments,
+	#respond {
+		padding:0 0 50px;
+	}
+	
+	button.course-wishlist,
+	.post-edit-link {
+		margin-bottom:30px;
+		display:inline-block;
+	}
+}
+
+.course-lesson-description {
+	padding-bottom:20px;
+}
+
+.course-description {
+	.cmsmasters_row_inner {
+		padding:0;
+		width:auto;
+	}
+}
+
+.learnpress form.purchase-course {
+	margin-bottom:0;
+}
+
+#learn-press-course-tabs  {
+	margin:0;
+	padding:0;
+	
+	.course-tab-panel {
+		padding-top:40px;
+		margin-bottom:50px;
+		
+		> .course-rate {
+			margin:0 0 30px;
+		}
+	}
+	
+	ul.learn-press-nav-tabs {
+		.bdb;
+		.tac;
+		margin-bottom:0;
+		overflow:visible !important;
+		
+		.course-nav {
+			padding:0;
+			display:inline-block;
+			float:none;
+			margin-bottom:-1px;
+			
+			&:before {
+				content:'';
+				display:block;
+				width:100%;
+				height:2px;
+				position:absolute;
+				left:0;
+				top:0;
+				.op(0);
+			}
+			
+			&:first-child {
+				&:before {
+					top:0;
+				}
+			}
+			
+			a {
+				padding:15px 25px;
+				display:block;
+				border:1px solid transparent;
+			}
+			
+			&.active {
+				.bd(0);
+				
+				a {
+					margin-bottom:0;
+					.bdb;
+				}
+				
+				&:before {
+					.op(1);
+				}
+				
+				&:after {
+					content:none;
+				}
+			}
+			
+			&:hover {
+				&:after {
+					content:none;
+				}
+			}
+		}
+	}
+}
+
+.lp_course {
+	&:after {
+		.cl_after;
+	}
+}
+
+.cmsmasters_course_title {
+	.bdb;
+	position:relative;
+	padding-bottom:10px;
+	margin-bottom:40px;
+	
+	&:before {
+		content:'';
+		display:block;
+		height:2px;
+		width:100px;
+		position:absolute;
+		bottom:-1px;
+		left:0;
+	}
+}
+
+.course-content-lesson-nav-text {
+	.bdt;
+}
+
+#learn-press-course-curriculum {
+	ul {
+		&.curriculum-sections,
+		&.section-content {
+			background:none;
+		}
+	}
+	
+	.section-header {
+		.bd;
+		padding:14px 15px 14px 20px;
+		
+		body.course-item-popup & {
+			.bdr(0);
+		}
+		
+		.meta {
+			position:static;
+			.fr;
+			font-size:inherit;
+			font-weight:inherit;
+			
+			.collapse {
+				background:none;
+				
+				&:before {
+					content:'';
+					display:block;
+					.pos_abs(8px, 2px);
+				}
+				
+				&:after {
+					content:'';
+					display:block;
+					.pos_abs(2px, 8px);
+					.op(0);
+				}
+				
+				&.plus {
+					&:before {
+						content:'';
+					}
+					
+					&:after {
+						.op(1);
+					}
+				}
+			}
+		}
+	}
+	
+	.course-item {
+		.bdt(0);
+		padding:10px 50px 10px 20px;
+		
+		body.course-item-popup & {
+			.bdr(0);
+		}
+		
+		&.item-has-status {
+			.item-status {
+				font-family:'fontello';
+				background:none;
+				.bdrs(0);
+				
+				&:before {
+					content:'\e87f';
+					font-size:18px;
+				}
+			}
+			
+			&.item-completed {
+				.item-status {
+					background:none;
+				}
+			}
+		}
+		
+		&.course-lesson,
+		&.course-quiz {
+			&:before {
+				position:static;
+				display:inline-block;
+				.bd;
+				width:36px;
+				height:36px;
+				margin-right:15px;
+				line-height:36px;
+				.tac;
+				.bdrs(50%);
+			}
+		}
+		
+		&.course-lesson {
+			&:before {
+				content:'L';
+			}
+			
+			.course-item-title {
+				&:before {
+					display:none;
+				}
+			}
+		}
+		
+		&.course-quiz {
+			&:before {
+				content:'Q';
+			}
+			
+			.course-item-title {
+				&:before {
+					display:none;
+				}
+			}
+		}
+		
+		.course-item-title {
+			display:inline;
+			float:none;
+		}
+	}
+	
+	.course-item-meta {
+		margin:0;
+		float:none;
+		.pos_abs(auto, auto, auto, 11px, 0, 0);
+		
+		&:after {
+			.valign_after;
+		}
+	}
+}
+
+body.course-item-popup #learn-press-content-item .content-item-wrap {
+	margin:30px auto;
+}
+
+.lp-label {
+	.bdrs(10px);
+	height:auto;
+}
+
+
+.curriculum-sections {
+	padding:0;
+	
+	.section {
+		padding:0 0 20px;
+		
+		&:before {
+			content:none;
+		}
+	}
+	
+	.section-content {
+		padding:0;
+		margin-bottom:30px;
+		
+		> li {
+			padding:10px 20px 10px 10px;
+			.bd;
+			.bdt(0);
+			
+			&:first-child {
+				.bdt;
+			}
+			
+			> span,
+			> a {
+				display:inline-block;
+			}
+		}
+	}
+}
+
+.learn-press-content-item-title,
+.students-list-title,
+.course-lesson-heading,
+.lp-course-progress-heading,
+.course-curriculum-title,
+.course-review-head {
+	.bdb;
+	padding-bottom:10px;
+	margin-bottom:30px;
+	position:relative;
+	
+	&:before {
+		content:'';
+		display:block;
+		height:2px;
+		width:50px;
+		position:absolute;
+		left:0;
+		bottom:-1px;
+	}
+}
+
+.learn-press-course-buttons {
+	margin-bottom:50px;
+}
+
+.course-average-rate {
+	padding-bottom:35px;
+}
+
+#page {
+	.course-rate {
+		.review-bar {
+			height:5px;
+			margin-left:5px;
+			
+			.rating {
+				height:5px;
+			}
+		}
+	}
+	
+	.course-reviews-list {
+		padding:0;
+		margin:0 0 20px;
+		
+		> li {
+			padding:0 0 35px;
+			margin-bottom:35px;
+			background:none;
+			.bd(0);
+			.bdb;
+			
+			&:before {
+				content:none;
+			}
+			
+			&:last-child {
+				margin-bottom:0;
+			}
+		}
+		
+		.review-author-info {
+			float:none;
+			width:auto;
+			.ovh;
+			
+			.user-name {
+				.fl;
+				margin:0 0 10px;
+			}
+			
+			.review-stars-rated {
+				.fr;
+				
+				.review-stars {
+					
+					&.filled {
+					}
+				}
+			}
+			
+			.review-title {
+				margin:0;
+			}
+		}
+		
+		.review-author {
+			.fl;
+			margin-right:30px;
+			
+			img {
+				.bdrs(50%);
+				margin:0;
+				float:none;
+			}
+		}
+		
+		.review-text {
+			float:none;
+		}
+	}
+}
+
+.complete-lesson-button {
+	margin-bottom:30px;
+	
+	&.completed {
+		span {
+			display:inline-block;
+			vertical-align:middle;
+			margin-right:10px;
+		}
+	}
+}
+
+.learn-press-course-results-progress {
+	.items-progress, 
+	.course-progress {
+		.lp-progress-bar {
+			.bdrs(0);
+			
+			.lp-progress-value {
+				height:6px;
+				.bdrs(0);
+			}
+		}
+	}
+}
+
+.learn-press-progress {
+	margin-top:5px;
+}
+
+.lp-course-progress {
+	&:after {
+		.cl_after;
+	}
+	
+	.lp-progress-bar {
+		height:6px !important;
+		margin-bottom:50px;
+		.bdrs(0);
+		
+		.lp-progress-value {
+			height:6px;
+			.bdrs(0);
+		}
+	}
+	
+	.lp-passing-conditional {
+		height:6px;
+	}
+	
+	.lp-progress-total {
+		position:absolute;
+		right:0;
+		top:-30px;
+		width:50px;
+		height:20px;
+		text-align:right;
+	}
+}
+
+#course-curriculum-popup {
+	.course-curriculum {
+		padding:20px;
+	}
+	
+	#popup-sidebar .learn-press-course-results-progress {
+		padding:20px;
+	}
+}
+
+.learn-press-content-item-only {
+	.cmsmasters_row_inner {
+		width:100%;
+		padding:0;
+	}
+}
+
+#lp-navigation {
+	margin-top:30px;
+	padding:25px 20px;
+	position:relative;
+	.bd;
+	.ovh;
+	
+	.meta-nav,
+	.screen-reader-text {
+		.dn;
+	}
+	
+	.nav-link {
+		.course-item-title {
+			position:relative;
+			display:inline-block;
+			
+			&:before {
+				font-family:'fontello';
+				font-size:14px;
+				line-height:24px;
+				.tac;
+				display:block;
+				.bd;
+				.pos_abs(26px, 26px, 0, auto, 0, 0);
+				.bdrs(50%);
+			}
+		}
+	}
+	
+	.nav-previous {
+		.fl;
+		padding-right:20px;
+		
+		.course-item-title {
+			padding-left:40px;
+			
+			&:before {
+				content:'\eb1d';
+			}
+		}
+	}
+	
+	.nav-next {
+		.fr;
+		padding-left:20px;
+		
+		.course-item-title {
+			padding-right:40px;
+			
+			&:before {
+				content:'\eb1e';
+				right:0;
+				left:auto;
+			}
+		}
+	}
+}
+
+
+/*-------------------------------------------------------------------------*/
+/*	LearnPress Quiz Post */
+/*-------------------------------------------------------------------------*/
+
+.cmsmasters_lpr_quiz {
+	&.opened-article {
+		padding:40px 0;
+	}
+}
+
+.quiz-intro {
+	padding-left:15px;
+}
+
+.quiz-result {
+	.quiz-result-summary {
+		.quiz-result-field {
+			.bdrs(0);
+			.bd;
+			
+			&.correct {
+				background:#f9fffa;
+				border-color:#c9e0cd;
+			}
+			
+			&.wrong {
+				background:#fffdfd;
+				border-color:#f7d1d1;
+			}
+		}
+	}
+}
+
+.quiz-questions-list {
+	li,
+	p {
+		padding:0;
+	}
+	
+	.question-title {
+		.bdb;
+		padding-bottom:10px;
+		margin-bottom:20px;
+	}
+}
+
+.lp-group-heading-title {
+	&.toggle-on,
+	&.toggle-off {
+		.toggle-icon {
+			&:before {
+				content:'';
+			}
+		}
+	}
+	
+	&.toggle-off {
+		.toggle-icon {
+			&:after {
+				.op(1);
+			}
+		}
+	}
+	
+	.toggle-icon {
+		width:24px;
+		height:24px;
+		margin-left:10px;
+		vertical-align:middle;
+		position:relative;
+		
+		&:before {
+			content:'';
+			display:block;
+			.pos_abs(8px, 2px);
+		}
+		
+		&:after {
+			content:'';
+			display:block;
+			.pos_abs(2px, 8px);
+			.op(0);
+		}
+	}
+}
+
+.lp-group-content-wrap {
+	padding-bottom:30px;
+}
+
+.single-quiz {
+	.quiz-summary {
+		.entry-title {
+			.bdb;
+			padding-bottom:10px;
+			margin-bottom:30px;
+			position:relative;
+			
+			&:before {
+				content:'';
+				display:block;
+				height:2px;
+				width:100px;
+				position:absolute;
+				left:0;
+				bottom:-1px;
+			}
+		}
+	}
+	
+	.lp-question-wrap {
+		ul {
+			padding:0;
+			
+			li {
+				padding:5px 0;
+				margin-bottom:5px;
+				
+				&:before {
+					content:none;
+				}
+				
+				&.correct {
+					background:#d0e4a8;
+				}
+			}
+		}
+	}
+	
+	.quiz-result {
+		float:none;
+		margin:0;
+		width:auto;
+		.tac;
+		
+		.result-title {
+			padding:20px;
+			margin:0;
+		}
+		
+		.quiz-result-mark {
+			float:none;
+			display:inline-block;
+			margin-bottom:30px;
+		}
+		
+		.quiz-result-summary {
+			float:none;
+			margin:0;
+			
+			.quiz-result-field {
+				padding:20px 25px;
+				.bdt;
+				.tar;
+				.ovh;
+				
+				&:last-child {
+					.bdb;
+				}
+				
+				> label {
+					.fl;
+					width:auto;
+					
+					&:before {
+						font-family:'fontello';
+						display:inline-block;
+						vertical-align:middle;
+						margin-right:13px;
+						font-size:16px;
+						margin-top:-1px;
+						font-weight:normal;
+					}
+					
+					
+				}
+				
+				&.correct {
+					label {
+						&:before {
+							content:'\e867';
+						}
+					}
+				}
+				
+				&.wrong {
+					label {
+						&:before {
+							content:'\e86c';
+						}
+					}
+				}
+				
+				&.empty {
+					label {
+						&:before {
+							content:'\e87b';
+						}
+					}
+				}
+				
+				&.time {
+					label {
+						&:before {
+							content:'\e880';
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	.quiz-questions {
+		> h3 {
+			padding-bottom:10px;
+			margin-bottom:30px;
+			.bdb;
+			position:relative;
+			
+			&:before {
+				content:'';
+				display:block;
+				width:50px;
+				height:2px;
+				position:absolute;
+				bottom:-1px;
+				left:0;
+			}
+		}
+		
+		> ul {
+			padding:0;
+			margin:0;
+			
+			> li {
+				padding:0;
+				
+				&:before {
+					content:none;
+				}
+			}
+		}
+	}
+	
+	.quiz-question-nav {
+		float:none;
+		margin:0 0 30px;
+		.ovh;
+		
+		.quiz-question-answer {
+			.fl;
+		}
+		
+		.lp-question-wrap {
+			margin:0 0 20px;
+			.bd;
+			
+			> h4 {
+				padding:15px 20px;
+				.bdb;
+				margin:0;
+			}
+			
+			ul {
+				margin:0;
+				padding:20px;
+			}
+		}
+		
+		.question-hint-wrap {
+			padding:0 20px 20px;
+		}
+	}
+	
+	.quiz-sidebar {
+		margin:0;
+		float:none;
+		width:auto;
+		
+		.quiz-countdown {
+			padding:20px 20px 0 20px;
+			
+			#quiz-countdown-value {
+				.tac;
+			}
+		}
+		
+		.quiz-countdown-text {
+			padding:10px 20px 20px;
+			margin:0;
+		}
+		
+		.quiz-buttons {
+			padding:0 25px;
+			
+			button {
+				margin:0 0 20px;
+			}
+		}
+	}
+}
+
+.lpr-question-hint {
+	padding:0;
+	
+	li {
+		padding:5px 0;
+		
+		&:first-child {
+			padding-top:5px;
+		}
+		
+		&:before {
+			content:none;
+		}
+		
+		&.correct {
+			background:#d0e4a8;
+		}
+		
+		&.wrong,
+		&.correct {
+			padding-left:5px;
+			padding-right:5px;
+		}
+	}
+}
+
+.quiz-question-nav-buttons {
+	margin:0 0 20px;
+}
+
+.learn-press-question-options {
+	padding:0;
+	margin:0 0 20px;
+	
+	> li {
+		&.answer-option {
+			padding:0;
+			background:none;
+			
+			label {
+				input {
+					&[type="checkbox"],
+					&[type="radio"] {
+						.bdrs(0);
+						.op(0);
+						visibility:hidden;
+						
+						&:checked {
+							+ p {
+								background:none;
+								color:inherit;
+								font-weight:normal;
+								
+								&:after {
+									.op(1);
+									-webkit-transform:scale(1);
+									-moz-transform:scale(1);
+									transform:scale(1);
+								}
+							}
+						}
+					}
+					
+					&[type="checkbox"] {
+						+ p {
+							&:after {
+								content:'\eabb';
+								font-family:'fontello';
+								display:block;
+								width:17px;
+								font-size:14px;
+								font-weight:bold;
+								position:absolute;
+								left:1px;
+								top:1px;
+								.tac;
+							}
+						}
+					}
+					
+					&[type="radio"] {
+						+ p {
+							&:before {
+								.bdrs(50%);
+								width:18px;
+								height:18px;
+							}
+							
+							&:after {
+								content:'';
+								display:block;
+								width:10px;
+								height:10px;
+								position:absolute;
+								left:4px;
+								top:5px;
+								.bdrs(50%);
+							}
+						}
+					}
+				}
+				
+				p {
+					min-height:0;
+					.bdrs(0);
+					
+					&.single-lines {
+						padding:0 0 0 28px;
+						line-height:inherit;
+						
+						&:before {
+							content:'';
+							display:block;
+							.pos_abs(17px, 17px, 0, auto, 0, 0);
+							.bd;
+						}
+						
+						&:after {
+							.op(0);
+							-webkit-transform:scale(0.75);
+							-moz-transform:scale(0.75);
+							transform:scale(0.75);
+						}
+					}
+				}
+			}
+			
+			&.answer-true label p,
+			&:hover label p {
+				background:none;
+			}
+		}
+	}
+	
+	li {
+		&:before {
+			content:none;
+		}
+	}
+}
+
+.question-explanation-content,
+.question-hint-content {
+	.bd;
+	position:relative;
+	padding:20px;
+	margin-bottom:20px;
+	
+	&:before {
+		content:'';
+		display:block;
+		width:2px;
+		position:absolute;
+		left:-1px;
+		top:-1px;
+		bottom:-1px;
+	}
+}
+
+.quiz-history {
+	border-collapse:collapse;
+	
+	td,
+	th {
+		padding:15px 20px;
+		vertical-align:middle;
+	}
+	
+	tbody {
+		tr {
+			.bd;
+		}
+	}
+}
+
+.learn-press-content-item-title {
+	.lp-expand {
+		width:30px;
+		height:30px;
+		line-height:28px;
+		font-size:18px;
+	}
+	
+	&.content-item-quiz-title {
+		.quiz-countdown {
+			background:none;
+			height:30px;
+			padding:0;
+			
+			&:before,
+			&:after {
+				bottom:-13px;
+			}
+		}
+	}
+}
+
+.content-item-description {
+	.cmsmasters_row_inner {
+		width:100%;
+		padding:0;
+	}
+}
+
+
+/*-------------------------------------------------------------------------*/
+/*	Learnpress Archive */
+/*-------------------------------------------------------------------------*/
+.learn-press-courses {
+	margin:0 -@col_mar;
+	
+	li {
+		&:before {
+			content:none;
+		}
+		
+		&.course {
+			margin:0 @col_mar 40px;
+			width:round((100% / 4) - (@col_mar * 2), 2);
+			
+			.lp-course-progress {
+				.lp-progress-bar {
+					margin-bottom:15px;
+				}
+			}
+			
+			.course-instructor {
+				margin:0;
+			}
+			
+			.course-students {
+				float:none;
+			}
+			
+			.course-origin-price,
+			.course-price {
+				float:none;
+				display:inline-block;
+			}
+			
+			.course-thumbnail {
+				img {
+					width:100%;
+				}
+			}
+			
+			.view-more {
+				.dn;
+			}
+		}
+	}
+}
+
+
+/*-------------------------------------------------------------------------*/
+/*	Learnpress Shortcode */
+/*-------------------------------------------------------------------------*/
+.cmsmasters_learnpress_shortcode {
+	margin:0 -20px;
+	.ovh;
+	
+	&.cmsmasters_1 {
+		.lpr_course_post {
+			width:100%;
+			float:none;
+		}
+	}
+	
+	&.cmsmasters_2 {
+		.lpr_course_post {
+			width:50%;
+			
+			&:nth-child(2n+1) {
+				.cl;
+			} 
+		}
+	}
+	
+	&.cmsmasters_3 {
+		.lpr_course_post {
+			width:33.32%;
+			
+			&:nth-child(3n+1) {
+				.cl;
+			} 
+		}
+	}
+	
+	&.cmsmasters_4 {
+		.lpr_course_post {
+			width:25%;
+			
+			&:nth-child(4n+1) {
+				.cl;
+			} 
+		}
+	}
+	
+	&.cmsmasters_5 {
+		.lpr_course_post {
+			width:20%;
+			
+			&:nth-child(5n+1) {
+				.cl;
+			} 
+		}
+	}
+	
+	.lpr_course_post {
+		padding:0 20px 40px;
+		.fl;
+		
+		.preloader {
+			padding-bottom:100%;
+		}
+		
+		.img_placeholder {
+			.bd;
+		}
+		
+		.lpr_course_title {
+			margin:0 0 10px;
+		}
+		
+		.review-stars-rated {
+			#page & {
+				margin-top:4px;
+				margin-right:10px;
+				.fl;
+				width:64px;
+			}
+			
+			.review-stars {
+				#page & {
+					font-size:12px;
+					width:64px;
+				}
+				
+				&:before {
+					#page & {
+						letter-spacing:2px;
+					}
+				}
+			}
+			
+			+ .cmsmasters_course_price,
+			+ .cmsmasters_course_free {
+				.fr;
+			}
+		}
+		
+		.cmsmasters_course_price,
+		.cmsmasters_course_free {
+			display:inline-block;
+			line-height:19px;
+			font-weight:bold;
+			padding:3px 10px;
+			.bdrs(13px);
+		}
+		
+		.cmsmasters_course_origin_price {
+			text-decoration:line-through;
+			font-weight:normal;
+			margin:0 0 0 3px;
+			.fr;
+		}
+		
+		.lpr_course_inner {
+			position:relative;
+			.bd;
+			.bdt(0);
+			padding:15px 20px 20px;
+			
+			&:after {
+				.cl_after;
+			}
+		}
+		
+		.cmsmasters_course_footer {
+			.ovh;
+			.bd;
+			.bdt(0);
+			padding:8px 20px;
+		}
+		
+		.cmsmasters_cource_duration {
+			.fr;
+			margin-left:10px;
+		}
+	}
+}
+
+/*-------------------------------------------------------------------------*/
+/*	LearnPress Widgets */
+/*-------------------------------------------------------------------------*/
+.widget_lp-widget-recent-courses, 
+.widget_lp-widget-popular-courses, 
+.widget_lp-widget-featured-courses {
+	.course-cover {
+		margin:0 0 15px;
+	}
+
+	.course-title {
+		margin:0 0 15px;
+	}
+	
+	.course-description {
+		margin:0 0 15px;
+	}
+	
+	.course-entry {
+		margin:0 0 25px;
+		
+		&:last-child {
+			margin:0;
+		}
+	}
+}
+
+
+/*-------------------------------------------------------------------------*/
+/*	LearnPress Animations */
+/*-------------------------------------------------------------------------*/
+
+html.csstransitions {
+	.learn-press-pagination .page-numbers li .page-numbers:before,
+	#profile-tabs .ui-tabs-nav li:before {
+		.trans(~'opacity .3s ease-in-out');
+	}
+	
+	.learn-press-question-options > li.answer-option label p.single-lines:after {
+		.trans(~'opacity .3s ease-in-out, transform .3s ease-in-out');
+	}
+	
+	.widget_lp-widget-recent-courses .course-title, 
+	.widget_lp-widget-popular-courses .course-title, 
+	.widget_lp-widget-featured-courses .course-title,
+	.learn-press-courses li.course h3 {
+		.trans(~'color .3s ease-in-out');
+	}
+	
+	#learn-press-profile-nav .tabs > li a,
+	#lp-navigation .nav-link .course-item-title:before,
+	.learn-press-pagination .page-numbers li .page-numbers,
+	#profile-tabs .ui-tabs-nav li a {
+		.trans(~'border-color .3s ease-in-out, background-color .3s ease-in-out, color .3s ease-in-out');
+	}
+}
