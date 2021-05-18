@@ -32,7 +32,7 @@ abstract class LP_Abstract_Assets {
 	 * LP_Abstract_Assets constructor.
 	 */
 	protected function __construct() {
-		$priory = 1000;
+		$priority = 1000;
 
 		if ( LP_Debug::is_debug() ) {
 			self::$_min_assets     = '';
@@ -43,11 +43,10 @@ abstract class LP_Abstract_Assets {
 		if ( is_admin() ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'load_scripts' ) );
 			add_action( 'admin_print_footer_scripts', array( $this, 'localize_printed_admin_scripts' ) );
-
 		} else {
-			add_action( 'wp_enqueue_scripts', array( $this, 'load_scripts' ), $priory );
-			add_action( 'wp_print_scripts', array( $this, 'localize_printed_scripts' ), $priory + 10 );
-			add_action( 'wp_print_footer_scripts', array( $this, 'localize_printed_scripts' ), $priory + 10 );
+			add_action( 'wp_enqueue_scripts', array( $this, 'load_scripts' ), $priority );
+			add_action( 'wp_print_scripts', array( $this, 'localize_printed_scripts' ), $priority + 10 );
+			add_action( 'wp_print_footer_scripts', array( $this, 'localize_printed_scripts' ), $priority + 10 );
 		}
 	}
 
@@ -169,58 +168,72 @@ abstract class LP_Abstract_Assets {
 	 * Register scripts and styles for admin.
 	 *
 	 * @editor tungnx
-	 * @reason not user
+	 * @reason not use
+	 * @deprecated 3.2.8
 	 */
-//	protected function _register_scripts() {
-//		$wp_scripts = $this->_get_wp_scripts();
-//		$wp_styles  = $this->_get_wp_styles();
-//
-//		// No use cache if debug mode is turn on
-//		$no_cache = '';
-//		if ( learn_press_is_debug() ) {
-//			$no_cache = microtime( true );
-//		}
-//
-//		if ( $default_scripts = $this->_get_scripts() ) {
-//			foreach ( $default_scripts as $handle => $data ) {
-//				if ( empty( $data['url'] ) ) {
-//					continue;
-//				}
-//
-//				$data = wp_parse_args(
-//					$data,
-//					array(
-//						'deps' => null,
-//						'ver'  => LEARNPRESS_VERSION
-//					)
-//				);
-//				$wp_scripts->add( $handle, $no_cache ? add_query_arg( 'nocache', $no_cache, $data['url'] ) : $data['url'], $data['deps'], $data['ver'] );
-//			}
-//
-//		}
-//
-//		if ( $default_styles = $this->_get_styles() ) {
-//
-//			foreach ( $default_styles as $handle => $data ) {
-//				if ( is_string( $data ) ) {
-//					$data = array( 'url' => $data );
-//				}
-//
-//				$data = wp_parse_args(
-//					$data,
-//					array(
-//						'deps' => null,
-//						'ver'  => LEARNPRESS_VERSION
-//					)
-//				);
-//				$wp_styles->add( $handle, $no_cache ? add_query_arg( 'nocache', $no_cache, $data['url'] ) : $data['url'], $data['deps'], $data['ver'] );
-//			}
-//
-//		}
-//	}
+	/*protected function _register_scripts() {
+		$wp_scripts = $this->_get_wp_scripts();
+		$wp_styles  = $this->_get_wp_styles();
+
+		// No use cache if debug mode is turn on
+		$no_cache = '';
+		if ( learn_press_is_debug() ) {
+			$no_cache = microtime( true );
+		}
+
+		$default_scripts = $this->_get_scripts();
+		if ( $default_scripts ) {
+
+			foreach ( $default_scripts as $handle => $data ) {
+				if ( is_string( $data ) ) {
+					$data = array( 'url' => $data );
+				}
+
+				if ( empty( $data['url'] ) ) {
+					continue;
+				}
+
+				$data = wp_parse_args(
+					$data,
+					array(
+						'deps'      => null,
+						'ver'       => LEARNPRESS_VERSION,
+						'in_footer' => false,
+					)
+				);
+
+				wp_register_script(
+					$handle,
+					$no_cache ? add_query_arg( 'nocache', $no_cache, $data['url'] ) : $data['url'],
+					$data['deps'],
+					$data['ver'],
+					$data['in_footer']
+				);
+			}
+		}
+
+		$default_styles = $this->_get_styles();
+		if ( $default_styles ) {
+
+			foreach ( $default_styles as $handle => $data ) {
+				if ( is_string( $data ) ) {
+					$data = array( 'url' => $data );
+				}
+
+				$data = wp_parse_args(
+					$data,
+					array(
+						'deps' => null,
+						'ver'  => LEARNPRESS_VERSION,
+					)
+				);
+				$wp_styles->add( $handle, $no_cache ? add_query_arg( 'nocache', $no_cache, $data['url'] ) : $data['url'], $data['deps'], $data['ver'] );
+			}
+		}
+	}*/
 
 	public function get_script_var_name( $handle ) {
-		$handle = str_replace( array( 'learn-press', '_', '-', 'lp' ), ' ', $handle );
+		$handle = str_replace( array( 'learn-press', 'lp', '_', '-' ), ' ', $handle );
 		$handle = ucwords( $handle );
 
 		return 'lp' . str_replace( ' ', '', $handle ) . 'Settings';
@@ -238,26 +251,28 @@ abstract class LP_Abstract_Assets {
 		} elseif ( is_array( $this->_script_data ) ) {
 			$scripts_data = $this->_script_data;
 		}
+
 		if ( ! $scripts_data ) {
 			return;
 		}
+
 		global $wp_scripts;
 
 		if ( ! $wp_scripts ) {
 			$wp_scripts = new WP_Scripts();
 		}
+
 		foreach ( $scripts_data as $handle => $data ) {
 			$data = apply_filters( 'learn-press/script-data', $data, $handle );
 			wp_localize_script( $handle, $this->get_script_var_name( $handle ), $data );
 
-			// todo: check and rewrite this code - make addon certificate run not right if comment that code
+			// comment by tungnx
+			// Edit: Use in certificate - Nhamdv.
 			if ( isset( $wp_scripts->registered[ $handle ] ) ) {
 				if ( isset( $wp_scripts->registered[ $handle ]->extra['data'] ) ) {
-					if ( $data = $wp_scripts->registered[ $handle ]->extra['data'] ) {
-						$data = preg_replace_callback( '~:"(([0-9]+)([.,]?)([0-9]?)|true|false)"~', array(
-							$this,
-							'_valid_json_number'
-						), $data );
+					if ( $wp_scripts->registered[ $handle ]->extra['data'] ) {
+						$data = $wp_scripts->registered[ $handle ]->extra['data'];
+						$data = preg_replace_callback( '~:"(([0-9]+)([.,]?)([0-9]?)|true|false)"~', array( $this, '_valid_json_number' ), $data );
 
 						$wp_scripts->registered[ $handle ]->extra['data'] = $data;
 					}
@@ -268,6 +283,7 @@ abstract class LP_Abstract_Assets {
 				$wp_scripts->print_extra_script( $handle );
 			}
 		}
+
 	}
 
 	public function localize_printed_admin_scripts() {
@@ -302,21 +318,6 @@ abstract class LP_Abstract_Assets {
 	 */
 	public function url( $file = '' ) {
 		return LP_PLUGIN_URL . "assets/{$file}";
-	}
-
-	/**
-	 * Get url with param nocache if debug mode is turn on.
-	 *
-	 * @param $url
-	 *
-	 * @return string
-	 */
-	protected function _get_url( $url ) {
-		if ( learn_press_is_debug() ) {
-			$url = add_query_arg( 'nocache', $this->_cache, $url );
-		}
-
-		return $url;
 	}
 
 	public function get_compressible_assets() {

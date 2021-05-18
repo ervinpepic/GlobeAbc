@@ -4,13 +4,13 @@
 Plugin Name: Booked
 Plugin URI: https://getbooked.io
 Description: Powerful appointment booking made simple.
-Version: 2.3
+Version: 2.3.5
 Author: Boxy Studio
 Author URI: https://boxystudio.com
 Text Domain: booked
 */
 
-define( 'BOOKED_VERSION', '2.3' );
+define( 'BOOKED_VERSION', '2.3.5' );
 define( 'BOOKED_WELCOME_SCREEN', get_option('booked_welcome_screen',true) );
 define( 'BOOKED_DEMO_MODE', get_option('booked_demo_mode',false) );
 define( 'BOOKED_PLUGIN_URL', untrailingslashit( plugin_dir_url( __FILE__ ) ) );
@@ -482,7 +482,7 @@ if(!class_exists('booked_plugin')) {
 		**********************/
 
 		public function add_menu() {
-			add_menu_page( esc_html__('Sesssion','booked'), esc_html__('Sessions','booked'), 'edit_booked_appointments', 'booked-appointments', array(&$this, 'admin_calendar'), 'dashicons-calendar-alt', 58 );
+			add_menu_page( esc_html__('Appointments','booked'), esc_html__('Appointments','booked'), 'edit_booked_appointments', 'booked-appointments', array(&$this, 'admin_calendar'), 'dashicons-calendar-alt', 58 );
 			add_submenu_page('booked-appointments', esc_html__('Pending','booked'), esc_html__('Pending','booked'), 'edit_booked_appointments', 'booked-pending', array(&$this, 'admin_pending_list'));
 			add_submenu_page('booked-appointments', esc_html__('Calendars','booked'), esc_html__('Calendars','booked'), 'manage_booked_options', 'edit-tags.php?taxonomy=booked_custom_calendars');
 			add_submenu_page('booked-appointments', esc_html__('Settings','booked'), esc_html__('Settings','booked'), 'edit_booked_appointments', 'booked-settings', array(&$this, 'plugin_settings_page'));
@@ -497,8 +497,8 @@ if(!class_exists('booked_plugin')) {
 
 				global $wp_admin_bar;
 
-				$wp_admin_bar->add_menu(array('id' => 'booked', 'title' => '<span class="ab-icon"></span>'.esc_html__('Sessions','booked'), 'href' => get_admin_url().'admin.php?page=booked-appointments'));
-				$wp_admin_bar->add_menu(array('parent' => 'booked', 'title' => esc_html__('Sessions','booked'), 'id' => 'booked-appointments', 'href' => get_admin_url().'admin.php?page=booked-appointments'));
+				$wp_admin_bar->add_menu(array('id' => 'booked', 'title' => '<span class="ab-icon"></span>'.esc_html__('Appointments','booked'), 'href' => get_admin_url().'admin.php?page=booked-appointments'));
+				$wp_admin_bar->add_menu(array('parent' => 'booked', 'title' => esc_html__('Appointments','booked'), 'id' => 'booked-appointments', 'href' => get_admin_url().'admin.php?page=booked-appointments'));
 				$wp_admin_bar->add_menu(array('parent' => 'booked', 'title' => esc_html__('Pending','booked'), 'id' => 'booked-pending', 'href' => get_admin_url().'admin.php?page=booked-pending'));
 				if (current_user_can('manage_booked_options')):
 					$wp_admin_bar->add_menu(array('parent' => 'booked', 'title' => esc_html__('Calendars','booked'), 'id' => 'booked-calendars', 'href' => get_admin_url().'edit-tags.php?taxonomy=booked_custom_calendars'));
@@ -592,7 +592,7 @@ if(!class_exists('booked_plugin')) {
 				if ($pending && $page != 'booked-pending' && $page != 'booked-welcome'):
 
 					echo '<div class="notice notice-warning" style="line-height:37px">';
-						echo sprintf( _n( 'There is %s pending sessions.', 'There are %s pending sessions.', $pending, 'booked' ), $pending ).'&nbsp;&nbsp;<a href="'.get_admin_url().'admin.php?page=booked-pending">'._n('View Pending Sessions','View Pending Sessions',$pending,'booked').' &rarr;</a>';
+						echo sprintf( _n( 'There is %s pending appointment.', 'There are %s pending appointments.', $pending, 'booked' ), $pending ).'&nbsp;&nbsp;<a href="'.get_admin_url().'admin.php?page=booked-pending">'._n('View Pending Appointment','View Pending Appointments',$pending,'booked').' &rarr;</a>';
 					echo '</div>';
 
 				endif;
@@ -680,7 +680,7 @@ if(!class_exists('booked_plugin')) {
 		**********************/
 
 		public function booked_add_user_columns( $defaults ) {
-			$defaults['booked_appointments'] = esc_html__('Session', 'booked');
+			$defaults['booked_appointments'] = esc_html__('Appointments', 'booked');
 			return $defaults;
 		}
 		public function booked_add_custom_user_columns( $value, $column_name, $id ) {
@@ -715,7 +715,7 @@ if(!class_exists('booked_plugin')) {
 
 				if ($count){
 
-					echo '<strong>'.$count.' '._n('Upcoming Sessions','Upcoming Sessions',$count,'booked').':</strong>';
+					echo '<strong>'.$count.' '._n('Upcoming Appointment','Upcoming Appointments',$count,'booked').':</strong>';
 
 					echo '<span style="font-size:12px;">';
 
@@ -795,8 +795,8 @@ if(!class_exists('booked_plugin')) {
 					'i18n_single_add_confirm' => esc_html__('You are about to add the following time slot(s)','booked'),
 					'i18n_to' => esc_html__('to','booked'),
 					'i18n_please_wait' => esc_html__('Please wait ...','booked'),
-					'i18n_update_appointment' => esc_html__('Update Session','booked'),
-					'i18n_create_appointment' => esc_html__('Create Session','booked'),
+					'i18n_update_appointment' => esc_html__('Update Appointment','booked'),
+					'i18n_create_appointment' => esc_html__('Create Appointment','booked'),
 					'i18n_all_day' => esc_html__('All day','booked'),
 					'i18n_enable' => esc_html__('Enable','booked'),
 					'i18n_disable' => esc_html__('Disable','booked'),
@@ -805,17 +805,17 @@ if(!class_exists('booked_plugin')) {
 					'i18n_fill_out_required_fields' => esc_html__('Please fill out all required fields.','booked'),
 					'i18n_confirm_ts_delete' => esc_html__('Are you sure you want to delete this time slot?','booked'),
 					'i18n_confirm_cts_delete' => esc_html__('Are you sure you want to delete this custom time slot?','booked'),
-					'i18n_confirm_appt_delete' => esc_html__('Are you sure you want to cancel this session?','booked'),
+					'i18n_confirm_appt_delete' => esc_html__('Are you sure you want to cancel this appointment?','booked'),
 					'i18n_clear_timeslots_confirm' => esc_html__('Are you sure you want to delete all of the timeslots for this day?','booked'),
 					'i18n_appt_required_fields' => esc_html__('A name, email address and password are required.','booked'),
 					'i18n_appt_required_guest_fields' => esc_html__('A name is required.','booked'),
 					'i18n_appt_required_guest_fields_surname' => esc_html__('A first and last name are required.','booked'),
 					'i18n_appt_required_guest_fields_all' => esc_html__('A first name, last name and email address are required.','booked'),
 					'i18n_appt_required_guest_fields_name_email' => esc_html__('A name and an email address are required.','booked'),
-					'i18n_confirm_appt_approve' => esc_html__('Are you sure you want to approve this session?','booked'),
-					'i18n_confirm_appt_approve_all' => esc_html__('Are you sure you want to approve ALL pending sessions?','booked'),
-					'i18n_confirm_appt_delete_all' => esc_html__('Are you sure you want to delete ALL pending sessions?','booked'),
-					'i18n_confirm_appt_delete_past' => esc_html__('Are you sure you want to delete all PASSED pending sessions?','booked'),
+					'i18n_confirm_appt_approve' => esc_html__('Are you sure you want to approve this appointment?','booked'),
+					'i18n_confirm_appt_approve_all' => esc_html__('Are you sure you want to approve ALL pending appointments?','booked'),
+					'i18n_confirm_appt_delete_all' => esc_html__('Are you sure you want to delete ALL pending appointments?','booked'),
+					'i18n_confirm_appt_delete_past' => esc_html__('Are you sure you want to delete all PASSED pending appointments?','booked'),
 				);
 
 				wp_localize_script('booked-admin', 'booked_js_vars', $booked_js_vars );
@@ -880,12 +880,12 @@ if(!class_exists('booked_plugin')) {
 				'ajax_url' => $ajax_url,
 				'profilePage' => $profile_page,
 				'publicAppointments' => get_option('booked_public_appointments',false),
-				'i18n_confirm_appt_delete' => esc_html__('Are you sure you want to cancel this session?','booked'),
+				'i18n_confirm_appt_delete' => esc_html__('Are you sure you want to cancel this appointment?','booked'),
 				'i18n_please_wait' => esc_html__('Please wait ...','booked'),
 				'i18n_wrong_username_pass' => esc_html__('Wrong username/password combination.','booked'),
 				'i18n_fill_out_required_fields' => esc_html__('Please fill out all required fields.','booked'),
-				'i18n_guest_appt_required_fields' => esc_html__('Please enter your name to book an session.','booked'),
-				'i18n_appt_required_fields' => esc_html__('Please enter your name, your email address and choose a password to book an session.','booked'),
+				'i18n_guest_appt_required_fields' => esc_html__('Please enter your name to book an appointment.','booked'),
+				'i18n_appt_required_fields' => esc_html__('Please enter your name, your email address and choose a password to book an appointment.','booked'),
 				'i18n_appt_required_fields_guest' => esc_html__('Please fill in all "Information" fields.','booked'),
 				'i18n_password_reset' => esc_html__('Please check your email for instructions on resetting your password.','booked'),
 				'i18n_password_reset_error' => esc_html__('That username or email is not recognized.','booked'),

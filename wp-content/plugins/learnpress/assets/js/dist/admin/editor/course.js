@@ -81,24 +81,24 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/course.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/course.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/actions/course-section.js":
-/*!********************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/actions/course-section.js ***!
-  \********************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/actions/course-section.js":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/actions/course-section.js ***!
+  \**********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var $ = window.jQuery;
+var $ = window.jQuery || jQuery;
 var CourseCurriculum = {
   toggleAllSections: function toggleAllSections(context) {
-    var hidden = context.getters['isHiddenAllSections'];
+    var hidden = context.getters.isHiddenAllSections;
 
     if (hidden) {
       context.commit('OPEN_ALL_SECTIONS');
@@ -108,7 +108,7 @@ var CourseCurriculum = {
 
     LP.Request({
       type: 'hidden-sections',
-      hidden: context.getters['hiddenSections']
+      hidden: context.getters.hiddenSections
     });
   },
   updateSectionsOrder: function updateSectionsOrder(context, order) {
@@ -132,7 +132,7 @@ var CourseCurriculum = {
 
     LP.Request({
       type: 'hidden-sections',
-      hidden: context.getters['hiddenSections']
+      hidden: context.getters.hiddenSections
     });
   },
   updateSection: function updateSection(context, section) {
@@ -175,8 +175,7 @@ var CourseCurriculum = {
       if (result.success) {
         var section = $.extend({}, result.data, {
           open: true
-        }); // update course section
-
+        });
         context.commit('ADD_NEW_SECTION', section);
       }
     }, function (error) {
@@ -275,10 +274,10 @@ var CourseCurriculum = {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/actions/course.js":
-/*!************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/actions/course.js ***!
-  \************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/actions/course.js":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/actions/course.js ***!
+  \**************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -296,7 +295,7 @@ var Course = {
     });
   },
   draftCourse: function draftCourse(context, payload) {
-    var auto_draft = context.getters['autoDraft'];
+    var auto_draft = context.getters.autoDraft;
 
     if (auto_draft) {
       LP.Request({
@@ -334,10 +333,10 @@ var Course = {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/actions/modal-course-items.js":
-/*!************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/actions/modal-course-items.js ***!
-  \************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/actions/modal-course-items.js":
+/*!**************************************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/actions/modal-course-items.js ***!
+  \**************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -413,17 +412,17 @@ var ModalCourseItems = {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/course.js":
-/*!****************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/course.js ***!
-  \****************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/course.js":
+/*!******************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/course.js ***!
+  \******************************************************************************************************************************************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./http */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/http.js");
-/* harmony import */ var _store_course__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./store/course */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/store/course.js");
+/* harmony import */ var _http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./http */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/http.js");
+/* harmony import */ var _store_course__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./store/course */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/store/course.js");
 
 
 window.$Vue = window.$Vue || Vue;
@@ -451,10 +450,10 @@ $(document).ready(function () {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/getters/course-section.js":
-/*!********************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/getters/course-section.js ***!
-  \********************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/getters/course-section.js":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/getters/course-section.js ***!
+  \**********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -475,8 +474,8 @@ var CourseCurriculum = {
     });
   },
   isHiddenAllSections: function isHiddenAllSections(state, getters) {
-    var sections = getters['sections'];
-    var hiddenSections = getters['hiddenSections'];
+    var sections = getters.sections;
+    var hiddenSections = getters.hiddenSections;
     return hiddenSections.length === sections.length;
   },
   statusUpdateSection: function statusUpdateSection(state) {
@@ -490,10 +489,10 @@ var CourseCurriculum = {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/getters/course.js":
-/*!************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/getters/course.js ***!
-  \************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/getters/course.js":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/getters/course.js ***!
+  \**************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -532,10 +531,10 @@ var Course = {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/getters/modal-course-items.js":
-/*!************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/getters/modal-course-items.js ***!
-  \************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/getters/modal-course-items.js":
+/*!**************************************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/getters/modal-course-items.js ***!
+  \**************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -575,10 +574,10 @@ var Getters = {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/http.js":
-/*!**************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/http.js ***!
-  \**************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/http.js":
+/*!****************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/http.js ***!
+  \****************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -586,7 +585,7 @@ var Getters = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return HTTP; });
 function HTTP(options) {
-  var $ = window.jQuery;
+  var $ = window.jQuery || jQuery;
   var $VueHTTP = Vue.http;
   options = $.extend({
     ns: 'LPRequest',
@@ -596,24 +595,24 @@ function HTTP(options) {
 
   LP.Request = function (payload) {
     $publishingAction = $('#publishing-action');
-    payload['id'] = options.store.getters.id;
-    payload['nonce'] = options.store.getters.nonce;
+    payload.id = options.store.getters.id;
+    payload.nonce = options.store.getters.nonce;
     payload['lp-ajax'] = options.store.getters.action;
-    payload['code'] = options.store.getters.code;
+    payload.code = options.store.getters.code;
     $publishingAction.find('#publish').addClass('disabled');
     $publishingAction.find('.spinner').addClass('is-active');
-    $publishingAction.addClass('code-' + payload['code']);
+    $publishingAction.addClass('code-' + payload.code);
     return $VueHTTP.post(options.store.getters.urlAjax, payload, {
       emulateJSON: true,
       params: {
         namespace: options.ns,
-        code: payload['code']
+        code: payload.code
       }
     });
   };
 
   $VueHTTP.interceptors.push(function (request, next) {
-    if (request.params['namespace'] !== options.ns) {
+    if (request.params.namespace !== options.ns) {
       next();
       return;
     }
@@ -645,26 +644,26 @@ function HTTP(options) {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/mutations/course-section.js":
-/*!**********************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/mutations/course-section.js ***!
-  \**********************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/mutations/course-section.js":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/mutations/course-section.js ***!
+  \************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var CourseCurriculum = {
-  'SORT_SECTION': function SORT_SECTION(state, orders) {
+  SORT_SECTION: function SORT_SECTION(state, orders) {
     state.sections = state.sections.map(function (section) {
       section.order = orders[section.id];
       return section;
     });
   },
-  'SET_SECTIONS': function SET_SECTIONS(state, sections) {
+  SET_SECTIONS: function SET_SECTIONS(state, sections) {
     state.sections = sections;
   },
-  'ADD_NEW_SECTION': function ADD_NEW_SECTION(state, newSection) {
+  ADD_NEW_SECTION: function ADD_NEW_SECTION(state, newSection) {
     if (newSection.open === undefined) {
       newSection.open = true;
     }
@@ -686,14 +685,14 @@ var CourseCurriculum = {
       state.sections.push(newSection);
     }
   },
-  'ADD_EMPTY_SECTION': function ADD_EMPTY_SECTION(state, section) {
+  ADD_EMPTY_SECTION: function ADD_EMPTY_SECTION(state, section) {
     section.open = true;
     state.sections.push(section);
   },
-  'REMOVE_SECTION': function REMOVE_SECTION(state, index) {
+  REMOVE_SECTION: function REMOVE_SECTION(state, index) {
     state.sections.splice(index, 1);
   },
-  'REMOVE_SECTION_ITEM': function REMOVE_SECTION_ITEM(state, payload) {
+  REMOVE_SECTION_ITEM: function REMOVE_SECTION_ITEM(state, payload) {
     var section = state.sections.find(function (section) {
       return section.id === payload.section_id;
     });
@@ -714,7 +713,7 @@ var CourseCurriculum = {
       }
     }
   },
-  'UPDATE_SECTION_ITEMS': function UPDATE_SECTION_ITEMS(state, payload) {
+  UPDATE_SECTION_ITEMS: function UPDATE_SECTION_ITEMS(state, payload) {
     var section = state.sections.find(function (section) {
       return parseInt(section.id) === parseInt(payload.section_id);
     });
@@ -725,52 +724,52 @@ var CourseCurriculum = {
 
     section.items = payload.items;
   },
-  'UPDATE_SECTION_ITEM': function UPDATE_SECTION_ITEM(state, payload) {},
-  'CLOSE_SECTION': function CLOSE_SECTION(state, section) {
+  UPDATE_SECTION_ITEM: function UPDATE_SECTION_ITEM(state, payload) {},
+  CLOSE_SECTION: function CLOSE_SECTION(state, section) {
     state.sections.forEach(function (_section, index) {
       if (section.id === _section.id) {
         state.sections[index].open = false;
       }
     });
   },
-  'OPEN_SECTION': function OPEN_SECTION(state, section) {
+  OPEN_SECTION: function OPEN_SECTION(state, section) {
     state.sections.forEach(function (_section, index) {
       if (section.id === _section.id) {
         state.sections[index].open = true;
       }
     });
   },
-  'OPEN_ALL_SECTIONS': function OPEN_ALL_SECTIONS(state) {
+  OPEN_ALL_SECTIONS: function OPEN_ALL_SECTIONS(state) {
     state.sections = state.sections.map(function (_section) {
       _section.open = true;
       return _section;
     });
   },
-  'CLOSE_ALL_SECTIONS': function CLOSE_ALL_SECTIONS(state) {
+  CLOSE_ALL_SECTIONS: function CLOSE_ALL_SECTIONS(state) {
     state.sections = state.sections.map(function (_section) {
       _section.open = false;
       return _section;
     });
   },
-  'UPDATE_SECTION_REQUEST': function UPDATE_SECTION_REQUEST(state, sectionId) {
+  UPDATE_SECTION_REQUEST: function UPDATE_SECTION_REQUEST(state, sectionId) {
     $Vue.set(state.statusUpdateSection, sectionId, 'updating');
   },
-  'UPDATE_SECTION_SUCCESS': function UPDATE_SECTION_SUCCESS(state, sectionId) {
+  UPDATE_SECTION_SUCCESS: function UPDATE_SECTION_SUCCESS(state, sectionId) {
     $Vue.set(state.statusUpdateSection, sectionId, 'successful');
   },
-  'UPDATE_SECTION_FAILURE': function UPDATE_SECTION_FAILURE(state, sectionId) {
+  UPDATE_SECTION_FAILURE: function UPDATE_SECTION_FAILURE(state, sectionId) {
     $Vue.set(state.statusUpdateSection, sectionId, 'failed');
   },
-  'UPDATE_SECTION_ITEM_REQUEST': function UPDATE_SECTION_ITEM_REQUEST(state, itemId) {
+  UPDATE_SECTION_ITEM_REQUEST: function UPDATE_SECTION_ITEM_REQUEST(state, itemId) {
     $Vue.set(state.statusUpdateSectionItem, itemId, 'updating');
   },
-  'UPDATE_SECTION_ITEM_SUCCESS': function UPDATE_SECTION_ITEM_SUCCESS(state, itemId) {
+  UPDATE_SECTION_ITEM_SUCCESS: function UPDATE_SECTION_ITEM_SUCCESS(state, itemId) {
     $Vue.set(state.statusUpdateSectionItem, itemId, 'successful');
   },
-  'UPDATE_SECTION_ITEM_FAILURE': function UPDATE_SECTION_ITEM_FAILURE(state, itemId) {
+  UPDATE_SECTION_ITEM_FAILURE: function UPDATE_SECTION_ITEM_FAILURE(state, itemId) {
     $Vue.set(state.statusUpdateSectionItem, itemId, 'failed');
   },
-  'APPEND_EMPTY_ITEM_TO_SECTION': function APPEND_EMPTY_ITEM_TO_SECTION(state, data) {
+  APPEND_EMPTY_ITEM_TO_SECTION: function APPEND_EMPTY_ITEM_TO_SECTION(state, data) {
     var section = state.sections.find(function (section) {
       return parseInt(section.id) === parseInt(data.section_id);
     });
@@ -785,7 +784,7 @@ var CourseCurriculum = {
       type: 'empty-item'
     });
   },
-  'UPDATE_ITEM_SECTION_BY_ID': function UPDATE_ITEM_SECTION_BY_ID(state, data) {
+  UPDATE_ITEM_SECTION_BY_ID: function UPDATE_ITEM_SECTION_BY_ID(state, data) {
     var section = state.sections.find(function (section) {
       return parseInt(section.id) === parseInt(data.section_id);
     });
@@ -818,30 +817,29 @@ var CourseCurriculum = {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/mutations/course.js":
-/*!**************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/mutations/course.js ***!
-  \**************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/mutations/course.js":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/mutations/course.js ***!
+  \****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var Course = {
-  'UPDATE_HEART_BEAT': function UPDATE_HEART_BEAT(state, status) {
+  UPDATE_HEART_BEAT: function UPDATE_HEART_BEAT(state, status) {
     state.heartbeat = !!status;
   },
-  'UPDATE_AUTO_DRAFT_STATUS': function UPDATE_AUTO_DRAFT_STATUS(state, status) {
-    // check auto draft status
+  UPDATE_AUTO_DRAFT_STATUS: function UPDATE_AUTO_DRAFT_STATUS(state, status) {
     state.auto_draft = status;
   },
-  'UPDATE_STATUS': function UPDATE_STATUS(state, status) {
+  UPDATE_STATUS: function UPDATE_STATUS(state, status) {
     state.status = status;
   },
-  'INCREASE_NUMBER_REQUEST': function INCREASE_NUMBER_REQUEST(state) {
+  INCREASE_NUMBER_REQUEST: function INCREASE_NUMBER_REQUEST(state) {
     state.countCurrentRequest++;
   },
-  'DECREASE_NUMBER_REQUEST': function DECREASE_NUMBER_REQUEST(state) {
+  DECREASE_NUMBER_REQUEST: function DECREASE_NUMBER_REQUEST(state) {
     state.countCurrentRequest--;
   }
 };
@@ -849,49 +847,49 @@ var Course = {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/mutations/modal-course-items.js":
-/*!**************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/mutations/modal-course-items.js ***!
-  \**************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/mutations/modal-course-items.js":
+/*!****************************************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/mutations/modal-course-items.js ***!
+  \****************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var Mutations = {
-  'TOGGLE': function TOGGLE(state) {
+  TOGGLE: function TOGGLE(state) {
     state.open = !state.open;
   },
-  'SET_SECTION': function SET_SECTION(state, sectionId) {
+  SET_SECTION: function SET_SECTION(state, sectionId) {
     state.sectionId = sectionId;
   },
-  'SET_LIST_ITEMS': function SET_LIST_ITEMS(state, items) {
+  SET_LIST_ITEMS: function SET_LIST_ITEMS(state, items) {
     state.items = items;
   },
-  'ADD_ITEM': function ADD_ITEM(state, item) {
+  ADD_ITEM: function ADD_ITEM(state, item) {
     state.addedItems.push(item);
   },
-  'REMOVE_ADDED_ITEM': function REMOVE_ADDED_ITEM(state, item) {
+  REMOVE_ADDED_ITEM: function REMOVE_ADDED_ITEM(state, item) {
     state.addedItems.forEach(function (_item, index) {
       if (_item.id === item.id) {
         state.addedItems.splice(index, 1);
       }
     });
   },
-  'RESET': function RESET(state) {
+  RESET: function RESET(state) {
     state.addedItems = [];
     state.items = [];
   },
-  'UPDATE_PAGINATION': function UPDATE_PAGINATION(state, pagination) {
+  UPDATE_PAGINATION: function UPDATE_PAGINATION(state, pagination) {
     state.pagination = pagination;
   },
-  'SEARCH_ITEMS_REQUEST': function SEARCH_ITEMS_REQUEST(state) {
+  SEARCH_ITEMS_REQUEST: function SEARCH_ITEMS_REQUEST(state) {
     state.status = 'loading';
   },
-  'SEARCH_ITEMS_SUCCESS': function SEARCH_ITEMS_SUCCESS(state) {
+  SEARCH_ITEMS_SUCCESS: function SEARCH_ITEMS_SUCCESS(state) {
     state.status = 'successful';
   },
-  'SEARCH_ITEMS_FAILURE': function SEARCH_ITEMS_FAILURE(state) {
+  SEARCH_ITEMS_FAILURE: function SEARCH_ITEMS_FAILURE(state) {
     state.status = 'failed';
   }
 };
@@ -899,22 +897,22 @@ var Mutations = {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/store/course-section.js":
-/*!******************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/store/course-section.js ***!
-  \******************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/store/course-section.js":
+/*!********************************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/store/course-section.js ***!
+  \********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _actions_course_section__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/course-section */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/actions/course-section.js");
-/* harmony import */ var _mutations_course_section__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../mutations/course-section */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/mutations/course-section.js");
-/* harmony import */ var _getters_course_section__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../getters/course-section */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/getters/course-section.js");
+/* harmony import */ var _actions_course_section__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/course-section */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/actions/course-section.js");
+/* harmony import */ var _mutations_course_section__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../mutations/course-section */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/mutations/course-section.js");
+/* harmony import */ var _getters_course_section__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../getters/course-section */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/getters/course-section.js");
 
 
 
-var $ = jQuery;
+var $ = window.jQuery;
 /* harmony default export */ __webpack_exports__["default"] = (function (data) {
   var state = $.extend({}, data.sections);
   state.statusUpdateSection = {};
@@ -938,21 +936,21 @@ var $ = jQuery;
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/store/course.js":
-/*!**********************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/store/course.js ***!
-  \**********************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/store/course.js":
+/*!************************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/store/course.js ***!
+  \************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _store_modal_course_items__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../store/modal-course-items */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/store/modal-course-items.js");
-/* harmony import */ var _store_course_section__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store/course-section */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/store/course-section.js");
-/* harmony import */ var _store_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/i18n */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/store/i18n.js");
-/* harmony import */ var _getters_course__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../getters/course */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/getters/course.js");
-/* harmony import */ var _mutations_course__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../mutations/course */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/mutations/course.js");
-/* harmony import */ var _actions_course__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../actions/course */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/actions/course.js");
+/* harmony import */ var _store_modal_course_items__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../store/modal-course-items */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/store/modal-course-items.js");
+/* harmony import */ var _store_course_section__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store/course-section */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/store/course-section.js");
+/* harmony import */ var _store_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/i18n */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/store/i18n.js");
+/* harmony import */ var _getters_course__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../getters/course */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/getters/course.js");
+/* harmony import */ var _mutations_course__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../mutations/course */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/mutations/course.js");
+/* harmony import */ var _actions_course__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../actions/course */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/actions/course.js");
 
 
 
@@ -983,16 +981,16 @@ var Course = function Course(data) {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/store/i18n.js":
-/*!********************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/store/i18n.js ***!
-  \********************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/store/i18n.js":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/store/i18n.js ***!
+  \**********************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var $ = window.jQuery;
+var $ = window.jQuery || jQuery;
 
 var i18n = function i18n(i18n) {
   var state = $.extend({}, i18n);
@@ -1012,22 +1010,22 @@ var i18n = function i18n(i18n) {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/store/modal-course-items.js":
-/*!**********************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/store/modal-course-items.js ***!
-  \**********************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/store/modal-course-items.js":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/store/modal-course-items.js ***!
+  \************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _getters_modal_course_items__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../getters/modal-course-items */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/getters/modal-course-items.js");
-/* harmony import */ var _mutations_modal_course_items__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../mutations/modal-course-items */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/mutations/modal-course-items.js");
-/* harmony import */ var _actions_modal_course_items__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/modal-course-items */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/actions/modal-course-items.js");
+/* harmony import */ var _getters_modal_course_items__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../getters/modal-course-items */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/getters/modal-course-items.js");
+/* harmony import */ var _mutations_modal_course_items__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../mutations/modal-course-items */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/mutations/modal-course-items.js");
+/* harmony import */ var _actions_modal_course_items__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/modal-course-items */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/actions/modal-course-items.js");
 
 
 
-var $ = jQuery;
+var $ = window.jQuery || jQuery;
 /* harmony default export */ __webpack_exports__["default"] = (function (data) {
   var state = $.extend({}, data.chooseItems);
   state.sectionId = false;

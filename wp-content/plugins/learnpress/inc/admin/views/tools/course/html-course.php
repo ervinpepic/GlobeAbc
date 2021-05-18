@@ -41,8 +41,6 @@ defined( 'ABSPATH' ) or die();
                        href=""
                        @click="reset($event, course);"
                        :class="resetActionClass(course)"></a>
-<!--                    <span v-else-if="course.status=='done'">--><?php //_e( 'Done', 'learnpress' ); ?><!--</span>-->
-<!--                    <span v-else-if="course.status=='resetting'">--><?php //_e( 'Resetting...', 'learnpress' ); ?><!--</span>-->
                 </td>
             </tr>
             </tbody>

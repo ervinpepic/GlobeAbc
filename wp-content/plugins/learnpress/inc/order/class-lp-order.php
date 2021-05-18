@@ -1,11 +1,10 @@
 <?php
-
 /**
  * Class LP_Order
  *
  * @author  ThimPress
  * @package LearnPress/Classes
- * @version 3.0.0
+ * @version 4.0.0
  */
 
 /**
@@ -39,7 +38,7 @@ if ( ! class_exists( 'LP_Order' ) ) {
 			'total'            => 0,
 			'subtotal'         => 0,
 			'created_via'      => '',
-			'checkout_email'   => ''
+			'checkout_email'   => '',
 		);
 
 		/**
@@ -58,7 +57,7 @@ if ( ! class_exists( 'LP_Order' ) ) {
 			'_prices_include_tax'   => '',
 			'_order_key'            => '',
 			'_user_ip'              => '',
-			'_checkout_email'       => ''
+			'_checkout_email'       => '',
 		);
 
 		/**
@@ -109,7 +108,8 @@ if ( ! class_exists( 'LP_Order' ) ) {
 			if ( is_numeric( $date ) ) {
 				$date = date( 'Y-m-d H:i:s', $date );
 			}
-			$this->set_data_date( 'order_date', $date );
+			$this->_set_data_date( 'order_date', $date );
+
 		}
 
 		/**
@@ -123,33 +123,35 @@ if ( ! class_exists( 'LP_Order' ) ) {
 			$date = $this->get_data( 'order_date' );
 
 			if ( 'edit' !== $context ) {
-				$strtime = strtotime( $date->toSql() );
 
-				switch ( $context ) {
-					case 'd':
-						$date = date_i18n( 'Y-m-d', $strtime );
-						break;
-					case 'h':
-						$date = date_i18n( 'H', $strtime );
-						break;
-					case 'm':
-						$date = date_i18n( 'i', $strtime );
-						break;
-					case 'timestamp':
-						$date = $strtime;
-						break;
-					default:
-						$post      = get_post( $this->get_id() );
-						$m_time    = $post->post_date;
-						$time      = get_post_time( 'G', true, $post );
-						$time_diff = time() - $time;
+				if ( $date instanceof LP_Datetime ) {
+					$strtime = strtotime( $date->toSql() );
 
-						if ( $time_diff > 0 && $time_diff < DAY_IN_SECONDS ) {
-							$date = sprintf( __( '%s ago', 'learnpress' ), human_time_diff( $time ) );
-						} else {
-							$date = mysql2date( get_option( 'date_format' ), $m_time );
-						}
+					switch ( $context ) {
+						case 'd':
+							$date = date_i18n( 'Y-m-d', $strtime );
+							break;
+						case 'h':
+							$date = date_i18n( 'H', $strtime );
+							break;
+						case 'm':
+							$date = date_i18n( 'i', $strtime );
+							break;
+						case 'timestamp':
+							$date = $strtime;
+							break;
+						default:
+							$post      = get_post( $this->get_id() );
+							$m_time    = $post->post_date;
+							$time      = get_post_time( 'G', true, $post );
+							$time_diff = time() - $time;
 
+							if ( $time_diff > 0 && $time_diff < DAY_IN_SECONDS ) {
+								$date = sprintf( __( '%s ago', 'learnpress' ), human_time_diff( $time ) );
+							} else {
+								$date = mysql2date( get_option( 'date_format' ), $m_time );
+							}
+					}
 				}
 			} elseif ( ! $date instanceof LP_Datetime ) {
 				$date = new LP_Datetime( $date );
@@ -181,15 +183,9 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 *
 		 * @return string
 		 * @since 3.0.0
-		 *
 		 */
 		public function get_confirm_order_received_text() {
-			$text = apply_filters( 'learn-press/confirm-order-received-text', __( 'Thank you. Your order has been received.', 'learnpress' ), $this->get_id() );
-
-			// deprecated
-			$text = apply_filters( 'learn_press_confirm_order_received_text', $text, $this->get_id() );
-
-			return $text;
+			return apply_filters( 'learn-press/confirm-order-received-text', __( 'Thank you. Your order has been received.', 'learnpress' ), $this->get_id() );
 		}
 
 		/**
@@ -197,18 +193,9 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 *
 		 * @return mixed
 		 * @since 3.0.0
-		 *
 		 */
 		public function get_thankyou_message() {
-			/**
-			 * @since 3.0.0
-			 */
-			$message = apply_filters( 'learn-press/', __( 'Thank you. Your order has been received.', 'learnpress' ), $this->get_id() );
-
-			// @deprecated
-			$message = apply_filters( 'learn_press_confirm_order_received_text', $message, $this->get_id() );
-
-			return $message;
+			return apply_filters( 'learn-press/confirm-order-received-text', __( 'Thank you. Your order has been received.', 'learnpress' ), $this->get_id() );
 		}
 
 		/**
@@ -221,8 +208,8 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 */
 		public function __get( $prop ) {
 			if ( $prop == 'post' ) {
-				//print_r( debug_backtrace() );
-				//die( '$post is deprecated' );
+				// print_r( debug_backtrace() );
+				// die( '$post is deprecated' );
 			} elseif ( $prop == 'id' ) {
 				return $this->get_id();
 			}
@@ -287,7 +274,6 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 * @param LP_Gateway_Abstract|string $payment_method
 		 */
 		public function set_payment_method( $payment_method ) {
-
 			if ( $payment_method instanceof LP_Gateway_Abstract ) {
 				update_post_meta( $this->get_id(), '_payment_method', $payment_method->get_id() );
 				update_post_meta( $this->get_id(), '_payment_method_title', $payment_method->get_title() );
@@ -311,14 +297,6 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 * @return mixed
 		 */
 		public function get_order_status() {
-			//		$the_id      = $this->get_id();
-			//		$post_status = get_post_status( $the_id );
-			//		$status      = preg_replace( '~^lp-~', '', $post_status );
-			// Deprecated filter
-			//		$status = apply_filters( 'learn_press_order_status', $status, $this );
-			//
-			//		return apply_filters( 'learn-press/order/status', $status, $the_id );
-
 			return $this->get_status();
 		}
 
@@ -332,15 +310,11 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 * @return mixed
 		 */
 		public function get_status() {
-
 			$status = $this->get_data( 'status' );
-			// 			echo $status;
-			// var_dump($status);
 			$status = apply_filters( 'learn_press_order_status', $status, $this );
-			// 			var_dump($status);
+
 			apply_filters( 'learn-press/order/status', $status, $this->get_id() );
 
-			// 			var_dump($this);
 			return $status;
 		}
 
@@ -368,7 +342,7 @@ if ( ! class_exists( 'LP_Order' ) ) {
 			$this->_status = array(
 				'from' => $old_status,
 				'to'   => $new_status,
-				'note' => $note
+				'note' => $note,
 			);
 		}
 
@@ -385,6 +359,7 @@ if ( ! class_exists( 'LP_Order' ) ) {
 			} else {
 				$status = ucfirst( $order_status );
 			}
+
 			$class = 'order-status order-status-' . sanitize_title( $status );
 			$html  = sprintf( '<span class="%s">%s</span>', apply_filters( 'learn_press_order_status_class', $class, $status, $this ), $status, $this );
 
@@ -399,8 +374,6 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 * @return bool
 		 */
 		public function payment_complete( $transaction_id = '' ) {
-			//do_action( 'learn_press_pre_payment_complete', $this->get_id() );
-
 			do_action( 'learn-press/payment-pre-complete', $this->get_id() );
 
 			LP()->session->order_awaiting_payment = null;
@@ -409,7 +382,7 @@ if ( ! class_exists( 'LP_Order' ) ) {
 				'learn-press/valid-order-statuses-for-payment-complete',
 				array(
 					'pending',
-					'processing'
+					'processing',
 				),
 				$this
 			);
@@ -422,17 +395,8 @@ if ( ! class_exists( 'LP_Order' ) ) {
 					add_post_meta( $this->get_id(), '_transaction_id', $transaction_id, true );
 				}
 
-				do_action( 'learn_press_payment_complete', $this->get_id() );
-
-				/**
-				 * @since 3.0.0
-				 */
 				do_action( 'learn-press/payment-complete', $this->get_id() );
 			} else {
-				do_action( 'learn_press_payment_complete_order_status_' . $this->get_status(), $this->get_id() );
-				/**
-				 * @since 3.0.0
-				 */
 				do_action( 'learn-press/payment-complete-order-status-' . $this->get_status(), $this->get_id() );
 			}
 
@@ -517,7 +481,8 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 * @return mixed
 		 */
 		public function get_items() {
-			if ( false === ( $items = LP_Object_Cache::get( 'order-' . $this->get_id(), 'learn-press/order-items' ) ) ) {
+			$items = LP_Object_Cache::get( 'order-' . $this->get_id(), 'learn-press/order-items' );
+			if ( false === $items ) {
 				$items = $this->_curd->read_items( $this );
 
 				LP_Object_Cache::set( 'order-' . $this->get_id(), $items, 'learn-press/order-items' );
@@ -537,7 +502,8 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		public function get_items_filter( $filter = array() ) {
 			$key_item_cache = 'order-' . $this->get_id() . md5( json_encode( $filter ) );
 
-			if ( false === ( $items = LP_Object_Cache::get( $key_item_cache, 'learn-press/order-items' ) ) ) {
+			$items = LP_Object_Cache::get( 'order-' . $this->get_id(), 'learn-press/order-items' );
+			if ( false === $items ) {
 				$items = $this->_curd->read_items_filter( $this, $filter );
 
 				LP_Object_Cache::set( $key_item_cache, $items, 'learn-press/order-items' );
@@ -558,10 +524,25 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 * Get list of course ids from order.
 		 *
 		 * @return array|bool
+		 * @editor tungnx
 		 */
 		public function get_item_ids() {
-			if ( $items = $this->get_items() ) {
-				return wp_list_pluck( $items, 'course_id' );
+			$items = $this->get_items();
+
+			if ( $items ) {
+				$course_ids = array();
+				foreach ( $items as $item ) {
+					if ( isset( $item['course_id'] ) ) {
+						$course_ids[] = $item['course_id'];
+					}
+				}
+
+				return $course_ids;
+				/**
+				 * Comment by tungnx. Because it will error if item didn't have key 'course_id'.
+				 * Ex: case buy certificate, will not have that key
+				 */
+				//return @wp_list_pluck( $items, 'course_id' );
 			}
 
 			return false;
@@ -585,7 +566,8 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		public function remove_order_items() {
 			global $wpdb;
 			$wpdb->query(
-				$wpdb->prepare( "
+				$wpdb->prepare(
+					"
 				DELETE FROM itemmeta
 				USING {$wpdb->learnpress_order_itemmeta} itemmeta
 				INNER JOIN {$wpdb->learnpress_order_items} items
@@ -595,7 +577,8 @@ if ( ! class_exists( 'LP_Order' ) ) {
 				)
 			);
 			$wpdb->query(
-				$wpdb->prepare( "
+				$wpdb->prepare(
+					"
 				DELETE FROM {$wpdb->learnpress_order_items}
 				WHERE order_id = %d",
 					$this->get_id()
@@ -624,11 +607,12 @@ if ( ! class_exists( 'LP_Order' ) ) {
 			if ( is_numeric( $item ) ) {
 				$item = array(
 					'item_id'         => absint( $item ),
-					'order_item_name' => get_the_title( $item )
+					'order_item_name' => get_the_title( $item ),
 				);
 			}
 
-			if ( ! $course = learn_press_get_course( $item['item_id'] ) ) {
+			$course = learn_press_get_course( $item['item_id'] );
+			if ( ! $course ) {
 				return false;
 			}
 
@@ -637,7 +621,7 @@ if ( ! class_exists( 'LP_Order' ) ) {
 				array(
 					'order_item_name' => '',
 					'quantity'        => $quantity ? $quantity : 1,
-					'meta'            => $meta
+					'meta'            => $meta,
 				)
 			);
 
@@ -659,11 +643,11 @@ if ( ! class_exists( 'LP_Order' ) ) {
 				$wpdb->learnpress_order_items,
 				array(
 					'order_item_name' => $item['order_item_name'],
-					'order_id'        => $this->get_id()
+					'order_id'        => $this->get_id(),
 				),
 				array(
 					'%s',
-					'%d'
+					'%d',
 				)
 			);
 
@@ -843,7 +827,7 @@ if ( ! class_exists( 'LP_Order' ) ) {
 			$users       = get_users( array() );
 			echo '<select name="order-customer[]" id="order-customer" multiple="multiple">';
 			foreach ( (array) $users as $user ) {
-				//$user->get_id() = (int) $user->get_id();
+				// $user->get_id() = (int) $user->get_id();
 				if ( in_array( $user->get_id(), $order_users ) ) {
 					$found_selected = true;
 				} else {
@@ -891,21 +875,24 @@ if ( ! class_exists( 'LP_Order' ) ) {
 
 		public function get_view_order_url() {
 			global $wp_query;
-			$view_order_url = learn_press_get_endpoint_url( 'view-order', $this->get_id(), learn_press_get_page_link( 'profile' ) );
-			//
+
+			$view_order_url      = learn_press_get_endpoint_url( 'view-order', $this->get_id(), learn_press_get_page_link( 'profile' ) );
 			$user                = learn_press_get_current_user();
-			$view_order_endpoint = LP()->settings->get( 'profile_endpoints.profile-order-details' );
+			$view_order_endpoint = LP()->settings->get( 'profile_endpoints.order-details' );
+
 			if ( ! $view_order_endpoint ) {
 				$view_order_endpoint = 'order-details';
 			}
+
 			$view_order_endpoint = urlencode( $view_order_endpoint );
 			if ( get_option( 'permalink_structure' ) ) {
 				$view_order_url = learn_press_get_page_link( 'profile' ) . $user->get_data( 'user_login' ) . '/' . $view_order_endpoint . '/' . $this->get_id() . '/';
 			} else {
 				$args         = array(
-					'user' => $user->get_data( 'user_login' )
+					'user' => $user->get_data( 'user_login' ),
 				);
 				$args['view'] = $view_order_endpoint;
+
 				if ( $view_order_endpoint ) {
 					$args['id'] = $this->get_id();
 				}
@@ -952,14 +939,14 @@ if ( ! class_exists( 'LP_Order' ) ) {
 			$actions = array(
 				'view' => array(
 					'url'  => $this->get_view_order_url(),
-					'text' => __( 'View', 'learnpress' )
-				)
+					'text' => __( 'View', 'learnpress' ),
+				),
 			);
 
 			if ( $cancel_url = $this->get_cancel_order_url() ) {
 				$actions['cancel'] = array(
 					'url'  => $this->get_cancel_order_url(),
-					'text' => __( 'Cancel', 'learnpress' )
+					'text' => __( 'Cancel', 'learnpress' ),
 				);
 			}
 			$actions = apply_filters( 'learn-press/profile-order-actions', $actions, $this->get_id() );
@@ -1013,7 +1000,6 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 *
 		 * @return bool
 		 * @since 2.1.5
-		 *
 		 */
 		public function is_multi_users() {
 			return is_array( $this->get_data( 'user_id' ) );
@@ -1035,7 +1021,7 @@ if ( ! class_exists( 'LP_Order' ) ) {
 					$user_ids = reset( $user_ids );
 				}
 				$format_ids = array_fill( 0, sizeof( $user_ids ), '%d' );
-				$sql        = $wpdb->prepare( "SELECT user_login, user_email FROM {$wpdb->users} WHERE ID IN(" . join( ',', $format_ids ) . ")", $user_ids );
+				$sql        = $wpdb->prepare( "SELECT user_login, user_email FROM {$wpdb->users} WHERE ID IN(" . join( ',', $format_ids ) . ')', $user_ids );
 				$users      = $wpdb->get_results( $sql );
 				$size       = sizeof( $users );
 
@@ -1056,7 +1042,6 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 *
 		 * @return mixed|array
 		 * @since 2.1.5
-		 *
 		 */
 		public function get_user_data() {
 			$data = array();
@@ -1075,7 +1060,7 @@ if ( ! class_exists( 'LP_Order' ) ) {
 									'first_name',
 									'last_name',
 									'nickname',
-									'display_name'
+									'display_name',
 								)
 							);
 						}
@@ -1088,13 +1073,7 @@ if ( ! class_exists( 'LP_Order' ) ) {
 
 		public function get_user_email() {
 			$email = false;
-			$user_id = $this->get_data( 'user_id' );
-			if ( is_array( $user_id ) ) {
-				foreach ( $user_id as $uid ) {
-					$user_id = $uid;
-				}
-			}
-			if ( $user = learn_press_get_user( $user_id ) ) {
+			if ( $user = learn_press_get_user( $this->get_data( 'user_id' ) ) ) {
 				$email = $user->get_data( 'email' );
 			} // Order is checked out by guest
 			if ( ! $email ) {
@@ -1120,7 +1099,7 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 * @return array|mixed
 		 */
 		public function get_title( $context = '' ) {
-			return $this->get_data( 'order_title', __( 'Order on', 'learnpress' ) . ' ' . current_time( "l jS F Y h:i:s A" ) );
+			return $this->get_data( 'order_title', __( 'Order on', 'learnpress' ) . ' ' . current_time( 'l jS F Y h:i:s A' ) );
 		}
 
 		public function get_parent_id() {
@@ -1201,7 +1180,7 @@ if ( ! class_exists( 'LP_Order' ) ) {
 			if ( $new_status !== $old_status ) {
 
 				if ( ! $this->get_user_id() ) {
-					//$new_status = 'pending';
+					// $new_status = 'pending';
 				}
 
 				if ( doing_action( 'save_post' ) ) {
@@ -1209,7 +1188,12 @@ if ( ! class_exists( 'LP_Order' ) ) {
 					global $wpdb;
 					$updated = $wpdb->update( $wpdb->posts, array( 'post_status' => 'lp-' . $new_status ), array( 'ID' => $the_id ), array( '%s' ) );
 				} else {
-					$updated = wp_update_post( array( 'post_status' => 'lp-' . $new_status, 'ID' => $the_id ) );
+					$updated = wp_update_post(
+						array(
+							'post_status' => 'lp-' . $new_status,
+							'ID'          => $the_id,
+						)
+					);
 				}
 
 				// Clear cache

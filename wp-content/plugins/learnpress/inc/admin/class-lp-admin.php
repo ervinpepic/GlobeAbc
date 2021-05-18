@@ -2,7 +2,7 @@
 /**
  * @author  ThimPress
  * @package LearnPress/Admin/Classes
- * @version 1.0
+ * @version 1.0.1
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -13,6 +13,7 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 	 * Class LP_Admin
 	 */
 	class LP_Admin {
+		protected static $instance;
 
 		/**
 		 * @var array
@@ -22,18 +23,15 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 		/**
 		 *  Constructor
 		 */
-		public function __construct() {
+		protected function __construct() {
 			$this->includes();
 			add_action( 'delete_user', array( $this, 'delete_user_data' ) );
 			add_action( 'delete_user_form', array( $this, 'delete_user_form' ) );
 			add_action( 'wp_ajax_learn_press_rated', array( $this, 'rated' ) );
 			add_action( 'admin_notices', array( $this, 'notice_outdated_templates' ) );
-			add_action( 'admin_notices', array( $this, 'notice_setup_pages' ) );
 			add_action( 'admin_notices', array( $this, 'notice_required_permalink' ) );
-			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
-			add_action( 'edit_form_after_editor', array( $this, 'wrapper_editor' ), - 10 );
-			add_action( 'admin_head', array( $this, 'admin_colors' ) );
-			add_action( 'init', array( $this, 'init' ), 50 );
+			add_action( 'admin_notices', array( $this, 'admin_notices' ), 1 );
+			//add_action( 'admin_head', array( $this, 'admin_colors' ) );
 			add_action( 'admin_init', array( $this, 'admin_redirect' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'load_modal' ) );
 
@@ -52,14 +50,19 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 
 			add_filter( 'learn-press/modal-search-items-args', array( $this, 'filter_modal_search' ) );
 
-			add_filter( 'learn-press/dismissed-notice-response', array(
-				$this,
-				'on_dismissed_notice_response'
-			), 10, 2 );
+			add_filter(
+				'learn-press/dismissed-notice-response',
+				array(
+					$this,
+					'on_dismissed_notice_response',
+				),
+				10,
+				2
+			);
 
 			// get list items course of user | tungnx
 			add_action( 'pre_get_posts', array( $this, 'get_course_items_of_user_backend' ), 10 );
-			add_action( 'pre_get_posts', array( $this, 'get_pages_is_lp_page' ), 10 );
+			add_action( 'pre_get_posts', array( $this, 'get_pages_of_lp' ), 10 );
 
 			// Set link item course when edit on Backend | tungnx
 			add_filter( 'get_sample_permalink_html', array( $this, 'lp_course_set_link_item_backend' ), 10, 5 );
@@ -106,7 +109,6 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 		 *
 		 * @return array
 		 * @since 3.0.0
-		 *
 		 */
 		public function views_plugins( $views ) {
 			global $s;
@@ -114,7 +116,9 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 			$search          = $this->get_addons();
 			$count_activated = 0;
 
-			if ( $active_plugins = get_option( 'active_plugins' ) ) {
+			$active_plugins = get_option( 'active_plugins' );
+
+			if ( $active_plugins ) {
 				if ( $search ) {
 					foreach ( $search as $k => $v ) {
 						if ( in_array( $k, $active_plugins ) ) {
@@ -150,7 +154,6 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 		 *
 		 * @return bool
 		 * @since 3.0.0
-		 *
 		 */
 		public function _search_callback( $plugin ) {
 			foreach ( $plugin as $value ) {
@@ -160,12 +163,6 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 			}
 
 			return false;
-		}
-
-		public function init() {
-			if ( 'yes' === LP_Request::get_string( 'lp-hide-upgrade-message' ) ) {
-				delete_transient( 'lp_upgraded_30' );
-			}
 		}
 
 		/**
@@ -192,7 +189,7 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 					'wc_page_for_cart',
 					'wc_page_for_checkout',
 					'wc_page_for_myaccount',
-					'wc_page_for_terms'
+					'wc_page_for_terms',
 				);
 				foreach ( $wc_pages as $for_page ) {
 					if ( isset( $a[ $for_page ] ) ) {
@@ -245,7 +242,7 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 					'checkout'     => __( 'Checkout', 'learnpress' ),
 					'confirmation' => __( 'Confirmation', 'learnpress' ),
 					'invoice'      => __( 'Invoice', 'learnpress' ),
-					'levels'       => __( 'Levels', 'learnpress' )
+					'levels'       => __( 'Levels', 'learnpress' ),
 				);
 
 				foreach ( $pages as $name => $text ) {
@@ -267,8 +264,8 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 		 */
 		protected function _is_bp_page( $id ) {
 			if ( function_exists( 'buddypress' ) ) {
-
-				if ( ! $bp_pages = get_option( 'bp-pages' ) ) {
+				$bp_pages = get_option( 'bp-pages' );
+				if ( ! $bp_pages ) {
 					return false;
 				}
 
@@ -276,7 +273,7 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 					'members'  => __( 'Members', 'learnpress' ),
 					'activity' => __( 'Activity', 'learnpress' ),
 					'register' => __( 'Register', 'learnpress' ),
-					'activate' => __( 'Activate', 'learnpress' )
+					'activate' => __( 'Activate', 'learnpress' ),
 				);
 
 				foreach ( $pages as $name => $text ) {
@@ -300,27 +297,34 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 					'learnpress'          => array(),
 					'WooCommerce'         => array(),
 					'Paid Membership Pro' => array(),
-					'BuddyPress'          => array()
+					'BuddyPress'          => array(),
 				);
-				$all_pages           = array(
+
+				$all_pages = array(
 					'courses'          => __( 'Courses', 'learnpress' ),
 					'profile'          => __( 'Profile', 'learnpress' ),
 					'checkout'         => __( 'Checkout', 'learnpress' ),
-					'become_a_teacher' => __( 'Become a Teacher', 'learnpress' )
+					'become_a_teacher' => __( 'Become a Teacher', 'learnpress' ),
 				);
+
 				foreach ( $all_pages as $name => $title ) {
-					if ( ( $page_id = learn_press_get_page_id( $name ) ) && 'publish' === get_post_status( $page_id ) ) {
+					$page_id = learn_press_get_page_id( $name );
+
+					if ( $page_id && 'publish' === get_post_status( $page_id ) ) {
 						$this->_static_pages['learnpress'][ $page_id ] = $title;
 
-						if ( $for_page = $this->_is_wc_page( $page_id ) ) {
+						$for_page = $this->_is_wc_page( $page_id );
+						if ( $for_page ) {
 							$this->_static_pages['WooCommerce'][ $page_id ] = $for_page;
 						}
 
-						if ( $for_page = $this->_is_pmpro_page( $page_id ) ) {
+						$for_page = $this->_is_pmpro_page( $page_id );
+						if ( $for_page ) {
 							$this->_static_pages['Paid Membership Pro'][ $page_id ] = $for_page;
 						}
 
-						if ( $for_page = $this->_is_bp_page( $page_id ) ) {
+						$for_page = $this->_is_bp_page( $page_id );
+						if ( $for_page ) {
 							$this->_static_pages['BuddyPress'][ $page_id ] = $for_page;
 						}
 					}
@@ -356,7 +360,7 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 		 * Display the page is assigned to LP Page.
 		 *
 		 * @param string $column_name
-		 * @param int $post
+		 * @param int    $post
 		 */
 		public function page_columns_content( $column_name, $post ) {
 			$pages = $this->_get_static_pages();
@@ -386,7 +390,10 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 		 */
 		public function views_pages( $actions ) {
 			$this->_get_static_pages();
-			if ( $pages = $this->_get_static_pages( 'learnpress' ) ) {
+
+			$pages = $this->_get_static_pages( 'learnpress' );
+
+			if ( $pages ) {
 				$text = sprintf( __( 'LearnPress Pages (%d)', 'learnpress' ), sizeof( $pages ) );
 				if ( 'yes' !== LP_Request::get( 'lp-page' ) ) {
 					$actions['lp-page'] = sprintf( '<a href="%s">%s</a>',
@@ -406,9 +413,10 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 		 *
 		 * @return mixed
 		 */
-		public function get_pages_is_lp_page( $q ) {
+		public function get_pages_of_lp( $q ) {
 			if ( 'page' == LP_Request::get( 'post_type' ) && 'yes' == LP_Request::get( 'lp-page' ) ) {
 				$ids = $this->_get_static_pages( 'learnpress' );
+
 				if ( ! empty( $ids ) ) {
 					$ids = array_keys( $ids );
 					$q->set( 'post__in', $ids );
@@ -421,7 +429,7 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 		/**
 		 * Add actions to users list
 		 *
-		 * @param array $actions
+		 * @param array   $actions
 		 * @param WP_User $user
 		 *
 		 * @return mixed
@@ -491,7 +499,9 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 		 * @return mixed
 		 */
 		public function views_users( $views ) {
-			if ( $pending_request = LP_User_Factory::get_pending_requests() ) {
+			$pending_request = LP_User_Factory::get_pending_requests();
+
+			if ( $pending_request ) {
 				if ( LP_Request::get_string( 'lp-action' ) == 'pending-request' ) {
 					$class = ' class="current"';
 					foreach ( $views as $k => $view ) {
@@ -511,36 +521,31 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 		 * Display admin notices
 		 */
 		public function admin_notices() {
-
-			if ( 'yes' === get_transient( 'lp_upgraded_30' ) ) {
-				learn_press_admin_view( 'updates/html-upgrade-message-3.0.0' );
+			if ( ! current_user_can( ADMIN_ROLE ) ) {
+				return;
 			}
 
 			if ( 'yes' === get_option( 'learn_press_install' ) ) {
 				learn_press_admin_view( 'setup/notice-setup' );
 			}
 
-			$action = LP_Request::get( 'lp-action' );
+			$action  = LP_Request::get( 'lp-action' );
+			$user_id = LP_Request::get_int( 'user_id' );
 
-			if ( ( in_array( $action, array(
-					'accepted-request',
-					'denied-request'
-				) ) ) && ( $user_id = LP_Request::get_int( 'user_id' ) ) && get_user_by( 'id', $user_id )
-			) {
+			if ( ( in_array( $action,
+					array( 'accepted-request', 'denied-request' ) ) ) && ( $user_id ) && get_user_by( 'id',
+					$user_id ) ) {
 				if ( ! current_user_can( 'promote_user', $user_id ) ) {
 					wp_die( __( 'Sorry, you are not allowed to edit this user.', 'learnpress' ) );
-				} ?>
+				}
+				?>
 
-                <div class="updated notice">
-                    <p><?php echo sprintf( __( 'User has %s to become a teacher.', 'learnpress' ),
+				<div class="updated notice">
+					<p><?php echo sprintf( __( 'User has %s to become a teacher.', 'learnpress' ),
 							$action == 'accepted-request' ? 'accepted' : 'denied' ); ?></p>
-                </div>
+				</div>
 
 				<?php
-			}
-
-			if ( LP()->session->get( 'do-update-learnpress' ) ) {
-				learn_press_admin_view( 'updates/html-updated-latest-message' );
 			}
 		}
 
@@ -548,6 +553,12 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 		 * Redirect to setup page if we have just activated LP
 		 */
 		public function admin_redirect() {
+			// Fix temporary, after release 4.0.0 release remove this.
+			// Check extra_value column exists.
+			$lp_db = LP_Database::getInstance();
+			$lp_db->add_col_table($lp_db->tb_lp_user_itemmeta, 'extra_value', 'longtext', 'meta_value');
+			// End.
+
 			if ( 'yes' === get_transient( 'lp_activation_redirect' ) && current_user_can( 'install_plugins' ) ) {
 				delete_transient( 'lp_activation_redirect' );
 
@@ -564,12 +575,14 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 		 */
 		public function body_class( $classes ) {
 			$post_type = get_post_type();
+
 			if ( preg_match( '~^lp_~', $post_type ) ) {
 				if ( $classes ) {
 					$classes = explode( ' ', $classes );
 				} else {
 					$classes = array();
 				}
+
 				$classes[] = 'learnpress';
 				$classes   = array_filter( $classes );
 				$classes   = array_unique( $classes );
@@ -579,102 +592,13 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 			return $classes;
 		}
 
-		public function admin_colors() {
-			global $_wp_admin_css_colors;
-			$schema = get_user_option( 'admin_color' );
-			if ( empty( $_wp_admin_css_colors[ $schema ] ) ) {
-				return;
-			}
-
-			$colors = $_wp_admin_css_colors[ $schema ]->colors;
-			?>
-            <style type="text/css">
-                .admin-color {
-                    color: <?php echo $colors[0];?>
-                }
-
-                .admin-background {
-                    color: <?php echo $colors[0];?>
-                }
-            </style>
-			<?php
-		}
-
-		/**
-		 * Wrapper admin editor.
-		 *
-		 * @since 3.0.0
-		 */
-		public function wrapper_editor() {
-			$post_type = get_post_type();
-
-			if ( in_array( $post_type, array( LP_COURSE_CPT, LP_QUIZ_CPT, LP_QUESTION_CPT ) ) ) {
-				learn_press_admin_view( 'editor-wrapper', array( 'post_type' => $post_type ) );
-			}
-		}
-
 		public function notice_required_permalink() {
-
 			if ( current_user_can( 'manage_options' ) ) {
-
 				if ( ! get_option( 'permalink_structure' ) ) {
 					learn_press_add_notice( sprintf( __( 'LearnPress requires permalink option <strong>Post name</strong> is enabled. Please enable it <a href="%s">here</a> to ensure that all functions work properly.',
 						'learnpress' ), admin_url( 'options-permalink.php' ) ), 'error' );
 				}
 			}
-		}
-
-
-		/**
-		 * Add notice for missing pages.
-		 *
-		 * @return mixed
-		 */
-		public function notice_setup_pages() {
-
-			if ( ! current_user_can( 'manage_options' ) ) {
-				return;
-			}
-
-			$missing_pages = array();
-			$pages         = apply_filters( 'learn-press/required-pages', array(
-				'profile'  => array(
-					'title'    => __( 'Profile Page', 'learnpress' ),
-					'settings' => admin_url( 'admin.php?page=learn-press-settings&tab=profile' )
-				),
-				'checkout' => array(
-					'title'    => __( 'Checkout Page', 'learnpress' ),
-					'settings' => admin_url( 'admin.php?page=learn-press-settings&tab=payments' )
-				)
-			) );
-
-			foreach ( $pages as $id => $page ) {
-
-				if ( ( $page_id = learn_press_get_page_id( $id ) ) && get_post( $page_id ) ) {
-					continue;
-				}
-				$missing_pages[ $id ] = $page;
-			}
-
-			if ( ! $missing_pages ) {
-				return;
-			}
-
-			$pages = array();
-
-			foreach ( $missing_pages as $id => $page ) {
-				$pages[] = __( wp_kses( '<a href="' . $page['settings'] . '">' . $page['title'] . '</a>', array(
-					'a' => array( 'href' => array() )
-				) ), 'learnpress' );
-			}
-
-			$notice = sprintf( __( 'The following required page(s) are currently missing: %s.', 'learnpress' ),
-				join( ', ', $pages ) );
-			$notice .= sprintf( __( 'To ensure all functions work properly, please click <a class="button" id="learn-press-create-pages" href="%s">here</a> to create and set it up automatically.',
-				'learnpress' ),
-				esc_url( wp_nonce_url( admin_url( 'admin.php?lp-ajax=create-pages' ), 'create-pages' ) ) );
-
-			learn_press_add_notice( $notice, 'error' );
 		}
 
 		/**
@@ -720,28 +644,34 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 		public function admin_footer_text( $footer_text ) {
 			$current_screen = get_current_screen();
 			$pages          = learn_press_get_screens();
+
 			if ( isset( $current_screen->id ) && apply_filters( 'learn_press_display_admin_footer_text',
 					in_array( $current_screen->id, $pages ) ) ) {
 				if ( ! get_option( 'learn_press_message_user_rated' ) ) {
-					$footer_text = sprintf( __( 'If you like <strong>LearnPress</strong> please leave us a %s&#9733;&#9733;&#9733;&#9733;&#9733;%s rating. A huge thanks from LearnPress team for your generous.',
+					$footer_text = sprintf( __( 'If you like <strong>LearnPress</strong> please leave us a %1$s&#9733;&#9733;&#9733;&#9733;&#9733;%2$s rating. A huge thanks from LearnPress team for your generous.',
 						'learnpress' ),
 						'<a href="https://wordpress.org/support/plugin/learnpress/reviews/?filter=5#postform" target="_blank" class="lp-rating-link" data-rated="' . esc_attr__( 'Thanks :)',
 							'learnpress' ) . '">', '</a>' );
-					ob_start(); ?>
-                    <script type="text/javascript">
-                      jQuery( function( $ ) {
-                        var $ratingLink = $( 'a.lp-rating-link' ).click( function( e ) {
-                          $.ajax( {
-                            url: '<?php echo admin_url( 'admin-ajax.php' );?>', data: {
-                              action: 'learn_press_rated',
-                            }, success: function() {
-                              $ratingLink.parent().html( $ratingLink.data( 'rated' ) );
-                            },
-                          } );
-                        } );
-                      } );
 
-                    </script>
+					ob_start();
+					?>
+
+					<script>
+						jQuery(function ($) {
+							var $ratingLink = $('a.lp-rating-link').click(function (e) {
+								$.ajax({
+									url: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
+									data: {
+										action: 'learn_press_rated'
+									},
+									success: function () {
+										$ratingLink.parent().html($ratingLink.data('rated'))
+									}
+								})
+							})
+						})
+					</script>
+
 					<?php
 					echo ob_get_clean();
 				}
@@ -766,12 +696,11 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 		/**
 		 * Send data to join newsletter or dismiss.
 		 *
-		 * @param array $data
+		 * @param array  $data
 		 * @param string $notice
 		 *
 		 * @return array
 		 * @since 3.0.10
-		 *
 		 */
 		public function on_dismissed_notice_response( $data, $notice ) {
 			switch ( $notice ) {
@@ -790,7 +719,9 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 					}
 
 					$url      = 'https://thimpress.com/mailster/subscribe';
-					$response = wp_remote_post( $url, array(
+					$response = wp_remote_post(
+						$url,
+						array(
 							'method'      => 'POST',
 							'timeout'     => 45,
 							'redirection' => 5,
@@ -804,9 +735,10 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 								'email'    => $user->get_email(),
 								'website'  => site_url(),
 							),
-							'cookies'     => array()
+							'cookies'     => array(),
 						)
 					);
+
 					if ( is_wp_error( $response ) ) {
 						$error_message   = $response->get_error_message();
 						$data['message'] = __( 'Something went wrong: ', 'learnpress' ) . $error_message;
@@ -823,7 +755,6 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 		 * Include all classes and functions used for admin
 		 */
 		public function includes() {
-			//crazy tu
 			// Common function used in admin
 			include_once 'lp-admin-functions.php';
 			include_once 'lp-admin-actions.php';
@@ -834,15 +765,18 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 			include_once 'class-lp-admin-ajax.php';
 			include_once 'editor/class-lp-admin-editor.php';
 			include_once 'class-lp-admin-menu.php';
-			include_once 'class-lp-meta-box-tabs.php';
 			include_once 'helpers/class-lp-outdated-template-helper.php';
 			include_once 'helpers/class-lp-plugins-helper.php';
 			include_once 'class-lp-modal-search-items.php';
 			include_once 'class-lp-modal-search-users.php';
 			include_once 'class-lp-setup-wizard.php';
-			include_once 'class-lp-updater.php';
+//			include_once 'class-lp-updater.php';
 			include_once 'class-lp-install-sample-data.php';
 			include_once 'class-lp-reset-data.php';
+			include_once LP_PLUGIN_PATH . 'inc/admin/views/meta-boxes/course/settings.php';
+			include_once LP_PLUGIN_PATH . 'inc/admin/views/meta-boxes/quiz/settings.php';
+			include_once LP_PLUGIN_PATH . 'inc/admin/views/meta-boxes/lesson/settings.php';
+			include_once LP_PLUGIN_PATH . 'inc/admin/views/meta-boxes/question/settings.php';
 		}
 
 		/**
@@ -865,14 +799,16 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 				return;
 			}
 
-			$post_type_valid = apply_filters( 'learn-press/filter-user-access-types',
-				array( LP_COURSE_CPT, LP_LESSON_CPT, LP_QUIZ_CPT, LP_QUESTION_CPT ) );
+			$post_type_valid = apply_filters(
+				'learn-press/filter-user-access-types',
+				array( LP_COURSE_CPT, LP_LESSON_CPT, LP_QUIZ_CPT, LP_QUESTION_CPT )
+			);
 
 			if ( ! in_array( $post_type, $post_type_valid ) ) {
 				return;
 			}
 
-			$query->set( 'author', get_current_user_id() );
+			// $query->set( 'author', get_current_user_id() );
 
 			$query = apply_filters( 'learnpress/get-post-type-lp-on-backend', $query );
 
@@ -883,10 +819,10 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 		/**
 		 * Set link item of course when edit item on Backend
 		 *
-		 * @param string $post_link
-		 * @param int $post_id
-		 * @param string $new_title
-		 * @param string $new_slug
+		 * @param string       $post_link
+		 * @param int          $post_id
+		 * @param string       $new_title
+		 * @param string       $new_slug
 		 * @param WP_Post|null $post
 		 *
 		 * @return array|int|mixed|string|void
@@ -955,18 +891,18 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 		 * Get single instance of self
 		 *
 		 * @return bool|LP_Admin
+		 * @return bool|LP_Admin
 		 * @since 3.0.0
 		 *
 		 */
 		public static function instance() {
-			static $instance = false;
-			if ( ! $instance ) {
-				$instance = new self();
+			if ( ! self::$instance ) {
+				self::$instance = new self();
 			}
 
-			return $instance;
+			return self::$instance;
 		}
 	}
-} // End class LP_Admin
+}
 
 return LP_Admin::instance();

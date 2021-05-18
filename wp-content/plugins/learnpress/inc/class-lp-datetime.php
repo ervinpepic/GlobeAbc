@@ -1,11 +1,9 @@
 <?php
 
+/**
+ * Class LP_Datetime
+ */
 class LP_Datetime extends DateTime {
-	const DAY_ABBR = "\x021\x03";
-	const DAY_NAME = "\x022\x03";
-	const MONTH_ABBR = "\x023\x03";
-	const MONTH_NAME = "\x024\x03";
-
 	/**
 	 * @var    string
 	 */
@@ -34,24 +32,25 @@ class LP_Datetime extends DateTime {
 	 * Constructor.
 	 *
 	 * @param string $date
-	 * @param mixed $tz
+	 * @param mixed  $tz
+	 *
+	 * @throws
 	 */
 	public function __construct( $date = '', $tz = null ) {
 		if ( empty( self::$gmt ) || empty( self::$stz ) ) {
 			self::$gmt = new DateTimeZone( 'GMT' );
-			self::$stz = new DateTimeZone( @date_default_timezone_get() );
+			self::$stz = new DateTimeZone( @date_default_timezone_get() ); // phpcs:ignore
 		}
 
 		if ( $date instanceof LP_Datetime ) {
 			$this->raw_date = $date->get_raw_date();
 		} else {
-			$this->raw_date = $date;
+			$this->raw_date = is_numeric( $date ) ? gmdate( 'Y-m-d H:i:s', $date ) : $date;
 		}
 
 		if ( empty( $date ) ) {
 			$date = current_time( 'mysql' );
 		}
-
 
 		if ( ! ( $tz instanceof DateTimeZone ) ) {
 			$tz = self::get_default_timezone( $tz );
@@ -61,24 +60,11 @@ class LP_Datetime extends DateTime {
 			$tz = null;
 		}
 
-		if ( $this->raw_date === '0000-00-00 00:00:00' ) {
-			//$date = '1969-01-01 00:00:00';
-		}
+		date_default_timezone_set( 'UTC' );
 
-		/**
-		 * addBy tungnx
-		 * reason: fix for end_time error (certificate)
-		 */
-		if ( $date === '0000-00-00 00:00:00' ) {
-			$date = date( 'Y-m-d H:i:s' );
-		}
+		parent::__construct( $this->raw_date, $tz );
 
-		//date_default_timezone_set( 'UTC' );
-		$date = is_numeric( $date ) ? date( 'Y-m-d H:i:s', $date ) : $date;
-
-		parent::__construct( $date, $tz );
-
-		//date_default_timezone_set( self::$stz->getName() );
+		date_default_timezone_set( self::$stz->getName() ); // phpcs:ignore
 
 		$this->tz = $tz;
 	}
@@ -89,13 +75,11 @@ class LP_Datetime extends DateTime {
 	 * @param mixed $tz
 	 *
 	 * @return DateTimeZone|null|string
-	 * @since 3.1.0
-	 *
 	 */
 	public static function get_default_timezone( $tz ) {
 		if ( empty( self::$def_timezone ) ) {
-			if ( ( $tz === null ) ) {
-				$tz = new DateTimeZone( self::timezone_string() );
+			if ( $tz === null ) {
+				$tz = wp_timezone();
 			} elseif ( is_string( $tz ) && $tz ) {
 				$tz = new DateTimeZone( $tz );
 			}
@@ -109,39 +93,11 @@ class LP_Datetime extends DateTime {
 	 * Check if time is exceeded with current time
 	 */
 	public function is_exceeded( $interval = 0 ) {
-		return $this->getTimestamp() >= current_time( 'timestamp' ) + $interval;
-	}
-
-	public static function timezone_string() {
-
-		if ( $timezone = get_option( 'timezone_string' ) ) {
-			return $timezone;
-		}
-
-		if ( 0 === ( $utc_offset = intval( get_option( 'gmt_offset', 0 ) ) ) ) {
-			return 'UTC';
-		}
-
-		$utc_offset *= 3600;
-
-
-		if ( $timezone = timezone_name_from_abbr( '', $utc_offset ) ) {
-			return $timezone;
-		}
-
-		foreach ( timezone_abbreviations_list() as $abbr ) {
-			foreach ( $abbr as $city ) {
-				if ( ( (bool) date( 'I' ) === (bool) $city['dst'] ) && $city['timezone_id'] && ( intval( $city['offset'] ) === $utc_offset ) ) {
-					return $city['timezone_id'];
-				}
-			}
-		}
-
-		return 'UTC';
+		return $this->getTimestamp() >= current_time( 'timestamp' ) + $interval; // phpcs:ignore
 	}
 
 	public function is_null() {
-		return $this->raw_date === '0000-00-00 00:00:00';
+		return ! $this->raw_date || $this->raw_date === '0000-00-00 00:00:00';
 	}
 
 	public function get_raw_date() {
@@ -170,7 +126,7 @@ class LP_Datetime extends DateTime {
 				break;
 
 			case 'isleapyear':
-				$value = (boolean) $this->format( 'L', true );
+				$value = (bool) $this->format( 'L', true );
 				break;
 
 			case 'day':
@@ -221,24 +177,51 @@ class LP_Datetime extends DateTime {
 	/**
 	 * Gets the date as a formatted string.
 	 *
-	 * @param string $format The date format specification string (see {@link PHP_MANUAL#date})
+	 * @param string  $format The date format specification string (see {@link PHP_MANUAL#date})
 	 * @param boolean $local True to return the date string in the local time zone, false to return it in GMT.
 	 *
-	 * @return  string   The date string in the specified format format.
+	 * @return string The date string in the specified format format.
 	 */
-	public function format( $format = '', $local = true ) {
+	public function format( $format, $local = true ) {
 		if ( '0000-00-00 00:00:00' === $this->raw_date ) {
 			return '';
 		}
 
-		if ( $local == false && ! empty( self::$gmt ) ) {
-			parent::setTimezone( self::$gmt );
+		if ( empty( $format ) ) {
+			$format = 'mysql';
 		}
 
-		$return = parent::format( $format );
+		$return = false;
 
-		if ( $local == false && ! empty( $this->tz ) ) {
-			parent::setTimezone( $this->tz );
+		switch ( $format ) {
+			case 'i18n':
+				$return = learn_press_date_i18n( $this->getTimestamp( $local ) );
+				break;
+			case 'timestamp':
+				$return = $this->getTimestamp( $local );
+				break;
+			case 'human':
+				$time      = $this->getTimestamp( true );// mysql2date( 'G', $date->format('Y-m-d H:i:s') );
+				$time1     = $this->getTimestamp( false );// mysql2date( 'G', $date->format('Y-m-d H:i:s') );
+				$time_diff = ( time() ) - $time1;
+
+				if ( $time_diff > 0 ) {
+					$return = sprintf( __( '%s ago', 'learnpress' ), human_time_diff( $time1, time() ) );
+				}
+				break;
+			case 'mysql':
+				$return = $this->format( 'Y-m-d H:i:s', $local );
+				break;
+			default:
+				if ( ! $local && ! empty( self::$gmt ) ) {
+					parent::setTimezone( self::$gmt );
+				}
+
+				$return = parent::format( $format );
+
+				if ( ! $local && ! empty( $this->tz ) ) {
+					parent::setTimezone( $this->tz );
+				}
 		}
 
 		return $return;
@@ -282,6 +265,25 @@ class LP_Datetime extends DateTime {
 	 */
 	public function toSql( $local = true ) {
 		return $this->format( 'Y-m-d H:i:s', $local );
+	}
+
+	/**
+	 * Consider the date is in GMT and convert to local time with
+	 * gmt_offset option of WP Core.
+	 *
+	 * @param string $format
+	 *
+	 * @return int|string
+	 * @since 4.0.0
+	 */
+	public function toLocal( $format = 'Y-m-d H:i:s' ) {
+		$time = $this->getTimestamp() + get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
+
+		if ( $format ) {
+			return date( $format, $time ); // phpcs:ignore
+		}
+
+		return $time;
 	}
 
 	/**
@@ -331,5 +333,29 @@ class LP_Datetime extends DateTime {
 
 	public static function getSqlNullDate() {
 		return '0000-00-00 00:00:00';
+	}
+
+	/**
+	 * Add X seconds into datetime of this object.
+	 *
+	 * @param int $seconds
+	 *
+	 * @throws
+	 *
+	 * @since 3.3.0
+	 */
+	public function addDuration( $seconds ) {
+		$timestamp = $this->getTimestamp();
+		parent::__construct( date( 'Y-m-d H:i:s', $timestamp + $seconds ), $this->tz ); // phpcs:ignore
+	}
+
+	public function getPeriod( $seconds, $local = true ) {
+		$timestamp = $this->getTimestamp( $local );
+
+		if ( ! is_numeric( $seconds ) ) {
+			$seconds = strtotime( $seconds ) - time();
+		}
+
+		return date( 'Y-m-d H:i:s', $timestamp + $seconds ); // phpcs:ignore
 	}
 }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class LP_Submenu_Tools
  */
@@ -17,10 +16,11 @@ class LP_Submenu_Tools extends LP_Abstract_Submenu {
 		$this->tabs = apply_filters(
 			'learn-press/admin/tools-tabs',
 			array(
-				'template' => __( 'Template', 'learnpress' ),
+				'course'   => __( 'Course Data', 'learnpress' ),
 				'database' => __( 'Database', 'learnpress' ),
-				'course'   => __( 'Course', 'learnpress' ),
-				'cache'    => __( 'Cache', 'learnpress' )
+				'template' => __( 'Templates', 'learnpress' ),
+				//'cron'     => __( 'Cron Jobs', 'learnpress' ),
+				//'cache'    => __( 'Caches', 'learnpress' ),
 			)
 		);
 
@@ -39,11 +39,22 @@ class LP_Submenu_Tools extends LP_Abstract_Submenu {
 			case 'lp-clear-cache':
 				LP_Hard_Cache::flush();
 				break;
-			case'lp-toggle-hard-cache-option':
+			case 'lp-toggle-hard-cache-option':
 				update_option( 'learn_press_enable_hard_cache', LP_Request::get( 'v' ) == 'yes' ? 'yes' : 'no' );
 				break;
 			default:
 				$has_action = false;
+		}
+
+		$nonce = LP_Request::get( '_wpnonce' );
+
+		if ( LP_Request::get( 'generate-cron-url' ) && $nonce ) {
+			if ( wp_verify_nonce( $nonce ) ) {
+				delete_option( 'learnpress_cron_url_nonce' );
+
+				wp_redirect( remove_query_arg( array( 'generate-cron-url', '_wpnonce' ) ) );
+				die();
+			}
 		}
 
 		if ( $has_action ) {
@@ -59,17 +70,17 @@ class LP_Submenu_Tools extends LP_Abstract_Submenu {
 		learn_press_admin_view( 'tools/html-template' );
 	}
 
-	public function page_content_cache() {
+	/*public function page_content_cache() {
 		learn_press_admin_view( 'tools/html-cache' );
-	}
+	}*/
 
 	public function page_content_course() {
 		learn_press_admin_view( 'tools/html-course' );
 	}
 
-	public function enqueue_assets() {
-		//wp_enqueue_script( 'learn-press-submenu-tools', LP()->plugin_url( 'assets/js/admin/admin-tools.js' ), array( 'jquery' ) );
-	}
+	/*public function page_content_cron() {
+		learn_press_admin_view( 'tools/html-cron' );
+	}*/
 
 	/**
 	 * Display page

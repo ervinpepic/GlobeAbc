@@ -25,13 +25,13 @@ if ( ! class_exists( 'LP_Email_New_Order_Admin' ) ) {
 		public function __construct() {
 			$this->id          = 'new-order-admin';
 			$this->title       = __( 'Admin', 'learnpress' );
-			$this->description = __( 'Send email to admin when new order is placed.', 'learnpress' );
+			$this->description = __( 'Notify admin when a new order is placed.', 'learnpress' );
 
 			$this->default_subject = __( 'New order placed on {{order_date}}', 'learnpress' );
 			$this->default_heading = __( 'New user order', 'learnpress' );
 
 			$this->recipients = get_option( 'admin_email' );
-			$this->recipient  = LP()->settings->get( 'emails_' . $this->id . '.recipients', $this->_get_admin_email() );
+			$this->recipient  = LP()->settings()->get( 'emails_' . $this->id . '.recipients', $this->_get_admin_email() );
 
 			parent::__construct();
 
@@ -53,11 +53,15 @@ if ( ! class_exists( 'LP_Email_New_Order_Admin' ) ) {
 		public function init() {
 			// disable send mail for enable enroll course admin mail
 			$email = LP_Emails::get_email( 'enrolled-course-admin' );
+
 			if ( $email->enable() ) {
-				remove_action( 'learn-press/order/status-pending-to-completed/notification', array(
-					$this,
-					'trigger'
-				) );
+				remove_action(
+					'learn-press/order/status-pending-to-completed/notification',
+					array(
+						$this,
+						'trigger',
+					)
+				);
 			}
 		}
 

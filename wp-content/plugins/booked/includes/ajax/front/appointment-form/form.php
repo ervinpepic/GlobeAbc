@@ -124,12 +124,12 @@ if ( $is_user_logged_in && $appointment_limit ) {
 
 		// User limit reached
 		if ( $reached_limit ) {
-			$error_message = sprintf(_n("Sorry, but you've hit the session limit. Each user may only book %d session at a time.","Sorry, but you've hit the session limit. Each user may only book %d session at a time.", $appointment_limit, "booked" ), $appointment_limit);
+			$error_message = sprintf(_n("Sorry, but you've hit the appointment limit. Each user may only book %d appointment at a time.","Sorry, but you've hit the appointment limit. Each user may only book %d appointments at a time.", $appointment_limit, "booked" ), $appointment_limit);
 		}
 
 		// User limit not reached yet, however, the limit will be exceeded when booking the next appointments
 		if ( $will_reached_limit && ! $reached_limit ) {
-			$error_message = sprintf(esc_html__("Sorry, but you're about to book more sessions than you are allowed to book at a time. Each user may only book %d sessions at a time.", "booked" ), $appointment_limit);
+			$error_message = sprintf(esc_html__("Sorry, but you're about to book more appointments than you are allowed to book at a time. Each user may only book %d appointments at a time.", "booked" ), $appointment_limit);
 		}
 
 		// Print the error message, if any
@@ -139,13 +139,13 @@ if ( $is_user_logged_in && $appointment_limit ) {
 
 		// If there aren't any errors, and the user is logged in
 		if ( $is_user_logged_in && ! $error_message ) {
-			$msg = sprintf( _n( 'Please confirm if you want to book the following session for %s.', 'Please confirm if you want to book the following sessions for %s.', $total_appts, 'booked' ), '<em>' . booked_get_name( $booked_current_user->ID ) . '</em>' ) . ' ' . _n( '', '', $total_appts, 'booked' );
+			$msg = sprintf( _n( 'You are about to request an appointment for %s.', 'You are about to request appointments for %s.', $total_appts, 'booked' ), '<em>' . booked_get_name( $booked_current_user->ID ) . '</em>' ) . ' ' . _n( 'Please review and confirm that you would like to request the following appointment:', 'Please review and confirm that you would like to request the following appointments:', $total_appts, 'booked' );
 			echo wpautop( $msg );
 		}
 
 		// If there aren't any errors, and the user isn't logged in
 		if ( ! $is_user_logged_in && ! $error_message ) {
-			$msg = _n( 'Please confirm if you want to book the following session for: ', 'Please confirm if you want to book the following sessions for: ', $total_appts, 'booked' );
+			$msg = _n( 'Please confirm that you would like to request the following appointment:', 'Please confirm that you would like to request the following appointments:', $total_appts, 'booked' );
 			echo wpautop( $msg );
 		}
 
@@ -187,7 +187,7 @@ if ( $is_user_logged_in && $appointment_limit ) {
 			<?php if ( $error_message ): ?>
 				<button class="cancel button"><?php esc_html_e('Okay','booked'); ?></button>
 			<?php else: ?>
-				<input type="submit" id="submit-request-appointment" class="button button-primary" value="<?php echo ( $new_appointment_default == 'draft' ? esc_html( _n( 'Confirm', 'Confirm', $total_appts, 'booked' ) ) : esc_html( _n( 'Confirm', 'Confirm', $total_appts, 'booked' ) ) ); ?>">
+				<input type="submit" id="submit-request-appointment" class="button button-primary" value="<?php echo ( $new_appointment_default == 'draft' ? esc_html( _n( 'Request Appointment', 'Request Appointments', $total_appts, 'booked' ) ) : esc_html( _n( 'Book Appointment', 'Book Appointments', $total_appts, 'booked' ) ) ); ?>">
 				<button class="cancel button"><?php esc_html_e('Cancel','booked'); ?></button>
 			<?php endif; ?>
 		</div>

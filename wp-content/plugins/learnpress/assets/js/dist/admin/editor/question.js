@@ -81,15 +81,15 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/question.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/question.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/actions/question.js":
-/*!**************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/actions/question.js ***!
-  \**************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/actions/question.js":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/actions/question.js ***!
+  \****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -193,10 +193,91 @@ var Question = {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/getters/question.js":
-/*!**************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/getters/question.js ***!
-  \**************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/fill-in-blanks.js":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/fill-in-blanks.js ***!
+  \**************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function ($) {
+  window.FIB = {
+    getSelectedText: function getSelectedText() {
+      var html = '';
+
+      if (typeof window.getSelection !== 'undefined') {
+        var sel = window.getSelection();
+
+        if (sel.rangeCount) {
+          var container = document.createElement('div');
+
+          for (var i = 0, len = sel.rangeCount; i < len; ++i) {
+            container.appendChild(sel.getRangeAt(i).cloneContents());
+          }
+
+          html = container.innerHTML;
+        }
+      } else if (typeof document.selection !== 'undefined') {
+        if (document.selection.type === 'Text') {
+          html = document.selection.createRange().htmlText;
+        }
+      }
+
+      return html;
+    },
+    createTextNode: function createTextNode(content) {
+      return document.createTextNode(content);
+    },
+    isContainHtml: function isContainHtml(content) {
+      var $el = $(content),
+          sel = 'b.fib-blank';
+      return $el.is(sel) || $el.find(sel).length || $el.parent().is(sel);
+    },
+    getSelectionRange: function getSelectionRange() {
+      var t = '';
+
+      if (window.getSelection) {
+        t = window.getSelection();
+      } else if (document.getSelection) {
+        t = document.getSelection();
+      } else if (document.selection) {
+        t = document.selection.createRange().text;
+      }
+
+      return t;
+    },
+    outerHTML: function outerHTML($dom) {
+      return $('<div>').append($($dom).clone()).html();
+    },
+    doUpgrade: function doUpgrade(callback) {
+      $.ajax({
+        url: '',
+        data: {
+          'lp-ajax': 'fib-upgrade'
+        },
+        success: function success(res) {
+          console.log(res);
+          callback && callback.call(res);
+        }
+      });
+    }
+  };
+  $(document).ready(function () {
+    $('#do-upgrade-fib').on('click', function () {
+      var $button = $(this).prop('disabled', true).addClass('ajaxloading');
+      FIB.doUpgrade(function () {
+        $button.prop('disabled', false).removeClass('ajaxloading');
+      });
+    });
+  });
+})(jQuery);
+
+/***/ }),
+
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/getters/question.js":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/getters/question.js ***!
+  \****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -248,6 +329,9 @@ var Question = {
   externalComponent: function externalComponent(state) {
     return state.externalComponent || [];
   },
+  supportAnswerOptions: function supportAnswerOptions(state) {
+    return state.supportAnswerOptions || [];
+  },
   state: function state(_state) {
     return _state;
   },
@@ -259,10 +343,10 @@ var Question = {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/http.js":
-/*!**************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/http.js ***!
-  \**************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/http.js":
+/*!****************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/http.js ***!
+  \****************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -270,7 +354,7 @@ var Question = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return HTTP; });
 function HTTP(options) {
-  var $ = window.jQuery;
+  var $ = window.jQuery || jQuery;
   var $VueHTTP = Vue.http;
   options = $.extend({
     ns: 'LPRequest',
@@ -280,24 +364,24 @@ function HTTP(options) {
 
   LP.Request = function (payload) {
     $publishingAction = $('#publishing-action');
-    payload['id'] = options.store.getters.id;
-    payload['nonce'] = options.store.getters.nonce;
+    payload.id = options.store.getters.id;
+    payload.nonce = options.store.getters.nonce;
     payload['lp-ajax'] = options.store.getters.action;
-    payload['code'] = options.store.getters.code;
+    payload.code = options.store.getters.code;
     $publishingAction.find('#publish').addClass('disabled');
     $publishingAction.find('.spinner').addClass('is-active');
-    $publishingAction.addClass('code-' + payload['code']);
+    $publishingAction.addClass('code-' + payload.code);
     return $VueHTTP.post(options.store.getters.urlAjax, payload, {
       emulateJSON: true,
       params: {
         namespace: options.ns,
-        code: payload['code']
+        code: payload.code
       }
     });
   };
 
   $VueHTTP.interceptors.push(function (request, next) {
-    if (request.params['namespace'] !== options.ns) {
+    if (request.params.namespace !== options.ns) {
       next();
       return;
     }
@@ -329,30 +413,30 @@ function HTTP(options) {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/mutations/question.js":
-/*!****************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/mutations/question.js ***!
-  \****************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/mutations/question.js":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/mutations/question.js ***!
+  \******************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var Question = {
-  'UPDATE_STATUS': function UPDATE_STATUS(state, status) {
+  UPDATE_STATUS: function UPDATE_STATUS(state, status) {
     state.status = status;
   },
-  'UPDATE_AUTO_DRAFT_STATUS': function UPDATE_AUTO_DRAFT_STATUS(state, status) {
+  UPDATE_AUTO_DRAFT_STATUS: function UPDATE_AUTO_DRAFT_STATUS(state, status) {
     state.auto_draft = status;
   },
-  'CHANGE_QUESTION_TYPE': function CHANGE_QUESTION_TYPE(state, question) {
+  CHANGE_QUESTION_TYPE: function CHANGE_QUESTION_TYPE(state, question) {
     state.answers = question.answers;
     state.type = question.type;
   },
-  'SET_ANSWERS': function SET_ANSWERS(state, answers) {
+  SET_ANSWERS: function SET_ANSWERS(state, answers) {
     state.answers = answers;
   },
-  'DELETE_ANSWER': function DELETE_ANSWER(state, id) {
+  DELETE_ANSWER: function DELETE_ANSWER(state, id) {
     for (var i = 0, n = state.answers.length; i < n; i++) {
       if (state.answers[i].question_answer_id == id) {
         state.answers[i].question_answer_id = LP.uniqueId();
@@ -360,16 +444,16 @@ var Question = {
       }
     }
   },
-  'ADD_NEW_ANSWER': function ADD_NEW_ANSWER(state, answer) {
+  ADD_NEW_ANSWER: function ADD_NEW_ANSWER(state, answer) {
     state.answers.push(answer);
   },
-  'UPDATE_ANSWERS': function UPDATE_ANSWERS(state, answers) {
+  UPDATE_ANSWERS: function UPDATE_ANSWERS(state, answers) {
     state.answers = answers;
   },
-  'INCREASE_NUMBER_REQUEST': function INCREASE_NUMBER_REQUEST(state) {
+  INCREASE_NUMBER_REQUEST: function INCREASE_NUMBER_REQUEST(state) {
     state.countCurrentRequest++;
   },
-  'DECREASE_NUMBER_REQUEST': function DECREASE_NUMBER_REQUEST(state) {
+  DECREASE_NUMBER_REQUEST: function DECREASE_NUMBER_REQUEST(state) {
     state.countCurrentRequest--;
   }
 };
@@ -377,17 +461,20 @@ var Question = {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/question.js":
-/*!******************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/question.js ***!
-  \******************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/question.js":
+/*!********************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/question.js ***!
+  \********************************************************************************************************************************************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./http */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/http.js");
-/* harmony import */ var _store_question__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./store/question */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/store/question.js");
+/* harmony import */ var _http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./http */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/http.js");
+/* harmony import */ var _store_question__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./store/question */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/store/question.js");
+/* harmony import */ var _fill_in_blanks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./fill-in-blanks */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/fill-in-blanks.js");
+/* harmony import */ var _fill_in_blanks__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_fill_in_blanks__WEBPACK_IMPORTED_MODULE_2__);
+
 
 
 window.$Vue = window.$Vue || Vue;
@@ -406,31 +493,33 @@ $(document).ready(function () {
     store: LP_Question_Store
   });
   setTimeout(function () {
-    window.LP_Question_Editor = new $Vue({
-      el: '#admin-editor-lp_question',
-      template: '<lp-question-editor></lp-question-editor>'
-    });
+    if ($('#admin-editor-lp_question').length) {
+      window.LP_Question_Editor = new $Vue({
+        el: '#admin-editor-lp_question',
+        template: '<lp-question-editor></lp-question-editor>'
+      });
+    }
   }, 100);
 });
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/store/question.js":
-/*!************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/store/question.js ***!
-  \************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/store/question.js":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/store/question.js ***!
+  \**************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _getters_question__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../getters/question */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/getters/question.js");
-/* harmony import */ var _mutations_question__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../mutations/question */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/mutations/question.js");
-/* harmony import */ var _actions_question__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/question */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/apps/js/admin/editor/actions/question.js");
+/* harmony import */ var _getters_question__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../getters/question */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/getters/question.js");
+/* harmony import */ var _mutations_question__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../mutations/question */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/mutations/question.js");
+/* harmony import */ var _actions_question__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/question */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/editor/actions/question.js");
 
 
 
-var $ = window.jQuery;
+var $ = window.jQuery || jQuery;
 
 var Question = function Question(data) {
   var state = $.extend({

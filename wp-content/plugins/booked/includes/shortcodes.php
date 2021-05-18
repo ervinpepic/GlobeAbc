@@ -248,7 +248,7 @@ class BookedShortcodes {
 						if ($total_appts):
 							echo '<h4><span class="count">' . number_format($total_appts) . '</span> ' . _n('Upcoming Appointment','Upcoming Appointments',$total_appts,'booked') . '</h4>';
 						else:
-							echo '<p class="booked-no-margin">'.esc_html__('No upcoming sessions.','booked').'</p>';
+							echo '<p class="booked-no-margin">'.esc_html__('No upcoming appointments.','booked').'</p>';
 						endif;
 					endif;
 

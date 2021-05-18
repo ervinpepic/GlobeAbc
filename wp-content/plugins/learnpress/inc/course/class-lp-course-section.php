@@ -44,7 +44,7 @@ class LP_Course_Section extends LP_Abstract_Object_Data {
 				'section_order'       => 1,
 				'section_description' => '',
 				'position'            => 0,
-				'items'               => array()
+				'items'               => array(),
 			)
 		);
 
@@ -59,7 +59,7 @@ class LP_Course_Section extends LP_Abstract_Object_Data {
 			$this->_data[ $k ] = $v;
 		}
 
-		$this->_curd = new LP_Section_CURD(0);
+		$this->_curd = new LP_Section_CURD( 0 );
 		$this->set_id( $this->_data['id'] );
 		// Load section items
 		$this->_load_items();
@@ -76,19 +76,23 @@ class LP_Course_Section extends LP_Abstract_Object_Data {
 		}
 
 		// All items
-		if ( false === ( $items = LP_Object_Cache::get( 'section-' . $this->get_id(), 'learn-press/section-items' ) ) ) {
+		$items = LP_Object_Cache::get( 'section-' . $this->get_id(), 'learn-press/section-items' );
+		if ( false === $items ) {
 			$items = $this->_curd->read_items( $this->get_id() );
 			LP_Object_Cache::set( 'section-' . $this->get_id(), $items, 'learn-press/section-items' );
 		}
 
-		LP_Helper_CURD::cache_posts($items);
+		LP_Helper_CURD::cache_posts( $items );
 
 		foreach ( $items as $item ) {
-			// Create item
-			if ( $item_class = $this->_get_item( $item ) ) {
-				$item_class->set_course( $this->get_course_id() );
-				$item_class->set_section( $this );
-				$this->items[ $item ] = $item_class;
+			$item_class = $this->_get_item( $item );
+
+			if ( $item_class ) {
+				if ( $item_class instanceof LP_Course_Item ) {
+					$item_class->set_course( $this->get_course_id() );
+					$item_class->set_section( $this );
+					$this->items[ $item ] = $item_class;
+				}
 			}
 		}
 
@@ -115,9 +119,8 @@ class LP_Course_Section extends LP_Abstract_Object_Data {
 	/**
 	 * Get data to array.
 	 *
-	 * @since 3.0.0
-	 *
 	 * @return array
+	 * @since 3.0.0
 	 */
 	public function to_array() {
 		$data = array(
@@ -186,13 +189,17 @@ class LP_Course_Section extends LP_Abstract_Object_Data {
 	 * @return array
 	 */
 	public function get_items( $type = '', $preview = true ) {
+
+		/**
+		 * @var LP_Course_Item[] $items
+		 */
 		$items = apply_filters( 'learn-press/section-items', $this->items, $this );
 
 		if ( ! $items ) {
 			return $items;
 		}
 
-		if ( ! empty( $type ) ) {
+		if ( $type || ! $preview ) {
 			$filtered_items = array();
 
 			if ( $type ) {
@@ -207,8 +214,7 @@ class LP_Course_Section extends LP_Abstract_Object_Data {
 						continue;
 					}
 				}
-
-				if ( in_array( learn_press_get_post_type( $item->get_id() ), $type ) ) {
+				if ( ! $type || $type && in_array( learn_press_get_post_type( $item->get_id() ), $type ) ) {
 					$filtered_items[] = $item;
 				}
 			}
@@ -216,17 +222,14 @@ class LP_Course_Section extends LP_Abstract_Object_Data {
 			$items = $filtered_items;
 		}
 
-		//echo '<pre>'.print_r($items, true).'</pre>';die;
-
 		return $items;
 	}
 
 	/**
 	 * Get items in this section to array.
 	 *
-	 * @since 3.0.0
-	 *
 	 * @return array
+	 * @since 3.0.0
 	 */
 	public function get_items_array() {
 		$items = $this->get_items();
@@ -276,12 +279,14 @@ class LP_Course_Section extends LP_Abstract_Object_Data {
 	 */
 	public function has_item( $item_id ) {
 		$found = false;
+		$items = $this->get_items();
 
-		if ( $items = $this->get_items() ) {
+		if ( $items ) {
 			$found = ! empty( $items[ $item_id ] );
 		}
 
-		return apply_filters( 'learn-press/section-has-item', $found, $item_id, $this->get_id(), $this->get_course_id() );
+		return apply_filters( 'learn-press/section-has-item', $found, $item_id, $this->get_id(),
+			$this->get_course_id() );
 	}
 
 	public function get_slug() {
@@ -295,9 +300,15 @@ class LP_Course_Section extends LP_Abstract_Object_Data {
 			$class[] = 'section-empty';
 		}
 
-		$output = 'class="' . join( ' ', $class ) . '"';
+		$closed = learn_press_cookie_get( 'closed-section-' . $this->get_course_id() );
 
-		echo " " . $output;
+		if ( $closed && in_array( $this->get_id(), $closed ) ) {
+			$class[] = 'closed';
+		}
+
+		$output = 'class="' . implode( ' ', $class ) . '"';
+
+		echo ' ' . $output;
 
 		return $output;
 	}

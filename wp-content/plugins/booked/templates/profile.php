@@ -48,12 +48,12 @@ if (empty($user_data)) {
 			
 			$default_tabs = array(
 				'appointments' => array(
-					'title' => esc_html__('Upcoming Sessions','booked'),
+					'title' => esc_html__('Upcoming Appointments','booked'),
 					'booked-icon' => 'booked-calendar',
 					'class' => false
 				),
 				'history' => array(
-					'title' => esc_html__('Sessions History','booked'),
+					'title' => esc_html__('Appointment History','booked'),
 					'booked-icon' => 'booked-calendar-check-o',
 					'class' => false
 				),

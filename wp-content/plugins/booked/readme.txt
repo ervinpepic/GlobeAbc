@@ -1,12 +1,17 @@
 === Booked Classic ===
 Tags: appointment, appointments
 Requires at least: 4.7
-Tested up to: 5.5.1
+Tested up to: 5.7
 Requires PHP: 5.6
 
 Powerful appointment booking made simple.
 
 == Changelog ==
+
+= 2.3.5 =
+* **FIX:** Fixed an issue where checking custom fields as "required" would not stay checked.
+* **FIX:** Fixed the "What's New?" screen.
+* **FIX:** jQuery deprecation errors have been resolved.
 
 = 2.3 =
 * **TWEAK:** All add-ons are now part of the core Booked plugin. No need to install or keep those installed separately anymore. You can safely delete them from your Plugins page (they will be deactivated automatically when Booked is updated to 2.3+).

@@ -69,11 +69,11 @@ class Booked_FEA_Plugin
         $booked_fea_vars = [
             'ajax_url' => admin_url('admin-ajax.php'),
             'i18n_confirm_appt_delete' => __(
-                'Are you sure you want to cancel this session?',
+                'Are you sure you want to cancel this appointment?',
                 'booked'
             ),
             'i18n_confirm_appt_approve' => __(
-                'Are you sure you want to approve this session?',
+                'Are you sure you want to approve this appointment?',
                 'booked'
             ),
         ];
@@ -90,7 +90,7 @@ class Booked_FEA_Plugin
         $custom_tabs = [
             'fea_appointments' => [
                 'title' => __(
-                    'Upcoming Sessions',
+                    'Upcoming Appointments',
                     'booked'
                 ),
                 'booked-icon' => 'booked-icon-calendar',
@@ -98,21 +98,21 @@ class Booked_FEA_Plugin
             ],
             'fea_pending' => [
                 'title' =>
-                    __('Pending Sessions', 'booked') .
+                    __('Pending Appointments', 'booked') .
                     '<div class="counter"></div>',
                 'booked-icon' => 'booked-icon-clock',
                 'class' => false,
             ],
             'fea_history' => [
-                'title' => __('Sessions History', 'booked'),
+                'title' => __('Appointment History', 'booked'),
                 'booked-icon' => 'booked-icon-calendar',
                 'class' => false,
             ],
-            //  'edit' => [
-            //      'title' => __('Edit Profile', 'booked'),
-            //      'booked-icon' => 'booked-icon-pencil',
-            //      'class' => 'edit-button',
-            // ],
+            'edit' => [
+                'title' => __('Edit Profile', 'booked'),
+                'booked-icon' => 'booked-icon-pencil',
+                'class' => 'edit-button',
+            ],
         ];
 
         return $custom_tabs;

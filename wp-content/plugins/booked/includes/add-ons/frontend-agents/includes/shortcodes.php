@@ -53,21 +53,21 @@ class Booked_FEA_Shortcodes {
 
 					if ($pending):
 						if ($total_appts):
-							echo '<h4>'.sprintf(_n('%s Pending Sessions','%s Pending Sessions',$total_appts,'booked'),'<span class="count">'.number_format($total_appts).'</span>').'</h4>';
+							echo '<h4>'.sprintf(_n('%s Pending Appointment','%s Pending Appointments',$total_appts,'booked'),'<span class="count">'.number_format($total_appts).'</span>').'</h4>';
 						else:
-							echo '<p class="booked-no-margin">'.__('No pending sessions.','booked').'</p>';
+							echo '<p class="booked-no-margin">'.__('No pending appointments.','booked').'</p>';
 						endif;
 					elseif ($historic):
 						if ($total_appts):
-							echo '<h4>'.sprintf(_n('%s Past Session','%s Past Sessions',$total_appts,'booked'),'<span class="count">'.number_format($total_appts).'</span>').'</h4>';
+							echo '<h4>'.sprintf(_n('%s Past Appointment','%s Past Appointments',$total_appts,'booked'),'<span class="count">'.number_format($total_appts).'</span>').'</h4>';
 						else:
-							echo '<p class="booked-no-margin">'.__('No past sessions.','booked').'</p>';
+							echo '<p class="booked-no-margin">'.__('No past appointments.','booked').'</p>';
 						endif;	
 					else:
 						if ($total_appts):
-							echo '<h4>'.sprintf(_n('%s Upcoming Sessions','%s Upcoming Sessions',$total_appts,'booked'),'<span class="count">'.number_format($total_appts).'</span>').'</h4>';
+							echo '<h4>'.sprintf(_n('%s Upcoming Appointment','%s Upcoming Appointments',$total_appts,'booked'),'<span class="count">'.number_format($total_appts).'</span>').'</h4>';
 						else:
-							echo '<p class="booked-no-margin">'.__('No upcoming sessions.','booked').'</p>';
+							echo '<p class="booked-no-margin">'.__('No upcoming appointments.','booked').'</p>';
 						endif;
 					endif;
 				
@@ -188,7 +188,7 @@ class Booked_FEA_Shortcodes {
 						
 							echo $user_display;
 							echo '<br>';
-							if ($late_date > $date_to_compare): echo '<span class="late-appt">' . __('This sessions has passed.','booked') . '</span><br>'; endif;
+							if ($late_date > $date_to_compare): echo '<span class="late-appt">' . __('This appointment has passed.','booked') . '</span><br>'; endif;
 							if ($appt['calendar_id']): echo '<strong style="color:#000">'.$appt['calendar_id'][0]->name.'</strong><br>'; endif;
 							echo '<i class="booked-icon booked-icon-calendar"></i>'.$day_name.', '.$date_display;
 							echo '&nbsp;&nbsp;&nbsp;<i class="booked-icon booked-icon-clock"></i>'.$timeslotText;
@@ -233,7 +233,7 @@ class Booked_FEA_Shortcodes {
 
 		else :
 
-			return '<p>'.__('Please log in to view your upcoming sessions.','booked').'</p>';
+			return '<p>'.__('Please log in to view your upcoming appointments.','booked').'</p>';
 
 		endif;
 

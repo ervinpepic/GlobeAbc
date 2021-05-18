@@ -197,7 +197,7 @@ class BookedDashboardWidget {
 			endforeach;
 
 			echo '<div class="pending-appt'.(!empty($appointments_array) ? ' no-pending-message' : '').'">';
-				echo '<p style="text-align:center;">'.esc_html__('There are no upcoming sessions.','booked').'</p>';
+				echo '<p style="text-align:center;">'.esc_html__('There are no upcoming appointments.','booked').'</p>';
 			echo '</div>';
 
 		echo '</div>';

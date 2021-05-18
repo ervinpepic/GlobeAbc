@@ -14,10 +14,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class LP_REST_Response {
+	/**
+	 * Status.
+	 *
+	 * @var string.
+	 */
 	public $status = 'error';
+	/**
+	 * Message.
+	 *
+	 * @var string .
+	 */
 	public $message = '';
 	/**
-	 * @var array|object
+	 * Extra data
+	 *
+	 * @var object
 	 */
 	public $data;
+
+	/**
+	 * LP_REST_Response constructor.
+	 */
+	public function __construct() {
+		$this->data = new stdClass();
+	}
 }

@@ -79,18 +79,15 @@ function booked_parse_readme_changelog( $readme_url = false, $title = false ){
 
 	$readme = ( !$readme_url ? file_get_contents( BOOKED_PLUGIN_DIR . '/readme.txt') : file_get_contents( $readme_url ) );
 	$readme = make_clickable(esc_html($readme));
-	$readme = preg_replace('/`(.*?)`/', '<code>\\1</code>', $readme);
-	$readme = preg_replace( '/[\040]\*\*\NEW:\*\*/', '<strong class="new">' . esc_html__( 'New', 'booked' ) . '</strong>', $readme);
-	$readme = preg_replace( '/[\040]\*\*\TWEAK:\*\*/', '<strong class="tweak">' . esc_html__( 'Tweak', 'booked' ) . '</strong>', $readme);
-	$readme = preg_replace( '/[\040]\*\*\FIX:\*\*/', '<em class="fix">' . esc_html__( 'Fixed', 'booked' ) . '</em>', $readme);
-	$readme = preg_replace( '/[\040]\*\*\NEW\*\*/', '<strong class="new">' . esc_html__( 'New', 'booked' ) . '</strong>', $readme);
-	$readme = preg_replace( '/[\040]\*\*\TWEAK\*\*/', '<strong class="tweak">' . esc_html__( 'Tweak', 'booked' ) . '</strong>', $readme);
-	$readme = preg_replace( '/[\040]\*\*\FIX\*\*/', '<em class="fix">' . esc_html__( 'Fixed', 'booked' ) . '</em>', $readme);
-	$readme = preg_replace( '/\*\*(.*?)\*\*/', '<strong>\\1</strong>', $readme);
-	$readme = preg_replace( '/\*(.*?)\*/', '<em>\\1</em>', $readme);
+	$readme = preg_replace( '/`(.*?)`/', '<code>\\1</code>', $readme);
+
 	$readme = explode( '== Changelog ==', $readme );
 	$readme = explode( '== Upgrade Notice ==', $readme[1] );
 	$readme = $readme[0];
+
+	$readme = preg_replace( '/\*\*(.*?)\*\*/', '<strong>\\1</strong>', $readme);
+	$readme = preg_replace( '/\*(.*?)\*/', '<em>\\1</em>', $readme);
+
 	$whats_new_title = '<h3>' . ( $title ? esc_html( $title ) : apply_filters( 'booked_whats_new_title', esc_html__( "What's new?", "booked" ) ) ) . '</h3>';
 	$readme = preg_replace('/= (.*?) =/', $whats_new_title, $readme);
 	$readme = preg_replace("/\*+(.*)?/i","<ul class='booked-whatsnew-list'><li>$1</li></ul>",$readme);
@@ -98,6 +95,7 @@ function booked_parse_readme_changelog( $readme_url = false, $title = false ){
 	$readme = explode( $whats_new_title, $readme );
 	$readme = $whats_new_title . $readme[1];
 	return $readme;
+	
 
 }
 
@@ -320,13 +318,13 @@ function booked_render_time_between_select($select_name,$placeholder){
 
 function booked_render_count_select($select_name,$placeholder){
 
-	$total_spaces = 999999999999;
-	$counter = 999999999998;
+	$total_spaces = 100;
+	$counter = 0;
 
 	echo '<select name="'.$select_name.'">';
 		do {
 			$counter++;
-			echo '<option value="'.$counter.'"'.($counter == 999999999998 ? ' selected="selected"' : '').'>'.sprintf(_n('%d space available','%d spaces available',$counter,'booked'),$counter).'</option>';
+			echo '<option value="'.$counter.'"'.($counter == 1 ? ' selected="selected"' : '').'>'.sprintf(_n('%d space available','%d spaces available',$counter,'booked'),$counter).'</option>';
 		} while ($counter < $total_spaces);
 	echo '</select>';
 
@@ -1114,7 +1112,18 @@ function booked_render_custom_fields($calendar = false){
 			if (!empty($custom_fields)):
 
 				$look_for_subs = false;
+				$required_fields = [];
 
+				foreach($custom_fields as $field):
+				
+					$field_parts = explode('---',$field['name']);
+					$field_type = $field_parts[0];
+					if ( $field_type == 'required' && isset( $field_parts[1] ) && isset( $field['value'] ) && $field['value'] ):
+						$required_fields[] = $field_parts[1];
+					endif;
+				
+				endforeach;
+				
 				foreach($custom_fields as $field):
 
 					if ($look_for_subs):
@@ -1192,7 +1201,7 @@ function booked_render_custom_fields($calendar = false){
 					$field_type = $field_parts[0];
 					$end_of_string = explode('___',$field_parts[1]);
 					$numbers_only = $end_of_string[0];
-					$is_required = (isset($end_of_string[1]) ? true : false);
+					$is_required = in_array( $numbers_only, $required_fields );
 
 					switch($field_type):
 

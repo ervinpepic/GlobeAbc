@@ -153,6 +153,16 @@ class Booked_WC_Functions {
 
 		// handle the custom fields data
 		$has_product = false;
+		
+		foreach($custom_fields as $field):
+
+			$field_parts = explode('---',$field['name']);
+			$field_type = $field_parts[0];
+			if ( $field_type == 'required' && isset( $field_parts[1] ) && isset( $field['value'] ) && $field['value'] ):
+				$required_fields[] = $field_parts[1];
+			endif;
+		
+		endforeach;
 
 		foreach($custom_fields as $key => $field) {
 			$field_name = $field['name'];
@@ -175,7 +185,7 @@ class Booked_WC_Functions {
 
 			$end_of_string = explode('___',$field_parts[1]);
 			$numbers_only = $end_of_string[0];
-			$is_required = (isset($end_of_string[1]) ? true : false);
+			$is_required = in_array( $numbers_only, $required_fields );
 
 			// set product title
 			$custom_field_data[$key]['value'] = esc_html($product->title);
@@ -290,6 +300,16 @@ class Booked_WC_Functions {
 		$submission_values = array();
 		$previous_field = false;
 		$is_product = false;
+		
+		foreach($custom_fields as $field):
+
+			$field_parts = explode('---',$field['name']);
+			$field_type = $field_parts[0];
+			if ( $field_type == 'required' && isset( $field_parts[1] ) && isset( $field['value'] ) && $field['value'] ):
+				$required_fields[] = $field_parts[1];
+			endif;
+		
+		endforeach;
 
 		foreach($custom_fields as $field) {
 			$field_name = $field['name'];
@@ -348,7 +368,7 @@ class Booked_WC_Functions {
 
 			$end_of_string = explode('___',$field_parts[1]);
 			$numbers_only = $end_of_string[0];
-			$is_required = (isset($end_of_string[1]) ? true : false);
+			$is_required = in_array( $numbers_only, $required_fields );
 
 			// set product title
 			$submission_values[$current_group_name] = esc_html($product->title);

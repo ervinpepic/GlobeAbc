@@ -1,26 +1,26 @@
 <?php
 /**
- * Template for displaying content of lesson.
+ * Template for displaying description of lesson.
  *
- * This template can be overridden by copying it to yourtheme/learnpress/content-lesson/content.php.
+ * This template can be overridden by copying it to yourtheme/learnpress/content-lesson/description.php.
  *
  * @author   ThimPress
  * @package  Learnpress/Templates
- * @version  3.0.1
+ * @version  4.0.0
  */
 
-/**
- * Prevent loading this file directly
- */
 defined( 'ABSPATH' ) || exit();
-if ( ! isset( $item ) || ! isset( $content ) ) {
-	return;
-}
 
-// lesson no content
+$content = $lesson->get_content();
+
 if ( ! $content ) {
-	learn_press_get_template( 'content-lesson/no-content.php', array( 'lesson' => $item ) );
+	$message = esc_html__( 'Lesson content is empty.', 'learnpress' );
 
+	if ( $lesson->current_user_can_edit() ) {
+		$message .= sprintf( '<a href="%s" class="edit-content">%s</a>', $lesson->get_edit_link(), esc_html__( 'Edit', 'learnpress' ) );
+	}
+
+	learn_press_display_message( $message, 'notice' );
 	return;
 }
 ?>

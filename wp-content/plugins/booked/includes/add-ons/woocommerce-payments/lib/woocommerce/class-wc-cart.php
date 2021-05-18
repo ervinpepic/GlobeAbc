@@ -281,7 +281,7 @@ class Booked_WC_Cart_Hooks {
 	public static function woocommerce_remove_missing_appointment_products() {
 
 		$cart = WC()->cart;
-		if ( !method_exists($cart, 'remove_cart_item') || !method_exists($cart, 'get_cart') ) {
+		if ( !is_object( $cart ) || is_object( $cart ) && !method_exists($cart, 'remove_cart_item') || is_object( $cart ) && !method_exists($cart, 'get_cart') ) {
 			return;
 		}
 

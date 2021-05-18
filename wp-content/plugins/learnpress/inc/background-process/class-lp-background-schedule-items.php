@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'LP_Background_Schedule_Items' ) ) {
 	/**
@@ -19,7 +17,7 @@ if ( ! class_exists( 'LP_Background_Schedule_Items' ) ) {
 		/**
 		 * @var string
 		 */
-		protected $action = 'lp_schedule_items';
+		protected $action = 'schedule_items';
 
 		/**
 		 * @var string
@@ -32,79 +30,94 @@ if ( ! class_exists( 'LP_Background_Schedule_Items' ) ) {
 		 */
 		public function __construct() {
 			parent::__construct();
+
+			add_action( 'learn_press_schedule_items', array( $this, 'xxx' ) );
+
 		}
 
-		public function test() {
-			$this->task( 0 );
+		public function xxx() {
+			$this->run();
+
+			$t = date( 'H.i.s' );
+			sleep( 15 );
+		}
+
+		public function cron_schedules( $schedules ) {
+			$schedules['lp_cron_schedule'] = array(
+				'interval' => 15,
+				'display'  => __( 'Every 3 Minutes', 'learnpress' ),
+			);
+
+			return $schedules;
 		}
 
 		/**
+		 * Run
+		 */
+		public function run() {
+			if ( ! $this->has_queued() ) {
+				$this->push_to_queue(
+					array( 'x' => 100 )
+				)->save()->dispatch();
+			} else {
+				$this->dispatch();
+			}
+		}
+
+		/**
+		 * Update user-item status.
+		 * This function called in background by schedule event.
+		 *
 		 * @param mixed $data
 		 *
+		 * @editor tungnx
+		 * @reason not use
+		 *
 		 * @return bool
+		 * @since 3.3.0
+		 *
 		 */
-		protected function task( $data ) {
-			parent::task( $data );
+		/*protected function task( $data ) {
 
-			$x = ! empty( $_REQUEST['xxx'] );
-			if ( $x ) {
-				$this->_get_items();
-				if ( ! $items = get_transient( $this->transient_key ) ) {
-					return false;
-				}
+			$settings = LP_Settings::instance();
 
-				$curd = new LP_User_CURD();
-
-				foreach ( $items as $course_item_id => $item_data ) {
-
-					if ( ! $item_course = $curd->get_user_item_course( $course_item_id ) ) {
-						continue;
-					}
-
-					$course_exceeded = $item_course->is_exceeded() <= 0;
-
-					if ( ! empty( $item_data ) ) {
-						foreach ( $item_data as $user_item_id ) {
-
-							if ( ! $user_item = $item_course->get_item_by_user_item_id( $user_item_id ) ) {
-								continue;
-							}
-							switch ( $user_item->get_post_type() ) {
-								case LP_QUIZ_CPT:
-									if ( $user_item->get_status() == 'started' ) {
-										if ( ( $item_course->is_finished() || $course_exceeded ) || $user_item->is_exceeded() <= 0 ) {
-											$user_item->complete();
-										}
-									}
-									break;
-								case LP_LESSON_CPT:
-									if ( $user_item->is_exceeded() <= 0 ) {
-										$user_item->complete();
-									}
-									break;
-								default:
-									do_action( 'learn-press/schedule/auto-complete-item', $user_item_id );
-							}
-						}
-					}
-
-					if ( ( ( $exceeded = $item_course->is_exceeded() ) <= 0 ) && ( $item_course->get_status() === 'enrolled' ) ) {
-						$item_course->finish();
-
-						$start_time = $item_course->get_start_time()->getTimestamp();
-						$duration   = $item_course->get_course()->get_duration();
-
-						learn_press_update_user_item_meta( $item_course->get_user_item_id(), 'via', 'schedule' );
-						learn_press_update_user_item_meta( $item_course->get_user_item_id(), 'exceeded', $exceeded );
-					}
-				}
-
-				remove_action( 'shutdown', array( $this, 'dispatch_queue' ) );
+			// If option auto finish course is turn off.
+			if ( 'yes' !== $settings->get( 'auto_finish_course', 'yes' ) ) {
+				die();
 			}
-			//LP_Debug::instance()->add( 'Auto completing item', 'auto-complete-items', false, true );
+
+			$curd = new LP_User_CURD();
+
+			// Get all courses in user-items are in-progress but has expired
+			$course_items = $curd->get_courses(
+				array(
+					'status'        => 'in-progress',
+					'expired'       => true,
+					'paginate'      => false,
+					'no_join_users' => true,
+					'limit'         => 100,
+				)
+			);
+
+			if ( ! $course_items ) {
+				die();
+			}
+
+			// Force auto completing course items if turn on.
+			$complete_items = 'yes' === $settings->get( 'force_complete_course_items', 'yes' );
+
+			// Cron-job auto finish course when expiration time (nhamdv).
+			foreach ( $course_items as $course_item ) {
+				$user        = learn_press_get_user( $course_item->user_id );
+				$course_data = $user->get_course_data( $course_item->course_id );
+
+				$finished = $course_data->finish( $complete_items );
+
+				learn_press_update_user_item_meta( $finished, 'finishing_type', 'exceeded' );
+			}
 
 			return false;
-		}
+		}*/
 
 		/**
 		 * Get the items.
@@ -116,19 +129,27 @@ if ( ! class_exists( 'LP_Background_Schedule_Items' ) ) {
 			$queued_items      = get_transient( $this->transient_key );
 			$queued_course_ids = $queued_items ? array_keys( $queued_items ) : false;
 			$queued_course_ids = array_unique( $queued_course_ids );
-			$exclude_items     = $queued_course_ids ? "AND user_item_id NOT IN(" . join( ',', $queued_course_ids ) . ")" : '';
+			$exclude_items     = $queued_course_ids ? 'AND user_item_id NOT IN(' . join( ',',
+					$queued_course_ids ) . ')' : '';
 
 			$null_time = '0000-00-00 00:00:00';
-			$query     = $wpdb->prepare( "
+			$query     = $wpdb->prepare(
+				"
 				SELECT user_item_id, user_id
 				FROM {$wpdb->learnpress_user_items}
 				WHERE item_type = %s
 				AND ( end_time IS NULL OR end_time = %s OR status <> %s )
 				{$exclude_items}
 				LIMIT 0, 1
-			", LP_COURSE_CPT, $null_time, 'finished' );
+			",
+				LP_COURSE_CPT,
+				$null_time,
+				'finished'
+			);
 
-			if ( ! $item_courses = $wpdb->get_results( $query ) ) {
+			$item_courses = $wpdb->get_results( $query );
+
+			if ( ! $item_courses ) {
 				return false;
 			}
 
@@ -140,22 +161,28 @@ if ( ! class_exists( 'LP_Background_Schedule_Items' ) ) {
 			$format            = array_fill( 0, sizeof( $course_item_types ), '%s' );
 			$args              = $course_item_types;
 			$new_items         = array();
+
 			die();
+
 			foreach ( $item_courses as $item_course ) {
 				$new_items[ $item_course->user_item_id ] = array();
 
 				$args['end_time'] = $null_time;
 				$args['status']   = 'completed';
 				$args['parent']   = $item_course->user_item_id;
-				$query            = $wpdb->prepare( "
+				$query            = $wpdb->prepare(
+					"
 					SELECT user_item_id
 					FROM {$wpdb->learnpress_user_items}
-					WHERE item_type IN(" . join( ',', $format ) . ")
+					WHERE item_type IN(" . join( ',', $format ) . ')
 					AND ( end_time IS NULL OR end_time = %s OR status <> %s )
 					AND parent_id = %d
-				", $args );
+				',
+					$args
+				);
 
-				if ( $item_course_items = $wpdb->get_col( $query ) ) {
+				$item_course_items = $wpdb->get_col( $query );
+				if ( $item_course_items ) {
 					$new_items[ $item_course->user_item_id ] = $item_course_items;
 				}
 			}
@@ -178,11 +205,13 @@ if ( ! class_exists( 'LP_Background_Schedule_Items' ) ) {
 		 */
 		protected function finish_course( $item ) {
 
-			if ( ! $item_course = new LP_User_Item_Course( $item ) ) {
+			$item_course = new LP_User_Item_Course( $item );
+			if ( ! $item_course ) {
 				return;
 			}
 
-			if ( ! $user = $item_course->get_user() ) {
+			$user = $item_course->get_user();
+			if ( ! $user ) {
 				return;
 			}
 
@@ -192,12 +221,15 @@ if ( ! class_exists( 'LP_Background_Schedule_Items' ) ) {
 		 * @param array $item
 		 */
 		protected function complete_lesson( $item ) {
+			$item_course = new LP_User_Item_Course( $item );
 
-			if ( ! $item_course = new LP_User_Item_Course( $item ) ) {
+			if ( ! $item_course ) {
 				return;
 			}
 
-			if ( $user = $item_course->get_user() ) {
+			$user = $item_course->get_user();
+
+			if ( $user ) {
 				return;
 			}
 
@@ -221,4 +253,5 @@ if ( ! class_exists( 'LP_Background_Schedule_Items' ) ) {
 		}
 	}
 }
+
 return LP_Background_Schedule_Items::instance();

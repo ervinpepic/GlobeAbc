@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class LP_Settings
  *
@@ -10,10 +9,6 @@
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-}
-
-if ( class_exists( 'LP_Settings' ) ) {
-	return;
 }
 
 class LP_Settings {
@@ -35,14 +30,13 @@ class LP_Settings {
 	/**
 	 * @var bool
 	 */
-	static protected $_instance = false;
+	protected static $_instance = false;
 
 	/**
 	 * Constructor.
 	 *
 	 * @param array|mixed $data
-	 * @param string $prefix
-	 *
+	 * @param string      $prefix
 	 */
 	protected function __construct( $data = false, $prefix = 'learn_press_' ) {
 
@@ -55,14 +49,6 @@ class LP_Settings {
 			settype( $data, 'array' );
 			$this->_options = $data;
 		}
-		self::load_site_options();
-		//add_action( 'init', array( $this, 'init' ) );
-	}
-
-	public function init() {
-
-		//LP_Background_Global::add( 'load-site-options', '', array( __CLASS__, 'load_site_options' ) );
-		//LP_Settings::load_site_options();
 	}
 
 	/**
@@ -83,17 +69,18 @@ class LP_Settings {
 	 * @param bool $force
 	 */
 	protected function _load_options( $force = false ) {
-
-		//$this->_options = wp_load_alloptions();
-
 		global $wpdb;
-		$query = $wpdb->prepare( "
+		$query = $wpdb->prepare(
+			"
 			SELECT option_name, option_value
 			FROM {$wpdb->options}
-			WHERE option_name LIKE %s
-		", $wpdb->esc_like( $this->_prefix ) . '%' );
+			WHERE option_name LIKE %s",
+			$wpdb->esc_like( $this->_prefix ) . '%'
+		);
 
-		if ( $options = $wpdb->get_results( $query ) ) {
+		$options = $wpdb->get_results( $query );
+
+		if ( $options ) {
 			foreach ( $options as $option ) {
 				$this->_options[ $option->option_name ] = LP_Helper::maybe_unserialize( $option->option_value );
 			}
@@ -145,7 +132,7 @@ class LP_Settings {
 	 * Get option recurse separated by DOT
 	 *
 	 * @param string $var
-	 * @param mixed $default
+	 * @param mixed  $default
 	 *
 	 * @return mixed
 	 */
@@ -157,8 +144,10 @@ class LP_Settings {
 		if ( $this->_prefix && strpos( $var, $this->_prefix ) === false ) {
 			$var = $this->_prefix . $var;
 		}
+
 		$segs   = explode( '.', $var );
 		$return = $this->_get_option( $this->_options, $var, $default );
+
 		if ( $return == '' || is_null( $return ) ) {
 			$return = $default;
 		}
@@ -221,7 +210,7 @@ class LP_Settings {
 	 * Update option with default prefix is learn_press_
 	 *
 	 * @param string $name
-	 * @param mixed $value
+	 * @param mixed  $value
 	 * @param string $prefix
 	 */
 	public static function update_option( $name, $value, $prefix = 'learn_press_' ) {
@@ -232,14 +221,13 @@ class LP_Settings {
 	 * Get option with default prefix is learn_press_
 	 *
 	 * @param string $name
-	 * @param mixed $default
+	 * @param mixed  $default
 	 *
 	 * @return mixed
 	 * @since 3.2.8
 	 * @editor tungnx
-	 *
 	 */
-	public static function get_option( $name, $default = false ) {
+	public static function get_option( $name = '', $default = false ) {
 		return get_option( "learn_press_{$name}", $default );
 	}
 
@@ -264,7 +252,11 @@ class LP_Settings {
 	 * Load all 'no' options from other plugins for caching purpose.
 	 *
 	 * @since 3.0.0
+	 * @deprecated 4.0.0
+	 * @editor tungnx
+	 * @reason not use
 	 */
+	/*
 	public static function load_site_options() {
 		static $loaded = false;
 
@@ -308,14 +300,14 @@ class LP_Settings {
 			'pmpro_hide_footer_link',
 			'learn-press-flush-rewrite-rules',
 			'_lp_tabs_data',
-			'learn_press_permalinks'
+			'learn_press_permalinks',
 		);
 		global $wpdb;
 
 		$format = array_fill( 0, sizeof( $options ), '%s' );
 		$q      = $wpdb->prepare( "
-			SELECT option_name, option_value 
-			FROM $wpdb->options 
+			SELECT option_name, option_value
+			FROM $wpdb->options
 			WHERE 1
 			AND option_name IN(" . join( ',', $format ) . ")
 		", $options );
@@ -337,23 +329,26 @@ class LP_Settings {
 
 		wp_cache_set( 'notoptions', $notoptions, 'options' );
 		$loaded = true;
-	}
+	}*/
 
 	/**
 	 * Get settings endpoints for checkout page.
 	 *
 	 * @return array
 	 * @since 3.0.0
-	 *
 	 */
 	public function get_checkout_endpoints() {
-		if ( false === ( $endpoints = LP_Object_Cache::get( 'checkout', 'learn-press-endpoints' ) ) ) {
+		$endpoints = LP_Object_Cache::get( 'checkout', 'learn-press-endpoints' );
+
+		if ( false === $endpoints ) {
 			$defaults = array(
-				'lp-order-received' => 'lp-order-received'
+				'lp-order-received' => 'lp-order-received',
 			);
 
 			$endpoints = array();
-			if ( $settings = LP()->settings->get( 'checkout_endpoints' ) ) {
+			$settings  = LP()->settings->get( 'checkout_endpoints' );
+
+			if ( $settings ) {
 				foreach ( $settings as $k => $v ) {
 					$k               = preg_replace( '!_!', '-', $k );
 					$endpoints[ $k ] = $v;
@@ -377,14 +372,16 @@ class LP_Settings {
 	 *
 	 * @return array
 	 * @since 3.0.0
-	 *
 	 */
 	public function get_profile_endpoints() {
-		if ( false === ( $endpoints = LP_Object_Cache::get( 'profile', 'learn-press-endpoints' ) ) ) {
-			$defaults = array();
+		$endpoints = LP_Object_Cache::get( 'profile', 'learn-press-endpoints' );
 
+		if ( false === $endpoints ) {
+			$defaults  = array();
 			$endpoints = array();
-			if ( $settings = LP()->settings->get( 'profile_endpoints' ) ) {
+
+			$settings = LP()->settings->get( 'profile_endpoints' );
+			if ( $settings ) {
 				foreach ( $settings as $k => $v ) {
 					$k               = preg_replace( '!_!', '-', $k );
 					$endpoints[ $k ] = $v;
@@ -406,6 +403,8 @@ class LP_Settings {
 
 if ( ! function_exists( 'lp_settings' ) ) {
 	/**
+	 * Instance lp setting
+	 *
 	 * @return LP_Settings|null
 	 */
 	function lp_settings() {

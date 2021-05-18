@@ -6,7 +6,7 @@
  *
  * @author  ThimPress
  * @package LearnPress/Templates
- * @version 3.0.1
+ * @version 3.0.0
  */
 
 /**
@@ -71,11 +71,10 @@ if ( ! $items ) {
 	</thead>
 	<tbody>
 	<?php
-	foreach ( $items as $item_id => $item ):
+	foreach ( $items as $item_id => $item ) :
 		if ( ! isset( $item['course_id'] ) ) {
 			continue;
 		}
-
 		$course = apply_filters( 'learn-press/email-order-item-course', learn_press_get_course( $item['course_id'] ), $item );
 
 		?>

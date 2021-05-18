@@ -1,7 +1,7 @@
 ( function( $ ) {
 	'use strict';
 
-	var UserProfile = function( args ) {
+	const UserProfile = function( args ) {
 		this.view = new UserProfile.View( {
 			model: new UserProfile.Model( args ),
 		} );
@@ -12,6 +12,7 @@
 			'click #lp-remove-upload-photo': '_removePhoto',
 			'click #lp-upload-photo': '_upload',
 			'click .lp-cancel-upload': '_cancel',
+			'click .lp-save-upload': '_save',
 		},
 		el: '#lp-user-edit-avatar',
 		uploader: null,
@@ -19,11 +20,44 @@
 			_.bindAll( this, 'filesAdded', 'uploadProgress', 'uploadError', 'fileUploaded', 'crop' );
 			this._getUploader();
 		},
+		_save( e ) {
+			e.preventDefault();
+			const self = this;
+			$.ajax( {
+				url: '?lp-ajax=save-uploaded-user-avatar',
+				data: this.$( '.lp-avatar-crop-image' ).serializeJSON(),
+				type: 'post',
+				success( response ) {
+					response = LP.parseJSON( response );
+					if ( ! response.success ) {
+						return;
+					}
+
+					self.$( '.lp-avatar-crop-image' ).remove();
+
+					$( '.lp-user-profile-avatar' ).html( response.avatar );
+
+					self.$().attr( 'data-custom', 'yes' );
+					self.$( '.profile-picture' ).toggleClass( 'profile-avatar-current' ).filter( '.profile-avatar-current' ).html( response.avatar );
+				},
+			} );
+		},
+		$( selector ) {
+			return selector ? $( this.$el ).find( selector ) : $( this.$el );
+		},
 		_removePhoto( e ) {
 			e.preventDefault();
-			this.$( '.profile-picture' ).toggle().filter( '.profile-avatar-current' ).remove();
-			this.$( '#lp-remove-upload-photo' ).hide();
+
+			// eslint-disable-next-line no-alert
+			if ( ! confirm( 'Are you sure?' ) ) {
+				return;
+			}
+
+			this.$().removeAttr( 'data-custom' );
+			this.$( '.profile-picture' ).toggleClass( 'profile-avatar-current' );
 			this.$( '#submit' ).prop( 'disabled', false );
+
+			$( '.lp-user-profile-avatar' ).html( this.$( '.profile-avatar-current' ).find( 'img' ).clone() );
 		},
 		_upload( e ) {
 			e.preventDefault();
@@ -53,7 +87,7 @@
 				response = LP.parseJSON( info.response );
 			if ( response.url ) {
 				this.avatar = response.url;
-				$( '<img/>' ) // Make in memory copy of image to avoid css issues
+				$( '<img/>' )
 					.attr( 'src', response.url )
 					.load( function() {
 						that.model.set( $.extend( response, {
@@ -103,7 +137,8 @@
 		const self = this,
 			data = $view.model.toJSON(),
 			$crop = $( LP.template( 'tmpl-crop-user-avatar' )( data ) );
-		$crop.appendTo( $view.$( '.lp-avatar-preview' ).addClass( 'croping' ) );
+		$crop.appendTo( $view.$( '#profile-avatar-uploader' ) );
+
 		$view.$crop = $crop;
 		let $img = $crop.find( 'img' ),
 			wx = 0,
@@ -111,7 +146,8 @@
 			lx = 0,
 			tx = 0,
 			nw = 0,
-			nh = 0;
+			nh = 0,
+			maxWidth = 870;
 		this.initCrop = function() {
 			const r1 = data.viewWidth / data.viewHeight,
 				r2 = data.width / data.height;
@@ -175,8 +211,9 @@
 				slide( e, ui ) {
 					nw = wx + ( ui.value / 100 ) * data.width * 2;
 					nh = hx + ( ui.value / 100 ) * data.height * 2;
-					let nl = data.viewWidth / 2 - ( nw * dd ), // parseInt((data.viewWidth - nw) / 2),
-						nt = data.viewHeight / 2 - nh * bb;//parseInt((data.viewHeight - nh) / 2);
+					let nl = data.viewWidth / 2 - ( nw * dd ),
+						nt = data.viewHeight / 2 - nh * bb;
+
 					if ( nl > 0 ) {
 						nl = 0;
 					}
@@ -185,6 +222,7 @@
 					}
 					const xx = parseInt( data.viewWidth - nw ),
 						yy = parseInt( data.viewHeight - nh );
+
 					if ( xx > nl ) {
 						nl = lx = xx;
 					}
@@ -227,7 +265,8 @@
 			$crop.find( 'input[name^="lp-user-avatar-crop"]' ).each( function() {
 				const $input = $( this ),
 					name = $input.data( 'name' );
-				if ( name != 'name' ) {
+
+				if ( name != 'name' && cropData[ name ] !== undefined ) {
 					$input.val( cropData[ name ] );
 				}
 			} );
@@ -240,6 +279,7 @@
 			data = $form.serialize();
 		$form.find( '.learn-press-error, .learn-press-notice, .learn-press-message' ).fadeOut();
 		$form.find( 'input' ).attr( 'disabled', true );
+
 		LP.doAjax( {
 			data: {
 				'lp-ajax': 'login',
@@ -249,7 +289,7 @@
 				LP.showMessages( response.message, $form, 'LOGIN_ERROR' );
 				if ( response.result == 'error' ) {
 					$form.find( 'input' ).attr( 'disabled', false );
-					$( '#learn-press-form-login input[type="text"]' ).focus();
+					$( '#learn-press-form-login input[type="text"]' ).trigger( 'focus' );
 				}
 				if ( response.redirect ) {
 					LP.reload( response.redirect );
@@ -258,9 +298,10 @@
 			error() {
 				LP.showMessages( '', $form, 'LOGIN_ERROR' );
 				$form.find( 'input' ).attr( 'disabled', false );
-				$( '#learn-press-form-login input[type="text"]' ).focus();
+				$( '#learn-press-form-login input[type="text"]' ).trigger( 'focus' );
 			},
 		} );
+
 		return false;
 	} );
 
@@ -268,11 +309,13 @@
 		e.preventDefault();
 		const _this = $( this ),
 			_href = _this.attr( 'href' );
+
 		LP.alert( learn_press_js_localize.confirm_cancel_order, function( confirm ) {
 			if ( confirm ) {
 				window.location.href = _href;
 			}
 		} );
+
 		return false;
 	} );
 
@@ -307,52 +350,101 @@
 				$form.find( '#submit' ).prop( 'disabled', ! match || ! $oldPass.val() || ! $newPass.val() || ! $confirmPass.val() );
 			} );
 		}
+
 		const args = {};
 		if ( typeof lpProfileUserSettings !== 'undefined' ) {
 			args.viewWidth = parseInt( lpProfileUserSettings.avatar_size.width );
 			args.viewHeight = parseInt( lpProfileUserSettings.avatar_size.height );
 		}
-		// avatar
+
 		new UserProfile( args );
 
 		Profile.recoverOrder();
+	} ).on( 'click', '.btn-load-more-courses', function( event ) {
+		const $button = $( this );
+		let paged = $button.data( 'paged' ) || 1;
+		const pages = $button.data( 'pages' ) || 1;
+		const container = $button.data( 'container' );
+		const $container = $( '#' + container );
+		let url = $button.data( 'url' );
+
+		paged++;
+		$button.data( 'paged', paged ).prop( 'disabled', true ).removeClass( 'btn-ajax-off' ).addClass( 'btn-ajax-on' );
+
+		if ( ! url ) {
+			const seg = window.location.href.split( '?' );
+
+			if ( seg[ 0 ].match( /\/([0-9]+)\// ) ) {
+				url = seg[ 0 ].replace( /\/([0-9]+)\//, paged );
+			} else {
+				url = seg[ 0 ] + paged;
+			}
+
+			if ( seg[ 1 ] ) {
+				url += '?' + seg[ 1 ];
+			}
+		} else {
+			url = url.addQueryVar( 'current_page', paged );
+		}
+
+		$.ajax( {
+			url,
+			data: $button.data( 'args' ),
+			success( response ) {
+				$container.append( $( response ).find( '#' + container ).children() );
+
+				if ( paged >= pages ) {
+					$button.remove();
+				} else {
+					$button.prop( 'disabled', false ).removeClass( 'btn-ajax-on' ).addClass( 'btn-ajax-off' );
+				}
+			},
+		} );
 	} );
 
-	var Profile = {
+	const Profile = {
 		recoverOrder( e ) {
 			const $wrap = $( '.order-recover' ),
 				$buttonRecoverOrder = $wrap.find( '.button-recover-order' ),
 				$input = $wrap.find( 'input[name="order-key"]' );
 
-			function recoverOrder() {
-				$buttonRecoverOrder.addClass( 'disabled' ).attr( 'disabled', 'disabled' );
+			const recoverOrder = () => {
 				$wrap.find( '.learn-press-message' ).remove();
+
+				$( '.profile-recover-order' ).find( '.learn-press-message' ).remove();
+
 				$.post( {
 					url: '',
 					data: $wrap.serializeJSON(),
+					beforeSend() {
+						$buttonRecoverOrder.addClass( 'loading' ).attr( 'disabled', 'disabled' );
+					},
 					success( response ) {
 						response = LP.parseJSON( response );
 
 						if ( response.message ) {
 							const $msg = $( '<div class="learn-press-message icon"><i class="fa"></i> ' + response.message + '</div>' );
+
 							if ( response.result == 'error' ) {
 								$msg.addClass( 'error' );
 							}
-							$wrap.prepend( $msg );
+
+							$wrap.before( $msg );
 						}
 
 						if ( response.redirect ) {
 							window.location.href = response.redirect;
 						}
-						$buttonRecoverOrder.removeClass( 'disabled' ).removeAttr( 'disabled', '' );
+
+						$buttonRecoverOrder.removeClass( 'loading' ).removeAttr( 'disabled', '' );
+					},
+					error() {
+						$buttonRecoverOrder.removeClass( 'loading' ).removeAttr( 'disabled', '' );
 					},
 				} );
-			}
+			};
 
 			$buttonRecoverOrder.on( 'click', recoverOrder );
-			$input.on( 'change', function() {
-				$buttonRecoverOrder.prop( 'disabled', ! this.value );
-			} );
 		},
 	};
 }( jQuery ) );

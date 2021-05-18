@@ -2,7 +2,8 @@
 /**
  * Template for displaying course students within the loop.
  *
- * This template can be overridden by copying it to yourtheme/learnpress/loop/course/students.php.
+ * Do not use in LP4.
+ * Will remove after LearnPress and Eduma and all guest update 4.0.0
  *
  * @author  ThimPress
  * @package  Learnpress/Templates
@@ -17,4 +18,8 @@ defined( 'ABSPATH' ) || exit();
 $course = LP_Global::course();
 ?>
 
+<span class="course-students">
 
+	<?php echo $course->get_students_html(); ?>
+
+</span>

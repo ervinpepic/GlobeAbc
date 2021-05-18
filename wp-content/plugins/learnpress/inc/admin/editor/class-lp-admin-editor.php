@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class LP_Admin_Editor
  *
@@ -25,7 +24,6 @@ class LP_Admin_Editor {
 	 * @return bool|mixed
 	 */
 	public static function get( $type ) {
-
 		if ( empty( self::$editors[ $type ] ) ) {
 			$suffix = preg_replace( '~\s+~', '_', ucfirst( str_replace( '-', ' ', $type ) ) );
 			$class  = "LP_Admin_Editor_{$suffix}";
@@ -48,7 +46,7 @@ class LP_Admin_Editor {
 		$callback = array( $this, $func );
 
 		if ( is_callable( $callback ) ) {
-			//LP_Hard_Cache::flush();
+			LP_Hard_Cache::flush();
 
 			return call_user_func_array( $callback, $args );
 		}

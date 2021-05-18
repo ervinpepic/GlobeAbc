@@ -45,7 +45,7 @@ interface LP_Interface_CURD {
 	 * Duplicate item and insert to database
 	 *
 	 * @param       $object
-	 * @param array $args
+	 * @param array  $args
 	 *
 	 * @return mixed
 	 */
@@ -143,19 +143,22 @@ class LP_Object_Data_CURD {
 
 		$object_id = is_object( $object ) ? $object->get_id() : $object;
 
-		/*** TEST CACHE ***/
+		/*** TEST CACHE */
 		return false;
 		if ( false === ( $meta_data = LP_Object_Cache::get( $object_id, 'learn-press/object-meta' ) ) ) {
 			$id_column        = ( 'user' == $this->_meta_type ) ? 'umeta_id' : 'meta_id';
 			$object_id_column = $this->_meta_type . '_id';
 			$table            = _get_meta_table( $this->_meta_type );
 
-			$query     = $wpdb->prepare( "
+			$query     = $wpdb->prepare(
+				"
 				SELECT {$id_column} as meta_id, meta_key, meta_value
 				FROM {$table}
 				WHERE {$object_id_column} = %d
 				ORDER BY {$id_column}
-			", $object_id );
+			",
+				$object_id
+			);
 			$meta_data = $wpdb->get_results( $query );
 
 			LP_Object_Cache::set( $object_id, $meta_data, 'learn-press/object-meta' );
@@ -232,8 +235,9 @@ class LP_Object_Data_CURD {
 	 * => $wpdb->prepare($sql, $one, $two, $three, $four, $file)
 	 *
 	 * @return string
+	 * @editor tungnx - comment method
 	 */
-	public function prepare( $query, $args ) {
+	/*public function prepare( $query, $args ) {
 		global $wpdb;
 		$args = func_get_args();
 		array_shift( $args );
@@ -248,5 +252,5 @@ class LP_Object_Data_CURD {
 		}
 
 		return $wpdb->prepare( $query, $new_args );
-	}
+	}*/
 }

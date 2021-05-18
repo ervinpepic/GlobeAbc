@@ -81,15 +81,86 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/js/utils/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/index.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/js/utils/event-callback.js":
-/*!************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/js/utils/event-callback.js ***!
-  \************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/cookies.js":
+/*!*******************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/cookies.js ***!
+  \*******************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var Cookies = {
+  get: function get(name, def, global) {
+    var ret;
+
+    if (global) {
+      ret = wpCookies.get(name);
+    } else {
+      var ck = wpCookies.get('LP');
+
+      if (ck) {
+        ck = JSON.parse(ck);
+        ret = name ? ck[name] : ck;
+      }
+    }
+
+    if (!ret && ret !== def) {
+      ret = def;
+    }
+
+    return ret;
+  },
+  set: function set(name, value, expires, path, domain, secure) {
+    if (arguments.length > 2) {
+      wpCookies.set(name, value, expires, path, domain, secure);
+    } else if (arguments.length == 2) {
+      var ck = wpCookies.get('LP');
+
+      if (ck) {
+        ck = JSON.parse(ck);
+      } else {
+        ck = {};
+      }
+
+      ck[name] = value;
+      wpCookies.set('LP', JSON.stringify(ck), '', '/');
+    } else {
+      wpCookies.set('LP', JSON.stringify(name), '', '/');
+    }
+  },
+  remove: function remove(name) {
+    var allCookies = Cookies.get();
+    var reg = new RegExp(name, 'g');
+    var newCookies = {};
+    var useRegExp = name.match(/\*/);
+
+    for (var i in allCookies) {
+      if (useRegExp) {
+        if (!i.match(reg)) {
+          newCookies[i] = allCookies[i];
+        }
+      } else if (name != i) {
+        newCookies[i] = allCookies[i];
+      }
+    }
+
+    Cookies.set(newCookies);
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (Cookies);
+
+/***/ }),
+
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/event-callback.js":
+/*!**************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/event-callback.js ***!
+  \**************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -97,9 +168,10 @@
 __webpack_require__.r(__webpack_exports__);
 /**
  * Manage event callbacks.
- * Allow add/remove a callback function into custom event of an object.
+Allow add/remove a callback function into custom event of an object.
  *
- * @constructor
+ * @class
+ * @param self
  */
 var Event_Callback = function Event_Callback(self) {
   var callbacks = {};
@@ -147,7 +219,7 @@ var Event_Callback = function Event_Callback(self) {
     var at = -1;
 
     if (!namespace) {
-      if ($.isFunction(callback)) {
+      if (typeof callback === 'function') {
         at = callbacks[event][0].indexOf(callback);
 
         if (at < 0) {
@@ -163,7 +235,7 @@ var Event_Callback = function Event_Callback(self) {
         return self;
       }
 
-      if ($.isFunction(callback)) {
+      if (typeof callback === 'function') {
         at = callbacks[event][1][namespace].indexOf(callback);
 
         if (at < 0) {
@@ -186,14 +258,14 @@ var Event_Callback = function Event_Callback(self) {
 
     if (callbacks[event][0]) {
       for (var i = 0; i < callbacks[event][0].length; i++) {
-        $.isFunction(callbacks[event][0][i]) && callbacks[event][i][0].apply(self, callbackArgs);
+        typeof callbacks[event][0][i] === 'function' && callbacks[event][i][0].apply(self, callbackArgs);
       }
     }
 
     if (callbacks[event][1]) {
       for (var i in callbacks[event][1]) {
         for (var j = 0; j < callbacks[event][1][i].length; j++) {
-          $.isFunction(callbacks[event][1][i][j]) && callbacks[event][1][i][j].apply(self, callbackArgs);
+          typeof callbacks[event][1][i][j] === 'function' && callbacks[event][1][i][j].apply(self, callbackArgs);
         }
       }
     }
@@ -204,10 +276,10 @@ var Event_Callback = function Event_Callback(self) {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/js/utils/extend.js":
-/*!****************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/js/utils/extend.js ***!
-  \****************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/extend.js":
+/*!******************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/extend.js ***!
+  \******************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -226,10 +298,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/js/utils/fn.js":
-/*!************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/js/utils/fn.js ***!
-  \************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/fn.js":
+/*!**************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/fn.js ***!
+  \**************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -252,7 +324,7 @@ var exp;
   }
 
   $.fn.LP = exp = function exp(widget, fn) {
-    if ($.isFunction(fn)) {
+    if (typeof fn === 'function') {
       $.fn['LP_' + widget] = fn;
     } else if (widget) {
       var args = [];
@@ -263,7 +335,7 @@ var exp;
         }
       }
 
-      return $.isFunction($(this)['LP_' + widget]) ? $(this)['LP_' + widget].apply(this, args) : this;
+      return typeof $(this)['LP_' + widget] === 'function' ? $(this)['LP_' + widget].apply(this, args) : this;
     }
 
     return this;
@@ -274,10 +346,10 @@ var exp;
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/js/utils/hook.js":
-/*!**************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/js/utils/hook.js ***!
-  \**************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/hook.js":
+/*!****************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/hook.js ***!
+  \****************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -297,8 +369,7 @@ var Hook = {
     return this;
   },
   doAction: function doAction(action) {
-    this.doHook('action', action, arguments);
-    return this;
+    return this.doHook('action', action, arguments);
   },
   applyFilters: function applyFilters(action) {
     return this.doHook('filter', action, arguments);
@@ -330,23 +401,24 @@ var Hook = {
     return this;
   },
   doHook: function doHook(hookType, action, args) {
-    // splice args from object into array and remove first index which is the hook name
     args = Array.prototype.slice.call(args, 1);
 
     if (undefined !== this.hooks[hookType][action]) {
       var hooks = this.hooks[hookType][action],
-          hook; //sort by priority
-
+          hook;
       hooks.sort(function (a, b) {
-        return a["priority"] - b["priority"];
+        return a.priority - b.priority;
       });
 
       for (var i = 0; i < hooks.length; i++) {
         hook = hooks[i].callable;
-        if (typeof hook !== 'function') hook = window[hook];
+
+        if (typeof hook !== 'function') {
+          hook = window[hook];
+        }
 
         if ('action' === hookType) {
-          hook.apply(null, args);
+          args[i] = hook.apply(null, args);
         } else {
           args[0] = hook.apply(null, args);
         }
@@ -357,7 +429,7 @@ var Hook = {
       return args[0];
     }
 
-    return this;
+    return args;
   },
   removeHook: function removeHook(hookType, action, priority, tag) {
     if (undefined !== this.hooks[hookType][action]) {
@@ -377,23 +449,64 @@ var Hook = {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/js/utils/index.js":
-/*!***************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/js/utils/index.js ***!
-  \***************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/iframe-submit.js":
+/*!*************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/iframe-submit.js ***!
+  \*************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _extend__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./extend */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/js/utils/extend.js");
-/* harmony import */ var _fn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./fn */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/js/utils/fn.js");
-/* harmony import */ var _quick_tip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./quick-tip */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/js/utils/quick-tip.js");
+var iframeCounter = 1;
+var $ = window.jQuery || jQuery;
+
+var IframeSubmit = function IframeSubmit(form) {
+  var iframeId = 'ajax-iframe-' + iframeCounter;
+  var $iframe = $('form[name="' + iframeId + '"]');
+
+  if (!$iframe.length) {
+    $iframe = $('<iframe />').appendTo(document.body).attr({
+      name: iframeId,
+      src: '#'
+    });
+  }
+
+  $(form).on('submit', function () {
+    var $form = $(form).clone().appendTo(document.body);
+    $form.attr('target', iframeId);
+    $form.find('#submit').remove();
+    return false;
+  });
+  iframeCounter++;
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (IframeSubmit);
+
+/***/ }),
+
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/index.js":
+/*!*****************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/index.js ***!
+  \*****************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _extend__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./extend */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/extend.js");
+/* harmony import */ var _fn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./fn */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/fn.js");
+/* harmony import */ var _quick_tip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./quick-tip */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/quick-tip.js");
 /* harmony import */ var _quick_tip__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_quick_tip__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _message_box__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./message-box */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/js/utils/message-box.js");
-/* harmony import */ var _event_callback__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./event-callback */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/js/utils/event-callback.js");
-/* harmony import */ var _hook__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./hook */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/js/utils/hook.js");
-/* harmony import */ var _jquery_plugins__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./jquery.plugins */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/js/utils/jquery.plugins.js");
+/* harmony import */ var _message_box__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./message-box */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/message-box.js");
+/* harmony import */ var _event_callback__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./event-callback */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/event-callback.js");
+/* harmony import */ var _hook__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./hook */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/hook.js");
+/* harmony import */ var _cookies__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./cookies */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/cookies.js");
+/* harmony import */ var _local_storage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./local-storage */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/local-storage.js");
+/* harmony import */ var _jquery_plugins__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./jquery.plugins */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/jquery.plugins.js");
+/* harmony import */ var _iframe_submit__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./iframe-submit */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/iframe-submit.js");
+/* harmony import */ var _show_password__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./show-password */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/show-password.js");
+/* harmony import */ var _show_password__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_show_password__WEBPACK_IMPORTED_MODULE_10__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -405,6 +518,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  *
  * @version 3.2.6
  */
+
+
+
+
 
 
 
@@ -513,7 +630,7 @@ var _default = {
     window.location.href = url;
   },
   parseResponse: function parseResponse(response, type) {
-    var m = response.match(/<-- LP_AJAX_START -->(.*)<-- LP_AJAX_END -->/);
+    var m = response.match(/<\x2D\x2D LP_AJAX_START \x2D\x2D>([\s\S]*)<\x2D\x2D LP_AJAX_END \x2D\x2D>/);
 
     if (m) {
       response = m[1];
@@ -522,13 +639,19 @@ var _default = {
     return (type || 'json') === 'json' ? this.parseJSON(response) : response;
   },
   parseJSON: function parseJSON(data) {
-    var m = (data + '').match(/<-- LP_AJAX_START -->(.*)<-- LP_AJAX_END -->/);
+    if (typeof data !== 'string') {
+      return data;
+    }
+
+    var m = String.raw({
+      raw: data
+    }).match(/<\x2D\x2D LP_AJAX_START \x2D\x2D>([\s\S]*)<\x2D\x2D LP_AJAX_END \x2D\x2D>/);
 
     try {
       if (m) {
-        data = $.parseJSON(m[1]);
+        data = JSON.parse(m[1].replace(/(?:\r\n|\r|\n)/g, ''));
       } else {
-        data = $.parseJSON(data);
+        data = JSON.parse(data);
       }
     } catch (e) {
       data = {};
@@ -554,10 +677,10 @@ var _default = {
       beforeSend: beforeSend.apply(null, args),
       success: function success(raw) {
         var response = LP.parseResponse(raw, dataType);
-        $.isFunction(args.success) && args.success(response, raw);
+        typeof args.success === 'function' && args.success(response, raw);
       },
       error: function error() {
-        $.isFunction(args.error) && args.error.apply(null, LP.funcArgs2Array());
+        typeof args.error === 'function' && args.error.apply(null, LP.funcArgs2Array());
       }
     });
   },
@@ -575,10 +698,10 @@ var _default = {
       dataType: 'html',
       success: function success(raw) {
         var response = LP.parseResponse(raw, dataType);
-        $.isFunction(args.success) && args.success(response, raw);
+        typeof args.success === 'function' && args.success(response, raw);
       },
       error: function error() {
-        $.isFunction(args.error) && args.error.apply(null, LP.funcArgs2Array());
+        typeof args.error === 'function' && args.error.apply(null, LP.funcArgs2Array());
       }
     });
   },
@@ -873,7 +996,40 @@ var _default = {
     }
 
     LP.Hook.doAction('learn_press_receive_message', data, target);
-  }
+  },
+  camelCaseDashObjectKeys: function camelCaseDashObjectKeys(obj) {
+    var deep = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+    var self = LP;
+
+    var isArray = function isArray(a) {
+      return Array.isArray(a);
+    };
+
+    var isObject = function isObject(o) {
+      return o === Object(o) && !isArray(o) && typeof o !== 'function';
+    };
+
+    var toCamel = function toCamel(s) {
+      return s.replace(/([-_][a-z])/ig, function ($1) {
+        return $1.toUpperCase().replace('-', '').replace('_', '');
+      });
+    };
+
+    if (isObject(obj)) {
+      var n = {};
+      Object.keys(obj).forEach(function (k) {
+        n[toCamel(k)] = deep ? self.camelCaseDashObjectKeys(obj[k]) : obj[k];
+      });
+      return n;
+    } else if (isArray(obj)) {
+      return obj.map(function (i) {
+        return self.camelCaseDashObjectKeys(i);
+      });
+    }
+
+    return obj;
+  },
+  IframeSubmit: _iframe_submit__WEBPACK_IMPORTED_MODULE_9__["default"]
 };
 $(document).ready(function () {
   if (typeof $.alerts !== 'undefined') {
@@ -900,14 +1056,6 @@ $(document).ready(function () {
         }, options.delayOut + (options.delayIn || 0));
       }
     })($el, options);
-  });
-  $('body').on('click', '.learn-press-nav-tabs li a', function (e) {
-    e.preventDefault();
-    var $tab = $(this),
-        url = '';
-    $tab.closest('li').addClass('active').siblings().removeClass('active');
-    $($tab.attr('data-tab')).addClass('active').siblings().removeClass('active');
-    $(document).trigger('learn-press/nav-tabs/clicked', $tab);
   });
   setTimeout(function () {
     $('.learn-press-nav-tabs li.active:not(.default) a').trigger('click');
@@ -960,27 +1108,34 @@ $(document).ready(function () {
 });
 Object(_extend__WEBPACK_IMPORTED_MODULE_0__["default"])(_objectSpread({
   Event_Callback: _event_callback__WEBPACK_IMPORTED_MODULE_4__["default"],
-  MessageBox: _message_box__WEBPACK_IMPORTED_MODULE_3__["default"]
+  MessageBox: _message_box__WEBPACK_IMPORTED_MODULE_3__["default"],
+  Cookies: _cookies__WEBPACK_IMPORTED_MODULE_6__["default"],
+  localStorage: _local_storage__WEBPACK_IMPORTED_MODULE_7__["default"]
 }, _default));
 /* harmony default export */ __webpack_exports__["default"] = ({
   fn: _fn__WEBPACK_IMPORTED_MODULE_1__["default"],
-  QuickTip: _quick_tip__WEBPACK_IMPORTED_MODULE_2___default.a
+  QuickTip: _quick_tip__WEBPACK_IMPORTED_MODULE_2___default.a,
+  Cookies: _cookies__WEBPACK_IMPORTED_MODULE_6__["default"],
+  localStorage: _local_storage__WEBPACK_IMPORTED_MODULE_7__["default"],
+  showPass: _show_password__WEBPACK_IMPORTED_MODULE_10___default.a
 });
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/js/utils/jquery.plugins.js":
-/*!************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/js/utils/jquery.plugins.js ***!
-  \************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/jquery.plugins.js":
+/*!**************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/jquery.plugins.js ***!
+  \**************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+var _this = undefined;
+
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-var $ = window.jQuery;
+var $ = window.jQuery || jQuery;
 
 var serializeJSON = function serializeJSON(path) {
   var isInput = $(this).is('input') || $(this).is('select') || $(this).is('textarea');
@@ -1029,17 +1184,17 @@ var serializeJSON = function serializeJSON(path) {
 
         try {
           if (i == keys.length - 1) {
-            objExp = objPath + "=that.value;";
+            objExp = objPath + '=that.value;';
             end = true;
           } else {
-            objExp = objPath + "={}";
+            objExp = objPath + '={}';
             end = false;
           }
 
-          var evalString = "" + "if( typeof " + objPath + " == 'undefined'){" + objExp + ";" + "}else{" + "if(end){" + "if(typeof " + preObjPath + "!='object'){" + preObjPath + "={};}" + objExp + "}" + "}";
+          var evalString = '' + 'if( typeof ' + objPath + " == 'undefined'){" + objExp + ';' + '}else{' + 'if(end){' + 'if(typeof ' + preObjPath + "!='object'){" + preObjPath + '={};}' + objExp + '}' + '}';
           eval(evalString);
         } catch (e) {
-          console.log('Error:' + e + "\n" + objExp);
+          console.log('Error:' + e + '\n' + objExp);
         }
       });
     } else {
@@ -1060,7 +1215,7 @@ var LP_Tooltip = function LP_Tooltip(options) {
   options = $.extend({}, {
     offset: [0, 0]
   }, options || {});
-  return $.each(this, function () {
+  return $.each(_this, function () {
     var $el = $(this),
         content = $el.data('content');
 
@@ -1069,11 +1224,11 @@ var LP_Tooltip = function LP_Tooltip(options) {
     }
 
     var $tooltip = null;
-    $el.hover(function (e) {
+    $el.on('mouseenter', function (e) {
       $tooltip = $('<div class="learn-press-tooltip-bubble"/>').html(content).appendTo($('body')).hide();
       var position = $el.offset();
 
-      if ($.isArray(options.offset)) {
+      if (Array.isArray(options.offset)) {
         var top = options.offset[1],
             left = options.offset[0];
 
@@ -1091,7 +1246,8 @@ var LP_Tooltip = function LP_Tooltip(options) {
         left: position.left
       });
       $tooltip.fadeIn();
-    }, function () {
+    });
+    $el.on('mouseleave', function (e) {
       $tooltip && $tooltip.remove();
     });
     $el.data('tooltip', true);
@@ -1128,7 +1284,7 @@ var dataToJSON = function dataToJSON() {
 
 var rows = function rows() {
   var h = $(this).height();
-  var lh = $(this).css('line-height').replace("px", "");
+  var lh = $(this).css('line-height').replace('px', '');
   $(this).attr({
     height: h,
     'line-height': lh
@@ -1201,10 +1357,60 @@ $.fn.progress = progress;
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/js/utils/message-box.js":
-/*!*********************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/js/utils/message-box.js ***!
-  \*********************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/local-storage.js":
+/*!*************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/local-storage.js ***!
+  \*************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var _localStorage = {
+  __key: 'LP',
+  set: function set(name, value) {
+    var data = _localStorage.get();
+
+    var _lodash = lodash,
+        set = _lodash.set;
+    set(data, name, value);
+    localStorage.setItem(_localStorage.__key, JSON.stringify(data));
+  },
+  get: function get(name, def) {
+    var data = JSON.parse(localStorage.getItem(_localStorage.__key) || '{}');
+    var _lodash2 = lodash,
+        get = _lodash2.get;
+    var value = get(data, name);
+    return !name ? data : value !== undefined ? value : def;
+  },
+  exists: function exists(name) {
+    var data = _localStorage.get(); // return data.hasOwnProperty( name );
+
+
+    return name in data;
+  },
+  remove: function remove(name) {
+    var data = _localStorage.get();
+
+    var newData = lodash.omit(data, name);
+
+    _localStorage.__set(newData);
+  },
+  __get: function __get() {
+    return localStorage.getItem(_localStorage.__key);
+  },
+  __set: function __set(data) {
+    localStorage.setItem(_localStorage.__key, JSON.stringify(data || '{}'));
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (_localStorage);
+
+/***/ }),
+
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/message-box.js":
+/*!***********************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/message-box.js ***!
+  \***********************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1212,9 +1418,6 @@ $.fn.progress = progress;
 __webpack_require__.r(__webpack_exports__);
 var $ = window.jQuery;
 var MessageBox = {
-  /*
-   *
-   */
   $block: null,
   $window: null,
   events: {},
@@ -1253,18 +1456,18 @@ var MessageBox = {
         timerOut = setInterval(function () {
           if (--n == 0) {
             hide.call($div[0]);
-            $.isFunction(args.onCancel) && args.onCancel(args.data);
+            typeof args.onCancel === 'function' && args.onCancel(args.data);
             stop();
           }
 
           $div.find('span').html(' (' + n + ')');
         }, 1000);
         timerHide = setInterval(function () {
-          if (!$elem.is(':visible') || $elem.css("visibility") == 'hidden') {
+          if (!$elem.is(':visible') || $elem.css('visibility') == 'hidden') {
             stop();
             $div.remove();
             $div.parent().css('position', '');
-            $.isFunction(args.onCancel) && args.onCancel(args.data);
+            typeof args.onCancel === 'function' && args.onCancel(args.data);
           }
         }, 350);
       };
@@ -1281,7 +1484,7 @@ var MessageBox = {
       }, args || {});
       $div.html(args.message || $elem.attr('data-confirm-remove') || 'Are you sure?').append('<span> (' + n + ')</span>').css({});
       $div.click(function () {
-        $.isFunction(args.onOk) && args.onOk(args.data);
+        typeof args.onOk === 'function' && args.onOk(args.data);
         hide();
       }).hover(function () {
         stop();
@@ -1340,7 +1543,7 @@ var MessageBox = {
       if (args.autohide) {
         setTimeout(function () {
           LP.MessageBox.hide();
-          $.isFunction(args.onHide) && args.onHide.call(LP.MessageBox, args);
+          typeof args.onHide === 'function' && args.onHide.call(LP.MessageBox, args);
         }, args.autohide);
       }
     }, this)();
@@ -1366,10 +1569,8 @@ var MessageBox = {
       }
 
       $(window).unbind('resize.message-box', this.update).unbind('scroll.message-box', this.update);
-    } else {
-      if (this.instance) {
-        this._createWindow(this.instance.message, this.instance.title, this.instance.buttons);
-      }
+    } else if (this.instance) {
+      this._createWindow(this.instance.message, this.instance.title, this.instance.buttons);
     }
   },
   update: function update(force) {
@@ -1378,7 +1579,7 @@ var MessageBox = {
         timer = $wrap.data('timer'),
         _update = function _update() {
       LP.Hook.doAction('learn_press_message_box_before_resize', that);
-      var $content = $wrap.find('.message-box-content').css("height", "").css('overflow', 'hidden'),
+      var $content = $wrap.find('.message-box-content').css('height', '').css('overflow', 'hidden'),
           width = $wrap.outerWidth(),
           height = $wrap.outerHeight(),
           contentHeight = $content.height(),
@@ -1391,7 +1592,7 @@ var MessageBox = {
         });
         height = $wrap.outerHeight();
       } else {
-        $content.css("height", "").css('overflow', '');
+        $content.css('height', '').css('overflow', '');
       }
 
       $wrap.css({
@@ -1400,7 +1601,10 @@ var MessageBox = {
       LP.Hook.doAction('learn_press_message_box_resize', height, that);
     };
 
-    if (force) _update();
+    if (force) {
+      _update();
+    }
+
     timer && clearTimeout(timer);
     timer = setTimeout(_update, 250);
   },
@@ -1482,14 +1686,12 @@ var MessageBox = {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/js/utils/quick-tip.js":
-/*!*******************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress/assets/src/js/utils/quick-tip.js ***!
-  \*******************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/quick-tip.js":
+/*!*********************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/quick-tip.js ***!
+  \*********************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
-
-;
 
 (function ($) {
   function QuickTip(el, options) {
@@ -1612,12 +1814,36 @@ var MessageBox = {
         $(this).data('quick-tip', $tip);
       }
 
-      if ($.type(options) === 'string') {
+      if (typeof options === 'string') {
         $tip[options] && $tip[options].apply($tip);
       }
     });
   });
 })(jQuery);
+
+/***/ }),
+
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/show-password.js":
+/*!*************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/show-password.js ***!
+  \*************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var $ = jQuery;
+$(function () {
+  $('.form-field input[type="password"]').wrap('<span class="lp-password-input"></span>');
+  $('.lp-password-input').append('<span class="lp-show-password-input"></span>');
+  $('.lp-show-password-input').on('click', function () {
+    $(this).toggleClass('display-password');
+
+    if ($(this).hasClass('display-password')) {
+      $(this).siblings(['input[type="password"]']).prop('type', 'text');
+    } else {
+      $(this).siblings('input[type="text"]').prop('type', 'password');
+    }
+  });
+});
 
 /***/ })
 

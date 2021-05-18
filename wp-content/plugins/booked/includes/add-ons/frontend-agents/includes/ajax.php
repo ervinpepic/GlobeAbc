@@ -79,7 +79,7 @@ if(!class_exists('BookedFEA_Ajax')) {
 				ob_start();
 				
 				echo '<div class="booked-scrollable">';
-					echo '<p class="booked-title-bar"><small>' . __('Session Information','booked') . '</small></p>';
+					echo '<p class="booked-title-bar"><small>' . __('Appointment Information','booked') . '</small></p>';
 			
 					if (!$_POST['user_id'] && isset($_POST['appt_id'])):
 					
@@ -133,7 +133,7 @@ if(!class_exists('BookedFEA_Ajax')) {
 						
 						$cf_meta_value = apply_filters('booked_fea_cf_metavalue',$cf_meta_value);
 			
-						echo '<p class="fea-modal-title fea-bordered">'.__('Session Information','booked').'</p>';
+						echo '<p class="fea-modal-title fea-bordered">'.__('Appointment Information','booked').'</p>';
 						do_action('booked_before_appointment_information_admin');
 						echo '<p><strong class="booked-left-title">'.__('Date','booked').':</strong> '.$day_name.', '.$date_display.'<br>';
 						echo '<strong class="booked-left-title">'.__('Time','booked').':</strong> '.$timeslotText.'</p>';

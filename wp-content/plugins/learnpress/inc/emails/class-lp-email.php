@@ -78,6 +78,7 @@ if ( ! class_exists( 'LP_Email' ) ) {
 		/**
 		 * For display the field to setting specific emails.
 		 * .
+		 *
 		 * @var string
 		 */
 		public $recipients = '';
@@ -184,7 +185,7 @@ if ( ! class_exists( 'LP_Email' ) ) {
 			'/&(euro|#8364);/i',                             // Euro sign
 			'/&#36;/',                                       // Dollar sign
 			'/&[^&\s;]+;/i',                                 // Unknown/unhandled entities
-			'/[ ]{2,}/'                                      // Runs of spaces, post-handling
+			'/[ ]{2,}/',                                      // Runs of spaces, post-handling
 		);
 
 		/**
@@ -213,7 +214,7 @@ if ( ! class_exists( 'LP_Email' ) ) {
 			'EUR',                                          // Euro sign. � ?
 			'$',                                            // Dollar sign
 			'',                                             // Unknown/unhandled entities
-			' '                                             // Runs of spaces, post-handling
+			' ',                                             // Runs of spaces, post-handling
 		);
 
 		/**
@@ -326,24 +327,24 @@ if ( ! class_exists( 'LP_Email' ) ) {
 			$this->subject = $this->settings->get( 'subject', $this->default_subject );
 			$this->enable  = $this->settings->get( 'enable' ) === 'yes';
 
-			if ( $format = $this->settings->get( 'email_content.format' ) ) {
-				$this->email_format = $format == 'plain_text' ? 'plain' : 'html';
+			if ( $this->settings->get( 'email_content.format' ) ) {
+				$this->email_format = ( $this->settings->get( 'email_content.format' ) == 'plain_text' ) ? 'plain' : 'html';
 			} else {
-				if ( $format = LP()->settings->get( 'emails_general.default_email_content' ) ) {
-					$this->email_format = $format;
+				if ( LP()->settings()->get( 'emails_general.default_email_content' ) ) {
+					$this->email_format = LP()->settings->get( 'emails_general.default_email_content' );
 				}
 			}
 
 			$email_formats = array( 'plain', 'html' );
 			if ( ! in_array( $this->email_format, $email_formats ) ) {
-				$this->email_format = 'plain';
+				$this->email_format = 'html';
 			}
 
 			$this->basic_variables = array(
 				'{{site_url}}',
 				'{{site_title}}',
 				'{{login_url}}',
-				'{{email_heading}}'
+				'{{email_heading}}',
 			);
 
 			$this->general_variables = array_merge(
@@ -353,13 +354,11 @@ if ( ! class_exists( 'LP_Email' ) ) {
 					'{{site_admin_name}}',
 					'{{header}}',
 					'{{footer}}',
-					'{{footer_text}}'
+					'{{footer_text}}',
 				)
 			);
 
 			$this->support_variables = $this->general_variables;
-
-			//echo "[", get_class($this), ']';
 		}
 
 		/**
@@ -376,7 +375,7 @@ if ( ! class_exists( 'LP_Email' ) ) {
 					$settings = $this->get_settings();
 
 					foreach ( $settings as $field ) {
-						if ( $field['type'] == 'heading' ) {
+						if ( $field['type'] == 'heading' || $field['type'] == 'title' || $field['type'] == 'sectionend' ) {
 							continue;
 						}
 
@@ -388,15 +387,14 @@ if ( ! class_exists( 'LP_Email' ) ) {
 								'email_content',
 								array(
 									'format' => 'html',
-									'plain'  => RWMB_Email_Content_Field::get_email_content( 'plain', '', $field ),
-									'html'   => RWMB_Email_Content_Field::get_email_content( 'html', '', $field )
+									'plain'  => lp_get_email_content( 'plain', '', $field ),
+									'html'   => lp_get_email_content( 'html', '', $field ),
 								)
 							);
 						} else {
 							$this->settings->set( $id, $field['default'] );
 						}
 					}
-
 				}
 				$this->settings->set( 'enable', $value ? 'yes' : 'no' );
 				$this->settings->update( 'learn_press_' . $this->_option_id, $this->settings->get() );
@@ -477,7 +475,6 @@ if ( ! class_exists( 'LP_Email' ) ) {
 		 * @return bool
 		 */
 		public function _remove_email_content_from_option( $options, $key ) {
-
 			if ( ! $this->is_current() ) {
 				return false;
 			}
@@ -547,7 +544,7 @@ if ( ! class_exists( 'LP_Email' ) ) {
 			$email_format = $this->get_email_format();
 			if ( $email_format == 'plain' ) {
 				$email_content = preg_replace( $this->plain_search, $this->plain_replace, strip_tags( $this->get_content_plain() ) );
-			} else if ( in_array( $email_format, array( 'html', 'multipart' ) ) ) {
+			} elseif ( in_array( $email_format, array( 'html', 'multipart' ) ) ) {
 				$email_content = $this->get_content_html();
 			} else {
 				$email_content = preg_replace( $this->text_search, $this->text_replace, $this->get_content_text_message() );
@@ -567,8 +564,7 @@ if ( ! class_exists( 'LP_Email' ) ) {
 					$this->_object_loaded = true;
 					$this->get_object();
 				}
-			}
-			catch ( Exception $ex ) {
+			} catch ( Exception $ex ) {
 			}
 		}
 
@@ -599,21 +595,10 @@ if ( ! class_exists( 'LP_Email' ) ) {
 		 * @return string
 		 */
 		public function get_content_html() {
-			$template = $this->get_template( 'template_html' );
-			/*$local_file = $this->get_theme_template_file( $template, $this->template_path );
-
-			if ( file_exists( $local_file ) ) {
-				$args = $this->get_template_data( 'html' );
-				is_array( $args ) && extract( $args );
-				ob_start();
-				include $local_file;
-				$content = ob_get_clean();
-			} else {*/
+			$template      = $this->get_template( 'template_html' );
 			$template_file = $this->template_base . $template;
 			$content       = $this->settings->get( 'email_content.html', file_get_contents( $template_file ) );
 			$content       = stripslashes( $content );
-
-			//}
 
 			return $content;
 		}
@@ -624,21 +609,10 @@ if ( ! class_exists( 'LP_Email' ) ) {
 		 * @return string
 		 */
 		public function get_content_plain() {
-			$template = $this->get_template( 'template_plain' );
-			/*$local_file = $this->get_theme_template_file( $template, $this->template_path );
-
-			if ( file_exists( $local_file ) ) {
-				$args = $this->get_template_data( 'plain' );
-				is_array( $args ) && extract( $args );
-				ob_start();
-				include $local_file;
-				$content = ob_get_clean();
-			} else {*/
+			$template      = $this->get_template( 'template_plain' );
 			$template_file = $this->template_base . $template;
 			$content       = $this->settings->get( 'email_content.plain', file_get_contents( $template_file ) );
 			$content       = stripslashes( $content );
-
-			//}
 
 			return $content;
 		}
@@ -658,7 +632,7 @@ if ( ! class_exists( 'LP_Email' ) ) {
 		 * @return string|array
 		 */
 		public function get_headers() {
-			return apply_filters( 'learn-press/email-headers', "Content-Type: " . $this->get_content_format() . "\r\n", $this->id, $this->object );
+			return apply_filters( 'learn-press/email-headers', 'Content-Type: ' . $this->get_content_format() . "\r\n", $this->id, $this->object );
 		}
 
 		/**
@@ -687,6 +661,7 @@ if ( ! class_exists( 'LP_Email' ) ) {
 
 		/**
 		 * Get FROM name. Default is Blog name.
+		 *
 		 * @return string
 		 */
 		public function get_from_name() {
@@ -726,12 +701,12 @@ if ( ! class_exists( 'LP_Email' ) ) {
 		 */
 		public function get_content_format() {
 			switch ( $this->get_email_format() ) {
-				case 'text_message' :
-				case 'html' :
+				case 'text_message':
+				case 'html':
 					return 'text/html';
-				case 'multipart' :
+				case 'multipart':
 					return 'multipart/alternative';
-				default :
+				default:
 					return 'text/plain';
 			}
 		}
@@ -751,11 +726,7 @@ if ( ! class_exists( 'LP_Email' ) ) {
 		 * @return string
 		 */
 		public function apply_style_inline( $content ) {
-			if ( in_array( $this->get_content_format(), array(
-					'text/html',
-					'multipart/alternative'
-				) ) && class_exists( 'DOMDocument' )
-			) {
+			if ( in_array( $this->get_content_format(), array( 'text/html', 'multipart/alternative' ) ) && class_exists( 'DOMDocument' ) ) {
 
 				// get CSS styles
 				ob_start();
@@ -770,8 +741,7 @@ if ( ! class_exists( 'LP_Email' ) ) {
 					$emogrifier = new Emogrifier( $content, $css );
 					$content    = $emogrifier->emogrify();
 
-				}
-				catch ( Exception $e ) {
+				} catch ( Exception $e ) {
 
 				}
 			}
@@ -791,7 +761,7 @@ if ( ! class_exists( 'LP_Email' ) ) {
 
 			if ( 'template_html' == $type ) {
 				return $this->template_html;
-			} else if ( 'template_plain' == $type ) {
+			} elseif ( 'template_plain' == $type ) {
 				return $this->template_plain;
 			}
 
@@ -818,7 +788,7 @@ if ( ! class_exists( 'LP_Email' ) ) {
 				array(
 					trailingslashit( get_stylesheet_directory() ),
 					trailingslashit( $template_dir ),
-					$template
+					$template,
 				)
 			);
 		}
@@ -854,33 +824,29 @@ if ( ! class_exists( 'LP_Email' ) ) {
 			$separated = apply_filters( 'learn_press_email_to_separated', false, $to, $this );
 
 			if ( ! $separated ) {
-
+				if ( ! empty( $_REQUEST['debug'] ) ) {
+					ob_start();
+					learn_press_debug( get_option( 'active_plugins' ) );
+					$message .= '======' . ob_get_clean();
+				}
 				$return = wp_mail( $to, $subject, $message, $headers, $attachments );
 
-				if ( LP_DEBUG_STATUS ) {
-					ob_start();
-					var_dump( $return );
+				if ( ! empty( $_REQUEST['debug'] ) ) {
+					echo '[', get_class( $this ), " = {$return}]";
 					print_r( $to );
-					$log = ob_get_clean();
-					error_log( 'Sent mail to ' . $log );
+					print_r( $subject );
+					print_r( $message );
+					print_r( $headers );
+					print_r( $attachments );
 				}
 			} else {
 				if ( is_array( $to ) ) {
 					foreach ( $to as $t ) {
 						$return = wp_mail( $t, $subject, $message, $headers, $attachments );
-
-						if ( LP_DEBUG_STATUS ) {
-							ob_start();
-							var_dump( $return );
-							print_r( $to );
-							$log = ob_get_clean();
-							error_log( 'Sent mail to ' . $log );
-						}
 					}
 				}
 			}
 
-			//
 			remove_filter( 'wp_mail_from', array( $this, 'get_from_address' ) );
 			remove_filter( 'wp_mail_from_name', array( $this, 'get_from_name' ) );
 			remove_filter( 'wp_mail_content_type', array( $this, 'get_content_format' ) );
@@ -898,7 +864,7 @@ if ( ! class_exists( 'LP_Email' ) ) {
 		public function get_template_data( $format = 'plain' ) {
 
 			return $this->object;
-			///return array( 'plain_text' => $format == 'plain' );
+			// return array( 'plain_text' => $format == 'plain' );
 		}
 
 		/**
@@ -930,12 +896,12 @@ if ( ! class_exists( 'LP_Email' ) ) {
 				'footer'           => $footer,
 				'email_heading'    => $heading,
 				'footer_text'      => $footer_text,
-				'site_url'         => get_home_url() /* SITE_URL */,
+				'site_url'         => get_home_url(),
 				'site_title'       => $this->get_blogname(),
 				'site_admin_email' => get_option( 'admin_email' ),
 				'site_admin_name'  => learn_press_get_profile_display_name( $admin_user ),
 				'login_url'        => learn_press_get_login_url(),
-				'plain_text'       => $format == 'plain'
+				'plain_text'       => $format == 'plain',
 			);
 
 			if ( ( $num = func_num_args() ) > 1 ) {
@@ -966,7 +932,7 @@ if ( ! class_exists( 'LP_Email' ) ) {
 			$variables = array();
 			if ( is_array( $data ) ) {
 				foreach ( $data as $k => $v ) {
-					$variables[ "{{" . $k . "}}" ] = $v;
+					$variables[ '{{' . $k . '}}' ] = $v;
 				}
 			}
 
@@ -989,101 +955,68 @@ if ( ! class_exists( 'LP_Email' ) ) {
 		 * @return array
 		 */
 		protected function _default_settings() {
-			$default = array(
-				array(
-					'type'  => 'heading',
-					'title' => $this->title,
-					'desc'  => $this->description
-				),
-				array(
-					'title'   => __( 'Enable', 'learnpress' ),
-					'type'    => 'yes-no',
-					'default' => 'no',
-					'id'      => $this->get_field_name( 'enable' )
-				),
-				array(
-					'title'      => __( 'Recipient(s)', 'learnpress' ),
-					'type'       => 'text',
-					'default'    => get_option( 'admin_email' ),
-					'id'         => $this->get_field_name( 'recipients' ),
-					'desc'       => sprintf( __( 'Email recipient(s) (separated by comma), default: <code>%s</code>.', 'learnpress' ), get_option( 'admin_email' ) ),
-					'visibility' => array(
-						'state'       => 'show',
-						'conditional' => array(
-							array(
-								'field'   => $this->get_field_name( 'enable' ),
-								'compare' => '=',
-								'value'   => 'yes'
-							)
-						)
-					)
-				),
-				array(
-					'title'      => __( 'Subject', 'learnpress' ),
-					'type'       => 'text',
-					'default'    => $this->default_subject,
-					'id'         => $this->get_field_name( 'subject' ),
-					'desc'       => sprintf( __( 'Email subject, default: <code>%s</code>.', 'learnpress' ), $this->default_subject ),
-					'visibility' => array(
-						'state'       => 'show',
-						'conditional' => array(
-							array(
-								'field'   => $this->get_field_name( 'enable' ),
-								'compare' => '=',
-								'value'   => 'yes'
-							)
-						)
-					)
-				),
-				array(
-					'title'      => __( 'Heading', 'learnpress' ),
-					'type'       => 'text',
-					'default'    => $this->default_heading,
-					'id'         => $this->get_field_name( 'heading' ),
-					'desc'       => sprintf( __( 'Email heading, default: <code>%s</code>.', 'learnpress' ), $this->default_heading ),
-					'visibility' => array(
-						'state'       => 'show',
-						'conditional' => array(
-							array(
-								'field'   => $this->get_field_name( 'enable' ),
-								'compare' => '=',
-								'value'   => 'yes'
-							)
-						)
-					)
-				),
-				array(
-					'title'                => __( 'Email content', 'learnpress' ),
-					'type'                 => 'email-content',
-					'default'              => '',
-					'id'                   => $this->get_field_name( 'email_content' ),
-					'template_base'        => $this->template_base,
-					'template_path'        => $this->template_path,//default learnpress
-					'template_html'        => $this->template_html,
-					'template_plain'       => $this->template_plain,
-					'template_html_local'  => $this->get_theme_template_file( 'html', $this->template_path ),
-					'template_plain_local' => $this->get_theme_template_file( 'plain', $this->template_path ),
-					'support_variables'    => $this->get_variables_support(),
-					'visibility'           => array(
-						'state'       => 'show',
-						'conditional' => array(
-							array(
-								'field'   => $this->get_field_name( 'enable' ),
-								'compare' => '=',
-								'value'   => 'yes'
-							)
-						)
-					)
-				)
-			);
-
 			/**
 			 * In case the email is not for sending to specific admin (like user who has bought course or author of course, etc..)
 			 * So, we do not need this field.
 			 */
-			if ( empty( $this->recipients ) ) {
-				unset( $default[2] );
-			}
+
+			$enable_recipients = apply_filters( 'learn-press/enable-email-recipients', ! empty( $this->recipients ), $this );
+
+			$default = array_merge(
+				array(
+					array(
+						'type' => 'title',
+					),
+					array(
+						'title'   => esc_html__( 'Enable/Disable', 'learnpress' ),
+						'type'    => 'checkbox',
+						'default' => 'no',
+						'id'      => $this->get_field_name( 'enable' ),
+						'desc'    => $this->description,
+					),
+				),
+				$enable_recipients ? array(
+					array(
+						'title'   => esc_html__( 'Recipient(s)', 'learnpress' ),
+						'type'    => 'text',
+						'default' => get_option( 'admin_email' ),
+						'id'      => $this->get_field_name( 'recipients' ),
+						'desc'    => esc_html__( 'Separate other recipients by comma.', 'learnpress' ),
+					),
+				) : array(),
+				array(
+					array(
+						'title'   => esc_html__( 'Subject', 'learnpress' ),
+						'type'    => 'text',
+						'default' => $this->default_subject,
+						'id'      => $this->get_field_name( 'subject' ),
+						'css'     => 'width:400px',
+					),
+					array(
+						'title'   => esc_html__( 'Email heading', 'learnpress' ),
+						'type'    => 'text',
+						'default' => $this->default_heading,
+						'id'      => $this->get_field_name( 'heading' ),
+						'css'     => 'width:400px',
+					),
+					array(
+						'title'                => esc_html__( 'Content type', 'learnpress' ),
+						'type'                 => 'email-content',
+						'default'              => '',
+						'id'                   => $this->get_field_name( 'email_content' ),
+						'template_base'        => $this->template_base,
+						'template_path'        => $this->template_path,
+						'template_html'        => $this->template_html,
+						'template_plain'       => $this->template_plain,
+						'template_html_local'  => $this->get_theme_template_file( 'html', $this->template_path ),
+						'template_plain_local' => $this->get_theme_template_file( 'plain', $this->template_path ),
+						'support_variables'    => $this->get_variables_support(),
+					),
+					array(
+						'type' => 'sectionend',
+					),
+				)
+			);
 
 			return $default;
 		}
@@ -1091,25 +1024,22 @@ if ( ! class_exists( 'LP_Email' ) ) {
 		/**
 		 * Get settings in admin.
 		 *
-		 * @return bool|mixed
 		 * @since 3.0.0
 		 *
+		 * @return bool|mixed
 		 */
 		public function get_settings() {
-			return apply_filters(
-				'learn-press/email-settings/' . $this->id . '/settings',
-				$this->_default_settings()
-			);
+			return apply_filters( 'learn-press/email-settings/' . $this->id . '/settings', $this->_default_settings() );
 		}
 
 		/**
 		 * Get instructors to send mail.
 		 *
+		 * @since 3.0.0
+		 *
 		 * @param null $order_id
 		 *
 		 * @return array
-		 * @since 3.0.0
-		 *
 		 */
 		public function get_order_instructors( $order_id ) {
 			if ( ! $order_id ) {
@@ -1121,8 +1051,12 @@ if ( ! class_exists( 'LP_Email' ) ) {
 			$items       = $order->get_items();
 			$instructors = array();
 
-			if ( sizeof( $items ) ) {
+			if ( count( $items ) ) {
 				foreach ( $items as $item ) {
+					if ( ! isset( $item['course_id'] ) ) {
+						continue;
+					}
+
 					$user_id = get_post_field( 'post_author', $item['course_id'] );
 					if ( $user_id ) {
 						$instructors[] = $user_id;

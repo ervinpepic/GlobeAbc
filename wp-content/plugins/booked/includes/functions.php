@@ -865,7 +865,7 @@ function booked_fe_calendar_date_content($date,$calendar_id = false){
 					if ($hide_unavailable_timeslots && !$available):
 						$html = '';
 					else:
-						$button_text = (!$spots_available || !$available ? esc_html__('Unavailable','booked') : esc_html( _x('Book Session','Book a Single Session', 'booked') ) );
+						$button_text = (!$spots_available || !$available ? esc_html__('Unavailable','booked') : esc_html( _x('Book Appointment','Book a Single Appointment', 'booked') ) );
 						$html = '<div class="timeslot bookedClearFix'.($title && $only_titles == true ? ' booked-hide-time' : '').($hide_available_count || !$available ? ' timeslot-count-hidden' : '').(!$available ? ' timeslot-unavailable' : '').($title ? ' has-title ' : '').'">';
 
 							$html .= '<span class="timeslot-time'.($public_appointments ? ' booked-public-appointments' : '').'">';
@@ -935,7 +935,7 @@ function booked_fe_calendar_date_content($date,$calendar_id = false){
 
 		$appt_list_html = ob_get_clean();
 
-		echo '<h2><span>' . sprintf( _n( esc_html(_x( 'Available Sessions on %s', 'Single Sessions', 'booked' )), esc_html(_x( 'Available Sessions on %s', 'Multiple Sessions', 'booked' )), $total_available ), '</span><strong>'.$date_display.'</strong><span>') . '</span></h2>';
+		echo '<h2><span>' . sprintf( _n( esc_html(_x( 'Available Appointment on %s', 'Single Appointment', 'booked' )), esc_html(_x( 'Available Appointments on %s', 'Multiple Appointments', 'booked' )), $total_available ), '</span><strong>'.$date_display.'</strong><span>') . '</span></h2>';
 		echo $appt_list_html;
 
 	echo '</div>';
@@ -1232,7 +1232,7 @@ function booked_fe_appointment_list_content($date,$calendar_id = false,$force_da
 					if ($hide_unavailable_timeslots && !$available):
 						$html = '';
 					else:
-						$button_text = (!$spots_available || !$available ? esc_html__('Unavailable','booked') : esc_html( _x('Book Session','Book a Single Session', 'booked') ));
+						$button_text = (!$spots_available || !$available ? esc_html__('Unavailable','booked') : esc_html( _x('Book Appointment','Book a Single Appointment', 'booked') ));
 						$html = '<div class="timeslot bookedClearFix'.($title && $only_titles == true ? ' booked-hide-time' : '').($hide_available_count || !$available ? ' timeslot-count-hidden' : '').(!$available ? ' timeslot-unavailable' : '').($title ? ' has-title ' : '').'">';
 							$html .= '<span class="timeslot-time'.($public_appointments ? ' booked-public-appointments' : '').'">';
 
@@ -1285,7 +1285,7 @@ function booked_fe_appointment_list_content($date,$calendar_id = false,$force_da
 
 		$appt_list_html = ob_get_clean();
 
-		echo '<h2'.(!$showing_prev ? ' class="booked-no-prev"' : '').'><span>'.sprintf(_n('Available Appointment on %s','Available Sessions on %s',$total_available,'booked'),'</span><strong>'.$date_display.'</strong>').'</h2>';
+		echo '<h2'.(!$showing_prev ? ' class="booked-no-prev"' : '').'><span>'.sprintf(_n('Available Appointment on %s','Available Appointments on %s',$total_available,'booked'),'</span><strong>'.$date_display.'</strong>').'</h2>';
 		echo $appt_list_html;
 
 	echo '</div>';
@@ -1479,6 +1479,17 @@ function booked_custom_fields($calendar_id = false){
 		$temp_count = 0;
 
 		$data_attributes = ' data-calendar-id="' . intval($calendar_id) . '" ';
+		$required_fields = [];
+		
+		foreach($custom_fields as $field):
+	
+			$field_parts = explode('---',$field['name']);
+			$field_type = $field_parts[0];
+			if ( $field_type == 'required' && isset( $field_parts[1] ) && isset( $field['value'] ) && $field['value'] ):
+				$required_fields[] = $field_parts[1];
+			endif;
+		
+		endforeach;
 
 		foreach($custom_fields as $field):
 
@@ -1488,7 +1499,7 @@ function booked_custom_fields($calendar_id = false){
 			$field_type = $field_parts[0];
 			$end_of_string = explode('___',$field_parts[1]);
 			$numbers_only = $end_of_string[0];
-			$is_required = (isset($end_of_string[1]) ? true : false);
+			$is_required = in_array( $numbers_only, $required_fields );
 
 			if ($look_for_subs):
 
@@ -1862,7 +1873,7 @@ function booked_profile_content_edit(){
 
 	$booked_current_user = wp_get_current_user();
 
-	echo '<h4><i class="booked-icon booked-icon-edit" style="position:relative; top:-1px;"></i>&nbsp;&nbsp;'.esc_html__('','booked').'</h4>'; ?>
+	echo '<h4><i class="booked-icon booked-icon-edit" style="position:relative; top:-1px;"></i>&nbsp;&nbsp;'.esc_html__('Edit Profile','booked').'</h4>'; ?>
 
     <form method="post" enctype="multipart/form-data" id="booked-page-form" action="<?php the_permalink(); ?>">
 

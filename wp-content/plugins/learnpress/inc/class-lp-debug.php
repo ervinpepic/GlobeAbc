@@ -39,7 +39,7 @@ class LP_Debug {
 	protected function __construct() {
 		$this->_handles = array();
 
-		add_action( 'plugins_loaded', array( $this, 'init' ) );
+		//add_action( 'plugins_loaded', array( $this, 'init' ) );
 	}
 
 	/**
@@ -175,7 +175,6 @@ class LP_Debug {
 			$this->_lock = ! ( LP_Settings::instance()->get( 'debug' ) == 'yes' );
 		}
 
-
 		if ( ( ! $force && ! $this->_lock || $force ) && $this->_can_log( $handle ) ) {
 			if ( $clear ) {
 				$this->clear( $handle );
@@ -247,7 +246,7 @@ class LP_Debug {
 		return self::$_instance;
 	}
 
-	public static function debug() {
+	/*public static function debug() {
 		if ( LP_Settings::instance()->get( 'debug' ) != 'yes' ) {
 			return;
 		}
@@ -256,7 +255,7 @@ class LP_Debug {
 				learn_press_debug( $arg );
 			}
 		}
-	}
+	}*/
 
 	public static function exception( $message ) {
 		if ( LP_Settings::instance()->get( 'debug' ) != 'yes' ) {
@@ -405,7 +404,7 @@ class LP_Debug {
 	 *
 	 */
 	public static function is_debug() {
-		return LP_Settings::get_option( 'debug' ) == 'yes';
+		return LP_Settings::get_option( 'debug', 'no' ) == 'yes';
 	}
 }
 

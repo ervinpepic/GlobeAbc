@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Add attributes feature for course
  *
@@ -35,7 +34,7 @@ if ( ! class_exists( 'LP_Course_Attributes' ) ) {
 			add_action( 'delete_term', array( $this, 'delete_terms' ), 10, 5 );
 
 			add_filter( 'learn_press_admin_tabs_info', array( $this, 'admin_tab' ) );
-			add_filter( "course_attribute_row_actions", array( $this, 'row_actions' ), 10, 2 );
+			add_filter( 'course_attribute_row_actions', array( $this, 'row_actions' ), 10, 2 );
 			add_filter( 'terms_clauses', array( $this, 'term_clauses' ), 10, 3 );
 			add_filter( 'learn_press_admin_tabs_on_pages', array( $this, 'admin_tabs_pages' ) );
 
@@ -47,20 +46,20 @@ if ( ! class_exists( 'LP_Course_Attributes' ) ) {
 					array(
 						'priority' => 100,
 						'action'   => 'remove-course-attribute-terms',
-						'callback' => array( $this, 'remove_terms' )
+						'callback' => array( $this, 'remove_terms' ),
 					),
 					array(
 						'action'   => 'add-attribute-to-course',
-						'callback' => array( $this, 'add_attribute_to_course' )
+						'callback' => array( $this, 'add_attribute_to_course' ),
 					),
 					array(
 						'action'   => 'add-attribute-value',
-						'callback' => array( $this, 'add_attribute_value' )
+						'callback' => array( $this, 'add_attribute_value' ),
 					),
 					array(
 						'action'   => 'save-attributes',
-						'callback' => array( $this, 'save_attributes' )
-					)
+						'callback' => array( $this, 'save_attributes' ),
+					),
 				)
 			);
 		}
@@ -92,6 +91,7 @@ if ( ! class_exists( 'LP_Course_Attributes' ) ) {
 			$name     = learn_press_get_request( 'name' );
 			$new      = learn_press_add_course_attribute_value( $name, $taxonomy );
 			$response = array();
+
 			if ( ! is_wp_error( $new ) ) {
 				$term             = get_term_by( 'term_taxonomy_id', $new['term_taxonomy_id'] );
 				$response['slug'] = $term->slug;
@@ -105,6 +105,7 @@ if ( ! class_exists( 'LP_Course_Attributes' ) ) {
 				$response['result'] = 'error';
 				$response['error']  = $new->get_error_messages();
 			}
+
 			learn_press_send_json( $response );
 			die();
 		}
@@ -116,7 +117,9 @@ if ( ! class_exists( 'LP_Course_Attributes' ) ) {
 				return;
 			}
 
-			if ( $attribute = learn_press_add_attribute_to_course( $course_id, $taxonomy ) ) {
+			$attribute = learn_press_add_attribute_to_course( $course_id, $taxonomy );
+
+			if ( $attribute ) {
 				$postId = $course_id;
 				include learn_press_get_admin_view( 'meta-boxes/course/html-course-attribute' );
 			}
@@ -135,9 +138,8 @@ if ( ! class_exists( 'LP_Course_Attributes' ) ) {
 		public function course_attributes_tab( $tabs ) {
 			$tabs['attributes'] = array(
 				'title'    => __( 'Attributes', 'learnpress' ),
-				'callback' => array( $this, 'course_attributes' )
+				'callback' => array( $this, 'course_attributes' ),
 			);
-
 			return $tabs;
 		}
 
@@ -165,7 +167,6 @@ if ( ! class_exists( 'LP_Course_Attributes' ) ) {
 			if ( LP_COURSE_ATTRIBUTE != $taxonomy ) {
 				return false;
 			}
-
 			return learn_press_delete_attribute_terms( $deleted_term->slug );
 		}
 
@@ -178,7 +179,7 @@ if ( ! class_exists( 'LP_Course_Attributes' ) ) {
 		 */
 		public function ready() {
 			if ( ! empty( $_REQUEST['taxonomy'] ) && strpos( $_REQUEST['taxonomy'], LP_COURSE_ATTRIBUTE ) !== false ) {
-				$this->_tax    = sanitize_text_field( wp_unslash( $_REQUEST['taxonomy'] ) );
+				$this->_tax    = $_REQUEST['taxonomy'];
 				$this->_screen = get_current_screen();
 				if ( $this->_screen->id == 'edit-' . LP_COURSE_ATTRIBUTE ) {
 					add_filter( "manage_{$this->_screen->id}_columns", array( $this, 'columns' ) );
@@ -198,8 +199,10 @@ if ( ! class_exists( 'LP_Course_Attributes' ) ) {
 			if ( $column_name == 'terms' ) {
 				$attribute = get_term( $term_id );
 
-				if ( $terms = learn_press_get_attribute_terms( $term_id ) ) {
+				$terms = learn_press_get_attribute_terms( $term_id );
+				if ( $terms ) {
 					$term_labels = array();
+
 					foreach ( $terms as $term ) {
 						$term_labels[] = sprintf( '<a href="%s">%s</a>', get_edit_term_link( $term->term_id, $term->taxonomy, LP_COURSE_CPT ), $term->name );
 					}
@@ -211,7 +214,6 @@ if ( ! class_exists( 'LP_Course_Attributes' ) ) {
 				$content .= '<div class="row-actions">' . $this->terms_row_actions( $attribute ) . '</div>';
 
 			}
-
 			return $content;
 		}
 
@@ -225,13 +227,19 @@ if ( ! class_exists( 'LP_Course_Attributes' ) ) {
 			$edit_link     = add_query_arg(
 				'wp_http_referer',
 				urlencode( wp_unslash( $uri ) ),
-				add_query_arg( array( 'taxonomy' => LP_COURSE_ATTRIBUTE . '-' . $tax->slug, 'post_type' => LP_COURSE_CPT ), admin_url( 'term.php' ) )
+				add_query_arg(
+					array(
+						'taxonomy'  => LP_COURSE_ATTRIBUTE . '-' . $tax->slug,
+						'post_type' => LP_COURSE_CPT,
+					),
+					admin_url( 'term.php' )
+				)
 			);
 			$terms_actions = array(
 				'edit'   => sprintf(
 					'<a href="%s" aria-label="%s" >%s </a > ',
 					esc_url( $edit_link ),
-					esc_attr( sprintf( '%s &#8220;%s&#8221', __( 'Edit', 'learnpress' ), $tax->name ) ),
+					esc_attr( sprintf( __( 'Edit &#8220;%s&#8221;', 'learnpress' ), $tax->name ) ),
 					__( 'Edit', 'learnpress' )
 				),
 				'delete' => sprintf(
@@ -239,9 +247,8 @@ if ( ! class_exists( 'LP_Course_Attributes' ) ) {
 					esc_url( add_query_arg( 'remove-course-attribute-terms', $tax->term_id ) ),
 					'',
 					__( 'Clear', 'learnpress' )
-				)
+				),
 			);
-
 			return join( ' | ', $terms_actions );
 		}
 
@@ -255,7 +262,6 @@ if ( ! class_exists( 'LP_Course_Attributes' ) ) {
 				unset( $columns['posts'] );
 			}
 			$columns['terms'] = __( 'Terms', 'learnpress' );
-
 			return $columns;
 		}
 
@@ -269,7 +275,6 @@ if ( ! class_exists( 'LP_Course_Attributes' ) ) {
 				$screen_id = get_current_screen()->id;
 				$pages[]   = $screen_id;
 			}
-
 			return $pages;
 		}
 
@@ -281,7 +286,7 @@ if ( ! class_exists( 'LP_Course_Attributes' ) ) {
 		 * @return mixed
 		 */
 		public function term_clauses( $a, $b, $c ) {
-			//print_r( func_get_args() );
+			// print_r( func_get_args() );
 			return $a;
 		}
 
@@ -297,11 +302,10 @@ if ( ! class_exists( 'LP_Course_Attributes' ) ) {
 				$screen_id = 'edit-' . LP_COURSE_ATTRIBUTE;
 			}
 			$tabs[] = array(
-				"link" => "edit-tags.php?taxonomy=" . LP_COURSE_ATTRIBUTE . "&post_type=lp_course",
-				"name" => __( "Attributes", "learnpress" ),
-				"id"   => $screen_id,
+				'link' => 'edit-tags.php?taxonomy=' . LP_COURSE_ATTRIBUTE . '&post_type=lp_course',
+				'name' => __( 'Attributes', 'learnpress' ),
+				'id'   => $screen_id,
 			);
-
 			return $tabs;
 		}
 
@@ -316,7 +320,7 @@ if ( ! class_exists( 'LP_Course_Attributes' ) ) {
 						'singular_name' => __( 'Attribute', 'learnpress' ),
 						'menu_name'     => __( 'Attributes', 'learnpress' ),
 						'add_new_item'  => __( 'Add New Attribute', 'learnpress' ),
-						'all_items'     => __( 'All Attributes', 'learnpress' )
+						'all_items'     => __( 'All Attributes', 'learnpress' ),
 					),
 					'show_ui'      => true,
 					'query_var'    => true,
@@ -330,7 +334,9 @@ if ( ! class_exists( 'LP_Course_Attributes' ) ) {
 				)
 			);
 
-			if ( $attributes = learn_press_get_attributes() ) {
+			if ( learn_press_get_attributes() ) {
+				$attributes = learn_press_get_attributes();
+
 				foreach ( $attributes as $attribute ) {
 					$this->_register_custom_attribute( $attribute );
 				}
@@ -360,23 +366,14 @@ if ( ! class_exists( 'LP_Course_Attributes' ) ) {
 				'labels'                => array(
 					'name'              => $name,
 					'singular_name'     => $singular_name,
-					// translators: %s: name course.
 					'search_items'      => sprintf( __( 'Search Course %s', 'learnpress' ), $name ),
-					// translators: %s: name course.
 					'all_items'         => sprintf( __( 'All Course %s', 'learnpress' ), $name ),
-					// translators: %s: name course.
 					'parent_item'       => sprintf( __( 'Parent Course %s', 'learnpress' ), $singular_name ),
-					// translators: %s: name course.
 					'parent_item_colon' => sprintf( __( 'Parent Course %s:', 'learnpress' ), $singular_name ),
-					// translators: %s: name course.
 					'edit_item'         => sprintf( __( 'Edit Course %s', 'learnpress' ), $singular_name ),
-					// translators: %s: name course.
 					'update_item'       => sprintf( __( 'Update Course %s', 'learnpress' ), $singular_name ),
-					// translators: %s: name course.
 					'add_new_item'      => sprintf( __( 'Add New Course %s', 'learnpress' ), $singular_name ),
-					// translators: %s: name course.
 					'new_item_name'     => sprintf( __( 'New Course %s', 'learnpress' ), $singular_name ),
-					// translators: %s: name course.
 					'not_found'         => sprintf( __( 'No &quot;Course %s&quot; found', 'learnpress' ), $singular_name ),
 				),
 				'show_ui'               => true,
@@ -388,19 +385,13 @@ if ( ! class_exists( 'LP_Course_Attributes' ) ) {
 				'rewrite'               => false,
 				'sort'                  => false,
 				'public'                => false,
-				'show_in_nav_menus'     => false/*,
-				'capabilities'          => array(
-					'manage_terms' => 'manage_lp_course_terms',
-					'edit_terms'   => 'edit_lp_course_terms',
-					'delete_terms' => 'delete_lp_course_terms',
-					'assign_terms' => 'assign_lp_course_terms',
-				)*/
+				'show_in_nav_menus'     => false,
 			);
 
 			$tax_data['rewrite'] = array(
-				'slug'         => $attribute->slug,// empty( $permalinks['attribute_base'] ) ? '' : trailingslashit( $permalinks['attribute_base'] ) . sanitize_title( $tax->attribute_name ),
+				'slug'         => $attribute->slug,
 				'with_front'   => false,
-				'hierarchical' => true
+				'hierarchical' => true,
 			);
 
 			register_taxonomy(
@@ -412,5 +403,4 @@ if ( ! class_exists( 'LP_Course_Attributes' ) ) {
 		}
 	}
 }
-
 return new LP_Course_Attributes();

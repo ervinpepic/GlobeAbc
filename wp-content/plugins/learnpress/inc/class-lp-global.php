@@ -55,6 +55,13 @@ class LP_Global {
 	public static $custom_posts = array();
 
 	/**
+	 * @var array
+	 *
+	 * @since 3.3.0
+	 */
+	public static $object_support_features = array();
+
+	/**
 	 * @return LP_Quiz|LP_Lesson
 	 */
 	public static function course_item() {
@@ -81,7 +88,9 @@ class LP_Global {
 	 * @return bool
 	 */
 	public static function is_course_item_type( $type ) {
-		if ( $item = self::course_item() ) {
+		$item = self::course_item();
+
+		if ( $item ) {
 			return $type === get_post_type( $item->get_id() );
 		}
 
@@ -117,15 +126,22 @@ class LP_Global {
 		return $lp_user;
 	}
 
-	public static function set_user( $user ) {
-		global $lp_user;
-
-		if ( self::$_user === false ) {
-			self::$_user = $lp_user;
-		}
-
-		$lp_user = $user;
-	}
+	/**
+	 * Set global user
+	 *
+	 * @param LP_User $user
+	 */
+	//  public static function set_user( $user = null ) {
+	//      global $lp_user;
+	//
+	//      var_dump(debug_backtrace());
+	//
+	//      if ( false === self::$_user ) {
+	//          self::$_user = $lp_user;
+	//      }
+	//
+	//      $lp_user = $user;
+	//  }
 
 	/**
 	 * Alias of course item for highlighting in dev
@@ -173,7 +189,30 @@ class LP_Global {
 	 * @return LP_Profile|WP_Error
 	 */
 	public static function profile( $global = false, $reset = false ) {
+		global $profile;
+
+		if ( ! $profile ) {
+			//self::$_profile = $profile = LP_Profile::instance( get_current_user_id() );
+		}
+
 		return LP_Profile::instance();
+
+		/**
+		 * Get origin global $profile (stored in class) if $global = TRUE
+		 */
+		if ( $global ) {
+
+			/**
+			 * If $reset = TRUE then set global $profile to origin global $profile (stored in class)
+			 */
+			if ( ! $reset ) {
+				return self::$_profile;
+			}
+
+			$profile = self::$_profile;
+		}
+
+		return $profile;
 	}
 
 	public static function init() {
@@ -191,6 +230,116 @@ class LP_Global {
 			return self::$custom_posts[ $key ];
 		}
 
+		return false;
+	}
+
+	/**
+	 * @param string $object_type
+	 * @param string $feature
+	 * @param string $type
+	 *
+	 * @return mixed
+	 * @since 3.3.0
+	 *
+	 */
+	public static function add_object_feature( $object_type, $feature, $type = 'yes' ) {
+		$namespace   = explode( '.', $object_type );
+		$object_type = $namespace[0];
+		$namespace   = isset( $namespace[1] ) ? $namespace[1] : false;
+
+		if ( ! isset( self::$object_support_features[ $object_type ] ) ) {
+			self::$object_support_features[ $object_type ] = array();
+		}
+
+		if ( $namespace ) {
+			if ( ! isset( self::$object_support_features[ $object_type ][ $namespace ] ) ) {
+				self::$object_support_features[ $object_type ][ $namespace ] = array();
+			}
+
+			return self::$object_support_features[ $object_type ][ $namespace ][ $feature ] = $type === null ? 'yes' : $type;
+		}
+
+		return self::$object_support_features[ $object_type ][ $feature ] = $type === null ? 'yes' : $type;
+	}
+
+	/**
+	 * Checks if an object is support a feature.
+	 *
+	 * @param string $object_type
+	 * @param string $feature
+	 * @param mixed $type
+	 *
+	 * @return bool
+	 * @since 3.3.0
+	 *
+	 */
+	public static function object_is_support_feature( $object_type, $feature, $type = null ) {
+		$objects     = self::$object_support_features;
+		$namespace   = explode( '.', $object_type );
+		$object_type = $namespace[0];
+		$namespace   = isset( $namespace[1] ) ? $namespace[1] : false;
+
+		if ( empty( $objects[ $object_type ] ) ) {
+			return false;
+		}
+
+		if ( $namespace && empty( $objects[ $object_type ][ $namespace ] ) ) {
+			return false;
+		}
+
+		if ( $namespace ) {
+			$is_support = array_key_exists( $feature, $objects[ $object_type ][ $namespace ] ) ? true : false;
+
+			if ( $type && $is_support ) {
+				return $objects[ $object_type ][ $namespace ][ $feature ] === $type;
+			}
+
+			return $is_support;
+		}
+
+		$is_support = array_key_exists( $feature, $objects[ $object_type ] ) ? true : false;
+
+		if ( $type && $is_support ) {
+			return $objects[ $object_type ][ $feature ] === $type;
+		}
+
+		return $is_support;
+	}
+
+	/**
+	 * Get all features that an object support.
+	 *
+	 * @param string $object_type
+	 *
+	 * @return array|mixed
+	 * @since 3.3.0
+	 *
+	 */
+	public static function get_object_supports( $object_type ) {
+		$namespace   = explode( '.', $object_type );
+		$object_type = $namespace[0];
+		$namespace   = isset( $namespace[1] ) ? $namespace[1] : false;
+
+		if ( empty( self::$object_support_features[ $object_type ] ) ) {
+			return array();
+		}
+
+		if ( $namespace ) {
+			if ( empty( self::$object_support_features[ $object_type ][ $namespace ] ) ) {
+				return array();
+			}
+		}
+
+		return self::$object_support_features[ $object_type ];
+	}
+
+	/**
+	 * @param $user
+	 *
+	 * @return false
+	 * @deprecated 4.0.0
+	 */
+	public function set_user( $user ) {
 		return false;
 	}
 }

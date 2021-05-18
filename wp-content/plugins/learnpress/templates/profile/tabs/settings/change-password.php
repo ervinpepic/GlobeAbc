@@ -9,105 +9,53 @@
  * @version  3.0.0
  */
 
-/**
- * Prevent loading this file directly
- */
 defined( 'ABSPATH' ) || exit();
 
 $profile = LP_Profile::instance();
+
 if ( ! isset( $section ) ) {
 	$section = 'change-password';
-} 
-
-$current_username = wp_get_current_user();
-$profile_username = $current_username->user_login; // getting & setting the current user
-$who_is_user = wp_get_current_user();
-$roles = (array) $who_is_user->roles;
-// obtaining the role
-foreach ($roles as $role) {
-	if ($role == 'lp_teacher') {
-		?>
-
-<div class="cmsmasters_column one_fourth">
-</div>
-<div class="cmsmasters_column one_fourth">
-</div>
-<div class="cmsmasters_column one_fourth">
-</div>
-<div class="cmsmasters_column one_fourth">
-    <div id="cmsmasters_button_6057ce87667930_50788723" class="button_wrap"><a
-            href="https://globeabc.com/lp-profile/<?php echo $profile_username ?>" class="cmsmasters_button"><span>Back</span></a></div>
-</div>
-<?php
-}
 }
 ?>
 
 <form method="post" name="profile-change-password" enctype="multipart/form-data" class="learn-press-form">
 
-    <?php
-	/**
-	 * @since 3.0.0
-	 */
-	do_action( 'learn-press/before-profile-change-password-fields', $profile ); ?>
+	<?php do_action( 'learn-press/before-profile-change-password-fields', $profile ); ?>
 
-    <ul class="form-fields">
+	<ul class="form-fields">
 
-        <?php
-		// @deprecated
-		do_action( 'learn_press_before_' . $section . '_edit_fields' );
+		<?php do_action( 'learn-press/begin-profile-change-password-fields', $profile ); ?>
 
-		/**
-		 * @since 3.0.0
-		 */
-		do_action( 'learn-press/begin-profile-change-password-fields', $profile );
-		?>
+		<li class="form-field">
+			<label for="pass0"><?php esc_html_e( 'Current password', 'learnpress' ); ?></label>
+			<div class="form-field-input">
+				<input type="password" id="pass0" name="pass0" autocomplete="off" class="regular-text"/>
+			</div>
+		</li>
+		<li class="form-field">
+			<label for="pass1"><?php esc_html_e( 'New password', 'learnpress' ); ?></label>
+			<div class="form-field-input">
+				<input type="password" name="pass1" id="pass1" class="regular-text" value=""/>
+			</div>
+		</li>
+		<li class="form-field">
+			<label for="pass2"><?php esc_html_e( 'Confirm new password', 'learnpress' ); ?></label>
+			<div class="form-field-input">
+				<input name="pass2" type="password" id="pass2" class="regular-text" value=""/>
+				<p id="lp-password-not-match" class="description lp-field-error-message hide-if-js"><?php esc_html_e( 'New password does not match!', 'learnpress' ); ?></p>
+			</div>
+		</li>
 
-        <li class="form-field">
-            <label for="pass0"><?php _e( 'Old password', 'learnpress' ); ?></label>
-            <div class="form-field-input">
-                <input type="password" id="pass0" name="pass0" autocomplete="off" class="regular-text" />
-            </div>
-        </li>
-        <li class="form-field">
-            <label for="pass1"><?php _e( 'New password', 'learnpress' ); ?></label>
-            <div class="form-field-input">
-                <input type="password" name="pass1" id="pass1" class="regular-text" value="" />
-            </div>
-        </li>
-        <li class="form-field">
-            <label for="pass2"><?php _e( 'Confirmation password', 'learnpress' ); ?></label>
-            <div class="form-field-input">
-                <input name="pass2" type="password" id="pass2" class="regular-text" value="" />
-                <p id="lp-password-not-match" class="description lp-field-error-message hide-if-js">
-                    <?php _e( 'New password does not match!', 'learnpress' ); ?></p>
-            </div>
-        </li>
+		<?php do_action( 'learn-press/end-profile-change-password-fields', $profile ); ?>
 
-        <?php
-		/**
-		 * @since 3.0.0
-		 */
-		do_action( 'learn-press/end-profile-change-password-fields', $profile );
+	</ul>
 
-		// @deprecated
-		do_action( 'learn_press_after_' . $section . '_edit_fields' );
-		?>
+	<?php do_action( 'learn-press/after-profile-change-password-fields', $profile ); ?>
 
-    </ul>
+	<p>
+		<input type="hidden" name="save-profile-password" value="<?php echo wp_create_nonce( 'learn-press-save-profile-password' ); ?>">
+	</p>
 
-    <?php
-	/**
-	 * @since 3.0.0
-	 */
-	do_action( 'learn-press/after-profile-change-password-fields', $profile );
-	?>
-
-    <p>
-        <input type="hidden" name="save-profile-password"
-            value="<?php echo wp_create_nonce( 'learn-press-save-profile-password' ); ?>">
-    </p>
-
-    <button type="submit" name="submit" id="submit"><?php _e( 'Save changes', 'learnpress' ); ?></button>
+	<button type="submit" name="submit" id="submit"><?php esc_html_e( 'Save changes', 'learnpress' ); ?></button>
 
 </form>

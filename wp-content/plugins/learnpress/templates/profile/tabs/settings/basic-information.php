@@ -4,14 +4,11 @@
  *
  * This template can be overridden by copying it to yourtheme/learnpress/settings/tabs/basic-information.php.
  *
- * @author  ThimPress
+ * @author   ThimPress
  * @package  Learnpress/Templates
- * @version  3.0.0
+ * @version  4.0.0
  */
 
-/**
- * Prevent loading this file directly
- */
 defined( 'ABSPATH' ) || exit();
 
 $profile = LP_Profile::instance();
@@ -21,114 +18,121 @@ if ( ! isset( $section ) ) {
 }
 
 $user = $profile->get_user();
-$current_username = wp_get_current_user();
-$profile_username = $current_username->user_login; // getting & setting the current user
-$who_is_user = wp_get_current_user();
-$roles = (array) $who_is_user->roles;
-// obtaining the role
-foreach ($roles as $role) {
-	if ($role == 'lp_teacher') {
-		?>
-
-<div class="cmsmasters_column one_fourth">
-</div>
-<div class="cmsmasters_column one_fourth">
-</div>
-<div class="cmsmasters_column one_fourth">
-</div>
-<div class="cmsmasters_column one_fourth">
-    <div id="cmsmasters_button_6057ce87667930_50788723" class="button_wrap"><a
-            href="https://globeabc.com/lp-profile/<?php echo $profile_username ?>" class="cmsmasters_button"><span>Back</span></a></div>
-</div>
-<?php
-}
-}
 ?>
 
-<form method="post" id="learn-press-profile-basic-information" name="profile-basic-information"
-    enctype="multipart/form-data" class="learn-press-form">
+<form method="post" id="learn-press-profile-basic-information" name="profile-basic-information" enctype="multipart/form-data" class="learn-press-form">
 
-    <?php
-	/**
-	 * @since 3.0.0
-	 */
-	do_action( 'learn-press/before-profile-basic-information-fields', $profile );
+	<?php do_action( 'learn-press/before-profile-basic-information-fields', $profile ); ?>
 
-	?>
-    <ul class="form-fields">
+	<ul class="form-fields">
 
-        <?php
-		/**
-		 * @since 3.0.0
-		 */
-		do_action( 'learn-press/begin-profile-basic-information-fields', $profile );
+		<?php do_action( 'learn-press/begin-profile-basic-information-fields', $profile ); ?>
 
-		// @deprecated
-		do_action( 'learn_press_before_' . $section . '_edit_fields' );
+
+		<li class="form-field form-field__first-name form-field__50">
+			<label for="first_name"><?php esc_html_e( 'First name', 'learnpress' ); ?></label>
+			<div class="form-field-input">
+				<input type="text" name="first_name" id="first_name" value="<?php echo esc_attr( $user->get_data( 'first_name' ) ); ?>" class="regular-text">
+			</div>
+		</li>
+		<li class="form-field form-field__last-name form-field__50">
+			<label for="last_name"><?php esc_html_e( 'Last name', 'learnpress' ); ?></label>
+			<div class="form-field-input">
+				<input type="text" name="last_name" id="last_name" value="<?php echo esc_attr( $user->get_data( 'last_name' ) ); ?>" class="regular-text">
+			</div>
+		</li>
+		<li class="form-field form-field__last-name form-field__50">
+			<label for="account_display_name"><?php esc_html_e( 'Display name', 'learnpress' ); ?><span class="required">*</span></label>
+			<div class="form-field-input">
+				<input type="text" name="account_display_name" id="account_display_name" value="<?php echo esc_attr( $user->get_data( 'display_name' ) ); ?>" class="regular-text">
+			</div>
+		</li>
+		<li class="form-field form-field__last-name form-field__50">
+			<label for="account_email"><?php esc_html_e( 'Email address', 'learnpress' ); ?><span class="required">*</span></label>
+			<div class="form-field-input">
+				<input type="email" name="account_email" id="account_email" value="<?php echo esc_attr( $user->get_data( 'email' ) ); ?>" class="regular-text">
+			</div>
+		</li>
+
+		<li class="form-field form-field__bio form-field__clear">
+			<label for="description"><?php esc_html_e( 'Biographical Info', 'learnpress' ); ?></label>
+			<div class="form-field-input">
+				<textarea name="description" id="description" rows="5" cols="30"><?php esc_html_e( $user->get_data( 'description' ) ); ?></textarea>
+				<p class="description"><?php esc_html_e( 'Share a little biographical information to fill out your profile. This may be shown publicly.', 'learnpress' ); ?></p>
+			</div>
+		</li>
+
+		<?php
+		$custom_profile = lp_get_user_custom_register_fields( $user->ID );
+		$custom_fields  = LP()->settings()->get( 'register_profile_fields' );
+
+		if ( $custom_fields ) {
+			foreach ( $custom_fields as $field ) {
+				$value = sanitize_key( $field['name'] );
+				?>
+				<li class="form-field form-field__<?php echo $value; ?> form-field__clear">
+				<?php
+				switch ( $field['type'] ) {
+					case 'text':
+					case 'number':
+					case 'email':
+					case 'url':
+					case 'tel':
+						?>
+						<label for="description"><?php echo esc_html( $field['name'] ); ?></label>
+						<input name="_lp_custom_register[<?php echo $value; ?>]" type="<?php echo $field['type']; ?>" class="regular-text" value="<?php echo isset( $custom_profile[ $value ] ) ? $custom_profile[ $value ] : ''; ?>">
+						<?php
+						break;
+					case 'textarea':
+						?>
+						<label for="description"><?php echo esc_html( $field['name'] ); ?></label>
+						<textarea name="_lp_custom_register[<?php echo $value; ?>]"><?php echo isset( $custom_profile[ $value ] ) ? esc_textarea( $custom_profile[ $value ] ) : ''; ?></textarea>
+						<?php
+						break;
+					case 'checkbox':
+						?>
+						<label>
+							<input name="_lp_custom_register[<?php echo $value; ?>]" type="<?php echo $field['type']; ?>" value="1" <?php echo isset( $custom_profile[ $value ] ) ? checked( $custom_profile[ $value ], 1 ) : ''; ?>>
+							<?php echo esc_html( $field['name'] ); ?>
+						</label>
+						<?php
+						break;
+				}
+				?>
+				</li>
+				<?php
+			}
+		}
+
+		// Social button.
+		$socials = learn_press_get_user_extra_profile_info( $user->get_id() );
+		if ( $socials ) {
+			foreach ( $socials as $k => $v ) {
+				if ( ! learn_press_is_social_profile( $k ) ) {
+					continue;
+				}
+				?>
+
+				<li class="form-field form-field__profile-social form-field__50 form-field__<?php echo $k; ?>">
+					<label for="description"><?php echo learn_press_social_profile_name( $k ); ?></label>
+					<div class="form-field-input">
+						<input type="text" value="<?php echo esc_attr( $v ); ?>" name="user_profile_social[<?php echo esc_attr( $k ); ?>]" placeholder="https://">
+					</div>
+				</li>
+				<?php
+			}
+		}
 		?>
 
-        <li class="form-field">
-            <label for="description"><?php _e( 'About Me', 'learnpress' ); ?></label>
-            <div class="form-field-input">
-                <textarea name="description" id="description" rows="5"
-                    cols="30"><?php esc_html_e( $user->get_data( 'description' ) ); ?></textarea>
-                <p class="description">
-                    <?php _e( 'Please write something about yourself. E.g. hobbies, favorite food, sports, movies etc. We will use this info and try to match you with students who have the same interests as you. The goal is to ensure an interesting session for the student as well as for you.', 'learnpress' ); ?>
-                </p>
-            </div>
-        </li>
-        <li class="form-field">
-            <label for="first_name"><?php _e( 'First Name', 'learnpress' ); ?></label>
-            <div class="form-field-input">
-                <input type="text" name="first_name" id="first_name"
-                    value="<?php echo esc_attr( $user->get_data( 'first_name' ) ); ?>" class="regular-text">
-            </div>
-        </li>
-        <li class="form-field">
-            <label for="last_name"><?php _e( 'Last Name', 'learnpress' ); ?></label>
-            <div class="form-field-input">
-                <input type="text" name="last_name" id="last_name"
-                    value="<?php echo esc_attr( $user->get_data( 'last_name' ) ); ?>" class="regular-text">
-            </div>
-        </li>
-        <li class="form-field">
-            <label for="nickname"><?php _e( 'Username', 'learnpress' ); ?></label>
-            <div class="form-field-input">
-                <input type="text" name="nickname" id="nickname"
-                    value="<?php echo esc_attr( $user->get_data( 'nickname' ) ) ?>" class="regular-text" />
-            </div>
-        </li>
-        <li class="form-field">
-            <label for="display_name"><?php _e( 'Display name as', 'learnpress' ); ?></label>
-            <div class="form-field-input">
-                <?php learn_press_profile_list_display_names(); ?>
-            </div>
-        </li>
+		<?php do_action( 'learn-press/end-profile-basic-information-fields', $profile ); ?>
+	</ul>
 
-        <?php
-		// @deprecated
-		do_action( 'learn_press_after_' . $section . '_edit_fields' );
+	<?php do_action( 'learn-press/after-profile-basic-information-fields', $profile ); ?>
 
-		/**
-		 * @since 3.0.0
-		 */
-		do_action( 'learn-press/end-profile-basic-information-fields', $profile );
+	<p>
+		<input type="hidden" name="save-profile-basic-information" value="<?php echo wp_create_nonce( 'learn-press-save-profile-basic-information' ); ?>"/>
+	</p>
 
-		?>
-    </ul>
-
-    <?php
-	/**
-	 * @since 3.0.0
-	 */
-	do_action( 'learn-press/after-profile-basic-information-fields', $profile );
-	?>
-
-    <p>
-        <input type="hidden" name="save-profile-basic-information"
-            value="<?php echo wp_create_nonce( 'learn-press-save-profile-basic-information' ); ?>" />
-    </p>
-
-    <button type="submit" name="submit"><?php _e( 'Save changes', 'learnpress' ); ?></button>
+	<button type="submit" name="submit"><?php esc_html_e( 'Save changes', 'learnpress' ); ?></button>
 
 </form>
