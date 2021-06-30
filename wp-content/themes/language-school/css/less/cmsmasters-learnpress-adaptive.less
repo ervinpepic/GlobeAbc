@@ -1,0 +1,76 @@
+/**
+ * @package 	WordPress
+ * @subpackage 	Language School
+ * @version 	1.2.2
+ * 
+ * Responsive LearnPress CSS Rules
+ * Created by CMSMasters
+ * 
+ */
+
+
+@import "general.less";
+
+@media only screen {
+	/*-------------------------------------------------------------------------*/
+	/*	Large Monitor
+	/*-------------------------------------------------------------------------*/
+	@media @monitor_medium and (max-width: 1620px) {
+		.lp-content-area {
+			padding-right:15px;
+			padding-left:15px;
+		}
+	}
+	
+	
+	
+	/*-------------------------------------------------------------------------*/
+	/*	Tablet Monitor 950
+	/*-------------------------------------------------------------------------*/
+	@media @monitor_tablet_950 {
+		.cmsmasters_learnpress_shortcode {
+			&.cmsmasters_4 {
+				.lpr_course_post {
+					width:round((100% / 2) - (@col_mar * 2), 2);
+					
+					&:nth-child(2n+1) {
+						.cl;
+					}
+				}
+			}
+			
+			&.cmsmasters_5 {
+				.lpr_course_post {
+					width:50%;
+					
+					&:nth-child(5n+1) {
+						clear:none;
+					}
+					
+					&:nth-child(2n+1) {
+						.cl;
+					}
+				}
+			}
+		}
+	}
+
+
+
+	/*-------------------------------------------------------------------------*/
+	/*	Phone Monitor
+	/*-------------------------------------------------------------------------*/
+	@media @monitor_phone {
+		.cmsmasters_learnpress_shortcode {
+			&.cmsmasters_2,
+			&.cmsmasters_3,
+			&.cmsmasters_4,
+			&.cmsmasters_5 {
+				.lpr_course_post {
+					width:96%;
+					float:none;
+				}
+			}
+		}
+	}
+}
