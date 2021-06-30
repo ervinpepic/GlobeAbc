@@ -130,7 +130,6 @@ Tags: one-column, two-columns, three-columns, four-columns, left-sidebar, right-
 .lp-profile-nav-tabs {
     display: none;
 }
-#profile-nav { 
-    display: none; 
+.lp-ajax-message.error {
+    display: none !Important;
 }
-
