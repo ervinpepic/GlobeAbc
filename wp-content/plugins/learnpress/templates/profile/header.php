@@ -210,7 +210,7 @@ foreach ($roles as $role) {
                 <div class="cmsmasters_row_margin">
                     <div class="cmsmasters_column one_fourth">
                         <div class="button_wrap" id="cmsmasters_button_60d8af6683b4e9_90357716">
-                            <a class="cmsmasters_button" href="#"> <i class="fas fa-inbox"></i> 
+                            <a class="cmsmasters_button" href="#"> <i class="fas fa-inbox"></i>
                                 <span>
                                     Inbox
                                 </span>
@@ -220,13 +220,13 @@ foreach ($roles as $role) {
                     <div class="cmsmasters_column one_fourth">
                         <div class="button_wrap" id="cmsmasters_button_60d8af6683bc70_65120735">
                             <?php if ($role == 'lp_teacher') {?>
-                            <a class="cmsmasters_button" href="https://globeabc.com/teacher-booking-system/"> <i class="far fa-calendar-alt"></i> 
+                            <a class="cmsmasters_button" href="https://globeabc.com/teacher-booking-system/"> <i class="far fa-calendar-alt"></i>
                                 <span>
                                     Booking
                                 </span>
                             </a>
                             <?php } else if ($role == 'student') {?>
-                            <a class="cmsmasters_button" href="https://globeabc.com/student-booking-system/"> <i class="far fa-calendar-alt"></i> 
+                            <a class="cmsmasters_button" href="https://globeabc.com/student-booking-system/"> <i class="far fa-calendar-alt"></i>
                                 <span>
                                     Booking
                                 </span>
@@ -236,7 +236,7 @@ foreach ($roles as $role) {
                     </div>
                     <div class="cmsmasters_column one_fourth">
                         <div class="button_wrap" id="cmsmasters_button_60d8af6683c340_61348357">
-                            <a class="cmsmasters_button" href="https://globeabc.com/lp-profile/<?php echo $who_is_user->user_login; ?>/settings/basic-information"> <i class="fas fa-cog"></i> 
+                            <a class="cmsmasters_button" href="https://globeabc.com/lp-profile/<?php echo $who_is_user->user_login; ?>/settings/basic-information"> <i class="fas fa-cog"></i>
                                 <span>
                                     Settings
                                 </span>

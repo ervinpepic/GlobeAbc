@@ -148,34 +148,35 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 			$post_object = get_post( $id );
 			$this->_set_data(
 				array(
-					'status'                       => $post_object->post_status,
-					 'no_required_enroll'      => get_post_meta( $id, '_lp_no_required_enroll', true ),
-					'price'                        => get_post_meta( $id, '_lp_price', true ),
-					'sale_price'                   => get_post_meta( $id, '_lp_sale_price', true ),
-					'sale_start'                   => get_post_meta( $id, '_lp_sale_start', true ),
-					'sale_end'                     => get_post_meta( $id, '_lp_sale_end', true ),
-					'duration'                     => get_post_meta( $id, '_lp_duration', true ),
-					'max_students'                 => get_post_meta( $id, '_lp_max_students', true ),
-					'students'                     => false,
-					'fake_students'                => get_post_meta( $id, '_lp_students', true ),
-					'retake_count'                 => get_post_meta( $id, '_lp_retake_count', true ),
-					'featured'                     => get_post_meta( $id, '_lp_featured', true ),
-					'block_lesson_content'         => get_post_meta( $id, '_lp_block_lesson_content', true ),
-					'course_result'                => get_post_meta( $id, '_lp_course_result', true ),
-					'passing_condition'            => get_post_meta( $id, '_lp_passing_condition', true ),
-					'final_quiz'                   => get_post_meta( $id, '_lp_final_quiz', true ),
-					'external_link'                => get_post_meta( $id, '_lp_external_link_buy_course', true ),
-					'block_course_duration_expire' => get_post_meta(
+					'status'                         => $post_object->post_status,
+					'no_required_enroll'             => get_post_meta( $id, '_lp_no_required_enroll', true ),
+					'price'                          => get_post_meta( $id, '_lp_price', true ),
+					'sale_price'                     => get_post_meta( $id, '_lp_sale_price', true ),
+					'sale_start'                     => get_post_meta( $id, '_lp_sale_start', true ),
+					'sale_end'                       => get_post_meta( $id, '_lp_sale_end', true ),
+					'duration'                       => get_post_meta( $id, '_lp_duration', true ),
+					'max_students'                   => get_post_meta( $id, '_lp_max_students', true ),
+					'students'                       => false,
+					'fake_students'                  => get_post_meta( $id, '_lp_students', true ),
+					'retake_count'                   => get_post_meta( $id, '_lp_retake_count', true ),
+					'featured'                       => get_post_meta( $id, '_lp_featured', true ),
+					'block_lesson_content'           => get_post_meta( $id, '_lp_block_lesson_content', true ),
+					'course_result'                  => get_post_meta( $id, '_lp_course_result', true ),
+					'passing_condition'              => get_post_meta( $id, '_lp_passing_condition', true ),
+					'final_quiz'                     => get_post_meta( $id, '_lp_final_quiz', true ),
+					'external_link'                  => get_post_meta( $id, '_lp_external_link_buy_course', true ),
+					'block_course_duration_expire'   => get_post_meta(
 						$id,
 						'_lp_block_expire_duration',
 						true
 					),
-					'block_course_finished'        => get_post_meta(
+					'block_course_finished'          => get_post_meta(
 						$id,
 						'_lp_block_finished',
 						true
 					),
-					'allow_repurchase'             => get_post_meta( $id, '_lp_allow_course_repurchase', true ),
+					'allow_repurchase'               => get_post_meta( $id, '_lp_allow_course_repurchase', true ),
+					'allow_repurchase_course_option' => get_post_meta( $id, '_lp_course_repurchase_option', true ),
 				)
 			);
 		}
@@ -189,7 +190,8 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 			$item_by_types = array();
 			$section_items = array();
 
-			if ( $items = $this->_curd->read_course_curriculum( $this->get_id() ) ) {
+			$items = $this->_curd->read_course_curriculum( $this->get_id() );
+			if ( $items ) {
 				foreach ( $items as $item ) {
 					$item_ids[] = $item->id;
 
@@ -574,12 +576,12 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 		}
 
 		/**
+		 * Get total students fake.
+		 *
 		 * @return int
 		 */
-		public function get_fake_students() {
-			$count = $this->get_data( 'fake_students' );
-
-			return is_numeric( $count ) ? absint( $count ) : 0;
+		public function get_fake_students() : int {
+			return absint( $this->get_data( 'fake_students', 0 ) );
 		}
 
 		/**
@@ -597,9 +599,6 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 			}
 
 			$enrolled = absint( $enrolled );
-
-			// @deprecated
-			$enrolled = apply_filters( 'learn_press_count_users_enrolled', $enrolled, $this );
 
 			return apply_filters( 'learn-press/course/users-enrolled', $enrolled, $this );
 		}
@@ -989,16 +988,18 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 		 * and add the fake value if both are set.
 		 *
 		 * @return int
+		 * @editor tungnx
+		 * @Todo: view and rewrite this function
 		 */
-		public function count_students() {
+		public function count_students(): int {
 			$count_users = LP()->utils->count_course_users( $this->get_id(), true );
 			$total       = ! empty( $count_users['total'] ) ? $count_users['total'] : 0;
 
-			$append_students = LP()->settings()->get( 'enrolled_students_number' );
+			// $append_students = LP()->settings()->get( 'enrolled_students_number' );
 
-			if ( ( 'yes' == $append_students ) || ! in_array( $append_students, array( 'yes', 'no' ) ) ) {
-				$total += $this->get_fake_students();
-			}
+			// if ( ( 'yes' == $append_students ) || ! in_array( $append_students, array( 'yes', 'no' ) ) ) {
+			$total += $this->get_fake_students();
+			// }
 
 			return $total;
 		}

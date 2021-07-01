@@ -185,7 +185,7 @@ var Attempts = function Attempts() {
       className: "quiz-attempts__marks"
     }, "".concat(row.userMark, " / ").concat(row.mark)), /*#__PURE__*/React.createElement("td", {
       className: "quiz-attempts__grade"
-    }, row.passingGrade || _x('-', 'unknown passing grade value', 'learnpress')), /*#__PURE__*/React.createElement("td", {
+    }, row.passingGrade || '-'), /*#__PURE__*/React.createElement("td", {
       className: "quiz-attempts__result"
     }, "".concat(parseFloat(row.result).toFixed(2), "%"), " ", /*#__PURE__*/React.createElement("span", null, row.graduationText)));
   })))));
@@ -1961,7 +1961,7 @@ var Result = function Result() {
     className: "result-achieved"
   }, "".concat(percentResult, "%")), /*#__PURE__*/React.createElement("span", {
     className: "result-require"
-  }, passingGradeValue || _x('-', 'unknown passing grade value', 'learnpress'))), done && /*#__PURE__*/React.createElement("p", {
+  }, passingGradeValue || '-')), done && /*#__PURE__*/React.createElement("p", {
     className: "result-message"
   }, message), /*#__PURE__*/React.createElement("ul", {
     className: "result-statistic"

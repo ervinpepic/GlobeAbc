@@ -413,9 +413,9 @@ var courseStatistics = function courseStatistics() {
               response = _context.sent;
 
               if (response.status === 'success' && response.data) {
-                ele.innerHTML += response.data;
+                ele.innerHTML = response.data;
               } else {
-                ele.innerHTML += "<div class=\"lp-ajax-message error\" style=\"display:block\">".concat(response.message && response.message, "</div>");
+                ele.innerHTML = "<div class=\"lp-ajax-message error\" style=\"display:block\">".concat(response.message && response.message, "</div>");
               }
 
               _context.next = 10;

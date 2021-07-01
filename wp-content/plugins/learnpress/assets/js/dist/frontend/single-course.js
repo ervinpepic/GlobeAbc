@@ -166,6 +166,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/url */ "@wordpress/url");
 /* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_url__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _show_lp_overlay_complete_item__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./show-lp-overlay-complete-item */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/show-lp-overlay-complete-item.js");
+/* harmony import */ var _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/lp-modal-overlay */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/utils/lp-modal-overlay.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -181,6 +182,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 
 
@@ -326,29 +328,97 @@ var purchaseCourse = function purchaseCourse() {
 
   if (forms.length > 0) {
     forms.forEach(function (form) {
+      // Allow Repurchase.
+      var allowRepurchase = function allowRepurchase() {
+        var continueRepurchases = document.querySelectorAll('.lp_allow_repuchase_select');
+        continueRepurchases.forEach(function (repurchase) {
+          var radios = repurchase.querySelectorAll('[name=_lp_allow_repurchase_type]');
+
+          for (var i = 0, length = radios.length; i < length; i++) {
+            if (radios[i].checked) {
+              var repurchaseType = radios[i].value;
+              var id = form.querySelector('input[name=purchase-course]').value;
+              var btnBuynow = form.querySelector('button.button-purchase-course');
+              btnBuynow.classList.add('loading');
+              btnBuynow.disabled = true;
+              submit(id, btnBuynow, repurchaseType);
+              break;
+            }
+          }
+        });
+      };
+
       var submit = /*#__PURE__*/function () {
         var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(id, btn) {
-          var response, status, redirect, message;
+          var repurchaseType,
+              response,
+              status,
+              _response$data,
+              redirect,
+              type,
+              html,
+              titlePopup,
+              message,
+              _args2 = arguments;
+
           return regeneratorRuntime.wrap(function _callee2$(_context2) {
             while (1) {
               switch (_context2.prev = _context2.next) {
                 case 0:
-                  _context2.prev = 0;
-                  _context2.next = 3;
+                  repurchaseType = _args2.length > 2 && _args2[2] !== undefined ? _args2[2] : false;
+                  _context2.prev = 1;
+                  _context2.next = 4;
                   return wp.apiFetch({
                     path: 'lp/v1/courses/purchase-course',
                     method: 'POST',
                     data: {
-                      id: id
+                      id: id,
+                      repurchaseType: repurchaseType
                     }
                   });
 
-                case 3:
+                case 4:
                   response = _context2.sent;
-                  btn.classList.remove('loading');
-                  btn.disabled = false;
-                  status = response.status, redirect = response.data.redirect, message = response.message;
 
+                  if (btn) {
+                    btn.classList.remove('loading');
+                    btn.disabled = false;
+                  }
+
+                  status = response.status, _response$data = response.data, redirect = _response$data.redirect, type = _response$data.type, html = _response$data.html, titlePopup = _response$data.titlePopup, message = response.message;
+
+                  if (!(type === 'allow_repurchase' && status === 'success')) {
+                    _context2.next = 17;
+                    break;
+                  }
+
+                  if (form.querySelector('.lp_allow_repuchase_select')) {
+                    _context2.next = 15;
+                    break;
+                  }
+
+                  if (_utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_3__["default"].init()) {
+                    _context2.next = 11;
+                    break;
+                  }
+
+                  return _context2.abrupt("return");
+
+                case 11:
+                  _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_3__["default"].elLPOverlay.show();
+                  _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_3__["default"].setTitleModal(titlePopup || '');
+                  _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_3__["default"].setContentModal(html);
+
+                  _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_3__["default"].callBackYes = function () {
+                    _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_3__["default"].elLPOverlay.hide();
+                    allowRepurchase();
+                  };
+
+                case 15:
+                  _context2.next = 18;
+                  break;
+
+                case 17:
                   if (message && status) {
                     form.innerHTML += "<div class=\"lp-enroll-notice ".concat(status, "\">").concat(message, "</div>");
 
@@ -357,20 +427,21 @@ var purchaseCourse = function purchaseCourse() {
                     }
                   }
 
-                  _context2.next = 13;
+                case 18:
+                  _context2.next = 23;
                   break;
 
-                case 10:
-                  _context2.prev = 10;
-                  _context2.t0 = _context2["catch"](0);
+                case 20:
+                  _context2.prev = 20;
+                  _context2.t0 = _context2["catch"](1);
                   form.innerHTML += "<div class=\"lp-enroll-notice error\">".concat(_context2.t0.message && _context2.t0.message, "</div>");
 
-                case 13:
+                case 23:
                 case "end":
                   return _context2.stop();
               }
             }
-          }, _callee2, null, [[0, 10]]);
+          }, _callee2, null, [[1, 20]]);
         }));
 
         return function submit(_x3, _x4) {
