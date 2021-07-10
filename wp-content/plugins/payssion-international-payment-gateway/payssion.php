@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Payssion
 Plugin URI: http://www.payssion.com
 Description: Integrates your Payssion payment getway into your WooCommerce installation.
-Version: 1.1.3
+Version: 1.1.7
 Author: Payssion
 Text Domain: payssion
 Author URI: http://www.payssion.com
@@ -31,25 +31,30 @@ function init_payssion_gateway() {
 	require_once('class-wc-gateway-payssion-bitcashjp.php');
 	require_once('class-wc-gateway-payssion-bitcoin.php');
 	require_once('class-wc-gateway-payssion-boleto.php');
+	require_once('class-wc-gateway-payssion-boostmy.php');
 	require_once('class-wc-gateway-payssion-boacompra.php');
+	require_once('class-wc-gateway-payssion-caixabr.php');
 	//require_once('class-wc-gateway-payssion-cashu.php');
 	require_once('class-wc-gateway-payssion-cimbmy.php');
+	require_once('class-wc-gateway-payssion-creditcardbr.php');
 	//require_once('class-wc-gateway-payssion-creditcardjp.php');
 	require_once('class-wc-gateway-payssion-creditcardkr.php');
+	require_once('class-wc-gateway-payssion-creditcardza.php');
 	//require_once('class-wc-gateway-payssion-docomojp.php');
 	require_once('class-wc-gateway-payssion-dokuid.php');
 	require_once('class-wc-gateway-payssion-dotpaypl.php');
 	require_once('class-wc-gateway-payssion-dragonpay.php');
 	require_once('class-wc-gateway-payssion-ebankingin.php');
 	require_once('class-wc-gateway-payssion-ebankingkr.php');
-	require_once('class-wc-gateway-payssion-ebankingmy.php');
 	require_once('class-wc-gateway-payssion-ebankingth.php');
 	require_once('class-wc-gateway-payssion-ebankingza.php');
 	require_once('class-wc-gateway-payssion-enets.php');
 	require_once('class-wc-gateway-payssion-epsat.php');
+	require_once('class-wc-gateway-payssion-fawryeg.php');
 	require_once('class-wc-gateway-payssion-fpxmy.php');
 	require_once('class-wc-gateway-payssion-gcashph.php');
 	require_once('class-wc-gateway-payssion-giropayde.php');
+	require_once('class-wc-gateway-payssion-grabpaymy.php');
 	require_once('class-wc-gateway-payssion-grabpayph.php');
 	require_once('class-wc-gateway-payssion-hlbmy.php');
 	require_once('class-wc-gateway-payssion-idealnl.php');
@@ -68,6 +73,7 @@ function init_payssion_gateway() {
 	require_once('class-wc-gateway-payssion-oxxo.php');
 	require_once('class-wc-gateway-payssion-p24pl.php');
 	require_once('class-wc-gateway-payssion-pagofacilar.php');
+	require_once('class-wc-gateway-payssion-paybybankappgb.php');
 	require_once('class-wc-gateway-payssion-paysafecard.php');
 	require_once('class-wc-gateway-payssion-paytmin.php');
 	require_once('class-wc-gateway-payssion-payupl.php');
@@ -85,6 +91,8 @@ function init_payssion_gateway() {
 	require_once('class-wc-gateway-payssion-sberbankru.php');
 	require_once('class-wc-gateway-payssion-sofort.php');
 	require_once('class-wc-gateway-payssion-tenpay.php');
+	require_once('class-wc-gateway-payssion-touchngomy.php');
+	require_once('class-wc-gateway-payssion-trustly.php');
 	require_once('class-wc-gateway-payssion-trustpay.php');
 	require_once('class-wc-gateway-payssion-unionpay.php');
 	require_once('class-wc-gateway-payssion-upiin.php');
@@ -116,24 +124,29 @@ function init_payssion_gateway() {
 				    'WC_Gateway_Payssion_BitCashjp',
 				    'WC_Gateway_Payssion_Bitcoin',
 				    'WC_Gateway_Payssion_Boleto',
+				    'WC_Gateway_Payssion_Boostmy',
 				    'WC_Gateway_Payssion_Boacompra',
+				    'WC_Gateway_Payssion_Caixabr',
 				    //'WC_Gateway_Payssion_CashU',
-				    'WC_Gateway_Payssion_cimbmy',
+				    'WC_Gateway_Payssion_Cimbmy',
+				    'WC_Gateway_Payssion_Creditcardbr',
 				    //'WC_Gateway_Payssion_CreditCardjp',
 				    'WC_Gateway_Payssion_Creditcardkr',
+				    'WC_Gateway_Payssion_Creditcardza',
 				    'WC_Gateway_Payssion_Dokuid',
 				    'WC_Gateway_Payssion_Dotpaypl',
 				    'WC_Gateway_Payssion_Dragonpay',
 				    'WC_Gateway_Payssion_Ebankingin',
 				    'WC_Gateway_Payssion_Ebankingkr',
-				    'WC_Gateway_Payssion_Ebankingmy',
 				    'WC_Gateway_Payssion_Ebankingth',
 				    'WC_Gateway_Payssion_Ebankingza',
 				    'WC_Gateway_Payssion_Enets',
 				    'WC_Gateway_Payssion_Epsat',
+				    'WC_Gateway_Payssion_Fawryeg',
 				    'WC_Gateway_Payssion_Fpxmy',
 				    'WC_Gateway_Payssion_Gcashph',
 				    'WC_Gateway_Payssion_Giropayde',
+				    'WC_Gateway_Payssion_Grabpaymy',
 				    'WC_Gateway_Payssion_Grabpayph',
 				    'WC_Gateway_Payssion_Hlbmy',
 				    'WC_Gateway_Payssion_Idealnl',
@@ -152,6 +165,7 @@ function init_payssion_gateway() {
 				    'WC_Gateway_Payssion_OXXO',
 				    'WC_Gateway_Payssion_P24pl',
 				    'WC_Gateway_Payssion_Pagofacilar',
+				    'WC_Gateway_Payssion_Paybybankappgb',
 				    'WC_Gateway_Payssion_Paysafecard',
 				    'WC_Gateway_Payssion_Paytmin',
 				    'WC_Gateway_Payssion_Payupl',
@@ -169,6 +183,8 @@ function init_payssion_gateway() {
 				    'WC_Gateway_Payssion_Sberbankru',
 				    'WC_Gateway_Payssion_SOFORT',
 				    'WC_Gateway_Payssion_Tenpay',
+				    'WC_Gateway_Payssion_Touchngomy',
+				    'WC_Gateway_Payssion_Trustly',
 				    //'WC_Gateway_Payssion_Trustpay',
 				    'WC_Gateway_Payssion_Unionpay',
 				    'WC_Gateway_Payssion_Upiin',

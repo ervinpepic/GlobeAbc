@@ -2,8 +2,8 @@
 Contributors: Payssion
 Tags: payment, paymentgateway, woocommerce, ecommerce, sofortbanking, paysafecard, iDeal, przelewy24, webmoney, qiwi, boleto, alipay, tenpay, eNETS
 Requires at least: 4.0
-Tested up to: 5.2.2
-Stable tag: 1.1.6
+Tested up to: 5.7.2
+Stable tag: 1.1.7
 License: The MIT License (MIT)
 
 Official Payssion module for WordPress WooCommerce.
@@ -17,7 +17,7 @@ Payssion is a global payment solution provider, that enables people to collect p
 * Indonesia: ATM, DOKU, Alfamart
 * Inida: UPI, Netbanking, Credit/Debit Card, Paytm
 * Japan: Credit card, Webmomey, Netcash, Bitcash
-* Malaysia: Malaysia e-banking, FPX, Maybank2u, Molpoints
+* Malaysia: Malaysia e-banking, FPX, Touch 'N Go, Grabpay, Boost, Maybank2u, Molpoints
 * New Zealand: Polipayment
 * Philippines: Dragonpay, Globe Gcash, Grabpay
 * Singapore: eNETS
@@ -34,17 +34,19 @@ Payssion is a global payment solution provider, that enables people to collect p
 * Poland: Dotpay, P24, PayU
 * Russia: QIWI, Webmoney, Yandex.Money, Sberbank
 * Turkey: Credit/Bank Card
-* Multiple countries: Europen SEPA bank transfer, Paysafecard
+* United Kindom: Pay by Bank app
+* Multiple countries: Trustly, Europen SEPA bank transfer, Paysafecard
 
 = Payment methods for Latin America =
 * Argentina: Rapi Pago, Pagofacil, Santander
-* Brazil: PIX, Boleto, Itaú, Banco Santander Brasil, Banco do Brasil, Brasil Credit Card
+* Brazil: PIX, Boleto, Itaú, Caixa, Banco Santander Brasil, Banco do Brasil, Brasil Credit Card
 * Chile: Banco de Chile
 * Mexico: OXXO, Santander Mexico, Banamex
 * Multiple countries: Boacompra
 
 = Payment methods for Middle East & Africa =
-* South Africa: Online Banking
+* Egypt: Fawry
+* South Africa: Online Banking, South Africa Credit Card
 * Multiple countries: Onecard
 
 = Payment methods for all countries =
@@ -68,6 +70,9 @@ Payssion is a global payment solution provider, that enables people to collect p
 1. Screenshot 1 - Payssion Settings Page
 
 == Changelog ==
+
+= 1.1.7 =
+* fix status issue for multiple transactions originated by the same order and add more payment options: caixa_br, creditcard_za, creditcard_br, trustly, paybybankapp_gb, grabpay_my, touchngo_my, boost_my, fawry_eg
 
 = 1.1.6 =
 * fix cpf/cnpj input issue and add more payment options: PIX, South Africa online banking

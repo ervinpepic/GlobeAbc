@@ -1,19 +1,19 @@
 <?php
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 
-require_once( 'class-wc-gateway-payssion.php' );
+require_once( 'class-wc-gateway-payssion-brazil.php' );
 
 /**
- * Payssion 
+ * Payssion
  *
- * @class 		WC_Gateway_Payssion_CreditCardbr
+ * @class 		WC_Gateway_Payssion_Creditcardbr
  * @extends		WC_Payment_Gateway
  * @author 		Payssion
  */
-class WC_Gateway_Payssion_CreditCardbr extends WC_Gateway_Payssion {
-	public $title = 'Brasil Credit Card';
-	protected $pm_id = 'creditcard_br';
+class WC_Gateway_Payssion_Creditcardbr extends WC_Gateway_Payssion_Brazil {
+    public $title = 'Brasil Credit Card';
+    protected $pm_id = 'creditcard_br';
 }

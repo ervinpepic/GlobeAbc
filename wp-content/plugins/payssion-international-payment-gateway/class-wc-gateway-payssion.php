@@ -14,7 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author 		Payssion
  */
 class WC_Gateway_Payssion extends WC_Payment_Gateway {
-
+    public $title = '';
+    public $description = '';
+    
 	/** @var boolean Whether or not logging is enabled */
 	public static $log_enabled = false;
 
@@ -24,8 +26,7 @@ class WC_Gateway_Payssion extends WC_Payment_Gateway {
 	protected $pm_id = '';
 	protected $pm = '';
 	protected $is_channel = true;
-	public $title = '';
-	public $description = '';
+	protected $proceed_to = 'Proceed to';
 
 	/**
 	 * Constructor for the gateway.
@@ -43,7 +44,7 @@ class WC_Gateway_Payssion extends WC_Payment_Gateway {
 		$this->has_fields         = false;
 		
 		$method_title = $this->getMethodTitle();
-		$this->order_button_text  = __( 'Proceed to ' . $method_title, 'woocommerce' );
+		$this->order_button_text  = __( $this->proceed_to . ' ' . $method_title, 'woocommerce' );
 		$this->method_title       = ($this->pm_id ? 'Payssion ' : '') . $method_title;
 		$this->method_description = __( $this->is_channel ? '' : 'Payssion provides a global payment solution.', 'woocommerce' );
 		$this->supports           = array(
