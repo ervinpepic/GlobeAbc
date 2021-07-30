@@ -81,15 +81,15 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/index.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/cookies.js":
-/*!*******************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/cookies.js ***!
-  \*******************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/cookies.js":
+/*!*******************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/cookies.js ***!
+  \*******************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -157,10 +157,10 @@ var Cookies = {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/event-callback.js":
-/*!**************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/event-callback.js ***!
-  \**************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/event-callback.js":
+/*!**************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/event-callback.js ***!
+  \**************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -276,10 +276,10 @@ var Event_Callback = function Event_Callback(self) {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/extend.js":
-/*!******************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/extend.js ***!
-  \******************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/extend.js":
+/*!******************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/extend.js ***!
+  \******************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -298,10 +298,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/fn.js":
-/*!**************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/fn.js ***!
-  \**************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/fn.js":
+/*!**************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/fn.js ***!
+  \**************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -346,10 +346,10 @@ var exp;
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/hook.js":
-/*!****************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/hook.js ***!
-  \****************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/hook.js":
+/*!****************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/hook.js ***!
+  \****************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -449,10 +449,10 @@ var Hook = {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/iframe-submit.js":
-/*!*************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/iframe-submit.js ***!
-  \*************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/iframe-submit.js":
+/*!*************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/iframe-submit.js ***!
+  \*************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -485,27 +485,27 @@ var IframeSubmit = function IframeSubmit(form) {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/index.js":
-/*!*****************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/index.js ***!
-  \*****************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/index.js":
+/*!*****************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/index.js ***!
+  \*****************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _extend__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./extend */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/extend.js");
-/* harmony import */ var _fn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./fn */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/fn.js");
-/* harmony import */ var _quick_tip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./quick-tip */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/quick-tip.js");
+/* harmony import */ var _extend__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./extend */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/extend.js");
+/* harmony import */ var _fn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./fn */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/fn.js");
+/* harmony import */ var _quick_tip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./quick-tip */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/quick-tip.js");
 /* harmony import */ var _quick_tip__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_quick_tip__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _message_box__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./message-box */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/message-box.js");
-/* harmony import */ var _event_callback__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./event-callback */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/event-callback.js");
-/* harmony import */ var _hook__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./hook */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/hook.js");
-/* harmony import */ var _cookies__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./cookies */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/cookies.js");
-/* harmony import */ var _local_storage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./local-storage */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/local-storage.js");
-/* harmony import */ var _jquery_plugins__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./jquery.plugins */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/jquery.plugins.js");
-/* harmony import */ var _iframe_submit__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./iframe-submit */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/iframe-submit.js");
-/* harmony import */ var _show_password__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./show-password */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/show-password.js");
+/* harmony import */ var _message_box__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./message-box */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/message-box.js");
+/* harmony import */ var _event_callback__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./event-callback */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/event-callback.js");
+/* harmony import */ var _hook__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./hook */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/hook.js");
+/* harmony import */ var _cookies__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./cookies */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/cookies.js");
+/* harmony import */ var _local_storage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./local-storage */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/local-storage.js");
+/* harmony import */ var _jquery_plugins__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./jquery.plugins */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/jquery.plugins.js");
+/* harmony import */ var _iframe_submit__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./iframe-submit */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/iframe-submit.js");
+/* harmony import */ var _show_password__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./show-password */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/show-password.js");
 /* harmony import */ var _show_password__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_show_password__WEBPACK_IMPORTED_MODULE_10__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
@@ -1122,10 +1122,10 @@ Object(_extend__WEBPACK_IMPORTED_MODULE_0__["default"])(_objectSpread({
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/jquery.plugins.js":
-/*!**************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/jquery.plugins.js ***!
-  \**************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/jquery.plugins.js":
+/*!**************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/jquery.plugins.js ***!
+  \**************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1357,10 +1357,10 @@ $.fn.progress = progress;
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/local-storage.js":
-/*!*************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/local-storage.js ***!
-  \*************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/local-storage.js":
+/*!*************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/local-storage.js ***!
+  \*************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1407,10 +1407,10 @@ var _localStorage = {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/message-box.js":
-/*!***********************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/message-box.js ***!
-  \***********************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/message-box.js":
+/*!***********************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/message-box.js ***!
+  \***********************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1686,10 +1686,10 @@ var MessageBox = {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/quick-tip.js":
-/*!*********************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/quick-tip.js ***!
-  \*********************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/quick-tip.js":
+/*!*********************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/quick-tip.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -1823,10 +1823,10 @@ var MessageBox = {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/show-password.js":
-/*!*************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/js/utils/show-password.js ***!
-  \*************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/show-password.js":
+/*!*************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/js/utils/show-password.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 

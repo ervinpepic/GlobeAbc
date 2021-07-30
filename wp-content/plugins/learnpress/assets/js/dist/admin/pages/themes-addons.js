@@ -81,15 +81,15 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/pages/themes-addons.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/themes-addons.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/pages/addons/search-lp-addons-themes.js":
-/*!*****************************************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/pages/addons/search-lp-addons-themes.js ***!
-  \*****************************************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/addons/search-lp-addons-themes.js":
+/*!*****************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/addons/search-lp-addons-themes.js ***!
+  \*****************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -154,16 +154,16 @@ var searchThemesAddons = function searchThemesAddons() {};
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/pages/themes-addons.js":
-/*!************************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/pages/themes-addons.js ***!
-  \************************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/themes-addons.js":
+/*!************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/themes-addons.js ***!
+  \************************************************************************************************************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _addons_search_lp_addons_themes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addons/search-lp-addons-themes */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/pages/addons/search-lp-addons-themes.js");
+/* harmony import */ var _addons_search_lp_addons_themes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addons/search-lp-addons-themes */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/addons/search-lp-addons-themes.js");
 
 document.addEventListener('DOMContentLoaded', function (event) {
   Object(_addons_search_lp_addons_themes__WEBPACK_IMPORTED_MODULE_0__["default"])();

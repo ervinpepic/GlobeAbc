@@ -16,7 +16,7 @@
 			<div class = "hdq_row">
 				<label class="hdq_label_answer" data-type = "radio" data-id = "hdq_question_<?php echo $question_ID; ?>" for="hdq_option_<?php echo $i . '_' . $question_ID; ?>">
 					<div class="hdq-options-check">
-						<input type="checkbox" title = "<?php echo $answers[$i]["answer"]; ?>" data-id = "<?php echo $question_ID; ?>" class="hdq_option hdq_check_input" data-type = "radio" value="<?php echo $selected; ?>" name="hdq_option_<?php echo $i . '_' . $question_ID; ?>" id="hdq_option_<?php echo $i . '_' . $question_ID; ?>">
+						<input type="checkbox" title = "<?php echo htmlentities($answers[$i]["answer"]); ?>" data-id = "<?php echo $question_ID; ?>" class="hdq_option hdq_check_input" data-type = "radio" value="<?php echo $selected; ?>" name="hdq_option_<?php echo $i . '_' . $question_ID; ?>" id="hdq_option_<?php echo $i . '_' . $question_ID; ?>">
 						<span class = "hdq_toggle"><span class = "hdq_aria_label"><?php echo $answers[$i]["answer"]; ?></span></span>			
 					</div>
 					<?php echo $answers[$i]["answer"]; ?>

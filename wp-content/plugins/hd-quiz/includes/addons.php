@@ -71,7 +71,7 @@ update_option("hdq_new_addon", array("no", $today)); // reset since we have seen
                                     $verified = sanitize_text_field($value->verified);
 									$subscription = "";
 									if(isset($value->subscription)){
-										$subscription = $value->subscription;
+										$subscription = sanitize_text_field($value->subscription);
 									}
                                     if ($price == 0) {
                                         $price = "FREE";
@@ -91,9 +91,9 @@ update_option("hdq_new_addon", array("no", $today)); // reset since we have seen
                                                     echo $title;
                                     if ($verified == "verified") {
                                         echo '<span class = "hdq_verified hdq_tooltip hdq_tooltip_question">verified<span class="hdq_tooltip_content"><span>This plugin has either been developed by the author of HD Quiz or has been audited by the developer.<br/><small>please note that Harmonic Design cannot guarantee that third party plugins for HD Quiz are risk free and secure after verification.</small></span></span></span>';
-                                    } ?> <span class = "hdq_price"><?php echo $price; ?></span></h2>
+                                    } ?> <span class = "hdq_price"><?php echo esc_html($price); ?></span></h2>
 											<h4 class = "hdq_addon_author">
-												developed by: <?php echo $author; ?>
+												developed by: <?php echo esc_html($author); ?>
 											</h4>
 
 											<?php echo apply_filters('the_content', $description); ?>

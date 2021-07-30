@@ -82,15 +82,15 @@ this["LP"] = this["LP"] || {}; this["LP"]["dataControls"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/data-controls.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/data-controls.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/data-controls.js":
-/*!************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/data-controls.js ***!
-  \************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/data-controls.js":
+/*!************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/data-controls.js ***!
+  \************************************************************************************************************************/
 /*! exports provided: apiFetch, select, dispatch, controls */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

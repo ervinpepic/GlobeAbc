@@ -82,21 +82,21 @@ this["LP"] = this["LP"] || {}; this["LP"]["singleCurriculum"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/show-lp-overlay-complete-item.js":
-/*!*************************************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/show-lp-overlay-complete-item.js ***!
-  \*************************************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/show-lp-overlay-complete-item.js":
+/*!*************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/show-lp-overlay-complete-item.js ***!
+  \*************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/lp-modal-overlay */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/utils/lp-modal-overlay.js");
+/* harmony import */ var _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/lp-modal-overlay */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/utils/lp-modal-overlay.js");
 var $ = jQuery;
 
 var lpModalOverlayCompleteItem = {
@@ -149,19 +149,19 @@ var lpModalOverlayCompleteItem = {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum.js":
-/*!*************************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum.js ***!
-  \*************************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum.js":
+/*!*************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum.js ***!
+  \*************************************************************************************************************************************/
 /*! exports provided: default, init */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "init", function() { return init; });
-/* harmony import */ var _single_curriculum_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./single-curriculum/index */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum/index.js");
-/* harmony import */ var _show_lp_overlay_complete_item__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./show-lp-overlay-complete-item */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/show-lp-overlay-complete-item.js");
-/* harmony import */ var _single_curriculum_scrolltoitem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./single-curriculum/scrolltoitem */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum/scrolltoitem.js");
+/* harmony import */ var _single_curriculum_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./single-curriculum/index */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum/index.js");
+/* harmony import */ var _show_lp_overlay_complete_item__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./show-lp-overlay-complete-item */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/show-lp-overlay-complete-item.js");
+/* harmony import */ var _single_curriculum_scrolltoitem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./single-curriculum/scrolltoitem */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum/scrolltoitem.js");
 var $ = jQuery;
 
 
@@ -178,10 +178,10 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum/components/comment.js":
-/*!********************************************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum/components/comment.js ***!
-  \********************************************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum/components/comment.js":
+/*!********************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum/components/comment.js ***!
+  \********************************************************************************************************************************************************/
 /*! exports provided: commentForm */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -236,10 +236,10 @@ var commentForm = function commentForm() {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum/components/compatible.js":
-/*!***********************************************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum/components/compatible.js ***!
-  \***********************************************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum/components/compatible.js":
+/*!***********************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum/components/compatible.js ***!
+  \***********************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -328,10 +328,10 @@ LP.Hook.addAction('lp-question-compatible-builder', function () {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum/components/items-progress.js":
-/*!***************************************************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum/components/items-progress.js ***!
-  \***************************************************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum/components/items-progress.js":
+/*!***************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum/components/items-progress.js ***!
+  \***************************************************************************************************************************************************************/
 /*! exports provided: itemsProgress, getResponse */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -341,7 +341,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getResponse", function() { return getResponse; });
 /* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/url */ "@wordpress/url");
 /* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_url__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _show_lp_overlay_complete_item__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../show-lp-overlay-complete-item */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/show-lp-overlay-complete-item.js");
+/* harmony import */ var _show_lp_overlay_complete_item__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../show-lp-overlay-complete-item */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/show-lp-overlay-complete-item.js");
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -429,10 +429,10 @@ var getResponse = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum/components/progress.js":
-/*!*********************************************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum/components/progress.js ***!
-  \*********************************************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum/components/progress.js":
+/*!*********************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum/components/progress.js ***!
+  \*********************************************************************************************************************************************************/
 /*! exports provided: progressBar */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -456,10 +456,10 @@ var progressBar = function progressBar() {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum/components/search.js":
-/*!*******************************************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum/components/search.js ***!
-  \*******************************************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum/components/search.js":
+/*!*******************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum/components/search.js ***!
+  \*******************************************************************************************************************************************************/
 /*! exports provided: searchCourseContent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -547,10 +547,10 @@ var searchCourseContent = function searchCourseContent() {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum/components/sidebar.js":
-/*!********************************************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum/components/sidebar.js ***!
-  \********************************************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum/components/sidebar.js":
+/*!********************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum/components/sidebar.js ***!
+  \********************************************************************************************************************************************************/
 /*! exports provided: Sidebar */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -638,10 +638,10 @@ var Sidebar = function Sidebar() {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum/index.js":
-/*!*******************************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum/index.js ***!
-  \*******************************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum/index.js":
+/*!*******************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum/index.js ***!
+  \*******************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -649,12 +649,12 @@ var Sidebar = function Sidebar() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_search__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/search */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum/components/search.js");
-/* harmony import */ var _components_sidebar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/sidebar */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum/components/sidebar.js");
-/* harmony import */ var _components_progress__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/progress */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum/components/progress.js");
-/* harmony import */ var _components_comment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/comment */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum/components/comment.js");
-/* harmony import */ var _components_items_progress__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/items-progress */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum/components/items-progress.js");
-/* harmony import */ var _components_compatible__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/compatible */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum/components/compatible.js");
+/* harmony import */ var _components_search__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/search */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum/components/search.js");
+/* harmony import */ var _components_sidebar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/sidebar */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum/components/sidebar.js");
+/* harmony import */ var _components_progress__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/progress */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum/components/progress.js");
+/* harmony import */ var _components_comment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/comment */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum/components/comment.js");
+/* harmony import */ var _components_items_progress__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/items-progress */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum/components/items-progress.js");
+/* harmony import */ var _components_compatible__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/compatible */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum/components/compatible.js");
 /* harmony import */ var _components_compatible__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_compatible__WEBPACK_IMPORTED_MODULE_6__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -740,16 +740,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum/scrolltoitem.js":
-/*!**************************************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/single-curriculum/scrolltoitem.js ***!
-  \**************************************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum/scrolltoitem.js":
+/*!**************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/single-curriculum/scrolltoitem.js ***!
+  \**************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/lp-modal-overlay */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/utils/lp-modal-overlay.js");
+/* harmony import */ var _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/lp-modal-overlay */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/utils/lp-modal-overlay.js");
 
 var $ = jQuery;
 var scrollToItemCurrent = {
@@ -795,10 +795,10 @@ var scrollToItemCurrent = {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/utils/lp-modal-overlay.js":
-/*!*********************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/utils/lp-modal-overlay.js ***!
-  \*********************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/utils/lp-modal-overlay.js":
+/*!*********************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/utils/lp-modal-overlay.js ***!
+  \*********************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

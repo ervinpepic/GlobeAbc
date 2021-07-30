@@ -35,7 +35,7 @@ function hdq_register_tools_csv_importer_page_callback()
 				} ?>>
 			<p>
 				Using this tool, you can upload a CSV to bulk import questions. Please note that due to the complexity of
-				creating and formatting a CSV file, I can only offer limited support for this feature. This tool will only set the basic values needed for a question. You will need to manually set Quiz settings, or extra Question options such as question type and images after the inport has completed.
+				creating and formatting a CSV file, I can only offer limited support for this feature. This tool will only set the basic values needed for a question. You will need to manually set Quiz settings, or extra Question options such as question type and images after the import has completed.
 			</p>
 			<div class="hdq_highlight">
 				<h4 style="margin: 0">
@@ -104,11 +104,6 @@ function hdq_accept_csv()
 			return $mime;
 		} elseif (function_exists("mime_content_type")) {
 			return mime_content_type($file);
-		} elseif (!stristr(ini_get("disable_functions"), "shell_exec")) {
-			// http://stackoverflow.com/a/134930/1593459
-			$file = escapeshellarg($file);
-			$mime = shell_exec("file -bi " . $file);
-			return $mime;
 		} else {
 			return false;
 		}

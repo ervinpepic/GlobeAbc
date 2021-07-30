@@ -22,7 +22,7 @@
                 $image = hdq_get_answer_image_url($answers[$i]["image"]);
             }
             if ($image != "" && $image != null) {
-                echo '<img src = "'.$image.'" alt = "'.$answers[$i]["answer"].'"/>';
+                echo '<img src = "'.$image.'" alt = "'.htmlentities($answers[$i]["answer"]).'"/>';
             } ?>
 					<div>					
 						<div class="hdq-options-check">

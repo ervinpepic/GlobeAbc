@@ -82,15 +82,15 @@ this["LP"] = this["LP"] || {}; this["LP"]["config"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/lp-configs.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/lp-configs.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/lp-configs.js":
-/*!******************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/lp-configs.js ***!
-  \******************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/lp-configs.js":
+/*!******************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/lp-configs.js ***!
+  \******************************************************************************************************************************/
 /*! exports provided: classNames, isQuestionCorrect, questionBlocks, questionFooterButtons, questionTitleParts, questionChecker, quizStartBlocks */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

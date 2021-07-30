@@ -453,7 +453,7 @@ if ( ! class_exists( 'Cookie_Law_Info_Cookieyes' ) ) {
 			);
 
 			$this->ckyes_status = $cky_license['status']  = ( isset( $options['status'] ) ? intval( $options['status'] ) : 0 );
-			$this->token        = $cky_license['token']   = isset( $options['token'] ) ? $options['token'] : '';
+			$this->token        = $cky_license['token']   = isset( $options['token'] ) ? sanitize_text_field( $options['token'] ) : '';
 
 			update_option( 'wt_cli_cookieyes_options', $cky_license );
 		}

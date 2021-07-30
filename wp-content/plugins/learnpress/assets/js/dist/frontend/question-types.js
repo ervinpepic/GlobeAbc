@@ -82,21 +82,21 @@ this["LP"] = this["LP"] || {}; this["LP"]["questionTypes"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types.js":
-/*!**********************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types.js ***!
-  \**********************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types.js":
+/*!**********************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types.js ***!
+  \**********************************************************************************************************************************/
 /*! exports provided: QuestionBase, SingleChoice, MultipleChoices, TrueOrFalse, FillInBlanks, SortingChoice, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _question_types_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./question-types/index */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/index.js");
+/* harmony import */ var _question_types_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./question-types/index */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/index.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "QuestionBase", function() { return _question_types_index__WEBPACK_IMPORTED_MODULE_0__["QuestionBase"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SingleChoice", function() { return _question_types_index__WEBPACK_IMPORTED_MODULE_0__["SingleChoice"]; });
@@ -115,31 +115,31 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/index.js":
-/*!***************************************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/index.js ***!
-  \***************************************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/index.js":
+/*!***************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/index.js ***!
+  \***************************************************************************************************************************************************/
 /*! exports provided: QuestionBase, SingleChoice, MultipleChoices, TrueOrFalse, FillInBlanks, SortingChoice */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _question_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./question-base */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/question-base/index.js");
+/* harmony import */ var _question_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./question-base */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/question-base/index.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "QuestionBase", function() { return _question_base__WEBPACK_IMPORTED_MODULE_0__["default"]; });
 
-/* harmony import */ var _questions_single_choice__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./questions/single-choice */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/questions/single-choice/index.js");
+/* harmony import */ var _questions_single_choice__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./questions/single-choice */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/questions/single-choice/index.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SingleChoice", function() { return _questions_single_choice__WEBPACK_IMPORTED_MODULE_1__["default"]; });
 
-/* harmony import */ var _questions_multiple_choices__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./questions/multiple-choices */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/questions/multiple-choices/index.js");
+/* harmony import */ var _questions_multiple_choices__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./questions/multiple-choices */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/questions/multiple-choices/index.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MultipleChoices", function() { return _questions_multiple_choices__WEBPACK_IMPORTED_MODULE_2__["default"]; });
 
-/* harmony import */ var _questions_true_or_false__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./questions/true-or-false */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/questions/true-or-false/index.js");
+/* harmony import */ var _questions_true_or_false__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./questions/true-or-false */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/questions/true-or-false/index.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TrueOrFalse", function() { return _questions_true_or_false__WEBPACK_IMPORTED_MODULE_3__["default"]; });
 
-/* harmony import */ var _questions_fill_in_blanks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./questions/fill-in-blanks */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/questions/fill-in-blanks/index.js");
+/* harmony import */ var _questions_fill_in_blanks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./questions/fill-in-blanks */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/questions/fill-in-blanks/index.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FillInBlanks", function() { return _questions_fill_in_blanks__WEBPACK_IMPORTED_MODULE_4__["default"]; });
 
-/* harmony import */ var _questions_sorting_choice__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./questions/sorting-choice */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/questions/sorting-choice/index.js");
+/* harmony import */ var _questions_sorting_choice__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./questions/sorting-choice */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/questions/sorting-choice/index.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SortingChoice", function() { return _questions_sorting_choice__WEBPACK_IMPORTED_MODULE_5__["default"]; });
 
 
@@ -151,10 +151,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/question-base/index.js":
-/*!*****************************************************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/question-base/index.js ***!
-  \*****************************************************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/question-base/index.js":
+/*!*****************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/question-base/index.js ***!
+  \*****************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -449,10 +449,10 @@ var QuestionBase = /*#__PURE__*/function (_Component) {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/questions/fill-in-blanks/index.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/questions/fill-in-blanks/index.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/questions/fill-in-blanks/index.js":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/questions/fill-in-blanks/index.js ***!
+  \****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -460,7 +460,7 @@ var QuestionBase = /*#__PURE__*/function (_Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _question_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../question-base */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/question-base/index.js");
+/* harmony import */ var _question_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../question-base */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/question-base/index.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -615,10 +615,10 @@ var QuestionFillInBlanks = /*#__PURE__*/function (_QuestionBase) {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/questions/multiple-choices/index.js":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/questions/multiple-choices/index.js ***!
-  \******************************************************************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/questions/multiple-choices/index.js":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/questions/multiple-choices/index.js ***!
+  \******************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -628,7 +628,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _question_base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../question-base */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/question-base/index.js");
+/* harmony import */ var _question_base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../question-base */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/question-base/index.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -739,16 +739,16 @@ var QuestionMultipleChoices = /*#__PURE__*/function (_QuestionBase) {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/questions/single-choice/index.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/questions/single-choice/index.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/questions/single-choice/index.js":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/questions/single-choice/index.js ***!
+  \***************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _question_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../question-base */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/question-base/index.js");
+/* harmony import */ var _question_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../question-base */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/question-base/index.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -832,10 +832,10 @@ var QuestionSingleChoice = /*#__PURE__*/function (_QuestionBase) {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/questions/sorting-choice/index.js":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/questions/sorting-choice/index.js ***!
-  \****************************************************************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/questions/sorting-choice/index.js":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/questions/sorting-choice/index.js ***!
+  \****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -843,7 +843,7 @@ var QuestionSingleChoice = /*#__PURE__*/function (_QuestionBase) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _question_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../question-base */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/question-base/index.js");
+/* harmony import */ var _question_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../question-base */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/question-base/index.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -1046,16 +1046,16 @@ var QuestionSortingChoice = /*#__PURE__*/function (_QuestionBase) {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/questions/true-or-false/index.js":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/questions/true-or-false/index.js ***!
-  \***************************************************************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/questions/true-or-false/index.js":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/questions/true-or-false/index.js ***!
+  \***************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _question_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../question-base */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/question-base/index.js");
+/* harmony import */ var _question_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../question-base */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/question-base/index.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -1138,10 +1138,10 @@ var QuestionTrueOrFalse = /*#__PURE__*/function (_QuestionBase) {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/index.js":
-/*!****************************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/index.js ***!
-  \****************************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/index.js":
+/*!****************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/index.js ***!
+  \****************************************************************************************************************************************/
 /*! exports provided: QuestionBase, SingleChoice, MultipleChoices, TrueOrFalse, FillInBlanks, SortingChoice, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1155,7 +1155,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/frontend/question-types/components/index.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/frontend/question-types/components/index.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "QuestionBase", function() { return _components__WEBPACK_IMPORTED_MODULE_4__["QuestionBase"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SingleChoice", function() { return _components__WEBPACK_IMPORTED_MODULE_4__["SingleChoice"]; });

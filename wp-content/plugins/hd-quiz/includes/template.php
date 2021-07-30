@@ -132,7 +132,7 @@ if ($buildQuiz === true) {
     do_action("hdq_submit", $hdq_local_vars); // add functions to quiz complete
     do_action("hdq_init", $hdq_local_vars); // add functions to quiz init
     $hdq_local_vars = json_encode($hdq_local_vars);
-    wp_localize_script('hdq_admin_script', 'hdq_local_vars', $hdq_local_vars);
+    wp_localize_script('hdq_admin_script', 'hdq_local_vars', array($hdq_local_vars));
 ?>
 
     <div class="hdq_quiz_wrapper" id="hdq_<?php echo $quiz_ID; ?>">

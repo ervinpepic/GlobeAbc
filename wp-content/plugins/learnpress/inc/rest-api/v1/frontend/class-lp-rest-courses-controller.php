@@ -51,6 +51,13 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 					),
 				),
 			),
+			'archive-course'  => array(
+				array(
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'archive_course' ),
+					'permission_callback' => '__return_true',
+				),
+			),
 			'(?P<key>[\w]+)'  => array(
 				'args'   => array(
 					'id' => array(
@@ -83,6 +90,100 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 
 	public function check_admin_permission() {
 		return LP_REST_Authentication::check_admin_permission();
+	}
+
+	public function archive_course( WP_REST_Request $request ) {
+		$response       = new LP_REST_Response();
+		$response->data = new stdClass();
+
+		$s        = isset( $request['s'] ) ? sanitize_text_field( $request['s'] ) : false;
+		$page     = isset( $request['paged'] ) ? absint( wp_unslash( $request['paged'] ) ) : 1;
+		$order    = isset( $request['order'] ) ? wp_unslash( $request['order'] ) : false;
+		$orderby  = isset( $request['orderby'] ) ? wp_unslash( $request['orderby'] ) : false;
+		$taxonomy = isset( $request['taxonomy'] ) ? wp_unslash( $request['taxonomy'] ) : false;
+		$term_id  = isset( $request['term_id'] ) ? wp_unslash( $request['term_id'] ) : false;
+		$user_id  = isset( $request['userID'] ) ? absint( wp_unslash( $request['userID'] ) ) : false;
+		$limit    = LP_Settings::get_option( 'archive_course_limit', -1 );
+
+		$args = array(
+			'posts_per_page' => $limit,
+			'paged'          => $page,
+			'post_type'      => LP_COURSE_CPT,
+		);
+
+		if ( ! empty( $s ) ) {
+			$args['s'] = $s;
+		}
+
+		if ( ! empty( $taxonomy ) && ! empty( $term_id ) ) {
+			$args['tax_query'] = array(
+				array(
+					'taxonomy' => $taxonomy,
+					'field'    => 'term_id',
+					'terms'    => $term_id,
+				),
+			);
+
+			$term_link = get_term_link( $term_id, $taxonomy );
+		}
+
+		if ( ! empty( $order ) ) {
+			$args['order'] = $order;
+		}
+
+		if ( ! empty( $orderby ) ) {
+			$args['orderby'] = $orderby;
+		}
+
+		if ( $user_id && learn_press_user_maybe_is_a_teacher( $user_id ) ) {
+			$args['post_status'] = array( 'publish', 'private' );
+		}
+
+		$args = apply_filters( 'lp/rest-api/frontend/course/archive_course/query_args', $args, $request );
+
+		$query = new WP_Query( $args );
+
+		$num_pages = ! empty( $query->max_num_pages ) ? $query->max_num_pages : 1;
+
+		$archive_link = get_post_type_archive_link( LP_COURSE_CPT );
+
+		if ( isset( $term_link ) && ! is_wp_error( $term_link ) ) {
+			$archive_link = $term_link;
+		}
+
+		$base = esc_url_raw( str_replace( 999999999, '%#%', get_pagenum_link( 999999999, false ) ) );
+
+		global $wp;
+		$base = str_replace( home_url( $wp->request ) . '/', $archive_link, $base );
+
+		$response->data->pagination = learn_press_get_template_content(
+			'loop/course/pagination.php',
+			array(
+				'total' => $num_pages,
+				'paged' => $page,
+				'base'  => $base,
+			)
+		);
+
+		ob_start();
+
+		if ( $query->have_posts() ) {
+			global $post;
+
+			while ( $query->have_posts() ) {
+				$query->the_post();
+				learn_press_get_template_part( 'content', 'course' );
+			}
+
+			wp_reset_postdata();
+		} else {
+			LP()->template( 'course' )->no_courses_found();
+		}
+
+		$response->status        = 'success';
+		$response->data->content = ob_get_clean();
+
+		return rest_ensure_response( apply_filters( 'lp/rest-api/frontend/course/archive_course/response', $response ) );
 	}
 
 	public function search_courses( $request ) {
@@ -147,7 +248,8 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 					);
 				}
 
-				ob_start(); ?>
+				ob_start();
+				?>
 
 				<div class="course-price">
 					<?php if ( $course->has_sale_price() ) { ?>
@@ -204,9 +306,16 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 
 			$course_id = absint( $request['id'] );
 			$course    = learn_press_get_course( $course_id );
+			$user      = learn_press_get_current_user();
 
 			if ( ! $course ) {
 				throw new Exception( esc_html__( 'Invalid course!', 'learnpress' ) );
+			}
+
+			$can_enroll = $user->can_enroll_course( $course_id, false );
+
+			if ( ! $can_enroll->check ) {
+				throw new Exception( $can_enroll->message ?? esc_html__( 'Error: Cannot enroll course.', 'learnpress' ) );
 			}
 
 			// Check if course has in order.
@@ -272,15 +381,21 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 			}
 
 			if ( is_user_logged_in() ) {
-				$response->status  = 'success';
+				$response->status = 'success';
+				// Course has no items
 				$response->message = esc_html__(
 					'Congrats! You enroll course successfully. Redirecting...',
 					'learnpress'
 				);
-				// Send mail when course enrolled
-				$user = learn_press_get_current_user();
-				$user->enrolled_sendmail( get_current_user_id(), $course_id );
+
 				$response->data->redirect = $course->get_redirect_url_after_enroll();
+
+				if ( empty( $course->get_item_ids() ) ) {
+					$response->data->redirect = get_permalink( $course->get_id() );
+				}
+
+				// Send mail when course enrolled
+				$user->enrolled_sendmail( get_current_user_id(), $course_id );
 			} else {
 				$response->message        = esc_html__( 'Redirecting...', 'learnpress' );
 				$response->data->redirect = learn_press_get_page_link( 'checkout' );

@@ -81,24 +81,26 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/pages/tools.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/tools.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/pages/tools.js":
-/*!****************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/pages/tools.js ***!
-  \****************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/tools.js":
+/*!****************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/tools.js ***!
+  \****************************************************************************************************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _tools_database_upgrade__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tools/database/upgrade */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/pages/tools/database/upgrade.js");
-/* harmony import */ var _tools_database_create_indexs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tools/database/create_indexs */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/pages/tools/database/create_indexs.js");
-/* harmony import */ var _tools_database_re_upgrade_db__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tools/database/re-upgrade-db */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/pages/tools/database/re-upgrade-db.js");
-/* harmony import */ var _tools_reset_data__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tools/reset-data */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/pages/tools/reset-data/index.js");
+/* harmony import */ var _tools_database_upgrade__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tools/database/upgrade */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/tools/database/upgrade.js");
+/* harmony import */ var _tools_database_create_indexs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tools/database/create_indexs */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/tools/database/create_indexs.js");
+/* harmony import */ var _tools_database_re_upgrade_db__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tools/database/re-upgrade-db */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/tools/database/re-upgrade-db.js");
+/* harmony import */ var _tools_database_clean_database__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tools/database/clean_database */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/tools/database/clean_database.js");
+/* harmony import */ var _tools_reset_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./tools/reset-data */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/tools/reset-data/index.js");
+
 
 
 
@@ -209,24 +211,172 @@ __webpack_require__.r(__webpack_exports__);
     Object(_tools_database_upgrade__WEBPACK_IMPORTED_MODULE_0__["default"])();
     Object(_tools_database_create_indexs__WEBPACK_IMPORTED_MODULE_1__["default"])();
     Object(_tools_database_re_upgrade_db__WEBPACK_IMPORTED_MODULE_2__["default"])();
-    Object(_tools_reset_data__WEBPACK_IMPORTED_MODULE_3__["default"])();
+    Object(_tools_reset_data__WEBPACK_IMPORTED_MODULE_4__["default"])();
+    Object(_tools_database_clean_database__WEBPACK_IMPORTED_MODULE_3__["default"])();
     $doc.on('click', '.lp-install-sample__install', installSampleCourse).on('click', '.lp-install-sample__uninstall', uninstallSampleCourse).on('click', '#learn-press-clear-cache', clearHardCache).on('click', 'input[name="enable_hard_cache"]', toggleHardCache).on('click', '.lp-install-sample__toggle-options', toggleOptions);
   });
 })(jQuery);
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/pages/tools/database/create_indexs.js":
-/*!***************************************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/pages/tools/database/create_indexs.js ***!
-  \***************************************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/tools/database/clean_database.js":
+/*!****************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/tools/database/clean_database.js ***!
+  \****************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../utils/lp-modal-overlay */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/utils/lp-modal-overlay.js");
-/* harmony import */ var _utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../utils/handle-ajax-api */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/utils/handle-ajax-api.js");
+/* harmony import */ var _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../utils/lp-modal-overlay */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/utils/lp-modal-overlay.js");
+/* harmony import */ var _utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../utils/handle-ajax-api */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/utils/handle-ajax-api.js");
+
+
+
+var cleanDatabases = function cleanDatabases() {
+  var elCleanDatabases = document.querySelector('#lp-tool-clean-database');
+
+  if (!elCleanDatabases) {
+    return;
+  }
+
+  var elBtnCleanDatabases = elCleanDatabases.querySelector('.lp-btn-clean-db');
+  elBtnCleanDatabases.addEventListener('click', function (e) {
+    e.preventDefault();
+    var elToolsSelect = document.querySelector('#tools-select__id');
+    var ElToolSelectLi = elToolsSelect.querySelectorAll('ul li input');
+    var checkedOne = Array.prototype.slice.call(ElToolSelectLi).some(function (x) {
+      return x.checked;
+    });
+    var prepareMessage = elCleanDatabases.querySelector('.tools-prepare__message');
+
+    if (checkedOne == false) {
+      prepareMessage.style.display = 'block';
+      prepareMessage.textContent = 'You must choose at least one table to take this action';
+      return;
+    }
+
+    prepareMessage.style.display = 'none';
+    var elLoading = elCleanDatabases.querySelector('.wrapper-lp-loading');
+
+    if (!_utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].init()) {
+      return;
+    }
+
+    _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elLPOverlay.show();
+    _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].setContentModal(elLoading.innerHTML);
+    _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].setTitleModal(elCleanDatabases.querySelector('h2').textContent);
+    _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnYes[0].style.display = 'inline-block';
+    _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnYes[0].textContent = 'Run';
+    _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnNo[0].textContent = 'Close';
+    var listTables = new Array();
+    var ElToolSelectLiCheked = elToolsSelect.querySelectorAll('ul li input:checked');
+    ElToolSelectLiCheked.forEach(function (e) {
+      listTables.push(e.value);
+    });
+    var tables = listTables[0];
+    var item = elLoading.querySelector('.progressbar__item');
+    var itemtotal = item.getAttribute('data-total');
+    var modal = document.querySelector('.lp-modal-body .main-content');
+    var notice = modal.querySelector('.lp-tool__message');
+
+    if (itemtotal <= 0) {
+      _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnYes[0].style.display = 'none';
+      notice.textContent = 'There is no data that need to be repaired in the chosen tables';
+      notice.style.display = 'block';
+      return;
+    }
+
+    _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].callBackYes = function () {
+      // warn user before doing
+      var r = confirm('The modified data is impossible to be restored. Please backup your website before doing this.');
+
+      if (r == false) {
+        return;
+      }
+
+      var modal = document.querySelector('.lp-modal-body .main-content');
+      var notice = modal.querySelector('.lp-tool__message');
+      notice.textContent = 'This action is in processing. Don\'t close this page';
+      notice.style.display = 'block';
+      var url = '/lp/v1/admin/tools/clean-tables';
+      var params = {
+        tables: tables,
+        itemtotal: itemtotal
+      };
+      _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnNo[0].style.display = 'none';
+      _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnYes[0].style.display = 'none';
+      var functions = {
+        success: function success(res) {
+          var status = res.status,
+              message = res.message,
+              _res$data = res.data,
+              processed = _res$data.processed,
+              percent = _res$data.percent;
+          var modalItem = modal.querySelector('.progressbar__item');
+          var progressBarRows = modalItem.querySelector('.progressbar__rows');
+          var progressPercent = modalItem.querySelector('.progressbar__percent');
+          var progressValue = modalItem.querySelector('.progressbar__value');
+          console.log(status);
+
+          if ('success' === status) {
+            setTimeout(function () {
+              Object(_utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__["default"])(url, params, functions);
+            }, 2000); // update processed quantity
+
+            progressBarRows.textContent = processed + ' / ' + itemtotal; // update percent
+
+            progressPercent.textContent = '( ' + percent + '%' + ' )'; // update percent width
+
+            progressValue.style.width = percent + '%';
+          } else if ('finished' === status) {
+            // Re-update indexs
+            progressBarRows.textContent = itemtotal + ' / ' + itemtotal;
+            progressPercent.textContent = '( 100% )'; // Update complete nofication
+
+            var _modal = document.querySelector('.lp-modal-body .main-content');
+
+            var _notice = _modal.querySelector('.lp-tool__message');
+
+            _notice.textContent = 'Process has been completed. Press click the finish button to close this popup';
+            _notice.style.color = 'white';
+            _notice.style.background = 'green';
+            progressValue.style.width = '100%'; // Show finish button
+
+            _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnNo[0].style.display = 'inline-block';
+            _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnNo[0].textContent = 'Finish';
+            _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnNo[0].addEventListener('click', function () {
+              location.reload();
+            });
+          } else {
+            console.log(message);
+          }
+        },
+        error: function error(err) {
+          console.log(err);
+        },
+        completed: function completed() {}
+      };
+      Object(_utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__["default"])(url, params, functions);
+    };
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (cleanDatabases);
+
+/***/ }),
+
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/tools/database/create_indexs.js":
+/*!***************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/tools/database/create_indexs.js ***!
+  \***************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../utils/lp-modal-overlay */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/utils/lp-modal-overlay.js");
+/* harmony import */ var _utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../utils/handle-ajax-api */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/utils/handle-ajax-api.js");
 
 
 
@@ -354,17 +504,17 @@ var createIndexes = function createIndexes() {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/pages/tools/database/re-upgrade-db.js":
-/*!***************************************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/pages/tools/database/re-upgrade-db.js ***!
-  \***************************************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/tools/database/re-upgrade-db.js":
+/*!***************************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/tools/database/re-upgrade-db.js ***!
+  \***************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../utils/lp-modal-overlay */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/utils/lp-modal-overlay.js");
-/* harmony import */ var _utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../utils/handle-ajax-api */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/utils/handle-ajax-api.js");
+/* harmony import */ var _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../utils/lp-modal-overlay */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/utils/lp-modal-overlay.js");
+/* harmony import */ var _utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../utils/handle-ajax-api */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/utils/handle-ajax-api.js");
 
 
 
@@ -419,17 +569,17 @@ var reUpgradeDB = function reUpgradeDB() {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/pages/tools/database/upgrade.js":
-/*!*********************************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/pages/tools/database/upgrade.js ***!
-  \*********************************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/tools/database/upgrade.js":
+/*!*********************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/tools/database/upgrade.js ***!
+  \*********************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../utils/lp-modal-overlay */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/utils/lp-modal-overlay.js");
-/* harmony import */ var _utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../utils/handle-ajax-api */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/utils/handle-ajax-api.js");
+/* harmony import */ var _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../utils/lp-modal-overlay */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/utils/lp-modal-overlay.js");
+/* harmony import */ var _utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../utils/handle-ajax-api */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/utils/handle-ajax-api.js");
 
 
 var $ = jQuery;
@@ -705,10 +855,10 @@ var getStepsUpgradeStatus = function getStepsUpgradeStatus() {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/pages/tools/reset-data/course.js":
-/*!**********************************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/pages/tools/reset-data/course.js ***!
-  \**********************************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/tools/reset-data/course.js":
+/*!**********************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/tools/reset-data/course.js ***!
+  \**********************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1087,16 +1237,16 @@ var ResetCourse = function ResetCourse() {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/pages/tools/reset-data/index.js":
-/*!*********************************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/pages/tools/reset-data/index.js ***!
-  \*********************************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/tools/reset-data/index.js":
+/*!*********************************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/tools/reset-data/index.js ***!
+  \*********************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _course__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./course */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/admin/pages/tools/reset-data/course.js");
+/* harmony import */ var _course__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./course */ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/admin/pages/tools/reset-data/course.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -1121,10 +1271,10 @@ var resetData = function resetData() {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/utils/handle-ajax-api.js":
-/*!********************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/utils/handle-ajax-api.js ***!
-  \********************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/utils/handle-ajax-api.js":
+/*!********************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/utils/handle-ajax-api.js ***!
+  \********************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1154,10 +1304,10 @@ var handleAjax = function handleAjax(url, params, functions) {
 
 /***/ }),
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/utils/lp-modal-overlay.js":
-/*!*********************************************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_modify_step_install_after_activated/learnpress/assets/src/apps/js/utils/lp-modal-overlay.js ***!
-  \*********************************************************************************************************************************************************************/
+/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/utils/lp-modal-overlay.js":
+/*!*********************************************************************************************************************************!*\
+  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4/learnpress/assets/src/apps/js/utils/lp-modal-overlay.js ***!
+  \*********************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

@@ -5,7 +5,7 @@
     * Plugin URI: https://harmonicdesign.ca/hd-quiz/
     * Author: Harmonic Design
     * Author URI: https://harmonicdesign.ca
-    * Version: 1.8.3
+    * Version: 1.8.4
 */
 
 

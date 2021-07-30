@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '23418a0a69b55cd30b61650e6b8253e9b56d0767',
+    'reference' => '8b3f219f61219ca117cd1363a2c714ec93729aee',
     'name' => 'woocommerce/payments',
   ),
   'versions' => 
@@ -126,7 +126,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '23418a0a69b55cd30b61650e6b8253e9b56d0767',
+      'reference' => '8b3f219f61219ca117cd1363a2c714ec93729aee',
     ),
   ),
 );

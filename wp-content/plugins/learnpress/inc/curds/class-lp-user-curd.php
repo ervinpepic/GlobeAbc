@@ -1391,12 +1391,12 @@ class LP_User_CURD extends LP_Object_Data_CURD implements LP_Interface_CURD {
 	/**
 	 * Query own courses of an user.
 	 *
-	 * @param int    $user_id
-	 * @param string $args
+	 * @param int $user_id
+	 * @param array $args
 	 *
 	 * @return LP_Query_List_Table
 	 */
-	public function query_own_courses( $user_id, $args = '' ) {
+	public function query_own_courses( int $user_id = 0, array $args = array() ): LP_Query_List_Table {
 		global $wpdb, $wp;
 		$paged = 1;
 
@@ -1462,13 +1462,21 @@ class LP_User_CURD extends LP_Object_Data_CURD implements LP_Interface_CURD {
 				}
 
 				$where = $where . $wpdb->prepare( ' AND post_type = %s AND post_author = %d', LP_COURSE_CPT, $user_id );
-				$sql   = "
+
+				$join = '';
+
+				do_action( 'learnpress/user-curd/query_where_join_own_courses', $where, $join );
+
+				$sql = "
 					SELECT SQL_CALC_FOUND_ROWS ID
 					FROM {$wpdb->posts} c
+					{$join}
 					{$where}
 					ORDER BY ID DESC
 					LIMIT {$offset}, {$limit}
 				";
+
+				do_action( 'learnpress/user-curd/query_string_own_courses', $sql );
 
 				$items       = $wpdb->get_results( $sql );
 				$count       = $wpdb->get_var( 'SELECT FOUND_ROWS()' );
@@ -1507,12 +1515,12 @@ class LP_User_CURD extends LP_Object_Data_CURD implements LP_Interface_CURD {
 	/**
 	 * Query courses by user
 	 *
-	 * @param int    $user_id
-	 * @param string $args
+	 * @param int $user_id
+	 * @param array $args
 	 *
 	 * @return LP_Query_List_Table
 	 */
-	public function query_purchased_courses( $user_id = 0, $args = '' ) {
+	public function query_purchased_courses( int $user_id = 0, array $args = array() ): LP_Query_List_Table {
 		global $wpdb, $wp;
 		$paged = 1;
 
@@ -1710,6 +1718,8 @@ class LP_User_CURD extends LP_Object_Data_CURD implements LP_Interface_CURD {
 					$limit = '';
 				}
 
+				do_action( 'learnpress/user-curd/query_where_join_purchased_courses', $where, $join );
+
 				$sql = "
 					SELECT SQL_CALC_FOUND_ROWS *
 					FROM
@@ -1725,6 +1735,8 @@ class LP_User_CURD extends LP_Object_Data_CURD implements LP_Interface_CURD {
 					{$orderby}
 					$limit
 				";
+
+				do_action( 'learnpress/user-curd/query_string_purchased_courses', $sql );
 
 				$items = $wpdb->get_results( $sql );
 

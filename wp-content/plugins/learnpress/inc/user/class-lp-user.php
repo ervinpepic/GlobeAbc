@@ -2,6 +2,7 @@
 
 /**
  * Class LP_User
+ *
  * @author  ThimPress
  * @package LearnPress/Classes
  * @version 1.0
@@ -73,7 +74,7 @@ class LP_User extends LP_Abstract_User {
 			}
 		}
 
-		//Todo: set cache - tungnx
+		// Todo: set cache - tungnx
 
 		return apply_filters( 'learnpress/course/can-view-content', $view, $this->get_id(), $course );
 	}
@@ -166,6 +167,104 @@ class LP_User extends LP_Abstract_User {
 	}
 
 	/**
+	 * Check course is enrolled
+	 *
+	 * @param integer $course_id Course ID
+	 * @param boolean $return_bool
+	 * @return any
+	 *
+	 * @author Nhamdv
+	 */
+	public function is_course_enrolled( int $course_id, bool $return_bool = true ) {
+		static $output;
+
+		if ( ! isset( $output ) || ! is_object( $output ) ) {
+			$output          = new stdClass();
+			$output->check   = true;
+			$output->message = '';
+
+			try {
+				$order = $this->get_course_order( $course_id, 'id', true );
+
+				if ( empty( $order ) ) {
+					throw new Exception( esc_html__( 'Order is not completed', 'learnpress' ) );
+				}
+
+				global $wpdb;
+
+				$query  = $wpdb->prepare( "SELECT status FROM $wpdb->learnpress_user_items WHERE item_id=%d AND user_id=%d AND item_type=%s ORDER BY user_item_id DESC LIMIT 1", $course_id, $this->get_id(), LP_COURSE_CPT );
+				$status = $wpdb->get_var( $query );
+
+				if ( $status !== 'enrolled' ) {
+					throw new Exception( esc_html__( 'Course is not enrolled', 'learnpress' ) );
+				}
+			} catch ( Throwable $th ) {
+				$output->check   = false;
+				$output->message = $th->getMessage();
+			}
+		}
+
+		if ( $return_bool ) {
+			$output = $output->check;
+		}
+
+		return apply_filters( 'learn-press/user/is-course-enrolled', $output, $course_id, $return_bool );
+	}
+
+	/**
+	 * Check user can enroll course
+	 *
+	 * @param int  $course_id
+	 * @param bool $return_bool
+	 * @return mixed|object|bool
+	 */
+	public function can_enroll_course( int $course_id, bool $return_bool = true ) {
+		$course          = learn_press_get_course( $course_id );
+		$output          = new stdClass();
+		$output->check   = true;
+		$output->message = '';
+
+		try {
+			if ( ! $course ) {
+				throw new Exception( esc_html__( 'No Course or User available', 'learnpress' ) );
+			}
+
+			if ( ! $course->is_publish() ) {
+				throw new Exception( esc_html__( 'Course is not public', 'learnpress' ) );
+			}
+
+			if ( $course->get_external_link() ) {
+				throw new Exception( esc_html__( 'Course is External', 'learnpress' ) );
+			}
+
+			if ( ! $course->is_in_stock() ) {
+				throw new Exception( esc_html__( 'Course is full students', 'learnpress' ) );
+			}
+
+			if ( $course->is_no_required_enroll() ) {
+				throw new Exception( esc_html__( 'Course is not require enrolling.', 'learnpress' ) );
+			}
+
+			if ( ! $course->is_free() && ! $this->has_purchased_course( $course_id ) ) {
+				throw new Exception( esc_html__( 'Course is not purchased.', 'learnpress' ) );
+			}
+
+			if ( $this->is_course_enrolled( $course_id ) ) {
+				throw new Exception( esc_html__( 'This course is already enrolled.', 'learnpress' ) );
+			}
+		} catch ( \Throwable $th ) {
+			$output->check   = false;
+			$output->message = $th->getMessage();
+		}
+
+		if ( $return_bool ) {
+			$output = $output->check;
+		}
+
+		return apply_filters( 'learn-press/user/can-enroll-course', $output, $course, $return_bool );
+	}
+
+	/**
 	 * Check can show purchase course button
 	 *
 	 * @param int $course_id
@@ -232,7 +331,8 @@ class LP_User extends LP_Abstract_User {
 				}
 
 				// User can not purchase course
-				/*if ( ! parent::can_purchase_course( $course_id ) ) {
+				/*
+				if ( ! parent::can_purchase_course( $course_id ) ) {
 					return false;
 				}*/
 

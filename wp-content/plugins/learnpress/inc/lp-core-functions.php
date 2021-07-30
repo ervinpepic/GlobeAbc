@@ -3453,17 +3453,19 @@ function learn_press_cookie_get( $name, $namespace = 'LP' ) {
  *
  * @return array
  * @since 3.x.x
+ * @editor tungnx
+ * @reason comment - not use
  */
-function learn_press_default_course_levels() {
+/*function learn_press_default_course_levels() {
 	$levels = array(
 		'beginner'     => __( 'Beginner', 'learnpress' ),
 		'intermediate' => __( 'Intermediate', 'learnpress' ),
 		'expert'       => __( 'Expert', 'learnpress' ),
-		''             => __( 'All Levels', 'learnpress' ),
+		''             => __( 'All levels', 'learnpress' ),
 	);
 
 	return apply_filters( 'learn-press/default-course-levels', $levels );
-}
+}*/
 
 /**
  * Get default methods to evaluate course results.
@@ -3810,6 +3812,8 @@ function version_update_warning( $current_version, $new_version ) {
 	if ( $current_version_minor_part === $new_version_minor_part ) {
 		return;
 	}
+
+	$info = get_plugin_data( LP_PLUGIN_FILE );
 	?>
 	<hr class="lp-update--warning__separator"/>
 	<div class="lp-update--warning">
@@ -3819,19 +3823,8 @@ function version_update_warning( $current_version, $new_version ) {
 			</div>
 			<div class="lp-update-warning__message">
 				<?php echo esc_html__( 'The latest update includes some substantial changes across different areas of the plugin. We highly recommend you backup your site before upgrading, and make sure you first update in a staging environment', 'learnpress' ); ?>
+				<?php echo esc_html__( 'Learners require WordPress version ' . $info['Requires at least'] . ' or higher.', 'learnpress' ); ?>
 			</div>
-			<style>
-				#learnpress-update .update-message {
-					background: #ff0000;
-				}
-				#learnpress-update .update-message p::after,
-				#learnpress-update .update-message p::before {
-					color: #fff;
-				}
-				.lp-update-warning__title, .lp-update-warning__message {
-					color: #fff;
-				}
-			</style>
 		</div>
 	</div>
 

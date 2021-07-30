@@ -335,7 +335,7 @@ const HDQ = {
 		},
 		text: async function (el) {
 			let correct = false;
-			let value = el.value.toLocaleUpperCase();
+			let value = el.value.toLocaleUpperCase().trim();
 			let answers = el.getAttribute("data-answers");
 			answers = decodeURIComponent(answers);
 			answers = JSON.parse(answers);

@@ -67,6 +67,16 @@ class LP_Jwt_Public {
 				'permission_callback' => '__return_true',
 			)
 		);
+
+		register_rest_route(
+			$this->namespace,
+			'token/register',
+			array(
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => array( $this, 'register' ),
+				'permission_callback' => '__return_true',
+			)
+		);
 	}
 
 	public function get_item_schema() {
@@ -111,6 +121,27 @@ class LP_Jwt_Public {
 			$headers = apply_filters( 'lp_jwt_auth_cors_allow_headers', 'Access-Control-Allow-Headers, Content-Type, Authorization' );
 			header( sprintf( 'Access-Control-Allow-Headers: %s', $headers ) );
 		}
+	}
+
+	public function register( WP_REST_Request $request ) {
+		$username         = $request->get_param( 'username' );
+		$password         = $request->get_param( 'password' );
+		$confirm_password = $request->get_param( 'confirm_password' );
+		$email            = $request->get_param( 'email' );
+
+		$customer_id = LP_Forms_Handler::learnpress_create_new_customer( $email, $username, $password, $confirm_password );
+
+		if ( is_wp_error( $customer_id ) ) {
+			return new WP_Error(
+				$customer_id->get_error_code(),
+				$customer_id->get_error_message(),
+				array(
+					'status' => 403,
+				)
+			);
+		}
+
+		return $this->generate_token( $request );
 	}
 
 	public function generate_token( WP_REST_Request $request ) {
@@ -200,7 +231,10 @@ class LP_Jwt_Public {
 		 * if the request URI is for validate the token don't do anything,
 		 * this avoid double calls to the validate_token function.
 		 */
-		$validate_token = strpos( $_SERVER['REQUEST_URI'], 'token' );
+		$validate_token = strpos( $request_uri, 'token' );
+
+		/** All course is public so donot need token */
+		$is_rest_courses = strpos( $request_uri, 'courses' );
 
 		if ( $validate_token > 0 ) {
 			return $user_id;
@@ -209,7 +243,9 @@ class LP_Jwt_Public {
 		$token = $this->validate_token( false );
 
 		if ( is_wp_error( $token ) ) {
-			$this->jwt_error = $token;
+			if ( ! $is_rest_courses ) {
+				$this->jwt_error = $token;
+			}
 
 			return $user_id;
 		}

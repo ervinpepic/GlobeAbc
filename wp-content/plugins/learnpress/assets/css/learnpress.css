@@ -6164,6 +6164,16 @@ a {
   outline: 0;
 }
 
+.lp-courses-bar .search-courses button.loading > i::before {
+  display: inline-block;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f110";
+  -webkit-animation: lp-rotating 1s linear infinite;
+  -moz-animation: lp-rotating 1s linear infinite;
+  animation: lp-rotating 1s linear infinite;
+}
+
 .lp-courses-bar .search-courses ::-webkit-input-placeholder {
   color: #999;
 }
@@ -6898,6 +6908,32 @@ input[type="radio"]:nth-child(19):checked ~ .switch-btn:nth-child(20)::before {
   bottom: 0;
   left: 0;
   background: #fff;
+}
+
+#popup-course .back-course {
+  padding-left: 30px;
+  padding-right: 30px;
+  line-height: 70px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+#popup-course .back-course:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+@media (max-width: 768px) {
+  #popup-course .back-course {
+    background: transparent;
+    line-height: 50px;
+    opacity: 0.6;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  #popup-course .back-course:hover {
+    background: transparent;
+    opacity: 1;
+  }
 }
 
 #popup-course #popup-header {

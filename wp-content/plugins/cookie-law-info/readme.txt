@@ -3,9 +3,9 @@ Contributors: webtoffee, cookieyesdev
 Donate link: https://www.webtoffee.com/plugins/ 
 Tags: GDPR, CCPA, cookie notice, DSGVO, RGPD, LGPD, PIPEDA, cookies , cookie law, cookie consent, Opt-in, cookie policy, privacy, compliance
 Requires at least: 4.4.0
-Tested up to: 5.7
+Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 2.0.4
+Stable tag: 2.0.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -31,7 +31,7 @@ The plugin is one of the best WordPress GDPR compliance plugins as it comes with
 
 - With the help of this WordPress GDPR plugin, you can fully customise the cookie notice style so it blends with your existing website: change the colours, fonts, styles, the position on the page and even how it behaves when you click “Accept”.
 
-- You can choose to make the cookie notice bar disappear after a few seconds (completely configurable) or to accept on scroll (an option available under Italian law).
+- You can choose to make the cookie notice bar disappear after a few seconds (completely configurable) or to accept on scroll.
 
 - It also has a Cookie Audit module so you can easily show what cookies your site uses and display them neatly in a table on your Privacy & Cookies Policy page.
 
@@ -189,10 +189,15 @@ For every update of the plugin, you will be notified of the installed plugins pa
 
 == Changelog ==
 
+= 2.0.5 =
+
+* Enhancement: Disable cookie bar on page builders.
+* Tested ok with Wordpress version 5.8
+
 = 2.0.4 =
 
 * Bug fix: Do not sell option appears before Accept all button option on the admin settings.
-* Enhancement: Translation support for "Do not sell" link text.
+* Tested ok with Wordpress version 5.6
 * Enhancement: Added escaping to input attributes.
 
 = 2.0.3 =
@@ -519,8 +524,7 @@ For every update of the plugin, you will be notified of the installed plugins pa
 
 == Upgrade Notice ==
 
-= 2.0.4 =
+= 2.0.5 =
 
-* Bug fix: Do not sell option appears before Accept all button option on the admin settings.
-* Enhancement: Translation support for "Do not sell" link text.
-* Enhancement: Added escaping to input attributes.
+* Enhancement: Disable cookie bar on page builders.
+* Tested ok with Wordpress version 5.8

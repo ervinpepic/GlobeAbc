@@ -1283,30 +1283,6 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		}
 
 		/**
-		 * Return true if user can enroll a course.
-		 *
-		 * @param int $course_id
-		 *
-		 * @return bool|string
-		 */
-		public function can_enroll_course( $course_id ) {
-			$course = learn_press_get_course( $course_id );
-
-			// Course is published and not reached limitation
-			$can_enroll = ! ! $course && $course->is_publish();
-
-			if ( $can_enroll && $course->is_free() && ! $course->is_in_stock() ) {
-				$can_enroll = false;
-			}
-
-			if ( $can_enroll && ! $course->is_free() && ! $this->has_purchased_course( $course_id ) ) {
-				$can_enroll = false;
-			}
-
-			return apply_filters( 'learn-press/can-enroll-course', $can_enroll, $course_id, $this->get_id() );
-		}
-
-		/**
 		 * Check if the user can access to an item inside course.
 		 *
 		 * @updated 3.1.0
@@ -2517,7 +2493,7 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 *
 		 * @return LP_Query_List_Table
 		 */
-		public function get_purchased_courses( $args = array() ) {
+		public function get_purchased_courses( array $args = array() ): LP_Query_List_Table {
 			return $this->_curd->query_purchased_courses( $this->get_id(), $args );
 		}
 
@@ -2603,7 +2579,13 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 			return LP_Profile::instance( $this->get_id() )->get_profile_picture( $type, $size );
 		}
 
-		public function get_profile_socials( $user_id ) {
+		/**
+		 * Get links socials of use on Profile page
+		 *
+		 * @param int $user_id
+		 * @return array
+		 */
+		public function get_profile_socials( int $user_id = 0 ): array {
 			$socials    = array();
 			$extra_info = learn_press_get_user_extra_profile_info( $user_id );
 
