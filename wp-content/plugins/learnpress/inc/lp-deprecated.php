@@ -529,10 +529,12 @@ if ( ! function_exists( 'learn_press_course_retake_button' ) ) {
 
 	/**
 	 * Retake course button
+	 *
+	 * @deprecated 3.3.0
 	 */
 	function learn_press_course_retake_button() {
 		_deprecated_function( __FUNCTION__, '3.3.0' );
-		LP()->template( 'course' )->func( 'course_retake_button' );
+		LP()->template( 'course' )->func( 'button_retry' );
 	}
 }
 
@@ -765,8 +767,10 @@ if ( ! function_exists( 'learn_press_single_course_summary' ) ) {
 if ( ! function_exists( 'learn_press_course_price' ) ) {
 	/**
 	 * Display course price.
+	 * @deprecated 4.0.0
 	 */
 	function learn_press_course_price() {
+		_deprecated_function( __FUNCTION__, '4.0.0' );
 		$user   = LP_Global::user();
 		$course = LP_Global::course();
 
@@ -1096,8 +1100,10 @@ if ( ! function_exists( 'learn_press_end_courses_loop' ) ) {
 if ( ! function_exists( 'learn_press_courses_loop_item_students' ) ) {
 	/**
 	 * Output the students of the course within loop
+	 * @deprecated 4.0.0
 	 */
 	function learn_press_courses_loop_item_students() {
+		_deprecated_function( __FUNCTION__, '4.0.0' );
 		echo '<div class="clearfix"></div>';
 		learn_press_get_template( 'loop/course/students.php' );
 	}
@@ -1903,13 +1909,14 @@ if ( ! function_exists( 'learn_press_content_item_lesson_complete_button' ) ) {
 			return;
 		}
 
-		if ( ( $course_item = $user->get_course_data( $course->get_id() ) ) && $course_item->is_finished() ) {
+		$course_item = $user->get_course_data( $course->get_id() );
+		if ( $course_item && $course_item->is_finished() ) {
 			return;
 		}
 
-		if ( ! $user->can_access_course( $course->get_id() ) ) {
+		/*if ( ! $user->can_access_course( $course->get_id() ) ) {
 			return;
-		}
+		}*/
 
 		learn_press_get_template( 'content-lesson/button-complete.php' );
 	}

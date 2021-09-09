@@ -14,18 +14,16 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 	/**
 	 * Class LP_Course_Post_Type
 	 */
-	final class LP_Course_Post_Type extends LP_Abstract_Post_Type_Core {
-		/**
-		 * New version of course editor
-		 *
-		 * @var bool
-		 */
-		protected static $_VER2 = false;
-
+	final class LP_Course_Post_Type extends LP_Abstract_Post_Type {
 		/**
 		 * @var null
 		 */
 		protected static $_instance = null;
+
+		/**
+		 * @var string
+		 */
+		protected $_post_type = LP_COURSE_CPT;
 
 		/**
 		 * Constructor
@@ -35,16 +33,12 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 		public function __construct( $post_type ) {
 			parent::__construct( $post_type );
 
-			// Map origin methods to another method
-			$this
-				->add_map_method( 'save', 'before_save_curriculum', false )
-				->add_map_method( 'before_delete', 'before_delete_course' );
-
 			add_action( 'init', array( $this, 'register_taxonomy' ) );
 			add_filter( 'posts_where_paged', array( $this, '_posts_where_paged_course_items' ), 10 );
 			add_filter( 'posts_join_paged', array( $this, '_posts_join_paged_course_items' ), 10 );
 
-			add_action( 'learn-press/admin/after-enqueue-scripts', array( $this, 'data_course_editor' ) );
+			// Comment by tungnx
+			//add_action( 'learn-press/admin/after-enqueue-scripts', array( $this, 'data_course_editor' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'add_script_data' ) );
 		}
 
@@ -105,7 +99,7 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 		/**
 		 * Register course post type.
 		 */
-		public function register() {
+		public function args_register_post_type() : array {
 			$settings         = LP_Settings::instance();
 			$labels           = array(
 				'name'               => _x( 'Courses', 'Post Type General Name', 'learnpress' ),
@@ -136,12 +130,12 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 				'publicly_queryable' => true,
 				'show_ui'            => true,
 				'has_archive'        => $has_archive,
-				'capability_type'    => LP_COURSE_CPT,
+				'capability_type'    => $this->_post_type,
 				'map_meta_cap'       => true,
 				'show_in_menu'       => 'learn_press',
 				'show_in_admin_bar'  => true,
 				'show_in_nav_menus'  => true,
-				'show_in_rest'       => $this->is_support_gutenberg(),
+				'show_in_rest'       => true,
 				'taxonomies'         => array( 'course_category', 'course_tag' ),
 				'supports'           => array( 'title', 'editor', 'thumbnail', 'revisions', 'comments', 'excerpt' ),
 				'hierarchical'       => false,
@@ -183,7 +177,7 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 					'show_admin_column' => true,
 					'show_in_admin_bar' => true,
 					'show_in_nav_menus' => true,
-					'show_in_rest'      => $this->is_support_gutenberg(),
+					'show_in_rest'      => true,
 					'rewrite'           => array(
 						'slug'         => empty( $category_base ) ? _x( 'course-category', 'slug', 'learnpress' ) : $category_base,
 						'hierarchical' => true,
@@ -221,7 +215,7 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 					'show_in_menu'          => 'learn_press',
 					'update_count_callback' => '_update_post_term_count',
 					'query_var'             => true,
-					'show_in_rest'          => $this->is_support_gutenberg(),
+					'show_in_rest'          => true,
 					'rewrite'               => array(
 						'slug'       => empty( $tag_base ) ? _x( 'course-tag', 'slug', 'learnpress' ) : $tag_base,
 						'with_front' => false,
@@ -234,22 +228,25 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 		 * Load data for course editor.
 		 *
 		 * @since 3.0.0
+		 * @editor tungnx
+		 * @reason not use
 		 */
-		public function data_course_editor() {
+		/*public function data_course_editor() {
 			if ( LP_COURSE_CPT !== get_post_type() ) {
 				return;
 			}
 
-		}
+		}*/
 
 		/**
 		 * Delete course sections before delete course.
 		 *
-		 * @param $post_id
-		 *
+		 * @param int $post_id
 		 * @since 3.0.0
+		 * @editor tungnx
+		 * @since modify 4.0.9
 		 */
-		public function before_delete_course( $post_id ) {
+		public function before_delete( int $post_id ) {
 			// course curd
 			$curd = new LP_Course_CURD();
 			// remove all items from each section and delete course's sections
@@ -261,13 +258,13 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 		 *
 		 * @return string
 		 */
-		public function posts_fields( $fields ) {
-			if ( ! $this->_is_archive() ) {
+		public function posts_fields( $fields ): string {
+			if ( ! $this->is_page_list_posts_on_backend() ) {
 				return $fields;
 			}
 
 			$fields = ' DISTINCT ' . $fields;
-			if ( ( $this->_get_orderby() == 'price' ) || ( $this->_get_search() ) ) {
+			if ( $this->get_order_by() == 'price' ) {
 				$fields .= ', pm_price.meta_value as course_price';
 			}
 
@@ -307,7 +304,7 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 		public function posts_join_paged( $join ) {
 			global $wpdb;
 
-			if ( ! $this->_is_archive() ) {
+			if ( ! $this->is_page_list_posts_on_backend() ) {
 				return $join;
 			}
 
@@ -324,7 +321,7 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 		public function posts_where_paged( $where ) {
 			global $wpdb;
 
-			if ( ! $this->_is_archive() ) {
+			if ( ! $this->is_page_list_posts_on_backend() ) {
 				return $where;
 			}
 
@@ -342,7 +339,7 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 				FROM {$wpdb->posts} p
 				INNER JOIN {$wpdb->postmeta} pm ON pm.post_id = p.ID AND pm.meta_key = %s
 				WHERE pm.meta_value = %s
-			",
+				",
 				'_lp_preview_course',
 				'yes'
 			);
@@ -353,22 +350,22 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 		}
 
 		/**
-		 * @param $order_by_statement
+		 * @param $orderby
 		 *
 		 * @return string
 		 */
-		public function posts_orderby( $order_by_statement ) {
-			if ( ! $this->_is_archive() ) {
-				return $order_by_statement;
+		public function posts_orderby( $orderby ) {
+			if ( ! $this->is_page_list_posts_on_backend() ) {
+				return $orderby;
 			}
 
-			$order = $this->_get_order();
-			switch ( $this->_get_orderby() ) {
+			$order = $this->get_order_sort();
+			switch ( $this->get_order_by() ) {
 				case 'price':
-					$order_by_statement = "pm_price.meta_value {$order}";
+					$orderby = "pm_price.meta_value {$order}";
 			}
 
-			return $order_by_statement;
+			return $orderby;
 		}
 
 		/**
@@ -381,16 +378,6 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 			$columns['price']      = 'price';
 
 			return $columns;
-		}
-
-		private function _is_archive() {
-			global $pagenow, $post_type;
-
-			if ( ! is_admin() || ( $pagenow != 'edit.php' ) || ( LP_COURSE_CPT != $post_type ) ) {
-				return false;
-			}
-
-			return true;
 		}
 
 		/**
@@ -455,10 +442,12 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 		/**
 		 * Update course price and sale price
 		 *
-		 * @return mixed
+		 * @editor tungnx
+		 * @since modify 4.0.9
+		 * @reason this function of LP old, LP4 no need.
 		 */
-		private function _update_price() {
-			global $wpdb, $post;
+		/*private function _update_price( WP_Post $post ) {
+			global $wpdb;
 
 			$request          = $_POST;
 			$price            = floatval( LP_Request::get( '_lp_price' ) );
@@ -490,21 +479,16 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 					unset( $_POST[ $key ] );
 				}
 			}
-
-			/*
-			if ( $price ) {
-				update_post_meta( $post->ID, '_lp_required_enroll', 'yes' );
-			}*/
-
-			return true;
-		}
+		}*/
 
 		/**
 		 * Check sale price dates are in range
 		 *
+		 * @editor tungnx
+		 * @reason not use
 		 * @return bool
 		 */
-		private function _validate_sale_price_date() {
+		/*private function _validate_sale_price_date() {
 			$now              = current_time( 'timestamp' );
 			$sale_price_start = learn_press_get_request( '_lp_sale_start' );
 			$sale_price_end   = learn_press_get_request( '_lp_sale_end' );
@@ -512,7 +496,7 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 			$start            = strtotime( $sale_price_start );
 
 			return ( ( $sale_price_start ) && ( $now <= $end || ! $sale_price_end ) || ( ! $sale_price_start && ! $sale_price_end ) );
-		}
+		}*/
 
 		/**
 		 * Add columns to admin manage course page
@@ -645,11 +629,12 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 					}
 					break;
 				case 'students':
-					// In ra so student da enroll.
+					//Todo: tungnx - should review code
+					//Total user enrolled.
 					$count = LP()->utils->count_course_users(
 						array(
 							'course_id'  => $course->get_id(),
-							'status'     => learn_press_course_enrolled_slugs(),
+							'status'     => [],
 							'total_only' => true,
 						)
 					);
@@ -660,44 +645,26 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 		}
 
 		/**
-		 * Before save curriculum action.
-		 * If is instructor will pending course if enable required review in settings.
+		 * Save course post
+		 * Should write run background if handle big and need more time
+		 *
+		 * @param int $post_id
+		 * @param WP_Post $post
+		 * @since 4.0.9
+		 * @version 1.0.0
+		 * @editor tungnx
+		 * @see LP_Background_Single_Course::handle()
 		 */
-		public function before_save_curriculum() {
-			global $post, $pagenow;
+		public function save( int $post_id, WP_Post $post ) {
+			// Save in background.
+			$bg = LP_Background_Single_Course::instance();
 
-			if ( ( $pagenow != 'post.php' ) || ( get_post_type() != LP_COURSE_CPT ) ) {
-				return;
-			}
-
-			remove_action( 'save_post', array( $this, 'before_save_curriculum' ), 1 );
-
-			$user            = learn_press_get_current_user();
-			$required_review = LP()->settings->get( 'required_review' ) == 'yes';
-
-			if ( $user->is_instructor() && $required_review ) {
-				wp_update_post(
-					array(
-						'ID'          => $post->ID,
-						'post_status' => 'pending',
-					),
-					array( '%d', '%s' )
-				);
-
-			}
-
-			$new_status = get_post_status( $post->ID );
-			$old_status = get_post_meta( $post->ID, '_lp_course_status', true );
-
-			// Update price
-			$this->_update_price();
-
-			if ( $new_status != $old_status ) {
-				do_action( 'learn_press_transition_course_status', $new_status, $old_status, $post->ID );
-				update_post_meta( $post->ID, '_lp_course_status', $new_status );
-			}
-
-			delete_post_meta( $post->ID, '_lp_curriculum' );
+			$bg->data(
+				[
+					'handle_name' => 'save_post',
+					'course_id'   => $post_id,
+				]
+			)->dispatch();
 		}
 
 		/**

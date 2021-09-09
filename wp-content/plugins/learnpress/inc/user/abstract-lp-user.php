@@ -93,47 +93,34 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		/**
 		 * Get data for a course user has enrolled.
 		 *
-		 * @updated 3.1.0
+		 * @param int $course_id .
 		 *
-		 * @param int|LP_Abstract_Course $course_id .
-		 * @param bool                   $check_exists .
-		 *
-		 * @return LP_User_Item_Course|LP_User_Item_Quiz|bool|mixed
+		 * @return LP_User_Item_Course|bool
+		 * @version  3.1.1
+		 * @editor tungnx
+		 * @modify 4.1.3
 		 */
-		public function get_course_data( $course_id, $check_exists = false ) {
-			if ( is_a( $course_id, 'LP_Abstract_Course' ) ) {
-				$course_id = $course_id->get_id();
-			}
+		public function get_course_data( int $course_id = 0 ) {
+			$lp_user_items_db = LP_User_Items_DB::getInstance();
 
-			if ( ! $course_id ) {
-				$course_id = get_the_ID();
-			}
+			try {
+				if ( ! $course_id ) {
+					$course_id = get_the_ID();
+				}
 
-			$object_course_data = LP_Object_Cache::get(
-				'course-' . $this->get_id() . '-' . $course_id,
-				'learn-press/user-item-object-courses'
-			);
+				$filter           = new LP_User_Items_Filter();
+				$filter->item_id  = $course_id;
+				$filter->user_id  = $this->get_id();
+				$last_user_course = $lp_user_items_db->get_last_user_course( $filter );
 
-			if ( false === $object_course_data ) {
-				$result = $this->_curd->read_course( $this->get_id(), $course_id );
-
-				if ( $result ) {
-					$object_course_data = new LP_User_Item_Course( $result );
+				if ( $last_user_course ) {
+					$object_course_data = new LP_User_Item_Course( $last_user_course );
 				} else {
+					//Todo: tungnx - need debug to check
 					$object_course_data = new LP_User_Item_Course( $course_id );
 				}
-
-				LP_Object_Cache::set(
-					'course-' . $this->get_id() . '-' . $course_id,
-					$object_course_data,
-					'learn-press/user-item-object-courses'
-				);
-			}
-
-			if ( $object_course_data ) {
-				if ( ! $object_course_data->get_item_id() && $check_exists ) {
-					return false;
-				}
+			} catch ( Throwable $e ) {
+				$object_course_data = false;
 			}
 
 			return $object_course_data;
@@ -349,8 +336,10 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 * @param int $course_id
 		 *
 		 * @return int
+		 * @editor tungnx
+		 * @modify 4.1.3 - comment - not user
 		 */
-		public function count_item_archive( $item_id, $course_id = 0 ) {
+		/*public function count_item_archive( $item_id, $course_id = 0 ) {
 			$count = 0;
 
 			if ( $items = $this->get_item_archive( $item_id, $course_id ) ) {
@@ -358,254 +347,7 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 			}
 
 			return $count;
-		}
-
-		/**
-		 * Start quiz for the user.
-		 *
-		 * @param int  $quiz_id
-		 * @param int  $course_id
-		 * @param bool $wp_error Optional. Whether to return a WP_Error on failure. Default false.
-		 *
-		 * @return LP_User_Item_Quiz|bool|WP_Error
-		 * @throws Exception
-		 */
-		public function start_quiz( $quiz_id, $course_id = 0, $wp_error = false ) {
-			try {
-				$item_id = learn_press_get_request( 'lp-preview' );
-
-				if ( $item_id ) {
-					learn_press_add_message( __( 'You cannot start a quiz in preview mode.', 'learnpress' ), 'error' );
-					wp_safe_redirect( learn_press_get_preview_url( $item_id ) );
-					exit();
-				}
-
-				// Validate course and quiz
-				$course_id = $this->_verify_course_item( $quiz_id, $course_id );
-				if ( ! $course_id ) {
-					throw new Exception(
-						__( 'Course does not exist or does not contain the quiz', 'learnpress' ),
-						LP_INVALID_QUIZ_OR_COURSE
-					);
-				}
-
-				$course       = learn_press_get_course( $course_id );
-				$access_level = $this->get_course_access_level( $course_id );
-
-				// If user has already finished the course
-				if ( $this->has_finished_course( $course_id ) ) {
-					throw new Exception(
-						__( 'You have already finished the course of this quiz', 'learnpress' ),
-						LP_COURSE_IS_FINISHED
-					);
-				}
-
-				if ( ! $this->has_enrolled_course( $course_id ) || ! $this->is_course_in_progress( $course_id ) ) {
-					if ( ! $course->is_no_required_enroll() ) {
-						throw new Exception(
-							__( 'Please enroll course before starting quiz.', 'learnpress' ),
-							LP_COURSE_IS_FINISHED
-						);
-					}
-				}
-
-				// Check if user has already started or completed quiz
-				if ( $this->has_item_status( array( 'started', 'completed' ), $quiz_id, $course_id ) ) {
-					throw new Exception(
-						__( 'User has started or completed quiz', 'learnpress' ),
-						LP_QUIZ_HAS_STARTED_OR_COMPLETED
-					);
-				}
-				$user = LP_Global::user();
-
-				if ( $user->is_guest() ) {
-					// if course required enroll => print message "You have to login for starting quiz"
-					if ( ! $course->is_no_required_enroll() ) {
-						throw new Exception( __( 'You have to login for starting quiz.', 'learnpress' ), LP_REQUIRE_LOGIN );
-					}
-				}
-
-				/**
-				 * Hook can start quiz
-				 *
-				 * @see learn_press_hk_before_start_quiz
-				 */
-				$can_start_quiz = apply_filters(
-					'learn-press/before-start-quiz',
-					true,
-					$quiz_id,
-					$course_id,
-					$this->get_id()
-				);
-
-				if ( ! $can_start_quiz ) {
-					return false;
-				}
-
-				$user_quiz = learn_press_user_start_quiz( $quiz_id, false, $course_id, $wp_error );
-
-				/**
-				 * Hook quiz started
-				 *
-				 * @since 3.0.0
-				 */
-				do_action( 'learn-press/user/quiz-started', $quiz_id, $course_id, $this->get_id() );
-
-				// $return = $user_quiz->get_mysql_data();
-				$return = $user_quiz;
-			} catch ( Exception $ex ) {
-				$return = $wp_error ? new WP_Error( $ex->getCode(), $ex->getMessage() ) : false;
-			}
-
-			return $return;
-		}
-
-		/**
-		 * Finish a quiz for the user and save all data needed
-		 *
-		 * @param int  $quiz_id
-		 * @param int  $course_id
-		 * @param bool $wp_error
-		 *
-		 * @return LP_User_Item_Quiz|bool|WP_Error
-		 */
-		public function finish_quiz( $quiz_id, $course_id, $wp_error = false ) {
-			if ( ! apply_filters(
-				'learn_press_before_user_finish_quiz',
-				true,
-				$quiz_id,
-				$course_id,
-				$this->get_id()
-			) ) {
-				return false;
-			}
-			$return = false;
-
-			try {
-				// Validate course and quiz
-				if ( false === ( $course_id = $this->_verify_course_item( $quiz_id, $course_id ) ) ) {
-					throw new Exception(
-						__( 'Course is not exists or does not contain the quiz', 'learnpress' ),
-						LP_INVALID_QUIZ_OR_COURSE
-					);
-				}
-
-				// If user has already finished the course
-				if ( $this->has_finished_course( $course_id ) ) {
-					throw new Exception(
-						__( 'User has already finished course of this quiz', 'learnpress' ),
-						LP_COURSE_IS_FINISHED
-					);
-
-				}
-
-				// Check if user has already started or completed quiz
-				if ( $this->has_item_status( array( 'completed' ), $quiz_id, $course_id ) ) {
-					throw new Exception(
-						__( 'User has completed quiz', 'learnpress' ),
-						LP_QUIZ_HAS_STARTED_OR_COMPLETED
-					);
-				}
-
-				$user_quiz = $this->get_item_data( $quiz_id, $course_id );
-
-				$user_quiz->finish();
-
-				do_action( 'learn-press/user/quiz-finished', $quiz_id, $course_id, $this->get_id() );
-			} catch ( Exception $ex ) {
-				$return = $wp_error ? new WP_Error( $ex->getCode(), $ex->getMessage() ) : false;
-			}
-
-			return $return;
-		}
-
-		/**
-		 * Retake a quiz for the user
-		 *
-		 * @param int  $quiz_id
-		 * @param int  $course_id
-		 * @param bool $wp_error
-		 *
-		 * @return bool|WP_Error|LP_User_Item_Quiz
-		 *
-		 * @throws Exception
-		 */
-		public function retake_quiz( $quiz_id, $course_id, $wp_error = false ) {
-			if ( ! apply_filters(
-				'learn-press/user/before-retake-quiz',
-				true,
-				$quiz_id,
-				$course_id,
-				$this->get_id()
-			) ) {
-				return false;
-			}
-			$return = false;
-			try {
-				$course_id = $this->_verify_course_item( $quiz_id, $course_id );
-
-				if ( false === $course_id ) {
-					throw new Exception(
-						sprintf(
-							__(
-								'Course does not exist or does not contain the quiz.',
-								'learnpress'
-							),
-							__CLASS__,
-							__FUNCTION__
-						),
-						LP_INVALID_QUIZ_OR_COURSE
-					);
-				}
-
-				// If user has already finished the course.
-				if ( $this->has_finished_course( $course_id ) ) {
-					throw new Exception(
-						sprintf(
-							__( 'You can not redo a quiz in a finished course.', 'learnpress' ),
-							__CLASS__,
-							__FUNCTION__
-						),
-						LP_COURSE_IS_FINISHED
-					);
-
-				}
-
-				// Check if user has already started or completed quiz
-				if ( ! $this->has_item_status( array( 'completed' ), $quiz_id, $course_id ) ) {
-					throw new Exception(
-						sprintf(
-							__( '%1$s::%2$s - User has not completed quiz.', 'learnpress' ),
-							__CLASS__,
-							__FUNCTION__
-						),
-						LP_QUIZ_HAS_STARTED_OR_COMPLETED
-					);
-				}
-
-				$allow_attempts = learn_press_get_quiz_max_retrying( $quiz_id, $course_id );
-
-				if ( ! $this->has_retake_quiz( $quiz_id, $course_id ) ) {
-					throw new Exception(
-						sprintf(
-							__( '%1$s::%2$s - Your Quiz can\'t retake.', 'learnpress' ),
-							__CLASS__,
-							__FUNCTION__
-						),
-						LP_QUIZ_HAS_STARTED_OR_COMPLETED
-					);
-				}
-
-				$return = learn_press_user_retake_quiz( $quiz_id, false, $course_id, $wp_error );
-
-				do_action( 'learn-press/user/quiz-retried', $quiz_id, $course_id, $this->get_id() );
-			} catch ( Exception $ex ) {
-				$return = $wp_error ? new WP_Error( $ex->getCode(), $ex->getMessage() ) : false;
-				do_action( 'learn-press/user/retake-quiz-failure', $quiz_id, $course_id, $this->get_id() );
-			}
-
-			return $return;
-		}
+		}*/
 
 		/**
 		 * Check quiz can retake?
@@ -670,7 +412,8 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 				$course_id = get_the_ID();
 			}
 
-			if ( $course_data = $this->get_course_data( $course_id ) ) {
+			$course_data = $this->get_course_data( $course_id );
+			if ( $course_data ) {
 				return $course_data->get_item( $item_id );
 			}
 
@@ -1370,27 +1113,19 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		}
 
 		/**
-		 * Check if user can finished course by getting current progress
+		 * Check if user can finish course by getting current progress
 		 * and compares with course passing condition.
 		 *
 		 * @param int $course_id
 		 *
 		 * @return bool
+		 * @editor tungnx
+		 * @modify 4.1.3
 		 */
-		public function can_finish_course( $course_id ) {
-			$return = false;
-			$course = learn_press_get_course( $course_id );
+		public function can_finish_course( int $course_id ) {
+			_deprecated_function( __FUNCTION__, '4.1.3', 'is_course_finished' );
 
-			if ( $course ) {
-				$access_level = $this->get_course_access_level( $course_id );
-
-				if ( $access_level === LP_COURSE_ACCESS_LEVEL_70 ) {
-					$result = $this->evaluate_course_results( $course_id );
-					$return = $result >= $course->get_passing_condition();
-				}
-			}
-
-			return apply_filters( 'learn-press/can-finished-course', $return, $course, $this->get_id() );
+			return true;
 		}
 
 		/**
@@ -1432,7 +1167,7 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 *
 		 * @return int|bool
 		 */
-		public function finish_course( $course_id ) {
+		public function finish_course( int $course_id ) {
 			$return = false;
 			$course = learn_press_get_course( $course_id );
 
@@ -1458,7 +1193,7 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function is_instructor() {
+		public function is_instructor(): bool {
 
 			$roles = $this->get_data( 'roles' ) ? $this->get_data( 'roles' ) : array();
 
@@ -1559,28 +1294,31 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 * @param int $course_id .
 		 *
 		 * @return bool
+		 * @editor tungnx
+		 * @modify 4.1.2
+		 * @version 1.0.1
+		 * @Todo tungnx - comment - use mothod LP_User::has_enrolled_course
+		 * @see LP_User::has_enrolled_course()
 		 */
-		public function has_enrolled_course( int $course_id ) : bool {
-			$course_item = $this->get_course_data( $course_id );
+		/*public function has_enrolled_course( int $course_id ) {
+			$flag_enrolled = true;
 
-			$enrolled = $course_item && $course_item->get_user_item_id() > 0;
+			try {
+				$order = $this->get_course_order( $course_id );
 
-			return apply_filters( 'learn-press/has-enrolled-course', $enrolled, $this->get_id(), $course_id );
-		}
+				if ( ! $order || ! $order->is_completed() ) {
+					throw new Exception( esc_html__( 'Order is not completed', 'learnpress' ) );
+				}
 
-		/**
-		 * Return true if you has finished a course
-		 *
-		 * @param int $course_id .
-		 *
-		 * @return bool
-		 */
-		public function has_finished_course( int $course_id ) : bool {
-			$course_item = $this->get_course_data( $course_id );
-			$finished    = $course_item && $course_item->has_finished();
+				if ( ! in_array( $this->get_course_status( $course_id ), [ LP_COURSE_ENROLLED, LP_COURSE_FINISHED ] ) ) {
+					throw new Exception( esc_html__( 'Course is not enrolled', 'learnpress' ) );
+				}
+			} catch ( Throwable $th ) {
+				$flag_enrolled = false;
+			}
 
-			return apply_filters( 'learn-press/user-has-finished-course', $finished, $this->get_id(), $course_id );
-		}
+			return $flag_enrolled;
+		}*/
 
 		/**
 		 * Check user has passed course.
@@ -1654,10 +1392,13 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 * @param int  $quiz_id
 		 * @param int  $course_id
 		 * @param bool $force
+		 * @editor tungnx
+		 * @modify 4.1.2
+		 * @reason comment - not use
 		 *
 		 * @return int
 		 */
-		public function count_retaken_quiz( $quiz_id, $course_id = 0, $force = false ) {
+		/*public function count_retaken_quiz( $quiz_id, $course_id = 0, $force = false ) {
 			$count     = false;
 			$course_id = $this->_get_course( $course_id );
 
@@ -1686,17 +1427,19 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 				$course_id,
 				$this->get_id()
 			);
-		}
+		}*/
 
 		/**
 		 * Count number of time user has retaken a quiz
 		 *
 		 * @param int  $course_id
 		 * @param bool $force
-		 *
+		 * @editor tungnx
+		 * @modify 4.1.2
+		 * @reason comment - not use
 		 * @return int
 		 */
-		public function count_retaken_course( $course_id = 0, $force = false ) {
+		/*public function count_retaken_course( $course_id = 0, $force = false ) {
 			$count     = false;
 			$course_id = $this->_get_course( $course_id );
 
@@ -1709,7 +1452,7 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 			}
 
 			return $count;
-		}
+		}*/
 
 		/**
 		 * @param $course_id
@@ -1868,10 +1611,10 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 *
 		 * @return mixed
 		 */
-		public function get_course_info( $course_id, $field = null, $force = false ) {
-
-			if ( $data = $this->get_course_data( $course_id ) ) {
-				return $data->get_results( $field );
+		public function get_course_info( int $course_id, $field = null, $force = false ) {
+			$user_data = $this->get_course_data( $course_id );
+			if ( $user_data ) {
+				return $user_data->get_results( $field );
 			}
 
 			return false;
@@ -1906,13 +1649,21 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 * @param int $course_id
 		 *
 		 * @return mixed
+		 * @editor tungnx
+		 * @modify 4.1.3
+		 * @version 1.0.1
 		 */
-		public function get_course_status( $course_id ) {
+		public function get_course_status( int $course_id ): string {
+			$status = '';
 
-			$status = false;
+			try {
+				$user_data = $this->get_course_data( $course_id );
 
-			if ( $data = $this->get_course_data( $course_id ) ) {
-				$status = $data->get_status();
+				if ( $user_data ) {
+					$status = $user_data->get_status();
+				}
+			} catch ( Throwable $e ) {
+				$status = '';
 			}
 
 			return apply_filters( 'learn-press/user-course-status', $status, $course_id, $this->get_id() );
@@ -1935,8 +1686,10 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 *
 		 * @return int
 		 * @since 3.1.0
+		 * @editor tungnx
+		 * @modify 4.1.3 - comment - not use
 		 */
-		public function get_course_access_level( $course_id ) {
+		/*public function get_course_access_level( $course_id ) {
 			$access_level = LP_Object_Cache::get(
 				'course-' . $course_id . '-' . $this->get_id(),
 				'learn-press/course-access-levels'
@@ -1978,7 +1731,7 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 					}
 					//                  }
 				} else {
-					$order = $this->get_course_order( $course_id, 'object', true );
+					$order = $this->get_course_order( $course_id );
 
 					if ( $order ) {
 						switch ( $order->get_status() ) {
@@ -1999,9 +1752,14 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 			}
 
 			return apply_filters( 'learn-press/course-access-level', $access_level, $course_id, $this->get_id() );
-		}
+		}*/
 
-		public function get_item_access_level( $item_id, $course_id ) {
+		/**
+		 * @editor tungnx
+		 * @reason comment - not use
+		 * @modify 4.1.2
+		 */
+		/*public function get_item_access_level( $item_id, $course_id ) {
 			$access_level = 0;
 
 			if ( $course = learn_press_get_course( $course_id ) ) {
@@ -2024,7 +1782,7 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 				$course_id,
 				$this->get_id()
 			);
-		}
+		}*/
 
 		/**
 		 * Set new access-level of an user with a course.
@@ -2034,8 +1792,11 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 *
 		 * @return mixed
 		 * @since 3.1.0
+		 * @editor tungnx
+		 * @reason comment - not use
+		 * @modify 4.1.2
 		 */
-		public function set_course_access_level( $access_level, $course_id ) {
+		/*public function set_course_access_level( $access_level, $course_id ) {
 			if ( $access_level !== $this->get_course_access_level( $course_id ) ) {
 				LP_Object_Cache::set(
 					'course-' . $course_id . '-' . $this->get_id(),
@@ -2045,7 +1806,7 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 			}
 
 			return $access_level;
-		}
+		}*/
 
 		/**
 		 * Check if user have an access-level.
@@ -2057,8 +1818,10 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 *
 		 * @return bool
 		 * @since 3.1.0
+		 * @editor tungnx
+		 * @modify 4.1.3 - not - use
 		 */
-		public function has_course_access_level( $access_level, $course_id, $compare = '<=' ) {
+		/*public function has_course_access_level( $access_level, $course_id, $compare = '<=' ) {
 			$user_access_level = $this->get_course_access_level( $course_id );
 
 			switch ( $compare ) {
@@ -2071,7 +1834,7 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 			}
 
 			return $has;
-		}
+		}*/
 
 		/**
 		 * Check if user has an access-level with a course.
@@ -2081,36 +1844,15 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 *
 		 * @return bool
 		 * @since 3.1.0
+		 * @editor tungnx
+		 * @modify 4.1.2
+		 * @reason comment - not use
 		 */
-		public function is_access_level( $access_level, $course_id ) {
+		/*public function is_access_level( $access_level, $course_id ) {
 			$user_access_level = $this->get_course_access_level( $course_id );
 
 			return $user_access_level === $access_level;
-		}
-
-		/**
-		 * Return true if user has already purchased course
-		 * and the order is completed.
-		 *
-		 * @param int $course_id
-		 *
-		 * @return bool
-		 */
-		public function has_purchased_course( $course_id ) {
-
-			$order     = $this->get_course_order( $course_id, 'id', true );
-			$purchased = ! empty( $order );
-			$purchased = apply_filters( 'learn-press/user-purchased-course', $purchased, $course_id, $this->get_id() );
-			// @deprecated
-			$purchased = apply_filters(
-				'learn_press_user_has_purchased_course',
-				$purchased,
-				$course_id,
-				$this->get_id()
-			);
-
-			return $purchased;
-		}
+		}*/
 
 		/**
 		 * Check if user is already ordered a course.
@@ -2118,8 +1860,10 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 * @param int $course_id
 		 *
 		 * @return mixed|LP_Order
+		 * @editor tungnx
+		 * @modify 4.1.3 - comment - not use
 		 */
-		public function has_ordered_course( $course_id ) {
+		/*public function has_ordered_course( $course_id ) {
 			$return = apply_filters(
 				'learn-press/user-has-ordered-course',
 				$this->get_course_order( $course_id ),
@@ -2131,7 +1875,7 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 			$return = apply_filters( 'learn_press_user_has_ordered_course', $return, $course_id, $this->get_id() );
 
 			return $return;
-		}
+		}*/
 
 		/**
 		 * Get order status of a course.
@@ -2141,18 +1885,24 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 * @return mixed
 		 */
 		public function get_order_status( $course_id ) {
-			$order_id = $this->get_course_order( $course_id, false );
-			$return   = apply_filters(
-				'learn-press/course-order-status',
-				$order_id ? get_post_status( $order_id ) : false,
-				$course_id,
-				$this->get_id()
-			);
+			try {
+				$order = $this->get_course_order( $course_id );
 
-			// Deprecated since 3.0.0
-			$return = apply_filters( 'learn_press_user_has_ordered_course', $return, $course_id, $this->get_id() );
+				if ( ! $order ) {
+					throw new Exception( 'Order not exists' );
+				}
 
-			return $return;
+				$order_status = apply_filters(
+					'learn-press/course-order-status',
+					get_post_status( $order->get_id() ),
+					$course_id,
+					$this->get_id()
+				);
+			} catch ( Throwable $e ) {
+				$order_status = false;
+			}
+
+			return $order_status;
 		}
 
 		/**
@@ -2207,7 +1957,8 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 			$remain = false;
 
 			if ( $course && $course->get_id() ) {
-				if ( $course_data = $this->get_course_data( $course_id, true ) ) {
+				$course_data = $this->get_course_data( $course_id, true );
+				if ( $course_data ) {
 					$remain = $course_data->is_exceeded();
 				}
 			}
@@ -2218,30 +1969,19 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		/**
 		 * Get the order that contains the course.
 		 *
-		 * @param int    $course_id
-		 * @param string $return type of order to return LP_Order|ID
+		 * @param int $course_id
 		 *
-		 * @return int|LP_Order|mixed
+		 * @return bool|LP_Order
+		 * @editor tungnx
+		 * @throws Exception
+		 * @version 1.0.1
+		 * @since 4.1.1
 		 */
+		public function get_course_order( int $course_id ) {
+			$user_course = $this->get_course_data( $course_id );
+			$user_course->get_order();
 
-		public function get_course_order( $course_id, $return = 'object', $completed = false ) {
-			$orders   = $this->get_orders( ! $completed );
-			$order_id = false;
-			if ( isset( $orders[ $course_id ] ) ) {
-				if ( $completed ) {
-					$order_ids = $orders[ $course_id ];
-					foreach ( $order_ids as $oid ) {
-						if ( 'lp-completed' == get_post_status( $oid ) ) {
-							$order_id = $oid;
-							break;
-						}
-					}
-				} else {
-					$order_id = ! empty( $orders[ $course_id ] ) ? $orders[ $course_id ] : false;
-				}
-			}
-
-			return $order_id ? ( $return === 'object' ? learn_press_get_order( $order_id ) : $order_id ) : false;
+			return $user_course->get_order();
 		}
 
 		/**
@@ -2249,129 +1989,91 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 *
 		 * @param int         $course_id
 		 * @param int         $order_id - Optional. An user can be enrolled to a course
-		 *                                                without an order.
-		 * @param bool|string $overwrite - Optional. FALSE will ignore inserting new item
-		 *                                if there is a row with the same course and user
-		 *                                and/or order. TRUE will overwrite if exists.
-		 *                                If $overwrite = 'append' then new row will be
-		 *                                inserted if exists.
-		 * @param bool        $wp_error - Optional. TRUE will return WP_Error object if
-		 *                                              error.
 		 *
 		 * @return bool|WP_Error
-		 * @throws Exception .
-		 * @since 3.3.0
-		 */
-		public function enroll_course( $course_id = 0, $order_id = 0, $overwrite = false, $wp_error = false ) {
-
-			try {
-				$user_item_api = new LP_User_Item_CURD();
-				$find_query    = array(
-					'item_id' => $course_id,
-					'user_id' => $this->get_id(),
-				);
-
-				if ( $order_id ) {
-					$find_query['ref_id'] = $order_id;
-				}
-
-				$course       = learn_press_get_course( $course_id );
-				$course_items = $user_item_api->get_items_by( $find_query );
-				$course_item  = false;
-
-				if ( $course_items ) {
-					// User is learning course or course result is under evaluation
-					if ( in_array( $course_items[0]->status, array( 'in-progress', 'under-evaluation' ) ) ) {
-						return $course_items[0]->user_item_id;
-					}
-
-					// User has finished course (passed or failed)
-					if ( ! in_array( $course_items[0]->status, array( 'passed', 'failed', 'enrolled' ) ) ) {
-						$course_item = $course_items[0];
-					}
-				}
-
-				if ( ! $course_item ) {
-					$course_item = LP_User_Item::get_empty_item();
-				}
-
-				$user_id = $this->get_id();
-
-				$course_item['user_id']      = $user_id;
-				$course_item['item_id']      = $course_id;
-				$course_item['item_type']    = learn_press_get_post_type( $course_id );
-				$course_item['ref_id']       = $order_id;
-				$course_item['ref_type']     = ( $order_id != 0 ) ? learn_press_get_post_type( $order_id ) : '';
-				$course_item['start_time']   = current_time( 'mysql', true );
-				$course_item['access_level'] = 50;
-
-				/**
-				 * @editor tungnx
-				 * @fixed: case no auto enroll
-				 */
-				if ( 'yes' == LP_Settings::get_option( 'auto_enroll' ) ) {
-					$course_item['graduation'] = 'in-progress';
-				}
-
-				$user_course = new LP_User_Item_Course( $course_item );
-				$user_course->set_status( LP_COURSE_PURCHASED );
-
-				if ( ! $user_course->update() ) {
-					throw new Exception( __( 'Update user item error.', 'learnpress' ) );
-				}
-
-				$user_id = is_user_logged_in() ? $this->get_id() : 0;
-
-				global $wpdb;
-				$query = $wpdb->prepare(
-					"
-					UPDATE {$wpdb->learnpress_user_items}
-					SET access_level = %d
-					WHERE user_id = %d
-						AND item_id = %d
-						AND user_item_id NOT IN(%d)
-				",
-					0,
-					$user_id,
-					$course_id,
-					$user_course->get_user_item_id()
-				);
-				$wpdb->query( $query );
-
-				$return = $user_course->get_user_item_id();
-			} catch ( Exception $ex ) {
-				if ( $wp_error ) {
-					return new WP_Error( 'enroll_course_error', $ex->getMessage() );
-				}
-
-				return false;
-			}
-
-			return $return;
-		}
-
-		/**
-		 * Send mail when user enrolled course
-		 * @param $user_id
-		 * @param $course_id
-		 */
-		public function enrolled_sendmail( $user_id, $course_id ) {
-			$user_course = $this->get_course_data( $this->get_id() );
-			if ( $this->has_enrolled_course( $course_id ) ) {
-				// Trigger action
-				do_action( 'learn-press/user-enrolled-course', $course_id, $user_id, $user_course );
-			}
-		}
-
-		/**
-		 * Enroll this user to a course.
-		 *
-		 * @param int $course_id
-		 * @param int $order_id
-		 *
-		 * @return mixed|WP_Error
 		 * @throws Exception
+		 * @since 3.3.0
+		 * @editor tungnx
+		 * @version 3.3.1
+		 * @modify 4.1.3 - comment - not use
 		 */
+		//      public function enroll_course( int $course_id = 0, int $order_id = 0 ) {
+		//          $lp_user_items_db = LP_User_Items_DB::getInstance();
+		//
+		//          try {
+		//              /*$user_item_api = new LP_User_Item_CURD();
+		//              $find_query    = array(
+		//                  'item_id' => $course_id,
+		//                  'user_id' => $this->get_id(),
+		//              );
+		//
+		//              if ( $order_id ) {
+		//                  $find_query['ref_id'] = $order_id;
+		//              }*/
+		//
+		//              $filter          = new LP_User_Items_Filter();
+		//              $filter->user_id = get_current_user_id();
+		//              $filter->item_id = $course_id;
+		//              $course_item     = $lp_user_items_db->get_last_user_course( $filter );
+		//
+		//              if ( ! $course_item ) {
+		//                  $course_item = LP_User_Item::get_empty_item();
+		//              } else {
+		//                  $course_item = (array) $course_item;
+		//              }
+		//
+		//              $user_id = $this->get_id();
+		//
+		//              $course_item['user_id']      = $user_id;
+		//              $course_item['item_id']      = $course_id;
+		//              $course_item['item_type']    = learn_press_get_post_type( $course_id );
+		//              $course_item['ref_id']       = $order_id;
+		//              $course_item['ref_type']     = ( $order_id != 0 ) ? learn_press_get_post_type( $order_id ) : '';
+		//              $course_item['start_time']   = current_time( 'mysql', true );
+		//              $course_item['access_level'] = 50;
+		//
+		//              /**
+		//               * @editor tungnx
+		//               * @fixed: case no auto enroll
+		//               */
+		//              if ( 'yes' == LP_Settings::get_option( 'auto_enroll' ) ) {
+		//                  $course_item['graduation'] = 'in-progress';
+		//              }
+		//
+		//              $user_course = new LP_User_Item_Course( $course_item );
+		//              $user_course->set_status( LP_COURSE_PURCHASED );
+		//
+		//              if ( ! $user_course->update( true ) ) {
+		//                  throw new Exception( __( 'Update user item error.', 'learnpress' ) );
+		//              }
+		//
+		//              /*$user_id = is_user_logged_in() ? $this->get_id() : 0;
+		//
+		//              global $wpdb;
+		//              $query = $wpdb->prepare(
+		//                  "
+		//                  UPDATE {$wpdb->learnpress_user_items}
+		//                  SET access_level = %d
+		//                  WHERE user_id = %d
+		//                      AND item_id = %d
+		//                      AND user_item_id NOT IN(%d)
+		//              ",
+		//                  0,
+		//                  $user_id,
+		//                  $course_id,
+		//                  $user_course->get_user_item_id()
+		//              );
+		//              $wpdb->query( $query );*/
+		//
+		//              $return = $user_course->get_user_item_id();
+		//          } catch ( Exception $ex ) {
+		//              error_log( $ex->getMessage() );
+		//              return false;
+		//          }
+		//
+		//          return $return;
+		//      }
+
 		/**
 		 * Enroll this user to a course.
 		 *
@@ -2382,7 +2084,7 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 * @editor tungnx - comment - not use
 		 * @return bool|mixed|WP_Error
 		 */
-		public function enroll( $course_id, $order_id, $force = false, $wp_error = false ) {
+		/*public function enroll( $course_id, $order_id, $force = false, $wp_error = false ) {
 			global $wpdb;
 
 			_deprecated_function( __FUNCTION__, '4.1.0' );
@@ -2414,7 +2116,7 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 			} catch ( Exception $ex ) {
 				return new WP_Error( $ex->getCode(), $ex->getMessage() );
 			}
-		}
+		}*/
 
 		/**
 		 * @param $question_id
@@ -2632,8 +2334,10 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 * @param int $course_id
 		 *
 		 * @return mixed
+		 * @editor tungnx
+		 * @modify 4.1.3 - comment - not use
 		 */
-		public function can_access_course( $course_id ) {
+		/*public function can_access_course( $course_id ) {
 
 			$accessible = $this->has_course_access_level(
 				array(
@@ -2652,16 +2356,22 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 			);
 
 			return $accessible;
-		}
+		}*/
 
-		public function is_course_in_progress( $course_id ) {
-			$course_data = $this->get_course_data( $course_id );
+		/**
+		 * Check course of user has graduation is in-progress
+		 *
+		 * @param $course_id
+		 * @return bool
+		 * @throws Exception
+		 */
+		public function is_course_in_progress( $course_id ): bool {
+			$lp_db = LP_User_Items_DB::getInstance();
 
-			if ( ! $course_data ) {
-				return false;
-			}
+			$user        = learn_press_get_user( $this->get_id() );
+			$user_course = $user->get_course_data( $course_id );
 
-			return $course_data->get_status( 'graduation' ) === 'in-progress';
+			return  $user_course && LP_COURSE_GRADUATION_IN_PROGRESS === $user_course->get_graduation();
 		}
 
 		/**
@@ -2714,7 +2424,11 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 
 			$course_results = $course_data->get_results( false );
 
-			return ( $course_results['completed_items'] >= $course->count_items( '', true ) ) ? true : false;
+			if ( ! isset( $course_results['completed_items'] ) ) {
+				return false;
+			}
+
+			return $course_results['completed_items'] >= $course->count_items( '', true );
 		}
 
 		public function get_role() {
@@ -2748,17 +2462,8 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function is_guest() {
+		public function is_guest(): bool {
 			return ! $this->get_id() || ! get_user_by( 'id', $this->get_id() );
-		}
-
-		/**
-		 * Load course data for the user.
-		 *
-		 * @param mixed $the_course
-		 */
-		public function read_course( $the_course ) {
-			$this->_curd->read_course( $this->get_id(), $the_course );
 		}
 
 		/**
@@ -2768,7 +2473,7 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function can_edit( $post_id ) {
+		public function can_edit( int $post_id ): bool {
 			if ( $this->get_id() !== get_current_user_id() ) {
 				return false;
 			}
@@ -2777,10 +2482,12 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		}
 
 		/**
-		 * @return array|mixed
+		 * Get email of user
+		 *
+		 * @return string
 		 */
-		public function get_email() {
-			return $this->get_data( 'email' );
+		public function get_email(): string {
+			return $this->get_data( 'email', '' );
 		}
 
 		/**
@@ -2788,8 +2495,8 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 *
 		 * @return string
 		 */
-		public function get_username() {
-			return $this->get_data( 'user_login' );
+		public function get_username(): string {
+			return $this->get_data( 'user_login', '' );
 		}
 
 		/**
@@ -2797,8 +2504,8 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 *
 		 * @return string
 		 */
-		public function get_description() {
-			return $this->get_data( 'description' );
+		public function get_description(): string {
+			return $this->get_data( 'description', '' );
 		}
 
 		/**
@@ -2806,8 +2513,8 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 *
 		 * @return string
 		 */
-		public function get_first_name() {
-			return $this->get_data( 'first_name' );
+		public function get_first_name(): string {
+			return $this->get_data( 'first_name', '' );
 		}
 
 		/**
@@ -2815,8 +2522,8 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 *
 		 * @return string
 		 */
-		public function get_last_name() {
-			return $this->get_data( 'last_name' );
+		public function get_last_name(): string {
+			return $this->get_data( 'last_name', '' );
 		}
 
 		/**
@@ -2824,8 +2531,8 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 *
 		 * @return string
 		 */
-		public function get_nickname() {
-			return $this->get_data( 'nickname' );
+		public function get_nickname(): string {
+			return $this->get_data( 'nickname', '' );
 		}
 
 		/**
@@ -2833,8 +2540,8 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 *
 		 * @return string
 		 */
-		public function get_display_name() {
-			return $this->get_data( 'display_name' );
+		public function get_display_name(): string {
+			return $this->get_data( 'display_name', '' );
 		}
 	}
 }

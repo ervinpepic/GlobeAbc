@@ -159,25 +159,37 @@ class LP_Forms_Handler {
 				throw new Exception( $new_customer->get_error_message() );
 			}
 
-			wp_set_current_user( $new_customer );
-			wp_set_auth_cookie( $new_customer, true );
-
-			learn_press_add_message( $username . __( ' was successfully created!', 'learnpress' ), 'success' );
-
-			// Send email when check enable Instructor.
-			if ( LP()->settings->get( 'instructor_registration' ) == 'yes' && isset( $_POST['become_teacher'] ) ) {
+			// Send email become a teacher.
+			$is_become_a_teacher = false;
+			if ( LP_Settings::get_option( 'instructor_registration', 'no' ) == 'yes' && isset( $_POST['become_teacher'] ) ) {
 				update_user_meta( $new_customer, '_requested_become_teacher', 'yes' );
 				do_action(
 					'learn-press/become-a-teacher-sent',
 					array(
 						'bat_email'   => $email,
 						'bat_phone'   => '',
-						'bat_message' => apply_filters( 'learnpress_become_instructor_message', esc_html__( 'I need become a instructor', 'learnpress' ) ),
+						'bat_message' => apply_filters( 'learnpress_become_instructor_message', esc_html__( 'I need become an instructor', 'learnpress' ) ),
 					)
 				);
 
-				learn_press_add_message( __( 'Your request become a instructor has been sent. We will get back to you soon!', 'learnpress' ), 'success' );
+				$is_become_a_teacher = true;
 			}
+
+			/**
+			 * Auto login user
+			 * Must set code below after Send email become a teacher
+			 * because 'none' check by "check_ajax_referer" will not valid for send mail background on WP_Async_Request
+			 */
+			wp_set_current_user( $new_customer );
+			wp_set_auth_cookie( $new_customer, true );
+
+			$message_success = $username . __( ' was successfully created!', 'learnpress' );
+
+			if ( $is_become_a_teacher ) {
+				$message_success .= '<br/>' . __( 'Your request become an instructor has been sent. We will get back to you soon!', 'learnpress' );
+			}
+
+			learn_press_add_message( $message_success, 'success' );
 
 			if ( ! empty( $_POST['redirect'] ) ) {
 				$redirect = wp_sanitize_redirect( wp_unslash( $_POST['redirect'] ) );

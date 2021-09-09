@@ -4,7 +4,7 @@
  *
  * @author  ThimPress
  * @package LearnPress/Classes
- * @version 4.0.0
+ * @version 4.0.1
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -22,25 +22,35 @@ class LP_Assets extends LP_Abstract_Assets {
 	}
 
 	/**
-	 * Get default styles in admin.
+	 * Get default styles in frontend.
 	 *
-	 * @return mixed
+	 * @return array
 	 */
-	protected function _get_styles() {
+	protected function _get_styles(): array {
 		return apply_filters(
 			'learn-press/frontend-default-styles',
 			array(
-				'lp-font-awesome-5' => array(
-					'url'     => self::url( 'src/css/vendor/font-awesome-5.min.css' ),
-					'screens' => array( 'learnpress' ),
+				'lp-font-awesome-5'  => new LP_Asset_Key(
+					self::url( 'src/css/vendor/font-awesome-5.min.css' ),
+					array(),
+					array()
 				),
-				'lp-bundle'         => array(
-					'url'     => self::url( 'css/bundle.min.css' ),
-					'screens' => array( 'learnpress' ),
+				'lp-bundle'          => new LP_Asset_Key(
+					self::url( 'css/bundle.min.css' ),
+					array(),
+					array()
 				),
-				'learnpress'        => array(
-					'url'     => self::url( 'css/learnpress.css' ),
-					'screens' => 'learnpress',
+				'learnpress'         => new LP_Asset_Key(
+					self::url( 'css/learnpress.css' ),
+					array( 'lp-font-awesome-5', 'lp-bundle' ),
+					array( LP_PAGE_COURSES, LP_PAGE_SINGLE_COURSE, LP_PAGE_SINGLE_COURSE_CURRICULUM, LP_PAGE_QUIZ, LP_PAGE_QUESTION, LP_PAGE_CHECKOUT, LP_PAGE_BECOME_A_TEACHER ),
+					0
+				),
+				'learnpress-widgets' => new LP_Asset_Key(
+					self::url( 'css/widgets.css' ),
+					array(),
+					array(),
+					0
 				),
 			)
 		);
@@ -144,7 +154,10 @@ class LP_Assets extends LP_Abstract_Assets {
 				// 'lp-lesson'           => new LP_Asset_Key( self::url( self::$_folder_source .'js/frontend/lesson' . self::$_min_assets . '.js' ) ),
 				'lp-question-types'    => new LP_Asset_Key(
 					self::url( 'js/dist/frontend/question-types' . self::$_min_assets . '.js' ),
-					array_merge( $wp_js, array( 'lp-global' ) )
+					array_merge( $wp_js, array( 'lp-global' ) ),
+					array(),
+					1,
+					1
 				),
 				'lp-single-curriculum' => new LP_Asset_Key(
 					self::url( 'js/dist/frontend/single-curriculum' . self::$_min_assets . '.js' ),
@@ -172,8 +185,6 @@ class LP_Assets extends LP_Abstract_Assets {
 							'lp-modal',
 							'lp-config',
 							'lp-single-curriculum',
-							'jquery-ui-sortable', // Use in question type: sorting choice - Nhamdv
-
 						)
 					),
 					array( LP_PAGE_QUIZ ),
@@ -195,7 +206,7 @@ class LP_Assets extends LP_Abstract_Assets {
 				),
 				'lp-courses'           => new LP_Asset_Key(
 					self::url( self::$_folder_source . 'js/frontend/courses' . self::$_min_assets . '.js' ),
-					array( 'lp-global', 'lodash', 'lp-utils' ),
+					array( 'lp-global', 'lp-utils' ),
 					array( LP_PAGE_COURSES ),
 					0,
 					1
@@ -225,6 +236,16 @@ class LP_Assets extends LP_Abstract_Assets {
 					0,
 					1
 				),
+				'lp-widgets'           => new LP_Asset_Key(
+					self::url( 'js/dist/frontend/widgets' . self::$_min_assets . '.js' ),
+					array_merge(
+						$wp_js,
+						array( 'wp-i18n' )
+					),
+					array(),
+					1,
+					1
+				),
 				'lp-become-a-teacher'  => new LP_Asset_Key(
 					self::url( self::$_folder_source . 'js/frontend/become-teacher' . self::$_min_assets . '.js' ),
 					array( 'jquery', 'lp-utils' ),
@@ -232,10 +253,6 @@ class LP_Assets extends LP_Abstract_Assets {
 					0,
 					1
 				),
-				/*
-				'lp-custom'           => new LP_Asset_Key( self::url( 'js/dist/frontend/custom' . self::$_min_assets . '.js' ),
-					array( 'jquery', )
-				),*/
 			)
 		);
 
@@ -246,88 +263,17 @@ class LP_Assets extends LP_Abstract_Assets {
 
 	/**
 	 * Load assets
+	 *
+	 * @author tungnx
+	 * @version 1.0.1
+	 * @since 3.2.8
 	 */
 	public function load_scripts() {
-		// Register script.
-		// $this->_register_scripts();
-		// $scripts = $this->_get_scripts();
-
-		// if ( $scripts ) {
-		// foreach ( $scripts as $handle => $data ) {
-		// $enqueue = false;
-		//
-		// do_action( 'learn-press/enqueue-script/' . $handle );
-		//
-		// if ( ! empty( $data['screens'] ) ) {
-		// $enqueue = $this->is_screen( $data['screens'] );
-		// }
-		//
-		// if ( $enqueue ) {
-		// wp_enqueue_script( $handle );
-		// }
-		// }
-		// }
-
 		$page_current = lp_page_controller()::page_current();
 		$this->handle_js( $page_current );
-
-		$styles = $this->_get_styles();
-		if ( $styles ) {
-			foreach ( $styles as $handle => $data ) {
-				$enqueue = false;
-
-				do_action( 'learn-press/enqueue-style/' . $handle );
-
-				wp_register_style( $handle, $data['url'], array(), self::$_version_assets );
-
-				if ( ! empty( $data['screens'] ) ) {
-					$enqueue = $this->is_screen( $data['screens'] );
-				}
-
-				if ( $enqueue ) {
-					wp_enqueue_style( $handle );
-				}
-			}
-		}
+		$this->handle_style( $page_current );
 
 		do_action( 'learn-press/after-enqueue-scripts' );
-	}
-
-	protected function handle_js( $page_current ) {
-		$scripts = $this->_get_scripts();
-		/**
-		 * @var LP_Asset_Key[] $scripts
-		 */
-		foreach ( $scripts as $handle => $script ) {
-			if ( ! $script instanceof LP_Asset_Key ) {
-				continue;
-			}
-
-			wp_register_script( $handle, $script->_url, $script->_deps, self::$_version_assets, $script->_in_footer );
-
-			if ( ! $script->_only_register ) {
-				$can_load_js = true;
-
-				if ( ! empty( $script->_screens ) ) {
-					$can_load_js = apply_filters(
-						'learnpress/frontend/can-load-js/' . $handle,
-						in_array( $page_current, $script->_screens ),
-						$page_current,
-						$script->_screens
-					);
-				}
-
-				if ( $can_load_js ) {
-					wp_enqueue_script( $handle );
-				}
-			}
-		}
-
-		/**
-		 * Set translate on file js of folder js/dist
-		 * Path translate of a string on file ".pot" if have must map to js/dist
-		 */
-		wp_set_script_translations( 'lp-quiz', 'learnpress' );
 	}
 
 	/**
@@ -337,7 +283,10 @@ class LP_Assets extends LP_Abstract_Assets {
 	 *
 	 * @return bool
 	 * @since 3.3.0
+	 * @editor tungnx
+	 * @reason comment - not use
 	 */
+	/*
 	public function is_screen( $screens ) {
 		$pages = array(
 			'profile',
@@ -406,7 +355,7 @@ class LP_Assets extends LP_Abstract_Assets {
 		}
 
 		return $is_screen;
-	}
+	}*/
 
 	/**
 	 * Add lp overlay

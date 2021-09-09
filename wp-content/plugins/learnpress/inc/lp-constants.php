@@ -32,11 +32,11 @@ define( 'LP_SESSION_CACHE_GROUP', 'learn_press_session_id' );
 define( 'LP_TABLE_PREFIX', 'learnpress_' );
 
 // Define constants for custom post types.
-define( 'LP_COURSE_CPT', 'lp_course' );
-define( 'LP_LESSON_CPT', 'lp_lesson' );
-define( 'LP_QUESTION_CPT', 'lp_question' );
-define( 'LP_QUIZ_CPT', 'lp_quiz' );
-define( 'LP_ORDER_CPT', 'lp_order' );
+const LP_COURSE_CPT   = 'lp_course';
+const LP_LESSON_CPT   = 'lp_lesson';
+const LP_QUESTION_CPT = 'lp_question';
+const LP_QUIZ_CPT     = 'lp_quiz';
+const LP_ORDER_CPT    = 'lp_order';
 
 // Role of user .
 define( 'LP_TEACHER_ROLE', 'lp_teacher' );
@@ -51,16 +51,16 @@ define( 'LP_WIDGET_PATH', LP_PLUGIN_PATH . 'inc/widgets' );
 define( 'LP_WIDGET_URL', LP_PLUGIN_URL . 'inc/widgets' );
 
 // Course access level.
-define( 'LP_COURSE_ACCESS_LEVEL_0', 0 ); // No accessible
-define( 'LP_COURSE_ACCESS_LEVEL_10', 10 ); // Normal users
-define( 'LP_COURSE_ACCESS_LEVEL_20', 20 ); // Author of course
-define( 'LP_COURSE_ACCESS_LEVEL_30', 30 ); // Admin site
-define( 'LP_COURSE_ACCESS_LEVEL_35', 35 ); // No require enrollment
-define( 'LP_COURSE_ACCESS_LEVEL_40', 40 ); // Ordered but not completed
-define( 'LP_COURSE_ACCESS_LEVEL_50', 50 ); // Order completed but not enrolled
-define( 'LP_COURSE_ACCESS_LEVEL_55', 55 ); // Enrolled but has blocked (access level = 0)
-define( 'LP_COURSE_ACCESS_LEVEL_60', 60 ); // User has already enrolled course
-define( 'LP_COURSE_ACCESS_LEVEL_70', 70 ); // User has already finished course
+const LP_COURSE_ACCESS_LEVEL_0  = 0; // No accessible
+const LP_COURSE_ACCESS_LEVEL_10 = 10; // Normal users
+const LP_COURSE_ACCESS_LEVEL_20 = 20; // Author of course
+const LP_COURSE_ACCESS_LEVEL_30 = 30; // Admin site
+const LP_COURSE_ACCESS_LEVEL_35 = 35; // No require enrollment
+const LP_COURSE_ACCESS_LEVEL_40 = 40; // Ordered but not completed
+const LP_COURSE_ACCESS_LEVEL_50 = 50; // Order completed but not enrolled
+const LP_COURSE_ACCESS_LEVEL_55 = 55; // Enrolled but has blocked (access level = 0)
+const LP_COURSE_ACCESS_LEVEL_60 = 60; // User has already enrolled course
+const LP_COURSE_ACCESS_LEVEL_70 = 70; // User has already finished course
 
 // Error codes.
 define( 'LP_INVALID_REQUEST', 100 );
@@ -73,30 +73,34 @@ define( 'LP_QUIZ_HAS_STARTED_OR_COMPLETED', 160 );
 define( 'LP_ERROR_NO_PAYMENT_METHOD_SELECTED', 1000 );
 define( 'LP_COMPLETE_ITEM_FAIL', 170 );
 define( 'LP_COMPRESS_ASSETS', false );
-define( 'LP_COURSES_LAYOUT', 'list' );
 
 // Pages.
-define( 'LP_PAGE_CHECKOUT', 'lp_page_checkout' );
-define( 'LP_PAGE_COURSES', 'lp_page_courses' );
-define( 'LP_PAGE_SINGLE_COURSE', 'lp_page_single_course' );
-define( 'LP_PAGE_QUIZ', 'lp_page_quiz' );
-define( 'LP_PAGE_QUESTION', 'lp_page_question' );
-define( 'LP_PAGE_PROFILE', 'lp_page_profile' );
-define( 'LP_PAGE_BECOME_A_TEACHER', 'lp_page_become_a_teacher' );
-define( 'LP_PAGE_SINGLE_COURSE_CURRICULUM', 'lp_page_single_course_curriculum' );
+const LP_PAGE_CHECKOUT                 = 'lp_page_checkout';
+const LP_PAGE_COURSES                  = 'lp_page_courses';
+const LP_PAGE_SINGLE_COURSE            = 'lp_page_single_course';
+const LP_PAGE_QUIZ                     = 'lp_page_quiz';
+const LP_PAGE_QUESTION                 = 'lp_page_question';
+const LP_PAGE_PROFILE                  = 'lp_page_profile';
+const LP_PAGE_BECOME_A_TEACHER         = 'lp_page_become_a_teacher';
+const LP_PAGE_SINGLE_COURSE_CURRICULUM = 'lp_page_single_course_curriculum';
 
 // Key block course's item.
-define( 'LP_BLOCK_COURSE_FINISHED', 'block_course_finished' );
-define( 'LP_BLOCK_COURSE_DURATION_EXPIRE', 'block_course_duration_expire' );
-define( 'LP_BLOCK_COURSE_PURCHASE', 'block_course_purchased' );
+const LP_BLOCK_COURSE_FINISHED        = 'block_course_finished';
+const LP_BLOCK_COURSE_DURATION_EXPIRE = 'block_course_duration_expire';
+const LP_BLOCK_COURSE_PURCHASE        = 'block_course_purchased';
 
 // Status user item course.
-define( 'LP_COURSE_ENROLLED', 'enrolled' );
-define( 'LP_COURSE_FINISHED', 'finished' );
-define( 'LP_COURSE_PURCHASED', 'purchased' );
+const LP_COURSE_ENROLLED  = 'enrolled';
+const LP_COURSE_FINISHED  = 'finished';
+const LP_COURSE_PURCHASED = 'purchased';
+
+// Graduation user item course
+const LP_COURSE_GRADUATION_IN_PROGRESS = 'in-progress';
+const LP_COURSE_GRADUATION_PASSED      = 'passed';
+const LP_COURSE_GRADUATION_FAILED      = 'failed';
 
 // Enable lazyload animation placeholder.
-define( 'LP_LAZY_LOAD_ANIMATION', true );
+const LP_LAZY_LOAD_ANIMATION = true;
 
 /**
  * Thim Market library

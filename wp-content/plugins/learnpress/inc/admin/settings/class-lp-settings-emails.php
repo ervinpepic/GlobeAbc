@@ -82,13 +82,19 @@ class LP_Settings_Emails extends LP_Abstract_Settings_Page {
 				}
 
 				foreach ( $emails as $email ) {
+					if ( ! is_object( $email ) ) {
+						continue;
+					}
+
 					foreach ( $groups as $group ) {
-						if ( ! empty( $group->items[ $email->id ] ) ) {
+						if ( is_object( $group ) && ! empty( $group->items[ $email->id ] ) ) {
 							continue 2;
 						}
 					}
 
-					$sections[ $email->id ] = $email;
+					if ( isset( $sections[ $email->id ] ) ) {
+						$sections[ $email->id ] = $email;
+					}
 				}
 			}
 		}
@@ -123,13 +129,6 @@ class LP_Settings_Emails extends LP_Abstract_Settings_Page {
 					'default' => get_option( 'admin_email' ),
 					'type'    => 'email',
 					'css'     => 'width:400px',
-				),
-				array(
-					'title'   => esc_html__( 'Background email', 'learnpress' ),
-					'id'      => 'emails_general[send_email_background]',
-					'default' => 'no',
-					'type'    => 'checkbox',
-					'desc'    => esc_html__( 'Sending emails in the background.', 'learnpress' ),
 				),
 				array(
 					'type' => 'sectionend',

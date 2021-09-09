@@ -4,10 +4,10 @@
  * Plugin URI: http://thimpress.com/learnpress
  * Description: LearnPress is a WordPress complete solution for creating a Learning Management System (LMS). It can help you to create courses, lessons and quizzes.
  * Author: ThimPress
- * Version: 4.1.2
+ * Version: 4.1.3
  * Author URI: http://thimpress.com
  * Requires at least: 5.6
- * Tested up to: 5.7
+ * Tested up to: 5.8
  * Requires PHP: 7.0
  * Text Domain: learnpress
  * Domain Path: /languages/
@@ -225,14 +225,25 @@ if ( ! class_exists( 'LearnPress' ) ) {
 			require_once 'inc/cache.php';
 			require_once 'inc/class-lp-asset-key.php';
 
+			// Models
+			require_once 'inc/models/class-lp-course-extra-info-fast-query-model.php';
+
+			// Email
+			include_once 'inc/emails/class-lp-email-hooks.php';
+
 			// LP Cache
 			require_once 'inc/cache/class-lp-cache.php';
+			require_once 'inc/cache/class-lp-course-cache.php';
+			require_once 'inc/cache/class-lp-quiz-cache.php';
 
-			// Abstract Metabox.
+			// Abstract Meta-box.
 			include_once 'inc/admin/views/meta-boxes/class-lp-meta-box.php';
 
-			// Background processes .
-			require_once 'inc/abstracts/abstract-background-process.php';
+			// Background processes.
+			require_once 'inc/libraries/wp-background-process/wp-background-processing.php';
+			require_once 'inc/background-process/abstract-background-process.php';
+			require_once 'inc/background-process/class-lp-background-single-course.php';
+			require_once 'inc/background-process/class-lp-background-single-email.php';
 
 			// Filter query .
 			require_once 'inc/filters/class-lp-filter.php';
@@ -389,9 +400,10 @@ if ( ! class_exists( 'LearnPress' ) ) {
 			/** Jwt */
 			include_once 'inc/jwt/class-jwt-auth.php';
 
-			if ( file_exists( LP_PLUGIN_PATH . '/local-debug.php' ) ) {
+			// Comment by tungnx
+			/*if ( file_exists( LP_PLUGIN_PATH . '/local-debug.php' ) ) {
 				include_once 'local-debug.php';
-			}
+			}*/
 
 			$GLOBALS['lp_query'] = $this->query = new LP_Query();
 		}
@@ -637,8 +649,8 @@ if ( ! class_exists( 'LearnPress' ) ) {
 				$this->admin_notices = LP_Admin_Notice::instance();
 			}
 
-			// init email notification hooks
-			LP_Emails::init_email_notifications();
+			// Init emails
+			LP_Emails::instance();
 		}
 
 		/**

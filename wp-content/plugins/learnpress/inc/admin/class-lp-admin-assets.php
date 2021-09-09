@@ -16,7 +16,12 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 		parent::__construct();
 	}
 
-	protected function _get_script_data() {
+	/**
+	 * Get localize script
+	 *
+	 * @return array
+	 */
+	protected function _get_script_data(): array {
 		return array(
 			'learn-press-global'         => learn_press_global_script_params(),
 			'learn-press-meta-box-order' => apply_filters(
@@ -51,7 +56,7 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 	 *
 	 * @return mixed
 	 */
-	protected function _get_scripts() {
+	protected function _get_scripts(): array {
 		$lp_admin_js = new LP_Asset_Key(
 			$this->url( self::$_folder_source . 'js/admin/admin' . self::$_min_assets . '.js' ),
 			array( 'learn-press-global', 'lp-utils', 'wp-color-picker', 'jspdf' ),
@@ -106,7 +111,7 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 						'wp-api-fetch',
 						'jquery-ui-timepicker-addon',
 					),
-					array( LP_COURSE_CPT, 'learnpress_page_learn-press-settings' ),
+					array( LP_LESSON_CPT, LP_QUIZ_CPT, LP_COURSE_CPT, 'learnpress_page_learn-press-settings' ),
 					0,
 					1
 				),
@@ -241,19 +246,32 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 					0,
 					1
 				),
-				// 'learn-press-question-editor'       => array(
-				// 'url'       => $this->url( 'js/dist/admin/question-editor.js' ),
-				// 'screens'   => array( LP_QUESTION_CPT ),
-				// 'in_footer' => true,
-				// 'deps'      => array(
-				// 'wp-element',
-				// 'wp-compose',
-				// 'wp-data',
-				// 'wp-hooks',
-				// 'wp-api-fetch',
-				// 'lodash',
-				// ),
-				// ),
+				'lp-dashboard'                      => new LP_Asset_Key(
+					self::url( 'js/dist/admin/pages/dashboard' . self::$_min_assets . '.js' ),
+					array(
+						'jquery',
+						'wp-element',
+						'wp-compose',
+						'wp-data',
+						'wp-hooks',
+						'wp-api-fetch',
+						'lodash',
+					),
+					array( 'dashboard' ),
+					0,
+					1
+				),
+				'lp-widgets-admin'                  => new LP_Asset_Key(
+					self::url( 'js/dist/admin/pages/widgets' . self::$_min_assets . '.js' ),
+					array(
+						'wp-url',
+						'wp-api-fetch',
+						'lodash',
+					),
+					array( 'widgets', 'elementor' ),
+					0,
+					1
+				),
 			)
 		);
 	}
@@ -263,32 +281,36 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 	 *
 	 * @return mixed
 	 */
-	protected function _get_styles() {
+	protected function _get_styles(): array {
 		return apply_filters(
 			'learn-press/admin-default-styles',
 			array(
-				'select2'               => array(
-					'url' => $this->url( 'src/css/vendor/select2.min.css' ),
+				'select2'               => new LP_Asset_Key(
+					$this->url( 'src/css/vendor/select2.min.css' )
 				),
-				'font-awesome'          => array(
-					'url' => $this->url( 'src/css/vendor/font-awesome-5.min.css' ),
+				'font-awesome'          => new LP_Asset_Key(
+					$this->url( 'src/css/vendor/font-awesome-5.min.css' )
 				),
-				'jquery-ui'             => array(
-					'url' => $this->url( 'src/css/vendor/jquery-ui/jquery-ui.min.css' ),
+				'jquery-ui'             => new LP_Asset_Key(
+					$this->url( 'src/css/vendor/jquery-ui/jquery-ui.min.css' )
 				),
-				'jquery-ui-timepicker'  => array(
-					'url' => $this->url( 'src/css/vendor/jquery-ui-timepicker-addon.css' ),
+				'jquery-ui-timepicker'  => new LP_Asset_Key(
+					$this->url( 'src/css/vendor/jquery-ui-timepicker-addon.css' )
 				),
-				'learn-press-bundle'    => array(
-					'url' => $this->url( 'css/bundle.min.css' ),
+				'learn-press-bundle'    => new LP_Asset_Key(
+					$this->url( 'css/bundle.min.css' )
 				),
-				'learn-press-admin'     => array(
-					'url'  => $this->url( 'css/admin/admin.css' ),
-					'deps' => array( 'wp-color-picker', 'wp-components' ),
+				'learn-press-admin'     => new LP_Asset_Key(
+					$this->url( 'css/admin/admin.css' ),
+					array( 'wp-color-picker', 'wp-components', 'select2', 'jquery-ui', 'jquery-ui-timepicker', 'font-awesome' ),
+					array(),
+					0
 				),
-				'learn-press-statistic' => array(
-					'url'     => LP_CSS_URL . 'admin/statistic.css',
-					'screens' => 'learnpress_page_learn-press-statistics',
+				'learn-press-statistic' => new LP_Asset_Key(
+					LP_CSS_URL . 'admin/statistic.css',
+					array(),
+					array( 'learners_page_learn-press-statistics' ),
+					0
 				),
 			)
 		);
@@ -318,75 +340,6 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 	public function wpdocs_enqueue_custom_admin_style() {
 		wp_register_style( 'custom_wp_admin_css', get_template_directory_uri() . '/admin-style.css', false, '1.0.0' );
 		wp_enqueue_style( 'custom_wp_admin_css' );
-	}
-
-	/**
-	 * Register, enqueue js
-	 *
-	 * @param string $screen_id .
-	 *
-	 * @author tungnx
-	 * @since 4.0.0
-	 * @version 1.0.0
-	 */
-	protected function handle_js( $screen_id = '' ) {
-		$scripts = $this->_get_scripts();
-		/**
-		 * @var LP_Asset_Key[] $scripts
-		 */
-		foreach ( $scripts as $handle => $script ) {
-			if ( ! $script instanceof LP_Asset_Key ) {
-				continue;
-			}
-
-			wp_register_script( $handle, $script->_url, $script->_deps, self::$_version_assets, $script->_in_footer );
-
-			if ( ! $script->_only_register ) {
-				$can_load_js = false;
-
-				if ( ! empty( $script->_screens ) ) {
-					if ( in_array( $screen_id, $script->_screens ) ) {
-						$can_load_js = true;
-					}
-				} elseif ( ! empty( $script->_exclude_screens ) ) {
-					if ( ! in_array( $screen_id, $script->_exclude_screens ) ) {
-						$can_load_js = true;
-					}
-				} else {
-					$can_load_js = true;
-				}
-
-				$can_load_js = apply_filters(
-					'learnpress/admin/can-load-js/' . $handle,
-					$can_load_js,
-					$screen_id,
-					$script->_screens
-				);
-
-				if ( $can_load_js ) {
-					wp_enqueue_script( $handle );
-				}
-			}
-		}
-	}
-
-	/**
-	 * Register, enqueue css
-	 *
-	 * @param string $screen_id .
-	 */
-	protected function handle_style( $screen_id = '' ) {
-		/**
-		 * Enqueue styles
-		 *
-		 * TODO: check to show only styles needed in specific pages
-		 */
-		$styles = $this->_get_styles();
-		if ( $styles ) {
-			foreach ( $styles as $handle => $data ) {
-				wp_enqueue_style( $handle, $data['url'], $data['deps'] ?? array(), self::$_version_assets );
-			}
-		}
 	}
 
 	/**

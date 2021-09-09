@@ -334,6 +334,9 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 		return apply_filters( "lp_jwt_rest_prepare_{$this->post_type}_object", $response, $object, $request );
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	protected function get_course_data( $course, $context = 'view' ) {
 		$request = func_num_args() >= 2 ? func_get_arg( 2 ) : new WP_REST_Request( '', '', array( 'context' => $context ) );
 		$fields  = $this->get_fields_for_response( $request );
@@ -379,7 +382,7 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 					$data['status'] = $post->post_status;
 					break;
 				case 'content':
-					$data['content'] = 'view' === $context ? wpautop( do_shortcode( $post->post_content ) ) : $post->post_content;
+					$data['content'] = 'view' === $context ? apply_filters( 'the_content', $post->post_content ) : $post->post_content;
 					break;
 				case 'excerpt':
 					$data['excerpt'] = $post->post_excerpt;
@@ -489,14 +492,77 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 		return $output;
 	}
 
-	public function get_all_items( $course ) {
-		$curriculum = $course->get_curriculum();
-		$output     = array();
+	/**
+	 * Get Items of sections
+	 *
+	 * @throws Exception
+	 * @editor tungnx
+	 * @modify 4.1.3
+	 * @version 4.0.1
+	 */
+	public function get_all_items( $course ): array {
+		$curriculum  = $course->get_curriculum();
+		$user        = learn_press_get_current_user();
+		$user_course = $user ? $user->get_course_data( $course->get_id() ) : false;
+		$output      = [];
 
 		if ( ! empty( $curriculum ) ) {
 			foreach ( $curriculum as $section ) {
 				if ( $section ) {
-					$output[] = $section->to_array();
+					$data = array(
+						'id'          => $section->get_id(),
+						'title'       => $section->get_title(),
+						'course_id'   => $section->get_course_id(),
+						'description' => $section->get_description(),
+						'order'       => $section->get_order(),
+					);
+
+					if ( $user_course && $user->has_enrolled_or_finished( $section->get_course_id() ) ) {
+						$data['percent'] = $user_course->get_percent_completed_items( '', $section->get_id() );
+					}
+
+					$data_item = array();
+
+					$items = $section->get_items();
+
+					if ( ! empty( $items ) ) {
+						foreach ( $items as $item ) {
+							$post = get_post( $item->get_id() );
+
+							$format = array(
+								'day'    => __( '%s days', 'learnpress' ),
+								'hour'   => __( '%s hours', 'learnpress' ),
+								'minute' => __( '%s mins', 'learnpress' ),
+								'second' => __( '%s secs', 'learnpress' ),
+							);
+
+							$user_item = $user_course ? $user_course->get_item( $item->get_id() ) : false;
+
+							if ( $user_item ) {
+								$graduation = $user_item->get_graduation();
+								$status     = $user_item->get_status();
+							}
+
+							if ( $user ) {
+								$can_view_content_course = $user->can_view_content_course( absint( $section->get_course_id() ) );
+								$can_view_item           = $user->can_view_item( $item->get_id(), $can_view_content_course );
+							}
+
+							$data_item[] = array(
+								'id'         => $item->get_id(),
+								'type'       => $item->get_item_type(),
+								'title'      => $post->post_title,
+								'preview'    => $item->is_preview(),
+								'duration'   => $item->get_duration()->to_timer( $format, true ),
+								'graduation' => ! empty( $graduation ) ? $graduation : '',
+								'status'     => ! empty( $status ) ? $status : '',
+								'locked'     => isset( $can_view_item->flag ) ? ! $can_view_item->flag : true,
+							);
+						}
+					}
+
+					$data['items'] = $data_item;
+					$output[]      = $data;
 				}
 			}
 		}
@@ -546,6 +612,49 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 
 		if ( ! empty( $tax_query ) ) {
 			$args['tax_query'] = $tax_query;
+		}
+
+		$orderby = $request->get_param( 'orderby' );
+		$order   = $request->get_param( 'order' );
+
+		$orderby = strtolower( is_array( $orderby ) ? (string) current( $orderby ) : (string) $orderby );
+		$order   = strtoupper( is_array( $order ) ? (string) current( $order ) : (string) $order );
+
+		switch ( $orderby ) {
+			case 'id':
+				$args['orderby'] = 'ID';
+				break;
+			case 'menu_order':
+				$args['orderby'] = 'menu_order title';
+				break;
+			case 'title':
+				$args['orderby'] = 'title';
+				$args['order']   = ( 'DESC' === $order ) ? 'DESC' : 'ASC';
+				break;
+			case 'relevance':
+				$args['orderby'] = 'relevance';
+				$args['order']   = 'DESC';
+				break;
+			case 'rand':
+				$args['orderby'] = 'rand'; // @codingStandardsIgnoreLine
+				break;
+			case 'date':
+				$args['orderby'] = 'date ID';
+				$args['order']   = ( 'ASC' === $order ) ? 'ASC' : 'DESC';
+				break;
+			case 'price':
+				$args['orderby']  = 'meta_value_num';
+				$args['meta_key'] = '_lp_price';
+				break;
+		}
+
+		if ( is_bool( $request['on_sale'] ) ) {
+			$on_sale_key = $request['on_sale'] ? 'post__in' : 'post__not_in';
+			$on_sale_ids = LP_Course_DB::getInstance()->get_courses_on_sale();
+
+			$on_sale_ids = empty( $on_sale_ids ) ? array( 0 ) : $on_sale_ids;
+
+			$args[ $on_sale_key ] += $on_sale_ids;
 		}
 
 		return $args;
@@ -723,23 +832,48 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 								'type'        => 'array',
 								'context'     => array( 'view', 'edit' ),
 								'items'       => array(
-									'id'      => array(
+									'id'         => array(
 										'description' => __( 'Item ID.', 'learnpress' ),
 										'type'        => 'integer',
 										'context'     => array( 'view', 'edit' ),
 									),
-									'type'    => array(
+									'type'       => array(
 										'description' => __( 'Item Type.', 'learnpress' ),
 										'type'        => 'string',
 										'context'     => array( 'view', 'edit' ),
 									),
-									'title'   => array(
+									'title'      => array(
 										'description' => __( 'Item title.', 'learnpress' ),
 										'type'        => 'string',
 										'context'     => array( 'view', 'edit' ),
 									),
-									'preview' => array(
+									'preview'    => array(
 										'description' => __( 'Item ID.', 'learnpress' ),
+										'type'        => 'boolean',
+										'context'     => array( 'view', 'edit' ),
+									),
+									'percent'    => array(
+										'description' => __( 'Percent.', 'learnpress' ),
+										'type'        => 'integer',
+										'context'     => array( 'view', 'edit' ),
+									),
+									'duration'   => array(
+										'description' => __( 'Duration.', 'learnpress' ),
+										'type'        => 'string',
+										'context'     => array( 'view', 'edit' ),
+									),
+									'graduation' => array(
+										'description' => __( 'Graduation.', 'learnpress' ),
+										'type'        => 'string',
+										'context'     => array( 'view', 'edit' ),
+									),
+									'status'     => array(
+										'description' => __( 'Status.', 'learnpress' ),
+										'type'        => 'string',
+										'context'     => array( 'view', 'edit' ),
+									),
+									'locked'     => array(
+										'description' => __( 'Locked.', 'learnpress' ),
 										'type'        => 'boolean',
 										'context'     => array( 'view', 'edit' ),
 									),
@@ -796,6 +930,8 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 	public function get_collection_params() {
 		$params = parent::get_collection_params();
 
+		$params['orderby']['enum'] = array_merge( $params['orderby']['enum'], array( 'menu_order', 'price' ) );
+
 		$params['category']      = array(
 			'description'       => __( 'Limit result set to courses assigned a specific category ID.', 'learnpress' ),
 			'type'              => 'string',
@@ -812,6 +948,12 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 			'description'       => __( 'Filter by course to in-progress, passed, failed.', 'learnpress' ),
 			'type'              => 'string',
 			'sanitize_callback' => 'sanitize_text_field',
+			'validate_callback' => 'rest_validate_request_arg',
+		);
+
+		$params['on_sale'] = array(
+			'description'       => __( 'Get item learned by user.', 'learnpress' ),
+			'type'              => 'boolean',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 

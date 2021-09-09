@@ -288,9 +288,18 @@ if ( ! class_exists( 'LP_Course_Item' ) ) {
 		 * @param string $item_type .
 		 *
 		 * @return LP_Course_Item|false
+		 * @Todo: tungnx - review - rewrite - set cache - check where call this function
+		 * @editor tungnx
+		 * @modify 4.1.3 - change cache
+		 * @version 4.0.1
+		 * @since 3.x.x
 		 */
 		public static function get_item( $item_id = 0, $course_id = 0, $item_type = '' ) {
-			$item = wp_cache_get( 'course_item_id_' . $item_id, 'lp_post' );
+			/*$lp_course_cache = LP_Course_Cache::instance();
+			$key_cache       = sprintf( '%d/item_id/%d', $course_id, $item_id );
+			$item            = $lp_course_cache->get_cache( $key_cache );*/
+
+			$item = false;
 
 			if ( false === $item ) {
 				$item = get_post( $item_id );
@@ -331,13 +340,13 @@ if ( ! class_exists( 'LP_Course_Item' ) ) {
 							}
 					}
 
-					if ( $course_id && $item ) {
+					if ( $course_id ) {
 						if ( $item instanceof LP_Course_Item ) {
 							$item->set_course( $course_id );
 						}
 					}
 
-					wp_cache_set( 'course_item_id_' . $item_id, $item, 'lp_post' );
+					//$lp_course_cache->set_cache( $key_cache, $item );
 				}
 			}
 
@@ -525,10 +534,14 @@ if ( ! class_exists( 'LP_Course_Item' ) ) {
 		 * @param int $user_id
 		 *
 		 * @return bool
-		 * @Todo check this function - tungnx
+		 * @editor tungnx
+		 * @modify 4.1.3 - not use - comment
+		 * @deprecated
 		 */
 		public function is_blocked( $course_id = 0, $user_id = 0 ) {
-			if ( ! $user_id ) {
+			_deprecated_function( __FUNCTION__, '4.1.3' );
+
+			/*if ( ! $user_id ) {
 				$user_id = get_current_user_id();
 			}
 
@@ -596,10 +609,14 @@ if ( ! class_exists( 'LP_Course_Item' ) ) {
 				$this->get_id(),
 				$course_id,
 				$user_id
-			);
+			);*/
 		}
 
-		protected function _parse_item_block_status( $course_id, $user_id, $cache_key ) {
+		/**
+		 * @editor tungnx
+		 * @modify 4.1.3
+		 */
+		/*protected function _parse_item_block_status( $course_id, $user_id, $cache_key ) {
 			$course = learn_press_get_course( $course_id );
 
 			if ( ! $course ) {
@@ -627,9 +644,9 @@ if ( ! class_exists( 'LP_Course_Item' ) ) {
 					if ( $item->is_preview() ) {
 						$blocked_items[ $course_item ] = 'no';
 					} elseif ( ! $block_item_types || is_array( $block_item_types ) && ! in_array(
-							$item->get_post_type(),
-							$block_item_types
-						) ) {
+						$item->get_post_type(),
+						$block_item_types
+					) ) {
 						$blocked_items[ $course_item ] = 'no';
 					}
 				}
@@ -653,7 +670,7 @@ if ( ! class_exists( 'LP_Course_Item' ) ) {
 			LP_Object_Cache::set( $cache_key, $blocked_items, 'learn-press/blocked-items' );
 
 			return $blocked_items;
-		}
+		}*/
 
 		/**
 		 * @param LP_User             $user
@@ -661,8 +678,10 @@ if ( ! class_exists( 'LP_Course_Item' ) ) {
 		 * @param LP_User_Item_Course $course_item_data
 		 *
 		 * @return string
+		 * @editor tungnx
+		 * @modify 4.1.3
 		 */
-		protected function _item_is_blocked( $user, $course, $course_item_data ) {
+		/*protected function _item_is_blocked( $user, $course, $course_item_data ) {
 			if ( in_array( 'administrator', $user->get_roles() ) ) {
 				$blocked = 'no';
 			} elseif ( $user->has_course_status( $course->get_id(), learn_press_course_enrolled_slugs() ) ) {
@@ -676,7 +695,7 @@ if ( ! class_exists( 'LP_Course_Item' ) ) {
 			}
 
 			return $blocked;
-		}
+		}*/
 
 		public function offsetExists( $offset ) {
 		}

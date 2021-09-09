@@ -61,27 +61,10 @@ function learn_press_delete_user_data( $user_id, $course_id = 0 ) {
  * @param int $course_id
  *
  * @return bool
+ * @editor tungnx
+ * @reason this function only get cache, not handle get user_item_id
  */
 function learn_press_get_user_item_id( $user_id, $item_id, $course_id = 0 /* added 3.0.0 */ ) {
-
-	// If $course_id is not passed consider $item_id is ID of a course
-	if ( ! $course_id ) {
-		if ( $item = learn_press_cache_get( 'course-' . $user_id . '-' . $item_id, 'lp-user-courses' ) ) {
-			return $item['user_item_id'];
-		}
-	} else {
-
-		// Otherwise, get item of the course
-		if ( $items = learn_press_cache_get(
-			'course-item-' . $user_id . '-' . $course_id . '-' . $item_id,
-			'lp-user-course-items'
-		) ) {
-			$item = reset( $items );
-
-			return $item['user_item_id'];
-		}
-	}
-
 	return false;
 }
 
@@ -107,9 +90,11 @@ function learn_press_get_current_user_id() {
 function learn_press_get_current_user( $create_temp = true, $force_new = false ) {
 	static $current_user = false;
 
-	if ( $id = get_current_user_id() ) {
+	$user_id = get_current_user_id();
+
+	if ( $user_id ) {
 		if ( ! $current_user || $force_new ) {
-			$current_user = learn_press_get_user( $id, $force_new );
+			$current_user = learn_press_get_user( $user_id, $force_new );
 		}
 
 		return $current_user;
@@ -596,21 +581,6 @@ function learn_press_update_user_item_field( $fields, $where = false, $update_ca
 				}
 			}
 		}
-	}
-
-	// Refresh cache
-	if ( $update_cache && $updated_item ) {
-
-		// Get course id
-		if ( LP_COURSE_CPT === learn_press_get_post_type( $updated_item->item_id ) ) {
-			$course_id = $updated_item->item_id;
-		} else {
-			$course_id = $updated_item->ref_id;
-		}
-
-		// Read new data from DB.
-		$curd = learn_press_get_curd( 'user' );
-		$curd->read_course( $updated_item->user_id, $course_id, true );
 	}
 
 	do_action( 'learn-press/updated-user-item-meta', $updated_item );

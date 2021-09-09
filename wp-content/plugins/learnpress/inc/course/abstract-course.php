@@ -90,14 +90,6 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 			return false;
 		}
 
-		public function get_items_4() {
-
-		}
-
-		public function get_user_course_data() {
-			return learn_press_get_user( $this->user_id )->get_course_data( $this->get_id() );
-		}
-
 		/**
 		 * Constructor gets the post object and sets the ID for the loaded course.
 		 *
@@ -408,7 +400,7 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 		 */
 		public function is_no_required_enroll() {
 			$return = false;
-			if ( $this->get_data( 'no_required_enroll' ) == 'yes' && ! is_user_logged_in() ) {
+			if ( $this->get_data( 'no_required_enroll', 'no' ) == 'yes' && ! is_user_logged_in() ) {
 				$return = true;
 			}
 			return apply_filters( 'learn-press/course-require-enrollment', $return, $this->get_id() );
@@ -607,8 +599,10 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 		 * Output html for students enrolled counter
 		 *
 		 * @return string
+		 * @editor tungnx
+		 * @modify 4.1.3
 		 */
-		public function get_students_html() {
+		/*public function get_students_html() {
 			$output = '';
 			$count  = $this->get_users_enrolled();
 
@@ -647,7 +641,7 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 			}
 
 			return apply_filters( 'learn-press/students-enrolled-html', $output, $this->get_id() );
-		}
+		}*/
 
 		/**
 		 * @param string $field
@@ -870,7 +864,7 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 		public function is_viewing_item( $item_id = false ) {
 			$item = LP_Global::course_item();
 
-			if ( false === $item ) {
+			if ( empty( $item ) ) {
 				return false;
 			}
 
@@ -1192,7 +1186,7 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 		 *
 		 * @return string
 		 */
-		public function get_item_link( $item_id ) {
+		public function get_item_link( int $item_id ): string {
 			$item_link  = '';
 			$item_links = $this->get_item_links();
 
@@ -1211,8 +1205,10 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 		 * @param int $at
 		 *
 		 * @return bool|mixed
+		 * @editor tungnx
+		 * @modify 4.1.3 - comment - not use
 		 */
-		public function get_item_at( $at ) {
+		/*public function get_item_at( $at ) {
 			$items = $this->get_items();
 
 			if ( ! $items ) {
@@ -1220,7 +1216,7 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 			}
 
 			return ! empty( $items[ $at ] ) ? $items[ $at ] : false;
-		}
+		}*/
 
 		/**
 		 * Get position of an item in course curriculum.
@@ -1405,8 +1401,10 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 		 * @param bool    $force
 		 *
 		 * @return mixed|void
+		 * @editor tungnx
+		 * @modify 4.1.3 - comment - not use
 		 */
-		public function _evaluate_course_by_quizzes_results( $user_id, $force = false ) {
+		/*public function _evaluate_course_by_quizzes_results( $user_id, $force = false ) {
 			$quizzes        = $this->get_items( LP_QUIZ_CPT );
 			$user           = learn_press_get_user( $user_id );
 			$results        = array();
@@ -1441,7 +1439,7 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 				$this->get_id(),
 				$user_id
 			);
-		}
+		}*/
 
 		public function enable_evaluate_item( $item_id, $user_id = 0 ) {
 			if ( ! $user_id ) {
@@ -1755,8 +1753,10 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 		 * @param boolean $force
 		 *
 		 * @return mixed
+		 * @editor tungnx
+		 * @modify 4.1.3 - comment - not use
 		 */
-		public function _evaluate_course_by_quizzes( $user_id, $force = false ) {
+		/*public function _evaluate_course_by_quizzes( $user_id, $force = false ) {
 			$quizzes = $this->get_items( LP_QUIZ_CPT );
 			$result  = 0;
 
@@ -1777,7 +1777,7 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 			}
 
 			return apply_filters( 'learn_press_evaluation_course_quizzes', $result, $this->get_id(), $user_id );
-		}
+		}*/
 
 		/**
 		 * Get course duration in seconds
@@ -1888,7 +1888,7 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 		 * @return mixed
 		 */
 		public function get_external_link() {
-			return apply_filters( 'learn-press/course-external-link', $this->get_data( 'external_link' ), $this->get_id() );
+			return apply_filters( 'learn-press/course-external-link', $this->get_data( 'external_link', '' ), $this->get_id() );
 		}
 
 		public function get_external_link_text() {
@@ -1912,7 +1912,7 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 		 *
 		 * @return LP_User|int
 		 */
-		public function get_author( $field = '' ) {
+		public function get_author( string $field = '' ) {
 			$author_id = absint( get_post_field( 'post_author', $this->get_id() ) );
 
 			return strtolower( $field ) === 'id' ? $author_id : learn_press_get_user( $author_id );

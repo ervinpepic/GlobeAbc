@@ -7,12 +7,11 @@
  * @version 4.0.0
  */
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 ?>
 
 
-<?php do_action( 'learn-press/user-profile-account' ); ?>
+<?php do_action('learn-press/user-profile-account');?>
 
 
-<?php do_action( 'learn-press/user-profile-tabs' ); ?>
-
+<?php do_action('learn-press/user-profile-tabs');?>

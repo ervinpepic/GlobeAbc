@@ -248,8 +248,7 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 					);
 				}
 
-				ob_start();
-				?>
+				ob_start(); ?>
 
 				<div class="course-price">
 					<?php if ( $course->has_sale_price() ) { ?>
@@ -289,15 +288,19 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 	/**
 	 * Rest API for Enroll in single course.
 	 *
-	 * @param [] $request
+	 * @param WP_REST_Request $request
 	 *
 	 * @throws Exception .
 	 * @author Nhamdv
 	 * @editor tungnx
+	 * @version 1.0.1
+	 * @since 4.0.0
+	 * @modify 4.1.2
 	 */
-	public function enroll_courses( $request ) {
-		$response       = new LP_REST_Response();
-		$response->data = new stdClass();
+	public function enroll_courses( WP_REST_Request $request ) {
+		$response         = new LP_REST_Response();
+		$response->data   = new stdClass();
+		$lp_user_items_db = LP_User_Items_DB::getInstance();
 
 		try {
 			if ( empty( absint( $request['id'] ) ) ) {
@@ -318,36 +321,29 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 				throw new Exception( $can_enroll->message ?? esc_html__( 'Error: Cannot enroll course.', 'learnpress' ) );
 			}
 
-			// Check if course has in order.
-			$user_item_api = new LP_User_Item_CURD();
-			$find_query    = array(
-				'item_id' => $course_id,
-				'user_id' => get_current_user_id(),
-			);
+			$filter          = new LP_User_Items_Filter();
+			$filter->user_id = get_current_user_id();
+			$filter->item_id = $course_id;
+			$course_item     = $lp_user_items_db->get_last_user_course( $filter );
 
-			$course_items = is_user_logged_in() ? $user_item_api->get_items_by( $find_query ) : false;
+			// Case: if user bought course - or create order manual with order "completed".
+			if ( $course_item && 'purchased' == $course_item->status ) {
+				$user_item_data = [
+					'user_item_id' => $course_item->user_item_id,
+					'graduation'   => LP_COURSE_GRADUATION_IN_PROGRESS,
+					'status'       => LP_COURSE_ENROLLED,
+					'start_time'   => current_time( 'mysql', true ),
+				];
 
-			// Auto enroll for Course.
-			if ( $course_items && isset( $course_items[0]->user_item_id ) ) {
-				if ( in_array( $course_items[0]->status, array( 'purchased' ) ) ) {
-					$fields = array(
-						'graduation' => 'in-progress',
-						'status'     => 'enrolled',
-						'start_time' => current_time( 'mysql', true ),
-					);
+				$user_item_new_or_update = new LP_User_Item_Course( $user_item_data );
+				$result                  = $user_item_new_or_update->update();
 
-					$update = learn_press_update_user_item_field(
-						$fields,
-						array(
-							'user_item_id' => $course_items[0]->user_item_id,
-						)
-					);
-
-					if ( ! $update ) {
-						throw new Exception( esc_html__( 'Error: Can\'t Enroll course.', 'learnpress' ) );
-					}
+				if ( ! $result ) {
+					throw new Exception( esc_html__( 'Error: Can\'t Enroll course.', 'learnpress' ) );
 				}
-			} else {
+
+				do_action( 'learnpress/user/course-enrolled', $course_item->ref_id, $course_id, $user->get_id() );
+			} else { // Case enroll course free
 				LP()->session->set( 'order_awaiting_payment', '' );
 
 				$cart     = LP()->cart;
@@ -374,7 +370,7 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 
 					$order = new LP_Order( $order_id );
 
-					$order->payment_complete(); // Slow query in action 'learn-press/order/status-completed' send email.
+					$order->payment_complete();
 
 					$cart->empty_cart();
 				}
@@ -393,12 +389,21 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 				if ( empty( $course->get_item_ids() ) ) {
 					$response->data->redirect = get_permalink( $course->get_id() );
 				}
-
-				// Send mail when course enrolled
-				$user->enrolled_sendmail( get_current_user_id(), $course_id );
 			} else {
+				$redirect_url = apply_filters(
+					'learnpress/rest-api/courses/enroll/redirect',
+					learn_press_get_page_link( 'checkout' ),
+					$course_id
+				);
+
+				if ( empty( $redirect_url ) ) {
+					throw new Exception( __( 'Error: Please setup page for checkout.', 'learnpress' ) );
+				} elseif ( ! is_user_logged_in() ) { // Fix case: cache page with user anonymous
+					$redirect_url = LP_Helper::get_link_no_cache( $redirect_url );
+				}
+
 				$response->message        = esc_html__( 'Redirecting...', 'learnpress' );
-				$response->data->redirect = learn_press_get_page_link( 'checkout' );
+				$response->data->redirect = $redirect_url;
 			}
 		} catch ( Exception $e ) {
 			$response->message = $e->getMessage();
@@ -417,9 +422,10 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 	 * @author Nhamdv
 	 */
 	public function purchase_course( WP_REST_Request $request ) {
-		$response       = new LP_REST_Response();
-		$response->data = new stdClass();
-		$params         = $request->get_params();
+		$response         = new LP_REST_Response();
+		$response->data   = new stdClass();
+		$params           = $request->get_params();
+		$lp_user_items_db = LP_User_Items_DB::getInstance();
 
 		try {
 			$course_id             = $params['id'];
@@ -441,10 +447,8 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 				throw new Exception( esc_html__( 'Error: Cannot purchase course!.', 'learnpress' ) );
 			}
 
-			global $wpdb;
-
 			// Allow Repurchase.
-			$latest_user_item_id = $wpdb->get_var(
+			/*$latest_user_item_id = $wpdb->get_var(
 				$wpdb->prepare(
 					"SELECT MAX(user_item_id) user_item_id
 					FROM {$wpdb->learnpress_user_items}
@@ -457,7 +461,17 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 					$course_id,
 					$user->get_id()
 				)
-			);
+			);*/
+			$latest_user_item_id = 0;
+
+			$filter          = new LP_User_Items_Filter();
+			$filter->user_id = get_current_user_id();
+			$filter->item_id = $course_id;
+			$course_item     = $lp_user_items_db->get_last_user_course( $filter );
+
+			if ( $course_item && isset( $course_item->user_item_id ) ) {
+				$latest_user_item_id = $course_item->user_item_id;
+			}
 
 			if ( $course->allow_repurchase() && ! empty( $latest_user_item_id ) && empty( $allow_repurchase_type ) ) {
 				if ( $course->allow_repurchase_course_option() === 'popup' ) {
@@ -514,15 +528,17 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 				learn_press_update_user_item_meta( $latest_user_item_id, '_lp_allow_repurchase_type', $allow_repurchase_type );
 			}
 
-			$redirect = apply_filters(
+			$redirect_url = apply_filters(
 				'learnpress/rest-api/courses/purchase/redirect',
 				learn_press_get_page_link( 'checkout' ),
 				$course_id,
 				$cart_id
 			);
 
-			if ( empty( $redirect ) ) {
+			if ( empty( $redirect_url ) ) {
 				throw new Exception( __( 'Error: Please setup page for checkout.', 'learnpress' ) );
+			} elseif ( ! is_user_logged_in() ) { // Fix case: cache page with user anonymous
+				$redirect_url = LP_Helper::get_link_no_cache( $redirect_url );
 			}
 
 			$response->status         = 'success';
@@ -530,7 +546,7 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 				esc_html__( '"%s" has been added to your cart.', 'learnpress' ),
 				$course->get_title()
 			);
-			$response->data->redirect = $redirect;
+			$response->data->redirect = $redirect_url;
 		} catch ( Exception $e ) {
 			$response->message = $e->getMessage();
 		}

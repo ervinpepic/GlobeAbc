@@ -14,7 +14,7 @@ if ( ! class_exists( 'LP_Question_Post_Type' ) ) {
 	/**
 	 * Class LP_Question_Post_Type
 	 */
-	class LP_Question_Post_Type extends LP_Abstract_Post_Type_Core {
+	class LP_Question_Post_Type extends LP_Abstract_Post_Type {
 		/**
 		 * @var null
 		 */
@@ -39,8 +39,7 @@ if ( ! class_exists( 'LP_Question_Post_Type' ) ) {
 			add_filter( 'views_edit-' . LP_QUESTION_CPT, array( $this, 'views_pages' ), 11 );
 			add_filter( 'posts_where_paged', array( $this, 'posts_where_paged' ), 10 );
 
-			$this->add_map_method( 'before_delete', 'before_delete_question' )
-				 ->add_map_method( 'save', 'save_question' );
+			//$this->add_map_method( 'before_delete', 'before_delete_question' );
 
 			parent::__construct( $post_type, $args );
 		}
@@ -180,7 +179,7 @@ if ( ! class_exists( 'LP_Question_Post_Type' ) ) {
 		/**
 		 * Register question post type.
 		 */
-		public function register() {
+		public function args_register_post_type(): array {
 			register_taxonomy(
 				'question_tag',
 				array( LP_QUESTION_CPT ),
@@ -230,7 +229,7 @@ if ( ! class_exists( 'LP_Question_Post_Type' ) ) {
 				'show_in_menu'       => 'learn_press',
 				'show_in_admin_bar'  => true,
 				'show_in_nav_menus'  => true,
-				'show_in_rest'       => $this->is_support_gutenberg(),
+				'show_in_rest'       => learn_press_user_maybe_is_a_teacher(),
 				'supports'           => array( 'title', 'editor', 'revisions' ),
 				'hierarchical'       => false,
 				'rewrite'            => array(
@@ -257,11 +256,11 @@ if ( ! class_exists( 'LP_Question_Post_Type' ) ) {
 		/**
 		 * Remove question from quiz items.
 		 *
-		 * @param int $question_id
+		 * @param  $question_id
 		 *
 		 * @since 3.0.0
 		 */
-		public function before_delete_question( $question_id = 0 ) {
+		public function before_delete_question( int $question_id = 0 ) {
 			$curd = new LP_Question_CURD();
 
 			$curd->delete( $question_id );
@@ -270,12 +269,14 @@ if ( ! class_exists( 'LP_Question_Post_Type' ) ) {
 		/**
 		 * Add default answer when save new question action.
 		 *
-		 * @param $question_id
-		 *
+		 * @param int $post_id
+		 * @param WP_Post $post
 		 * @since 3.0.0
 		 */
-		public function save_question( $question_id ) {
-			if ( get_post_status( $question_id ) != 'auto-draft' ) {
+		public function save( int $post_id, WP_Post $post ) {
+			$question_id = $post_id;
+
+			if ( $post->post_status != 'auto-draft' ) {
 				return;
 			}
 
@@ -390,14 +391,15 @@ if ( ! class_exists( 'LP_Question_Post_Type' ) ) {
 		 *
 		 * @return string
 		 */
-		public function posts_join_paged( $join ) {
-			if ( ! $this->_is_archive() ) {
+		public function posts_join_paged( $join ): string {
+			if ( ! $this->is_page_list_posts_on_backend() ) {
 				return $join;
 			}
 
 			global $wpdb;
 
-			if ( $quiz_id = $this->_filter_quiz() || ( $this->_get_orderby() == 'quiz-name' ) ) {
+			$quiz_id = $this->_filter_quiz();
+			if ( $quiz_id || $this->get_order_by() == 'quiz-name' ) {
 				$join .= " LEFT JOIN {$wpdb->prefix}learnpress_quiz_questions qq ON {$wpdb->posts}.ID = qq.question_id";
 				$join .= " LEFT JOIN {$wpdb->posts} q ON q.ID = qq.quiz_id";
 			}
@@ -413,13 +415,14 @@ if ( ! class_exists( 'LP_Question_Post_Type' ) ) {
 		public function posts_where_paged( $where ) {
 			static $posts_where_paged = false;
 
-			if ( $posts_where_paged || ! $this->_is_archive() ) {
+			if ( $posts_where_paged || ! $this->is_page_list_posts_on_backend() ) {
 				return $where;
 			}
 
 			global $wpdb;
+			$quiz_id = $this->_filter_quiz();
 
-			if ( $quiz_id = $this->_filter_quiz() ) {
+			if ( $quiz_id ) {
 				$where .= $wpdb->prepare( ' AND (q.ID = %d)', $quiz_id );
 			}
 
@@ -448,13 +451,13 @@ if ( ! class_exists( 'LP_Question_Post_Type' ) ) {
 		 *
 		 * @return string
 		 */
-		public function posts_orderby( $order_by_statement ) {
-			if ( ! $this->_is_archive() ) {
+		public function posts_orderby( $order_by_statement ): string {
+			if ( ! $this->is_page_list_posts_on_backend() ) {
 				return $order_by_statement;
 			}
 
-			$orderby = $this->_get_orderby();
-			$order   = $this->_get_order();
+			$orderby = $this->get_order_by();
+			$order   = $this->get_order_sort();
 
 			if ( $orderby && $order ) {
 				switch ( $orderby ) {
@@ -483,18 +486,6 @@ if ( ! class_exists( 'LP_Question_Post_Type' ) ) {
 		}
 
 		/**
-		 * @return bool
-		 */
-		private function _is_archive() {
-			global $pagenow, $post_type;
-			if ( ! is_admin() || ( $pagenow != 'edit.php' ) || ( LP_QUESTION_CPT != $post_type ) ) {
-				return false;
-			}
-
-			return true;
-		}
-
-		/**
 		 * @return bool|int
 		 */
 		private function _filter_quiz() {
@@ -512,16 +503,18 @@ if ( ! class_exists( 'LP_Question_Post_Type' ) ) {
 
 		/**
 		 * @return LP_Question_Post_Type|null
+		 *
+		 * @editor tungnx
 		 */
 		public static function instance() {
 			if ( ! self::$_instance ) {
-				$args            = array(
+				/*$args            = array(
 					'default_meta' => array(
 						'_lp_mark' => 1,
 						'_lp_type' => 'true_or_false',
 					),
-				);
-				self::$_instance = new self( LP_QUESTION_CPT, $args );
+				);*/
+				self::$_instance = new self( LP_QUESTION_CPT );
 			}
 
 			return self::$_instance;
@@ -530,7 +523,7 @@ if ( ! class_exists( 'LP_Question_Post_Type' ) ) {
 
 	$question_post_type = LP_Question_Post_Type::instance();
 
-	// Add meta box.
+	//Todo: Nhamdv see to rewrite
 	$question_post_type
 		->add_meta_box( 'lesson_assigned', esc_html__( 'Assigned', 'learnpress' ), 'question_assigned', 'side', 'high' )
 		->add_meta_box( 'question-editor', esc_html__( 'Answer Options', 'learnpress' ), 'admin_editor', 'normal', 'high', 1 );

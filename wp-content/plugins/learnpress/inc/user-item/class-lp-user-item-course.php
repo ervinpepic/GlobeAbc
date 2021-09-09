@@ -4,6 +4,9 @@
  */
 
 class LP_User_Item_Course extends LP_User_Item implements ArrayAccess {
+	public $_item_type = LP_COURSE_CPT;
+	public $_ref_type  = LP_ORDER_CPT;
+
 	/**
 	 * Course's items
 	 *
@@ -49,6 +52,10 @@ class LP_User_Item_Course extends LP_User_Item implements ArrayAccess {
 	 * @param null $item
 	 */
 	public function __construct( $item ) {
+		if ( is_array( $item ) ) {
+			$item['item_type'] = $this->_item_type;
+			$item['ref_type']  = $this->_ref_type;
+		}
 		parent::__construct( $item );
 
 		$this->_curd    = new LP_User_CURD();
@@ -572,12 +579,14 @@ class LP_User_Item_Course extends LP_User_Item implements ArrayAccess {
 	}
 
 	/**
+	 * Get graduation
+	 *
 	 * @param string $context
 	 *
 	 * @return string
 	 */
-	public function get_grade( $context = '' ) {
-		$grade = $this->get_status();
+	public function get_grade( string $context = 'display' ): string {
+		$grade = $this->get_graduation();
 
 		return $context == 'display' ? learn_press_course_grade_html( $grade, false ) : $grade;
 	}
@@ -669,11 +678,25 @@ class LP_User_Item_Course extends LP_User_Item implements ArrayAccess {
 		return parent::complete( $status );
 	}
 
-	public function is_enrolled() {
-		return in_array(
-			$this->get_status(),
-			learn_press_course_enrolled_slugs() /* array( 'enrolled', 'finished' )*/
-		);
+	/**
+	 * Check course of use has enrolled
+	 *
+	 * @throws Exception
+	 */
+	public function is_enrolled(): bool {
+		return $this->get_status() == LP_COURSE_ENROLLED;
+	}
+
+	/**
+	 * Check course of use has purchased
+	 *
+	 * @throws Exception
+	 * @author tungnx
+	 * @since 4.1.3
+	 * @version 1.0.0
+	 */
+	public function is_purchased(): bool {
+		return $this->get_status() == LP_COURSE_PURCHASED;
 	}
 
 	public function get_level() {
@@ -734,8 +757,10 @@ class LP_User_Item_Course extends LP_User_Item implements ArrayAccess {
 	 * Evaluate course result by point of quizzes doing/done per total quizzes.
 	 *
 	 * @return array
+	 * @editor tungnx
+	 * @modify 4.1.3 - comment - not use
 	 */
-	protected function _evaluate_course_by_quizzes() {
+	/*protected function _evaluate_course_by_quizzes() {
 		$cache_key   = 'user-course-' . $this->get_user_id() . '-' . $this->get_id();
 		$cached_data = LP_Object_Cache::get( $cache_key, 'learn-press/course-results' );
 
@@ -773,7 +798,7 @@ class LP_User_Item_Course extends LP_User_Item implements ArrayAccess {
 		}
 
 		return isset( $cached_data['quizzes'] ) ? $cached_data['quizzes'] : array();
-	}
+	}*/
 
 	protected function _is_passed( $result ) {
 		$result = round( $result, 2 );
@@ -911,9 +936,12 @@ class LP_User_Item_Course extends LP_User_Item implements ArrayAccess {
 	 * Check course is completed or not.
 	 *
 	 * @return bool
+	 * @throws Exception
+	 * @editor tungnx
+	 * @modify 4.1.3
 	 */
-	public function is_finished() {
-		return in_array( $this->get_status(), array( 'passed', 'failed', 'finished' ) );
+	public function is_finished(): bool {
+		return $this->get_status() == LP_COURSE_FINISHED;
 	}
 
 	/**
@@ -939,9 +967,9 @@ class LP_User_Item_Course extends LP_User_Item implements ArrayAccess {
 	public function count_history_items( $item_id ) {
 
 		if ( false === ( $history = LP_Object_Cache::get(
-				'course-' . $this->get_item_id() . '-' . $this->get_user_id(),
-				'learn-press/items-history'
-			) ) ) {
+			'course-' . $this->get_item_id() . '-' . $this->get_user_id(),
+			'learn-press/items-history'
+		) ) ) {
 			global $wpdb;
 			$query = $wpdb->prepare(
 				"
@@ -1068,8 +1096,10 @@ class LP_User_Item_Course extends LP_User_Item implements ArrayAccess {
 	 * @param int $at
 	 *
 	 * @return LP_User_Item_Course
+	 * @editor tungnx
+	 * @modify 4.1.3 - comment - not use
 	 */
-	public function get_item_at( $at = 0 ) {
+	/*public function get_item_at( $at = 0 ) {
 		$items   = $this->read_items();
 		$item_id = ! empty( $this->_items_by_order[ $at ] ) ? $this->_items_by_order[ $at ] : 0;
 		if ( ! $item_id && $items ) {
@@ -1078,7 +1108,7 @@ class LP_User_Item_Course extends LP_User_Item implements ArrayAccess {
 		}
 
 		return $this->offsetGet( $item_id );
-	}
+	}*/
 
 	/**
 	 * @param $id
@@ -1182,14 +1212,16 @@ class LP_User_Item_Course extends LP_User_Item implements ArrayAccess {
 
 	/**
 	 * Update course item and it's child.
+	 *
+	 * @TODO: tungnx - review to modify
 	 */
 	public function save() {
 		/**
 		 * @var LP_User_Item $item
 		 */
 		$this->update();
-
-		if ( ! $items = $this->get_items() ) {
+		$items = $this->get_items();
+		if ( ! $items ) {
 			return false;
 		}
 
@@ -1286,5 +1318,35 @@ class LP_User_Item_Course extends LP_User_Item implements ArrayAccess {
 		}
 
 		return $with_total ? $passed_items : $passed_items[0];
+	}
+
+	/**
+	 * Get Order ID
+	 *
+	 * @return array|mixed
+	 * @since 4.1.3
+	 * @version 1.0.0
+	 * @author tungnx
+	 */
+	public function get_order_id() {
+		return $this->get_data( 'ref_id', 0 );
+	}
+
+	/**
+	 * Get Order
+	 *
+	 * @throws Exception
+	 * @since 4.1.3
+	 * @version 1.0.0
+	 * @author tungnx
+	 */
+	public function get_order() {
+		$order = false;
+
+		if ( $this->get_order_id() ) {
+			$order = new LP_Order( $this->get_order_id() );
+		}
+
+		return $order;
 	}
 }

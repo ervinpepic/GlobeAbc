@@ -532,8 +532,10 @@ class LP_User_Item_CURD implements LP_Interface_CURD {
 	 *
 	 * @return array
 	 * @since 3.2.0
+	 * @editor tungnx
+	 * @modify 4.1.3 - comment - not use
 	 */
-	public function parse_items_preview( $course_id, $user_id = 0 ) {
+	/*public function parse_items_preview( $course_id, $user_id = 0 ) {
 		$items = array();
 
 		$course = learn_press_get_course( $course_id );
@@ -577,20 +579,21 @@ class LP_User_Item_CURD implements LP_Interface_CURD {
 		}
 
 		return $items;
-	}
+	}*/
 
 	/**
 	 * Parse classes for all items in a course.
 	 *
-	 * @param int          $course_id .
-	 * @param int          $user_id .
+	 * @param int $course_id .
+	 * @param int $user_id .
 	 * @param array|string $more .
 	 *
 	 * @return array
+	 * @throws Exception
 	 * @since 3.2.0
 	 * @editor tungnx
 	 */
-	public function parse_items_classes( $course_id = 0, $user_id = 0, $more = array() ) {
+	public function parse_items_classes( int $course_id = 0, int $user_id = 0, $more = array() ): array {
 		$items = array();
 
 		$course = learn_press_get_course( $course_id );
@@ -615,9 +618,9 @@ class LP_User_Item_CURD implements LP_Interface_CURD {
 		}
 
 		$current_item            = LP_Global::course_item();
-		$enrolled                = $user->has_enrolled_course( $course_id );
+		$enrolled                = $user->has_enrolled_or_finished( $course_id );
 		$is_free                 = $course->is_free();
-		$no_required_enroll         = $course->is_no_required_enroll();
+		$no_required_enroll      = $course->is_no_required_enroll();
 		$can_view_content_course = $user->can_view_content_course( $course_id );
 
 		foreach ( $get_item_ids as $item_id ) {
@@ -650,7 +653,7 @@ class LP_User_Item_CURD implements LP_Interface_CURD {
 			// Edit by tungnx, rewrite class to show icon.
 			if ( $no_required_enroll ) {
 				$defaults[] = 'item-free';
-			} elseif ( ! $user || ! $enrolled ) {
+			} elseif ( ! $enrolled ) {
 				$defaults['item-locked'] = 'item-locked';
 
 				if ( $item->is_preview() ) {
@@ -681,14 +684,16 @@ class LP_User_Item_CURD implements LP_Interface_CURD {
 							$defaults['has-status']   = 'has-status';
 						}
 
-						if ( $item_class = apply_filters(
+						$item_class = apply_filters(
 							'learn-press/course-item-status-class',
 							$item_status,
 							$item_grade,
 							$item->get_item_type(),
 							$item_id,
 							$course_id
-						) ) {
+						);
+
+						if ( $item_class ) {
 							$defaults[] = $item_class;
 						}
 				}

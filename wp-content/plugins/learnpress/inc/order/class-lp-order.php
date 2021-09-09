@@ -287,7 +287,7 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 *
 		 * @return string
 		 */
-		public function get_order_number() {
+		public function get_order_number(): string {
 			return learn_press_transaction_order_number( $this->get_id() );
 		}
 
@@ -310,7 +310,7 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 * @return mixed
 		 */
 		public function get_status() {
-			$status = $this->get_data( 'status' );
+			$status = $this->get_data( 'status', '' );
 			$status = apply_filters( 'learn_press_order_status', $status, $this );
 
 			apply_filters( 'learn-press/order/status', $status, $this->get_id() );
@@ -324,26 +324,15 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 * @param string $new_status
 		 * @param string $note - Optional. Note for changing status.
 		 */
-		public function set_status( $new_status, $note = '' ) {
-			$old_status = $this->get_status();
-			$new_status = 'lp-' === substr( $new_status, 0, 3 ) ? substr( $new_status, 3 ) : $new_status;
-
+		public function set_status( string $new_status, string $note = '' ) {
+			$new_status     = 'lp-' === substr( $new_status, 0, 3 ) ? substr( $new_status, 3 ) : $new_status;
 			$valid_statuses = learn_press_get_order_statuses( false, true );
+
 			if ( ! in_array( $new_status, $valid_statuses ) && 'trash' !== $new_status ) {
 				$new_status = 'pending';
 			}
 
-			if ( $old_status && ! in_array( $old_status, $valid_statuses ) && 'trash' !== $old_status ) {
-				$old_status = 'pending';
-			}
-
 			$this->_set_data( 'status', $new_status );
-
-			$this->_status = array(
-				'from' => $old_status,
-				'to'   => $new_status,
-				'note' => $note,
-			);
 		}
 
 		public function get_order_status_html() {
@@ -372,10 +361,12 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 * @param string - transaction ID provided payment gateway
 		 *
 		 * @return bool
+		 * @throws Exception
 		 */
-		public function payment_complete( $transaction_id = '' ) {
+		public function payment_complete( $transaction_id = '' ): bool {
 			do_action( 'learn-press/payment-pre-complete', $this->get_id() );
 
+			//TODO: tungnx - check to change code below - use LP()->session->set()
 			LP()->session->order_awaiting_payment = null;
 
 			$valid_order_statuses = apply_filters(
@@ -548,12 +539,18 @@ if ( ! class_exists( 'LP_Order' ) ) {
 			return false;
 		}
 
-		public function is_guest() {
+		/**
+		 * Check is order of Guest (user not login)
+		 *
+		 * @return bool
+		 */
+		public function is_guest(): bool {
 			return ! get_user_by( 'ID', $this->get_user_id() );
 		}
 
 		public function get_item_meta( &$item ) {
-			if ( $metas = get_metadata( 'learnpress_order_item', $item['id'] ) ) {
+			$metas = get_metadata( 'learnpress_order_item', $item['id'] );
+			if ( $metas ) {
 				foreach ( $metas as $k => $v ) {
 					$item[ preg_replace( '!^_!', '', $k ) ] = LP_Helper::maybe_unserialize( $v[0] );
 				}
@@ -595,9 +592,9 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 * @param int   $quantity
 		 * @param array $meta
 		 *
-		 * @return bool
+		 * @return int
 		 */
-		public function add_item( $item, $quantity = 1, $meta = array() ) {
+		public function add_item( $item, $quantity = 1, $meta = array() ): int {
 			global $wpdb;
 
 			if ( func_num_args() > 1 ) {
@@ -811,8 +808,9 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 *
 		 * @return int[]
 		 */
-		public function get_users() {
-			if ( $users = $this->get_data( 'user_id' ) ) {
+		public function get_users(): array {
+			$users = $this->get_data( 'user_id', 0 );
+			if ( $users ) {
 				settype( $users, 'array' );
 				$users = array_unique( $users );
 			} else {
@@ -982,14 +980,18 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		}
 
 		/**
-		 * @return mixed|void
+		 * Get user_name
+		 *
+		 * @param int $user_id
+		 * @return string
 		 */
-		public function get_user_name() {
-			$user_name = $this->get_user( 'user_login' );
+		public function get_user_name( int $user_id = 0 ): string {
+			$user = learn_press_get_user( $user_id );
 
-			// In case the user is Guest
-			if ( ! $user_name ) {
-				$user_name = $this->get_user_email();
+			if ( $user && ! $user instanceof LP_User_Guest ) {
+				$user_name = $user->get_display_name();
+			} else {
+				$user_name = $this->get_checkout_email();
 			}
 
 			return apply_filters( 'learn-press/order/user-name', sprintf( _x( '%1$s', 'full name', 'learnpress' ), $user_name ) );
@@ -1071,12 +1073,19 @@ if ( ! class_exists( 'LP_Order' ) ) {
 			return $data;
 		}
 
-		public function get_user_email() {
-			$email = false;
-			if ( $user = learn_press_get_user( $this->get_data( 'user_id' ) ) ) {
-				$email = $user->get_data( 'email' );
-			} // Order is checked out by guest
-			if ( ! $email ) {
+		/**
+		 * Get email's user by user_id
+		 *
+		 * @param int $user_id
+		 * @return string
+		 * @editor tungnx
+		 * @modify 4.1.3
+		 */
+		public function get_user_email( int $user_id = 0 ): string {
+			$user = learn_press_get_user( $user_id );
+			if ( $user && ! $user instanceof LP_User_Guest ) {
+				$email = $user->get_email();
+			} else {
 				$email = $this->get_checkout_email();
 			}
 
@@ -1120,7 +1129,7 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 * @return array|int
 		 */
 		public function get_user_id() {
-			return $this->get_data( 'user_id' );
+			return $this->get_data( 'user_id', 0 );
 		}
 
 		/**
@@ -1155,8 +1164,8 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 *
 		 * @return string
 		 */
-		public function get_created_via() {
-			return $this->get_data( 'created_via' );
+		public function get_created_via(): string {
+			return $this->get_data( 'created_via', '' );
 		}
 
 		/**
@@ -1164,64 +1173,67 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 *
 		 * @return bool
 		 * @throws Exception
+		 *
+		 * @editor tungnx
+		 * @modify 4.1.3 - comment - not use
 		 */
-		public function _save_status() {
-
-			// Nothing changed
-			if ( ! $this->_status ) {
-				return false;
-			}
-
-			$the_id     = $this->get_id();
-			$old_status = ! empty( $this->_status['from'] ) ? $this->_status['from'] : '';
-			$new_status = ! empty( $this->_status['to'] ) ? $this->_status['to'] : '';
-
-			// Only update if new status is difference with old status.
-			if ( $new_status !== $old_status ) {
-
-				if ( ! $this->get_user_id() ) {
-					// $new_status = 'pending';
-				}
-
-				if ( doing_action( 'save_post' ) ) {
-					// Update post's status using wpdb to preventing loop
-					global $wpdb;
-					$updated = $wpdb->update( $wpdb->posts, array( 'post_status' => 'lp-' . $new_status ), array( 'ID' => $the_id ), array( '%s' ) );
-				} else {
-					$updated = wp_update_post(
-						array(
-							'post_status' => 'lp-' . $new_status,
-							'ID'          => $the_id,
-						)
-					);
-				}
-
-				// Clear cache
-				wp_cache_delete( $the_id, 'posts' );
-
-				/**
-				 * Trigger actions after status was changed
-				 *
-				 * @deprecated
-				 */
-				do_action( 'learn_press_order_status_' . $new_status, $the_id );
-				do_action( 'learn_press_order_status_' . $old_status . '_to_' . $new_status, $the_id );
-				do_action( 'learn_press_order_status_changed', $the_id, $old_status, $new_status );
-				// backward compatible
-				do_action( 'learn_press_update_order_status', $new_status, $the_id );
-
-				/**
-				 * @since 3.0.0
-				 */
-				do_action( 'learn-press/order/status-' . $new_status, $the_id, $old_status );
-				do_action( 'learn-press/order/status-' . $old_status . '-to-' . $new_status, $the_id );
-				do_action( 'learn-press/order/status-changed', $the_id, $old_status, $new_status );
-
-				return true;
-			}
-
-			return false;
-		}
+		//      public function _save_status(): bool {
+		//
+		//          // Nothing changed
+		//          if ( ! $this->_status ) {
+		//              return false;
+		//          }
+		//
+		//          $order_id   = $this->get_id();
+		//          $old_status = $this->_status['from'] ?? '';
+		//          $new_status = $this->_status['to'] ?? '';
+		//
+		//          // Only update if new status is difference with old status.
+		//          if ( $new_status !== $old_status ) {
+		//
+		//              if ( ! $this->get_user_id() ) {
+		//                  // $new_status = 'pending';
+		//              }
+		//
+		//              if ( doing_action( 'save_post' ) ) {
+		//                  // Update post's status using wpdb to preventing loop
+		//                  global $wpdb;
+		//                  $updated = $wpdb->update( $wpdb->posts, array( 'post_status' => 'lp-' . $new_status ), array( 'ID' => $order_id ), array( '%s' ) );
+		//              } else {
+		//                  $updated = wp_update_post(
+		//                      array(
+		//                          'post_status' => 'lp-' . $new_status,
+		//                          'ID'          => $order_id,
+		//                      )
+		//                  );
+		//              }
+		//
+		//              // Clear cache
+		//              wp_cache_delete( $order_id, 'posts' );
+		//
+		//              /**
+		//               * Trigger actions after status was changed
+		//               *
+		//               * @deprecated
+		//               */
+		//              //do_action( 'learn_press_order_status_' . $new_status, $order_id );
+		//              //do_action( 'learn_press_order_status_' . $old_status . '_to_' . $new_status, $order_id );
+		//              //do_action( 'learn_press_order_status_changed', $order_id, $old_status, $new_status );
+		//              // backward compatible
+		//              do_action( 'learn_press_update_order_status', $new_status, $order_id );
+		//
+		//              /**
+		//               * @since 3.0.0
+		//               */
+		//              do_action( 'learn-press/order/status-' . $new_status, $order_id, $old_status );
+		//              do_action( 'learn-press/order/status-' . $old_status . '-to-' . $new_status, $order_id );
+		//              do_action( 'learn-press/order/status-changed', $order_id, $old_status, $new_status );
+		//
+		//              return true;
+		//          }
+		//
+		//          return false;
+		//      }
 
 		/**
 		 * Save order data.
@@ -1231,13 +1243,27 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 * @throws Exception
 		 */
 		public function save() {
+			$old_status = '';
+
 			if ( $this->get_id() ) {
-				$return = $this->_curd->update( $this );
+				$old_status = str_replace( 'lp-', '', get_post_status( $this->get_id() ) );
+				$return     = $this->_curd->update( $this );
 			} else {
 				$return = $this->_curd->create( $this );
 			}
 
-			$this->_save_status();
+			$new_status = str_replace( 'lp-', '', get_post_status( $this->get_id() ) );
+
+			$order_id = $this->get_id();
+
+			if ( $new_status !== $old_status ) {
+				do_action( 'learn-press/order/status-' . $new_status, $order_id, $old_status );
+				do_action( 'learn-press/order/status-' . $old_status . '-to-' . $new_status, $order_id );
+				do_action( 'learn-press/order/status-changed', $order_id, $old_status, $new_status );
+				//do_action( 'learn_press_update_order_status', $new_status, $order_id );
+			}
+
+			//$this->_save_status();
 
 			return $return;
 		}
@@ -1286,8 +1312,13 @@ if ( ! class_exists( 'LP_Order' ) ) {
 			$this->_set_data( 'checkout_email', $email );
 		}
 
-		public function get_checkout_email() {
-			return $this->get_data( 'checkout_email' );
+		/**
+		 * Get email checkout for case Guest
+		 *
+		 * @return string
+		 */
+		public function get_checkout_email(): string {
+			return $this->get_data( 'checkout_email', '' );
 		}
 
 		/**
@@ -1295,8 +1326,20 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function is_completed() {
-			return preg_replace( '~^lp-~', '', $this->get_order_status() ) === 'completed';
+		public function is_completed(): bool {
+			return $this->get_order_status() === 'completed';
+		}
+
+		/**
+		 * Check Order is created manual.
+		 *
+		 * @return bool
+		 * @since 4.1.3
+		 * @author tungnx
+		 * @version 1.0.0
+		 */
+		public function is_manual(): bool {
+			return $this->get_created_via() === 'manual';
 		}
 	}
 }

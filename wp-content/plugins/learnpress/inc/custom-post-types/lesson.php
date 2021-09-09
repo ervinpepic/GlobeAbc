@@ -17,7 +17,7 @@ if ( ! class_exists( 'LP_Lesson_Post_Type' ) ) {
 	/**
 	 * Class LP_Lesson_Post_Type
 	 */
-	final class LP_Lesson_Post_Type extends LP_Abstract_Post_Type_Core {
+	final class LP_Lesson_Post_Type extends LP_Abstract_Post_Type {
 		/**
 		 * @var null
 		 */
@@ -35,7 +35,7 @@ if ( ! class_exists( 'LP_Lesson_Post_Type' ) ) {
 		 */
 		public function __construct( $post_type ) {
 
-			$this->add_map_method( 'before_delete', 'before_delete_lesson' );
+			//$this->add_map_method( 'before_delete', 'before_delete_lesson' );
 			// hide View Lesson link if not assigned to course
 
 			add_filter( 'views_edit-' . LP_LESSON_CPT, array( $this, 'views_pages' ), 10 );
@@ -50,35 +50,42 @@ if ( ! class_exists( 'LP_Lesson_Post_Type' ) ) {
 		 *
 		 * @return string
 		 */
-		public function posts_where_paged( $where ) {
+		public function posts_where_paged( $where ): string {
 
-			if ( ! $this->_is_archive() ) {
+			if ( ! $this->is_page_list_posts_on_backend() ) {
 				return $where;
 			}
 
 			global $wpdb;
 
 			if ( 'yes' === LP_Request::get( 'unassigned' ) ) {
-				$where .= $wpdb->prepare( "
+				$where .= $wpdb->prepare(
+					"
                     AND {$wpdb->posts}.ID NOT IN(
                         SELECT si.item_id
                         FROM {$wpdb->learnpress_section_items} si
                         INNER JOIN {$wpdb->posts} p ON p.ID = si.item_id
                         WHERE p.post_type = %s
                     )
-                ", LP_LESSON_CPT );
+                	",
+					LP_LESSON_CPT
+				);
 			}
 
 			$preview = LP_Request::get( 'preview' );
 
 			if ( $preview ) {
-				$clause = $wpdb->prepare( "
+				$clause = $wpdb->prepare(
+					"
                     SELECT ID
                     FROM {$wpdb->posts} p
                     INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s
                     WHERE pm.meta_value = %s
                     AND p.post_type = %s",
-					'_lp_preview', 'yes', LP_LESSON_CPT );
+					'_lp_preview',
+					'yes',
+					LP_LESSON_CPT
+				);
 
 				$in = '';
 				if ( 'no' === $preview ) {
@@ -157,7 +164,7 @@ if ( ! class_exists( 'LP_Lesson_Post_Type' ) ) {
 		/**
 		 * Register lesson post type.
 		 */
-		public function register() {
+		public function args_register_post_type(): array {
 
 			return array(
 				'labels'             => array(
@@ -185,7 +192,7 @@ if ( ! class_exists( 'LP_Lesson_Post_Type' ) ) {
 				'show_in_menu'       => 'learn_press',
 				'show_in_admin_bar'  => true,
 				'show_in_nav_menus'  => true,
-				'show_in_rest'       => $this->is_support_gutenberg(),
+				'show_in_rest'       => learn_press_user_maybe_is_a_teacher(),
 				'supports'           => array(
 					'title',
 					'editor',
@@ -301,16 +308,6 @@ if ( ! class_exists( 'LP_Lesson_Post_Type' ) ) {
 			return $columns;
 		}
 
-		private function _is_archive() {
-			global $pagenow, $post_type;
-
-			if ( ! is_admin() || ( $pagenow != 'edit.php' ) || ( LP_LESSON_CPT != LP_Request::get_string( 'post_type' ) ) ) {
-				return false;
-			}
-
-			return true;
-		}
-
 		/**
 		 * Add admin params.
 		 *
@@ -326,7 +323,7 @@ if ( ! class_exists( 'LP_Lesson_Post_Type' ) ) {
 		 * @since 3.0.0
 		 */
 		public static function lesson_assigned() {
-			learn_press_admin_view( 'meta-boxes/course/assigned.php' );
+			//learn_press_admin_view( 'meta-boxes/course/assigned.php' );
 		}
 
 		/**
@@ -343,7 +340,7 @@ if ( ! class_exists( 'LP_Lesson_Post_Type' ) ) {
 
 	$lesson_post_type = LP_Lesson_Post_Type::instance();
 
-	// add meta box
+	//Todo: Nhamdv see to rewrite
 	$lesson_post_type
 		->add_meta_box( 'lesson_assigned', esc_html__( 'Assigned', 'learnpress' ), 'lesson_assigned', 'side', 'high' );
 }

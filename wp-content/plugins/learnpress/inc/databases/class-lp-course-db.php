@@ -79,34 +79,43 @@ class LP_Course_DB extends LP_Database {
 	}
 
 	/**
-	 * Get first item of course
+	 * Get first item id of course
 	 *
 	 * @param int $course_id .
 	 *
 	 * @return int
+	 * @throws Exception
+	 * @since 4.0.0
+	 * @version 1.0.2
+	 * @modify 4.1.3
+	 * @author tungnx
 	 */
-	public function get_first_item_id( $course_id = 0 ): int {
-		/**
-		 * Get cache
-		 *
-		 * Please clear cache when change first item of course
-		 */
-		$first_item_id = wp_cache_get( 'first_item_id', LP_COURSE_CPT );
+	public function get_first_item_id( int $course_id = 0 ): int {
+		// Get cache
+		$lp_course_cache = LP_Course_Cache::instance();
+		$key_cache       = "$course_id/first_item_id";
+		$first_item_id   = $lp_course_cache->get_cache( $key_cache );
 
 		if ( ! $first_item_id ) {
 			$query = $this->wpdb->prepare(
 				"
-			SELECT item_id FROM $this->tb_lp_section_items AS items
-			INNER JOIN $this->tb_lp_sections AS sections
-			ON items.section_id = sections.section_id
-			AND sections.section_course_id = %d
-			",
-				$course_id,0
+				SELECT item_id FROM $this->tb_lp_section_items AS items
+				INNER JOIN $this->tb_lp_sections AS sections
+				ON items.section_id = sections.section_id
+				AND sections.section_course_id = %d
+				ORDER BY items.item_order ASC, sections.section_order ASC
+				LIMIT %d
+				",
+				$course_id,
+				1
 			);
+
 			$first_item_id = (int) $this->wpdb->get_var( $query );
 
+			$this->check_execute_has_error();
+
 			// Set cache
-			wp_cache_set( 'first_item_id', $first_item_id, LP_COURSE_CPT );
+			$lp_course_cache->set_cache( $key_cache, $first_item_id );
 		}
 
 		return $first_item_id;
@@ -143,6 +152,103 @@ class LP_Course_DB extends LP_Database {
 		);
 
 		return $this->wpdb->get_col( $query );
+	}
+
+	public function get_recent_courses( LP_Course_Filter $filter ) : array {
+		global $wpdb;
+
+		$limit = $filter->limit ?? - 1;
+		$order = ! empty( $filter->order ) ? $filter->order : 'DESC';
+
+		if ( $limit <= 0 ) {
+			$limit = 0;
+		}
+
+		$query = apply_filters(
+			'learnpress/databases/widgets/recent_courses',
+			$wpdb->prepare(
+				"SELECT DISTINCT p.ID
+					FROM $wpdb->posts AS p
+					WHERE p.post_type = %s
+					AND p.post_status = %s
+					ORDER BY p.post_date {$order}
+					LIMIT %d",
+				LP_COURSE_CPT,
+				'publish',
+				$limit
+			)
+		);
+
+		return $wpdb->get_col( $query );
+	}
+
+	public function get_featured_courses( LP_Course_Filter $filter ) : array {
+		global $wpdb;
+
+		$limit    = ! empty( $filter->limit ) ? $filter->limit : -1;
+		$order_by = ! empty( $filter->order_by ) ? $filter->order_by : 'post_date';
+		$order    = ! empty( $filter->order ) ? $filter->order : 'DESC';
+
+		if ( $limit <= 0 ) {
+			$limit = 0;
+		}
+
+		$query = apply_filters(
+			'learnpress/databases/widgets/featured_courses',
+			$wpdb->prepare(
+				"SELECT DISTINCT p.ID
+				FROM {$wpdb->posts} p
+				LEFT JOIN {$wpdb->postmeta} as pmeta ON p.ID=pmeta.post_id AND pmeta.meta_key = %s
+				WHERE p.post_type = %s
+					AND p.post_status = %s
+					AND pmeta.meta_value = %s
+				ORDER BY p.{$order_by} {$order}
+				LIMIT %d",
+				'_lp_featured',
+				LP_COURSE_CPT,
+				'publish',
+				'yes',
+				$limit
+			)
+		);
+
+		return $wpdb->get_col( $query );
+	}
+
+	public function get_courses_on_sale() {
+		$args = array(
+			'post_type'      => LP_COURSE_CPT,
+			'orderby'        => 'ID',
+			'order'          => 'DESC',
+			'posts_per_page' => -1,
+			'meta_query'     => array(
+				array(
+					'key'     => '_lp_sale_price',
+					'value'   => '',
+					'compare' => '!=',
+				),
+			),
+		);
+
+		$courses = get_posts( $args );
+
+		$output = array();
+
+		foreach ( (array) $courses as $course_object ) {
+			$course_id = $course_object->ID;
+
+			$course = learn_press_get_course( $course_object->ID );
+
+			if ( ! $course || empty( $course_id ) ) {
+				continue;
+			}
+
+			if ( $course->has_sale_price() ) {
+				$output[] = $course_id;
+			}
+		}
+
+		return $output;
 	}
 }
 

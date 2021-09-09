@@ -10,6 +10,24 @@
 
 defined( 'ABSPATH' ) || exit;
 
+function learnpress_gutenberg_disable_cpt( $can_edit, $post_type ) {
+	$post_types = array(
+		LP_COURSE_CPT   => LP()->settings()->get( 'enable_gutenberg_course' ),
+		LP_LESSON_CPT   => LP()->settings()->get( 'enable_gutenberg_lesson' ),
+		LP_QUIZ_CPT     => LP()->settings()->get( 'enable_gutenberg_quiz' ),
+		LP_QUESTION_CPT => LP()->settings()->get( 'enable_gutenberg_question' ),
+	);
+
+	foreach ( $post_types as $key => $pt ) {
+		if ( $post_type === $key && $pt !== 'yes' ) {
+			$can_edit = false;
+		}
+	}
+
+	return $can_edit;
+}
+add_filter( 'use_block_editor_for_post_type', 'learnpress_gutenberg_disable_cpt', 10, 2 );
+
 /**
  * Get instance of a CURD class by type
  *
@@ -2309,68 +2327,10 @@ function learn_press_search_template( $template ) {
  * @param int $order_id
  *
  * @return mixed
+ * @editor tungnx
  */
 function learn_press_auto_enroll_user_to_courses( $order_id ) {
-	if ( LP()->settings->get( 'auto_enroll' ) == 'no' ) {
-		return false;
-	}
-
-	wp_cache_delete( 'order-' . $order_id, 'lp-order-items' );
-	LP_Object_Cache::delete( 'order-' . $order_id, 'lp-order-items' );
-
-	if ( ! $order = learn_press_get_order( $order_id ) ) {
-		return false;
-	}
-
-	if ( ! $items = $order->get_items() ) {
-		return false;
-	}
-
-	if ( ! $users = $order->get_user_data() ) {
-		return false;
-	}
-
-	$return = 0;
-	foreach ( $items as $item_id => $item ) {
-		$course = learn_press_get_course( $item['course_id'] );
-
-		if ( ! $course ) {
-			continue;
-		}
-
-		foreach ( $users as $uid => $data ) {
-			$user = learn_press_get_user( $uid );
-
-			if ( ! $user->is_exists() ) {
-				continue;
-			}
-
-			if ( $user->has_enrolled_course( $course->get_id() ) ) {
-				continue;
-			}
-
-			if ( ! $user->can_enroll_course( $course->get_id() ) ) {
-				continue;
-			}
-
-			// error. this scripts will create new order each course item
-			$return = learn_press_update_user_item_field(
-				array(
-					'user_id'    => $user->get_id(),
-					'item_id'    => $course->get_id(),
-					'start_time' => learn_press_mysql_time( true ),
-					'status'     => learn_press_user_item_in_progress_slug(), // 'enrolled',
-					'end_time'   => '0000-00-00 00:00:00',
-					'ref_id'     => $order->id, // $course->get_id(),
-					'item_type'  => 'lp_course',
-					'ref_type'   => 'lp_order',
-					'parent_id'  => $user->get_course_history_id( $course->get_id() ),
-				)
-			);
-		}
-	}
-
-	return $return;
+	_deprecated_function( __FUNCTION__, '4.1.3' );
 }
 
 // add_action( 'learn_press_order_status_completed', 'learn_press_auto_enroll_user_to_courses' );
@@ -2820,7 +2780,7 @@ function learn_press_static_pages( $name = false ) {
 	return $pages;
 }
 
-function learn_press_cache_path( $group, $key = '' ) {
+/*function learn_press_cache_path( $group, $key = '' ) {
 	$path = LP_PLUGIN_PATH . 'cache';
 	if ( ! file_exists( $path ) ) {
 		@mkdir( $path );
@@ -2835,17 +2795,17 @@ function learn_press_cache_path( $group, $key = '' ) {
 	}
 
 	return $path;
-}
+}*/
 
 function learn_press_cache_get( $key, $group, $found = null ) {
-	$file = learn_press_cache_path( $group, $key );
+	//$file = learn_press_cache_path( $group, $key );
 	$data = wp_cache_get( $key, $group, $found );
 
-	if ( ! file_exists( $file ) ) {
+	/*if ( ! file_exists( $file ) ) {
 		return false;
-	}
+	}*/
 
-	if ( false === $data ) {
+	/*if ( false === $data ) {
 		$content = file_get_contents( $file );
 
 		if ( file_exists( $file ) && $content ) {
@@ -2857,19 +2817,19 @@ function learn_press_cache_get( $key, $group, $found = null ) {
 			}
 			wp_cache_set( $key, $data, $group, $found );
 		}
-	}
+	}*/
 
 	return $data;
 }
 
 function learn_press_cache_set( $key, $data, $group = '', $expire = 0 ) {
-	$file = learn_press_cache_path( $group, $key );
+	//$file = learn_press_cache_path( $group, $key );
 	wp_cache_set( $key, $data, $group, $expire );
 
-	if ( ! is_string( $data ) ) {
+	/*if ( ! is_string( $data ) ) {
 		$data = serialize( $data );
 	}
-	file_put_contents( $file, $data );
+	file_put_contents( $file, $data );*/
 }
 
 function learn_press_cache_replace( $key, $data, $group = '', $expire = 0 ) {
@@ -2952,7 +2912,7 @@ function learn_press_get_unassigned_items( $type = '' ) {
             SELECT p.ID
             FROM {$wpdb->posts} p
             WHERE p.post_type IN(" . join( ',', $format ) . ")
-            AND p.ID NOT IN(
+            AND p.ID IN(
                 SELECT si.item_id
                 FROM {$wpdb->learnpress_section_items} si
                 INNER JOIN {$wpdb->posts} p ON p.ID = si.item_id
@@ -2964,6 +2924,9 @@ function learn_press_get_unassigned_items( $type = '' ) {
 		);
 
 		$items = $wpdb->get_col( $query );
+
+		//LP_Debug::var_dump($query, __FILE__, __LINE__);
+
 		LP_Object_Cache::set( $key, $items, 'learn-press/unassigned' );
 	}
 
@@ -3313,8 +3276,10 @@ function learn_press_error_log( $value ) {
  *
  * @return bool|string
  * @since 3.3.0
+ * @editor tungnx
+ * @modify 4.1.3 - comment - not use
  */
-function learn_press_user_course_status( $user_id = 0, $course_id = 0 ) {
+/*function learn_press_user_course_status( $user_id = 0, $course_id = 0 ) {
 	if ( ! $user = learn_press_get_user( $user_id ? $user_id : get_current_user_id() ) ) {
 		return false;
 	}
@@ -3324,7 +3289,7 @@ function learn_press_user_course_status( $user_id = 0, $course_id = 0 ) {
 	}
 
 	return $userCourse->get_status();
-}
+}*/
 
 /**
  * Return list types of questions that support answer options.
@@ -3456,7 +3421,8 @@ function learn_press_cookie_get( $name, $namespace = 'LP' ) {
  * @editor tungnx
  * @reason comment - not use
  */
-/*function learn_press_default_course_levels() {
+/*
+function learn_press_default_course_levels() {
 	$levels = array(
 		'beginner'     => __( 'Beginner', 'learnpress' ),
 		'intermediate' => __( 'Intermediate', 'learnpress' ),
@@ -3743,8 +3709,11 @@ function learn_press_is_enrolled_slug( $slug ) {
 /**
  * @return array
  * @since 4.0.0
+ * @editor tungnx
+ * @modify 4.1.3 - comment - not use
  */
-function learn_press_course_enrolled_slugs() {
+function learn_press_course_enrolled_slugs(): array {
+	_deprecated_function( __FUNCTION__, '4.1.3' );
 	return apply_filters(
 		'learn-press/course-enrolled-slugs',
 		array(
