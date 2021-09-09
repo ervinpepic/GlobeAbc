@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Language School 1.2.2\n"
+"Project-Id-Version: Language School 1.2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-31 14:39+0300\n"
-"PO-Revision-Date: 2021-05-31 14:39+0300\n"
+"POT-Creation-Date: 2021-08-18 10:08+0300\n"
+"PO-Revision-Date: 2021-08-18 10:08+0300\n"
 "Last-Translator: \n"
 "Language-Team: cmsmasters <cmsmstrs@gmail.com>\n"
 "Language: en_US\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 2.4.3\n"
+"X-Generator: Poedit 3.0\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: 404.php:35
@@ -27,7 +27,7 @@ msgstr ""
 msgid "Sitemap"
 msgstr ""
 
-#: archive.php:35 author.php:38 framework/function/template-functions.php:1611
+#: archive.php:35 author.php:38 framework/function/template-functions.php:1625
 msgid "No posts found"
 msgstr ""
 
@@ -866,7 +866,7 @@ msgstr ""
 #: framework/admin/options/cmsmasters-theme-options-profile.php:197
 #: framework/admin/options/cmsmasters-theme-options-project.php:400
 #: framework/admin/options/cmsmasters-theme-options-tt-event.php:126
-#: framework/function/theme-functions.php:477
+#: framework/function/theme-functions.php:481
 msgid "Bottom Sidebar"
 msgstr ""
 
@@ -1092,7 +1092,7 @@ msgstr ""
 
 #: framework/admin/options/cmsmasters-theme-options-project.php:43
 #: framework/admin/settings/cmsmasters-theme-settings-single.php:20
-#: framework/function/theme-functions.php:1884 functions.php:276
+#: framework/function/theme-functions.php:1888 functions.php:276
 msgid "Project"
 msgstr ""
 
@@ -1143,7 +1143,7 @@ msgid "Project Link Text"
 msgstr ""
 
 #: framework/admin/options/cmsmasters-theme-options-project.php:266
-#: framework/function/theme-functions.php:1891
+#: framework/function/theme-functions.php:1895
 msgid "View Project"
 msgstr ""
 
@@ -1408,8 +1408,8 @@ msgid "Pages"
 msgstr ""
 
 #: framework/admin/options/cmsmasters-theme-options.php:749
-#: framework/function/theme-functions.php:1883
-#: framework/function/theme-functions.php:1885
+#: framework/function/theme-functions.php:1887
+#: framework/function/theme-functions.php:1889
 msgid "Projects"
 msgstr ""
 
@@ -1815,7 +1815,7 @@ msgid "Linkedin"
 msgstr ""
 
 #: framework/admin/settings/cmsmasters-theme-settings-element.php:118
-#: framework/function/template-functions.php:1371
+#: framework/function/template-functions.php:1385
 msgid "Facebook"
 msgstr ""
 
@@ -1825,7 +1825,7 @@ msgstr ""
 
 #: framework/admin/settings/cmsmasters-theme-settings-element.php:120
 #: framework/class/widgets.php:968 framework/class/widgets.php:974
-#: framework/function/template-functions.php:1372
+#: framework/function/template-functions.php:1386
 msgid "Twitter"
 msgstr ""
 
@@ -2585,7 +2585,7 @@ msgid "Choose your website footer logo image for retina."
 msgstr ""
 
 #: framework/admin/settings/cmsmasters-theme-settings-general.php:750
-#: framework/function/theme-functions.php:542
+#: framework/function/theme-functions.php:546
 msgid "Footer Navigation"
 msgstr ""
 
@@ -2698,7 +2698,7 @@ msgid "Project Date"
 msgstr ""
 
 #: framework/admin/settings/cmsmasters-theme-settings-single.php:275
-#: framework/function/theme-functions.php:1903
+#: framework/function/theme-functions.php:1907
 msgid "Project Categories"
 msgstr ""
 
@@ -2711,7 +2711,7 @@ msgid "Project Comments"
 msgstr ""
 
 #: framework/admin/settings/cmsmasters-theme-settings-single.php:302
-#: framework/function/theme-functions.php:1913
+#: framework/function/theme-functions.php:1917
 msgid "Project Tags"
 msgstr ""
 
@@ -2789,7 +2789,7 @@ msgid "Enter a profile details block title"
 msgstr ""
 
 #: framework/admin/settings/cmsmasters-theme-settings-single.php:454
-#: framework/function/theme-functions.php:1945
+#: framework/function/theme-functions.php:1949
 msgid "Profile Categories"
 msgstr ""
 
@@ -3710,59 +3710,59 @@ msgstr ""
 msgid "in "
 msgstr ""
 
-#: framework/function/template-functions.php:330
+#: framework/function/template-functions.php:337
 msgid "Default Logo Subtitle"
 msgstr ""
 
-#: framework/function/template-functions.php:735
+#: framework/function/template-functions.php:745
 #, php-format
 msgid "1 search result for: %2$s"
 msgid_plural "%1$d search results for: %2$s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: framework/function/template-functions.php:737
+#: framework/function/template-functions.php:747
 #, php-format
 msgid "0 search results for: %s"
 msgstr ""
 
-#: framework/function/template-functions.php:742
+#: framework/function/template-functions.php:752
 #, php-format
 msgid "Author: %1$s (%2$s %3$s)"
 msgstr ""
 
-#: framework/function/template-functions.php:744
+#: framework/function/template-functions.php:754
 #, php-format
 msgid "Author: %s"
 msgstr ""
 
-#: framework/function/template-functions.php:1372
+#: framework/function/template-functions.php:1386
 #, php-format
 msgid "Check out '%s' on %s website"
 msgstr ""
 
-#: framework/function/template-functions.php:1373
+#: framework/function/template-functions.php:1387
 msgid "Pinterest"
 msgstr ""
 
-#: framework/function/template-functions.php:1453
+#: framework/function/template-functions.php:1467
 msgid "website"
 msgstr ""
 
-#: framework/function/template-functions.php:1512
+#: framework/function/template-functions.php:1526
 msgid "More posts"
 msgstr ""
 
-#: framework/function/template-functions.php:1514
+#: framework/function/template-functions.php:1528
 msgid "More projects"
 msgstr ""
 
-#: framework/function/template-functions.php:1613
-#: framework/function/theme-functions.php:1893
+#: framework/function/template-functions.php:1627
+#: framework/function/theme-functions.php:1897
 msgid "No projects found"
 msgstr ""
 
-#: framework/function/template-functions.php:1705
+#: framework/function/template-functions.php:1719
 msgid "Trackbacks and Pingbacks"
 msgstr ""
 
@@ -3771,181 +3771,181 @@ msgstr ""
 msgid "Category Color"
 msgstr ""
 
-#: framework/function/theme-functions.php:206
-#: framework/function/theme-functions.php:245
+#: framework/function/theme-functions.php:210
+#: framework/function/theme-functions.php:249
 msgid "Close"
 msgstr ""
 
-#: framework/function/theme-functions.php:207
-#: framework/function/theme-functions.php:246
-msgid "Enter Fullscreen (Shift+Enter)"
-msgstr ""
-
-#: framework/function/theme-functions.php:208
-#: framework/function/theme-functions.php:247
-msgid "Exit Fullscreen (Shift+Enter)"
-msgstr ""
-
-#: framework/function/theme-functions.php:209
-#: framework/function/theme-functions.php:248
-msgid "Slideshow"
-msgstr ""
-
-#: framework/function/theme-functions.php:210
-#: framework/function/theme-functions.php:249 image.php:38
-msgid "Next"
-msgstr ""
-
 #: framework/function/theme-functions.php:211
-#: framework/function/theme-functions.php:250 image.php:37
-msgid "Previous"
+#: framework/function/theme-functions.php:250
+msgid "Enter Fullscreen (Shift+Enter)"
 msgstr ""
 
 #: framework/function/theme-functions.php:212
 #: framework/function/theme-functions.php:251
-msgid "An error occurred when trying to load photo."
+msgid "Exit Fullscreen (Shift+Enter)"
 msgstr ""
 
 #: framework/function/theme-functions.php:213
 #: framework/function/theme-functions.php:252
-msgid "An error occurred when trying to load contents."
+msgid "Slideshow"
 msgstr ""
 
 #: framework/function/theme-functions.php:214
-#: framework/function/theme-functions.php:253
+#: framework/function/theme-functions.php:253 image.php:38
+msgid "Next"
+msgstr ""
+
+#: framework/function/theme-functions.php:215
+#: framework/function/theme-functions.php:254 image.php:37
+msgid "Previous"
+msgstr ""
+
+#: framework/function/theme-functions.php:216
+#: framework/function/theme-functions.php:255
+msgid "An error occurred when trying to load photo."
+msgstr ""
+
+#: framework/function/theme-functions.php:217
+#: framework/function/theme-functions.php:256
+msgid "An error occurred when trying to load contents."
+msgstr ""
+
+#: framework/function/theme-functions.php:218
+#: framework/function/theme-functions.php:257
 msgid ""
 "The content your are attempting to view requires the <a href='{pluginspage}' "
 "target='_blank'>{type} plugin<\\/a>."
 msgstr ""
 
-#: framework/function/theme-functions.php:465
+#: framework/function/theme-functions.php:469
 msgid "Sidebar"
 msgstr ""
 
-#: framework/function/theme-functions.php:467
+#: framework/function/theme-functions.php:471
 msgid ""
 "Widgets in this area will be shown in all left and right sidebars till you "
 "don't use custom sidebar."
 msgstr ""
 
-#: framework/function/theme-functions.php:479
+#: framework/function/theme-functions.php:483
 msgid ""
 "Widgets in this area will be shown at the bottom of middle block below the "
 "content and middle sidebar, but above footer."
 msgstr ""
 
-#: framework/function/theme-functions.php:489
+#: framework/function/theme-functions.php:493
 msgid "Archive Sidebar"
 msgstr ""
 
-#: framework/function/theme-functions.php:491
+#: framework/function/theme-functions.php:495
 msgid ""
 "Widgets in this area will be shown in all left and right sidebars on "
 "archives pages."
 msgstr ""
 
-#: framework/function/theme-functions.php:501
+#: framework/function/theme-functions.php:505
 msgid "Search Sidebar"
 msgstr ""
 
-#: framework/function/theme-functions.php:503
+#: framework/function/theme-functions.php:507
 msgid ""
 "Widgets in this area will be shown in left or right sidebar on search page."
 msgstr ""
 
-#: framework/function/theme-functions.php:520
+#: framework/function/theme-functions.php:524
 msgid "Custom sidebar created with cmsmasters admin panel."
 msgstr ""
 
-#: framework/function/theme-functions.php:541
+#: framework/function/theme-functions.php:545
 msgid "Primary Navigation"
 msgstr ""
 
-#: framework/function/theme-functions.php:543
+#: framework/function/theme-functions.php:547
 msgid "Top Line Navigation"
 msgstr ""
 
-#: framework/function/theme-functions.php:1886
+#: framework/function/theme-functions.php:1890
 msgid "All Projects"
 msgstr ""
 
-#: framework/function/theme-functions.php:1887
-#: framework/function/theme-functions.php:1929
+#: framework/function/theme-functions.php:1891
+#: framework/function/theme-functions.php:1933
 msgid "Add New"
 msgstr ""
 
-#: framework/function/theme-functions.php:1888
+#: framework/function/theme-functions.php:1892
 msgid "Add New Project"
 msgstr ""
 
-#: framework/function/theme-functions.php:1889
+#: framework/function/theme-functions.php:1893
 msgid "Edit Project"
 msgstr ""
 
-#: framework/function/theme-functions.php:1890
+#: framework/function/theme-functions.php:1894
 msgid "New Project"
 msgstr ""
 
-#: framework/function/theme-functions.php:1892
+#: framework/function/theme-functions.php:1896
 msgid "Search Projects"
 msgstr ""
 
-#: framework/function/theme-functions.php:1894
+#: framework/function/theme-functions.php:1898
 msgid "No projects found in Trash"
 msgstr ""
 
-#: framework/function/theme-functions.php:1904
+#: framework/function/theme-functions.php:1908
 msgid "Project Category"
 msgstr ""
 
-#: framework/function/theme-functions.php:1914
+#: framework/function/theme-functions.php:1918
 msgid "Project Tag"
 msgstr ""
 
-#: framework/function/theme-functions.php:1925
-#: framework/function/theme-functions.php:1926
-#: framework/function/theme-functions.php:1927
+#: framework/function/theme-functions.php:1929
+#: framework/function/theme-functions.php:1930
+#: framework/function/theme-functions.php:1931
 msgid "Profiles"
 msgstr ""
 
-#: framework/function/theme-functions.php:1928
+#: framework/function/theme-functions.php:1932
 msgid "All Profiles"
 msgstr ""
 
-#: framework/function/theme-functions.php:1930
+#: framework/function/theme-functions.php:1934
 msgid "Add New Profile"
 msgstr ""
 
-#: framework/function/theme-functions.php:1931
+#: framework/function/theme-functions.php:1935
 msgid "Edit Profile"
 msgstr ""
 
-#: framework/function/theme-functions.php:1932
+#: framework/function/theme-functions.php:1936
 msgid "New Profile"
 msgstr ""
 
-#: framework/function/theme-functions.php:1933
+#: framework/function/theme-functions.php:1937
 msgid "View Profile"
 msgstr ""
 
-#: framework/function/theme-functions.php:1934
+#: framework/function/theme-functions.php:1938
 msgid "Search Profiles"
 msgstr ""
 
-#: framework/function/theme-functions.php:1935
+#: framework/function/theme-functions.php:1939
 msgid "No Profiles found"
 msgstr ""
 
-#: framework/function/theme-functions.php:1936
+#: framework/function/theme-functions.php:1940
 msgid "No Profiles found in Trash"
 msgstr ""
 
-#: framework/function/theme-functions.php:1946
+#: framework/function/theme-functions.php:1950
 msgid "Profile Category"
 msgstr ""
 
-#: framework/function/theme-functions.php:2169
-#: framework/function/theme-functions.php:2172
+#: framework/function/theme-functions.php:2173
+#: framework/function/theme-functions.php:2176
 #, php-format
 msgid "Default: %s"
 msgstr ""

@@ -2,11 +2,11 @@
 Contributors: EmranAhmed, getwooplugins
 Tags: 2checkout, 2checkout for woocommerce, 2checkout payment gateway, payment gateway, woocommerce payment gateway
 Stable tag: trunk
-Requires PHP: 5.6
-Requires at least: 5.0
-Tested up to: 5.7
-WC requires at least: 4.5
-WC tested up to: 5.1
+Requires PHP: 7.0
+Requires at least: 5.5
+Tested up to: 5.8
+WC requires at least: 5.2
+WC tested up to: 5.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -84,6 +84,10 @@ If you are unable to use any of the methods due to internet connectivity and fil
 7. Activate the plugin
 
 == Changelog ==
+
+= 2.0.7 =
+
+* Update: WP 5.8 and WC 5.6 compatibility
 
 = 2.0.6 =
 

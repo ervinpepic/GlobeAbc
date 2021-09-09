@@ -1,7 +1,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.2.2
+ * @version 	1.2.3
  * 
  * Theme Information
  * Created by CMSMasters
@@ -14,11 +14,31 @@ Important: after you have updated the theme, in your admin panel please proceed 
 Theme Settings - Fonts and click "Save" in any tab,
 then proceed to 
 Theme Settings - Colors and click "Save" in any tab here.
-
 -----------------------------------------------------------------------
 				FILE LOGS
 -----------------------------------------------------------------------
+Version 1.2.3: files operations:
 
+	Theme Files edited:
+		language-school\css\styles\language-school.css
+		language-school\css\styles\language-school_colors_secondary.css
+		language-school\css\styles\language-school_fonts.css
+		language-school\framework\admin\inc\plugin-activator.php
+		language-school\framework\admin\inc\plugins\revslider.zip
+		language-school\framework\function\template-functions.php
+		language-school\framework\function\theme-colors-secondary.php
+		language-school\framework\function\theme-fonts.php
+		language-school\framework\function\theme-functions.php
+		language-school\framework\languages\language-school.pot
+		language-school\readme.txt
+		language-school\style.css
+		language-school\tribe-events\cmsmasters-events-functions.php
+		language-school\css\cmsmasters-events-v2-style.css
+		language-school\css\less\cmsmasters-events-v2-style.less
+
+	
+	
+--------------------------------------
 Version 1.2.2: files operations:
 
 	Theme Files edited:

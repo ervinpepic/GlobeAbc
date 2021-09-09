@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.2.2
+ * @version 	1.2.3
  * 
  * Theme Functions
  * Created by CMSMasters
@@ -47,12 +47,16 @@ function register_css_styles() {
 		
 		// Events styles
 		if (CMSMASTERS_EVENTS_CALENDAR) {
-			wp_enqueue_style('theme-cmsmasters-events-style', get_template_directory_uri() . '/css/cmsmasters-events-style.css', array(), '1.0.0', 'screen');
-			
-			wp_enqueue_style('theme-cmsmasters-events-adaptive', get_template_directory_uri() . '/css/cmsmasters-events-adaptive.css', array(), '1.0.0', 'screen');
-			
-			if (is_rtl()) {
-				wp_enqueue_style('theme-cmsmasters-events-rtl', get_template_directory_uri() . '/css/cmsmasters-events-rtl.css', array(), '1.0.0', 'screen');
+			if ( tribe_events_views_v2_is_enabled() ) {
+				wp_enqueue_style('theme-cmsmasters-events-v2-style', get_template_directory_uri() . '/css/cmsmasters-events-v2-style.css', array(), '1.0.0', 'screen');
+			} else {
+				wp_enqueue_style('theme-cmsmasters-events-style', get_template_directory_uri() . '/css/cmsmasters-events-style.css', array(), '1.0.0', 'screen');
+				
+				wp_enqueue_style('theme-cmsmasters-events-adaptive', get_template_directory_uri() . '/css/cmsmasters-events-adaptive.css', array(), '1.0.0', 'screen');
+				
+				if (is_rtl()) {
+					wp_enqueue_style('theme-cmsmasters-events-rtl', get_template_directory_uri() . '/css/cmsmasters-events-rtl.css', array(), '1.0.0', 'screen');
+				}
 			}
 		}
 		
@@ -1867,13 +1871,6 @@ function language_school_row_checker($data) {
 }
 
 add_filter('the_content', 'language_school_row_checker', 10, 2);
-
-
-
-// Add Input Date script for Contact Form 7
-if (function_exists('wpcf7')) {
-	add_filter( 'wpcf7_support_html5_fallback', '__return_true' );
-}
 
 
 

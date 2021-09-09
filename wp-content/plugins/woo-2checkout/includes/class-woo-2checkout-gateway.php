@@ -42,6 +42,7 @@ if ( ! class_exists( 'Woo_2Checkout_Gateway' ) ):
 			$this->icon_width           = $this->get_option( 'icon_width', '50' );
 
 			//  Init 2co api
+			$this->load_api();
 
 			$this->admin_notices();
 
@@ -58,9 +59,19 @@ if ( ! class_exists( 'Woo_2Checkout_Gateway' ) ):
 				'process_admin_options'
 			) );
 
-			$this->load_api();
+			if ( ! defined( 'WOO_2CO_CUSTOM_NOTIFICATION_KEY' ) ) {
+				//	define( 'WOO_2CO_CUSTOM_NOTIFICATION', 'NOTIFICATION' );
+			}
+			if ( ! defined( 'WOO_2CO_CUSTOM_NOTIFICATION_SECRETE' ) ) {
+				//	define( 'WOO_2CO_CUSTOM_NOTIFICATION_SECRETE', '4D_TRVhixL8yB#swCH2a' );
+			}
+
 
 			do_action( 'woo_2checkout_gateway_init', $this );
+		}
+
+		public function needs_setup() {
+			return ( empty( $this->merchant_code ) || empty( $this->secret_key ) || empty( $this->buy_link_secret_word ) );
 		}
 
 		public function get_id() {
@@ -173,6 +184,7 @@ if ( ! class_exists( 'Woo_2Checkout_Gateway' ) ):
 				'description' => sprintf( __( 'Log 2Checkout events, <strong>DON\'T ALWAYS ENABLE THIS.</strong> You can check this log in %s.', 'woo-2checkout' ), '<a target="_blank" href="' . esc_url( admin_url( 'admin.php?page=wc-status&tab=logs&log_file=' . esc_attr( $this->get_id() ) . '-' . sanitize_file_name( wp_hash( $this->get_id() ) ) . '.log' ) ) . '">' . esc_html__( 'System Status &gt; Logs', 'woo-2checkout' ) . '</a>' )
 			);
 
+
 			$this->form_fields['icon_style'] = array(
 				'title'   => esc_html__( 'Gateway Icon Style', 'woo-2checkout' ),
 				'type'    => 'select',
@@ -212,7 +224,6 @@ if ( ! class_exists( 'Woo_2Checkout_Gateway' ) ):
 				'default'  => 'standard',
 				'disabled' => true
 			);
-
 
 			$this->form_fields = apply_filters( 'woo_2checkout_admin_form_fields', $this->form_fields );
 		}
@@ -418,10 +429,19 @@ if ( ! class_exists( 'Woo_2Checkout_Gateway' ) ):
 			$order = wc_get_order( $order_id );
 			$args  = $this->payment_args( $order );
 
-			return array(
-				'result'   => 'success',
-				'redirect' => $this->get_checkout_payment_url( $args )
-			);
+			$this->log( "PROCESS PAYMENT ARGS:\n" . print_r( $args, true ) );
+			// echo $this->get_checkout_payment_url( $args ); die;
+
+			if ( $payment_url = $this->get_checkout_payment_url( $args ) ) {
+				return array(
+					'result'   => 'success',
+					'redirect' => $payment_url
+				);
+			} else {
+				return array(
+					'result' => 'failure',
+				);
+			}
 		}
 
 		/** Log
@@ -496,27 +516,34 @@ if ( ! class_exists( 'Woo_2Checkout_Gateway' ) ):
 			return trim( html_entity_decode( wc_trim_string( $item_name ? wp_strip_all_tags( $item_name ) : esc_html__( 'Item', 'woo-2checkout' ), 127 ), ENT_NOQUOTES, 'UTF-8' ) );
 		}
 
+		// https://knowledgecenter.2checkout.com/Documentation/07Commerce/2Checkout-ConvertPlus/ConvertPlus_URL_parameters
 		public function payment_args( $order ) {
 
 
-			$args            = array();
+			$ship_to_different_address = isset( $_POST['ship_to_different_address'] ) ? true : false;
+
+			$ship_to_different_address = ! empty( $ship_to_different_address ) && ! wc_ship_to_billing_address_only();
+
+
+			$args = array();
+
 			$args['dynamic'] = true;
 
-
-			// Billing information
-			$args['email'] = $order->get_billing_email();
-			$args['name']  = $order->get_formatted_billing_full_name();
-
-			if ( $order->get_billing_phone() ) {
-				$args['phone'] = $order->get_billing_phone();
+			if ( $this->demo ) {
+				$args['test'] = true;
 			}
 
-			if ( $order->get_billing_company() ) {
-				$args['company-name'] = $order->get_billing_company();
+			// Billing information
+
+			$args['email'] = sanitize_email( $order->get_billing_email() );
+			$args['name']  = esc_html( $order->get_formatted_billing_full_name() );
+
+			if ( $order->get_billing_phone() ) {
+				$args['phone'] = esc_html( $order->get_billing_phone() );
 			}
 
 			if ( $order->get_billing_country() ) {
-				$args['country'] = $order->get_billing_country();
+				$args['country'] = esc_html( $order->get_billing_country() );
 			}
 
 			if ( $order->get_billing_city() ) {
@@ -529,49 +556,52 @@ if ( ! class_exists( 'Woo_2Checkout_Gateway' ) ):
 				$args['state'] = esc_html( WC()->countries->get_states( $order->get_billing_country() )[ $order->get_billing_state() ] );
 			}
 
-			if ( $order->get_billing_state() ) {
-				$args['state'] = $order->get_billing_state();
-			}
-
 			if ( $order->has_billing_address() ) {
-				$args['address']  = $order->get_billing_address_1();
-				$args['address2'] = $order->get_billing_address_2();
+				$args['address']  = esc_html( $order->get_billing_address_1() );
+				$args['address2'] = esc_html( $order->get_billing_address_2() );
 			}
 
 			if ( $order->get_billing_postcode() ) {
-				$args['zip'] = $order->get_billing_postcode();
+				$args['zip'] = esc_html( $order->get_billing_postcode() );
+			}
+
+			if ( $order->get_billing_company() ) {
+				$args['company-name'] = esc_html( $order->get_billing_company() );
 			}
 
 			// Delivery/Shipping information
 			// $order->needs_shipping_address()  /  WC()->cart->needs_shipping_address()
-			if ( $order->needs_shipping_address() ) {
+			if ( wc_shipping_enabled() && $order->needs_shipping_address() ) {
 
-				$ship_to_different_address = ! empty( $_POST['ship_to_different_address'] ) && ! wc_ship_to_billing_address_only();
+				$args['ship-name']  = $ship_to_different_address ? esc_html( $order->get_formatted_shipping_full_name() ) : esc_html( $order->get_formatted_billing_full_name() );
+				$args['ship-email'] = sanitize_email( $order->get_billing_email() );
 
-				$args['ship-email'] = $order->get_billing_email();
-				$args['ship-phone'] = $order->get_billing_phone();
-				$args['ship-name']  = $ship_to_different_address ? $order->get_formatted_shipping_full_name() : $order->get_formatted_billing_full_name();
-
-				if ( $order->get_shipping_country() || $order->get_billing_country() ) {
-					$args['ship-country'] = $ship_to_different_address ? $order->get_shipping_country() : $order->get_billing_country();
+				if ( $order->get_shipping_phone() || $order->get_billing_phone() ) {
+					$args['ship-phone'] = ( $ship_to_different_address && $order->get_shipping_phone() ) ? esc_html( $order->get_shipping_phone() ) : esc_html( $order->get_billing_phone() );
 				}
 
-				if ( $order->get_shipping_city() ) {
-					$args['ship-city'] = esc_html( $order->get_shipping_city() );
+				if ( $order->get_shipping_country() || $order->get_billing_country() ) {
+					$args['ship-country'] = $ship_to_different_address ? esc_html( $order->get_shipping_country() ) : esc_html( $order->get_billing_country() );
 				}
 
 				if ( $order->get_shipping_state() || $order->get_billing_state() ) {
+					$ship_country       = $ship_to_different_address ? $order->get_shipping_country() : $order->get_billing_country();
 					$ship_state         = $ship_to_different_address ? $order->get_shipping_state() : $order->get_billing_state();
-					$args['ship-state'] = esc_html( WC()->countries->get_states( $order->get_shipping_country() )[ $ship_state ] );
+					$args['ship-state'] = esc_html( WC()->countries->get_states( $ship_country )[ $ship_state ] );
 				}
 
-				if ( $order->has_billing_address() || $order->has_shipping_address() ) {
-					$args['ship-address']  = $ship_to_different_address ? $order->get_shipping_address_1() : $order->get_billing_address_1();
-					$args['ship-address2'] = $ship_to_different_address ? $order->get_shipping_address_2() : $order->get_billing_address_2();
+				if ( $order->get_shipping_city() || $order->get_billing_city() ) {
+					$args['ship-city'] = $ship_to_different_address ? esc_html( $order->get_shipping_city() ) : esc_html( $order->get_billing_city() );
+				}
+
+
+				if ( $order->has_shipping_address() || $order->has_billing_address() ) {
+					$args['ship-address']  = $ship_to_different_address ? esc_html( $order->get_shipping_address_1() ) : esc_html( $order->get_billing_address_1() );
+					$args['ship-address2'] = $ship_to_different_address ? esc_html( $order->get_shipping_address_2() ) : esc_html( $order->get_billing_address_2() );
 				}
 
 				if ( $order->get_shipping_postcode() || $order->get_billing_postcode() ) {
-					$args['ship-zip'] = $ship_to_different_address ? $order->get_shipping_postcode() : $order->get_billing_postcode();
+					$args['ship-zip'] = $ship_to_different_address ? esc_html( $order->get_shipping_postcode() ) : esc_html( $order->get_billing_postcode() );
 				}
 			}
 
@@ -597,15 +627,14 @@ if ( ! class_exists( 'Woo_2Checkout_Gateway' ) ):
 						continue;
 					}
 
-					$product_info['type'][]  = 'PRODUCT';
 					$product_info['prod'][]  = $this->format_item_name( $item->get_name() );
 					$product_info['price'][] = $this->format_item_price( $order->get_item_total( $item ) );
 					$product_info['qty'][]   = $item->get_quantity(); // get_item_total
 
 					if ( $product->is_downloadable() && $product->is_virtual() ) {
-						$product_info['tangible'][] = '0';
+						$product_info['type'][] = 'digital';
 					} else {
-						$product_info['tangible'][] = '1';
+						$product_info['type'][] = 'physical';
 					}
 
 					$product_info['item-ext-ref'][] = $product->get_id();
@@ -617,19 +646,19 @@ if ( ! class_exists( 'Woo_2Checkout_Gateway' ) ):
 
 				if ( get_option( 'woocommerce_tax_total_display' ) == 'itemized' ) {
 					foreach ( $order->get_tax_totals() as $tax ) {
-						$product_info['type'][]         = 'TAX';
+						$product_info['type'][]         = 'tax';
 						$product_info['prod'][]         = esc_html( $tax->label );
 						$product_info['price'][]        = $this->format_item_price( $tax->amount );
 						$product_info['qty'][]          = 1;
-						$product_info['tangible'][]     = '0';
 						$product_info['item-ext-ref'][] = '';
 					}
 				} else {
-					$product_info['type'][]         = 'TAX';
-					$product_info['prod'][]         = esc_html( WC()->countries->tax_or_vat() );
-					$product_info['price'][]        = $this->format_item_price( $order->get_total_tax() );
-					$product_info['qty'][]          = 1;
-					$product_info['tangible'][]     = '0';
+					$product_info['type'][] = 'tax';
+					//$product_info['__type'][]       = 'tax';
+					$product_info['prod'][]  = esc_html( WC()->countries->tax_or_vat() );
+					$product_info['price'][] = $this->format_item_price( $order->get_total_tax() );
+					$product_info['qty'][]   = 1;
+					//$product_info['tangible'][]     = '0';
 					$product_info['item-ext-ref'][] = '';
 				}
 			}
@@ -639,12 +668,10 @@ if ( ! class_exists( 'Woo_2Checkout_Gateway' ) ):
 				foreach ( $order->get_fees() as $item ) {
 
 					//  new WC_Order_Item_Fee()
-
-					$product_info['type'][]         = 'TAX';
+					$product_info['type'][]         = 'tax';
 					$product_info['prod'][]         = $this->format_item_name( $item->get_name() );
 					$product_info['price'][]        = $this->format_item_price( $item->get_total() );
 					$product_info['qty'][]          = 1;
-					$product_info['tangible'][]     = '0';
 					$product_info['item-ext-ref'][] = '';
 				}
 			}
@@ -654,11 +681,10 @@ if ( ! class_exists( 'Woo_2Checkout_Gateway' ) ):
 
 				$shipping_name = $this->format_item_name( sprintf( esc_html__( 'Shipping via %s', 'woo-2checkout' ), $order->get_shipping_method() ) );
 
-				$product_info['type'][]         = 'SHIPPING';
+				$product_info['type'][]         = 'shipping';
 				$product_info['prod'][]         = $shipping_name;
 				$product_info['price'][]        = $this->format_item_price( $order->get_shipping_total() );
 				$product_info['qty'][]          = 1;
-				$product_info['tangible'][]     = '0';
 				$product_info['item-ext-ref'][] = '';
 			}
 
@@ -668,19 +694,15 @@ if ( ! class_exists( 'Woo_2Checkout_Gateway' ) ):
 			$args['language']         = $this->shop_language();
 			$args['customer-ext-ref'] = $order->get_customer_id();
 			$args['order-ext-ref']    = $order->get_id();
-			$args['tpl']              = 'default'; // one-column
+			$args['tpl']              = 'default'; // default, one-column
 
-			if ( $this->demo ) {
-				$args['test'] = true;
-			}
-
-			$args['prod'] = implode( ';', $product_info['prod'] );
-			// $args[ 'opt' ]          = implode( ';', $product_info[ 'opt' ] );
+			$args['prod']         = implode( ';', $product_info['prod'] );
 			$args['price']        = implode( ';', $product_info['price'] );
 			$args['qty']          = implode( ';', $product_info['qty'] );
-			$args['tangible']     = implode( ';', $product_info['tangible'] );
 			$args['type']         = implode( ';', $product_info['type'] );
 			$args['item-ext-ref'] = implode( ';', $product_info['item-ext-ref'] );
+
+			$this->log( "REQUEST PARAMS \n" . print_r( $args, true ), 'info' );
 
 			return apply_filters( 'woo_2checkout_payment_args', $args, $product_info, $order, $this );
 		}
@@ -699,52 +721,33 @@ if ( ! class_exists( 'Woo_2Checkout_Gateway' ) ):
 
 		public function process_gateway_return() {
 
-			$data = $this->sanitize_text_field_deep( $_GET );
+			$data = stripslashes_deep( $_GET ); // WPCS: CSRF ok, input var ok.
+
+			do_action( 'woo_2checkout_gateway_process_gateway_return', $data, $this );
+
+			status_header( 200 );
+			nocache_headers();
 
 			if ( isset( $data['refno'] ) && ! empty( $data['refno'] ) ) {
 
 				$order_id       = absint( sanitize_text_field( $data['order-ext-ref'] ) );
 				$order          = wc_get_order( $order_id );
 				$transaction_id = sanitize_text_field( $data['refno'] );
-				$this->log( "Gateway Return Response \n" . print_r( $data, true ), 'info' );
+				$this->log( "Gateway Return Response \n" . print_r( $data, true ) );
+
 				if ( ! $order ) {
-					wp_die( sprintf( 'Order# %d is not available.', $order_id ), '2Checkout Request', array( 'response' => 404 ) );
+					wp_die( sprintf( 'Order# %d is not available.', $order_id ), '2Checkout Request', array( 'response' => 200 ) );
 				}
 
-				$this->log( "Gateway Signatures \n" . print_r( array(
-						'generated' => $this->get_api()->generate_return_signature( $data, $this->buy_link_secret_word ),
-						'returned'  => $data['signature'],
+				$this->log( "Gateway Return Signature: \n" . print_r( array(
+						'wc generated' => $this->get_api()->generate_return_signature( $data, $this->buy_link_secret_word ),
+						'2co returned' => $data['signature'],
 					), true ) );
 
 				if ( ! $this->get_api()->is_valid_return_signature( $data, $this->buy_link_secret_word ) ) {
 					$order->update_status( 'failed', 'Order failed due to 2checkout signature mismatch.' );
-					wc_add_notice( "Order failed due to 2checkout signature mismatch.", 'error' );
+					wc_add_notice( "Order failed due to 2Checkout return signature mismatch.", 'error' );
 					do_action( 'woo_2checkout_payment_signature mismatch', $data, $this );
-					// wp_redirect( $order->get_cancel_order_url_raw() );
-					wp_redirect( wc_get_checkout_url() );
-					exit;
-				}
-
-
-				$real_price = number_format( (float) $order->get_total(), 2, '.', '' );
-				$paid_price = number_format( (float) $data['total'], 2, '.', '' );
-
-				// If it is demo Purchase.
-				if ( $this->demo || ( isset( $data['test'] ) && $data['test'] ) ) {
-					$order->update_status( 'on-hold', 'Payment received and it was demo purchase.' );
-					$order->add_order_note( 'Payment received and it was demo purchase.', true );
-					update_post_meta( $order->get_id(), '_transaction_id', $transaction_id );
-					WC()->cart->empty_cart();
-					do_action( 'woo_2checkout_payment_demo_success', $order, $this );
-					wp_redirect( $this->get_return_url( $order ) );
-					exit;
-				}
-
-				// If User Change Price using developer tools
-				if ( $real_price !== $paid_price ) {
-					$order->update_status( 'failed', 'Order failed for fraud pricing changes. Real Price was: ' . $real_price . '. Paid Price was: ' . $paid_price );
-					wc_add_notice( "Order failed due to fraud pricing changes.", 'error' );
-					do_action( 'woo_2checkout_payment_price_fraud', $data, $this );
 					// wp_redirect( $order->get_cancel_order_url_raw() );
 					wp_redirect( wc_get_checkout_url() );
 					exit;
@@ -752,7 +755,6 @@ if ( ! class_exists( 'Woo_2Checkout_Gateway' ) ):
 
 				// Order
 				$order->update_status( 'on-hold', 'Payment received and waiting for 2Checkout IPN response.' );
-				$order->add_order_note( 'Payment received and waiting for 2Checkout validate.', true );
 				update_post_meta( $order->get_id(), '_transaction_id', $transaction_id );
 				WC()->cart->empty_cart();
 				do_action( 'woo_2checkout_payment_processing', $order, $data, $this );
@@ -760,36 +762,43 @@ if ( ! class_exists( 'Woo_2Checkout_Gateway' ) ):
 				exit;
 
 			} else {
-				wp_die( '2Checkout Gateway Return Failure', '2Checkout Request', array( 'response' => 200 ) );
+				wp_die( '2Checkout Gateway Return no refno', '2Checkout Response', array( 'response' => 200 ) );
 			}
 		}
 
 		public function is_valid_ins_response() {
-			$data = $this->sanitize_text_field_deep( $_POST );
+			$data = stripslashes_deep( $_POST ); // WPCS: CSRF ok, input var ok.
 		}
 
 		public function process_ins_response() {
-			$data = $this->sanitize_text_field_deep( $_POST );
+			$data = stripslashes_deep( $_POST ); // WPCS: CSRF ok, input var ok.
 			$this->log( "INS Response: \n" . print_r( $data, true ), 'info' );
 			do_action( 'woo_2checkout_gateway_process_ins_response', $data, $this );
 		}
 
-		public function sanitize_text_field_deep( $value ) {
-			return map_deep( wp_unslash( $value ), 'sanitize_text_field' );
-		}
-
 		public function process_ipn_response() {
 
-			$data = $this->sanitize_text_field_deep( $_POST );
+			if ( ! $_POST ) {
+				return;
+			}
+
+			// Don't alter any value otherwise 2checkout hash won't be matched
+			$data = stripslashes_deep( $_POST ); // WPCS: CSRF ok, input var ok.
 
 			do_action( 'woo_2checkout_gateway_process_ipn_response', $data, $this );
 
-			$transaction_id = sanitize_text_field( $data['REFNO'] );
-			$ipn_receipt    = $this->get_api()->ipn_receipt_response( $data );
+			status_header( 200 );
+			nocache_headers();
+
+			$transaction_id       = sanitize_text_field( $data['REFNO'] );
+			$base_string_for_hash = $this->get_api()->generate_base_string_for_hash( $data );
+			$ipn_receipt          = $this->get_api()->ipn_receipt_response( $data );
+
+			$this->log( "IPN Base String For Hash: \n" . print_r( $base_string_for_hash, true ) );
+			$this->log( "IPN Response: \n" . print_r( $data, true ), 'info' );
+			$this->log( "IPN receipt_response: \n" . print_r( $ipn_receipt, true ), 'info' );
 
 			if ( $ipn_receipt ) {
-
-				$this->log( "IPN Response: \n" . print_r( $data, true ), 'info' );
 
 				$order_id = absint( sanitize_text_field( $data['REFNOEXT'] ) );
 
@@ -797,6 +806,7 @@ if ( ! class_exists( 'Woo_2Checkout_Gateway' ) ):
 
 				if ( ! $order ) {
 					echo $ipn_receipt;
+					do_action( 'woo_2checkout_gateway_process_ipn_response_invalid_order', $data, $this );
 					$this->log( sprintf( 'Order# %d is not available.', $order_id ), 'error' );
 					exit;
 				}
@@ -822,15 +832,14 @@ if ( ! class_exists( 'Woo_2Checkout_Gateway' ) ):
 						// Completed Order
 						case 'COMPLETE':
 							if ( ! in_array( $order_status, array( 'processing', 'completed' ) ) ) {
-								$this->log( "IPN Response: ORDERSTATUS = COMPLETE \n" . print_r( $data, true ), 'info' );
 								$order->payment_complete( $transaction_id );
+								update_user_meta( $order->get_customer_id(), 'woo_2checkout_previous_order', $transaction_id );
 								do_action( 'woo_2checkout_ipn_response_order_complete', $data['ORDERSTATUS'], $order, $data, $this );
 							}
 							break;
 
 						// Cancel Order
 						case 'CANCELED':
-							$this->log( "IPN Response: ORDERSTATUS = CANCELED \n" . print_r( $data, true ), 'info' );
 							$order->update_status( 'cancelled', 'Order CANCELED by 2Checkout IPN' );
 							do_action( 'woocommerce_cancelled_order', $order->get_id() );
 							do_action( 'woo_2checkout_ipn_response_order_canceled', $data['ORDERSTATUS'], $order, $data, $this );
@@ -839,7 +848,6 @@ if ( ! class_exists( 'Woo_2Checkout_Gateway' ) ):
 						//  Refund Order
 						case 'REFUND':
 							if ( $order_status !== 'refunded' ) {
-								$this->log( "IPN Response: ORDERSTATUS = REFUND \n" . print_r( $data, true ), 'info' );
 								$order->update_status( 'refunded', 'Order REFUND by 2Checkout IPN' );
 								do_action( 'woo_2checkout_ipn_response_order_refund', $data['ORDERSTATUS'], $order, $data, $this );
 							}
@@ -855,6 +863,8 @@ if ( ! class_exists( 'Woo_2Checkout_Gateway' ) ):
 				exit();
 			} else {
 				$this->log( 'No IPN Receipt Response Code Generated.', 'error' );
+				echo 'No IPN Receipt Generated.';
+				exit();
 			}
 		}
 

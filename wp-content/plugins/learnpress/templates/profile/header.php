@@ -225,7 +225,7 @@ foreach ($roles as $role) {
                                     Booking
                                 </span>
                             </a>
-                            <?php } else if ($role == 'student') {?>
+                            <?php } else if ($role == 'student' || $role == 'customer') {?>
                             <a class="cmsmasters_button" href="https://globeabc.com/student-booking-system/"> <i class="far fa-calendar-alt"></i>
                                 <span>
                                     Booking
@@ -315,15 +315,15 @@ foreach ($roles as $role) {
 		?>
 
                                     </p>
-                                <?php } else if ($role == 'student') {
+                                <?php } else if ($role == 'student' || $role == 'customer') {
 		?>
                                     <p><strong>
-                                        Classes Atendeed
+                                        Classes Attended
                                     </strong></p>
                                     <p>
                                         <?php if ($user_bio_description['session_attended'][0]) {
 			echo $user_bio_description['session_attended'][0];} else {
-			echo "No classes anteed yet";
+			echo "No classes attended yet";
 		}
 		?>
                                     </p>
@@ -338,7 +338,7 @@ foreach ($roles as $role) {
                                     <p><strong>
                                         Certificates
                                     </strong></p>
-                                <?php } else if ($role == 'student') {?>
+                                <?php } else if ($role == 'student' || $role == 'customer') {?>
                                     <p><strong>
                                         Awards
                                     </strong></p>
@@ -350,7 +350,7 @@ foreach ($roles as $role) {
                             <div class="cmsmasters_img cmsmasters_image_c">
                                 <?php if ($role == 'lp_teacher') {
 		if ($user_bio_description['teacher_certificate'][0]) {?><img src="<?php echo $certificate_image[0] ?>">
-                                <?php }} else if ($role == 'student') {
+                                <?php }} else if ($role == 'student' || $role == 'customer') {
 		if ($user_bio_description['awards'][0]) {?>
                             <img src="<?php echo $award_image[0] ?>">
                         <?php }}?>

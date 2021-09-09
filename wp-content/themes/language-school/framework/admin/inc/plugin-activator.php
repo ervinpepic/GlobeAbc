@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.2.2
+ * @version 	1.2.3
  * 
  * TGM-Plugin-Activation 2.6.1
  * Created by CMSMasters
@@ -58,7 +58,7 @@ function language_school_register_theme_plugins() {
 			'slug' 					=> 'revslider', 
 			'source'				=> get_template_directory() . '/framework/admin/inc/plugins/revslider.zip', 
 			'required'				=> false, 
-			'version'				=> '6.4.11', 
+			'version'				=> '6.5.6', 
 			'force_activation'		=> false, 
 			'force_deactivation' 	=> false 
 		), 

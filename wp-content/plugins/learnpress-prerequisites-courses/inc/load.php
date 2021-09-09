@@ -64,7 +64,7 @@ if ( ! class_exists( 'LP_Addon_Prerequisites_Courses' ) ) {
 		protected function _init_hooks() {
 
 			// filter condition enroll, purchase course
-			add_filter( 'learn-press/can-enroll-course', array( $this, 'can_enroll' ), 99, 3 );
+			add_filter( 'learn-press/user/can-enroll-course', array( $this, 'can_enroll' ), 99, 3 );
 			add_filter(
 				'learn-press/user/can-purchase-course',
 				array(
@@ -145,8 +145,9 @@ if ( ! class_exists( 'LP_Addon_Prerequisites_Courses' ) ) {
 			}
 
 			$_options = array();
+			$options  = $wpdb->get_results( $query );
 
-			if ( $options = $wpdb->get_results( $query ) ) {
+			if ( $options ) {
 				foreach ( $options as $option ) {
 					// option for select courses
 					$_options[ $option->ID ] = $option->post_title;
@@ -219,11 +220,11 @@ if ( ! class_exists( 'LP_Addon_Prerequisites_Courses' ) ) {
 		 * @return bool
 		 * @since 3.0.0
 		 */
-		public function can_enroll( $can_enroll, $course_id, $user ) {
+		public function can_enroll( $can_enroll, $course, $user ) {
 			if ( ! $can_enroll ) {
 				return false;
 			}
-
+			$course_id = $course->get_id();
 			// get prerequisites of course
 			$prerequisites = $this->get_prerequisite_courses( $course_id );
 

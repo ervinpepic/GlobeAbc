@@ -22,171 +22,171 @@ msgstr ""
 msgid "2Checkout accept mobile and online payments from customers worldwide."
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:33, ../includes/class-woo-2checkout-gateway.php:110
+#: ../includes/class-woo-2checkout-gateway.php:33, ../includes/class-woo-2checkout-gateway.php:121
 msgid "2Checkout"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:34, ../includes/class-woo-2checkout-gateway.php:118
+#: ../includes/class-woo-2checkout-gateway.php:34, ../includes/class-woo-2checkout-gateway.php:129
 msgid "Pay via 2Checkout. Accept Credit Cards, PayPal and Debit Cards"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:35, ../includes/class-woo-2checkout-gateway.php:125
+#: ../includes/class-woo-2checkout-gateway.php:35, ../includes/class-woo-2checkout-gateway.php:136
 msgid "Proceed to 2Checkout"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:100
+#: ../includes/class-woo-2checkout-gateway.php:111
 msgid "Enable/Disable"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:102
+#: ../includes/class-woo-2checkout-gateway.php:113
 msgid "Enable 2Checkout Payment Gateway"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:107
+#: ../includes/class-woo-2checkout-gateway.php:118
 msgid "Title"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:109
+#: ../includes/class-woo-2checkout-gateway.php:120
 msgid "This controls the title which the user sees during checkout."
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:115
+#: ../includes/class-woo-2checkout-gateway.php:126
 msgid "Description"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:117
+#: ../includes/class-woo-2checkout-gateway.php:128
 msgid "This controls the description which the user sees during checkout."
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:122
+#: ../includes/class-woo-2checkout-gateway.php:133
 msgid "Order button text"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:124
+#: ../includes/class-woo-2checkout-gateway.php:135
 msgid "Checkout order button text."
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:130
+#: ../includes/class-woo-2checkout-gateway.php:141
 msgid "Read How to Setup"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:137
+#: ../includes/class-woo-2checkout-gateway.php:148
 msgid "Merchant Code"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:141
+#: ../includes/class-woo-2checkout-gateway.php:152
 msgid "Please enter 2Checkout <strong>Merchant Code</strong> from <a target=\"_blank\" href=\"%s\">Integrations > Webhooks &amp; API > API Section</a>."
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:145
+#: ../includes/class-woo-2checkout-gateway.php:156
 msgid "Secret Key"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:147
+#: ../includes/class-woo-2checkout-gateway.php:158
 msgid "Please enter 2Checkout <strong>Secret Key</strong> from <a target=\"_blank\" href=\"%s\">Integrations > Webhooks &amp; API > API Section</a>"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:153
+#: ../includes/class-woo-2checkout-gateway.php:164
 msgid "Buy Link Secret Word"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:155
+#: ../includes/class-woo-2checkout-gateway.php:166
 msgid "Please enter 2Checkout <strong>Buy link secret word</strong> from <a target=\"_blank\" href=\"%s\">Integrations > Webhooks &amp; API > Secret word</a> section"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:161
+#: ../includes/class-woo-2checkout-gateway.php:172
 msgid "Demo Mode"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:163
+#: ../includes/class-woo-2checkout-gateway.php:174
 msgid "Enable Demo Mode"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:165
+#: ../includes/class-woo-2checkout-gateway.php:176
 msgid "This mode allows you to test your setup to make sure everything works as expected without take real payment."
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:169
+#: ../includes/class-woo-2checkout-gateway.php:180
 msgid "Debug Log"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:171
+#: ../includes/class-woo-2checkout-gateway.php:182
 msgid "Enable Logging"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:173
+#: ../includes/class-woo-2checkout-gateway.php:184
 msgid "Log 2Checkout events, <strong>DON'T ALWAYS ENABLE THIS.</strong> You can check this log in %s."
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:173
+#: ../includes/class-woo-2checkout-gateway.php:184
 msgid "System Status &gt; Logs"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:177
+#: ../includes/class-woo-2checkout-gateway.php:189
 msgid "Gateway Icon Style"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:180
+#: ../includes/class-woo-2checkout-gateway.php:192
 msgid "Choose Gateway a Icon Style"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:182
+#: ../includes/class-woo-2checkout-gateway.php:194
 msgid "Dark"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:183
+#: ../includes/class-woo-2checkout-gateway.php:195
 msgid "Light"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:189
+#: ../includes/class-woo-2checkout-gateway.php:201
 msgid "Gateway Icon Width"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:191
+#: ../includes/class-woo-2checkout-gateway.php:203
 msgid "Gateway Icon Width in %. Limit: 1-100"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:207
+#: ../includes/class-woo-2checkout-gateway.php:219
 msgid "Standard Checkout ( Process on 2Checkout site )"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:208
+#: ../includes/class-woo-2checkout-gateway.php:220
 msgid "Popup After Checkout - Inline Checkout - PRO FEATURE"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:209
+#: ../includes/class-woo-2checkout-gateway.php:221
 msgid "Popup During Checkout - Inline Checkout - PRO FEATURE"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:210
+#: ../includes/class-woo-2checkout-gateway.php:222
 msgid "On Page Credit Card Only - PRO FEATURE"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:262
+#: ../includes/class-woo-2checkout-gateway.php:273
 msgid "<strong>Webhook endpoint: </strong> <code style=\"background-color:#ddd;\">%s</code> to your <a href=\"https://secure.2checkout.com/cpanel/ipn_settings.php\" target=\"_blank\">2Checkout IPN settings</a>"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:496
+#: ../includes/class-woo-2checkout-gateway.php:516
 msgid "Item"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:655
+#: ../includes/class-woo-2checkout-gateway.php:682
 msgid "Shipping via %s"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:874, ../includes/class-woo-2checkout-gateway.php:878
+#: ../includes/class-woo-2checkout-gateway.php:884, ../includes/class-woo-2checkout-gateway.php:888
 msgid "Payment Gateway - 2Checkout for WooCommerce disabled"
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:874
+#: ../includes/class-woo-2checkout-gateway.php:884
 msgid "You must fill the \"Merchant Code\" and the \"Secret Key\" and \"Buy Link Secret Word\" fields."
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:878
+#: ../includes/class-woo-2checkout-gateway.php:888
 msgid "2Checkout does not support your store currency."
 msgstr ""
 
-#: ../includes/class-woo-2checkout-gateway.php:886
+#: ../includes/class-woo-2checkout-gateway.php:896
 msgid "<strong>DEMO MODE ENABLED.</strong> Use a %s"
 msgstr ""
 

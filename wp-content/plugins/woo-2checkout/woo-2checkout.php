@@ -2,15 +2,15 @@
 /**
  * Plugin Name: Payment Gateway - 2Checkout for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/woo-2checkout/
- * Description: 2Checkout Payment Gateway for WooCommerce. Requires WooCommerce 4.5+
+ * Description: 2Checkout Payment Gateway for WooCommerce. Requires WooCommerce 5.5+
  * Author: Emran Ahmed
- * Version: 2.0.6
+ * Version: 2.0.7
  * Domain Path: /languages
- * Requires PHP: 5.6
- * Requires at least: 5.0
- * Tested up to: 5.7
- * WC requires at least: 4.5
- * WC tested up to: 5.1
+ * Requires PHP: 7.0
+ * Requires at least: 5.5
+ * Tested up to: 5.8
+ * WC requires at least: 5.2
+ * WC tested up to: 5.6
  * Text Domain: woo-2checkout
  * Author URI: https://getwooplugins.com/
  */
@@ -21,7 +21,7 @@ if ( ! class_exists( 'Woo_2Checkout' ) ):
 
 	final class Woo_2Checkout {
 
-		protected $_version = '2.0.6';
+		protected $_version = '2.0.7';
 		protected static $_instance = null;
 
 		public static function instance() {

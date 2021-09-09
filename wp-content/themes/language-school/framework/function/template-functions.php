@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version		1.2.2
+ * @version		1.2.3
  * 
  * Template Functions
  * Created by CMSMasters
@@ -80,6 +80,13 @@ function language_school_get_page_classes($cmsmasters_option, $classes = false) 
 		echo 'cmsmasters_heading_under_header ';
 	} else {
 		echo 'cmsmasters_heading_after_header ';
+	}
+	
+	if (
+		CMSMASTERS_EVENTS_CALENDAR &&
+		true === tribe_events_views_v2_is_enabled()
+	) {
+		echo 'cmsmasters_tribe_events_views_v2 cmsmasters_tribe_events_style_mode_' . tribe_get_option( 'stylesheet_mode' ) . ' ';
 	}
 	
 	
@@ -673,8 +680,11 @@ function language_school_page_heading() {
 	
 	if (
 		CMSMASTERS_EVENTS_CALENDAR && 
-		tribe_is_event_query() && 
-		is_archive() 
+		tribe_is_event_query() &&
+		(
+			true === tribe_events_views_v2_is_enabled() ||
+			( false === tribe_events_views_v2_is_enabled() && is_archive() )
+		)
 	) {
 		$cmsmasters_heading = 'disabled';
 	}
@@ -851,7 +861,11 @@ function language_school_theme_page_heading_styles() {
 	
 	
 	if (
-		$cmsmasters_heading != '' && is_singular()
+		$cmsmasters_heading != '' && 
+		(
+			( is_singular() && ! CMSMASTERS_EVENTS_CALENDAR ) ||
+			( is_singular() && CMSMASTERS_EVENTS_CALENDAR && ! tribe_is_event_query() )
+		)
 	) {
 		$cmsmasters_heading_block_disabled = get_post_meta($cmsmasters_page_id, 'cmsmasters_heading_block_disabled', true);
 		$cmsmasters_header_overlaps = get_post_meta($cmsmasters_page_id, 'cmsmasters_header_overlaps', true);

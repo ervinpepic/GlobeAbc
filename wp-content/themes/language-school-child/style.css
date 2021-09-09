@@ -133,3 +133,9 @@ Tags: one-column, two-columns, three-columns, four-columns, left-sidebar, right-
 .lp-ajax-message.error {
     display: none !Important;
 }
+.cmsmasters_course_footer {
+    display: none;
+}
+.review-stars-rated {
+    display: none;
+}

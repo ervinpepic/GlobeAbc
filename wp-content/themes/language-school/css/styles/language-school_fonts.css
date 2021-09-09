@@ -1,7 +1,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.2.2
+ * @version 	1.2.3
  * 
  * Theme Fonts Rules
  * Created by CMSMasters
@@ -550,20 +550,43 @@
 
 
 
-/***************** Start Events Font Styles ******************/
-
-	/* Start Content Font */
-	.tribe-this-week-widget-header-date,
-	ul.tribe-related-events > li .tribe-related-event-info,
-	.tribe-events-tooltip .tribe-events-event-body .description {
-		font-size:12px;
+/***************** Start Tribe Events Font Styles ******************/
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-calendar-list__event-description,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-calendar-list__event-description p,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-calendar-day__event-description,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-calendar-day__event-description p,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-calendar-month__multiday-event-bar-title,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-calendar-month__multiday-event-bar-title p,
+	.tribe-events-calendar-month__calendar-event-tooltip .tribe-events-calendar-month__calendar-event-tooltip-description,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-pro-week-grid__multiday-event-bar-title,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-single .tribe_events,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-single .tribe-events-single-event-description,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-single .tribe-events-single-event-description p {
+		font-family:'Open Sans', Arial, Helvetica, 'Nimbus Sans L', sans-serif;
+		font-size:13px;
+		line-height:20px;
+		font-weight:normal;
+		font-style:normal;
 	}
-	/* Finish Content Font */
-	
-	
-	/* Start H1 Font */
-	.tribe-events-countdown-widget .tribe-countdown-time .tribe-countdown-timer .tribe-countdown-colon,
-	.tribe-events-countdown-widget .tribe-countdown-time .tribe-countdown-timer .tribe-countdown-number {
+
+	.cmsmasters_tribe_events_views_v2 .tribe-events-single *,
+	.cmsmasters_tribe_events_views_v2 .tribe-events *,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-pro *,
+	.tribe-events-calendar-month__calendar-event-tooltip * {
+		font-family:'Open Sans', Arial, Helvetica, 'Nimbus Sans L', sans-serif !important;
+	}
+
+	.tribe-events-calendar-month__calendar-event-tooltip .tribe-events-calendar-month__calendar-event-tooltip-description {
+		font-size:11px;
+		line-height:18px;
+	}
+
+	.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-calendar-month__multiday-event-wrapper,
+	.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-pro-week-grid__multiday-event-wrapper {
+		height:20px;
+	}
+
+	.cmsmasters_tribe_events_views_v2 .tribe-events-single .tribe-events-single-event-title {
 		font-family:'Poppins', Arial, Helvetica, 'Nimbus Sans L', sans-serif;
 		font-size:28px;
 		line-height:36px;
@@ -572,45 +595,140 @@
 		text-transform:none;
 		text-decoration:none;
 	}
-	
-	.tribe-events-countdown-widget .tribe-countdown-time .tribe-countdown-timer .tribe-countdown-colon,
-	.tribe-events-countdown-widget .tribe-countdown-time .tribe-countdown-timer .tribe-countdown-number {
-		font-size:36px;
-	}
-	/* Finish H1 Font */
-	
-	/* Start H4 Font */
-	.widget.tribe-events-countdown-widget .tribe-countdown-text,
-	.widget.tribe-events-countdown-widget .tribe-countdown-text a,
-	#tribe-events-content.tribe-events-list .type-tribe_events .cmsmasters_events_list_event_wrap .cmsmasters_events_list_event_header .tribe-events-event-cost,
-	#tribe-events-content.tribe-events-list .tribe-events-list-separator-month {
+
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-calendar-list__event-title,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-calendar-list__event-title a,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-calendar-day__event-title,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-calendar-day__event-title a,
+	.tribe-events-calendar-month__calendar-event-tooltip .tribe-events-calendar-month__calendar-event-tooltip-title,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-single ul.tribe-related-events li .tribe-related-events-title {
 		font-family:'Poppins', Arial, Helvetica, 'Nimbus Sans L', sans-serif;
-		font-size:16px;
-		line-height:24px;
+		font-size:24px;
+		line-height:32px;
 		font-weight:300;
 		font-style:normal;
 		text-transform:none;
 		text-decoration:none;
 	}
-	/* Finish H4 Font */
+
+	.tribe-events-calendar-month__calendar-event-tooltip .tribe-events-calendar-month__calendar-event-tooltip-title {
+		font-size:22px;
+		line-height:30px;
+	}
+
 	
+	@media only screen and (max-width: 540px) {
+		.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-calendar-list__event-title,
+		.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-calendar-list__event-title a,
+		.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-calendar-day__event-title,
+		.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-calendar-day__event-title a,
+		.tribe-events-calendar-month__calendar-event-tooltip .tribe-events-calendar-month__calendar-event-tooltip-title,
+		.cmsmasters_tribe_events_views_v2 .tribe-events-single ul.tribe-related-events li .tribe-related-events-title {
+			font-family:'Poppins', Arial, Helvetica, 'Nimbus Sans L', sans-serif;
+			font-size:20px;
+			line-height:28px;
+			font-weight:300;
+			font-style:normal;
+			text-transform:none;
+			text-decoration:none;
+		}
 	
-	/* Start H6 Font */h6,
-	.widget.tribe-this-week-events-widget .tribe-events-page-title,
-	.tribe-events-venue-widget .tribe-venue-widget-wrapper .tribe-venue-widget-venue .tribe-venue-widget-venue-name a,
-	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar .tribe-mini-calendar-nav div > span,
-	.tribe-events-related-events-title,
-	#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-grid-header .tribe-grid-content-wrap .column > span,
-	#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-grid-header .tribe-grid-content-wrap .column a,
-	#tribe-events-content.tribe-events-list .type-tribe_events .cmsmasters_events_list_event_wrap .tribe-events-list-event-description .tribe-events-read-more, 
-	#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-week-event > div:first-child > .entry-title,
-	#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-week-event > div:first-child > .entry-title a,
-	.cmsmasters_event_date .cmsmasters_event_month,
-	.tribe-events-tooltip .entry-title,
-	#tribe-events-content.tribe-events-month table.tribe-events-calendar tbody td div[id*="tribe-events-event-"] .tribe-events-month-event-title,
-	#tribe-events-content.tribe-events-month table.tribe-events-calendar tbody td div[id*="tribe-events-event-"] .tribe-events-month-event-title a,
-	#tribe-events-content.tribe-events-month table.tribe-events-calendar thead th, 
-	#tribe-events-bar #tribe-bar-views .tribe-bar-views-inner ul.tribe-bar-views-list li.tribe-bar-views-option a {
+		.tribe-events-calendar-month__calendar-event-tooltip .tribe-events-calendar-month__calendar-event-tooltip-title {
+			font-size:18px;
+			line-height:26px;
+		}
+	}
+
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-pro-summary__event-title,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-pro-summary__event-title a,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-pro-photo__event-title,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-pro-photo__event-title a,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-pro-week-mobile-events__event-title,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-pro-week-mobile-events__event-title a,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-pro-week-mobile-events__event-title,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-pro-week-mobile-events__event-title a,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-month .tribe-events-calendar-month-mobile-events__mobile-event-title,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-month .tribe-events-calendar-month-mobile-events__mobile-event-title a,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-shortcode-month .tribe-events-calendar-month-mobile-events__mobile-event-title,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-shortcode-month .tribe-events-calendar-month-mobile-events__mobile-event-title a,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__event-title,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__event-title a,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-title,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-title a {
+		font-family:'Poppins', Arial, Helvetica, 'Nimbus Sans L', sans-serif;
+		font-size:20px;
+		line-height:28px;
+		font-weight:300;
+		font-style:normal;
+		text-transform:none;
+		text-decoration:none;
+	}
+
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-pro-map__event-title,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-pro-map__event-title a,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-pro-week-mobile-events__event-title,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-pro-week-mobile-events__event-title a,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-pro-week-mobile-events__event-title,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-pro-week-mobile-events__event-title a,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-month .tribe-events-calendar-month-mobile-events__mobile-event-title,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-month .tribe-events-calendar-month-mobile-events__mobile-event-title a,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-shortcode-month .tribe-events-calendar-month-mobile-events__mobile-event-title,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-shortcode-month .tribe-events-calendar-month-mobile-events__mobile-event-title a,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__event-title,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__event-title a,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-title,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-title a {
+		font-size:18px;
+		line-height:26px;
+	}
+
+	.cmsmasters_tribe_events_views_v2 .cmsmasters_sidebar .widgettitle,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-countdown .tribe-events-widget-countdown__header-title,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__header-title,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__header-title {
+		font-family:'Poppins', Arial, Helvetica, 'Nimbus Sans L', sans-serif;
+		font-size:20px;
+		line-height:28px;
+		font-weight:300;
+		font-style:normal;
+		text-transform:none;
+		text-decoration:none;
+	}
+
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-calendar-list__event-datetime-wrapper,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-calendar-list__event-venue,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-calendar-list__event-cost,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-calendar-day__event-datetime-wrapper,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-calendar-day__event-venue,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-calendar-day__event-cost,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-pro-photo__event-datetime,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-pro-photo__event-venue,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-pro-photo__event-cost,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-pro-summary__event-datetime-wrapper,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-pro-summary__event-venue,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-pro-summary__event-cost,
+	.tribe-events-calendar-month__calendar-event-tooltip .tribe-events-calendar-month__calendar-event-tooltip-datetime,
+	.tribe-events-calendar-month__calendar-event-tooltip .tribe-events-calendar-month__calendar-event-tooltip-cost,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-single .tribe-events-schedule,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-single .tribe-events-schedule *,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-header,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-pro-week-mobile-events__event-datetime-wrapper,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-pro-week-mobile-events__event-venue,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-pro-week-mobile-events__event-cost,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-header,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-pro-week-mobile-events__event-datetime-wrapper,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-pro-week-mobile-events__event-venue,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-pro-week-mobile-events__event-cost,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-month .tribe-events-calendar-month-mobile-events__mobile-event-datetime,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-shortcode-month .tribe-events-calendar-month-mobile-events__mobile-event-datetime,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-countdown .tribe-events-widget-countdown__event-title,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-countdown .tribe-events-widget-countdown__event-title a,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__venue-name,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__venue-name a,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__event-datetime-wrapper,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-datetime-wrapper,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-venue a,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-organizer-title-wrapper a {
 		font-family:'Poppins', Arial, Helvetica, 'Nimbus Sans L', sans-serif;
 		font-size:12px;
 		line-height:20px;
@@ -619,26 +737,29 @@
 		text-transform:uppercase;
 		text-decoration:none;
 	}
-	
-	#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-week-event > div:first-child > .entry-title,
-	#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-week-event > div:first-child > .entry-title a,
-	.tribe-events-tooltip .entry-title,
-	#tribe-events-content.tribe-events-month table.tribe-events-calendar tbody td div[id*="tribe-events-event-"] .tribe-events-month-event-title,
-	#tribe-events-content.tribe-events-month table.tribe-events-calendar tbody td div[id*="tribe-events-event-"] .tribe-events-month-event-title a {
-		font-size:11px;
+
+	.tribe-events-calendar-month__calendar-event-tooltip .tribe-events-calendar-month__calendar-event-tooltip-datetime,
+	.tribe-events-calendar-month__calendar-event-tooltip .tribe-events-calendar-month__calendar-event-tooltip-cost,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-pro-map__event-datetime-wrapper,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-pro-map__event-venue,
+	.cmsmasters_tribe_events_views_v2 .tribe-common .tribe-events-pro-map__event-cost,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-pro-week-mobile-events__event-datetime-wrapper,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-pro-week-mobile-events__event-venue,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-pro-week-mobile-events__event-cost,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-pro-week-mobile-events__event-datetime-wrapper,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-pro-week-mobile-events__event-venue,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-pro-week-mobile-events__event-cost,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-month .tribe-events-calendar-month-mobile-events__mobile-event-datetime,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-shortcode-month .tribe-events-calendar-month-mobile-events__mobile-event-datetime,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__event-datetime-wrapper,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-datetime-wrapper {
+		font-size:10px;
 		line-height:18px;
 	}
-	
-	.widget.tribe-this-week-events-widget .tribe-events-page-title,
-	.tribe-events-venue-widget .tribe-venue-widget-wrapper .tribe-venue-widget-venue .tribe-venue-widget-venue-name a,
-	.tribe-events-related-events-title {
-		font-size:14px;
-	}
-	/* Finish H6 Font */
-	
-	
-	/* Start Button Font */
-	#tribe-events-bar #tribe-bar-views ul.tribe-bar-views-list li {
+
+	.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-c-nav__next,
+	.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-c-nav__prev,
+	.cmsmasters_tribe_events_views_v2 .tribe-events-pro .tribe-events-c-small-cta__link {
 		font-family:'Raleway', Arial, Helvetica, 'Nimbus Sans L', sans-serif;
 		font-size:12px;
 		line-height:36px;
@@ -646,36 +767,12 @@
 		font-style:normal;
 		text-transform:uppercase;
 	}
-	/* Finish Button Font */
-	
-	
-	/* Start Small Text Font */
-	.tribe-events-countdown-widget .tribe-countdown-time .tribe-countdown-timer .tribe-countdown-number .tribe-countdown-under,
-	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar tbody,
-	.widget.tribe_mini_calendar_widget .tribe-mini-calendar-wrapper .tribe-mini-calendar-grid-wrapper .tribe-mini-calendar tbody a,
-	#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-week-grid-wrapper .tribe-grid-body .tribe-week-grid-hours div,
-	#tribe-events-content .tribe-events-abbr {
-		font-family:'Open Sans', Arial, Helvetica, 'Nimbus Sans L', sans-serif;
-		font-size:11px;
-		line-height:20px;
-		font-weight:normal;
-		font-style:normal;
-		text-transform:none;
-	}
-	
-	#tribe-events-content.tribe-events-week-grid .tribe-events-grid .tribe-week-grid-wrapper .tribe-grid-body .tribe-week-grid-hours div {
+
+	.cmsmasters_tribe_events_views_v2 .tribe-events-pro .tribe-events-c-small-cta__link {
 		font-size:10px;
+		line-height:34px;
 	}
-	
-	.tribe-events-countdown-widget .tribe-countdown-time .tribe-countdown-timer .tribe-countdown-number .tribe-countdown-under,
-	#tribe-events-content .tribe-events-abbr {
-		text-transform:uppercase;
-	}
-	/* Finish Small Text Font */
-
-/***************** Finish Events Font Styles ******************/
-
-
+/***************** Finish Tribe Events Font Styles ******************/
 
 /***************** Start Timetable Font Styles ******************/
 
