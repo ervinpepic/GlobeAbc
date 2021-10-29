@@ -902,7 +902,7 @@ class Cookie_Law_Info_Cookie_Scaner extends Cookie_Law_Info_Cookieyes {
 	/**
 	 * Return the identified cookies after the scanning
 	 *
-	 * @param [type]  $scan_id scan ID.
+	 * @param integer  $scan_id scan ID.
 	 * @param integer $offset offset number.
 	 * @param integer $limit page limit if pagination is used.
 	 * @return array
@@ -1120,7 +1120,7 @@ class Cookie_Law_Info_Cookie_Scaner extends Cookie_Law_Info_Cookieyes {
 	 */
 	public function validate_scan_instance( $instance ) {
 		$last_instance = $this->get_ckyes_scan_instance();
-		if ( ( 0 !== $instance ) && ( $instance === $last_instance ) ) {
+		if ( ( 0 !== $instance ) && !empty( $instance ) && ( $instance === $last_instance ) ) {
 			return true;
 		}
 		return false;

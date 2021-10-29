@@ -5,7 +5,7 @@ Tags: lms, elearning, e-learning, learning management system, education, course,
 Requires at least: 5.6
 Requires PHP: 7.0
 Tested up to: 5.8
-Stable tag: trunk
+Stable tag: 4.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +54,9 @@ Yes, you can. Please find the documentation for writing an add-on for LearnPress
 1. LearnPress Prerequisite screenshot.
 
 == Changelog ==
+
+= 4.0.5 =
+~ Fixed some minor bugs
 
 = 4.0.4 =
 ~ Change hook 'learn-press/user/can-enroll-course' to compatible with LP 4.1.2 or higher

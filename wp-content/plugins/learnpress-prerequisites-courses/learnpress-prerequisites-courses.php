@@ -4,12 +4,12 @@
  * Plugin URI: http://thimpress.com/learnpress
  * Description: Course you have to finish before you can enroll to this course.
  * Author: ThimPress
- * Version: 4.0.4
+ * Version: 4.0.5
  * Author URI: http://thimpress.com
  * Tags: learnpress, lms, add-on, prerequisites courses
  * Text Domain: learnpress-prerequisites-courses
  * Domain Path: /languages/
- * Require_LP_Version: 3.0.0
+ * Require_LP_Version: 4.1.2
  *
  * @package learnpress-prerequisites
  */

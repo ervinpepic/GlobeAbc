@@ -75,7 +75,7 @@ class KM_UpdatesV3 {
 			'channel' 		=> get_option( $config['channelKey'], 'stable' ),
 			'license' 		=> get_option( $config['codeKey'], '' ),
 			'activation_id' => get_option( $config['activationKey'], '' ),
-			'domain' 		=> $_SERVER['SERVER_NAME'],
+			'domain' 		=> ! empty( $_SERVER['SERVER_NAME'] ) ? $_SERVER['SERVER_NAME'] : '',
 			'siteurl' 		=> esc_url( site_url() ),
 			'option' 		=> strtolower( basename( dirname( $config['root'] ) ) ) . '_update_info',
 			'locale' 		=> get_locale()

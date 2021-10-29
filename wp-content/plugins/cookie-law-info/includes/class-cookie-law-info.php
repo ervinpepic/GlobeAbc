@@ -78,7 +78,7 @@ class Cookie_Law_Info {
 		} 
 		else 	
 		{
-			$this->version = '2.0.5';
+			$this->version = '2.0.6';
 		}
 		$this->plugin_name = 'cookie-law-info';
 

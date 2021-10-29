@@ -139,3 +139,18 @@ Tags: one-column, two-columns, three-columns, four-columns, left-sidebar, right-
 .review-stars-rated {
     display: none;
 }
+
+
+#lpr_course_post-8315 div.lpr_course_inner header.entry-header h6.entry-title:after {
+    content: ' - (10 x 45min group sessions)';
+}
+#lpr_course_post-8384 div.lpr_course_inner header.entry-header h6.entry-title:after {
+    content: ' - (10 x 25min one-on-one sessions)';
+}
+#lpr_course_post-8929 div.lpr_course_inner header.entry-header h6.entry-title:after {
+    content: ' - (30 x 45min group sessions)';
+}
+#lpr_course_post-8986 div.lpr_course_inner header.entry-header h6.entry-title:after {
+    content: ' - (20 x 45min group sessions)';
+}
+

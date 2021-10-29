@@ -77,15 +77,8 @@ function layerslider_register_gutenberg_block() {
 
 
 		register_block_type('kreatura/layerslider', array(
-			'editor_style' => array(
-				'layerslider-gutenberg',
-				'kreatura-modal-window'
-			),
-			'editor_script' => array(
-				'layerslider-gutenberg',
-				'layerslider-utils',
-				'kreatura-modal-window'
-			),
+			'editor_style' => 'layerslider-gutenberg',
+			'editor_script' => 'layerslider-gutenberg',
 			'render_callback' => 'layerslider_render_gutenberg_block'
 		));
 	}

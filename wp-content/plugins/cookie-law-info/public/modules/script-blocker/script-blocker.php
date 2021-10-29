@@ -72,8 +72,6 @@ if (!class_exists('Cookie_Law_Info_Script_Blocker')) {
             add_action( 'wt_cli_after_advanced_settings', array( $this, 'add_blocking_control'));
             add_action( 'wt_cli_ajax_settings_update', array( $this, 'update_js_blocking_status'),10,1);
 
-            // add_action('admin_notices', array( $this, 'wt_cli_admin_notices' ),10);
-            // add_action('admin_init', array($this,'save_notice_link'));
 
             // @since 1.9.6 for changing the category of each script blocker
             add_action('wp_ajax_cli_change_script_category', array($this, 'cli_change_script_category'));
@@ -646,42 +644,7 @@ if (!class_exists('Cookie_Law_Info_Script_Blocker')) {
             }
             return $script;
         }
-        /**
-         * Display admin notice for script blocker warning
-         *
-         * @version 1.9.6
-         * @since 1.9.6
-         */
-        public function wt_cli_admin_notices() {
             
-            if( $this-> show_admin_notice_warning() === false ) {
-                return false;
-            }
-            $dismiss_url = add_query_arg( array( 'wt-cli-dismiss-notice' => 'true' ) );
-
-            echo '<div class="notice notice-warning wt-cli-script-blocker-notices" style="padding-right: 15px; display: flex; align-items: center; margin-left: 0;background: #fff8e5; border-color: #ffb900;">
-                    <p><span style="font-weight:bold;display:inline-block;margin-bottom:4px;">'.__('GDPR Cookie Consent','cookie-law-info').'</span></br>'.__('The script blocker within the plugin will block the pre-defined plugins such as Instagram, Facebook, Twitter etc. Hence activating our plugin may affect its web layout. Therefore you may want to review the website w.r.t the blocked plugins. <a href="edit.php?post_type='.CLI_POST_TYPE.'&page=cli-script-settings">view script blocker.</a>', 'cookie-law-info' ).'</p>
-                    <a href="' . $dismiss_url . '" class="notice-dismiss" style="position: relative; text-decoration: none;"></a>
-                </div>';
-        }
-        public function save_notice_link() {
-            if( isset( $_GET['wt-cli-dismiss-notice'] )  && $_GET['wt-cli-dismiss-notice'] == 'true') {
-                delete_transient( 'wt_cli_script_blocker_notice' );
-            }
-        }
-        public function show_admin_notice_warning() {
-
-            $screen = get_current_screen();
-            if ( isset( $screen->id ) && in_array( $screen->id, array( 'plugins', 'cookielawinfo_page_cookie-law-info', 'cookielawinfo_page_cli-script-settings' ) ) )
-            {
-                $option = get_transient( 'wt_cli_script_blocker_notice');;
-                if( $option ) {
-                    return true;
-                }
-            }
-            return false;
-
-        }
         /* change category of item on list page (ajax) */
         public function cli_change_script_category()
         {

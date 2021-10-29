@@ -82,6 +82,8 @@ if ( ! class_exists( 'LP_Addon_Prerequisites_Courses' ) ) {
 				// add course meta box
 				add_filter( 'learn_press_course_settings_meta_box_args', array( $this, 'admin_meta_box' ), 11 );
 			}
+			add_filter( 'learnpress/course/can-view-content', array( $this, 'can_view_content_course' ), 99, 3 );
+			add_filter( 'learnpress/course/template/button-continue/can-show', array( $this, 'course_continue_button' ), 99, 3 );
 		}
 
 		/**
@@ -213,58 +215,133 @@ if ( ! class_exists( 'LP_Addon_Prerequisites_Courses' ) ) {
 		/**
 		 * Filer user can enroll course condition.
 		 *
-		 * @param $can_enroll
-		 * @param $course_id
-		 * @param $user
+		 * @param bool|object|Mixed $output
+		 * @param LP_Course $course
+		 * @param bool $return_bool
 		 *
-		 * @return bool
+		 * @return false|mixed|object
 		 * @since 3.0.0
+		 * @version 3.0.1
+		 * @editor minhpd
 		 */
-		public function can_enroll( $can_enroll, $course, $user ) {
-			if ( ! $can_enroll ) {
-				return false;
-			}
+		public function can_enroll( $output, LP_Course $course, bool $return_bool ) {
+
+			$user_id   = get_current_user_id();
+			$user      = learn_press_get_user( $user_id );
 			$course_id = $course->get_id();
+
 			// get prerequisites of course
 			$prerequisites = $this->get_prerequisite_courses( $course_id );
-
 			if ( $prerequisites ) {
-				foreach ( $prerequisites as $course ) {
-					if ( ! $this->has_passed_course( $course ) || $this->has_passed_course( $course ) == false ) {
-						$can_enroll = false;
+				foreach ( $prerequisites as $course_prerequisite ) {
+					if ( ! $user->has_passed_course( $course_prerequisite ) ) {
+						if ( $return_bool ) {
+							$output = false;
+						} else {
+							$output->check = false;
+						}
+						break;
 					}
 				}
 			}
 
-			return $can_enroll;
+			return $output;
 		}
+		/**
+		 * Filer user can view content course condition.
+		 *
+		 * @param $view
+		 * @param $user_id
+		 * @param $course
+		 *
+		 * @since 4.0.0
+		 */
+		public function can_view_content_course( $view, $user_id, $course ) {
+
+			$user      = learn_press_get_user( $user_id );
+			$course_id = $course->get_id();
+			// get prerequisites of course
+			$prerequisites = $this->get_prerequisite_courses( $course_id );
+			if ( $prerequisites ) {
+
+				foreach ( $prerequisites as $course_prerequisite ) {
+					if ( ! $user->has_passed_course( $course_prerequisite ) ) {
+						$view->flag    = false;
+						$view->message = __(
+							'This content is protected, please pass the prerequisites course(s) to view this content!',
+							'learnpress-prerequisites-courses'
+						);
+						break;
+					}
+				}
+			}
+			return $view;
+
+		}
+
+		/**
+		 * Check course of user is enrolled or finished
+		 *
+		 * @param bool   $can_show
+		 * @param $user
+		 * @param $course
+		 * @return bool
+		 * @throws Exception
+		 */
+		public function course_continue_button( bool $can_show, $user, $course ) {
+			// get prerequisites of course
+			$prerequisites = $this->get_prerequisite_courses( $course->get_id() );
+			if ( $prerequisites ) {
+				foreach ( $prerequisites as $value ) {
+					if ( ! $user->has_passed_course( $value ) ) {
+						$can_show = false;
+						break;
+					}
+				}
+			}
+
+			return $can_show;
+		}
+
 
 		/**
 		 * Filer user can purchase course condition.
 		 *
 		 * @param $purchasable
-		 * @param $user
+		 * @param $user_id
 		 * @param $course_id
 		 *
 		 * @return bool
 		 */
-		public function can_purchase_course( $purchasable, $user, $course_id ) {
+		public function can_purchase_course( $purchasable, $user_id, $course_id ) {
 
 			if ( ! $purchasable ) {
 				return false;
 			}
+
+			$user   = learn_press_get_user( $user_id );
+			$course = learn_press_get_course( $course_id );
 			// get prerequisites of course
 			$prerequisites = $this->get_prerequisite_courses( $course_id );
 			if ( $prerequisites ) {
 				// allow purchase
-				$allow_purchase = get_post_meta( $course_id, '_lp_prerequisite_allow_purchase', true );
-				if ( $allow_purchase && $allow_purchase == 'yes' ) {
-					return true;
-				}
-				// check pass condition
-				foreach ( $prerequisites as $course ) {
-					if ( ! $this->has_passed_course( $course ) ) {
-						return false;
+				$allow_purchase   = get_post_meta( $course_id, '_lp_prerequisite_allow_purchase', true );
+				$allow_repurchase = $course->allow_repurchase();
+
+				if ( ! empty( $allow_purchase ) && $allow_purchase == 'yes' ) {
+					if ( $user->has_purchased_course( $course_id ) ) {
+						if ( ! empty( $allow_repurchase ) && $allow_repurchase == 'yes' ) {
+							if ( $user->has_passed_course( $course_id ) ) {
+								$purchasable = true;
+							}
+						}
+					}
+				} else {
+					foreach ( $prerequisites as $course_prerequisite ) {
+						if ( ! $user->has_passed_course( $course_prerequisite ) ) {
+							$purchasable = false;
+							break;
+						}
 					}
 				}
 			}
@@ -286,9 +363,9 @@ if ( ! class_exists( 'LP_Addon_Prerequisites_Courses' ) ) {
 				$user_id = learn_press_get_current_user_id();
 			}
 			$user = learn_press_get_user( $user_id );
-			if ( ! $user->has_enrolled_course( $course_id ) ) {
-				return false;
-			}
+			// if ( ! $user->has_enrolled_course( $course_id ) ) {
+			// return false;
+			// }
 			$has_passed = $user->has_passed_course( $course_id );
 
 			return $has_passed !== false;
@@ -340,6 +417,7 @@ if ( ! class_exists( 'LP_Addon_Prerequisites_Courses' ) ) {
 					$required_courses[] = $course_id;
 				}
 			}
+
 			if ( ! $required_courses ) {
 				return;
 			}
