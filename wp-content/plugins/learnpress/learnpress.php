@@ -4,10 +4,10 @@
  * Plugin URI: http://thimpress.com/learnpress
  * Description: LearnPress is a WordPress complete solution for creating a Learning Management System (LMS). It can help you to create courses, lessons and quizzes.
  * Author: ThimPress
- * Version: 4.1.3
+ * Version: 4.1.4
  * Author URI: http://thimpress.com
  * Requires at least: 5.6
- * Tested up to: 5.8
+ * Tested up to: 5.8.1
  * Requires PHP: 7.0
  * Text Domain: learnpress
  * Domain Path: /languages/
@@ -228,9 +228,6 @@ if ( ! class_exists( 'LearnPress' ) ) {
 			// Models
 			require_once 'inc/models/class-lp-course-extra-info-fast-query-model.php';
 
-			// Email
-			include_once 'inc/emails/class-lp-email-hooks.php';
-
 			// LP Cache
 			require_once 'inc/cache/class-lp-cache.php';
 			require_once 'inc/cache/class-lp-course-cache.php';
@@ -249,11 +246,13 @@ if ( ! class_exists( 'LearnPress' ) ) {
 			require_once 'inc/filters/class-lp-filter.php';
 			require_once 'inc/filters/class-lp-post-type-filter.php';
 			require_once 'inc/filters/class-lp-course-filter.php';
+			require_once 'inc/filters/class-lp-order-filter.php';
 			require_once 'inc/filters/class-lp-question-filter.php';
 			require_once 'inc/filters/class-lp-user-items-filter.php';
 
 			// Query Database .
 			require_once 'inc/databases/class-lp-db.php';
+			require_once 'inc/databases/class-lp-order-db.php';
 			require_once 'inc/databases/class-lp-course-db.php';
 			require_once 'inc/databases/class-lp-lesson-db.php';
 			require_once 'inc/databases/class-lp-section-db.php';
@@ -472,10 +471,12 @@ if ( ! class_exists( 'LearnPress' ) ) {
 		 *
 		 * @return bool|LP_Checkout|LP_Course|LP_Emails|LP_User|LP_User_Guest|mixed
 		 * @deprecated since 3.0.0
+		 * @editor tungnx
+		 * @modify 4.1.3.1 - comment
 		 */
-		public function __get( $key ) {
+		/*public function __get( $key ) {
 			return false;
-		}
+		}*/
 
 		/**
 		 * Trigger this function while activating Learnpress.
@@ -538,10 +539,18 @@ if ( ! class_exists( 'LearnPress' ) ) {
 		 * Trigger Learnpress loaded actions.
 		 *
 		 * @since 3.0.0
-		 * @version 1.0.1
+		 * @version 1.0.2
 		 * @editor tungnx
 		 */
 		public function plugin_loaded() {
+			do_action( 'learnpress/hook/before-addons-call-hook-learnpress-ready' );
+
+			// Polylang
+			if ( defined( 'POLYLANG_VERSION' ) ) {
+				require_once 'inc/external-plugin/polylang/class-lp-polylang.php';
+				LP_Polylang::instance();
+			}
+
 			$this->init();
 
 			//Todo: tungnx - remove this code after handle ajax on page learn-press-addons
@@ -552,7 +561,7 @@ if ( ! class_exists( 'LearnPress' ) ) {
 
 			/**
 			 * Check version addons valid version require.
-			 * If not valid will be deactivate.
+			 * If not valid will be to deactivate.
 			 * Reload page, so not affect to hook "learn-press/ready"
 			 */
 			$addons_valid = true;
@@ -649,6 +658,8 @@ if ( ! class_exists( 'LearnPress' ) ) {
 				$this->admin_notices = LP_Admin_Notice::instance();
 			}
 
+			// Email hook notify
+			include_once 'inc/emails/class-lp-email-hooks.php';
 			// Init emails
 			LP_Emails::instance();
 		}
@@ -809,7 +820,7 @@ if ( ! class_exists( 'LearnPress' ) ) {
 					'LP4 require version Thim-core:',
 					$this->thim_core_version_require,
 					'<a href="https://thimpresswp.github.io/thim-core/thim-core.zip">latest version</a>',
-					'<a href="https://bit.ly/2SrsxUf">here</a>'
+					'<a href="https://docspress.thimpress.com/upgrade-database-how-to-fix-some-issue/">here</a>'
 				);
 				?>
 				<div class="notice notice-error">

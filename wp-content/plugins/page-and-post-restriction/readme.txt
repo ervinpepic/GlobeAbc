@@ -5,7 +5,7 @@ Tags: Logged-in, Page Restriction, Access control, Restricted access, Restrict p
 Requires at least: 3.7
 Tested up to: 5.8
 Requires PHP: 5.4
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
@@ -100,6 +100,11 @@ If you are still nervous about your website security or how the plugin would wor
 
 == Changelog ==
 
+= 1.2.3 =
+* Added new licensing plans
+* Fixed feedback form
+* Fixed metabox issue
+
 = 1.2.2 = 
 * Fixed issue for post role restriction
 * WP 5.8 compatibility
@@ -129,6 +134,11 @@ If you are still nervous about your website security or how the plugin would wor
 
 
 == Upgrade Notice ==
+
+= 1.2.3 =
+* Added new licensing plans
+* Fixed feedback form
+* Fixed metabox issue
 
 = 1.2.2 = 
 * Fixed issue for post role restriction

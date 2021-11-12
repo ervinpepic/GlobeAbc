@@ -1562,7 +1562,7 @@ function learn_press_get_courses_layout() {
 	$layout = LP_Request::get_cookie( 'courses-layout' );
 
 	if ( ! $layout ) {
-		$layout = LP_Settings::get_option( 'layout_course_archive', 'list' );
+		$layout = LP_Settings::get_option( 'archive_courses_layout', 'list' );
 	}
 
 	return $layout;
@@ -1760,7 +1760,7 @@ function lp_get_email_content( $format, $meta = array(), $field = array() ) {
 	} else {
 		$template      = ! empty( $field[ "template_{$format}" ] ) ? $field[ "template_{$format}" ] : null;
 		$template_file = $field['template_base'] . $template;
-		$content       = LP_WP_Filesystem::get_contents( $template_file );
+		$content       = LP_WP_Filesystem::instance()->file_get_contents( $template_file );
 	}
 
 	return $content;
@@ -1858,13 +1858,13 @@ function lp_archive_skeleton_get_args() {
 		$args = (array) $_GET;
 	}
 
-	$array = apply_filters(
+	$params = apply_filters(
 		'lp/template/archive-course/skeleton/args',
 		array(
-			'paged',
-			's',
-			'orderby',
-			'order',
+			'paged'   => 1,
+			's'       => '',
+			'orderby' => '',
+			'order'   => '',
 		)
 	);
 
@@ -1876,9 +1876,11 @@ function lp_archive_skeleton_get_args() {
 	}
 
 	if ( learn_press_is_course_archive() ) {
-		foreach ( $array as $a ) {
-			if ( get_query_var( $a ) ) {
-				$args[ $a ] = get_query_var( $a );
+		foreach ( $params as $key => $param ) {
+			if ( get_query_var( $key ) ) {
+				$args[ $key ] = get_query_var( $key );
+			} else {
+				$args[ $key ] = $param;
 			}
 		}
 	}

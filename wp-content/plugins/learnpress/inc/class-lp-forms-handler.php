@@ -14,10 +14,10 @@ class LP_Forms_Handler {
 	 */
 	public static function process_become_teacher() {
 		$args = array(
-			'bat_name'    => isset( $_POST['bat_name'] ) ? wp_unslash( $_POST['bat_name'] ) : '',
-			'bat_email'   => isset( $_POST['bat_email'] ) ? wp_unslash( $_POST['bat_email'] ) : '',
-			'bat_phone'   => isset( $_POST['bat_phone'] ) ? wp_unslash( $_POST['bat_phone'] ) : '',
-			'bat_message' => isset( $_POST['bat_message'] ) ? wp_unslash( $_POST['bat_message'] ) : '',
+			'bat_name'    => isset( $_POST['bat_name'] ) ? LP_Helper::sanitize_params_submitted( $_POST['bat_name'] ) : '',
+			'bat_email'   => isset( $_POST['bat_email'] ) ? LP_Helper::sanitize_params_submitted( $_POST['bat_email'] ) : '',
+			'bat_phone'   => isset( $_POST['bat_phone'] ) ? LP_Helper::sanitize_params_submitted( $_POST['bat_phone'] ) : '',
+			'bat_message' => isset( $_POST['bat_message'] ) ? LP_Helper::sanitize_params_submitted( $_POST['bat_message'] ) : '',
 		);
 
 		$result = array(
@@ -72,7 +72,7 @@ class LP_Forms_Handler {
 
 		if ( isset( $_POST['username'], $_POST['password'] ) ) {
 			try {
-				$username = trim( wp_unslash( $_POST['username'] ) );
+				$username = trim( LP_Helper::sanitize_params_submitted( $_POST['username'] ) );
 				$password = $_POST['password'];
 				$remember = LP_Request::get_string( 'rememberme' );
 
@@ -132,14 +132,14 @@ class LP_Forms_Handler {
 			return;
 		}
 
-		$username         = isset( $_POST['reg_username'] ) ? wp_unslash( $_POST['reg_username'] ) : '';
-		$email            = isset( $_POST['reg_email'] ) ? wp_unslash( $_POST['reg_email'] ) : '';
-		$password         = isset( $_POST['reg_password'] ) ? wp_unslash( $_POST['reg_password'] ) : '';
-		$confirm_password = isset( $_POST['reg_password2'] ) ? wp_unslash( $_POST['reg_password2'] ) : '';
-		$first_name       = isset( $_POST['reg_first_name'] ) ? wp_unslash( $_POST['reg_first_name'] ) : '';
-		$last_name        = isset( $_POST['reg_last_name'] ) ? wp_unslash( $_POST['reg_last_name'] ) : '';
-		$display_name     = isset( $_POST['reg_display_name'] ) ? wp_unslash( $_POST['reg_display_name'] ) : '';
-		$update_meta      = isset( $_POST['_lp_custom_register_form'] ) ? wp_unslash( $_POST['_lp_custom_register_form'] ) : array();
+		$username         = isset( $_POST['reg_username'] ) ? LP_Helper::sanitize_params_submitted( $_POST['reg_username'] ) : '';
+		$email            = isset( $_POST['reg_email'] ) ? LP_Helper::sanitize_params_submitted( $_POST['reg_email'] ) : '';
+		$password         = $_POST['reg_password'] ?? '';
+		$confirm_password = $_POST['reg_password2'] ?? '';
+		$first_name       = isset( $_POST['reg_first_name'] ) ? LP_Helper::sanitize_params_submitted( $_POST['reg_first_name'] ) : '';
+		$last_name        = isset( $_POST['reg_last_name'] ) ? LP_Helper::sanitize_params_submitted( $_POST['reg_last_name'] ) : '';
+		$display_name     = isset( $_POST['reg_display_name'] ) ? LP_Helper::sanitize_params_submitted( $_POST['reg_display_name'] ) : '';
+		$update_meta      = isset( $_POST['_lp_custom_register_form'] ) ? LP_Helper::sanitize_params_submitted( $_POST['_lp_custom_register_form'] ) : array();
 
 		try {
 			$new_customer = self::learnpress_create_new_customer(
@@ -157,6 +157,8 @@ class LP_Forms_Handler {
 
 			if ( is_wp_error( $new_customer ) ) {
 				throw new Exception( $new_customer->get_error_message() );
+			} else {
+				wp_new_user_notification( $new_customer );
 			}
 
 			// Send email become a teacher.
@@ -261,9 +263,6 @@ class LP_Forms_Handler {
 
 		if ( $custom_fields && ! empty( $update_meta ) ) {
 			foreach ( $custom_fields as $field ) {
-				if ( ! isset( $field['id'] ) ) {
-					return new WP_Error( 'registration-custom-exists', __( 'Please go to LearnPress > Settings and save again.', 'learnpress' ) );
-				}
 				if ( $field['required'] === 'yes' && empty( $update_meta[ $field['id'] ] ) ) {
 					return new WP_Error( 'registration-custom-exists', $field['name'] . __( ' is required field.', 'learnpress' ) );
 				}
@@ -350,6 +349,66 @@ class LP_Forms_Handler {
 		}
 
 		return $return;
+	}
+
+	public static function retrieve_password( $user_login ) {
+		$login = isset( $user_login ) ? sanitize_user( wp_unslash( $user_login ) ) : '';
+
+		if ( empty( $login ) ) {
+			return new WP_Error( 'error_santize_login', esc_html__( 'Enter a username or email address.', 'learnpress' ) );
+		} else {
+			// Check on username first, as customers can use emails as usernames.
+			$user_data = get_user_by( 'login', $login );
+		}
+
+		// If no user found, check if it login is email and lookup user based on email.
+		if ( ! $user_data && is_email( $login ) && apply_filters( 'learnpress_get_username_from_email', true ) ) {
+			$user_data = get_user_by( 'email', $login );
+		}
+
+		$errors = new WP_Error();
+
+		do_action( 'lostpassword_post', $errors, $user_data );
+
+		if ( $errors->get_error_code() ) {
+			return $errors;
+		}
+
+		if ( ! $user_data ) {
+			return new WP_Error( 'error_not_user', esc_html__( 'Invalid username or email.', 'learnpress' ) );
+		}
+
+		if ( is_multisite() && ! is_user_member_of_blog( $user_data->ID, get_current_blog_id() ) ) {
+			return new WP_Error( 'error_not_user', esc_html__( 'Invalid username or email.', 'learnpress' ) );
+		}
+
+		// Redefining user_login ensures we return the right case in the email.
+		$user_login = $user_data->user_login;
+
+		do_action( 'retrieve_password', $user_login );
+
+		$allow = apply_filters( 'allow_password_reset', true, $user_data->ID );
+
+		if ( ! $allow ) {
+			return new WP_Error( 'error_not_allow', esc_html__( 'Password reset is not allowed for this user.', 'learnpress' ) );
+		} elseif ( is_wp_error( $allow ) ) {
+			return $allow;
+		}
+
+		$key = get_password_reset_key( $user_data );
+
+		if ( class_exists( 'LP_Email_Reset_Password' ) ) {
+			$email = new LP_Email_Reset_Password();
+
+			$email->handle(
+				array(
+					'reset_key'  => $key,
+					'user_login' => $user_login,
+				)
+			);
+		}
+
+		return true;
 	}
 
 	public static function init() {

@@ -73,6 +73,7 @@ class LP_Settings_Emails extends LP_Abstract_Settings_Page {
 					include 'email-groups/class-lp-settings-enrolled-course-emails.php',
 					include 'email-groups/class-lp-settings-finished-course-emails.php',
 					include 'email-groups/class-lp-settings-become-teacher-emails.php',
+					include 'email-groups/class-lp-settings-reset-password-emails.php',
 				);
 
 				$groups = apply_filters( 'learn-press/email-section-classes', $groups );
@@ -123,13 +124,13 @@ class LP_Settings_Emails extends LP_Abstract_Settings_Page {
 					'type'    => 'text',
 					'css'     => 'width:400px',
 				),
-				array(
-					'title'   => esc_html__( '"From" address', 'learnpress' ),
-					'id'      => 'emails_general[from_email]',
-					'default' => get_option( 'admin_email' ),
-					'type'    => 'email',
-					'css'     => 'width:400px',
-				),
+//				array(
+//					'title'   => esc_html__( '"From" address', 'learnpress' ),
+//					'id'      => 'emails_general[from_email]',
+//					'default' => get_option( 'admin_email' ),
+//					'type'    => 'email',
+//					'css'     => 'width:400px',
+//				),
 				array(
 					'type' => 'sectionend',
 				),

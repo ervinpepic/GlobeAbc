@@ -35,7 +35,7 @@ class LP_Meta_Box_Text_Field extends LP_Meta_Box_Field {
 
 		$meta       = $this->meta_value( $thepostid );
 		$value      = ! $meta && ! empty( $this->default ) ? $this->default : $meta;
-		$value      = isset( $extra['value'] ) ? $extra['value'] : $value;
+		$value      = esc_attr( $extra['value'] ?? $value );
 		$type_input = $extra['type_input'] ?? 'text';
 		$desc_tip   = $extra['desc_tip'] ?? '';
 
@@ -79,6 +79,8 @@ class LP_Meta_Box_Text_Field extends LP_Meta_Box_Field {
 			} else {
 				$meta_value = absint( $meta_value );
 			}
+		} else {
+			$meta_value = LP_Helper::sanitize_params_submitted( $meta_value );
 		}
 
 		update_post_meta( $post_id, $this->id, $meta_value );

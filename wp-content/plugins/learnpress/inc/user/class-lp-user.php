@@ -31,7 +31,7 @@ class LP_User extends LP_Abstract_User {
 
 		if ( $this->is_admin() || $this->is_author_of( $course_id ) ) {
 			$view->flag    = true;
-			$view->message = '';
+			$view->message = 'User can view because is Admin or author of course';
 
 			return $view;
 		}
@@ -39,6 +39,13 @@ class LP_User extends LP_Abstract_User {
 		// Set view->flag is true if course is no required enroll
 		if ( $course->is_no_required_enroll() ) {
 			$view->flag = true;
+
+			return $view;
+		} elseif ( ! is_user_logged_in() ) {
+			$view->message = __(
+				'This content is protected, please login, enroll course to view this content!',
+				'learnpress'
+			);
 
 			return $view;
 		}
@@ -242,16 +249,19 @@ class LP_User extends LP_Abstract_User {
 	 * @param int $course_id
 	 *
 	 * @return bool
-	 * @throws Exception
 	 */
 	public function has_enrolled_or_finished( int $course_id ): bool {
 		$status = true;
 
-		$user_course = $this->get_course_data( $course_id );
+		try {
+			$user_course = $this->get_course_data( $course_id );
 
-		if ( ! $user_course ) {
-			$status = false;
-		} elseif ( ! $user_course->is_enrolled() && ! $user_course->is_finished() ) {
+			if ( ! $user_course ) {
+				$status = false;
+			} elseif ( ! $user_course->is_enrolled() && ! $user_course->is_finished() ) {
+				$status = false;
+			}
+		} catch ( Throwable $e ) {
 			$status = false;
 		}
 
@@ -280,7 +290,7 @@ class LP_User extends LP_Abstract_User {
 				throw new Exception( esc_html__( 'Course is not public', 'learnpress' ) );
 			}
 
-			if ( $course->get_external_link() ) {
+			if ( $course->get_external_link() && ! $this->has_purchased_course( $course_id ) ) {
 				throw new Exception( esc_html__( 'Course is External', 'learnpress' ) );
 			}
 
@@ -322,7 +332,7 @@ class LP_User extends LP_Abstract_User {
 	 * @modify 4.1.3
 	 */
 	public function can_purchase_course( int $course_id ): bool {
-		$can_purchase = false;
+		$can_purchase = true;
 		$course       = learn_press_get_course( $course_id );
 
 		try {
@@ -356,23 +366,23 @@ class LP_User extends LP_Abstract_User {
 				throw new Exception( $message );
 			}
 
-			if ( $this->has_purchased_course( $course_id ) ) {
-				// If the order contains course is processing
-				$order = $this->get_course_order( $course_id );
-				if ( $order && $order->get_status() === 'processing' ) {
-					$message = apply_filters(
-						'learn-press/order-processing-message',
-						__( 'Your order is waiting for processing', 'learnpress' )
-					);
+			// If the order contains course is processing
+			$order = $this->get_course_order( $course_id );
+			if ( $order && $order->get_status() === 'processing' ) {
+				$message = apply_filters(
+					'learn-press/order-processing-message',
+					__( 'Your order is waiting for processing', 'learnpress' )
+				);
 
-					if ( $message ) {
-						learn_press_display_message( $message );
-					}
-
-					throw new Exception( $message );
-				} else {
-					throw new Exception( 'Course is purchased' );
+				if ( $message ) {
+					learn_press_display_message( $message );
 				}
+
+				throw new Exception( $message );
+			}
+
+			if ( $this->has_purchased_course( $course_id ) ) {
+				throw new Exception( 'Course is purchased' );
 			}
 
 			$is_blocked_course  = 0 === $course->timestamp_remaining_duration();
@@ -388,8 +398,6 @@ class LP_User extends LP_Abstract_User {
 					throw new Exception( 'Course is enrolled' );
 				}
 			}
-
-			$can_purchase = true;
 		} catch ( Exception $e ) {
 			$can_purchase = false;
 		}

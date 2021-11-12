@@ -131,23 +131,24 @@ class LP_Course_DB extends LP_Database {
 	 * @version 1.0.0
 	 */
 	public function get_popular_courses( LP_Course_Filter $filter ): array {
+		$offset    = ( absint( $filter->page ) - 1 ) * $filter->limit;
+		$sql_limit = $this->wpdb->prepare( 'LIMIT %d, %d', $offset, $filter->limit );
+
 		$query = apply_filters(
 			'learn-press/course-curd/query-popular-courses',
 			$this->wpdb->prepare(
-				"
-					SELECT DISTINCT(item_id), COUNT(item_id) as total
+				"SELECT DISTINCT(item_id), COUNT(item_id) as total
 					FROM $this->tb_lp_user_items
 					WHERE item_type = %s
-					AND status = %s
-					OR status = %s
+					AND ( status = %s OR status = %s OR status = %s )
 					GROUP BY item_id
 					ORDER BY total DESC
-					LIMIT %d
+					{$sql_limit}
 				",
 				LP_COURSE_CPT,
 				LP_COURSE_ENROLLED,
 				LP_COURSE_FINISHED,
-				$filter->limit
+				LP_COURSE_PURCHASED
 			)
 		);
 
@@ -215,40 +216,147 @@ class LP_Course_DB extends LP_Database {
 		return $wpdb->get_col( $query );
 	}
 
-	public function get_courses_on_sale() {
+	public function get_courses_on_sale( $order = 'ASC' ) {
 		$args = array(
 			'post_type'      => LP_COURSE_CPT,
-			'orderby'        => 'ID',
-			'order'          => 'DESC',
+			'orderby'        => 'meta_value_num',
+			'order'          => $order,
+			'meta_key'       => '_lp_sale_price',
 			'posts_per_page' => -1,
-			'meta_query'     => array(
-				array(
-					'key'     => '_lp_sale_price',
-					'value'   => '',
-					'compare' => '!=',
-				),
-			),
 		);
 
 		$courses = get_posts( $args );
 
 		$output = array();
 
-		foreach ( (array) $courses as $course_object ) {
-			$course_id = $course_object->ID;
+		if ( ! empty( $courses ) ) {
+			foreach ( (array) $courses as $course_object ) {
+				$course_id = $course_object->ID;
 
-			$course = learn_press_get_course( $course_object->ID );
+				$course = learn_press_get_course( $course_object->ID );
 
-			if ( ! $course || empty( $course_id ) ) {
-				continue;
-			}
+				if ( ! $course || empty( $course_id ) ) {
+					continue;
+				}
 
-			if ( $course->has_sale_price() ) {
-				$output[] = $course_id;
+				if ( $course->has_sale_price() ) {
+					$output[] = $course_id;
+				}
 			}
 		}
 
 		return $output;
+	}
+
+	/**
+	 * Get list user ids enrolled by course
+	 *
+	 * @return array|object|null
+	 * @throws Exception
+	 * @version 1.0.0
+	 * @author tungnx
+	 * @since 4.1.3.1
+	 */
+	public function get_user_ids_enrolled( int $course_id ) {
+		$query = $this->wpdb->prepare(
+			"
+				SELECT DISTINCT user_id FROM {$this->tb_lp_user_items}
+				WHERE item_id = %d
+				AND item_type = %s
+				AND (status = %s OR status = %s )
+			",
+			$course_id,
+			LP_COURSE_CPT,
+			'enrolled',
+			'finished'
+		);
+
+		$result = $this->wpdb->get_results( $query, OBJECT_K );
+
+		$this->check_execute_has_error();
+
+		return $result;
+	}
+
+	/**
+	 * Count total user enrolled by course
+	 *
+	 * @param int $course_id
+	 *
+	 * @return int
+	 * @version 1.0.0
+	 * @author tungnx
+	 * @since 4.1.4
+	 */
+	public function get_total_user_enrolled( int $course_id ): int {
+		$query = $this->wpdb->prepare(
+			"
+				SELECT COUNT(DISTINCT user_id) AS total FROM {$this->tb_lp_user_items}
+				WHERE item_id = %d
+				AND item_type = %s
+				AND (status = %s OR status = %s )
+			",
+			$course_id,
+			LP_COURSE_CPT,
+			LP_COURSE_ENROLLED,
+			LP_COURSE_FINISHED
+		);
+
+		return (int) $this->wpdb->get_var( $query );
+	}
+
+	/**
+	 * Count total user enrolled or purchase by course
+	 *
+	 * @param int $course_id
+	 *
+	 * @return int
+	 * @version 1.0.0
+	 * @author tungnx
+	 * @since 4.1.4
+	 */
+	public function get_total_user_enrolled_or_purchased( int $course_id ): int {
+		$query = $this->wpdb->prepare(
+			"
+				SELECT COUNT(DISTINCT user_id) AS total FROM {$this->tb_lp_user_items}
+				WHERE item_id = %d
+				AND item_type = %s
+				AND (status = %s OR status = %s OR status = %s )
+			",
+			$course_id,
+			LP_COURSE_CPT,
+			LP_COURSE_ENROLLED,
+			LP_COURSE_FINISHED,
+			LP_COURSE_PURCHASED
+		);
+
+		return (int) $this->wpdb->get_var( $query );
+	}
+
+	/**
+	 * Count total time enrolled by course
+	 *
+	 * @param int $course_id
+	 *
+	 * @return int
+	 * @version 1.0.0
+	 * @author tungnx
+	 * @since 4.1.3.1
+	 */
+	public function get_total_time_enrolled_course( int $course_id ): int {
+		$query = $this->wpdb->prepare(
+			"
+				SELECT COUNT(user_item_id) AS total FROM {$this->tb_lp_user_items}
+				WHERE item_id = %d
+				AND item_type = %s
+				AND (status = %s OR status = %s OR status = %s )
+			",
+			$course_id,
+			LP_COURSE_CPT,
+			LP_COURSE_ENROLLED
+		);
+
+		return (int) $this->wpdb->get_var( $query );
 	}
 }
 

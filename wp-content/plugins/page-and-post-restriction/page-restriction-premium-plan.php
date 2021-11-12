@@ -3,55 +3,110 @@
 require_once 'page-restriction-menu-settings.php';
 
 function papr_show_premium_plans(){
-    ?>
-
-    <div style="display:block;margin-top:1px;background-color:rgba(255, 255, 255, 255);padding-left:15px;padding-right:15px;border:solid 1px rgba(255, 255, 255, 255);border: 1px solid #CCCCCC;">
-        <b><div style="text-align:center; font-size: 25px; margin-top: 1em; margin-bottom: 0.75em;">Page Post Protection</div></b>
-        <div style="text-align:center; color: rgb(233, 125, 104);font-size: 20px;">
+	?>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <div class="papr-background">
+        <b><div style="text-align:center; font-size: 25px; margin-top: 1em; margin-bottom: 0.75em;">WordPress Page Post Restriction</div></b>
+        <div class="papr-subheading">
             You are currently on the Free version of the plugin
         </div>
         <br>
         <input type="hidden" value="<?php echo papr_is_customer_registered();?>" id="papr_customer_registered">
-        <div>
+        <div class="papr-pricing-div" style="width: 50%;">
+            <header style="height: 65px;padding: 1em 0.9em 1.6em;pointer-events: auto;text-align: center;color: #2f6062;background-color: transparent;">
+                <p style="margin-bottom: 15px;text-transform: uppercase; font-weight: 700; font-size: 20px; margin-top: 0px;" >Choose Your Plan</p>
+            </header>
+            <div class="cd-pricing-body" style="text-align: center;">
+                <ul class="cd-pricing-features">
+                    <li>Restrict specific Pages/Posts</li>
+                    <li>Restrict Complete Site</li>
+                    <li>Restrict based on User Roles</li>
+                    <li>Restrict based on User's Login Status</li>
+                    <li>Number of Restricted Pages/Posts</li>
+                    <li>Error Message to Restricted User</li>
+                    <li>Restrict Pages/Posts while Creating (Meta Box)</li>
+                    <li>Restrict Category Page</li>
+                    <li>Restrict posts of a particular Category</li>
+                    <li>Restrict Category based on User Roles</li>
+                    <li>Redirect Restricted User to a URL</li>
+                    <li>Redirect Restricted User to WordPress Login Page</li>
+                    <li>Restrict Entire Custom Post type</li>
+                    <li>Integration with SAML/OAuth SSO</li>
+                    <li><a style="color:blue; font-size:14px;" href="https://www.miniorange.com/contact"><b>Contact us</b></a></li>
+                    <li></li>
+                </ul>
+
+            </div>
+        </div>
+
+        <div class="papr-pricing-div" style="width: 25%;">
+            <header style="height: 65px;padding: 1em 0.9em 1.6em;pointer-events: auto;text-align: center;color: #2f6062;background-color: transparent;">
+                <p style="margin-bottom: 15px;text-transform: uppercase; font-weight: 700; font-size: 20px; margin-top: 0px;" >Standard</p>
+                <div class="cd-price" >
+                    <span class="cd-currency">$</span>
+                    <span class="cd-value">149*</span>
+                </div>
+            </header>
+            <div class="cd-pricing-body" style="text-align: center;">
+                <ul class="cd-pricing-features">
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><i class="fa fa-times unavailable"></i></li>
+                    <li><i class="fa fa-times unavailable"></i></li>
+                    <li><a style="color:blue; font-size:14px;" href="https://www.miniorange.com/contact"><b>Contact us</b></a></li>
+                    <li></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="papr-pricing-div" style="width: 25%;">
             <header style="height: 65px;padding: 1em 0.9em 1.6em;pointer-events: auto;text-align: center;color: #2f6062;background-color: transparent;">
                 <p style="margin-bottom: 15px;text-transform: uppercase; font-weight: 700; font-size: 20px; margin-top: 0px;" >Premium</p>
                 <div class="cd-price" >
                     <span class="cd-currency">$</span>
-                    <span class="cd-value">149*</span></span>
+                    <span class="cd-value">249*</span>
                 </div>
             </header>
-            <footer class="cd-pricing-footer" style="padding: 0px;">
-                <a href="#" class="cd-select" onclick="upgradeform()" >Upgrade Now</a>
-            </footer>
-            <br>
-            <br>
             <div class="cd-pricing-body" style="text-align: center;">
-                <b style="font-weight: 600; font-size: 18px;">PREMIUM FEATURES</b>
                 <ul class="cd-pricing-features">
-                    <li>Restrict Posts based on Category</li>
-                    <li>Customizable Error message to Restricted User</li>
-                    <li>Redirect Restricted User to a URL</li>
-                    <li>Redirect Restricted User to WordPress Login Page</li>
-                    <li>Restrict Custom Post types</li>
-                    <li>Integration with SAML/OAuth SSO</li>
-                    <li>Password Protect Complete Site <sup style="font-size: 12px; color: red;">[NEW]</sup></li>
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><i class="fa fa-check available"></i></li>
+                    <li><a style="color:blue; font-size:14px;" href="https://www.miniorange.com/contact"><b>Contact us</b></a></li>
+                    <li></li>
                 </ul>
-                <a style="color:blue; font-size:14px;" href="https://www.miniorange.com/contact"><b>Contact us</b></a>
             </div>
         </div>
-        <br>
-        <div style="text-align:left; font-size:12px;">
-            <h3>Steps to Upgrade to Premium Plugin -</h3>
+
+        <div style="text-align:left; font-size:12px; padding-top: 1em;">
+            <h3></h3>
             <div style="margin-right: 20px; margin-left: 20px;">
-                <p>1. Click on 'Upgrade now' button of the required licensing plan. You will be redirected to miniOrange Login Console. Enter your password with which you created an account with us. After that you will be redirected to payment page.</p>
-                <p>2. Enter your card details and complete the payment. On successful payment completion, you will see the link
-                    to download the premium plugin.</p>
-                <p>3. To install the premium plugin, first deactivate and delete the free version of the plugin.</p>
-                <p>4. From this point on, do not update the premium plugin from the Wordpress store.</p>
+
             </div>
 
             <h3 style="padding: 0px 10px; padding-left: 5px;">* Cost applicable for one instance only. Licenses are perpetual and the Support Plan includes 12 months of maintenance (support and version updates). You can renew maintenance after 12 months at 50% of the current license cost.</h3>
-            <br>
+
             <h3>10 Days Return Policy -</h3>
             At miniOrange, we want to ensure you are 100% happy with your purchase. If the premium plugin you purchased is
             not working as advertised and you've attempted to resolve any issues with our support team, which couldn't get
@@ -63,27 +118,33 @@ function papr_show_premium_plans(){
     </div>
 
     <form style="display:none;" id="loginform"
-                 action="<?php echo get_option('papr_host_name') . '/moas/login'; ?>"
-                 target="_blank" method="post">
+          action="<?php echo get_option('papr_host_name') . '/moas/login'; ?>"
+          target="_blank" method="post">
         <input type="email" name="username" value="<?php echo get_option( 'papr_admin_email' ); ?>"/>
         <input type="text" name="redirectUrl"
                value="<?php echo get_option('papr_host_name') . '/moas/initializepayment'; ?>"/>
         <input type="text" name="requestOrigin" id="requestOrigin"/>
     </form>
     <a  id="paprbacktoaccountsetup" style="display:none;" href="<?php echo admin_url( "admin.php?page=page_restriction&tab=account_setup" ); ?>">Back</a>
-  
-    <script>
-        function upgradeform() {
-            jQuery('#requestOrigin').val('wp_page_restriction_plan');
-            if(jQuery('#papr_customer_registered').val()==1)
-                jQuery('#loginform').submit();
-            else{
-                location.href = jQuery('#paprbacktoaccountsetup').attr('href');
-            }
-        }
-    </script>
 
     <style>
+
+        .papr-background{
+            display:block;
+            margin-top:1px;
+            background-color:rgba(255, 255, 255, 255);
+            padding-left:15px;
+            padding-right:15px;
+            border:solid 1px rgba(255, 255, 255, 255);
+        }
+        .papr-subheading{
+            text-align:center;
+            color: rgb(233, 125, 104);
+            font-size: 20px;
+        }
+        .unavailable{
+            color: red;
+        }
 
         html {
             font-size: 62.5%;
@@ -93,6 +154,9 @@ function papr_show_premium_plans(){
             -moz-osx-font-smoothing: grayscale;
         }
 
+        .papr-pricing-div{
+            float: left;
+        }
         .cd-currency, .cd-value {
             font-size: 4rem;
             font-weight: 300;
@@ -107,7 +171,7 @@ function papr_show_premium_plans(){
         .cd-pricing-features {
             width: auto;
             word-wrap: break-word;
-            padding: 0em 2em;
+            padding: 0em 0em;
         }
         .cd-pricing-features li {
             padding: 0.75em 1em;
@@ -115,7 +179,7 @@ function papr_show_premium_plans(){
             font-size: 1.2em;
             text-align: center;
             white-space: initial;
-            line-height:1em;
+            line-height:1.1em;
             color: #2f6062;
             float: none;
             width: auto;
@@ -130,7 +194,7 @@ function papr_show_premium_plans(){
             padding: 1.8em 0;
             text-align: center;
         }
-       
+
         .cd-select {
             position: static;
             display: inline-block;
@@ -144,7 +208,7 @@ function papr_show_premium_plans(){
             text-transform: uppercase;
             letter-spacing: 2px;
         }
-       
+
     </style>
-<?php
+	<?php
 }

@@ -16,7 +16,7 @@
   vertical-align: top;
 }
 
-.chart-buttons form input[type="text"] {
+.chart-buttons form input[type=text] {
   width: 105px;
   font-size: 14px;
   vertical-align: top;
@@ -34,7 +34,7 @@
 }
 
 .learn-press-chart.loading:after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -51,7 +51,7 @@
 }
 
 .chart-description li:before {
-  content: '';
+  content: "";
   display: inline-block;
   width: 10px;
   height: 10px;

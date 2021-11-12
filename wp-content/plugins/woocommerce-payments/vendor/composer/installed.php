@@ -5,7 +5,7 @@
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '58a4078582ec4ef2a314d8029dbe1c3f9019d00a',
+        'reference' => '2e8584d0e50c60405c128eeb66ca4ab68e5f14bc',
         'name' => 'woocommerce/payments',
         'dev' => false,
     ),
@@ -163,7 +163,7 @@
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '58a4078582ec4ef2a314d8029dbe1c3f9019d00a',
+            'reference' => '2e8584d0e50c60405c128eeb66ca4ab68e5f14bc',
             'dev_requirement' => false,
         ),
         'woocommerce/subscriptions-core' => array(

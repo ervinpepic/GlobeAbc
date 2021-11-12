@@ -1469,20 +1469,19 @@ function learn_press_get_currency_symbol( $currency = '' ) {
  * @param string $key
  *
  * @return string
+ * @editor tungnx
+ * @modify 4.1.4
  */
-function learn_press_get_page_link( $key ) {
-	$page_id = LP()->settings->get( $key . '_page_id' );
+function learn_press_get_page_link( string $key ): string {
+	$page_id = LP_Settings::get_option( $key . '_page_id' );
 	$link    = '';
 
 	if ( $page_id && get_post_status( $page_id ) == 'publish' ) {
-		$permalink = trailingslashit( get_permalink( $page_id ) );
-		$permalink = apply_filters( 'learn_press_get_page_link', $permalink, $page_id, $key );
-		$link      = apply_filters( 'learn-press/get-page-link', $permalink, $page_id, $key );
+		$permalink = get_permalink( $page_id );
+		$link      = apply_filters( 'learn-press/get-page-link', trailingslashit( $permalink ), $page_id, $key );
 	}
 
-	$link = apply_filters( 'learn_press_get_page_' . $key . '_link', $link, $page_id );
-
-	return apply_filters( 'learn-press/get-page-' . $key . '-link', $link ? trailingslashit( $link ) : '', $page_id );
+	return $link;
 }
 
 /**
@@ -2574,6 +2573,9 @@ function learn_press_get_graduation_text( $slug ) {
 		case 'failed':
 			$text = esc_html__( 'Failed', 'learnpress' );
 			break;
+		case 'in-progress':
+			$text = esc_html__( 'In Progress', 'learnpress' );
+			break;
 		default:
 			$text = $slug;
 	}
@@ -2581,7 +2583,7 @@ function learn_press_get_graduation_text( $slug ) {
 	return apply_filters( 'learn-press/get-graduation-text', $text, $slug );
 }
 
-function learn_press_execute_time( $n = 1 ) {
+/*function learn_press_execute_time( $n = 1 ) {
 	static $time;
 	if ( empty( $time ) ) {
 		$time = microtime( true );
@@ -2595,7 +2597,7 @@ function learn_press_execute_time( $n = 1 ) {
 
 		return $execute_time;
 	}
-}
+}*/
 
 if ( ! function_exists( 'learn_press_is_negative_value' ) ) {
 	function learn_press_is_negative_value( $value ) {
@@ -2704,7 +2706,7 @@ function learn_press_sanitize_tooltip( $tooltip, $html = false ) {
 
 function learn_press_tooltip( $tooltip, $html = false ) {
 	$tooltip = learn_press_sanitize_tooltip( $tooltip, $html );
-	echo '<span class="learn-press-tooltip" data-tooltip="' . $tooltip . '"></span>';
+	echo '<span class="learn-press-tooltip" data-tooltip="' . esc_attr( $tooltip ) . '"></span>';
 }
 
 /**

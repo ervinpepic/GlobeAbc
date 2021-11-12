@@ -242,38 +242,6 @@ class Customer_page_restriction
         return $response['body'];
     }
 
-	function enable_guest_audit() {
-    	$url = "https://test.miniorange.in/moas/rest/customer/guest-audit";
-    	$user = wp_get_current_user();
-    	$urlparts = parse_url(site_url());
-    	$domain = $urlparts['host'];
-    	if(array_key_exists('path',$urlparts))
-    		$domain .=$urlparts['path'];
-    	$fields = array (
-    		'emailAddress' => $user->user_email,
-		    'companyName' =>$domain,
-		    'cmsName' => 'WordPress',
-		    'pluginVersion' => '1.2.0',
-		    'applicationName' => 'Page Post Protection',
-		    'applicationType' => 'Plugin',
-		    'inUse' => 'true'
-	    );
-    	$field_string = json_encode ( $fields );
-
-    	$headers = array("Content-Type"=>"application/json","charset"=>"UTF-8","Authorization"=>"Basic");
-    	$args = array(
-    		'method' => 'POST',
-		    'body' => $field_string,
-		    'timeout' => '5',
-		    'redirection' => '5',
-		    'httpversion' => '1.0',
-		    'blocking' => true,
-		    'headers' => $headers
-	    );
-    	$response = $this->papr_wp_remote_post($url, $args);
-    	return $response['body'];
-    }
-
 	public static function papr_wp_remote_post($url, $args = array()){
 		$response = wp_remote_post($url, $args);
 		if(!is_wp_error($response)){

@@ -32,6 +32,14 @@ function papr_page_restriction(){
 						</a>
 
 						<a class="nav-tab 
+							<?php if ( $currenttab == 'post_type_restriction' ) {
+                        	echo 'nav-tab-active';
+                    		} 
+							?>
+							" href="admin.php?page=page_restriction&tab=post_type_restriction">Restrict Custom Post Type
+						</a>
+
+						<a class="nav-tab 
 							<?php if ( $currenttab == 'account_setup' ) {
 								echo 'nav-tab-active'; 
 							} 
@@ -44,7 +52,7 @@ function papr_page_restriction(){
 								echo 'nav-tab-active'; 
 							} 
 							?>
-							" href="admin.php?page=page_restriction&tab=premium_plan">Premium Plans
+							" href="admin.php?page=page_restriction&tab=premium_plan">Licensing Plans
 						</a>
                     </h2>
                     
@@ -52,6 +60,9 @@ function papr_page_restriction(){
 						<?php
 						if ( $currenttab == 'login_page_restriction' ) {
 							papr_login_restriction_page();
+						}
+						else if ( $currenttab == 'post_type_restriction'){
+						    papr_restrict_complete_post_type();
 						}
 						else if ( $currenttab == '' ) {
 							papr_user_restriction_page();
@@ -386,7 +397,7 @@ function papr_login_restriction_page() {
 		    echo '
 				<br>
 				<h3>Select Category of Posts you want only Logged in Users to Access
-				<sup style="font-size: 12px; color: red;">[Available in <a href="'. admin_url( "admin.php?page=page_restriction&tab=premium_plan" ).'">Premium</a> Plugin]</sup>
+				<sup style="font-size: 12px; color: red;">[Available in <a href="'. admin_url( "admin.php?page=page_restriction&tab=premium_plan" ).'">Paid</a> version of the plugin]</sup>
 				</h3>
 				<p><b>Note </b>: Select the category(s) that you want to restrict access, for a User not Logged In (By default all pages/posts/categories are accessible to all users). </p>
 				<table>
@@ -848,7 +859,7 @@ function papr_user_restriction_page() {
                 <br>
                
                 <h3>Give Access to Category of Posts based on Roles
-                <sup style="font-size: 12px; color: red;">[Available in <a href="'. admin_url( "admin.php?page=page_restriction&tab=premium_plan" ).'">Premium</a> Plugin]</sup>
+                <sup style="font-size: 12px; color: red;">[Available in <a href="'. admin_url( "admin.php?page=page_restriction&tab=premium_plan" ).'">Paid</a> version of the plugin]</sup>
                 </h3>
                 <p><b>Note </b>: Enter a role(s) of a user that you want to give access to for a Category post (By default all posts are accessible to all users irrespective of their roles). </p>
                 <table>
@@ -878,6 +889,69 @@ function papr_user_restriction_page() {
 		<br>
 	</div>';
 }
+
+function papr_restrict_complete_post_type(){
+
+	echo '
+	<div style="display:block;margin-top:1px;background-color:rgba(255, 255, 255, 255);padding-left:10px;border:solid 1px rgba(255, 255, 255, 255);border: 1px solid #CCCCCC";>
+		<h3>Restrict Entire Custom Post Type<sup style = "font-size: 12px;color:red;">
+		[Available in <a href="'. admin_url( "admin.php?page=page_restriction&tab=premium_plan" ).'">Premium</a> Plan]</sup></h3>
+		<hr>
+		<div style="padding-left:16px">		
+			<h3>Select post types you want to give access to Logged in Users only</h3>
+			<p><b>Note </b>: Selet the custom post type that you want to restrict access for a user not Logged In (By default all custom post types are accessible to all users). </p>';
+
+			$custom_post_types = papr_get_custom_post_types();
+
+			foreach ( $custom_post_types as $post_key=>$post_title ) {
+
+				$post_ids= get_posts(array(
+					'fields'  => 'ids', // get post IDs
+					'post_type' => $post_key,
+					'fields'  => 'post_title',
+					'numberposts'  => -1  // to get all the posts
+				));
+
+				if(count($post_ids)!=0) {
+					echo '<a href="#" onclick="jQuery(\'#view' . $post_key . '\').toggle();"><img src="'. plugin_dir_url(__FILE__) . 'images/collapse1.png"></a>';
+				}
+
+				echo '&nbsp<input type="checkbox" class="checkBoxClass4" name="mo_redirect_post_' . $post_key . '" value="true" ';
+				echo ' disabled ';
+				echo '> <b>' . $post_title . '</b><br><br>';
+
+				if(count($post_ids)!=0) {
+					echo '<div id="view' . $post_key .'">';
+					foreach($post_ids as $post) {
+						echo ' &nbsp&nbsp&nbsp&nbsp&nbsp<input type="checkbox" class="checkBoxClass3" value="true"';
+						echo ' disabled ';
+						echo '> <b>' . $post->post_title . '</b>&nbsp<i><a  href="' . get_permalink( $post ) . '">[visit post]</a></i><br><br>';
+					}
+					echo '</div>';
+				}
+			}
+			echo '<br> <input type="submit" class="button button-primary button-larges" value="Save Configuration" disabled';
+			echo ' />
+			</form></br></br>
+		  </div></div>
+		';
+}
+
+function papr_get_custom_post_types(){
+	$args = array(
+		'public'   => true,
+		'_builtin' => false
+	 );
+	 
+	 $output = 'names'; // names or objects, note names is the default
+	 $operator = 'and'; // 'and' or 'or'
+	 
+	 $post_types = get_post_types( $args, $output, $operator ); 
+	return $post_types;
+	
+}
+
+
 
 function papr_support_page_restriction() {
 	?>
@@ -943,7 +1017,7 @@ function papr_display_options_page() {
 	echo '
 	<div style="background-color: #FFF;width: 93%;border: 1px solid #CCC;padding: 10px; cursor: not-allowed;">       
         <h3 style="margin-top:">Page Restrict Options 
-        <sup style="font-size: 12px; color: red;">[Available in <a href="'. admin_url( "admin.php?page=page_restriction&tab=premium_plan" ).'">Premium</a> Plugin]</sup>
+        <sup style="font-size: 12px; color: red;">[Available in <a href="'. admin_url( "admin.php?page=page_restriction&tab=premium_plan" ).'">Paid</a> version of plugin]</sup>
         </h3>
 		<hr><br>
 		<div style="padding-left:10px">
@@ -1012,7 +1086,7 @@ function papr_display_options_log() {
 	echo '
 	<div style="display:block;background-color: #FFF;width: 93%;border: 1px solid #CCC;padding: 10px;">
         <h3>Page Restrict Options
-        <sup style="font-size: 12px; color: red;">[Available in <a href="'. admin_url( "admin.php?page=page_restriction&tab=premium_plan" ).'">Premium</a> Plugin]</sup>
+        <sup style="font-size: 12px; color: red;">[Available in <a href="'. admin_url( "admin.php?page=page_restriction&tab=premium_plan" ).'">Paid</a> version of the plugin]</sup>
         </h3>
 		<hr>
 		<div style="padding:15px">

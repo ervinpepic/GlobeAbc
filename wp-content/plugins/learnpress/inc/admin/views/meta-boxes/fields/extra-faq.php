@@ -35,7 +35,7 @@ class LP_Meta_Box_Extra_Faq_Field extends LP_Meta_Box_Field {
 							<div class="lp_course_faq_meta_box__field">
 								<label>
 									<span><?php esc_attr_e( 'Title', 'learnpress' ); ?></span>
-									<input type="text" name="_lp_faqs_question[]" value="<?php echo $faq[0]; ?>">
+									<input type="text" name="_lp_faqs_question[]" value="<?php echo esc_attr( $faq[0] ); ?>">
 								</label>
 								<label>
 									<span><?php esc_attr_e( 'Content', 'learnpress' ); ?></span>
@@ -75,8 +75,8 @@ class LP_Meta_Box_Extra_Faq_Field extends LP_Meta_Box_Field {
 	}
 
 	public function save( $post_id ) {
-		$faqs_question = isset( $_POST['_lp_faqs_question'] ) ? wp_unslash( $_POST['_lp_faqs_question'] ) : array();
-		$faqs_answer   = isset( $_POST['_lp_faqs_answer'] ) ? wp_unslash( $_POST['_lp_faqs_answer'] ) : array();
+		$faqs_question = isset( $_POST['_lp_faqs_question'] ) ? LP_Helper::sanitize_params_submitted( $_POST['_lp_faqs_question'], 'html' ) : array();
+		$faqs_answer   = isset( $_POST['_lp_faqs_answer'] ) ? LP_Helper::sanitize_params_submitted( $_POST['_lp_faqs_answer'], 'html' ) : array();
 
 		$faqs = array();
 		if ( ! empty( $faqs_question ) ) {

@@ -4,7 +4,9 @@
  *
  * @author  ThimPress
  * @package LearnPress/Classes
- * @version 3.0.0
+ * @version 3.0.1
+ * @editor tungnx
+ * @modify 4.1.3
  */
 
 /**
@@ -102,6 +104,9 @@ if ( ! class_exists( 'LP_Emails' ) ) {
 			$this->emails['LP_Email_Instructor_Accepted']  = include_once 'emails/instructor/class-lp-email-instructor-accepted.php';
 			$this->emails['LP_Email_Instructor_Denied']    = include_once 'emails/instructor/class-lp-email-instructor-denied.php';
 
+			// Forgot Password
+			$this->emails['LP_Email_Reset_Password'] = include_once 'emails/types/class-lp-email-reset-password.php';
+
 			do_action( 'learnpress/emails/register', $this->emails );
 		}
 
@@ -127,7 +132,8 @@ if ( ! class_exists( 'LP_Emails' ) ) {
 		 * @editor tungnx
 		 * @reason comment - not use
 		 */
-		/*public static function init_email_notifications() {
+		/*
+		public static function init_email_notifications() {
 			self::instance();
 		}*/
 
@@ -136,7 +142,8 @@ if ( ! class_exists( 'LP_Emails' ) ) {
 		 *
 		 * @since 3.0.0
 		 */
-		/*public static function queue_email() {
+		/*
+		public static function queue_email() {
 			$data_queue = array(
 				'filter' => current_filter(),
 				'args'   => func_get_args(),
@@ -151,7 +158,8 @@ if ( ! class_exists( 'LP_Emails' ) ) {
 		 * @reason not use
 		 * @deprecated 4.1.1
 		 */
-		/*public static function send_email() {
+		/*
+		public static function send_email() {
 			try {
 				$args = func_get_args();
 				self::instance();
@@ -167,8 +175,10 @@ if ( ! class_exists( 'LP_Emails' ) ) {
 		 * @param bool   $echo
 		 *
 		 * @return string
+		 * @editor tungnx
+		 * @modify 4.1.4 comment - not used
 		 */
-		public function email_header( string $heading, bool $echo = true ): string {
+		/*public function email_header( string $heading, bool $echo = true ): string {
 			ob_start();
 			learn_press_get_template( 'emails/email-header.php', array( 'email_heading' => $heading ) );
 			$header = ob_get_clean();
@@ -177,7 +187,7 @@ if ( ! class_exists( 'LP_Emails' ) ) {
 			}
 
 			return $header;
-		}
+		}*/
 
 		/**
 		 * Email footer.
@@ -186,8 +196,10 @@ if ( ! class_exists( 'LP_Emails' ) ) {
 		 * @param bool   $echo
 		 *
 		 * @return string
+		 * @editor tungnx
+		 * @modify 4.1.4 comment - not used
 		 */
-		public function email_footer( string $footer_text, bool $echo = true ): string {
+		/*public function email_footer( string $footer_text, bool $echo = true ): string {
 			ob_start();
 			learn_press_get_template( 'emails/email-footer.php', array( 'footer_text' => $footer_text ) );
 			$footer = ob_get_clean();
@@ -196,7 +208,7 @@ if ( ! class_exists( 'LP_Emails' ) ) {
 			}
 
 			return $footer;
-		}
+		}*/
 
 		public function set_current( $id ) {
 			$this->_last_current = $this->_current;

@@ -94,7 +94,7 @@ class LP_Meta_Box_Course extends LP_Meta_Box {
 					'yes'
 				),
 				'_lp_allow_course_repurchase'  => new LP_Meta_Box_Checkbox_Field(
-					'Allow Repurchase',
+					__( 'Allow Repurchase', 'learnpress' ),
 					esc_html__( 'Allow users to repurchase this course after course finished or blocked ( Do not apply to free courses ).', 'learnpress' ),
 					'no'
 				),
@@ -259,8 +259,6 @@ class LP_Meta_Box_Course extends LP_Meta_Box {
 				),
 			)
 		);
-
-		return array();
 	}
 
 	public function author( $thepostid ) {
@@ -476,7 +474,7 @@ class LP_Meta_Box_Course extends LP_Meta_Box {
 
 		$course = learn_press_get_course( $post_id );
 
-		$evalution         = isset( $_POST['_lp_course_result'] ) ? wp_unslash( $_POST['_lp_course_result'] ) : '';
+		$evalution         = isset( $_POST['_lp_course_result'] ) ? LP_Helper::sanitize_params_submitted( $_POST['_lp_course_result'] ) : '';
 		$passing_condition = isset( $_POST['_lp_passing_condition'] ) ? absint( wp_unslash( $_POST['_lp_passing_condition'] ) ) : 0;
 
 		// Update Final Quiz. - Nhamdv

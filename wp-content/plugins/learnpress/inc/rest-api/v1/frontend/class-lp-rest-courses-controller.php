@@ -83,12 +83,26 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 				),
 				'schema' => array( $this, 'get_public_item_schema' ),
 			),
+			'continue-course' => array(
+				array(
+					'methods'             => WP_REST_Server::CREATABLE,
+					'callback'            => array( $this, 'continue_course' ),
+					'permission_callback' => function () {
+						return is_user_logged_in();
+					},
+				),
+			),
 		);
 
 		parent::register_routes();
 	}
 
-	public function check_admin_permission() {
+	/**
+	 * Check user is Admin
+	 *
+	 * @return bool
+	 */
+	public function check_admin_permission(): bool {
 		return LP_REST_Authentication::check_admin_permission();
 	}
 
@@ -678,6 +692,59 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 		$response = array();
 
 		return rest_ensure_response( $response );
+	}
+
+	/**
+	 * Rest API for Continue in single course.
+	 *
+	 * @param WP_REST_Request $request
+	 *
+	 * @throws Exception .
+	 * @editor minhpd
+	 * @since 4.1.4
+	 * @version 1.0.0
+	 */
+	public function continue_course( WP_REST_Request $request ) {
+		$params         = $request->get_params();
+		$response       = new LP_REST_Response();
+		$response->data = '';
+
+		try {
+			$flag_found = false;
+			$item_link  = '';
+			$course_id  = $params['courseId'] ?? false;
+			$user_id    = $params['userId'] ?? false;
+
+			$user        = learn_press_get_user( $user_id );
+			$course      = learn_press_get_course( $course_id );
+			$item_ids    = $course->get_item_ids();
+			$total_items = count( $item_ids );
+
+			if ( ! empty( $item_ids ) ) {
+				foreach ( $item_ids as $item ) {
+					if ( ! $user->has_completed_item( $item, $course_id ) ) {
+						$item_link  = $course->get_item_link( $item );
+						$flag_found = true;
+						break;
+					}
+				}
+
+				if ( ! $flag_found ) {
+					$index_item_id_last = $total_items - 1;
+					$item_id_last       = $item_ids[ $index_item_id_last ];
+					$item_link          = $course->get_item_link( $item_id_last );
+				}
+			}
+
+			$response->data    = $item_link;
+			$response->status  = 'success';
+			$response->message = '';
+
+		} catch ( Exception $e ) {
+			$response->message = $e->getMessage();
+		}
+
+		wp_send_json( $response );
 	}
 
 }

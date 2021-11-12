@@ -2,7 +2,7 @@
 /**
 * Plugin Name: Page Restriction WordPress (WP) - Protect WP Pages/Post
 * Description: This plugin allows restriction over users based on their roles and whether they are logged in or not.
-* Version: 1.2.2
+* Version: 1.2.3
 * Author: miniOrange
 * Author URI: http://miniorange.com
 * License: MIT/Expat
@@ -21,7 +21,6 @@ class page_and_post_restriction_add_on {
         add_action( 'admin_menu', array( $this, 'papr_menu'),11 );
         add_action( 'admin_init', 'papr_save_setting', 1, 0 );
         add_action( 'admin_enqueue_scripts', array( $this, 'papr_plugin_settings_script') );
-	    register_activation_hook( __FILE__, array($this,'papr_activate') );
 	    register_deactivation_hook(__FILE__, array( $this, 'papr_deactivate'));
         remove_action( 'admin_notices', array( $this, 'papr_success_message') );
         remove_action( 'admin_notices', array( $this, 'papr_error_message') );
@@ -39,16 +38,11 @@ class page_and_post_restriction_add_on {
         papr_display_feedback_form();
     }
 
-    function papr_activate(){
-	    $customer = new Customer_page_restriction();
-	    $customer->enable_guest_audit();
-    }
-
     function papr_deactivate() {
         wp_redirect('plugins.php');
         delete_option('papr_admin_email');
         delete_option('papr_admin_customer_key');
-       // delete_option('papr_host_name');
+        delete_option('papr_host_name');
         delete_option('papr_new_registration');
         delete_option('papr_admin_phone');
         delete_option('papr_admin_password');
@@ -363,8 +357,8 @@ class page_and_post_restriction_add_on {
         }
 
         if($type=='page'){
-            update_option('papr_restricted_pages', $restricted_pages);
-            update_option('papr_allowed_roles_for_pages', $page_allowed_roles);
+            update_option('papr_restricted_pages', $restrictedposts);
+            update_option('papr_allowed_roles_for_pages', $allowed_roles);
             update_option('papr_allowed_redirect_for_pages',$allowed_redirect_pages);
             update_option('papr_message', 'This page has been restricted successfully.');
         } 
@@ -376,5 +370,5 @@ class page_and_post_restriction_add_on {
         }
     }
 
-};
+}
 new page_and_post_restriction_add_on;

@@ -278,7 +278,7 @@ if ( ! class_exists( 'LP_Email' ) ) {
 		/**
 		 * @var string
 		 */
-		public $email_format = '';
+		public $email_format = 'html';
 
 		/**
 		 * @var bool
@@ -299,14 +299,8 @@ if ( ! class_exists( 'LP_Email' ) ) {
 		 * LP_Email constructor.
 		 */
 		public function __construct() {
-			// Hooks WP
-			add_filter( 'wp_mail_from', array( $this, 'get_from_address' ) );
-			add_filter( 'wp_mail_from_name', array( $this, 'get_from_name' ) );
-			add_filter( 'wp_mail_content_type', array( $this, 'get_content_format' ) );
-			// End hooks
-
 			// Set template base path to LP templates path if it is not set.
-			if ( is_null( $this->template_base ) ) {
+			if ( empty( $this->template_base ) ) {
 				$this->template_base = LP()->plugin_path( 'templates/' );
 			}
 
@@ -418,20 +412,25 @@ if ( ! class_exists( 'LP_Email' ) ) {
 
 		/**
 		 * @return array|null
+		 *
+		 * @editor tungnx
+		 * @model 4.1.4 comment - not use
 		 */
-		public function get_variable() {
+		/*public function get_variable() {
 			$this->variables = $this->data_to_variables( $this->object );
 
 			return $this->variables;
-		}
+		}*/
 
 		/**
 		 * @param null  $object_id
 		 * @param array $more
 		 *
 		 * @return array|object
+		 * @editor tungnx
+		 * @model 4.1.4 comment - not use
 		 */
-		public function get_object( $object_id = null, $more = array() ) {
+		/*public function get_object( $object_id = null, $more = array() ) {
 			$this->object = $this->get_common_template_data(
 				$this->email_format
 			);
@@ -441,7 +440,7 @@ if ( ! class_exists( 'LP_Email' ) ) {
 			}
 
 			return $this->object;
-		}
+		}*/
 
 		/**
 		 * Get variables support in mail.
@@ -594,7 +593,7 @@ if ( ! class_exists( 'LP_Email' ) ) {
 		 * @return string
 		 */
 		public function get_footer_text(): string {
-			$text = wpautop( wp_kses_post( wptexturize( $this->settings->get( 'emails_general.footer_text', 'LearnPress' ) ) ) );
+			$text = LP_Helper::sanitize_params_submitted( $this->settings->get( 'emails_general.footer_text', 'LearnPress' ), 'html' );
 
 			return $this->format_string( $text );
 		}
@@ -659,12 +658,14 @@ if ( ! class_exists( 'LP_Email' ) ) {
 		 * @return string
 		 * @editor tungnx
 		 * @version 1.0.1
+		 * @editor tungnx
+		 * @modify 4.1.4 - comment - not override hook
 		 */
-		public function get_from_address(): string {
+		/*public function get_from_address(): string {
 			$email = LP()->settings->get( 'emails_general.from_email', get_option( 'admin_email' ) );
 
 			return sanitize_email( $email );
-		}
+		}*/
 
 		/**
 		 * Get FROM name. Default is Blog name.
@@ -676,7 +677,7 @@ if ( ! class_exists( 'LP_Email' ) ) {
 		public function get_from_name(): string {
 			$name = LP()->settings->get( 'emails_general.from_name', get_option( 'blogname' ) );
 
-			return sanitize_email( $name );
+			return LP_Helper::sanitize_params_submitted( $name );
 		}
 
 		/**
@@ -838,6 +839,11 @@ if ( ! class_exists( 'LP_Email' ) ) {
 		 * @since 4.1.3
 		 */
 		public function send_email(): bool {
+			// Hooks WP
+			add_filter( 'wp_mail_from_name', array( $this, 'get_from_name' ) );
+			add_filter( 'wp_mail_content_type', array( $this, 'get_content_format' ) );
+			// End hooks
+
 			return $this->send( $this->get_recipient(), $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
 		}
 
@@ -863,8 +869,9 @@ if ( ! class_exists( 'LP_Email' ) ) {
 		 * @reason move to use method "get_common_variables"
 		 * @return array
 		 * @deprecated 4.1.3
+		 * @modify 4.1.4 comment - not use
 		 */
-		public function get_common_template_data( $format = 'plain' ) {
+		/*public function get_common_template_data( $format = 'plain' ) {
 			_deprecated_function( __FUNCTION__, '4.1.3', 'get_common_variables' );
 			$emails = LP_Emails::instance();
 			$emails->set_current( $this );
@@ -873,8 +880,8 @@ if ( ! class_exists( 'LP_Email' ) ) {
 			$footer_text = strip_tags( $this->get_footer_text() );
 
 			if ( $format != 'plain' ) {
-				$header = $emails->email_header( $heading, false );
-				$footer = $emails->email_footer( $footer_text, false );
+				$header = $this->email_header( $heading, false );
+				$footer = $this->email_footer( $footer_text, false );
 			} else {
 				$header = $heading;
 				$footer = $footer_text;
@@ -894,7 +901,8 @@ if ( ! class_exists( 'LP_Email' ) ) {
 				'plain_text'       => $format == 'plain',
 			);
 
-			if ( ( $num = func_num_args() ) > 1 ) {
+			$num = func_num_args();
+			if ( $num > 1 ) {
 				for ( $i = 1; $i < $num; $i ++ ) {
 					$a = func_get_arg( $i );
 					if ( is_array( $a ) ) {
@@ -906,7 +914,7 @@ if ( ! class_exists( 'LP_Email' ) ) {
 			$emails->reset_current();
 
 			return $common;
-		}
+		}*/
 
 		/**
 		 * Get common variables.
@@ -954,8 +962,9 @@ if ( ! class_exists( 'LP_Email' ) ) {
 		 * @reason move to use method "map_data_to_variables"
 		 * @deprecated 4.1.3
 		 * @return array
+		 * @modify 4.1.4 comment - not use
 		 */
-		public function data_to_variables( $data = null ) {
+		/*public function data_to_variables( $data = null ) {
 			_deprecated_function( __FUNCTION__, '4.1.3', 'map_data_to_variables' );
 			if ( ! $data ) {
 				$data = $this->get_common_template_data();
@@ -968,7 +977,7 @@ if ( ! class_exists( 'LP_Email' ) ) {
 			}
 
 			return $variables;
-		}
+		}*/
 
 		/**
 		 * Build list of template variables from an array.
@@ -1159,8 +1168,9 @@ if ( ! class_exists( 'LP_Email' ) ) {
 					'image_header'  => $this->get_image_header(),
 				]
 			);
-			$header = ob_get_contents();
-			ob_end_clean();
+			$header = ob_get_clean();
+			$header = wp_kses_post( $header );
+
 			if ( $echo ) {
 				echo $header;
 			}
@@ -1179,8 +1189,9 @@ if ( ! class_exists( 'LP_Email' ) ) {
 		public function email_footer( string $footer_text, bool $echo = true ): string {
 			ob_start();
 			learn_press_get_template( 'emails/email-footer.php', array( 'footer_text' => $footer_text ) );
-			$footer = ob_get_contents();
-			ob_end_clean();
+			$footer = ob_get_clean();
+			$footer = wp_kses_post( $footer );
+
 			if ( $echo ) {
 				echo $footer;
 			}

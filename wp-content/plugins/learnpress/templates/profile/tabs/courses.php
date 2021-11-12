@@ -39,13 +39,13 @@ $createds = array(
 	'pending' => esc_html__( 'Pending', 'learnpress' ),
 );
 
-$enrolled_active = ! learn_press_user_maybe_is_a_teacher() ? 'in-progress' : '';
-$tab_active      = ! learn_press_user_maybe_is_a_teacher() ? 'enrolled' : 'created';
+$enrolled_active = apply_filters( 'learnpress/profile/tab/enrolled/subtab-active', ! learn_press_user_maybe_is_a_teacher() ? 'in-progress' : '' );
+$tab_active      = apply_filters( 'learnpress/profile/tab-active', ! learn_press_user_maybe_is_a_teacher() ? 'enrolled' : 'created' );
 ?>
 
 <div class="learn-press-subtab-content">
 	<div class="learn-press-profile-course__statistic"
-		 data-ajax="<?php echo htmlentities( wp_json_encode( array( 'userID' => $user->get_id() ) ) ); ?>">
+		data-ajax="<?php echo htmlentities( wp_json_encode( array( 'userID' => $user->get_id() ) ) ); ?>">
 		<?php lp_skeleton_animation_html( 4, 'random', 'height: 30px;border-radius:4px;' ); ?>
 	</div>
 

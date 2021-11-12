@@ -664,6 +664,53 @@ var accordionExtraTab = function accordionExtraTab() {
   });
 };
 
+var courseContinue = function courseContinue() {
+  var formContinue = document.querySelector('form.continue-course');
+
+  if (formContinue != null) {
+    var getResponse = /*#__PURE__*/function () {
+      var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(ele) {
+        var response;
+        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return wp.apiFetch({
+                  path: 'lp/v1/courses/continue-course',
+                  method: 'POST',
+                  data: {
+                    courseId: lpGlobalSettings.post_id || '',
+                    userId: lpGlobalSettings.user_id || ''
+                  }
+                });
+
+              case 2:
+                response = _context5.sent;
+                return _context5.abrupt("return", response);
+
+              case 4:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }));
+
+      return function getResponse(_x7) {
+        return _ref5.apply(this, arguments);
+      };
+    }();
+
+    getResponse(formContinue).then(function (result) {
+      if (result.status === 'success') {
+        formContinue.style.display = 'block';
+        formContinue.action = result.data;
+      }
+    });
+  }
+};
+
 
 $(window).on('load', function () {
   var $popup = $('#popup-course');
@@ -676,6 +723,7 @@ $(window).on('load', function () {
   purchaseCourse();
   retakeCourse();
   courseProgress();
+  courseContinue();
   _show_lp_overlay_complete_item__WEBPACK_IMPORTED_MODULE_2__["default"].init(); // courseCurriculum();
 });
 
@@ -711,7 +759,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 

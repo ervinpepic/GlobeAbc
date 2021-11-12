@@ -18,12 +18,19 @@ export const setItemStatus = ( item, status ) => {
 };
 
 const updateUserQuestionAnswer = ( state, action ) => {
-	const { answered } = state;
+	const { answered, id } = state;
 	const newAnswer = {
 		...( answered[ action.questionId ] || {} ),
 		answered: action.answers,
 		temp: true,
 	};
+
+	if ( id ) {
+		localStorage.setItem( `LP_Quiz_${ id }_Answered`, JSON.stringify( {
+			...state.answered,
+			[ action.questionId ]: newAnswer,
+		} ) );
+	}
 
 	return {
 		...state,
@@ -103,6 +110,8 @@ const checkAnswer = ( state, action ) => {
 };
 
 const submitQuiz = ( state, action ) => {
+	localStorage.removeItem( `LP_Quiz_${ state.id }_Answered` );
+
 	const questions = state.questions.map( ( question ) => {
 		const newArgs = {};
 

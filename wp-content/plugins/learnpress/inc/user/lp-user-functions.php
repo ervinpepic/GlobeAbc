@@ -86,20 +86,18 @@ function learn_press_get_current_user_id() {
  * @param bool $create_temp - Optional. Create temp user if user is not logged in.
  *
  * @return bool|LP_User|LP_User_Guest
+ * @editor tungnx
+ * @modify 4.1.4
+ * @version 1.0.1
  */
-function learn_press_get_current_user( $create_temp = true, $force_new = false ) {
-	static $current_user = false;
-
+function learn_press_get_current_user( $create_temp = true ) {
 	$user_id = get_current_user_id();
 
 	if ( $user_id ) {
-		if ( ! $current_user || $force_new ) {
-			$current_user = learn_press_get_user( $user_id, $force_new );
-		}
-
-		return $current_user;
+		return learn_press_get_user( $user_id );
 	}
 
+	// Return LP_User_Guest
 	return learn_press_get_user( 0 );
 }
 
@@ -122,7 +120,6 @@ if ( ! function_exists( 'learn_press_get_user' ) ) {
 		}
 
 		if ( ! $user_id && isset( LP()->session ) ) {
-
 			if ( ! LP()->session->guest_user_id ) {
 				LP()->session->set_customer_session_cookie( 1 );
 				LP()->session->guest_user_id = time();
@@ -1081,6 +1078,12 @@ function learn_press_update_user_profile() {
  * Update user avatar
  */
 function learn_press_update_user_profile_avatar() {
+	$user_id = get_current_user_id();
+
+	if ( ! $user_id ) {
+		return new WP_Error( 2, 'User is invalid!' );
+	}
+
 	$upload_dir = learn_press_user_profile_picture_upload_dir();
 
 	if ( learn_press_get_request( 'lp-user-avatar-custom' ) != 'yes' ) {
@@ -1114,15 +1117,14 @@ function learn_press_update_user_profile_avatar() {
 		return false;
 	}
 
-	$user_id = get_current_user_id();
-	$dst_x   = 0;
-	$dst_y   = 0;
-	$dst_w   = $data['width'];
-	$dst_h   = $data['height'];
-	$src_x   = $points[0];
-	$src_y   = $points[1];
-	$src_w   = $points[2] - $points[0];
-	$src_h   = $points[3] - $points[1];
+	$dst_x = 0;
+	$dst_y = 0;
+	$dst_w = $data['width'];
+	$dst_h = $data['height'];
+	$src_x = $points[0];
+	$src_y = $points[1];
+	$src_w = $points[2] - $points[0];
+	$src_h = $points[3] - $points[1];
 
 	imagecopyresampled( $im_crop, $im, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h );
 
@@ -1173,6 +1175,10 @@ function learn_press_update_user_profile_avatar() {
 function learn_press_update_user_profile_basic_information( $wp_error = false ) {
 	$user_id = get_current_user_id();
 
+	if ( ! $user_id ) {
+		return new WP_Error( 2, 'User is invalid!' );
+	}
+
 	$update_data = array(
 		'ID'           => $user_id,
 		'first_name'   => filter_input( INPUT_POST, 'first_name', FILTER_SANITIZE_STRING ),
@@ -1183,7 +1189,7 @@ function learn_press_update_user_profile_basic_information( $wp_error = false ) 
 	);
 
 	$update_data = apply_filters( 'learn-press/update-profile-basic-information-data', $update_data );
-	$update_meta = isset( $_POST['_lp_custom_register'] ) ? $_POST['_lp_custom_register'] : '';
+	$update_meta = isset( $_POST['_lp_custom_register'] ) ? LP_Helper::sanitize_params_submitted( $_POST['_lp_custom_register'] ) : '';
 
 	$return = LP_Forms_Handler::update_user_data( $update_data, $update_meta );
 
@@ -1208,15 +1214,21 @@ function learn_press_update_user_profile_basic_information( $wp_error = false ) 
  * Update new password.
  */
 function learn_press_update_user_profile_change_password( $wp_error = false ) {
+	$user_id = get_current_user_id();
+
+	if ( ! $user_id ) {
+		return new WP_Error( 2, 'User is invalid!' );
+	}
+
 	$old_pass       = filter_input( INPUT_POST, 'pass0' );
 	$check_old_pass = false;
 
 	if ( $old_pass ) {
-		$cuser = wp_get_current_user();
+		$user = wp_get_current_user();
 		require_once ABSPATH . 'wp-includes/class-phpass.php';
 		$wp_hasher = new PasswordHash( 8, true );
 
-		if ( $wp_hasher->CheckPassword( $old_pass, $cuser->data->user_pass ) ) {
+		if ( $wp_hasher->CheckPassword( $old_pass, $user->data->user_pass ) ) {
 			$check_old_pass = true;
 		}
 	}
@@ -1816,6 +1828,7 @@ function learn_press_rest_prepare_user_questions( array $question_ids = array(),
 	$instantCheck     = $args['instant_check'];
 	$quizStatus       = $args['quiz_status'];
 	$answered         = $args['answered'];
+	$status           = $args['status'] ?? '';
 	$questions        = array();
 
 	if ( $question_ids ) {
@@ -1829,7 +1842,7 @@ function learn_press_rest_prepare_user_questions( array $question_ids = array(),
 			$theHint        = $question->get_hint();
 			$theExplanation = '';
 
-			if ( $instantCheck ) {
+			if ( $instantCheck || $status == 'completed' ) {
 				$theExplanation = $question->get_explanation();
 				$checked        = in_array( $id, $checkedQuestions );
 				$hasExplanation = ! ! $theExplanation;
@@ -1853,7 +1866,7 @@ function learn_press_rest_prepare_user_questions( array $question_ids = array(),
 				$questionData['hint'] = $theHint;
 			}
 
-			if ( $checked && $theExplanation ) {
+			if ( $status == 'completed' || ( $checked && $theExplanation ) ) {
 				$questionData['explanation'] = $theExplanation;
 			}
 
@@ -2034,7 +2047,8 @@ function lp_custom_register_fields_display() {
 						content: ' *';
 						display:inline;
 					}
-				</style> <?php
+				</style>
+				<?php
 			}
 
 			if ( isset( $custom_field['id'] ) ) {
@@ -2050,7 +2064,7 @@ function lp_custom_register_fields_display() {
 						case 'url':
 							?>
 							<label for="description"><?php echo esc_html( $custom_field['name'] ); ?></label>
-						<?php
+							<?php
 						case 'tel':
 							?>
 							<input name="_lp_custom_register_form[<?php echo $value; ?>]"
@@ -2093,9 +2107,9 @@ add_action( 'learn-press/after-form-register-fields', 'lp_custom_register_fields
  */
 function lp_user_custom_register_fields( $user_id, $fields = array() ) {
 	if ( ! empty( $fields ) ) {
-		update_user_meta( $user_id, '_lp_custom_register', learnpress_clean( $fields ) );
+		update_user_meta( $user_id, '_lp_custom_register', LP_Helper::sanitize_params_submitted( $fields ) );
 	} elseif ( isset( $_POST['_lp_custom_register'] ) ) {
-		update_user_meta( $user_id, '_lp_custom_register', $_POST['_lp_custom_register'] );
+		update_user_meta( $user_id, '_lp_custom_register', LP_Helper::sanitize_params_submitted( $_POST['_lp_custom_register'] ) );
 	}
 }
 
@@ -2237,10 +2251,12 @@ function learnpress_get_count_by_user( $user_id = '', $post_type = 'lp_course' )
 
 }
 
-add_action(
+/*add_action(
 	'admin_init',
 	function() {
 		$custom_fields = LP()->settings()->get( 'register_profile_fields' );
+
+		$custom_fields = LP_Helper::sanitize_params_submitted( $custom_fields );
 
 		if ( ! empty( $custom_fields ) ) {
 			$output = array();
@@ -2248,7 +2264,7 @@ add_action(
 			foreach ( $custom_fields as $key => $field ) {
 				if ( ! isset( $field['id'] ) ) {
 					$output[ $key ] = array(
-						'id'       => sanitize_key( $field['name'] ),
+						'id'       => $field['name'],
 						'name'     => $field['name'] ?? '',
 						'type'     => $field['type'] ?? '',
 						'required' => $field['required'] ?? '',
@@ -2261,4 +2277,4 @@ add_action(
 			update_option( 'learn_press_register_profile_fields', $output );
 		}
 	}
-);
+);*/

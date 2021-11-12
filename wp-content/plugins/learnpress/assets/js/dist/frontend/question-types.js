@@ -174,7 +174,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
@@ -481,7 +481,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
@@ -512,14 +512,15 @@ var QuestionFillInBlanks = /*#__PURE__*/function (_QuestionBase) {
 
     _defineProperty(_assertThisInitialized(_this), "updateFibAnswer", function () {
       var allFIBs = document.querySelectorAll('.lp-fib-input > input');
-      var answered = {};
+      var answered = _this.props.answered;
+      var answereds = answered || {};
 
       _toConsumableArray(allFIBs).map(function (ele) {
         ele.addEventListener('input', function (e) {
-          _this.setAnswered(answered, ele.dataset.id, e.target.value);
+          _this.setAnswered(answereds, ele.dataset.id, e.target.value);
         });
         ele.addEventListener('paste', function (e) {
-          _this.setAnswered(answered, ele.dataset.id, e.target.value);
+          _this.setAnswered(answereds, ele.dataset.id, e.target.value);
         });
       });
     });
@@ -571,12 +572,57 @@ var QuestionFillInBlanks = /*#__PURE__*/function (_QuestionBase) {
       }), Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Incorrect', 'learnpress')));
     });
 
+    _defineProperty(_assertThisInitialized(_this), "convertInputField", function (option) {
+      var title = option.title;
+      var answers = option === null || option === void 0 ? void 0 : option.answers;
+      option.ids.map(function (id, index) {
+        var textReplace = '{{FIB_' + id + '}}';
+        var elContent = '';
+        var answerID = answers ? answers === null || answers === void 0 ? void 0 : answers[id] : undefined;
+
+        if (answerID) {
+          var _answerID$correct;
+
+          // If is answered,
+          elContent += "<span class=\"lp-fib-answered ".concat(answerID !== null && answerID !== void 0 && answerID.isCorrect ? 'correct' : 'fail', "\">");
+
+          if (!(answerID !== null && answerID !== void 0 && answerID.isCorrect)) {
+            var _answerID$answer;
+
+            elContent += "<span class=\"lp-fib-answered__answer\">".concat((_answerID$answer = answerID === null || answerID === void 0 ? void 0 : answerID.answer) !== null && _answerID$answer !== void 0 ? _answerID$answer : '', "</span> \u2192 ");
+          }
+
+          elContent += "<span class=\"lp-fib-answered__fill\">".concat((_answerID$correct = answerID === null || answerID === void 0 ? void 0 : answerID.correct) !== null && _answerID$correct !== void 0 ? _answerID$correct : '', "</span>");
+          elContent += '</span>';
+        } else {
+          elContent += '<div class="lp-fib-input" style="display: inline-block; width: auto;">';
+          elContent += '<input type="text" data-id="' + id + '" value="" />';
+          elContent += '</div>';
+        }
+
+        title = title.replace(textReplace, elContent);
+      });
+      return title;
+    });
+
     return _this;
   }
 
   _createClass(QuestionFillInBlanks, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      var answered = this.props.answered;
+
+      if (answered) {
+        var allFIBs = document.querySelectorAll('.lp-fib-input > input');
+
+        _toConsumableArray(allFIBs).map(function (ele) {
+          if (answered[ele.dataset.id]) {
+            ele.value = answered[ele.dataset.id];
+          }
+        });
+      }
+
       this.updateFibAnswer();
     }
   }, {
@@ -589,13 +635,15 @@ var QuestionFillInBlanks = /*#__PURE__*/function (_QuestionBase) {
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
         className: "lp-fib-content"
       }, this.getOptions().map(function (option) {
         return /*#__PURE__*/React.createElement("div", {
           key: "blank-".concat(option.uid),
           dangerouslySetInnerHTML: {
-            __html: option.title || option.value
+            __html: _this2.convertInputField(option) || option.value
           }
         });
       })), !this.isDefaultType() && this.getWarningMessage(), this.getCorrectLabel());
@@ -645,7 +693,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
@@ -765,7 +813,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
@@ -858,7 +906,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
@@ -964,7 +1012,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 

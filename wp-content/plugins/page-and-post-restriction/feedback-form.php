@@ -82,7 +82,7 @@ function papr_display_feedback_form() {
     </div>
 
     <script>
-        jQuery('a[aria-label="Deactivate WordPress Page Post Protection"]').click(function () {
+        jQuery('a[aria-label="Deactivate Page Restriction WordPress (WP) - Protect WP Pages/Post"]').click(function () {
 
             var mo_modal = document.getElementById('papr_feedback_modal');
 

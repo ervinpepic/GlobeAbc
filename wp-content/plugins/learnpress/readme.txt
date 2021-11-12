@@ -5,7 +5,7 @@ Tags: elearning, education, course, lms, learning management system
 Requires at least: 5.6
 Tested up to: 5.8
 Requires PHP: 7.0
-Stable tag: 4.1.3
+Stable tag: 4.1.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,7 +15,7 @@ A WordPress LMS Plugin to create WordPress Learning Management System. Turn your
 
 **<a href="https://thimpress.com/learnpress" target="_blank">WordPress LMS Plugin</a>** - LearnPress is a comprehensive *WordPress LMS Plugin* for WordPress. This is one of the best WordPress LMS Plugins which can be used to easily create & sell courses online. You can create a course curriculum with lessons & quizzes included which is managed with an easy-to-use interface for users. Having this WordPress LMS Plugin, now you have a chance to quickly and easily create education, online school, online-course websites with no coding knowledge required.
 
-<a href="https://demo-learnpress.thimpress.com/" target="_blank">Live Demo</a> | <a href="https://1.envato.market/G5Ook" target="_blank">LearnPress Themes</a> | <a href="https://thimpress.com/forums/forum/plugins/learnpress-plugin/" target="_blank">Support</a> | <a href="https://docspress.thimpress.com/learnpress-4-0/" target="_blank">Documentation</a>
+<a href="https://university.thimpress.com/" target="_blank">Live Demo</a> | <a href="https://1.envato.market/G5Ook" target="_blank">LearnPress Themes</a> | <a href="https://thimpress.com/forums/forum/plugins/learnpress-plugin/" target="_blank">Support</a> | <a href="https://docspress.thimpress.com/learnpress-4-0/" target="_blank">Documentation</a>
 
 LearnPress is free and always will be, but it is still a premium high-quality WordPress Plugin that definitely helps you with making money from your **WordPress based LMS**. Just try and see how it is. LearnPress WordPress Online Course plugin is lightweight and super powerful with lots of Add-Ons to empower its core system.
 
@@ -196,6 +196,44 @@ https://www.transifex.com/projects/p/learnpress/
 8. Add-ons of LearnPress.
 
 == Changelog ==
+
+= 4.1.4 (2021-11-08) =
+~ Fixed security: when user share profile, another user can see settings as change password, change info.
+~ Modify: not scroll to title courses when load first.
+~ Fixed: get incorrect key setting "archive course layout".
+~ Fixed: get value "From name", "Footer text" setting Email.
+~ Removed: option set "From address" email, removed hook "wp_mail_from" make some site can't send email when install LP.
+~ Comment some functions deprecated: "_learn_press_restrict_view_items", "_learn_press_set_user_items".
+~ Added: hook "learnpress/course/template/price/can-show".
+~ Added: filter "before_show_lp_widget_content".
+~ Show icons on the child Settings tab - Profile page.
+~ Fixed: case answer's question Fill in blank = "0" always incorrect.
+~ Fixed: case content of question answers will change by hook apply_filters( 'the_content') when reload page, change to do_shortcode().
+~ Fixed: store answer of user when reload page will lose.
+~ Added: hooks apply_filters('learnpress/profile/tab/enrolled/subtab-active'), apply_filters('learnpress/profile/tab-active').
+~ Modified: functions course_external_button, can_enroll_course with case course is external and purchased course.
+~ Sanitize: email_footer, email_header.
+~ Removed: some functions not use on file class-lp-email.php: "get_variable", "get_object", "get_common_template_data", "data_to_variables"
+~ Fix show explanation when reload site.
+~ Fix show message: "Your order is waiting for processing" when LP Order status is processing.
+~ Fixed: condition get link last item if all items completed - on button continue.
+~ Fixed: show explanation.
+~ Fixed: error user login with mail buy as Guest and LP Oder completed but can't view course.
+~ Fixed: error, <a href="https://blog.szfszf.top/static/papers/LearnPress_4.1.3.2_sql_injection_1cf8665be17b7708a3f180067fd2d50b.html">sql injection</a>, sanitize feature duplicate post (Course, Lesson, Quiz v.v...)
+
+= 4.1.3.2 (2021-11-09) =
+~ Fixed: security CVE-2021-39348, set sanitize for some params missing.
+
+= 4.1.3.1 (2021-09-15) =
+~ Fixed: some shortcode of latex show incorrect on question answer.
+~ Added: hooks for course_continue_button, course_purchase_button, course_enroll_button.
+~ Fixed: Fatal error LP_Abstract_User::get_course_data() when upgrade from LP3 to LP4.
+~ Moved: function "Email hook notify" to hook "plugin_loaded".
+~ Added: hooks "learnpress/hook/before-addons-call-hook-learnpress-ready".
+~ Fixed security: Cross Site Scripting (XSS) on fields: External Link, Requirements, Target Audience, Key Features, FAQs.
+~ Fixed: click button continue redirect wrong item.
+~ Added: functions get_user_ids_enrolled, get_total_user_enrolled.
+~ Fixed: error WP_Filesystem_Direct::exist not exist.
 
 = 4.1.3 (2021-09-07) =
 ~ Modified: Learnpress order status on Dashboard of Wordpress.

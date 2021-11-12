@@ -212,7 +212,19 @@ var CourseCurriculum = {
       type: 'remove-section-item',
       section_id: payload.section_id,
       item_id: id
-    }).then(function () {
+    }).then(function (rs) {
+      var _rs$body = rs.body,
+          data = _rs$body.data,
+          success = _rs$body.success;
+
+      if (success) {
+        context.commit('REMOVE_SECTION_ITEM', payload);
+      } else {
+        alert(data);
+        payload.oldId = id;
+        context.commit('REMOVE_SECTION_ITEM', payload);
+      }
+
       context.commit('REMOVE_SECTION_ITEM', payload);
     });
   },
@@ -224,8 +236,18 @@ var CourseCurriculum = {
       type: 'delete-section-item',
       section_id: payload.section_id,
       item_id: id
-    }).then(function () {
-      context.commit('REMOVE_SECTION_ITEM', payload);
+    }).then(function (rs) {
+      var _rs$body2 = rs.body,
+          data = _rs$body2.data,
+          success = _rs$body2.success;
+
+      if (success) {
+        context.commit('REMOVE_SECTION_ITEM', payload);
+      } else {
+        alert(data);
+        payload.oldId = id;
+        context.commit('REMOVE_SECTION_ITEM', payload);
+      }
     });
   },
   newSectionItem: function newSectionItem(context, payload) {
@@ -706,6 +728,11 @@ var CourseCurriculum = {
     });
 
     if (index !== -1) {
+      if (payload.oldId !== undefined) {
+        items[index].id = payload.oldId;
+        return;
+      }
+
       if (item.temp_id) {
         items[index].id = item.temp_id;
       } else {

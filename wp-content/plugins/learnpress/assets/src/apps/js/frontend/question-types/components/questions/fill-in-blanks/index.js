@@ -3,6 +3,18 @@ import QuestionBase from '../../question-base';
 
 class QuestionFillInBlanks extends QuestionBase {
 	componentDidMount() {
+		const { answered } = this.props;
+
+		if ( answered ) {
+			const allFIBs = document.querySelectorAll( '.lp-fib-input > input' );
+
+			[ ...allFIBs ].map( ( ele ) => {
+				if ( answered[ ele.dataset.id ] ) {
+					ele.value = answered[ ele.dataset.id ];
+				}
+			} );
+		}
+
 		this.updateFibAnswer();
 	}
 
@@ -14,15 +26,17 @@ class QuestionFillInBlanks extends QuestionBase {
 
 	updateFibAnswer = () => {
 		const allFIBs = document.querySelectorAll( '.lp-fib-input > input' );
-		const answered = {};
+		const { answered } = this.props;
+
+		const answereds = answered || {};
 
 		[ ...allFIBs ].map( ( ele ) => {
 			ele.addEventListener( 'input', ( e ) => {
-				this.setAnswered( answered, ele.dataset.id, e.target.value );
+				this.setAnswered( answereds, ele.dataset.id, e.target.value );
 			} );
 
 			ele.addEventListener( 'paste', ( e ) => {
-				this.setAnswered( answered, ele.dataset.id, e.target.value );
+				this.setAnswered( answereds, ele.dataset.id, e.target.value );
 			} );
 		} );
 	}
@@ -63,13 +77,44 @@ class QuestionFillInBlanks extends QuestionBase {
 		);
 	};
 
+	convertInputField = ( option ) => {
+		let title = option.title;
+
+		const answers = option?.answers;
+
+		option.ids.map( ( id, index ) => {
+			const textReplace = '{{FIB_' + id + '}}';
+			let elContent = '';
+
+			const answerID = answers ? answers?.[ id ] : undefined;
+
+			if ( answerID ) { // If is answered,
+				elContent += `<span class="lp-fib-answered ${ answerID?.isCorrect ? 'correct' : 'fail' }">`;
+
+				if ( ! answerID?.isCorrect ) {
+					elContent += `<span class="lp-fib-answered__answer">${ answerID?.answer ?? '' }</span> → `;
+				}
+
+				elContent += `<span class="lp-fib-answered__fill">${ answerID?.correct ?? '' }</span>`;
+				elContent += '</span>';
+			} else {
+				elContent += '<div class="lp-fib-input" style="display: inline-block; width: auto;">';
+				elContent += '<input type="text" data-id="' + id + '" value="" />';
+				elContent += '</div>';
+			}
+			title = title.replace( textReplace, elContent );
+		} );
+
+		return title;
+	}
+
 	render() {
 		return (
 			<>
 				<div className="lp-fib-content">
 					{ this.getOptions().map( ( option ) => {
 						return (
-							<div key={ `blank-${ option.uid }` } dangerouslySetInnerHTML={ { __html: option.title || option.value } }></div>
+							<div key={ `blank-${ option.uid }` } dangerouslySetInnerHTML={ { __html: this.convertInputField( option ) || option.value } }></div>
 						);
 					} ) }
 				</div>

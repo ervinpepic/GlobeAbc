@@ -168,10 +168,21 @@ class LP_Template_Course extends LP_Abstract_Template {
 	}
 
 	public function course_pricing() {
-		$course = learn_press_get_course();
-		$user   = learn_press_get_current_user();
+		$can_show = true;
+		$course   = learn_press_get_course();
+		$user     = learn_press_get_current_user();
 
-		if ( $user && $user->has_enrolled_course( get_the_ID() ) ) {
+		try {
+			if ( $user && $user->has_enrolled_course( get_the_ID() ) ) {
+				throw new Exception( 'User has enrolled course' );
+			}
+		} catch ( Throwable $e ) {
+			$can_show = false;
+		}
+
+		$can_show = apply_filters( 'learnpress/course/template/price/can-show', $can_show, $user, $course );
+
+		if ( ! $can_show ) {
 			return;
 		}
 
@@ -181,26 +192,40 @@ class LP_Template_Course extends LP_Abstract_Template {
 	/**
 	 * Template purchase course button
 	 *
+	 * @editor tungnx
+	 * @modify 4.1.3.1
+	 * @version 4.0.1
 	 * @throws Exception
 	 */
 	public function course_purchase_button() {
-		$course = LP_Global::course();
-		$user   = LP_Global::user();
+		$can_show = true;
+		$course   = LP_Global::course();
+		$user     = LP_Global::user();
 
-		if ( ! $user || ! $course ) {
-			return;
+		try {
+			if ( ! $user || ! $course ) {
+				throw new Exception( 'User or Course is not exists' );
+			}
+
+			if ( $course->get_external_link() ) {
+				throw new Exception( 'Course is type external, so can not purchase' );
+			}
+
+			if ( ! $user->can_purchase_course( $course->get_id() ) ) {
+				throw new Exception( 'You can not purchase course' );
+			}
+
+			// Course is not require enrolling.
+			if ( $course->is_no_required_enroll() ) {
+				throw new Exception( 'Course is type no required enroll' );
+			}
+		} catch ( Throwable $e ) {
+			$can_show = false;
 		}
 
-		if ( $course->get_external_link() ) {
-			return;
-		}
+		$can_show = apply_filters( 'learnpress/course/template/button-purchase/can-show', $can_show, $user, $course );
 
-		if ( ! $user->can_purchase_course( $course->get_id() ) ) {
-			return;
-		}
-
-		// Course is not require enrolling.
-		if ( $course->is_no_required_enroll() ) {
+		if ( ! $can_show ) {
 			return;
 		}
 
@@ -214,7 +239,10 @@ class LP_Template_Course extends LP_Abstract_Template {
 
 		learn_press_get_template(
 			$args_load_tmpl['template_name'],
-			array( 'course' => $course ),
+			[
+				'user'   => $user,
+				'course' => $course,
+			],
 			$args_load_tmpl['template_path'],
 			$args_load_tmpl['default_path']
 		);
@@ -224,42 +252,45 @@ class LP_Template_Course extends LP_Abstract_Template {
 	 * Show button enroll course
 	 *
 	 * @editor tungnx
-	 * @modify 4.1.3
+	 * @modify 4.1.3.1
 	 * @throws Exception
-	 * @version 4.0.1
+	 * @version 4.0.2
 	 */
 	public function course_enroll_button() {
-		$user   = LP_Global::user();
-		$course = LP_Global::course();
+		$can_show = true;
+		$user     = LP_Global::user();
+		$course   = LP_Global::course();
 
-		if ( ! $course || ! $user ) {
+		try {
+			if ( ! $course || ! $user ) {
+				throw new Exception( 'User or Course is not exists' );
+			}
+
+			// User can not enroll course.
+			if ( ! $user->can_enroll_course( $course->get_id() ) ) {
+				throw new Exception( 'You can not enroll course' );
+			}
+
+			if ( $user->has_finished_course( $course->get_id() ) ) {
+				throw new Exception( 'Course is finished' );
+
+			}
+		} catch ( Throwable $e ) {
+			$can_show = false;
+		}
+
+		$can_show = apply_filters( 'learnpress/course/template/button-enroll/can-show', $can_show, $user, $course );
+
+		if ( ! $can_show ) {
 			return;
 		}
 
-		// User can not enroll course.
-		if ( ! $user->can_enroll_course( $course->get_id() ) ) {
-			return;
-		}
+		$args = [
+			'user'   => $user,
+			'course' => $course,
+		];
 
-		// Get user course from learnpress_user_items
-		$user_course = $user->get_course_data( $course->get_id() );
-
-		if ( ! $user_course ) {
-			return;
-		}
-
-		if ( $user_course->is_finished() ) {
-			return;
-		}
-
-		// For free course and user has not purchased
-		/*if ( $course->is_free() ) {
-			learn_press_get_template( 'single-course/buttons/enroll.php' );
-		} elseif ( $user_course->is_purchased() ) {
-			learn_press_get_template( 'single-course/buttons/enroll.php' );
-		}*/
-
-		learn_press_get_template( 'single-course/buttons/enroll.php' );
+		learn_press_get_template( 'single-course/buttons/enroll.php', $args );
 	}
 
 	public function course_extra_requirements( $course_id ) {
@@ -364,44 +395,68 @@ class LP_Template_Course extends LP_Abstract_Template {
 	 * Show template "continue" button con single course
 	 * @throws Exception
 	 * @editor tungnx
-	 * @modify 4.1.3
-	 * @version 4.0.1
+	 * @modify 4.1.3.1
+	 * @version 4.0.2
 	 * @since  4.0.0
 	 */
 	public function course_continue_button() {
-		$user   = LP_Global::user();
-		$course = LP_Global::course();
+		$can_show = true;
+		$user     = LP_Global::user();
+		$course   = LP_Global::course();
 
-		if ( ! $user || ! $course ) {
+		try {
+			if ( ! $user || ! $course ) {
+				throw new Exception( 'User or Course not exists!' );
+			}
+
+			if ( ! $user->has_enrolled_course( $course->get_id() ) ) {
+				throw new Exception( 'User has not enrolled course' );
+			}
+
+			if ( $user->has_finished_course( $course->get_id() ) ) {
+				throw new Exception( 'User has finished course' );
+			}
+
+			// Course has no items
+			if ( empty( $course->get_item_ids() ) ) {
+				throw new Exception( 'Course no any item' );
+			}
+
+			// Do not display continue button if course is block duration
+			if ( $user->can_view_content_course( $course->get_id() )->key === LP_BLOCK_COURSE_DURATION_EXPIRE ) {
+				throw new Exception( 'Course is blocked' );
+			}
+		} catch ( Throwable $e ) {
+			$can_show = false;
+		}
+
+		$can_show = apply_filters( 'learnpress/course/template/button-continue/can-show', $can_show, $user, $course );
+
+		if ( ! $can_show ) {
 			return;
 		}
 
-		if ( ! $user->has_enrolled_course( $course->get_id() ) ) {
-			return;
-		}
+		$args = [
+			'user'   => $user,
+			'course' => $course,
+		];
 
-		if ( $user->has_finished_course( $course->get_id() ) ) {
-			return;
-		}
-
-		// Course has no items
-		if ( empty( $course->get_item_ids() ) ) {
-			return;
-		}
-
-		// Do not display continue button if course is block duration
-		if ( $user->can_view_content_course( $course->get_id() )->key === LP_BLOCK_COURSE_DURATION_EXPIRE ) {
-			return;
-		}
-
-		learn_press_get_template( 'single-course/buttons/continue.php' );
+		learn_press_get_template( 'single-course/buttons/continue.php', $args );
 	}
 
-	public function can_show_finish_course_btn( $course, $user ) {
-		$return = array(
-			'status'  => 'fail',
+	/**
+	 * Check can show button finish course
+	 *
+	 * @param LP_Course|false $course
+	 * @param LP_User|LP_User_Guest $user
+	 *
+	 * @return array
+	 */
+	public function can_show_finish_course_btn( $course, $user ): array {
+		$return = [
+			'flag'    => false,
 			'message' => '',
-		);
+		];
 
 		try {
 			if ( ! $course || ! $user ) {
@@ -410,10 +465,11 @@ class LP_Template_Course extends LP_Abstract_Template {
 
 			$course_id = $course->get_id();
 
-			$course_data    = $user->get_course_data( $course_id );
-			$course_results = $course_data->calculate_course_results();
+			if ( ! $user->has_enrolled_course( $course_id ) ) {
+				throw new Exception( esc_html__( 'Course is not enroll.', 'learnpress' ) );
+			}
 
-			$is_all_completed = $user->is_completed_all_items( $course_id );
+			$course_data = $user->get_course_data( $course_id );
 
 			if ( ! $user->is_course_in_progress( $course_id ) ) {
 				throw new Exception( esc_html__( 'Error: Course is not in-progress.', 'learnpress' ) );
@@ -426,15 +482,21 @@ class LP_Template_Course extends LP_Abstract_Template {
 				throw new Exception( esc_html__( 'Error: Course is not has finish.', 'learnpress' ) );
 			}
 
-			if ( ! $is_all_completed && $has_finish === 'yes' && ! $is_passed ) {
-				throw new Exception( esc_html__( 'Error: Cannot finish course.', 'learnpress' ) );
+			if ( $course_data ) {
+				$course_results = $course_data->calculate_course_results();
+
+				$is_all_completed = $user->is_completed_all_items( $course_id );
+
+				if ( ! $is_all_completed && $has_finish === 'yes' && ! $is_passed ) {
+					throw new Exception( esc_html__( 'Error: Cannot finish course.', 'learnpress' ) );
+				}
 			}
 
 			if ( ! apply_filters( 'lp_can_finish_course', true ) ) {
 				throw new Exception( esc_html__( 'Error: Filter disable finish course.', 'learnpress' ) );
 			}
 
-			$return['status'] = 'success';
+			$return['flag'] = true;
 		} catch ( Exception $e ) {
 			$return['message'] = $e->getMessage();
 		}
@@ -446,22 +508,24 @@ class LP_Template_Course extends LP_Abstract_Template {
 		$user   = LP_Global::user();
 		$course = LP_Global::course();
 
-		$check = $this->can_show_finish_course_btn( $course, $user );
-
-		//Course has no items
+		// Course has no items
 		if ( empty( $course->get_item_ids() ) ) {
 			return;
 		}
 
-		if ( $check['status'] === 'success' ) {
-			learn_press_get_template(
-				'single-course/buttons/finish.php',
-				array(
-					'course' => $course,
-					'user'   => $user,
-				)
-			);
+		$check = $this->can_show_finish_course_btn( $course, $user );
+
+		if ( ! $check['flag'] ) {
+			return;
 		}
+
+		learn_press_get_template(
+			'single-course/buttons/finish.php',
+			array(
+				'course' => $course,
+				'user'   => $user,
+			)
+		);
 	}
 
 	/**
@@ -473,13 +537,14 @@ class LP_Template_Course extends LP_Abstract_Template {
 	 */
 	public function course_external_button() {
 		$course = LP_Global::course();
+		$user   = LP_Global::user();
 
 		if ( ! $course ) {
 			return;
 		}
 
 		$link = $course->get_external_link();
-		if ( empty( $link ) ) {
+		if ( empty( $link ) || $user->has_purchased_course( $course->get_id() ) ) {
 			return;
 		}
 
@@ -934,18 +999,29 @@ class LP_Template_Course extends LP_Abstract_Template {
 	 * @throws Exception
 	 */
 	public function user_time() {
-		$user        = LP_Global::user();
-		$course_data = $user->get_course_data( $this->course->get_id() );
+		$user = LP_Global::user();
 
-		$status = $user->get_course_status( $this->course->get_id() );
-
-		if ( ! $course_data->is_enrolled() && ! $course_data->is_finished() ) {
+		if ( ! $user ) {
 			return;
 		}
 
-		$start_time      = $course_data->get_start_time();
-		$end_time        = $course_data->get_end_time();
-		$expiration_time = $course_data->get_expiration_time();
+		if ( ! $user->has_enrolled_or_finished( $this->course->get_id() ) ) {
+			return;
+		}
+
+		/**
+		 * @var LP_User_Item_Course
+		 */
+		$user_course = $user->get_course_data( $this->course->get_id() );
+
+		if ( ! $user_course ) {
+			return;
+		}
+
+		$status          = $user_course->get_status();
+		$start_time      = $user_course->get_start_time();
+		$end_time        = $user_course->get_end_time();
+		$expiration_time = $user_course->get_expiration_time();
 
 		learn_press_get_template(
 			'single-course/sidebar/user-time',
