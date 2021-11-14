@@ -11,7 +11,3 @@ defined( 'ABSPATH' ) || exit;
 
 $user = LP_Profile::instance()->get_user();
 ?>
-
-<div class="lp-user-profile-avatar">
-	<?php echo $user->get_profile_picture(); ?>
-</div>
