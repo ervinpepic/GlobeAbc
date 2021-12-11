@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.2.3
+ * @version 	1.2.4
  * 
  * Theme Functions
  * Created by CMSMasters
@@ -1818,6 +1818,11 @@ function language_school_theme_page_layout_scheme() {
 	if (!isset($cmsmasters_page_scheme) || $cmsmasters_page_scheme == '') {
 		$cmsmasters_page_scheme = 'default';
 	}
+	
+	
+	$cmsmasters_layout = apply_filters('cmsmasters_theme_page_layout_filter', $cmsmasters_layout);
+	
+	$cmsmasters_page_scheme = apply_filters('cmsmasters_theme_page_scheme_filter', $cmsmasters_page_scheme);
 	
 	
 	return array($cmsmasters_layout, $cmsmasters_page_scheme);

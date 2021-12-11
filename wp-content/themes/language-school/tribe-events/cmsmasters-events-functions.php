@@ -2,108 +2,12 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.2.3
+ * @version 	1.2.4
  * 
  * Website Events Functions
  * Created by CMSMasters
  * 
  */
-
-
-/* Updating default options in The Events Calendar plugin. */
-function language_school_tribe_update_default_options() {
-	if ( 'update' === get_option( 'cmsmasters_event_update_option' ) ) {
-		return;
-	}
-
-	$option_name = 'tribe_customizer';
-	$tribe_options = get_option( $option_name );
-
-	$new_global_elements = array(
-		'event_title_color' => language_school_theme_color( 'heading' ),
-		'event_date_time_color' => language_school_theme_color( 'color' ),
-		'link_color' => language_school_theme_color( 'link' ),
-		'background_color_choice' => 'transparent',
-		'background_color' => 'transparent',
-		'accent_color' => language_school_theme_color( 'link' ),
-		'map_pin' => '',
-	);
-	$global_elements = ( ! empty( $tribe_options['global_elements'] ) ? $tribe_options['global_elements'] : $new_global_elements );
-
-	foreach ( $global_elements as $element => $value ) {
-		if ( isset( $new_global_elements[ $element ] ) && $new_global_elements[ $element ] !== $global_elements ) {
-			$tribe_options['global_elements'][ $element ] = $new_global_elements[ $element ];
-		} else {
-			add_option( $tribe_options['global_elements'], $tribe_options['global_elements'][ $element ] );
-		}
-	}
-
-	$new_single_event = array(
-		'post_title_color_choice' => 'general',
-		'post_title_color' => language_school_theme_color( 'heading' ),
-
-	);
-	$single_event = ( ! empty( $tribe_options['single_event'] ) ? $tribe_options['single_event'] : $new_single_event );
-
-	foreach ( $single_event as $element => $value ) {
-		if ( isset( $new_single_event[ $element ] ) && $new_single_event[ $element ] !== $single_event ) {
-			$tribe_options['single_event'][ $element ] = $new_single_event[ $element ];
-		} else {
-			add_option( $tribe_options['single_event'], $tribe_options['single_event'][ $element ] );
-		}
-	}
-
-	$new_tec_events_bar = array(
-		'events_bar_text_color' => language_school_theme_color( 'heading' ),
-		'find_events_button_text_color' => language_school_theme_color( 'bg' ),
-		'events_bar_icon_color_choice' => 'default',
-		'events_bar_icon_color' => language_school_theme_color( 'heading' ),
-		'find_events_button_color_choice' => 'custom',
-		'find_events_button_color' => language_school_theme_color( 'bg' ),
-		'events_bar_background_color_choice' => 'default',
-		'events_bar_background_color' => language_school_theme_color( 'bg' ),
-		'view_selector_background_color_choice' => 'default',
-		'view_selector_background_color' => language_school_theme_color( 'bg' ),
-		'events_bar_border_color_choice' => 'default',
-		'events_bar_border_color' => language_school_theme_color( 'border' ),
-	);
-	$tec_events_bar = ( ! empty( $tribe_options['tec_events_bar'] ) ? $tribe_options['tec_events_bar'] : $new_tec_events_bar );
-
-	foreach ( $tec_events_bar as $element => $value ) {
-		if ( isset( $new_tec_events_bar[ $element ] ) && $new_tec_events_bar[ $element ] !== $tec_events_bar ) {
-			$tribe_options['tec_events_bar'][ $element ] = $new_tec_events_bar[ $element ];
-		} else {
-			add_option( $tribe_options['tec_events_bar'], $tribe_options['tec_events_bar'][ $element ] );
-		}
-	}
-
-	$new_month_view = array(
-		'days_of_week_color' => language_school_theme_color( 'heading' ),
-		'date_marker_color' => language_school_theme_color( 'heading' ),
-		'multiday_event_bar_color_choice' => 'default',
-		'multiday_event_bar_color' => '#334aff',
-		'grid_lines_color' => language_school_theme_color( 'border' ),
-		'grid_hover_color' => language_school_theme_color( 'border' ),
-		'grid_background_color_choice' => 'transparent',
-		'grid_background_color' => language_school_theme_color( 'color' ),
-		'tooltip_background_color' => 'default',
-	);
-	$month_view = ( ! empty( $tribe_options['month_view'] ) ? $tribe_options['month_view'] : $new_month_view );
-
-	foreach ( $month_view as $element => $value ) {
-		if ( isset( $new_month_view[ $element ] ) && $new_month_view[ $element ] !== $month_view ) {
-			$tribe_options['month_view'][ $element ] = $new_month_view[ $element ];
-		} else {
-			add_option( $tribe_options['month_view'], $tribe_options['month_view'][ $element ] );
-		}
-	}
-
-	update_option( $option_name, $tribe_options );
-
-	add_option( 'cmsmasters_event_update_option', 'update', '', 'yes' );
-}
-
-add_action( 'init', 'language_school_tribe_update_default_options' );
 
 
 /* Theme colors for updating default options in The Events Calendar plugin. */
@@ -125,6 +29,115 @@ function language_school_theme_color( $color ) {
 
 	return $color;
 }
+
+
+function language_school_hex_color( $color ) {
+	$old_color = language_school_theme_color( $color );
+
+	if ( strpos( $old_color, '#' ) === 0 ) {
+		return $old_color;
+	}
+
+	preg_match( '/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i', $old_color, $new_color );
+
+	return sprintf( '#%02x%02x%02x', $new_color[1], $new_color[2], $new_color[3] );
+}
+
+
+/* Updating default options in The Events Calendar plugin. */
+function language_school_tribe_update_default_options() {
+	if ( 'update' === get_option( 'cmsmasters_event_update_option' ) ) {
+		return;
+	}
+
+	$option_name = 'tribe_customizer';
+	$tribe_options = get_option( $option_name );
+
+	$new_global_elements = array(
+		'event_title_color' => language_school_hex_color( 'heading' ),
+		'event_date_time_color' => language_school_hex_color( 'color' ),
+		'link_color' => language_school_hex_color( 'link' ),
+		'background_color_choice' => 'transparent',
+		'background_color' => 'transparent',
+		'accent_color' => language_school_hex_color( 'link' ),
+		'map_pin' => '',
+	);
+	$global_elements = ( ! empty( $tribe_options['global_elements'] ) ? $tribe_options['global_elements'] : $new_global_elements );
+
+	foreach ( $global_elements as $element => $value ) {
+		if ( isset( $new_global_elements[ $element ] ) && $new_global_elements[ $element ] !== $global_elements ) {
+			$tribe_options['global_elements'][ $element ] = $new_global_elements[ $element ];
+		} else {
+			add_option( $tribe_options['global_elements'], $tribe_options['global_elements'][ $element ] );
+		}
+	}
+
+	$new_single_event = array(
+		'post_title_color_choice' => 'general',
+		'post_title_color' => language_school_hex_color( 'heading' ),
+
+	);
+	$single_event = ( ! empty( $tribe_options['single_event'] ) ? $tribe_options['single_event'] : $new_single_event );
+
+	foreach ( $single_event as $element => $value ) {
+		if ( isset( $new_single_event[ $element ] ) && $new_single_event[ $element ] !== $single_event ) {
+			$tribe_options['single_event'][ $element ] = $new_single_event[ $element ];
+		} else {
+			add_option( $tribe_options['single_event'], $tribe_options['single_event'][ $element ] );
+		}
+	}
+
+	$new_tec_events_bar = array(
+		'events_bar_text_color' => language_school_hex_color( 'heading' ),
+		'find_events_button_text_color' => language_school_hex_color( 'bg' ),
+		'events_bar_icon_color_choice' => 'default',
+		'events_bar_icon_color' => language_school_hex_color( 'heading' ),
+		'find_events_button_color_choice' => 'custom',
+		'find_events_button_color' => language_school_hex_color( 'link' ),
+		'events_bar_background_color_choice' => 'default',
+		'events_bar_background_color' => language_school_hex_color( 'bg' ),
+		'view_selector_background_color_choice' => 'default',
+		'view_selector_background_color' => language_school_hex_color( 'bg' ),
+		'events_bar_border_color_choice' => 'default',
+		'events_bar_border_color' => language_school_hex_color( 'border' ),
+	);
+	$tec_events_bar = ( ! empty( $tribe_options['tec_events_bar'] ) ? $tribe_options['tec_events_bar'] : $new_tec_events_bar );
+
+	foreach ( $tec_events_bar as $element => $value ) {
+		if ( isset( $new_tec_events_bar[ $element ] ) && $new_tec_events_bar[ $element ] !== $tec_events_bar ) {
+			$tribe_options['tec_events_bar'][ $element ] = $new_tec_events_bar[ $element ];
+		} else {
+			add_option( $tribe_options['tec_events_bar'], $tribe_options['tec_events_bar'][ $element ] );
+		}
+	}
+
+	$new_month_view = array(
+		'days_of_week_color' => language_school_hex_color( 'heading' ),
+		'date_marker_color' => language_school_hex_color( 'heading' ),
+		'multiday_event_bar_color_choice' => 'default',
+		'multiday_event_bar_color' => '#334aff',
+		'grid_lines_color' => language_school_hex_color( 'border' ),
+		'grid_hover_color' => language_school_hex_color( 'border' ),
+		'grid_background_color_choice' => 'transparent',
+		'grid_background_color' => language_school_hex_color( 'color' ),
+		'tooltip_background_color' => 'default',
+	);
+	$month_view = ( ! empty( $tribe_options['month_view'] ) ? $tribe_options['month_view'] : $new_month_view );
+
+	foreach ( $month_view as $element => $value ) {
+		if ( isset( $new_month_view[ $element ] ) && $new_month_view[ $element ] !== $month_view ) {
+			$tribe_options['month_view'][ $element ] = $new_month_view[ $element ];
+		} else {
+			add_option( $tribe_options['month_view'], $tribe_options['month_view'][ $element ] );
+		}
+	}
+
+	update_option( $option_name, $tribe_options );
+
+	add_option( 'cmsmasters_event_update_option', 'update', '', 'yes' );
+}
+
+add_action( 'init', 'language_school_tribe_update_default_options' );
 
 
 /* The Events Calendar and related plugins: Add your own location for template file loading. */
@@ -201,3 +214,23 @@ function language_school_tribe_events_mobile_breakpoint() {
 
 add_filter('tribe_events_mobile_breakpoint', 'language_school_tribe_events_mobile_breakpoint');
 
+
+/* Events Archive, Venue and Organizer Layout */
+function language_school_tribe_events_layout($cmsmasters_layout) {
+	if (
+		tribe_events_views_v2_is_enabled() &&
+		tribe_is_event_query() &&
+		(
+			is_archive() ||
+			tribe_is_venue() ||
+			tribe_is_organizer()
+		)
+	) {
+		$cmsmasters_layout = 'fullwidth';
+	}
+	
+	
+	return $cmsmasters_layout;
+}
+
+add_filter('cmsmasters_theme_page_layout_filter', 'language_school_tribe_events_layout');

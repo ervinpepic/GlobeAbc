@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.2.3
+ * @version 	1.2.4
  * 
  * Theme Secondary Color Schemes Rules
  * Created by CMSMasters
@@ -20,7 +20,7 @@ function language_school_theme_colors_secondary() {
 	$custom_css = "/**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.2.3
+ * @version 	1.2.4
  * 
  * Theme Secondary Color Schemes Rules
  * Created by CMSMasters
@@ -37,206 +37,217 @@ function language_school_theme_colors_secondary() {
 		if (CMSMASTERS_EVENTS_CALENDAR) {
 
 			if ( tribe_events_views_v2_is_enabled() ) {
+				$events_rule = "html .cmsmasters_tribe_events_views_v2 " . ( ( 'default' !== $scheme ) ? ".cmsmasters_color_scheme_{$scheme}" : '' );
+				$rule_skeleton = ( ( 'default' !== $scheme ) ? "html .cmsmasters_tribe_events_views_v2.cmsmasters_tribe_events_style_mode_skeleton .cmsmasters_color_scheme_{$scheme} " : '' );
+				$hover_rule = ( ( 'default' !== $scheme ) ? "html #page.cmsmasters_tribe_events_views_v2 .cmsmasters_color_scheme_{$scheme} " : '' );
+
 				$cmsmasters_shortname = 'language-school';
 				$cmsmasters_event_meta = '_color';
 
 				$custom_css .= "
 /***************** Start {$title} Tribe Events Color Scheme Rules ******************/
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-calendar-list__event-description,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-calendar-list__event-venue,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-calendar-list__event-cost,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-calendar-latest-past__event-datetime-wrapper,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-calendar-latest-past__event-venue,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-calendar-latest-past__event-description,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-calendar-latest-past__event-cost,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-calendar-day__event-venue,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-calendar-day__event-cost,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-calendar-day__event-description,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro-photo__event-venue,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro-photo__event-cost,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro-summary__event-venue,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro-summary__event-cost,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro .tribe-events-pro-week-grid__events-time-tag,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro-map__event-venue,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro-map__event-cost,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-single .tribe-events-schedule .tribe-events-cost,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-single .tribe-events-single-event-description,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-single .tribe-events-event-meta .tribe-events-meta-group dd,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-pro-week-mobile-events__event-venue,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-pro-week-mobile-events__event-cost,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-pro-week-mobile-events__event-venue,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-pro-week-mobile-events__event-cost,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__event-date-tag-month,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__event-datetime-wrapper,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-date-tag-month,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-venue {
+	{$events_rule} .tribe-events-calendar-list__event-description,
+	{$events_rule} .tribe-events-calendar-list__event-venue,
+	{$events_rule} .tribe-events-calendar-list__event-cost,
+	{$events_rule} .tribe-events .tribe-events-calendar-latest-past__event-datetime-wrapper,
+	{$events_rule} .tribe-events .tribe-events-calendar-latest-past__event-venue,
+	{$events_rule} .tribe-events .tribe-events-calendar-latest-past__event-description,
+	{$events_rule} .tribe-events .tribe-events-calendar-latest-past__event-cost,
+	{$events_rule} .tribe-events-calendar-day__event-venue,
+	{$events_rule} .tribe-events-calendar-day__event-cost,
+	{$events_rule} .tribe-events-calendar-day__event-description,
+	{$events_rule} .tribe-events-pro-photo__event-venue,
+	{$events_rule} .tribe-events-pro-photo__event-cost,
+	{$events_rule} .tribe-events-pro-summary__event-venue,
+	{$events_rule} .tribe-events-pro-summary__event-cost,
+	{$events_rule} .tribe-events-pro .tribe-events-pro-week-grid__events-time-tag,
+	{$events_rule} .tribe-events-pro-map__event-venue,
+	{$events_rule} .tribe-events-pro-map__event-cost,
+	{$events_rule} .tribe-events-single .tribe-events-schedule .tribe-events-cost,
+	{$events_rule} .tribe-events-single .tribe-events-single-event-description,
+	{$events_rule} .tribe-events-single .tribe-events-event-meta .tribe-events-meta-group dd,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-pro-week-mobile-events__event-datetime-wrapper,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-pro-week-mobile-events__event-venue,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-pro-week-mobile-events__event-cost,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-pro-week-mobile-events__event-venue,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-pro-week-mobile-events__event-cost,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-countdown .tribe-events-widget-countdown__number .tribe-events-widget-countdown__under,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__event-date-tag-month,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__event-datetime-wrapper,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-datetime-wrapper,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-date-tag-month,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-venue,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-cost-price,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-organizer-contact {
 		" . cmsmasters_color_css( 'color', $cmsmasters_option[ $cmsmasters_shortname . '_' . $scheme . $cmsmasters_event_meta ] ) . "
 	}
 
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-header__events-bar .tribe-events-c-events-bar__search-container .tribe-events-c-search__input-control input:not([type=button]):not([type=checkbox]):not([type=file]):not([type=hidden]):not([type=image]):not([type=radio]):not([type=reset]):not([type=submit]):not([type=color]):not([type=range]),
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-header__events-bar .tribe-events-c-events-bar__search-container .tribe-events-c-search__input-control input:not([type=button]):not([type=checkbox]):not([type=file]):not([type=hidden]):not([type=image]):not([type=radio]):not([type=reset]):not([type=submit]):not([type=color]):not([type=range]):focus {
+	{$events_rule} .tribe-events .tribe-events-header__events-bar .tribe-events-c-events-bar__search-container .tribe-events-c-search__input-control input:not([type=button]):not([type=checkbox]):not([type=file]):not([type=hidden]):not([type=image]):not([type=radio]):not([type=reset]):not([type=submit]):not([type=color]):not([type=range]),
+	{$events_rule} .tribe-events .tribe-events-header__events-bar .tribe-events-c-events-bar__search-container .tribe-events-c-search__input-control input:not([type=button]):not([type=checkbox]):not([type=file]):not([type=hidden]):not([type=image]):not([type=radio]):not([type=reset]):not([type=submit]):not([type=color]):not([type=range]):focus {
 		" . cmsmasters_color_css( 'color', $cmsmasters_option[ $cmsmasters_shortname . '_' . $scheme . $cmsmasters_event_meta ] ) . "
 	}
 
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-header__events-bar .tribe-events-c-events-bar__search-container .tribe-events-c-search__input-control input::-webkit-input-placeholder {
+	{$events_rule} .tribe-events .tribe-events-header__events-bar .tribe-events-c-events-bar__search-container .tribe-events-c-search__input-control input::-webkit-input-placeholder {
 		" . cmsmasters_color_css( 'color', $cmsmasters_option[ $cmsmasters_shortname . '_' . $scheme . $cmsmasters_event_meta ] ) . "
 	}
 	
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-header__events-bar .tribe-events-c-events-bar__search-container .tribe-events-c-search__input-control input:-moz-placeholder {
+	{$events_rule} .tribe-events .tribe-events-header__events-bar .tribe-events-c-events-bar__search-container .tribe-events-c-search__input-control input:-moz-placeholder {
 		" . cmsmasters_color_css( 'color', $cmsmasters_option[ $cmsmasters_shortname . '_' . $scheme . $cmsmasters_event_meta ] ) . "
 	}
 
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-header__events-bar .tribe-events-c-events-bar__search-container .tribe-events-c-search__input-control input:focus::-webkit-input-placeholder {
+	{$events_rule} .tribe-events .tribe-events-header__events-bar .tribe-events-c-events-bar__search-container .tribe-events-c-search__input-control input:focus::-webkit-input-placeholder {
 		" . cmsmasters_color_css( 'color', $cmsmasters_option[ $cmsmasters_shortname . '_' . $scheme . $cmsmasters_event_meta ] ) . "
 	}
 	
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-header__events-bar .tribe-events-c-events-bar__search-container .tribe-events-c-search__input-control input:focus:-moz-placeholder {
+	{$events_rule} .tribe-events .tribe-events-header__events-bar .tribe-events-c-events-bar__search-container .tribe-events-c-search__input-control input:focus:-moz-placeholder {
 		" . cmsmasters_color_css( 'color', $cmsmasters_option[ $cmsmasters_shortname . '_' . $scheme . $cmsmasters_event_meta ] ) . "
 	}
 	
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro-organizer__meta .tribe-events-pro-organizer__meta-row .tribe-events-pro-organizer__meta-email a,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro-venue__meta .tribe-events-pro-venue__meta-details .tribe-events-pro-venue__meta-address-details a,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__venue-info-group--website a {
+	{$events_rule} .tribe-events-pro-organizer__meta .tribe-events-pro-organizer__meta-row .tribe-events-pro-organizer__meta-email a,
+	{$events_rule} .tribe-events-pro-venue__meta .tribe-events-pro-venue__meta-details .tribe-events-pro-venue__meta-address-details a,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__venue-info-group--website a {
 		" . cmsmasters_color_css( 'color', $cmsmasters_option[ $cmsmasters_shortname . '_' . $scheme . '_link' ] ) . "
 	}
 
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-c-nav__next:focus,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-c-nav__next:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-c-nav__prev:focus,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-c-nav__prev:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-header__top-bar .tribe-events-c-top-bar__datepicker > button:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-calendar-list__event-title a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-calendar-latest-past__event-title a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-calendar-day__event-title a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-pro-photo__event-title a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-pro-summary__event-title a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-pro .tribe-events-c-small-cta__link:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 #tribe-events-pg-template .tribe-events-back a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 #tribe-events-l-container .tribe-events-back a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-single .tribe-events-event-meta.primary > div dd a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-single .tribe-events-event-meta.secondary > div dd a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-single ul.tribe-related-events li .tribe-related-events-title a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-pro-organizer__meta .tribe-events-pro-organizer__meta-row .tribe-events-pro-organizer__meta-email a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-pro-venue__meta .tribe-events-pro-venue__meta-details .tribe-events-pro-venue__meta-address-details a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-pro-week-mobile-events__event-title a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-widget-events-week__view-more a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-pro-week-mobile-events__event-title a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-widget-events-week__view-more a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-month .tribe-events-calendar-month-mobile-events__mobile-event-title a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-shortcode-month .tribe-events-calendar-month-mobile-events__mobile-event-title a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-month .tribe-events-widget-events-month__view-more a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-shortcode-month .tribe-events-widget-events-month__view-more a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-countdown .tribe-events-widget-countdown__event-title a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__venue-name a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__view-more a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__event-title a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__venue-info-group--website a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-title a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__view-more a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-venue a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-organizer-title-wrapper a:hover,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-header__events-bar .tribe-events-c-events-bar__views .tribe-events-c-view-selector__content .tribe-events-c-view-selector__list-item:hover a,
-	{$rule}#page.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-header__events-bar .tribe-events-c-events-bar__views .tribe-events-c-view-selector__content .tribe-events-c-view-selector__list-item:focus a {
+	{$hover_rule} .tribe-events .tribe-events-c-nav__next:focus,
+	{$hover_rule} .tribe-events .tribe-events-c-nav__next:hover,
+	{$hover_rule} .tribe-events .tribe-events-c-nav__prev:focus,
+	{$hover_rule} .tribe-events .tribe-events-c-nav__prev:hover,
+	{$hover_rule} .tribe-events .tribe-events-header__top-bar .tribe-events-c-top-bar__datepicker > button:hover,
+	{$hover_rule} .tribe-events-calendar-list__event-title a:hover,
+	{$hover_rule} .tribe-events .tribe-events-calendar-latest-past__event-title a:hover,
+	{$hover_rule} .tribe-events-calendar-day__event-title a:hover,
+	{$hover_rule} .tribe-events-pro-photo__event-title a:hover,
+	{$hover_rule} .tribe-events-pro-summary__event-title a:hover,
+	{$hover_rule} .tribe-events-pro .tribe-events-c-small-cta__link:hover,
+	{$hover_rule} #tribe-events-pg-template .tribe-events-back a:hover,
+	{$hover_rule} #tribe-events-l-container .tribe-events-back a:hover,
+	{$hover_rule} .tribe-events-single .tribe-events-event-meta.primary > div dd a:hover,
+	{$hover_rule} .tribe-events-single .tribe-events-event-meta.secondary > div dd a:hover,
+	{$hover_rule} .tribe-events-single ul.tribe-related-events li .tribe-related-events-title a:hover,
+	{$hover_rule} .tribe-events-pro-organizer__meta .tribe-events-pro-organizer__meta-row .tribe-events-pro-organizer__meta-email a:hover,
+	{$hover_rule} .tribe-events-pro-venue__meta .tribe-events-pro-venue__meta-details .tribe-events-pro-venue__meta-address-details a:hover,
+	{$hover_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-pro-week-mobile-events__event-title a:hover,
+	{$hover_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-widget-events-week__view-more a:hover,
+	{$hover_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-pro-week-mobile-events__event-title a:hover,
+	{$hover_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-widget-events-week__view-more a:hover,
+	{$hover_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-month .tribe-events-calendar-month-mobile-events__mobile-event-title a:hover,
+	{$hover_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-shortcode-month .tribe-events-calendar-month-mobile-events__mobile-event-title a:hover,
+	{$hover_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-month .tribe-events-widget-events-month__view-more a:hover,
+	{$hover_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-shortcode-month .tribe-events-widget-events-month__view-more a:hover,
+	{$hover_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-countdown .tribe-events-widget-countdown__event-title a:hover,
+	{$hover_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__venue-name a:hover,
+	{$hover_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__view-more a:hover,
+	{$hover_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__event-title a:hover,
+	{$hover_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__venue-info-group--website a:hover,
+	{$hover_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-title a:hover,
+	{$hover_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__view-more a:hover,
+	{$hover_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-venue a:hover,
+	{$hover_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-organizer-title-wrapper a:hover,
+	{$hover_rule} .tribe-events .tribe-events-header__events-bar .tribe-events-c-events-bar__views .tribe-events-c-view-selector__content .tribe-events-c-view-selector__list-item:hover a,
+	{$hover_rule} .tribe-events .tribe-events-header__events-bar .tribe-events-c-events-bar__views .tribe-events-c-view-selector__content .tribe-events-c-view-selector__list-item:focus a {
 		" . cmsmasters_color_css( 'color', $cmsmasters_option[ $cmsmasters_shortname . '_' . $scheme . '_hover' ] ) . "
 	}
 	
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-c-top-bar__nav-link:hover,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-c-top-bar__nav-link:hover path {
+	{$events_rule} .tribe-events .tribe-events-c-top-bar__nav-link:hover,
+	{$events_rule} .tribe-events .tribe-events-c-top-bar__nav-link:hover path {
 		" . cmsmasters_color_css( 'color', $cmsmasters_option[ $cmsmasters_shortname . '_' . $scheme . '_hover' ] ) . "
 		" . cmsmasters_color_css( 'fill', $cmsmasters_option[ $cmsmasters_shortname . '_' . $scheme . '_hover' ] ) . "
 	}
 
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-c-nav__next,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-c-nav__prev,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-header__top-bar .tribe-events-c-top-bar__datepicker > button,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-calendar-list__month-separator-text,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-calendar-list__event-date-tag-weekday,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-calendar-list__event-date-tag-daynum,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-calendar-latest-past .tribe-events-calendar-latest-past__heading,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-calendar-latest-past .tribe-events-calendar-latest-past__event-date-tag-datetime > span,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-calendar-latest-past__event-title,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-calendar-latest-past__event-title a,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-calendar-day__type-separator-text,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro-photo__event-date-tag-month,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro-photo__event-date-tag-daynum,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro-summary__event-date-tag,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro-summary__event-title,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro-summary__event-title a,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro .tribe-events-pro-week-grid__header-column-weekday,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro .tribe-events-pro-week-grid__header-column-daynum,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro-map__event-date-tag-month,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro-map__event-date-tag-datetime,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro .tribe-events-c-small-cta__link,
-	{$rule}.cmsmasters_tribe_events_views_v2 #tribe-events-pg-template .tribe-events-back,
-	{$rule}.cmsmasters_tribe_events_views_v2 #tribe-events-pg-template .tribe-events-back a,
-	{$rule}.cmsmasters_tribe_events_views_v2 #tribe-events-l-container .tribe-events-back,
-	{$rule}.cmsmasters_tribe_events_views_v2 #tribe-events-l-container .tribe-events-back a,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-single .tribe-events-event-meta .tribe-events-single-section-title,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-single .tribe-events-event-meta .tribe-events-meta-group dt,
-	{$rule}.cmsmasters_tribe_events_views_v2 .cmsmasters_sidebar .widgettitle,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro-organizer__meta .tribe-events-pro-organizer__meta-title,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro-venue__meta .tribe-events-pro-venue__meta-title,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-pro-week-day-selector__day-weekday,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-pro-week-day-selector__day-daynum,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-pro-week-mobile-events__event-type-separator-text,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-widget-events-week__view-more,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-widget-events-week__view-more a,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-pro-week-day-selector__day-weekday,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-pro-week-day-selector__day-daynum,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-widget-events-week__view-more,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-widget-events-week__view-more a,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-month .tribe-events-c-top-bar__nav-list-date,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-month .tribe-events-calendar-month__header-row span,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-month .tribe-events-c-day-marker__date,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-month .tribe-events-widget-events-month__view-more,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-month .tribe-events-widget-events-month__view-more a,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-shortcode-month .tribe-events-c-top-bar__nav-list-date,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-shortcode-month .tribe-events-calendar-month__header-row span,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-shortcode-month .tribe-events-c-day-marker__date,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-shortcode-month .tribe-events-widget-events-month__view-more,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-shortcode-month .tribe-events-widget-events-month__view-more a,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-countdown .tribe-events-widget-countdown__header-title,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-countdown .tribe-events-widget-countdown__event-title a,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-countdown .tribe-events-widget-countdown__number,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__venue-name,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__venue-name a,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__event-date-tag-daynum,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__venue-info-group,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__view-more,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__view-more a,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__event-title,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__event-title a,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__header-title,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-date-tag-daynum,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-title,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-title a,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__view-more a,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-venue a,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-organizer-title-wrapper,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-organizer-title-wrapper a {
+	{$events_rule} .tribe-events .tribe-events-c-nav__next,
+	{$events_rule} .tribe-events .tribe-events-c-nav__prev,
+	{$events_rule} .tribe-events .tribe-events-header__top-bar .tribe-events-c-top-bar__datepicker > button,
+	{$events_rule} .tribe-events-calendar-list__month-separator-text,
+	{$events_rule} .tribe-events-calendar-list__event-date-tag-weekday,
+	{$events_rule} .tribe-events-calendar-list__event-date-tag-daynum,
+	{$events_rule} .tribe-events-calendar-latest-past .tribe-events-calendar-latest-past__heading,
+	{$events_rule} .tribe-events-calendar-latest-past .tribe-events-calendar-latest-past__event-date-tag-datetime > span,
+	{$events_rule} .tribe-events .tribe-events-calendar-latest-past__event-title,
+	{$events_rule} .tribe-events .tribe-events-calendar-latest-past__event-title a,
+	{$events_rule} .tribe-events-calendar-day__type-separator-text,
+	{$events_rule} .tribe-events-pro-photo__event-date-tag-month,
+	{$events_rule} .tribe-events-pro-photo__event-date-tag-daynum,
+	{$events_rule} .tribe-events-pro-summary__event-date-tag,
+	{$events_rule} .tribe-events-pro-summary__event-title,
+	{$events_rule} .tribe-events-pro-summary__event-title a,
+	{$events_rule} .tribe-events-pro .tribe-events-pro-week-grid__header-column-weekday,
+	{$events_rule} .tribe-events-pro .tribe-events-pro-week-grid__header-column-daynum,
+	{$events_rule} .tribe-events-pro-map__event-date-tag-month,
+	{$events_rule} .tribe-events-pro-map__event-date-tag-datetime,
+	{$events_rule} .tribe-events-pro .tribe-events-c-small-cta__link,
+	{$events_rule} #tribe-events-pg-template .tribe-events-back,
+	{$events_rule} #tribe-events-pg-template .tribe-events-back a,
+	{$events_rule} #tribe-events-l-container .tribe-events-back,
+	{$events_rule} #tribe-events-l-container .tribe-events-back a,
+	{$events_rule} .tribe-events-single .tribe-events-event-meta .tribe-events-single-section-title,
+	{$events_rule} .tribe-events-single .tribe-events-event-meta .tribe-events-meta-group dt,
+	{$events_rule} .cmsmasters_sidebar .widgettitle,
+	{$events_rule} .tribe-events-pro-organizer__meta .tribe-events-pro-organizer__meta-title,
+	{$events_rule} .tribe-events-pro-venue__meta .tribe-events-pro-venue__meta-title,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-pro-week-day-selector__day-weekday,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-pro-week-day-selector__day-daynum,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-pro-week-mobile-events__event-title,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-pro-week-mobile-events__event-title a,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-pro-week-mobile-events__event-type-separator-text,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-widget-events-week__view-more,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-week .tribe-events-widget-events-week__view-more a,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-pro-week-day-selector__day-weekday,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-pro-week-day-selector__day-daynum,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-widget-events-week__view-more,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-shortcode-events-week .tribe-events-widget-events-week__view-more a,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-month .tribe-events-c-top-bar__nav-list-date,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-month .tribe-events-calendar-month__header-row span,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-month .tribe-events-c-day-marker__date,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-month .tribe-events-widget-events-month__view-more,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-month .tribe-events-widget-events-month__view-more a,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-shortcode-month .tribe-events-c-top-bar__nav-list-date,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-shortcode-month .tribe-events-calendar-month__header-row span,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-shortcode-month .tribe-events-c-day-marker__date,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-shortcode-month .tribe-events-widget-events-month__view-more,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-widget-events-shortcode-month .tribe-events-widget-events-month__view-more a,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-countdown .tribe-events-widget-countdown__header-title,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-countdown .tribe-events-widget-countdown__event-title a,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-countdown .tribe-events-widget-countdown__number,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__venue-name,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__venue-name a,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__event-date-tag-daynum,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__venue-info-group,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__view-more,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__view-more a,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__event-title,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-featured-venue .tribe-events-widget-featured-venue__event-title a,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__header-title,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-date-tag-daynum,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-title,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-title a,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__view-more a,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-venue a,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-organizer-title-wrapper,
+	{$events_rule} .tribe-events-widget.tribe-common.tribe-events.tribe-events-view--widget-events-list .tribe-events-widget-events-list__event-organizer-title-wrapper a {
 		" . cmsmasters_color_css( 'color', $cmsmasters_option[ $cmsmasters_shortname . '_' . $scheme . '_heading' ] ) . "
 	}
 
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-events-widget-events-month .tribe-events-calendar-month__mobile-events-icon,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-widget.tribe-events-widget-events-shortcode-month .tribe-events-calendar-month__mobile-events-icon {
+	{$events_rule} .tribe-events-widget.tribe-events-widget-events-month .tribe-events-calendar-month__mobile-events-icon,
+	{$events_rule} .tribe-events-widget.tribe-events-widget-events-shortcode-month .tribe-events-calendar-month__mobile-events-icon {
 		" . cmsmasters_color_css( 'background-color', $cmsmasters_option[ $cmsmasters_shortname . '_' . $scheme . '_heading' ] ) . "
 	}
 
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro .tribe-events-pro-map__event-card-button:hover,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro .tribe-events-pro-map__event-card-button:focus {
+	{$events_rule} .tribe-events-pro .tribe-events-pro-map__event-card-button:hover,
+	{$events_rule} .tribe-events-pro .tribe-events-pro-map__event-card-button:focus {
 		" . cmsmasters_color_css( 'background-color', $cmsmasters_option[ $cmsmasters_shortname . '_' . $scheme . '_alternate' ] ) . "
 	}
 
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-c-top-bar__nav-link,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events .tribe-events-c-top-bar__nav-link path {
+	{$events_rule} .tribe-events .tribe-events-c-top-bar__nav-link,
+	{$events_rule} .tribe-events .tribe-events-c-top-bar__nav-link path {
 		" . cmsmasters_color_css( 'color', $cmsmasters_option[ $cmsmasters_shortname . '_' . $scheme . '_border' ] ) . "
 		" . cmsmasters_color_css( 'fill', $cmsmasters_option[ $cmsmasters_shortname . '_' . $scheme . '_border' ] ) . "
 	}
 
-	{$rule}.cmsmasters_tribe_events_views_v2.cmsmasters_tribe_events_style_mode_skeleton .tribe-events-c-view-selector__content,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro .tribe-events-pro-map__event-card-button,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro .tribe-events-pro-map__event-card-button:hover,
-	{$rule}.cmsmasters_tribe_events_views_v2 .tribe-events-pro .tribe-events-pro-map__event-card-button:focus {
+	{$rule_skeleton} .tribe-events-c-view-selector__content,
+	{$events_rule} .tribe-events-pro .tribe-events-pro-map__event-card-button,
+	{$events_rule} .tribe-events-pro .tribe-events-pro-map__event-card-button:hover,
+	{$events_rule} .tribe-events-pro .tribe-events-pro-map__event-card-button:focus {
 		" . cmsmasters_color_css( 'border-color', $cmsmasters_option[ $cmsmasters_shortname . '_' . $scheme . '_border' ] ) . "
 	}
 /***************** Finish {$title} Tribe Events Color Scheme Rules ******************/

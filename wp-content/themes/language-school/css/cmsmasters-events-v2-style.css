@@ -1,7 +1,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.2.3
+ * @version 	1.2.4
  * 
  * Tribe Events CSS Rules
  * Created by CMSMasters
@@ -212,9 +212,6 @@
 .cmsmasters_tribe_events_views_v2 .tribe-events-single ol li:before,
 .cmsmasters_tribe_events_views_v2 .tribe-events-single ul li:before {
   content: none !important;
-}
-.cmsmasters_tribe_events_views_v2 .tribe-events-single .tribe-events-cal-links > a {
-  padding-left: 0;
 }
 .cmsmasters_tribe_events_views_v2 .tribe-events-single .tribe-events-event-meta {
   background: none;

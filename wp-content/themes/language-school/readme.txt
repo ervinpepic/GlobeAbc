@@ -1,7 +1,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.2.3
+ * @version 	1.2.4
  * 
  * Theme Information
  * Created by CMSMasters
@@ -17,6 +17,28 @@ Theme Settings - Colors and click "Save" in any tab here.
 -----------------------------------------------------------------------
 				FILE LOGS
 -----------------------------------------------------------------------
+Version 1.2.4: files operations:
+
+	Theme Files edited:
+		language-school\css\cmsmasters-events-v2-style.css
+		language-school\css\less\cmsmasters-events-v2-style.less
+		language-school\css\styles\language-school.css
+		language-school\css\styles\language-school_colors_secondary.css
+		language-school\framework\admin\inc\demo-content\main\content.xml
+		language-school\framework\admin\inc\plugin-activator.php
+		language-school\framework\admin\inc\plugins\LayerSlider.zip
+		language-school\framework\admin\inc\plugins\revslider.zip
+		language-school\framework\admin\inc\plugins\timetable.zip
+		language-school\framework\function\theme-colors-secondary.php
+		language-school\framework\function\theme-functions.php
+		language-school\framework\languages\language-school.pot
+		language-school\readme.txt
+		language-school\style.css
+		language-school\tribe-events\cmsmasters-events-functions.php
+
+	
+	
+--------------------------------------
 Version 1.2.3: files operations:
 
 	Theme Files edited:
