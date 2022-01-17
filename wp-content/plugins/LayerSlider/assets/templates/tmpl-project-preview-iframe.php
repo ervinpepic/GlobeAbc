@@ -49,7 +49,7 @@
 
 	<!-- Custom Transitions -->
 	<?php if( file_exists( $uploads['basedir'].'/layerslider.custom.transitions.js' ) ) : ?>
-	<link rel="stylesheet" href="<?= $uploads['baseurl'].'/layerslider.custom.transitions.js?ver='.LS_PLUGIN_VERSION ?>">
+	<script src="<?= $uploads['baseurl'].'/layerslider.custom.transitions.js?ver='.LS_PLUGIN_VERSION ?>"></script>
 	<?php endif ?>
 </head>
 <body>

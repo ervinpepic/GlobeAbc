@@ -81,15 +81,15 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_doing/learnpress/assets/src/apps/js/admin/pages/widgets.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./assets/src/apps/js/admin/pages/widgets.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_doing/learnpress/assets/src/apps/js/admin/pages/widgets.js":
-/*!************************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_doing/learnpress/assets/src/apps/js/admin/pages/widgets.js ***!
-  \************************************************************************************************************************************/
+/***/ "./assets/src/apps/js/admin/pages/widgets.js":
+/*!***************************************************!*\
+  !*** ./assets/src/apps/js/admin/pages/widgets.js ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 

@@ -489,7 +489,7 @@
 								<kbd class="ls-mac-key">⌘</kbd><kbd class="ls-win-key">⌃</kbd><kbd>E</kbd>
 							</kbd>
 						</lse-tt>
-						<lse-button id="lse-toggle-fullscreen" class="lse-can-be-activated" data-tt>
+						<lse-button id="lse-toggle-fullscreen" data-tt>
 							<?= lsGetSVGIcon('expand-alt',false,['class' => 'lse-open']) ?>
 							<?= lsGetSVGIcon('compress-alt',false,['class' => 'lse-close']) ?>
 						</lse-button>
@@ -2615,7 +2615,7 @@
 																	</lse-text>
 																</lse-ib>
 																<lse-ib class="lse-half">
-																	<lse-fe-wrapper class="lse-smart-help" data-smart-help="left" data-smart-help-title="<?= __('Left position', 'LayerSlider') ?>" data-smart-operations>
+																	<lse-fe-wrapper class="lse-smart-help" data-smart-help="left" data-smart-help-title="<?= __('Left position', 'LayerSlider') ?>" data-smart-operations data-smart-options="left">
 																		<?php lsGetInput( $lsDefaults['layers']['left'], null, [
 																			'class' 			=> 'lse-style-prop',
 																			'placeholder' 		=> '0px',
@@ -2623,7 +2623,7 @@
 																			'data-get' 			=> 'style-left'
 																		]) ?>
 																	</lse-fe-wrapper>
-																	<lse-fe-wrapper class="lse-smart-help" data-smart-help="top" data-smart-help-title="<?= __('Top position', 'LayerSlider') ?>" data-smart-operations>
+																	<lse-fe-wrapper class="lse-smart-help" data-smart-help="top" data-smart-help-title="<?= __('Top position', 'LayerSlider') ?>" data-smart-operations data-smart-options="top">
 																		<?php lsGetInput( $lsDefaults['layers']['top'], null, [
 																			'class' 			=> 'lse-style-prop',
 																			'placeholder' 		=> '0px',
@@ -3008,7 +3008,17 @@
 													</lse-options>
 												</lse-sidebar-section-head>
 
-												<lse-sidebar-section-body class="lse-textish-type-only">
+												<lse-sidebar-section-body class="lse-has-toolbar lse-textish-type-only">
+
+													<lse-button-group class="lse-toolbar">
+
+														<lse-ib class="lse-f11"></lse-ib>
+
+														<lse-button class="lse-clear-property" data-tt=".tt-clear-property" data-tt-de="0">
+															<?= lsGetSVGIcon('trash-alt') ?>
+														</lse-button>
+
+													</lse-button-group>
 
 													<lse-grid class="lse-form-elements lse-dark-theme">
 														<lse-row>
@@ -3020,7 +3030,7 @@
 																</lse-ib>
 																<lse-ib>
 																	<lse-fe-wrapper class="lse-smart-help lse-color-input" data-smart-help="color" data-smart-help-title="<?= __('Color', 'LayerSlider') ?>" data-smart-load="lse-color-picker">
-																		<input data-cv="text-shadow" data-cv-id="4" type="text">
+																		<input data-cv="text-shadow" data-cv-id="4" data-default="" type="text">
 																		<?= lsGetSVGIcon('times', null, [
 																			'class' => 'lse-remove lse-it-0'
 																		]) ?>
@@ -3034,8 +3044,8 @@
 																	</lse-text>
 																</lse-ib>
 																<lse-ib class="lse-range-inputs lse-2-1">
-																	<input type="range" min="-50" max="50" value="0">
-																	<input data-cv="text-shadow" data-cv-unit="px" data-cv-id="1" type="number" min="-50" max="50" value="0"><lse-unit>px</lse-unit>
+																	<input type="range" min="-50" max="50" value="0" data-default="0">
+																	<input data-cv="text-shadow" data-cv-unit="px" data-cv-id="1" type="number" value="0" data-default="0"><lse-unit>px</lse-unit>
 																</lse-ib>
 															</lse-col>
 															<lse-col class="lse-full">
@@ -3045,8 +3055,8 @@
 																	</lse-text>
 																</lse-ib>
 																<lse-ib class="lse-range-inputs lse-2-1">
-																	<input type="range" min="-50" max="50" value="0">
-																	<input data-cv="text-shadow" data-cv-unit="px" data-cv-id="2" type="number" min="-50" max="50" value="0"><lse-unit>px</lse-unit>
+																	<input type="range" min="-50" max="50" value="0" data-default="0">
+																	<input data-cv="text-shadow" data-cv-unit="px" data-cv-id="2" type="number" value="0" data-default="0"><lse-unit>px</lse-unit>
 																</lse-ib>
 															</lse-col>
 															<lse-col class="lse-full">
@@ -3056,8 +3066,8 @@
 																	</lse-text>
 																</lse-ib>
 																<lse-ib class="lse-range-inputs lse-2-1">
-																	<input type="range" min="0" max="100" value="0">
-																	<input data-cv="text-shadow" data-cv-unit="px" data-cv-id="3" type="number" min="0" max="100" value="0"><lse-unit>px</lse-unit>
+																	<input type="range" min="0" max="100" value="0" data-default="0">
+																	<input data-cv="text-shadow" data-cv-unit="px" data-cv-id="3" type="number" value="0" data-default="0"><lse-unit>px</lse-unit>
 																</lse-ib>
 															</lse-col>
 														</lse-row>
@@ -3169,10 +3179,10 @@
 																	<input type="text" data-cv="border-radius-style" data-cv-id="2" data-prop-type="<?= __('top-right', 'LayerSlider') ?>" data-link="border-radius-style">
 																	</lse-fe-wrapper>
 																	<lse-fe-wrapper>
-																	<input type="text" data-cv="border-radius-style" data-cv-id="3" data-prop-type="<?= __('btm-left', 'LayerSlider') ?>" data-link="border-radius-style">
+																	<input type="text" data-cv="border-radius-style" data-cv-id="3" data-prop-type="<?= __('btm-right', 'LayerSlider') ?>" data-link="border-radius-style">
 																	</lse-fe-wrapper>
 																	<lse-fe-wrapper>
-																	<input type="text" data-cv="border-radius-style" data-cv-id="4" data-prop-type="<?= __('btm-right', 'LayerSlider') ?>" data-link="border-radius-style">
+																	<input type="text" data-cv="border-radius-style" data-cv-id="4" data-prop-type="<?= __('btm-left', 'LayerSlider') ?>" data-link="border-radius-style">
 																	</lse-fe-wrapper>
 																	<?php lsGetInput( $lsDefaults['layers']['borderRadius'], null, [
 																		'class' 	=> 'lse-style-prop lse-restore-prop lse-undomanager-merge',
@@ -3459,7 +3469,18 @@
 													</lse-options>
 												</lse-sidebar-section-head>
 
-												<lse-sidebar-section-body>
+												<lse-sidebar-section-body class="lse-has-toolbar">
+
+													<lse-button-group class="lse-toolbar">
+
+														<lse-ib class="lse-f11"></lse-ib>
+
+														<lse-button class="lse-clear-property" data-tt=".tt-clear-property" data-tt-de="0">
+															<?= lsGetSVGIcon('trash-alt') ?>
+														</lse-button>
+
+													</lse-button-group>
+
 
 													<lse-grid class="lse-form-elements lse-dark-theme">
 														<lse-row>
@@ -3479,7 +3500,7 @@
 																</lse-ib>
 																<lse-ib>
 																	<lse-fe-wrapper class="lse-smart-help lse-color-input" data-smart-help="color" data-smart-help-title="<?= __('Color', 'LayerSlider') ?>" data-smart-load="lse-color-picker">
-																		<input data-cv="box-shadow" data-cv-id="6" type="text">
+																		<input data-cv="box-shadow" data-cv-id="6" data-default="" type="text">
 																		<?= lsGetSVGIcon('times', null, [
 																			'class' => 'lse-remove lse-it-0'
 																		]) ?>
@@ -3493,8 +3514,8 @@
 																	</lse-text>
 																</lse-ib>
 																<lse-ib class="lse-range-inputs lse-2-1">
-																	<input type="range" min="-50" max="50" value="0">
-																	<input data-cv="box-shadow" data-cv-unit="px" data-cv-id="2" type="number" min="-50" max="50" value="0"><lse-unit>px</lse-unit>
+																	<input type="range" min="-50" max="50" value="0" data-default="0">
+																	<input data-cv="box-shadow" data-cv-unit="px" data-cv-id="2" type="number" value="0" data-default="0"><lse-unit>px</lse-unit>
 																</lse-ib>
 															</lse-col>
 															<lse-col class="lse-full">
@@ -3504,8 +3525,8 @@
 																	</lse-text>
 																</lse-ib>
 																<lse-ib class="lse-range-inputs lse-2-1">
-																	<input type="range" min="-50" max="50" value="0">
-																	<input data-cv="box-shadow" data-cv-unit="px" data-cv-id="3" type="number" min="-50" max="50" value="0"><lse-unit>px</lse-unit>
+																	<input type="range" min="-50" max="50" value="0"  data-default="0">
+																	<input data-cv="box-shadow" data-cv-unit="px" data-cv-id="3" type="number" value="0"  data-default="0"><lse-unit>px</lse-unit>
 																</lse-ib>
 															</lse-col>
 															<lse-col class="lse-full">
@@ -3515,8 +3536,8 @@
 																	</lse-text>
 																</lse-ib>
 																<lse-ib class="lse-range-inputs lse-2-1">
-																	<input type="range" min="0" max="100" value="0">
-																	<input data-cv="box-shadow" data-cv-unit="px" data-cv-id="4" type="number" min="0" max="100" value="0"><lse-unit>px</lse-unit>
+																	<input type="range" min="0" max="100" value="0" data-default="0">
+																	<input data-cv="box-shadow" data-cv-unit="px" data-cv-id="4" type="number" value="0" data-default="0"><lse-unit>px</lse-unit>
 																</lse-ib>
 															</lse-col>
 															<lse-col class="lse-full">
@@ -3526,8 +3547,8 @@
 																	</lse-text>
 																</lse-ib>
 																<lse-ib class="lse-range-inputs lse-2-1">
-																	<input type="range" min="-50" max="50" value="0">
-																	<input data-cv="box-shadow" data-cv-unit="px" data-cv-id="5" type="number" min="-50" max="50" value="0"><lse-unit>px</lse-unit>
+																	<input type="range" min="-50" max="50" value="0" data-default="0">
+																	<input data-cv="box-shadow" data-cv-unit="px" data-cv-id="5" type="number" value="0" data-default="0"><lse-unit>px</lse-unit>
 																</lse-ib>
 															</lse-col>
 														</lse-row>
@@ -4091,10 +4112,10 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 																	<input type="text" data-cv="border-radius-transition-in" data-cv-id="2" data-prop-type="<?= __('top-right', 'LayerSlider') ?>" data-link="border-radius-transition-in">
 																	</lse-fe-wrapper>
 																	<lse-fe-wrapper>
-																	<input type="text" data-cv="border-radius-transition-in" data-cv-id="3" data-prop-type="<?= __('btm-left', 'LayerSlider') ?>" data-link="border-radius-transition-in">
+																	<input type="text" data-cv="border-radius-transition-in" data-cv-id="3" data-prop-type="<?= __('btm-right', 'LayerSlider') ?>" data-link="border-radius-transition-in">
 																	</lse-fe-wrapper>
 																	<lse-fe-wrapper>
-																	<input type="text" data-cv="border-radius-transition-in" data-cv-id="4" data-prop-type="<?= __('btm-right', 'LayerSlider') ?>" data-link="border-radius-transition-in">
+																	<input type="text" data-cv="border-radius-transition-in" data-cv-id="4" data-prop-type="<?= __('btm-left', 'LayerSlider') ?>" data-link="border-radius-transition-in">
 																	</lse-fe-wrapper>
 																	<?php lsGetInput( $lsDefaults['layers']['transitionInRadius'], null, [
 																		'class' 	=> 'lse-transition-prop lse-restore-prop lse-undomanager-merge',
@@ -5587,10 +5608,10 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 																	<input type="text" data-cv="border-radius-transition-out" data-cv-id="2" data-prop-type="<?= __('top-right', 'LayerSlider') ?>" data-link="border-radius-transition-out">
 																	</lse-fe-wrapper>
 																	<lse-fe-wrapper>
-																	<input type="text" data-cv="border-radius-transition-out" data-cv-id="3" data-prop-type="<?= __('btm-left', 'LayerSlider') ?>" data-link="border-radius-transition-out">
+																	<input type="text" data-cv="border-radius-transition-out" data-cv-id="3" data-prop-type="<?= __('btm-right', 'LayerSlider') ?>" data-link="border-radius-transition-out">
 																	</lse-fe-wrapper>
 																	<lse-fe-wrapper>
-																	<input type="text" data-cv="border-radius-transition-out" data-cv-id="4" data-prop-type="<?= __('btm-right', 'LayerSlider') ?>" data-link="border-radius-transition-out">
+																	<input type="text" data-cv="border-radius-transition-out" data-cv-id="4" data-prop-type="<?= __('btm-left', 'LayerSlider') ?>" data-link="border-radius-transition-out">
 																	</lse-fe-wrapper>
 																	<?php lsGetInput( $lsDefaults['layers']['transitionOutRadius'], null, [
 																		'class' 	=> 'lse-transition-prop lse-restore-prop lse-undomanager-merge',
@@ -5967,10 +5988,10 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 																<input type="text" data-cv="border-radius-transition-hover" data-cv-id="2" data-prop-type="<?= __('top-right', 'LayerSlider') ?>" data-link="border-radius-transition-hover">
 																</lse-fe-wrapper>
 																<lse-fe-wrapper>
-																<input type="text" data-cv="border-radius-transition-hover" data-cv-id="3" data-prop-type="<?= __('btm-left', 'LayerSlider') ?>" data-link="border-radius-transition-hover">
+																<input type="text" data-cv="border-radius-transition-hover" data-cv-id="3" data-prop-type="<?= __('btm-right', 'LayerSlider') ?>" data-link="border-radius-transition-hover">
 																</lse-fe-wrapper>
 																<lse-fe-wrapper>
-																<input type="text" data-cv="border-radius-transition-hover" data-cv-id="4" data-prop-type="<?= __('btm-right', 'LayerSlider') ?>" data-link="border-radius-transition-hover">
+																<input type="text" data-cv="border-radius-transition-hover" data-cv-id="4" data-prop-type="<?= __('btm-left', 'LayerSlider') ?>" data-link="border-radius-transition-hover">
 																</lse-fe-wrapper>
 																<?php lsGetInput( $lsDefaults['layers']['hoverBorderRadius'], null, [
 																	'class' 	=> 'lse-transition-prop lse-restore-prop lse-undomanager-merge',
@@ -6500,7 +6521,7 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 
 														<lse-b data-layer-action="reverseSlide">
 															<lse-col class="lse-wide lse-layer-action-desc">
-																<?= __('Plays all transitions backward from the moment it’s triggered, then pauses at the beginning of the slide. An option is provided to continue replaying the slider normally afterward.', 'LayerSlider') ?>
+																<?= __('Plays all transitions backward from the moment it’s triggered, then pauses at the beginning of the slide. An option is provided to continue replaying the slide normally afterward.', 'LayerSlider') ?>
 															</lse-col>
 															<lse-col>
 																<lse-ib>
@@ -6579,7 +6600,13 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 
 														<lse-b data-layer-action="closePopup">
 															<lse-col class="lse-wide lse-layer-action-desc">
-																<?= __('Closes any visible Popups on page.', 'LayerSlider') ?>
+																<?= __('Closes this Popup. Works only if the current project type is set to a Popup.', 'LayerSlider') ?>
+															</lse-col>
+														</lse-b>
+
+														<lse-b data-layer-action="closeAllPopups">
+															<lse-col class="lse-wide lse-layer-action-desc">
+																<?= __('Closes all opened Popups on page.', 'LayerSlider') ?>
 															</lse-col>
 														</lse-b>
 
@@ -6653,6 +6680,7 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 																			<optgroup label="<?= __('Popups', 'LayerSlider') ?>">
 																				<option value="openPopup"><?= __('Open Popup', 'LayerSlider') ?></option>
 																				<option value="closePopup"><?= __('Close Popup', 'LayerSlider') ?></option>
+																				<option value="closeAllPopups"><?= __('Close All Popups', 'LayerSlider') ?></option>
 																			</optgroup>
 
 																			<optgroup label="<?= __('Advanced', 'LayerSlider') ?>">
@@ -6813,6 +6841,9 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 
 <!-- GLOBAL TOOLTIPS -->
 
+<lse-tt class="tt-clear-property">
+	<?= __('Restore to defaults', 'LayerSlider') ?>
+</lse-tt>
 <lse-tt class="tt-slide-transition-sample lse-theme-light" id="lse-slide-transition-sample">
 </lse-tt>
 <lse-tt class="tt-advanced">

@@ -10,7 +10,7 @@
 		</kmw-h1>
 
 		<lse-p class="lse-tac">
-			<?= _e('Have a peace of mind knowing that your slider edits are always safe and you can revert back unwanted changes or faulty saves at any time. This feature serves not just as a backup solution, but a complete version control system where you can visually compare the changes you have made along the way.', 'LayerSlider') ?>
+			<?= _e('Have a peace of mind knowing that your project edits are always safe and you can revert back unwanted changes or faulty saves at any time. This feature serves not just as a backup solution, but a complete version control system where you can visually compare the changes you have made along the way.', 'LayerSlider') ?>
 		</lse-p>
 
 		<?php if( ! LS_Config::isActivatedSite() ) : ?>

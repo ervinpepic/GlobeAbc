@@ -140,6 +140,9 @@ add_action(
 	LP()->template( 'course' )->callback( 'single-course/meta/level' ),
 	20
 );
+/**
+ * @see LP_Template_Course::count_object()
+ */
 add_action( 'learn-press/after-courses-loop-item', LP()->template( 'course' )->func( 'count_object' ), 20 );
 add_action(
 	'learn-press/after-courses-loop-item',
@@ -289,6 +292,9 @@ add_action(
 	LP()->template( 'course' )->callback( 'single-course/meta/level' ),
 	20
 );
+/**
+ * @see LP_Template_Course::count_object()
+ */
 add_action( 'learn-press/course-meta-secondary-left', LP()->template( 'course' )->func( 'count_object' ), 20 );
 
 
@@ -540,12 +546,12 @@ add_action(
 );
 add_action( 'learn-press/content-item-summary/lp_quiz', LP()->template( 'course' )->callback( 'content-quiz/js' ), 25 );
 add_action( 'learn-press/parse-course-item', 'learn_press_control_displaying_course_item', 5 );
-add_action( 'learn-press/after-single-course', 'learn_press_single_course_args', 5 );
+//add_action( 'learn-press/after-single-course', 'learn_press_single_course_args', 5 );
 add_filter( 'document_title_parts', 'learn_press_single_document_title_parts', 5 );
 
 add_filter( 'body_class', 'learn_press_body_classes', 10 );
 add_filter( 'post_class', 'learn_press_course_class', 15, 3 );
-add_action( 'wp_head', 'learn_press_single_course_args', 5 );
+//add_action( 'wp_head', 'learn_press_single_course_args', 5 );
 add_action(
 	'learn-press/before-checkout-order-review',
 	LP()->template( 'course' )->callback( 'checkout/form-logged-in.php' ),

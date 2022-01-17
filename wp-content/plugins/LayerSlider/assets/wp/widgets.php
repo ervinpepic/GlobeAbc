@@ -19,7 +19,7 @@ class LayerSlider_Widget extends WP_Widget {
 			__('LayerSlider', 'LayerSlider'),
 			[
 				'classname' => 'layerslider_widget',
-				'description' => __('Insert sliders with the LayerSlider Widget', 'LayerSlider')
+				'description' => __('Insert projects with the LayerSlider Widget', 'LayerSlider')
 			],
 			[
 				'id_base' => 'layerslider_widget'

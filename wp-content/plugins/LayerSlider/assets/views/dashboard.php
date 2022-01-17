@@ -71,7 +71,7 @@
 	if( ! empty($_GET['term']) ) {
 		$userFilters = true;
 		$urlParamTerm = htmlentities($_GET['term']);
-		$filters['where'] = "name LIKE '%".esc_sql($_GET['term'])."%' OR slug LIKE '%".esc_sql($_GET['term'])."%' OR id = ".esc_sql($_GET['term'])."";
+		$filters['where'] = "name LIKE '%".esc_sql($_GET['term'])."%' OR slug LIKE '%".esc_sql($_GET['term'])."%' OR id = '".esc_sql($_GET['term'])."'";
 	}
 
 	// Find sliders

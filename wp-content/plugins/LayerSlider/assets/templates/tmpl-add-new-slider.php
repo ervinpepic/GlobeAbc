@@ -6,7 +6,7 @@
 
 		<kmw-h1 class="kmw-modal-title"><?= __('Add New Project', 'LayerSlider') ?></kmw-h1>
 
-		<input type="text" name="title" placeholder="<?= __('Name Your Slider    (e.g., Homepage Slider)', 'LayerSlider') ?>">
+		<input type="text" name="title" placeholder="<?= __('Name Your Project    (e.g., Homepage Slider)', 'LayerSlider') ?>">
 
 		<div class="ls-type-selection">
 

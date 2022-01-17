@@ -75,7 +75,7 @@ if ( ! class_exists( 'LP_Course' ) ) {
 				'students'                 => 0,
 				'retake_count'             => 0,
 				'featured'                 => 'no',
-				'block_lesson_content'     => 'no',
+				//'block_lesson_content'     => 'no',
 				'external_link_buy_course' => '',
 				'course_result'            => 'evaluate_lesson',
 				'passing_condition'        => 80,
@@ -94,11 +94,10 @@ if ( ! class_exists( 'LP_Course' ) ) {
 		 * Get LP Course.
 		 *
 		 * @param int   $course_id
-		 * @param array $args
 		 *
 		 * @return mixed|bool|LP_Course
 		 */
-		public static function get_course( $course_id = 0 ) {
+		public static function get_course( int $course_id = 0 ) {
 			if ( isset( LP_Global::$courses[ $course_id ] ) ) {
 				return LP_Global::$courses[ $course_id ];
 			}
@@ -368,6 +367,123 @@ if ( ! class_exists( 'LP_Course' ) ) {
 				update_post_meta( $this->get_id(), $this->key_info_extra_fast_query, $extra_info_json );
 			} catch ( Throwable $e ) {
 				error_log( $e->getMessage() );
+			}
+		}
+
+		/**
+		 * Get info total items of Course
+		 *
+		 * @param string $type
+		 * @param bool $include_preview
+		 * @author tungnx
+		 * @since 4.1.4.1
+		 * @version 1.0.0
+		 * @return int
+		 */
+		public function count_items( string $type = '', bool $include_preview = true ): int {
+			// Get cache
+			$lp_course_cache = LP_Course_Cache::instance();
+			$key_cache       = $this->get_id() . '/total_items';
+			$total_items     = $lp_course_cache->get_cache( $key_cache );
+			$count_items     = 0;
+
+			if ( ! $total_items ) {
+				$extra_info = $this->get_info_extra_for_fast_query();
+
+				if ( ! $extra_info->total_items ) {
+					$total_items             = LP_Course_DB::getInstance()->get_total_items( $this->get_id() );
+					$extra_info->total_items = $total_items;
+
+					// Save post meta
+					$this->set_info_extra_for_fast_query( $extra_info );
+				} else {
+					$total_items = $extra_info->total_items;
+				}
+			}
+
+			if ( ! empty( $total_items ) ) {
+				if ( ! empty( $type ) ) {
+					$count_items = $total_items->{$type};
+				} else {
+					$count_items = $total_items->count_items;
+				}
+			}
+
+			return apply_filters( 'learn-press/course/count-items', intval( $count_items ), $this->get_id() );
+		}
+
+		/**
+		 * Delete relate data when delete course
+		 *
+		 * @since 4.1.4.1
+		 * @author tungnx
+		 * @version 1.0.0
+		 */
+		public function delete_relate_data_when_delete_course() {
+			$lp_section_db    = LP_Section_DB::getInstance();
+			$lp_user_items_db = LP_User_Items_DB::getInstance();
+
+			try {
+				// Check valid user
+				if ( ! current_user_can( 'administrator' ) && $this->get_author( 'id' ) !== get_current_user_id() ) {
+					return;
+				}
+
+				$section_ids = $lp_section_db->get_section_ids_by_course( $this->get_id() );
+
+				$filter                   = new LP_Section_Filter();
+				$filter->section_ids      = $section_ids;
+				$filter->author_id_course = $this->get_id();
+
+				// Delete section
+				$lp_section_db->delete_section( $filter );
+				// Delete section items
+				$lp_section_db->delete_section_items( $filter );
+
+				$filter_user_items          = new LP_User_Items_Filter();
+				$filter_user_items->item_id = $this->get_id();
+				$user_course_ids            = $lp_user_items_db->get_user_items_by_course( $filter_user_items );
+
+				$this->delete_user_item_and_result( $user_course_ids );
+			} catch ( Throwable $e ) {
+				error_log( __FUNCTION__ . ':' . $e->getMessage() );
+			}
+		}
+
+		/**
+		 * Delete user_items, user_itemmeta, user_item_results
+		 * WHERE IN user_item_ids
+		 *
+		 * @param array $user_course_ids
+		 */
+		public function delete_user_item_and_result( array $user_course_ids ) {
+			$lp_user_items_db     = LP_User_Items_DB::getInstance();
+			$lp_user_item_results = LP_User_Items_Result_DB::instance();
+
+			try {
+				if ( empty( $user_course_ids ) ) {
+					return;
+				}
+
+				// Get user_item_ids has parent in $user_course_ids
+				$filter                = new LP_User_Items_Filter();
+				$filter->user_item_ids = $user_course_ids;
+				$user_item_ids         = $lp_user_items_db->get_item_ids_of_user_course( $filter );
+
+				$user_item_ids_concat = array_merge( $user_course_ids, $user_item_ids );
+
+				// Delete on tb lp_user_items
+				$filter_delete                = new LP_User_Items_Filter();
+				$filter_delete->user_item_ids = $user_item_ids_concat;
+				$lp_user_items_db->remove_user_item_ids( $filter_delete );
+
+				// Delete user_itemmeta
+				$lp_user_items_db->remove_user_itemmeta( $filter_delete );
+
+				// Delete user_item_results
+				$lp_user_item_results->remove_user_item_results( $filter_delete );
+			} catch ( Throwable $e ) {
+				error_log( __FUNCTION__ . ':' . $e->getMessage() );
 			}
 		}
 	}

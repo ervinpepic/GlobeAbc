@@ -47,22 +47,22 @@ class LP_User_Items_Result_DB extends LP_Database {
 	}
 
 	/**
-	 * Get lastest result.
+	 * Get latest result.
 	 *
 	 * @param integer $user_item_id
 	 *
-	 * @return void
+	 * @return array|bool
 	 */
-	public function get_result( $user_item_id = 0 ) {
+	public function get_result( int $user_item_id = 0 ) {
 		if ( ! $user_item_id ) {
 			return false;
 		}
 
 		$result = $this->wpdb->get_var(
 			$this->wpdb->prepare(
-				"
-				SELECT result FROM $this->tb_lp_user_item_results
-				WHERE user_item_id=%d ORDER BY id DESC LIMIT 1
+				"SELECT result FROM $this->tb_lp_user_item_results
+				WHERE user_item_id = %d
+				ORDER BY id DESC LIMIT 1
 				",
 				$user_item_id
 			)
@@ -71,7 +71,15 @@ class LP_User_Items_Result_DB extends LP_Database {
 		return $result && is_string( $result ) ? json_decode( $result, true ) : false;
 	}
 
-	public function update( $user_item_id = 0, $result = null ) {
+	/**
+	 * Update or Insert result
+	 *
+	 * @param int $user_item_id
+	 * @param string $result
+	 *
+	 * @return bool|int
+	 */
+	public function update( int $user_item_id = 0, string $result = '' ) {
 		global $wpdb;
 
 		if ( ! $user_item_id ) {
@@ -149,29 +157,21 @@ class LP_User_Items_Result_DB extends LP_Database {
 		return $delete;
 	}
 
-	/** Delete all record in table */
-	public function delete_all() {
-		global $wpdb;
-
-		$wpdb->query( "DELETE FROM {$wpdb->learnpress_user_item_results}" );
-	}
-
 	/**
 	 * Delete all rows in user_item_ids
 	 *
 	 * @param LP_User_Items_Filter $filter $filter->user_item_ids
 	 *
 	 * @return bool|int
-	 * @throws Exception
 	 * @since 4.1.4
 	 * @author tungnx
 	 * @version 1.0.0
 	 */
 	public function remove_user_item_results( LP_User_Items_Filter $filter ) {
 		// Check valid user.
-		if ( ! is_user_logged_in() || ( ! current_user_can( 'administrator' ) && get_current_user_id() != $filter->user_id ) ) {
+		/*if ( ! is_user_logged_in() || ( ! current_user_can( 'administrator' ) && get_current_user_id() != $filter->user_id ) ) {
 			throw new Exception( __( 'User invalid!', 'learnpress' ) );
-		}
+		}*/
 
 		if ( empty( $filter->user_item_ids ) ) {
 			return 1;

@@ -31,7 +31,8 @@ function layerslider_script_attributes( $tag, $handle, $src ) {
 		$handle === 'layerslider-transitions' ||
 		$handle === 'layerslider-origami' ||
 		$handle === 'layerslider-popup' ||
-		$handle === 'ls-user-transitions'
+		$handle === 'ls-user-transitions' ||
+		$handle === 'layerslider-timeline'
 	) {
 
 		if( get_option('ls_rocketscript_ignore', false ) ) {
@@ -519,12 +520,16 @@ function ls_require_builder_assets() {
 	wp_register_style('ls-project-editor', LS_ROOT_URL.'/static/admin/css/editor.css', false, LS_PLUGIN_VERSION );
 
 
+
 	wp_enqueue_script('ls-project-editor');
 	wp_enqueue_script('ls-project-editor-new');
 	wp_enqueue_script('ls-ui-overrides');
 	wp_enqueue_script('ls-project-editor-search');
 	wp_enqueue_script('ls-project-editor-buttons');
 	wp_enqueue_style('ls-project-editor');
+
+	// 3rd party: GSAP Morph SVG Plugin
+	wp_enqueue_script('ls-gsap-morph-svg', LS_ROOT_URL.'/static/admin/js/MorphSVGPlugin.min.js', ['jquery'], LS_PLUGIN_VERSION, true );
 
 
 	// 3rd-party: MiniColor

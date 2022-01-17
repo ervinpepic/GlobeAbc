@@ -349,11 +349,13 @@ foreach ($roles as $role) {
                         <div class="aligncenter">
                             <div class="cmsmasters_img cmsmasters_image_c">
                                 <?php if ($role == 'lp_teacher') {
-		if ($user_bio_description['teacher_certificate'][0]) {?><img src="<?php echo $certificate_image[0] ?>">
-                                <?php }} else if ($role == 'student' || $role == 'customer') {
-		if ($user_bio_description['awards'][0]) {?>
+                                    if($user_bio_description['teacher_certificate']) {
+                                		if ($user_bio_description['teacher_certificate'][0]) {?><img src="<?php echo $certificate_image[0] ?>">
+                                                                <?php }}} else if ($role == 'student' || $role == 'customer') {
+                                    if($user_bio_description['awards']) { 
+                                		if ($user_bio_description['awards'][0]) {?>
                             <img src="<?php echo $award_image[0] ?>">
-                        <?php }}?>
+                        <?php }}}?>
                             </div>
 
 

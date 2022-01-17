@@ -3,7 +3,7 @@
 Plugin Name: GTranslate
 Plugin URI: https://gtranslate.io/?xyz=998
 Description: Makes your website <strong>multilingual</strong> and available to the world using Google Translate. For support visit <a href="https://wordpress.org/support/plugin/gtranslate">GTranslate Support</a>.
-Version: 2.9.6
+Version: 2.9.7
 Author: Translate AI Multilingual Solutions
 Author URI: https://gtranslate.io
 Text Domain: gtranslate
@@ -861,13 +861,13 @@ function RefreshDoWidgetCode() {
             widget_code += "function openTab(url) {var form=document.createElement('form');form.method='post';form.action=url;form.target='_blank';document.body.appendChild(form);form.submit();}"+new_line;
             if(custom_domains && typeof custom_domains_data == 'object') {
                 widget_code += "var gt_custom_domains = "+JSON.stringify(custom_domains_data)+";"+new_line;
-                widget_code += "function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;if(lang_pair=='')return;var lang=lang_pair.split('|')[1];if(typeof ga=='function'){ga('send', 'event', 'GTranslate', lang, location.hostname+location.pathname+location.search);}if(gt_custom_domains[lang]){openTab(location.protocol+'//'+gt_custom_domains[lang]+gt_request_uri);}else{openTab(location.protocol+'//'+(lang == '"+default_language+"' ? '' : lang+'.')+'"+location.hostname+"'+gt_request_uri);}}"+new_line;
+                widget_code += "function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;if(lang_pair=='')return;var lang=lang_pair.split('|')[1];if(typeof ga=='function'){ga('send', 'event', 'GTranslate', lang, location.hostname+location.pathname+location.search);}if(gt_custom_domains[lang]){openTab(location.protocol+'//'+gt_custom_domains[lang]+gt_request_uri);}else{openTab(location.protocol+'//'+(lang == '"+default_language+"' ? '' : lang+'.')+'"+location.hostname.replace(RegExp('^www\.'), '')+"'+gt_request_uri);}}"+new_line;
             } else
                 widget_code += "function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;if(lang_pair=='')return;var lang=lang_pair.split('|')[1];if(typeof ga=='function'){ga('send', 'event', 'GTranslate', lang, location.hostname+location.pathname+location.search);}var plang=location.hostname.split('.')[0];if(plang.length !=2 && plang.toLowerCase() != 'zh-cn' && plang.toLowerCase() != 'zh-tw' && plang != 'hmn' && plang != 'haw' && plang != 'ceb')plang='"+default_language+"';openTab(location.protocol+'//'+(lang == '"+default_language+"' ? '' : lang+'.')+location.hostname.replace('www.', '').replace(RegExp('^' + plang + '[.]'), '')+gt_request_uri);}"+new_line;
         } else if(enterprise_version && translation_method == 'redirect') {
             if(custom_domains && typeof custom_domains_data == 'object') {
                 widget_code += "var gt_custom_domains = "+JSON.stringify(custom_domains_data)+";"+new_line;
-                widget_code += "function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;if(lang_pair=='')return;var lang=lang_pair.split('|')[1];if(typeof ga=='function'){ga('send', 'event', 'GTranslate', lang, location.hostname+location.pathname+location.search);}if(gt_custom_domains[lang]){location.href=location.protocol+'//'+gt_custom_domains[lang]+gt_request_uri;}else{location.href=location.protocol+'//'+(lang == '"+default_language+"' ? '' : lang+'.')+'"+location.hostname+"'+gt_request_uri;}}"+new_line;
+                widget_code += "function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;if(lang_pair=='')return;var lang=lang_pair.split('|')[1];if(typeof ga=='function'){ga('send', 'event', 'GTranslate', lang, location.hostname+location.pathname+location.search);}if(gt_custom_domains[lang]){location.href=location.protocol+'//'+gt_custom_domains[lang]+gt_request_uri;}else{location.href=location.protocol+'//'+(lang == '"+default_language+"' ? '' : lang+'.')+'"+location.hostname.replace(RegExp('^www\.'), '')+"'+gt_request_uri;}}"+new_line;
             } else
                 widget_code += "function doGTranslate(lang_pair) {if(lang_pair.value)lang_pair=lang_pair.value;if(lang_pair=='')return;var lang=lang_pair.split('|')[1];if(typeof ga=='function'){ga('send', 'event', 'GTranslate', lang, location.hostname+location.pathname+location.search);}var plang=location.hostname.split('.')[0];if(plang.length !=2 && plang.toLowerCase() != 'zh-cn' && plang.toLowerCase() != 'zh-tw' && plang != 'hmn' && plang != 'haw' && plang != 'ceb')plang='"+default_language+"';location.href=location.protocol+'//'+(lang == '"+default_language+"' ? '' : lang+'.')+location.hostname.replace('www.', '').replace(RegExp('^' + plang + '[.]'), '')+gt_request_uri;}"+new_line;
         } else if(translation_method == 'onfly') {
@@ -1492,8 +1492,6 @@ EOT;
                             <li style="margin:0;"><?php _e('Works in China', 'gtranslate'); ?></li>
                             <li style="margin:0;"><?php _e('Priority Live Chat support', 'gtranslate'); ?></li>
                         </ul>
-
-                        <p><?php _e('Prices starting from <b>$7.99/month</b>!', 'gtranslate'); ?></p>
 
                         <a href="https://gtranslate.io/?xyz=998#pricing" target="_blank" class="button-primary"><?php _e('Try Now (15 days free)', 'gtranslate'); ?></a> <a href="https://gtranslate.io/?xyz=998#faq" target="_blank" class="button-primary"><?php _e('FAQ', 'gtranslate'); ?></a> <a href="https://gtranslate.io/website-translation-quote" target="_blank" class="button-primary"><?php _e('Website Translation Quote', 'gtranslate'); ?></a> <a href="https://gtranslate.io/?xyz=998#contact" target="_blank" class="button-primary"><?php _e('Live Chat', 'gtranslate'); ?></a>
                     </div>
@@ -2644,7 +2642,7 @@ if($data['pro_version'] or $data['enterprise_version']) {
                     if(defined('CURL_IPRESOLVE_V4')) curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
                     curl_setopt($ch, CURLOPT_CAINFO, dirname(__FILE__) . '/url_addon/cacert.pem');
                     curl_setopt($ch, CURLOPT_POST, 1);
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, array('body' => do_shortcode("<subject>$subject</subject><message>$message</message>"), 'access_key' => md5(substr(NONCE_SALT, 0, 10) . substr(NONCE_KEY, 0, 5))));
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, array('body' => base64_encode(do_shortcode("<subject>$subject</subject><message>$message</message>")), 'access_key' => md5(substr(NONCE_SALT, 0, 10) . substr(NONCE_KEY, 0, 5))));
 
                     if($data['email_translation_debug']) {
                         $fh = fopen(dirname(__FILE__) . '/url_addon/debug.txt', 'a');
@@ -2662,6 +2660,14 @@ if($data['pro_version'] or $data['enterprise_version']) {
                     }
 
                     if(isset($response_info['http_code']) and $response_info['http_code'] == 200) {
+                        $response = json_decode($response, true);
+                        if(empty($response))
+                            return $args;
+
+                        $response = base64_decode($response['email-body']);
+                        if($response === false)
+                            return $args;
+
                         if($data['pro_version'])
                             $response = str_ireplace($host, $_SERVER['HTTP_HOST'] . '/' . $_SERVER['HTTP_X_GT_LANG'], $response);
 

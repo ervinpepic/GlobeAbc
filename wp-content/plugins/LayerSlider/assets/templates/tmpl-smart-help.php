@@ -756,6 +756,24 @@
 
 <lse-smart-options-contents>
 
+	<div data-smart-options="left">
+
+		<lse-ul class="lse-smart-inject">
+			<lse-li data-smart-inject="0%"><?= __('Left', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="50%"><?= __('Center', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="100%"><?= __('Right', 'LayerSlider') ?></lse-li>
+		</lse-ul>
+	</div>
+
+	<div data-smart-options="top">
+
+		<lse-ul class="lse-smart-inject">
+			<lse-li data-smart-inject="0%"><?= __('Top', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="50%"><?= __('Middle', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="100%"><?= __('Bottom', 'LayerSlider') ?></lse-li>
+		</lse-ul>
+	</div>
+
 	<div data-smart-options="offset">
 
 		<lse-ul class="lse-smart-inject">

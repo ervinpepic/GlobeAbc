@@ -5,7 +5,7 @@ defined( 'LS_ROOT_FILE' ) || exit;
 
 // Check ZipArchive
 if( ! class_exists('ZipArchive') ) {
-	wp_die( __('The PHP ZipArchive extension is required to export sliders.', 'LayerSlider') );
+	wp_die( __('The PHP ZipArchive extension is required to export projects.', 'LayerSlider') );
 }
 
 if( ! LS_Config::isActivatedSite() ) {

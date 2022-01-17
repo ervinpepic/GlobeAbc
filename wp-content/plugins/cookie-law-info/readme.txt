@@ -5,7 +5,7 @@ Tags: GDPR, CCPA, cookie notice, DSGVO, RGPD, LGPD, PIPEDA, POPIA, cookies , coo
 Requires at least: 4.4.0
 Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 2.0.6
+Stable tag: 2.0.8
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -190,6 +190,17 @@ For every update of the plugin, you will be notified of the installed plugins pa
 13. Add a privacy policy overview
 
 == Changelog ==
+
+= 2.0.8 =
+
+* Fix - Compatibility issue with Wordpress 4.7.0 and below.
+
+= 2.0.7 =
+
+* Fix - Conflict with W3 Total Cache plugin
+* Fix - Accessibility issue ( Hidden element has a focusable content )
+* Fix - Opacity of the cookie banner is set to 0.1 after closing the settings popup.
+
 
 = 2.0.6 =
 
@@ -530,6 +541,6 @@ For every update of the plugin, you will be notified of the installed plugins pa
 
 == Upgrade Notice ==
 
-= 2.0.6 =
+= 2.0.8 =
 
-* Fix: Removed extract() function from the shortcodes module to improve security.
+* Fix - Compatibility issue with Wordpress 4.7.0 and below.

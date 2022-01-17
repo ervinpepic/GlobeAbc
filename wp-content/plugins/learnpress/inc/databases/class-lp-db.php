@@ -128,13 +128,12 @@ class LP_Database {
 		}
 
 		if ( ! empty( $filter->post_status ) ) {
-			$query_append .= ' AND post_status = \'' . $filter->post_status . '\'';
+			$query_append .= $this->wpdb->prepare( ' AND post_status = %s', $filter->post_status );
 		}
 
 		$query = $this->wpdb->prepare(
-			"
-			SELECT Count(ID) FROM $this->tb_posts
-			WHERE post_type = '%s'
+			"SELECT Count(ID) FROM $this->tb_posts
+			WHERE post_type = %s
 			AND post_author = %d
 			{$query_append}",
 			$filter->post_type,
@@ -522,5 +521,27 @@ class LP_Database {
 		$this->check_execute_has_error();
 
 		return $result;
+	}
+
+	/**
+	 * Check key postmeta exist on Database
+	 *
+	 * @param int $post_id
+	 * @param string $key
+	 *
+	 * @return bool|int
+	 */
+	public function check_key_postmeta_exists( int $post_id = 0, string $key = '' ) {
+		return $this->wpdb->query(
+			$this->wpdb->prepare(
+				"
+				SELECT meta_id FROM $this->tb_postmeta
+				WHERE meta_key = %s
+				AND post_id = %d
+				",
+				$key,
+				$post_id
+			)
+		);
 	}
 }

@@ -82,15 +82,15 @@ this["LP"] = this["LP"] || {}; this["LP"]["widgets"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_doing/learnpress/assets/src/apps/js/frontend/widgets.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./assets/src/apps/js/frontend/widgets.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "../../../Clouds/Thimpress/Plugins/github.com/learnpress_v4_doing/learnpress/assets/src/apps/js/frontend/widgets.js":
-/*!*********************************************************************************************************************************!*\
-  !*** E:/Work/Webs/WP/Clouds/Thimpress/Plugins/github.com/learnpress_v4_doing/learnpress/assets/src/apps/js/frontend/widgets.js ***!
-  \*********************************************************************************************************************************/
+/***/ "./assets/src/apps/js/frontend/widgets.js":
+/*!************************************************!*\
+  !*** ./assets/src/apps/js/frontend/widgets.js ***!
+  \************************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

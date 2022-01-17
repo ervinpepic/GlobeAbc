@@ -2196,6 +2196,9 @@ div.order-recover input[type=text] {
 .learn-press-profile-course__tab__inner > li {
   list-style: none;
 }
+.learn-press-profile-course__tab__inner > li:hover {
+  cursor: pointer;
+}
 .learn-press-profile-course__tab__inner a {
   display: inline-block;
   padding: 15px 30px;
@@ -2995,47 +2998,8 @@ body .lp-quiz-buttons .form-button-finish-course {
   font-size: inherit;
 }
 
-.learn-press-course-results-progress {
-  margin-right: -4%;
-}
-.learn-press-course-results-progress .items-progress,
-.learn-press-course-results-progress .course-progress {
-  float: left;
-  width: 46%;
-  margin-right: 4%;
-  margin-bottom: 30px;
-}
-.learn-press-course-results-progress .items-progress .items-progress__heading,
-.learn-press-course-results-progress .course-progress .items-progress__heading {
-  margin-bottom: 10px;
-}
-.learn-press-course-results-progress .items-progress .lp-progress-bar,
-.learn-press-course-results-progress .course-progress .lp-progress-bar {
-  overflow: hidden;
-  position: relative;
-  height: 10px;
-  border-radius: 5px;
-}
-.learn-press-course-results-progress .items-progress .lp-progress-bar .lp-progress-value,
-.learn-press-course-results-progress .course-progress .lp-progress-bar .lp-progress-value {
-  position: absolute;
-  width: 100%;
-  height: 10px;
-  margin-left: -100%;
-  border-radius: 5px;
-}
-.learn-press-course-results-progress .items-progress .lp-course-status .grade.failed,
-.learn-press-course-results-progress .course-progress .lp-course-status .grade.failed {
-  background: #f00;
-}
-.learn-press-course-results-progress .items-progress .lp-course-status .grade.passed,
-.learn-press-course-results-progress .course-progress .lp-course-status .grade.passed {
-  background: #3eadff;
-}
-.learn-press-course-results-progress::after {
-  display: block;
-  clear: both;
-  content: "";
+.course-progress .lp-progress-bar:hover {
+  cursor: pointer;
 }
 
 #course-item-content-header,

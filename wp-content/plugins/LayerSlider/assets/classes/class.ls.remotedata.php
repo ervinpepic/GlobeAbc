@@ -54,7 +54,7 @@ class LS_RemoteData {
 
 	public static function update( $source = 'general' ) {
 
-		self::updateSource( $sources[ $source ] );
+		self::updateSource( self::$sources[ $source ] );
 	}
 
 

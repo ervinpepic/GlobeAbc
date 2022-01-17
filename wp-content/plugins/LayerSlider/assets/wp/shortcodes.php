@@ -170,23 +170,23 @@ class LS_Shortcode {
 			// ERROR: No slider with ID was found
 			if( empty( $slider ) ) {
 				$error = self::generateErrorMarkup(
-					__('The slider cannot be found', 'LayerSlider'),
+					__('The project cannot be found', 'LayerSlider'),
 					null
 				);
 
 			// ERROR: The slider is not published
 			} elseif( (int)$slider['flag_hidden'] ) {
 				$error = self::generateErrorMarkup(
-					__('Unpublished slider', 'LayerSlider'),
-					sprintf(__('The slider you’ve inserted here is yet to be published, thus it won’t be displayed to your visitors. You can publish it by enabling the appropriate option in %sProject Settings → Publish%s. ', 'LayerSlider'), '<a href="'.admin_url('admin.php?page=layerslider&action=edit&id='.(int)$slider['id'].'&showsettings=1#publish').'" target="_blank">', '</a>.'),
+					__('Unpublished project', 'LayerSlider'),
+					sprintf(__('The LayerSlider project you’ve embedded here is yet to be published, thus it won’t be displayed to your visitors. You can publish it by enabling the appropriate option in %sProject Settings → Publish%s. ', 'LayerSlider'), '<a href="'.admin_url('admin.php?page=layerslider&action=edit&id='.(int)$slider['id'].'&showsettings=1#publish').'" target="_blank">', '</a>.'),
 					'dashicons-hidden'
 				);
 
 			// ERROR: The slider was removed
 			} elseif( (int)$slider['flag_deleted'] ) {
 				$error = self::generateErrorMarkup(
-					__('Hidden slider', 'LayerSlider'),
-					sprintf(__('You’ve hidden this slider; thus, it won’t be displayed to your visitors. Below you can see a preview of how it would look if it was displayed publicly. You can restore this slider on the LayerSlider admin interface or by %sclicking here%s.', 'LayerSlider'), '<a href="'.wp_nonce_url( admin_url('admin.php?page=layerslider&action=restore&id='.$slider['id'].'&ref='.urlencode(get_permalink()) ), 'restore_'.$slider['id']).'">', '</a>'),
+					__('Hidden project', 'LayerSlider'),
+					sprintf(__('You’ve hidden this project; thus, it won’t be displayed to your visitors. Below you can see a preview of how it would look if it was displayed publicly. You can restore this project on the LayerSlider admin interface or by %sclicking here%s.', 'LayerSlider'), '<a href="'.wp_nonce_url( admin_url('admin.php?page=layerslider&action=restore&id='.$slider['id'].'&ref='.urlencode(get_permalink()) ), 'restore_'.$slider['id']).'">', '</a>'),
 					'dashicons-hidden'
 				);
 
@@ -195,13 +195,13 @@ class LS_Shortcode {
 
 				if( ! empty($slider['schedule_start']) && (int) $slider['schedule_start'] > time() ) {
 					$error = self::generateErrorMarkup(
-						sprintf(__('This slider is scheduled to display on %s', 'LayerSlider'), ls_date(get_option('date_format') .' '. get_option('time_format'), $slider['schedule_start']) ),
+						sprintf(__('This project is scheduled to display on %s', 'LayerSlider'), ls_date(get_option('date_format') .' '. get_option('time_format'), $slider['schedule_start']) ),
 						'', 'dashicons-calendar-alt', 'scheduled'
 					);
 				} elseif( ! empty($slider['schedule_end']) && (int) $slider['schedule_end'] < time() ) {
 					$error = self::generateErrorMarkup(
-						sprintf(__('This slider was scheduled to hide on %s ','LayerSlider'), ls_date(get_option('date_format') .' '. get_option('time_format'), $slider['schedule_end']) ),
-						sprintf(__('Due to scheduling, this slider is no longer visible to your visitors. If you wish to reinstate this slider, just remove the schedule in %sProject Settings → Publish%s.', 'LayerSlider'), '<a href="'.admin_url('admin.php?page=layerslider&action=edit&id='.(int)$slider['id'].'&showsettings=1#publish').'" target="_blank">', '</a>'),
+						sprintf(__('This project was scheduled to hide on %s ','LayerSlider'), ls_date(get_option('date_format') .' '. get_option('time_format'), $slider['schedule_end']) ),
+						sprintf(__('Due to scheduling, this project is no longer visible to your visitors. If you wish to reinstate this project, just remove the schedule in %sProject Settings → Publish%s.', 'LayerSlider'), '<a href="'.admin_url('admin.php?page=layerslider&action=edit&id='.(int)$slider['id'].'&showsettings=1#publish').'" target="_blank">', '</a>'),
 						'dashicons-no-alt', 'dead'
 					);
 				}
@@ -390,7 +390,7 @@ class LS_Shortcode {
 			if( ! empty( $GLOBALS['lsPremiumNotice'] ) ) {
 				array_unshift($lsContainer, self::generateErrorMarkup(
 					__('Premium features is available for preview purposes only.', 'LayerSlider'),
-					sprintf(__('We’ve detected that you’re using premium features in this slider, but you have not yet activated your copy of LayerSlider. Premium features in your sliders will not be available for your visitors without activation. %sClick here to learn more%s. Detected features: %s', 'LayerSlider'), '<a href="https://layerslider.com/documentation/#activation" target="_blank">', '</a>', implode(', ', $GLOBALS['lsPremiumNotice'])),
+					sprintf(__('We’ve detected that you’re using premium features in this project, but you have not yet registered your copy of LayerSlider. Premium features in your projects will not be available for your visitors without license registration. %sClick here to learn more%s. Detected features: %s', 'LayerSlider'), '<a href="https://layerslider.com/documentation/#activation" target="_blank">', '</a>', implode(', ', $GLOBALS['lsPremiumNotice'])),
 					'dashicons-star-filled', 'info'
 				));
 			}
@@ -424,11 +424,11 @@ class LS_Shortcode {
 	public static function generateErrorMarkup( $title = null, $description = null, $logo = 'dashicons-warning', $customClass = '' ) {
 
 		if( ! $title ) {
-			$title = __('LayerSlider encountered a problem while it tried to show your slider.', 'LayerSlider');
+			$title = __('LayerSlider encountered a problem while it tried to show your project.', 'LayerSlider');
 		}
 
 		if( is_null($description) ) {
-			$description = __('Please make sure that you’ve used the right shortcode or method to insert the slider, and check if the corresponding slider exists and it wasn’t deleted previously.', 'LayerSlider');
+			$description = __('Please make sure that you’ve used the right shortcode or method to embed the project, and check if the corresponding project exists and it wasn’t deleted previously.', 'LayerSlider');
 		}
 
 		if( $description ) {

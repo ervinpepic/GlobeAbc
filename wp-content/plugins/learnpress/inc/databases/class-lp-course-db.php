@@ -358,6 +358,88 @@ class LP_Course_DB extends LP_Database {
 
 		return (int) $this->wpdb->get_var( $query );
 	}
+
+	/**
+	 * Get total items of course
+	 *
+	 * @param int $course_id
+	 * @author tungnx
+	 * @since 4.1.4.1
+	 * @version 1.0.0
+	 * @return null|object
+	 */
+	public function get_total_items( int $course_id = 0 ) {
+		// Get cache
+		$lp_course_cache = LP_Course_Cache::instance();
+		$key_cache       = "$course_id/total_items";
+		$total_items     = $lp_course_cache->get_cache( $key_cache );
+
+		if ( ! $total_items ) {
+			$item_types       = learn_press_get_course_item_types();
+			$count_item_types = count( $item_types );
+			$i                = 0;
+
+			$query_count = $this->wpdb->prepare( 'SUM(s.section_course_id = %d) AS count_items,', $course_id );
+
+			foreach ( $item_types as $item_type ) {
+				$i++;
+				if ( $i == $count_item_types ) {
+					$query_count .= $this->wpdb->prepare( 'SUM(s.section_course_id = %d AND si.item_type = %s) AS %s', $course_id, $item_type, $item_type );
+				} else {
+					$query_count .= $this->wpdb->prepare( 'SUM(s.section_course_id = %d AND si.item_type = %s) AS %s,', $course_id, $item_type, $item_type );
+				}
+			}
+
+			$query = "
+			SELECT $query_count
+			FROM $this->tb_lp_section_items si
+			INNER JOIN $this->tb_lp_sections s ON s.section_id = si.section_id
+			";
+
+			$total_items = $this->wpdb->get_row( $query );
+
+			// Set cache
+			$lp_course_cache->set_cache( $key_cache, $total_items );
+		}
+
+		return $total_items;
+	}
+
+	/**
+	 * Count all item are unassigned to any courses.
+	 *
+	 * @param string $item_type (type item Lesson, Quiz, Assignment, H5P ...)
+	 *
+	 * @return int
+	 * @since 4.1.4.1
+	 * @author tungnx
+	 * @version 1.0.0
+	 */
+	function get_total_item_unassigned( string $item_type ): int {
+		$query_append = '';
+		if ( ! current_user_can( 'administrator' ) ) {
+			$query_append .= $this->wpdb->prepare( ' AND post_author = %d', get_current_user_id() );
+		}
+
+		$query = $this->wpdb->prepare(
+			"SELECT COUNT(p.ID) as total
+            FROM $this->tb_posts AS p
+            WHERE p.post_type = %s
+            AND p.ID NOT IN(
+                SELECT si.item_id
+                FROM {$this->tb_lp_section_items} AS si
+                WHERE si.item_type = %s
+            )
+            AND p.post_status NOT IN(%s, %s)
+            $query_append",
+			$item_type,
+			$item_type,
+			'auto-draft',
+			'trash'
+		);
+
+		return (int) $this->wpdb->get_var( $query );
+	}
 }
 
 LP_Course_DB::getInstance();

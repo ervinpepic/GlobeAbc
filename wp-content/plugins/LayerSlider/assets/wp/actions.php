@@ -384,7 +384,7 @@ function layerslider_empty_google_fonts() {
 
 function ls_add_new_slider() {
 
-	$title 	= ! empty( $_POST['title'] ) ? $_POST['title'] : __('Unnamed Slider', 'LayerSlider');
+	$title 	= ! empty( $_POST['title'] ) ? $_POST['title'] : __('Unnamed Project', 'LayerSlider');
 	$id 	= LS_Sliders::add( $title );
 
 	wp_redirect( admin_url('admin.php?page=layerslider&action=edit&id='.$id.'&showsettings=1') );
