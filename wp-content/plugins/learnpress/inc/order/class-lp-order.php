@@ -587,11 +587,12 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 *
 		 * @return int
 		 * @throws Exception
+		 * @editor tungnx
+		 * @modify 4.1.5
 		 */
 		public function add_item( $item ): int {
 			global $wpdb;
 			$lp_user_items_db = LP_User_Items_DB::getInstance();
-			$order_item_id    = 0;
 
 			try {
 				if ( is_numeric( $item ) ) {
@@ -601,32 +602,46 @@ if ( ! class_exists( 'LP_Order' ) ) {
 					);
 				}
 
-				$course = learn_press_get_course( $item['item_id'] );
-				if ( ! $course ) {
+				$item_type = get_post_type( $item['item_id'] );
+				if ( ! in_array( $item_type, learn_press_get_item_types_can_purchase() ) ) {
 					return false;
 				}
 
 				$item = wp_parse_args(
 					$item,
 					array(
+						'item_id'         => 0,
+						'item_type'       => '',
 						'order_item_name' => '',
 						'quantity'        => 1,
+						'subtotal'        => 0,
+						'total'           => 0,
 						'meta'            => array(),
 					)
 				);
 
-				if ( ! array_key_exists( 'subtotal', $item ) ) {
-					$item['subtotal'] = $course->get_price() * $item['quantity'];
-				}
+				switch ( $item_type ) {
+					case LP_COURSE_CPT:
+						$course                  = learn_press_get_course( $item['item_id'] );
+						$item['subtotal']        = apply_filters( 'learnpress/order/item/subtotal', $course->get_price() * $item['quantity'], $course, $item );
+						$item['total']           = apply_filters( 'learnpress/order/item/total', $course->get_price() * $item['quantity'], $course, $item );
+						$item['order_item_name'] = apply_filters( 'learnpress/order/item/title', $course->get_title(), $course, $item );
 
-				if ( ! array_key_exists( 'total', $item ) ) {
-					$item['total'] = $course->get_price() * $item['quantity'];
-				}
+						if ( $this->check_can_delete_item_old( $course ) ) {
+							// Delete lp_user_items old
+							$user_ids = $this->get_users();
+							foreach ( $user_ids as $user_id ) {
+								$lp_user_items_db->delete_user_items_old( $user_id, $course->get_id() );
+							}
+							// End
+						}
 
-				$item = apply_filters( 'learn-press/order-item-data', $item, $this->get_id() );
-
-				if ( ! $item ) {
-					return false;
+						//learn_press_add_order_item_meta( $order_item_id, '_course_id', $item['item_id'] );
+						$item['meta']['_course_id'] = $item['item_id'];
+						break;
+					default:
+						$item = apply_filters( 'learnpress/order/add-item/item_type_' . $item_type, $item );
+						break;
 				}
 
 				// Insert new order item
@@ -636,7 +651,7 @@ if ( ! class_exists( 'LP_Order' ) ) {
 						'order_item_name' => $item['order_item_name'],
 						'order_id'        => $this->get_id(),
 						'item_id'         => $item['item_id'],
-						'item_type'       => get_post_type( $item['item_id'] ),
+						'item_type'       => $item_type,
 					),
 					array(
 						'%s',
@@ -648,24 +663,10 @@ if ( ! class_exists( 'LP_Order' ) ) {
 				$order_item_id = absint( $wpdb->insert_id );
 				// End insert new order item
 
-				if ( $this->check_can_delete_item_old( $course ) ) {
-					// Delete lp_user_items old
-					$user_ids = $this->get_users();
-					foreach ( $user_ids as $user_id ) {
-						$lp_user_items_db->delete_user_items_old( $user_id, $course->get_id() );
-					}
-					// End
-				}
-
-				/**
-				 * @since 3.0.0
-				 */
-				do_action( 'learn-press/added-order-item', $order_item_id, $item, $this->get_id() );
-
-				learn_press_add_order_item_meta( $order_item_id, '_course_id', $item['item_id'] );
-				learn_press_add_order_item_meta( $order_item_id, '_quantity', $item['quantity'] );
-				learn_press_add_order_item_meta( $order_item_id, '_subtotal', $item['subtotal'] );
-				learn_press_add_order_item_meta( $order_item_id, '_total', $item['total'] );
+				// Add learnpress_order_itemmeta
+				$item['meta']['_quantity'] = $item['quantity'];
+				$item['meta']['_subtotal'] = $item['subtotal'] ?? 0;
+				$item['meta']['_total']    = $item['total'] ?? 0;
 
 				if ( is_array( $item['meta'] ) ) {
 					foreach ( $item['meta'] as $k => $v ) {
@@ -1369,10 +1370,7 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 * @version 1.0.0
 		 */
 		public function check_can_delete_item_old( LP_Course $course ): bool {
-			/*$user_current = learn_press_get_current_user();
-			if ( $user_current instanceof LP_User_Guest ) {
-				return false;
-			}*/
+			$can_delete = false;
 
 			$lp_user_items_db = LP_User_Items_DB::getInstance();
 
@@ -1402,10 +1400,10 @@ if ( ! class_exists( 'LP_Order' ) ) {
 			 * Will deleted lp_user_items old
 			 */
 			if ( $course->is_free() || empty( $allow_repurchase_type ) || ! $course->allow_repurchase() || $allow_repurchase_type != 'keep' ) {
-				return true;
+				$can_delete = true;
 			}
 
-			return false;
+			return apply_filters( 'learnpress/order/can_delete_old_item', $can_delete, $course );
 		}
 	}
 }

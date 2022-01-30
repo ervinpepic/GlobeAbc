@@ -35,23 +35,21 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvX
 ## Get list Course learned by user, if not learned will get all course
 ## add param: learned, course_filter: in-progress, passed, failed.
 ###
-GET http://learnpress4.local/wp-json/learnpress/v1/courses?learned=true&per_page=1&order=desc&course_filter=in-progress&optimize=sections
+GET http://lp/wp-json/learnpress/v1/courses?on_sale=true
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sZWFybnByZXNzNC5sb2NhbCIsImlhdCI6MTYzOTcxMTI2OCwibmJmIjoxNjM5NzExMjY4LCJleHAiOjE2NDAzMTYwNjgsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.o4T_GPJY34KtMq-7Fe7gBE_7ZZapdT6ZJfpheObdxbE
 
 ## Get list Course learned by user, if not learned will get all course
 ## add param: learned, course_filter: in-progress, passed, failed.
 ###
-GET http://learnpress4.local/wp-json/learnpress/v1/courses?orderby=price&order=desc
+GET http://learnpress4.local/wp-json/learnpress/v1/courses?learned=true&per_page=1&order=desc&course_filter=in-progress
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sZWFybnByZXNzNC5sb2NhbCIsImlhdCI6MTYzNTEzNjYxMCwibmJmIjoxNjM1MTM2NjEwLCJleHAiOjE2MzU3NDE0MTAsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19._eGVoYIw1YHxH9qB6IhIYiPUwJnMFi-lPtjBVASzTBc
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sZWFybnByZXNzNC5sb2NhbCIsImlhdCI6MTY0MTg3MTM3NSwibmJmIjoxNjQxODcxMzc1LCJleHAiOjE2NDI0NzYxNzUsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.NvKdO6v4ylCjLNc06Q7S6T9GIdNL5i4YAyPC0p776lE
 
 
 ### Get content Course
 ## If have token will show course_data for this user: course_data: graduation, status....
 GET http://learnpress4.local/wp-json/learnpress/v1/courses/196
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sZWFybnByZXNzNC5sb2NhbCIsImlhdCI6MTYyNTI4MTg0MCwibmJmIjoxNjI1MjgxODQwLCJleHAiOjE2MjU4ODY2NDAsImRhdGEiOnsidXNlciI6eyJpZCI6IjIifX19.7QC81ori9AatTPpJszo1xkq0lzeKOh8eO8qcIll9bk8
 
 
 ## Enroll course.
@@ -178,7 +176,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvX
 ###
 GET http://learnpress4.local/wp-json/learnpress/v1/users/1
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sZWFybnByZXNzNC5sb2NhbCIsImlhdCI6MTYzNDUyNTg1NSwibmJmIjoxNjM0NTI1ODU1LCJleHAiOjE2MzUxMzA2NTUsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.uAAeClTExJpT32jAa08oOQ0U71Vq95g3bTEwJ98wwUs
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sZWFybnByZXNzNC5sb2NhbCIsImlhdCI6MTY0MTI4MzU3MSwibmJmIjoxNjQxMjgzNTcxLCJleHAiOjE2NDE4ODgzNzEsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.r5se4yny2r8rK5QO0Z0BzydrArbk5qnyf_jAFHQuYEc
 
 ###
 POST http://learnpress4.local/wp-json/learnpress/v1/users/1/
@@ -233,3 +231,17 @@ Content-Type: application/json
 ###
 GET https://test.thimpress.com/wp-json/wp/v2/posts?v=qweqwedsfdsfds
 Content-Type: application/json
+
+###
+GET http://learnpress4.local/wp-json/learnpress/v1/sections/sections-by-course-id/205
+Content-Type: application/json
+
+###
+GET http://learnpress4.local/wp-json/learnpress/v1/section-items/items/8
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sZWFybnByZXNzNC5sb2NhbCIsImlhdCI6MTY0MDkyMTQ5OCwibmJmIjoxNjQwOTIxNDk4LCJleHAiOjE2NDE1MjYyOTgsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.nv7SgzB0JDQLSipszofbamoXyQHPPhx8IuO7-ISAGVU
+
+###
+GET https://test.thimpress.com/wp-json/learnpress/v1/courses?learned=true&per_page=1&order=desc&course_filter=in-progress?v=ddsadsadios
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvdGVzdC50aGltcHJlc3MuY29tIiwiaWF0IjoxNjQyMDY4NTk0LCJuYmYiOjE2NDIwNjg1OTQsImV4cCI6MTY0MjY3MzM5NCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMSJ9fX0.rRRLon3MJel4MFjm6O5XqwdDqfr3s0xlNjVIeghW2Js

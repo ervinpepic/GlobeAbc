@@ -3,9 +3,9 @@ Contributors: miniOrange
 Donate link: http://miniorange.com
 Tags: Logged-in, Page Restriction, Access control, Restricted access, Restrict pages, Protect content
 Requires at least: 3.7
-Tested up to: 5.8
+Tested up to: 5.9
 Requires PHP: 5.4
-Stable tag: 1.2.3
+Stable tag: 1.2.4
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
@@ -100,6 +100,11 @@ If you are still nervous about your website security or how the plugin would wor
 
 == Changelog ==
 
+= 1.2.4 =
+* WordPress 5.9 compatibility
+* Modified licensing plans
+* Fixed support form warning
+
 = 1.2.3 =
 * Added new licensing plans
 * Fixed feedback form
@@ -134,6 +139,11 @@ If you are still nervous about your website security or how the plugin would wor
 
 
 == Upgrade Notice ==
+
+= 1.2.4 =
+* WordPress 5.9 compatibility
+* Modified licensing plans
+* Fixed support form warning
 
 = 1.2.3 =
 * Added new licensing plans

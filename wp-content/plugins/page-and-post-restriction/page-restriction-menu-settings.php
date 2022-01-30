@@ -397,7 +397,7 @@ function papr_login_restriction_page() {
 		    echo '
 				<br>
 				<h3>Select Category of Posts you want only Logged in Users to Access
-				<sup style="font-size: 12px; color: red;">[Available in <a href="'. admin_url( "admin.php?page=page_restriction&tab=premium_plan" ).'">Paid</a> version of the plugin]</sup>
+				<sup style="font-size: 12px; color: red;">[Available in <a href="'. admin_url( "admin.php?page=page_restriction&tab=premium_plan" ).'">Paid version</a> of the plugin]</sup>
 				</h3>
 				<p><b>Note </b>: Select the category(s) that you want to restrict access, for a User not Logged In (By default all pages/posts/categories are accessible to all users). </p>
 				<table>
@@ -859,7 +859,7 @@ function papr_user_restriction_page() {
                 <br>
                
                 <h3>Give Access to Category of Posts based on Roles
-                <sup style="font-size: 12px; color: red;">[Available in <a href="'. admin_url( "admin.php?page=page_restriction&tab=premium_plan" ).'">Paid</a> version of the plugin]</sup>
+                <sup style="font-size: 12px; color: red;">[Available in <a href="'. admin_url( "admin.php?page=page_restriction&tab=premium_plan" ).'">Paid version</a> of the plugin]</sup>
                 </h3>
                 <p><b>Note </b>: Enter a role(s) of a user that you want to give access to for a Category post (By default all posts are accessible to all users irrespective of their roles). </p>
                 <table>
@@ -895,11 +895,11 @@ function papr_restrict_complete_post_type(){
 	echo '
 	<div style="display:block;margin-top:1px;background-color:rgba(255, 255, 255, 255);padding-left:10px;border:solid 1px rgba(255, 255, 255, 255);border: 1px solid #CCCCCC";>
 		<h3>Restrict Entire Custom Post Type<sup style = "font-size: 12px;color:red;">
-		[Available in <a href="'. admin_url( "admin.php?page=page_restriction&tab=premium_plan" ).'">Premium</a> Plan]</sup></h3>
+		[Available in <a href="'. admin_url( "admin.php?page=page_restriction&tab=premium_plan" ).'">Paid version</a> of the plugin]</sup></h3>
 		<hr>
 		<div style="padding-left:16px">		
 			<h3>Select post types you want to give access to Logged in Users only</h3>
-			<p><b>Note </b>: Selet the custom post type that you want to restrict access for a user not Logged In (By default all custom post types are accessible to all users). </p>';
+			<p><b>Note </b>: Select the custom post type that you want to restrict access for a user not Logged In (By default all custom post types are accessible to all users). </p>';
 
 			$custom_post_types = papr_get_custom_post_types();
 
@@ -968,7 +968,7 @@ function papr_support_page_restriction() {
                         <td>
                         	<input style="width:95%" type="email" class="mo_pr_table_textbox" required
                                    name="papr_contact_us_email"
-                                   value="<?php echo get_option( "papr_admin_email" ); ?>"
+                                   value="<?php echo ( get_option( 'papr_admin_email' ) == '' ) ? get_option( 'admin_email' ) : get_option( 'papr_admin_email' ); ?>"
                                    placeholder="Enter your email">
                         </td>
                     </tr>
@@ -984,9 +984,9 @@ function papr_support_page_restriction() {
                     </tr>
                     <tr>
                         <td>
-                        	<textarea style="width:95%" onkeypress="papr_valid_query(this)"
+                        	<textarea style="width:95%; resize: vertical;" onkeypress="papr_valid_query(this)"
                                       onkeyup="papr_valid_query(this)" onblur="papr_valid_query(this)" required
-                                      name="papr_contact_us_query" rows="4" style="resize: vertical;"
+                                      name="papr_contact_us_query" rows="4"
                                       placeholder="Write your query here">
                             </textarea>
                         </td>
@@ -1017,7 +1017,7 @@ function papr_display_options_page() {
 	echo '
 	<div style="background-color: #FFF;width: 93%;border: 1px solid #CCC;padding: 10px; cursor: not-allowed;">       
         <h3 style="margin-top:">Page Restrict Options 
-        <sup style="font-size: 12px; color: red;">[Available in <a href="'. admin_url( "admin.php?page=page_restriction&tab=premium_plan" ).'">Paid</a> version of plugin]</sup>
+        <sup style="font-size: 12px; color: red;">[Available in <a href="'. admin_url( "admin.php?page=page_restriction&tab=premium_plan" ).'">Paid version</a> of plugin]</sup>
         </h3>
 		<hr><br>
 		<div style="padding-left:10px">
@@ -1086,7 +1086,7 @@ function papr_display_options_log() {
 	echo '
 	<div style="display:block;background-color: #FFF;width: 93%;border: 1px solid #CCC;padding: 10px;">
         <h3>Page Restrict Options
-        <sup style="font-size: 12px; color: red;">[Available in <a href="'. admin_url( "admin.php?page=page_restriction&tab=premium_plan" ).'">Paid</a> version of the plugin]</sup>
+        <sup style="font-size: 12px; color: red;">[Available in <a href="'. admin_url( "admin.php?page=page_restriction&tab=premium_plan" ).'">Paid version</a> of the plugin]</sup>
         </h3>
 		<hr>
 		<div style="padding:15px">
@@ -1327,5 +1327,3 @@ function papr_show_verify_password_page() {
     </script>
     <?php
 }
-
-

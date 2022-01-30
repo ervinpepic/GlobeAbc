@@ -138,8 +138,19 @@ class LP_Install_Sample_Data {
 			$price = LP_Request::get( 'course-price' );
 
 			if ( $price ) {
-				update_post_meta( $course_id, '_lp_price', $price );
+				update_post_meta( $course_id, '_lp_regular_price', $price );
 			}
+
+			/**
+			 * Save info course in background.
+			 */
+			$bg = LP_Background_Single_Course::instance();
+			$bg->data(
+				array(
+					'handle_name' => 'save_post',
+					'course_id'   => $course_id,
+				)
+			)->dispatch();
 			?>
 
 			<div class="lp-install-sample__response success">
@@ -462,19 +473,27 @@ class LP_Install_Sample_Data {
 		static $lesson_count = 1;
 		static $quiz_count   = 1;
 
+		$order = 0;
+
 		$item_length = call_user_func_array( 'rand', self::$item_range );
 
 		for ( $i = 1; $i < $item_length; $i ++ ) {
-			$lesson_id = $this->create_lesson( 'Lesson ' . $lesson_count ++, $section_id, $course_id );
+			$lesson_id = $this->create_lesson( 'Lesson ' . $lesson_count ++, $section_id, $course_id, $order );
 
 			if ( $lesson_id ) {
+				$order ++;
+
 				if ( $i == 1 ) {
 					update_post_meta( $lesson_id, '_lp_preview', 'yes' );
 				}
 			}
 		}
 
-		$this->create_quiz( 'Quiz ' . $quiz_count ++, $section_id, $course_id );
+		$quiz_id = $this->create_quiz( 'Quiz ' . $quiz_count ++, $section_id, $course_id, $order );
+
+		if ( $quiz_id ) {
+			$order ++;
+		}
 	}
 
 	/**
@@ -486,7 +505,7 @@ class LP_Install_Sample_Data {
 	 *
 	 * @return int|WP_Error
 	 */
-	protected function create_lesson( $name, $section_id, $course_id ) {
+	protected function create_lesson( $name, $section_id, $course_id, $order ) {
 		global $wpdb;
 
 		$data = array(
@@ -506,12 +525,13 @@ class LP_Install_Sample_Data {
 				'section_id' => $section_id,
 				'item_id'    => $lesson_id,
 				'item_type'  => LP_LESSON_CPT,
+				'item_order' => absint( $order ),
 			);
 
 			$wpdb->insert(
 				$wpdb->learnpress_section_items,
 				$section_data,
-				array( '%d', '%d', '%s' )
+				array( '%d', '%d', '%s', '%d' )
 			);
 		}
 
@@ -527,7 +547,7 @@ class LP_Install_Sample_Data {
 	 *
 	 * @return int|WP_Error
 	 */
-	protected function create_quiz( $name, $section_id, $course_id ) {
+	protected function create_quiz( $name, $section_id, $course_id, $order ) {
 		global $wpdb;
 
 		$data = array(
@@ -571,12 +591,13 @@ class LP_Install_Sample_Data {
 				'section_id' => $section_id,
 				'item_id'    => $quiz_id,
 				'item_type'  => LP_QUIZ_CPT,
+				'item_order' => absint( $order ),
 			);
 
 			$wpdb->insert(
 				$wpdb->learnpress_section_items,
 				$section_data,
-				array( '%d', '%d', '%s' )
+				array( '%d', '%d', '%s', '%d' )
 			);
 
 			$this->create_quiz_questions( $quiz_id );

@@ -4,7 +4,7 @@
  *
  * @author  ThimPress
  * @package LearnPress/Classes
- * @version 3.0.0
+ * @version 4.0.1
  */
 
 defined( 'ABSPATH' ) || exit();
@@ -32,10 +32,12 @@ if ( ! class_exists( 'LP_Course' ) ) {
 		 * @param $data
 		 *
 		 * @return array
+		 * @editor tungnx
+		 * @modify 4.1.5 - comment - not use
 		 */
-		public static function log( $data ) {
+		/*public static function log( $data ) {
 			return $data;
-		}
+		}*/
 
 		/**
 		 * Set item is viewing in single course.
@@ -485,6 +487,107 @@ if ( ! class_exists( 'LP_Course' ) ) {
 			} catch ( Throwable $e ) {
 				error_log( __FUNCTION__ . ':' . $e->getMessage() );
 			}
+		}
+
+		/**
+		 * Get list course
+		 * Order By: price, title, rating, date ...
+		 * Order: ASC, DES
+		 *
+		 * @param LP_Course_Filter $filter
+		 * @param int $total_rows
+		 *
+		 * @return array|null|string|int
+		 * @author tungnx
+		 * @version 1.0.0
+		 * @sicne 4.1.5
+		 */
+		public static function get_courses( LP_Course_Filter $filter, int &$total_rows = 0 ) {
+			try {
+				$key_cache            = md5( json_encode( $filter ) );
+				$key_cache_total_rows = md5( json_encode( $filter ) . 'total_rows' );
+				$courses_cache        = LP_Courses_Cache::instance()->get_cache( $key_cache );
+
+				if ( false !== $courses_cache ) {
+					$total_rows = LP_Courses_Cache::instance()->get_cache( $key_cache_total_rows );
+					return $courses_cache;
+				}
+
+				// Sort by
+				$filter->sort_by = (array) $filter->sort_by;
+				foreach ( $filter->sort_by as $sort_by ) {
+					$filter_tmp                      = clone $filter;
+					$filter_tmp->fields              = array( 'ID' );
+					$filter_tmp->return_string_query = true;
+
+					switch ( $sort_by ) {
+						case 'on_sale':
+							$filter_tmp = LP_Course_DB::getInstance()->get_courses_sort_by_sale( $filter_tmp );
+							break;
+						case 'on_feature':
+							$filter_tmp = LP_Course_DB::getInstance()->get_courses_sort_by_feature( $filter_tmp );
+							break;
+						default:
+							$filter_tmp = apply_filters( 'lp/courses/filter/sort_by' . $sort_by, $filter_tmp );
+							break;
+					}
+
+					$query_courses_str = LP_Course_DB::getInstance()->get_courses( $filter_tmp );
+
+					$filter->where[] = "AND ID IN ({$query_courses_str})";
+				}
+
+				// Order by
+				switch ( $filter->order_by ) {
+					case 'price':
+					case 'price_low':
+						if ( 'price_low' === $filter->order_by ) {
+							$filter->order = 'ASC';
+						}
+
+						$filter = LP_Course_DB::getInstance()->get_courses_sort_by_price( $filter );
+						break;
+					default:
+						$filter = apply_filters( 'lp/courses/filter/order_by/' . $filter->order_by, $filter );
+						break;
+				}
+
+				// Query get results
+				$filter  = apply_filters( 'lp/courses/filter', $filter );
+				$courses = LP_Course_DB::getInstance()->get_courses( $filter, $total_rows );
+
+				LP_Courses_Cache::instance()->set_cache( $key_cache, $courses );
+				LP_Courses_Cache::instance()->set_cache( $key_cache_total_rows, $total_rows );
+
+				/**
+				 * Save key cache to array to clear
+				 * @see LP_Background_Single_Course::save_post()
+				 */
+				LP_Courses_Cache::instance()->save_cache_keys( $key_cache );
+				LP_Courses_Cache::instance()->save_cache_keys( $key_cache_total_rows );
+			} catch ( Throwable $e ) {
+				$courses = null;
+				error_log( __FUNCTION__ . ': ' . $e->getMessage() );
+			}
+
+			return $courses;
+		}
+
+		/**
+		 * Get course_ids
+		 *
+		 * @param array $courses Array object [{ ID: 1, post_title = '' }]
+		 * @param string $key
+		 *
+		 * @return array
+		 */
+		public static function get_course_ids( array $courses, string $key = 'ID' ): array {
+			$course_ids = array();
+			foreach ( $courses as $course ) {
+				$course_ids[] = $course->{$key};
+			}
+
+			return $course_ids;
 		}
 	}
 }

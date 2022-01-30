@@ -4,16 +4,70 @@ import { addQueryArgs } from '@wordpress/url';
 const courseTab = () => {
 	const elements = document.querySelectorAll( '.learn-press-course-tab__filter__content' );
 
-	if ( ! elements.length ) {
-		return;
-	}
+	const getResponse = ( ele, dataset, append = false, viewMoreEle = false ) => {
+		wp.apiFetch( {
+			path: addQueryArgs( 'lp/v1/profile/course-tab', dataset ),
+			method: 'GET',
+		} ).then( ( response ) => {
+			const skeleton = ele.querySelector( '.lp-skeleton-animation' );
+			skeleton && skeleton.remove();
+
+			if ( response.status === 'success' && response.data ) {
+				if ( append ) {
+					ele.innerHTML += response.data;
+				} else {
+					ele.innerHTML = response.data;
+				}
+			} else if ( append ) {
+				ele.innerHTML += `<div class="lp-ajax-message" style="display:block">${ response.message && response.message }</div>`;
+			} else {
+				ele.innerHTML = `<div class="lp-ajax-message" style="display:block">${ response.message && response.message }</div>`;
+			}
+
+			if ( viewMoreEle ) {
+				viewMoreEle.classList.remove( 'loading' );
+
+				const paged = viewMoreEle.dataset.paged;
+				const numberPage = viewMoreEle.dataset.number;
+
+				if ( numberPage <= paged ) {
+					viewMoreEle.remove();
+				}
+
+				viewMoreEle.dataset.paged = parseInt( paged ) + 1;
+			}
+
+			viewMore( ele, dataset );
+		} ).catch( ( error ) => {
+			if ( append ) {
+				ele.innerHTML += `<div class="lp-ajax-message error" style="display:block">${ error.message && error.message }</div>`;
+			} else {
+				ele.innerHTML = `<div class="lp-ajax-message error" style="display:block">${ error.message && error.message }</div>`;
+			}
+
+			if ( viewMoreEle ) {
+				viewMoreEle.classList.remove( 'loading' );
+
+				const paged = viewMoreEle.dataset.paged;
+				const numberPage = viewMoreEle.dataset.number;
+
+				if ( numberPage <= paged ) {
+					viewMoreEle.remove();
+				}
+
+				viewMoreEle.dataset.paged = parseInt( paged ) + 1;
+			}
+		} );
+	};
 
 	if ( 'IntersectionObserver' in window ) {
 		const eleObserver = new IntersectionObserver( ( entries, observer ) => {
 			entries.forEach( ( entry ) => {
 				if ( entry.isIntersecting ) {
 					const ele = entry.target;
-					const data = JSON.parse( ele.dataset.ajax );
+
+					const params = ele.parentNode.querySelector( '.lp_profile_tab_input_param' );
+					const data = { ...JSON.parse( params.value ), status: ele.dataset.tab || '' };
 
 					getResponse( ele, data );
 
@@ -22,7 +76,16 @@ const courseTab = () => {
 			} );
 		} );
 
-		[ ...elements ].map( ( ele ) => eleObserver.observe( ele ) );
+		[ ...elements ].map( ( ele ) => {
+			if ( ele.dataset.tab !== 'all' ) {
+				eleObserver.observe( ele );
+			} else {
+				const params = ele.parentNode.querySelector( '.lp_profile_tab_input_param' );
+				const data = { ...JSON.parse( params.value ), status: ele.dataset.tab === 'all' ? '' : ele.dataset.tab || '' };
+
+				getResponse( ele, data );
+			}
+		} );
 	}
 
 	const changeFilter = () => {
@@ -87,66 +150,6 @@ const courseTab = () => {
 		} );
 	};
 	changeTab();
-
-	const getResponse = async ( ele, dataset, append = false, viewMoreEle = false ) => {
-		try {
-			const response = await wp.apiFetch( {
-				path: addQueryArgs( 'lp/v1/profile/course-tab', dataset ),
-				method: 'GET',
-			} );
-
-			if ( response ) {
-				const skeleton = ele.querySelector( '.lp-skeleton-animation' );
-				skeleton && skeleton.remove();
-
-				if ( response.status === 'success' && response.data ) {
-					if ( append ) {
-						ele.innerHTML += response.data;
-					} else {
-						ele.innerHTML = response.data;
-					}
-				} else if ( append ) {
-					ele.innerHTML += `<div class="lp-ajax-message" style="display:block">${ response.message && response.message }</div>`;
-				} else {
-					ele.innerHTML = `<div class="lp-ajax-message" style="display:block">${ response.message && response.message }</div>`;
-				}
-
-				if ( viewMoreEle ) {
-					viewMoreEle.classList.remove( 'loading' );
-
-					const paged = viewMoreEle.dataset.paged;
-					const numberPage = viewMoreEle.dataset.number;
-
-					if ( numberPage <= paged ) {
-						viewMoreEle.remove();
-					}
-
-					viewMoreEle.dataset.paged = parseInt( paged ) + 1;
-				}
-
-				viewMore( ele, dataset );
-			}
-		} catch ( error ) {
-			if ( append ) {
-				ele.innerHTML += `<div class="lp-ajax-message error" style="display:block">${ error.message && error.message }</div>`;
-			} else {
-				ele.innerHTML = `<div class="lp-ajax-message error" style="display:block">${ error.message && error.message }</div>`;
-			}
-
-			if ( viewMoreEle ) {
-				viewMoreEle.classList.remove( 'loading' );
-
-				const paged = viewMoreEle.dataset.paged;
-				const numberPage = viewMoreEle.dataset.number;
-
-				if ( numberPage <= paged ) {
-					viewMoreEle.remove();
-				}
-
-				viewMoreEle.dataset.paged = parseInt( paged ) + 1;
-			}
-		}
-	};
 
 	const viewMore = ( ele, dataset ) => {
 		const viewMoreEle = ele.querySelector( 'button[data-paged]' );

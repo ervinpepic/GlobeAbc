@@ -223,8 +223,10 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 		 * Remap final quiz for each course
 		 *
 		 * @since 3.1.0
+		 * @editor tungnx
+		 * @deprecated 4.1.5
 		 */
-		public static function sync_course_final_quiz() {
+		/*public static function sync_course_final_quiz() {
 			if ( empty( $_REQUEST['sync'] ) ) {
 				die();
 			}
@@ -241,7 +243,7 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 			learn_press_send_json( array( 'result' => 'success' ) );
 
 			die();
-		}
+		}*/
 
 		/**
 		 * @editor tungnx
@@ -1196,36 +1198,135 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 			die();
 		}*/
 
-		public static function upload_user_avatar() {
-			$file       = $_FILES['lp-upload-avatar'];
-			$upload_dir = learn_press_user_profile_picture_upload_dir();
+		/**
+		 * Upload avatar of user
+		 *
+		 * @editor tungnx
+		 * @modify 4.1.5
+		 */
+		// public static function upload_user_avatar() {
+		// 	$user_id = get_current_user_id();
 
-			add_filter( 'upload_dir', array( __CLASS__, '_user_avatar_upload_dir' ), 10000 );
+		// 	if ( ! $user_id ) {
+		// 		return;
+		// 	}
 
-			$result = wp_handle_upload(
-				$file,
-				array(
-					'test_form' => false,
-				)
-			);
+		// 	$file       = $_FILES['lp-upload-avatar'];
+		// 	$upload_dir = learn_press_user_profile_picture_upload_dir();
 
-			remove_filter( 'upload_dir', array( __CLASS__, '_user_avatar_upload_dir' ), 10000 );
-			if ( is_array( $result ) ) {
-				$result['name'] = $upload_dir['subdir'] . '/' . basename( $result['file'] );
-				unset( $result['file'] );
-			} else {
-				$result = array(
-					'error' => __( 'Profile picture upload failed', 'learnpress' ),
-				);
-			}
-			learn_press_send_json( $result );
-		}
+		// 	add_filter( 'upload_dir', array( __CLASS__, '_user_avatar_upload_dir' ), 10000 );
 
-		public static function _user_avatar_upload_dir( $dir ) {
-			$dir = learn_press_user_profile_picture_upload_dir();
+		// 	$file_info_arr        = explode( '.', $file['name'] );
+		// 	$file_info_arr_length = count( $file_info_arr );
+		// 	$file_ext_index       = $file_info_arr_length - 1;
+		// 	$file_ext             = $file_info_arr[ $file_ext_index ];
+		// 	$file['name']         = $user_id . '.' . $file_ext;
 
-			return $dir;
-		}
+		// 	// Delete old image if exists
+		// 	$path_img = get_user_meta( $user_id, '_lp_profile_picture', true );
+		// 	if ( $path_img ) {
+		// 		$path = $upload_dir['basedir'] . '/' . $path_img;
+		// 		if ( file_exists( $path ) ) {
+		// 			@unlink( $path );
+		// 		}
+		// 	}
+
+		// 	$result = wp_handle_upload(
+		// 		$file,
+		// 		array(
+		// 			'test_form' => false,
+		// 		)
+		// 	);
+
+		// 	remove_filter( 'upload_dir', array( __CLASS__, '_user_avatar_upload_dir' ), 10000 );
+		// 	if ( is_array( $result ) ) {
+		// 		$result['name'] = $upload_dir['subdir'] . '/' . basename( $result['file'] );
+		// 		update_user_meta( $user_id, '_lp_profile_picture', $result['name'] );
+		// 		unset( $result['file'] );
+		// 	} else {
+		// 		$result = array(
+		// 			'error' => __( 'Profile picture upload failed', 'learnpress' ),
+		// 		);
+		// 	}
+		// 	learn_press_send_json( $result );
+		// }
+
+		// /**
+		//  * Crop avatar of user
+		//  *
+		//  * @editor tungnx
+		//  * @return void
+		//  */
+		// public static function save_uploaded_user_avatar() {
+		// 	$avatar_data = wp_parse_args(
+		// 		LP_Request::get( 'lp-user-avatar-crop' ),
+		// 		array(
+		// 			'name'   => '',
+		// 			'width'  => '',
+		// 			'height' => '',
+		// 			'points' => '',
+		// 			'nonce'  => '',
+		// 		)
+		// 	);
+
+		// 	$current_user_id = get_current_user_id();
+
+		// 	if ( ! wp_verify_nonce( $avatar_data['nonce'], 'save-uploaded-profile-' . $current_user_id ) ) {
+		// 		die( 'ERROR VERIFY NONCE!' );
+		// 	}
+
+		// 	$url = learn_press_update_user_profile_avatar();
+		// 	if ( $url ) {
+		// 		learn_press_send_json(
+		// 			array(
+		// 				'success' => true,
+		// 				'avatar'  => sprintf( '<img src="%s" />', $url ),
+		// 			)
+		// 		);
+		// 	};
+
+		// 	wp_die();
+		// }
+
+		// /**
+		//  * Remove avatar of user
+		//  *
+		//  * @author tungnx
+		//  * @since 4.1.5
+		//  * @version 1.0.0
+		//  * @return void
+		//  */
+		// public static function remove_avatar() {
+		// 	$response = new LP_REST_Response();
+
+		// 	try {
+		// 		$user_id = get_current_user_id();
+		// 		if ( ! $user_id ) {
+		// 			throw new Exception( __( 'User is invalid', 'learnpress' ) );
+		// 		}
+
+		// 		// Delete old image if exists
+		// 		$path_img = get_user_meta( $user_id, '_lp_profile_picture', true );
+		// 		if ( $path_img ) {
+		// 			$upload_dir = learn_press_user_profile_picture_upload_dir();
+		// 			$path       = $upload_dir['basedir'] . '/' . $path_img;
+		// 			if ( file_exists( $path ) ) {
+		// 				unlink( $path );
+		// 				$response->status = 'success';
+		// 			}
+		// 		}
+		// 	} catch ( Throwable $e ) {
+		// 		$response->message = $e->getMessage();
+		// 	}
+
+		// 	wp_send_json( $response );
+		// }
+
+		// public static function _user_avatar_upload_dir( $dir ) {
+		// 	$dir = learn_press_user_profile_picture_upload_dir();
+
+		// 	return $dir;
+		// }
 
 		/**
 		 * Export Order invoice to PDF
@@ -1258,9 +1359,11 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 		}
 	}
 
-	if ( defined( 'DOING_AJAX' ) ) {
-		add_action( 'wp_ajax_learnpress_upload-user-avatar', array( 'LP_Admin_Ajax', 'upload_user_avatar' ) );
-	}
+	// if ( defined( 'DOING_AJAX' ) ) {
+	// 	add_action( 'wp_ajax_learnpress_upload-user-avatar', array( 'LP_Admin_Ajax', 'upload_user_avatar' ) );
+	// 	add_action( 'wp_ajax_learnpress_save-uploaded-user-avatar', array( 'LP_Admin_Ajax', 'save_uploaded_user_avatar' ) );
+	// 	add_action( 'wp_ajax_learnpress_remove-avatar', array( 'LP_Admin_Ajax', 'remove_avatar' ) );
+	// }
 
 	add_action( 'init', array( 'LP_Admin_Ajax', 'init' ) );
 }

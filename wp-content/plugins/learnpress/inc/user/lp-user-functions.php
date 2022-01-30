@@ -345,7 +345,7 @@ function learn_press_current_user_can_view_profile_section( $section, $user ) {
 	return apply_filters( 'learn_press_current_user_can_view_profile_section', $view, $section, $user );
 }
 
-function learn_press_profile_tab_courses_content( $current, $tab, $user ) {
+/*function learn_press_profile_tab_courses_content( $current, $tab, $user ) {
 	learn_press_get_template(
 		'profile/tabs/courses.php',
 		array(
@@ -354,7 +354,7 @@ function learn_press_profile_tab_courses_content( $current, $tab, $user ) {
 			'tab'     => $tab,
 		)
 	);
-}
+}*/
 
 function learn_press_profile_tab_quizzes_content( $current, $tab, $user ) {
 	learn_press_get_template(
@@ -1074,94 +1074,90 @@ function learn_press_update_user_profile() {
 
 // add_action( 'init', 'learn_press_update_user_profile' );
 
-/**
- * Update user avatar
- */
-function learn_press_update_user_profile_avatar() {
-	$user_id = get_current_user_id();
+// /**
+//  * Update user avatar
+//  */
+// function learn_press_update_user_profile_avatar() {
+// 	$user_id = get_current_user_id();
+// 	$data    = learn_press_get_request( 'lp-user-avatar-crop' );
 
-	if ( ! $user_id ) {
-		return new WP_Error( 2, 'User is invalid!' );
-	}
+// 	if ( ! $user_id ) {
+// 		return new WP_Error( 2, 'User is invalid!' );
+// 	}
 
-	$upload_dir = learn_press_user_profile_picture_upload_dir();
+// 	$upload_dir = learn_press_user_profile_picture_upload_dir();
 
-	if ( learn_press_get_request( 'lp-user-avatar-custom' ) != 'yes' ) {
-		delete_user_meta( get_current_user_id(), '_lp_profile_picture' );
+// 	if ( learn_press_get_request( 'lp-user-avatar-custom' ) != 'yes' ) {
+// 		delete_user_meta( get_current_user_id(), '_lp_profile_picture' );
 
-		return false;
-	}
+// 		return false;
+// 	}
 
-	$data = learn_press_get_request( 'lp-user-avatar-crop' );
+// 	$path_img = get_user_meta( $user_id, '_lp_profile_picture', true );
 
-	if ( ! $data || ! ( $path = $upload_dir['basedir'] . $data['name'] ) && file_exists( $path ) ) {
-		return false;
-	}
+// 	$path = $upload_dir['basedir'] . $path_img;
 
-	$filetype = wp_check_filetype( $path );
+// 	if ( ! file_exists( $path ) ) {
+// 		return false;
+// 	}
 
-	if ( 'jpg' == $filetype['ext'] ) {
-		$im = imagecreatefromjpeg( $path );
-	} elseif ( 'png' == $filetype['ext'] ) {
-		$im = imagecreatefrompng( $path );
-	}
+// 	$filetype = wp_check_filetype( $path );
 
-	if ( ! isset( $im ) ) {
-		return false;
-	}
+// 	if ( 'jpeg' == $filetype['ext'] ) {
+// 		$im = imagecreatefromjpeg( $path );
+// 	} elseif ( 'png' == $filetype['ext'] ) {
+// 		$im = imagecreatefrompng( $path );
+// 	}
 
-	$points  = explode( ',', $data['points'] );
-	$im_crop = imagecreatetruecolor( $data['width'], $data['height'] );
+// 	if ( ! isset( $im ) ) {
+// 		return false;
+// 	}
 
-	if ( ! $im ) {
-		return false;
-	}
+// 	$points  = explode( ',', $data['points'] );
+// 	$im_crop = imagecreatetruecolor( $data['width'], $data['height'] );
 
-	$dst_x = 0;
-	$dst_y = 0;
-	$dst_w = $data['width'];
-	$dst_h = $data['height'];
-	$src_x = $points[0];
-	$src_y = $points[1];
-	$src_w = $points[2] - $points[0];
-	$src_h = $points[3] - $points[1];
+// 	if ( ! $im ) {
+// 		return false;
+// 	}
 
-	imagecopyresampled( $im_crop, $im, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h );
+// 	$dst_x = 0;
+// 	$dst_y = 0;
+// 	$dst_w = $data['width'];
+// 	$dst_h = $data['height'];
+// 	$src_x = $points[0];
+// 	$src_y = $points[1];
+// 	$src_w = $points[2] - $points[0];
+// 	$src_h = $points[3] - $points[1];
 
-	$newname = md5( $user_id . microtime( true ) );
-	$output  = dirname( $path );
+// 	imagecopyresampled( $im_crop, $im, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h );
 
-	if ( 'jpg' == $filetype['ext'] ) {
-		$newname .= '.jpg';
-		$output  .= '/' . $newname;
-		imagejpeg( $im_crop, $output );
-	} elseif ( 'png' == $filetype['ext'] ) {
-		$newname .= '.png';
-		$output  .= '/' . $newname;
-		imagepng( $im_crop, $output );
-	}
+// 	$newname = md5( $user_id . microtime( true ) );
+// 	$output  = dirname( $path );
 
-	$new_avatar = false;
+// 	if ( 'jpeg' == $filetype['ext'] ) {
+// 		$newname .= '.jpeg';
+// 		$output  .= '/' . $newname;
+// 		imagejpeg( $im_crop, $output );
+// 	} elseif ( 'png' == $filetype['ext'] ) {
+// 		$newname .= '.png';
+// 		$output  .= '/' . $newname;
+// 		imagepng( $im_crop, $output );
+// 	}
 
-	if ( file_exists( $output ) ) {
+// 	$new_avatar = false;
 
-		$old_avatar = get_user_meta( $user_id, '_lp_profile_picture', true );
+// 	if ( file_exists( $output ) ) {
+// 		$new_avatar = preg_replace( '!^/!', '', $upload_dir['subdir'] ) . '/' . $newname;
+// 		update_user_meta( $user_id, '_lp_profile_picture', '/' . $new_avatar );
+// 		update_user_meta( $user_id, '_lp_profile_picture_changed', 'yes' );
 
-		if ( file_exists( $upload_dir['basedir'] . '/' . $old_avatar ) ) {
-			@unlink( $upload_dir['basedir'] . '/' . $old_avatar );
-		}
+// 		$new_avatar = $upload_dir['baseurl'] . '/' . $new_avatar;
+// 	}
 
-		$new_avatar = preg_replace( '!^/!', '', $upload_dir['subdir'] ) . '/' . $newname;
-		update_user_meta( $user_id, '_lp_profile_picture', $new_avatar );
-		update_user_meta( $user_id, '_lp_profile_picture_changed', 'yes' );
+// 	@unlink( $path );
 
-		$new_avatar = $upload_dir['baseurl'] . '/' . $new_avatar;
-	}
-
-	@unlink( $path );
-
-	return $new_avatar;
-}
+// 	return $new_avatar;
+// }
 
 // add_action( 'learn_press_update_user_profile_avatar', 'learn_press_update_user_profile_avatar' );
 
@@ -1929,12 +1925,16 @@ function learn_press_rest_prepare_user_questions( array $question_ids = array(),
  *
  * @since 4.0.0
  */
-function learn_press_append_user_profile_fields( $user ) {
-	learn_press_admin_view( 'backend-user-profile', array( 'user' => $user ) );
-}
+/*function learn_press_append_user_profile_fields( $user ) {
+	if ( ! is_admin() ) {
+		return;
+	}
 
-add_action( 'show_user_profile', 'learn_press_append_user_profile_fields' );
-add_action( 'edit_user_profile', 'learn_press_append_user_profile_fields' );
+	learn_press_admin_view( 'backend-user-profile', array( 'user' => $user ) );
+}*/
+
+//add_action( 'show_user_profile', 'learn_press_append_user_profile_fields' );
+//add_action( 'edit_user_profile', 'learn_press_append_user_profile_fields' );
 
 /**
  * Update extra profile data upon update user.
@@ -2214,9 +2214,14 @@ function learn_press_get_user_extra_profile_fields() {
  * @return void
  */
 function learn_press_user_profile_data( $user ) {
+	if ( ! is_admin() ) {
+		return;
+	}
+
+	learn_press_admin_view( 'backend-user-profile', array( 'user' => $user ) );
 	learn_press_admin_view( 'user/courses.php', array( 'user_id' => $user->ID ) );
 }
-add_action( 'show_user_profile', 'learn_press_user_profile_data', 1000 );
+//add_action( 'show_user_profile', 'learn_press_user_profile_data', 1000 );
 add_action( 'edit_user_profile', 'learn_press_user_profile_data', 1000 );
 
 function learnpress_get_count_by_user( $user_id = '', $post_type = 'lp_course' ) {

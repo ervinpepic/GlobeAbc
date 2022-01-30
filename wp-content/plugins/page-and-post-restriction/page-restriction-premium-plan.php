@@ -6,7 +6,7 @@ function papr_show_premium_plans(){
 	?>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <div class="papr-background">
-        <b><div style="text-align:center; font-size: 25px; margin-top: 1em; margin-bottom: 0.75em;">WordPress Page Post Restriction</div></b>
+        <b><div style="text-align:center; font-size: 25px; margin-top: 1em; margin-bottom: 0.75em;">Page and Post Restriction</div></b>
         <div class="papr-subheading">
             You are currently on the Free version of the plugin
         </div>
@@ -41,7 +41,7 @@ function papr_show_premium_plans(){
 
         <div class="papr-pricing-div" style="width: 25%;">
             <header style="height: 65px;padding: 1em 0.9em 1.6em;pointer-events: auto;text-align: center;color: #2f6062;background-color: transparent;">
-                <p style="margin-bottom: 15px;text-transform: uppercase; font-weight: 700; font-size: 20px; margin-top: 0px;" >Standard</p>
+                <p style="margin-bottom: 15px;text-transform: uppercase; font-weight: 700; font-size: 20px; margin-top: 0px;" >Premium</p>
                 <div class="cd-price" >
                     <span class="cd-currency">$</span>
                     <span class="cd-value">149*</span>
@@ -71,7 +71,7 @@ function papr_show_premium_plans(){
 
         <div class="papr-pricing-div" style="width: 25%;">
             <header style="height: 65px;padding: 1em 0.9em 1.6em;pointer-events: auto;text-align: center;color: #2f6062;background-color: transparent;">
-                <p style="margin-bottom: 15px;text-transform: uppercase; font-weight: 700; font-size: 20px; margin-top: 0px;" >Premium</p>
+                <p style="margin-bottom: 15px;text-transform: uppercase; font-weight: 700; font-size: 20px; margin-top: 0px;" >Enterprise</p>
                 <div class="cd-price" >
                     <span class="cd-currency">$</span>
                     <span class="cd-value">249*</span>

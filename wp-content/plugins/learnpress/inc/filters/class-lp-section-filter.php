@@ -29,4 +29,12 @@ class LP_Section_Filter extends LP_Filter {
 	 * @var int[]
 	 */
 	public $section_ids = [];
+	/**
+	 * @var int[]
+	 */
+	public $section_not_ids = [];
+	/**
+	 * @var string
+	 */
+	public $search_section = '';
 }

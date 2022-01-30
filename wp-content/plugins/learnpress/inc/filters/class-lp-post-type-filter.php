@@ -6,7 +6,7 @@
  *
  * @author  tungnx
  * @package LearnPress/Classes/Filters
- * @version 4.0.0
+ * @version 4.0.1
  */
 
 /**
@@ -16,9 +16,26 @@ defined( 'ABSPATH' ) || exit();
 
 if ( ! class_exists( 'LP_Post_Type_Filter' ) ) {
 	class LP_Post_Type_Filter extends LP_Filter {
+		/**
+		 * @var string
+		 */
 		public $post_type = '';
-		public $post_status = '';
-		public $post_author = '';
+		/**
+		 * @var string
+		 */
+		public $post_title = '';
+		/**
+		 * @var array
+		 */
+		public $post_status = array( 'publish' );
+		/**
+		 * @var int
+		 */
+		public $post_author = 0;
+		/**
+		 * @var array
+		 */
+		public $term_ids = array();
 
 		public function __construct() {
 

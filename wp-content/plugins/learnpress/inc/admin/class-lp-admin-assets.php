@@ -111,7 +111,7 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 						'wp-api-fetch',
 						'jquery-ui-timepicker-addon',
 					),
-					array( LP_LESSON_CPT, LP_QUIZ_CPT, LP_COURSE_CPT, 'learnpress_page_learn-press-settings' ),
+					array( LP_LESSON_CPT, LP_QUIZ_CPT, LP_COURSE_CPT, LP_ORDER_CPT, 'learnpress_page_learn-press-settings' ),
 					0,
 					1
 				),
@@ -282,6 +282,8 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 	 * @return mixed
 	 */
 	protected function _get_styles(): array {
+		$is_rtl = is_rtl() ? '-rtl' : '';
+
 		return apply_filters(
 			'learn-press/admin-default-styles',
 			array(
@@ -297,17 +299,17 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 				'jquery-ui-timepicker'  => new LP_Asset_Key(
 					$this->url( 'src/css/vendor/jquery-ui-timepicker-addon.css' )
 				),
-				'learn-press-bundle'    => new LP_Asset_Key(
-					$this->url( 'css/bundle.min.css' )
+				'jquery-tipsy'          => new LP_Asset_Key(
+					$this->url( 'src/css/vendor/jquery.tipsy.css' )
 				),
 				'learn-press-admin'     => new LP_Asset_Key(
-					$this->url( 'css/admin/admin.css' ),
-					array( 'wp-color-picker', 'wp-components', 'select2', 'jquery-ui', 'jquery-ui-timepicker', 'font-awesome' ),
+					$this->url( 'css/admin/admin' . $is_rtl . self::$_min_assets . '.css' ),
+					array( 'wp-color-picker', 'wp-components', 'select2', 'jquery-ui', 'jquery-ui-timepicker', 'font-awesome', 'jquery-tipsy' ),
 					array(),
 					0
 				),
 				'learn-press-statistic' => new LP_Asset_Key(
-					LP_CSS_URL . 'admin/statistic.css',
+					LP_CSS_URL . 'admin/statistic' . $is_rtl . self::$_min_assets . '.css',
 					array(),
 					array( 'learners_page_learn-press-statistics' ),
 					0

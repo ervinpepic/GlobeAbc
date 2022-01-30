@@ -596,7 +596,7 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 			'start_time'      => $course_data->get_start_time() ? lp_jwt_prepare_date_response( $course_data->get_start_time()->toSql( false ) ) : null,
 			'end_time'        => $course_data->get_end_time() ? lp_jwt_prepare_date_response( $course_data->get_end_time()->toSql( false ) ) : null,
 			'expiration_time' => $course_data->get_expiration_time() ? lp_jwt_prepare_date_response( $course_data->get_expiration_time()->toSql( false ) ) : '',
-			'result'          => LP_User_Items_Result_DB::instance()->get_result( $course_data->get_user_item_id() ),
+			'result'          => $course_data->calculate_course_results(),
 		);
 	}
 
@@ -782,9 +782,14 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 
 		if ( is_bool( $request['on_sale'] ) ) {
 			$on_sale_key = $request['on_sale'] ? 'post__in' : 'post__not_in';
-			$on_sale_ids = LP_Course_DB::getInstance()->get_courses_on_sale();
+			// $on_sale_ids = LP_Course_DB::getInstance()->get_courses_on_sale();
+			$filter          = new LP_Course_Filter();
+			$filter->fields  = array( 'ID' );
+			$filter->sort_by = 'on_sale';
+			$on_sale_ids     = LP_Course::get_courses( $filter );
+			$on_sale_ids     = LP_Course::get_course_ids( $on_sale_ids );
 
-			$on_sale_ids = empty( $on_sale_ids ) ? array( 0 ) : $on_sale_ids;
+			// $on_sale_ids = empty( $on_sale_ids ) ? array( 0 ) : $on_sale_ids;
 
 			$args[ $on_sale_key ] += $on_sale_ids;
 		} elseif ( is_bool( $request['popular'] ) ) {

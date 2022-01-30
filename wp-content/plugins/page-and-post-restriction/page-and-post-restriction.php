@@ -2,7 +2,7 @@
 /**
 * Plugin Name: Page Restriction WordPress (WP) - Protect WP Pages/Post
 * Description: This plugin allows restriction over users based on their roles and whether they are logged in or not.
-* Version: 1.2.3
+* Version: 1.2.4
 * Author: miniOrange
 * Author URI: http://miniorange.com
 * License: MIT/Expat

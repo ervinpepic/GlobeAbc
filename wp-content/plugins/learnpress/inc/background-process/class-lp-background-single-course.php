@@ -16,13 +16,13 @@ if ( ! class_exists( 'LP_Background_Single_Course' ) ) {
 		protected $action = 'background_single_course';
 		protected static $instance;
 		/**
-		 * @var $lp_course_db LP_Course_DB
-		 */
-		protected $lp_course_db;
-		/**
 		 * @var $lp_course LP_Course
 		 */
 		protected $lp_course;
+		/**
+		 * @var array
+		 */
+		protected $data = array();
 
 		/**
 		 * Get params via $_POST and handle
@@ -30,23 +30,22 @@ if ( ! class_exists( 'LP_Background_Single_Course' ) ) {
 		 * @see LP_Course_Post_Type::save
 		 */
 		protected function handle() {
-			$this->lp_course_db = LP_Course_DB::getInstance();
 
 			try {
-				if ( ! isset( $_POST['handle_name'] ) || empty( $_POST['handle_name'] )
-					|| ! isset( $_POST['course_id'] ) || empty( $_POST['course_id'] ) ) {
+				$handle_name = LP_Helper::sanitize_params_submitted( $_POST['handle_name'] ?? '' );
+				$course_id   = intval( $_POST['course_id'] ?? 0 );
+				if ( empty( $handle_name ) || ! $course_id ) {
 					return;
 				}
 
-				$course_id = (int) $_POST['course_id'];
-
 				$this->lp_course = learn_press_get_course( $course_id );
+				$this->data      = LP_Helper::sanitize_params_submitted( $_POST['data'] ?? '' );
 
 				if ( empty( $this->lp_course ) ) {
 					return;
 				}
 
-				switch ( LP_Helper::sanitize_params_submitted( $_POST['handle_name'] ) ) {
+				switch ( $handle_name ) {
 					case 'save_post':
 						$this->save_post();
 						break;
@@ -64,20 +63,41 @@ if ( ! class_exists( 'LP_Background_Single_Course' ) ) {
 		 * @throws Exception
 		 */
 		protected function save_post() {
-			$lp_course_db = $this->lp_course_db;
-			$lp_course    = $this->lp_course;
-
+			$this->save_price();
 			$this->save_extra_info();
-
 			$this->review_post_author();
 
-			// Clear cache
-			$lp_course_cache = LP_Course_Cache::instance();
-			$key_cache_arr   = [];
-			foreach ( $key_cache_arr as $key_cache ) {
-				$lp_course_cache->clear( $key_cache );
+			/**
+			 * Clean cache courses
+			 *
+			 * @see LP_Course::get_courses() where set cache
+			 */
+			$keys_cache = LP_Courses_Cache::instance()->get_cache( LP_Courses_Cache::$keys );
+			if ( $keys_cache ) {
+				foreach ( $keys_cache as $key ) {
+					LP_Courses_Cache::instance()->clear( $key );
+				}
+				LP_Courses_Cache::instance()->clear( LP_Courses_Cache::$keys );
 			}
 			// End
+		}
+
+		protected function save_price() {
+			$regular_price = $this->data['_lp_regular_price'] ?? '';
+			$sale_price    = $this->data['_lp_sale_price'] ?? '';
+			$price         = 0;
+
+			if ( '' != $regular_price ) {
+				$price = $regular_price;
+
+				if ( '' != $sale_price ) {
+					if ( floatval( $sale_price ) < floatval( $regular_price ) ) {
+						$price = $sale_price;
+					}
+				}
+			}
+
+			update_post_meta( $this->lp_course->get_id(), '_lp_price', $price );
 		}
 
 		/**
@@ -88,7 +108,7 @@ if ( ! class_exists( 'LP_Background_Single_Course' ) ) {
 		 * @version 1.0.0
 		 */
 		protected function save_extra_info() {
-			$lp_course_db    = $this->lp_course_db;
+			$lp_course_db    = LP_Course_DB::getInstance();
 			$lp_course       = $this->lp_course;
 			$lp_course_cache = LP_Course_Cache::instance();
 			$course_id       = $lp_course->get_id();

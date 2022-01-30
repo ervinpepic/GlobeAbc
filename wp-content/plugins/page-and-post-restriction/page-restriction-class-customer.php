@@ -62,7 +62,7 @@ class Customer_page_restriction
             'headers' => $headers
         );
         $response = $this->papr_wp_remote_post($url, $args);
-        return $response['body'];
+        return $response;
     }
 
     function papr_create_customer() {
@@ -90,7 +90,7 @@ class Customer_page_restriction
             'headers' => $headers
         );
         $response = $this->papr_wp_remote_post($url, $args);
-        return $response['body'];
+        return $response;
 
     }
 
@@ -115,14 +115,14 @@ class Customer_page_restriction
         );
 
         $response = $this->papr_wp_remote_post($url, $args);
-        return $response['body'];
+        return $response;
     }
 
     function papr_submit_contact_us($email, $phone, $query)
     {
         $url = get_option('papr_host_name'). '/moas/rest/customer/contact-us';
         $current_user = wp_get_current_user();
-        $query = '[WP Page Restriction Plugin] ' . $query;
+        $query = '[WP Page Restriction Free Plugin] ' . $query;
         $fields = array (
                 'firstName' => $current_user->user_firstname,
                 'lastName' => $current_user->user_lastname,
@@ -138,14 +138,14 @@ class Customer_page_restriction
         $args = array(
             'method' => 'POST',
             'body' => $field_string,
-            'timeout' => '5',
+            'timeout' => '10',
             'redirection' => '5',
             'httpversion' => '1.0',
             'blocking' => true,
             'headers' => $headers
         );
         $response = $this->papr_wp_remote_post($url, $args);
-        return $response['body'];
+        return $response;
     }
 
     function papr_forgot_password($email)
@@ -179,7 +179,7 @@ class Customer_page_restriction
             'headers' => $headers
         );
         $response = $this->papr_wp_remote_post($url, $args);
-        return $response['body'];
+        return $response;
     }
 
 
@@ -195,13 +195,13 @@ class Customer_page_restriction
         $stringToHash       = $customerKey .  $currentTimeInMillis . $apiKey;
         $hashValue          = hash("sha512", $stringToHash);
         $fromEmail          = 'no-reply@xecurify.com';
-        $subject            = "Feedback: WordPress Page Post Protection Plugin";
+        $subject            = "Feedback: WP Page Restriction Free Plugin";
         $site_url=site_url();
 
         global $user;
         $user         = wp_get_current_user();
 
-        $query        = '[WordPress Page Post Protection Plugin: ]: ' . $message;
+        $query        = '[WP Page Restriction Free Plugin]: ' . $message;
 
 
         $content='<div >Hello, <br><br>First Name :'.$user->user_firstname.'<br><br>Last  Name :'.$user->user_lastname.'   <br><br>Company :<a href="'.$_SERVER['SERVER_NAME'].'" target="_blank" >'.$_SERVER['SERVER_NAME'].'</a><br><br>Phone Number :'.$phone.'<br><br>Email :<a href="mailto:'.$email.'" target="_blank">'.$email.'</a><br><br>Query :'.$query.'</div>';
@@ -212,7 +212,6 @@ class Customer_page_restriction
             'email'         => array(
                 'customerKey'   => $customerKey,
                 'fromEmail'     => $fromEmail,
-                'bccEmail'      => $fromEmail,
                 'fromName'      => 'Xecurify',
                 'toEmail'       => 'info@xecurify.com',
                 'toName'        => 'samlsupport@xecurify.com',
@@ -239,17 +238,18 @@ class Customer_page_restriction
             'headers' => $headers
         );
         $response = $this->papr_wp_remote_post($url, $args);
-        return $response['body'];
+        return $response;
     }
 
 	public static function papr_wp_remote_post($url, $args = array()){
 		$response = wp_remote_post($url, $args);
 		if(!is_wp_error($response)){
-			return $response;
+			return $response['body'];
 		} else {
 			$show_message = new page_and_post_restriction_add_on();
 			update_option('papr_message', 'Unable to connect to the Internet. Please try again.');
 			$show_message->papr_error_message();
+			return null;
 		}
 	}
 

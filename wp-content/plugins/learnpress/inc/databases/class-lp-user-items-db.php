@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class LP_User_Items_DB
  *
  * @since 3.2.8.6
- * @version 1.0.2
+ * @version 1.0.3
  * @author tungnx
  */
 class LP_User_Items_DB extends LP_Database {
@@ -232,12 +232,9 @@ class LP_User_Items_DB extends LP_Database {
 			"
 			SELECT COUNT(DISTINCT(ui.item_id)) total
 			FROM $this->tb_lp_user_items AS ui
-				INNER JOIN $this->tb_posts AS p
-				ON ui.item_id = p.ID
 			WHERE ui.item_type = %s
 			AND ui.user_id = %d
 			AND ui.graduation = %s
-			AND p.post_status = 'publish'
 			",
 			LP_COURSE_CPT,
 			$user_id,
@@ -247,6 +244,45 @@ class LP_User_Items_DB extends LP_Database {
 		$this->check_execute_has_error();
 
 		return (int) $this->wpdb->get_var( $query );
+	}
+
+	/**
+	 * Get number status by status, graduation.
+	 *
+	 * @param LP_User_Items_Filter $filter {user_id, item_type}
+	 *
+	 * @author tungnx
+	 * @since 4.1.5
+	 * @version 1.0.0
+	 * @return object|null
+	 * @throws Exception
+	 */
+	public function count_status_by_items( LP_User_Items_Filter $filter ) {
+		$query_count  = $this->wpdb->prepare( 'SUM(ui.graduation = %s) AS %s,', LP_COURSE_GRADUATION_IN_PROGRESS, LP_COURSE_GRADUATION_IN_PROGRESS );
+		$query_count .= $this->wpdb->prepare( 'SUM(ui.graduation = %s) AS %s,', LP_COURSE_GRADUATION_FAILED, LP_COURSE_GRADUATION_FAILED );
+		$query_count .= $this->wpdb->prepare( 'SUM(ui.graduation = %s) AS %s,', LP_COURSE_GRADUATION_PASSED, LP_COURSE_GRADUATION_PASSED );
+		$query_count .= $this->wpdb->prepare( 'SUM(ui.status = %s) AS %s,', LP_COURSE_ENROLLED, LP_COURSE_ENROLLED );
+		$query_count .= $this->wpdb->prepare( 'SUM(ui.status = %s) AS %s,', LP_COURSE_PURCHASED, LP_COURSE_PURCHASED );
+		$query_count .= $this->wpdb->prepare( 'SUM(ui.status = %s) AS %s', LP_COURSE_FINISHED, LP_COURSE_FINISHED );
+
+		$query = $this->wpdb->prepare(
+			"SELECT $query_count
+				FROM $this->tb_lp_user_items AS ui
+				WHERE ui.user_item_id IN (
+				    SELECT MAX(ui.user_item_id) AS user_item_id
+				    FROM $this->tb_lp_user_items AS ui
+				    WHERE ui.item_type = %s
+				      AND ui.user_id = %d
+				    GROUP BY item_id
+				);
+			",
+			$filter->item_type,
+			$filter->user_id
+		);
+
+		$this->check_execute_has_error();
+
+		return $this->wpdb->get_row( $query );
 	}
 
 	/**
@@ -370,44 +406,6 @@ class LP_User_Items_DB extends LP_Database {
 			$AND
 			",
 			$filter->parent_id
-		);
-
-		$result = $this->wpdb->{$filter->query_type}( $query );
-
-		$this->check_execute_has_error();
-
-		return $result;
-	}
-
-	/**
-	 * Query table learnpress_user_items
-	 *
-	 * @param LP_User_Items_Filter $filter
-	 */
-	public function get_user_items( LP_User_Items_Filter $filter ) {
-		if ( empty( $filter->select ) ) {
-			$filter->select = '*';
-		}
-
-		$WHERE = '';
-
-		$vars = get_class_vars( $this );
-
-		foreach ( $vars as $var ) {
-			if ( ! empty( $filter->{$var} ) ) {
-				if ( empty( $WHERE ) ) {
-					$WHERE .= $this->wpdb->prepare( "WHERE . $filter->{$var} = %s", $filter->{$var} );
-				} else {
-					$WHERE .= $this->wpdb->prepare( " AND . $filter->{$var} = %s ", $filter->{$var} );
-				}
-			}
-		}
-
-		$query = $this->wpdb->prepare(
-			"
-			SELECT $filter->select FROM $this->tb_lp_user_items
-			$WHERE
-			"
 		);
 
 		$result = $this->wpdb->{$filter->query_type}( $query );
@@ -718,6 +716,109 @@ class LP_User_Items_DB extends LP_Database {
 		);
 
 		$result = $this->wpdb->get_results( $query );
+
+		$this->check_execute_has_error();
+
+		return $result;
+	}
+
+	/**
+	 * Get courses only by course's user are learning
+	 *
+	 * @param LP_User_Items_Filter $filter
+	 * @param int $total_rows
+	 *
+	 * @author tungnx
+	 * @version 1.0.0
+	 * @since 4.1.5
+	 * @return null|array|string|int
+	 * @throws Exception
+	 */
+	public function get_user_courses( LP_User_Items_Filter $filter, int &$total_rows = 0 ) {
+		$result = null;
+
+		// Where
+		$WHERE   = array( 'WHERE 1=1' );
+		$WHERE[] = $this->wpdb->prepare( 'AND ui.item_type = %s', LP_COURSE_CPT );
+
+		// Status
+		if ( $filter->status ) {
+			$WHERE[] = $this->wpdb->prepare( 'AND ui.status = %s', $filter->status );
+		}
+
+		// Graduation
+		if ( $filter->graduation ) {
+			$WHERE[] = $this->wpdb->prepare( 'AND ui.graduation = %s', $filter->graduation );
+		}
+
+		// User
+		if ( $filter->user_id ) {
+			$WHERE[] = $this->wpdb->prepare( 'AND ui.user_id = %d', $filter->user_id );
+		}
+
+		// Inner join
+		$INNER_JOIN = array();
+
+		// Fields select
+		$FIELDS = '*';
+		if ( ! empty( $filter->fields ) ) {
+			$FIELDS = implode( ',', $filter->fields );
+		}
+		$FIELDS = apply_filters( 'lp/user/courses/query/fields', $FIELDS, $filter );
+
+		$INNER_JOIN = array_merge( $INNER_JOIN, $filter->join );
+		$INNER_JOIN = apply_filters( 'lp/user/courses/query/inner_join', $INNER_JOIN, $filter );
+		$INNER_JOIN = implode( ' ', array_unique( $INNER_JOIN ) );
+
+		$WHERE = array_merge( $WHERE, $filter->where );
+		$WHERE = apply_filters( 'lp/user/courses/query/where', $WHERE, $filter );
+		$WHERE = implode( ' ', array_unique( $WHERE ) );
+
+		// Order by
+		$ORDER_BY = '';
+		if ( $filter->order_by ) {
+			$ORDER_BY .= 'ORDER BY ' . $filter->order_by . ' ' . $filter->order;
+			$ORDER_BY  = apply_filters( 'lp/user/courses/query/order_by', $ORDER_BY, $filter );
+		}
+
+		// Limit
+		$LIMIT = '';
+		if ( ! $filter->return_string_query ) {
+			$filter->limit = absint( $filter->limit );
+			if ( $filter->limit > $filter->max_limit ) {
+				$filter->limit = $filter->max_limit;
+			}
+			$offset = $filter->limit * ( $filter->page - 1 );
+			$LIMIT  = $this->wpdb->prepare( 'LIMIT %d, %d', $offset, $filter->limit );
+		}
+
+		if ( ! $filter->query_count ) {
+			// Query
+			$query = "SELECT $FIELDS FROM $this->tb_lp_user_items AS ui
+			$INNER_JOIN
+			$WHERE
+			$ORDER_BY
+			$LIMIT
+			";
+
+			if ( $filter->return_string_query ) {
+				return $query;
+			}
+
+			$result = $this->wpdb->get_results( $query );
+		}
+
+		// Query total rows
+		$query_total = "SELECT COUNT($filter->field_count) FROM $this->tb_lp_user_items AS ui
+		$INNER_JOIN
+		$WHERE
+		";
+
+		$total_rows = (int) $this->wpdb->get_var( $query_total );
+
+		if ( $filter->query_count ) {
+			return $total_rows;
+		}
 
 		$this->check_execute_has_error();
 

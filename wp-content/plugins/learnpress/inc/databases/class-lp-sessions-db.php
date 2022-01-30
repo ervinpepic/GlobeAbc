@@ -30,12 +30,12 @@ class LP_Sessions_DB extends LP_Database {
 	 * @throws
 	 */
 	public function delete_rows() {
-		$now = current_time('timestamp');
-		$adayago = $now - (24*60*60);
-		$where = 'WHERE session_expiry < '.$adayago.'';
-		$table = $this->tb_lp_sessions;
-		$limit = 100;
-		$result = $this->wpdb->query(
+		$now     = current_time( 'timestamp' );
+		$adayago = $now - ( 24 * 60 * 60 );
+		$where   = 'WHERE session_expiry < ' . $adayago . '';
+		$table   = $this->tb_lp_sessions;
+		$limit   = 100;
+		$result  = $this->wpdb->query(
 			"
 			DELETE FROM {$table}
 			{$where}
@@ -49,10 +49,10 @@ class LP_Sessions_DB extends LP_Database {
 	}
 	public function count_row_db_sessions() {
 		global $wpdb;
-		$now = current_time('timestamp');
-		$adayago = $now - (24*60*60);
-		$where = 'WHERE session_expiry < '.$adayago.' AND 0=%d';
-		$query  = $wpdb->prepare(
+		$now     = current_time( 'timestamp' );
+		$adayago = $now - ( 24 * 60 * 60 );
+		$where   = 'WHERE session_expiry < ' . $adayago . ' AND 0=%d';
+		$query   = $wpdb->prepare(
 			"
 			SELECT count(*)
 			FROM $this->tb_lp_sessions

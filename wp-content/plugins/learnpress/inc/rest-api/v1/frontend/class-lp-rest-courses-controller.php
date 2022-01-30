@@ -18,13 +18,6 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 	 */
 	public function register_routes() {
 		$this->routes = array(
-			'search'          => array(
-				array(
-					'methods'             => WP_REST_Server::READABLE,
-					'callback'            => array( $this, 'search_courses' ),
-					'permission_callback' => array( $this, 'check_admin_permission' ),
-				),
-			),
 			'purchase-course' => array(
 				array(
 					'methods'             => WP_REST_Server::CREATABLE,
@@ -54,8 +47,9 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 			'archive-course'  => array(
 				array(
 					'methods'             => WP_REST_Server::READABLE,
-					'callback'            => array( $this, 'archive_course' ),
+					'callback'            => array( $this, 'list_courses' ),
 					'permission_callback' => '__return_true',
+					'args'                => [],
 				),
 			),
 			'(?P<key>[\w]+)'  => array(
@@ -104,6 +98,97 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 	 */
 	public function check_admin_permission(): bool {
 		return LP_REST_Authentication::check_admin_permission();
+	}
+
+	/**
+	 * Get list courses
+	 *
+	 * @param WP_REST_Request $request
+	 *
+	 * @return LP_REST_Response
+	 */
+	public function list_courses( WP_REST_Request $request ): LP_REST_Response {
+		$response       = new LP_REST_Response();
+		$response->data = new stdClass();
+
+		try {
+			$filter             = new LP_Course_Filter();
+			$filter->page       = absint( $request['paged'] ?? 1 );
+			$filter->post_title = LP_Helper::sanitize_params_submitted( $request['s'] ?? '' );
+			$fields_str         = LP_Helper::sanitize_params_submitted( $request['c_fields'] ?? '' );
+			if ( ! empty( $fields_str ) ) {
+				$fields         = explode( ',', $fields_str );
+				$filter->fields = $fields;
+			}
+			$filter->post_author = LP_Helper::sanitize_params_submitted( $request['c_author'] ?? 0 );
+			$term_ids_str        = LP_Helper::sanitize_params_submitted( $request['term_id'] ?? '' );
+			if ( ! empty( $term_ids_str ) ) {
+				$term_ids         = explode( ',', $term_ids_str );
+				$filter->term_ids = $term_ids;
+			}
+
+			$on_sale                               = absint( $request['on_sale'] ?? '0' );
+			1 === $on_sale ? $filter->sort_by[]    = 'on_sale' : '';
+			$on_feature                            = absint( $request['on_feature'] ?? '0' );
+			1 === $on_feature ? $filter->sort_by[] = 'on_feature' : '';
+
+			$filter->order_by = LP_Helper::sanitize_params_submitted( $request['order_by'] ?? 'post_date' );
+			$filter->order    = LP_Helper::sanitize_params_submitted( $request['order'] ?? 'DESC' );
+			$filter->limit    = LP_Settings::get_option( 'archive_course_limit', 10 );
+
+			$total_rows = 0;
+			$filter     = apply_filters( 'lp/api/courses/filter', $filter, $request );
+			$courses    = LP_Course::get_courses( $filter, $total_rows );
+
+			$return_type = $request['return_type'] ?? 'html';
+			$total_pages = LP_Database::get_total_pages( $filter->limit, $total_rows );
+
+			if ( 'json' === $return_type ) {
+				$response->data->courses     = $courses;
+				$response->data->total_pages = $total_pages;
+			} else {
+				// For return data has html
+				if ( $courses ) {
+					ob_start();
+
+					global $post, $wp;
+					$archive_link = get_post_type_archive_link( LP_COURSE_CPT );
+
+					if ( isset( $term_link ) && ! is_wp_error( $term_link ) ) {
+						$archive_link = $term_link;
+					}
+
+					$base = esc_url_raw( str_replace( 999999999, '%#%', get_pagenum_link( 999999999, false ) ) );
+					$base = str_replace( home_url( $wp->request ) . '/', $archive_link, $base );
+
+					$response->data->pagination = learn_press_get_template_content(
+						'loop/course/pagination.php',
+						array(
+							'total' => $total_pages,
+							'paged' => $filter->page,
+							'base'  => $base,
+						)
+					);
+
+					foreach ( $courses as $post ) {
+						setup_postdata( $post );
+						learn_press_get_template_part( 'content', 'course' );
+					}
+
+					wp_reset_postdata();
+				} else {
+					LP()->template( 'course' )->no_courses_found();
+				}
+
+				$response->data->content = ob_get_clean();
+			}
+
+			$response->status = 'success';
+		} catch ( Throwable $e ) {
+			$response->message = $e->getMessage();
+		}
+
+		return apply_filters( 'lp/rest-api/frontend/course/archive_course/response', $response );
 	}
 
 	public function archive_course( WP_REST_Request $request ) {
@@ -198,105 +283,6 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 		$response->data->content = ob_get_clean();
 
 		return rest_ensure_response( apply_filters( 'lp/rest-api/frontend/course/archive_course/response', $response ) );
-	}
-
-	public function search_courses( $request ) {
-		$s        = $request['s'];
-		$page     = $request['page'];
-		$limit    = $request['limit'];
-		$offset   = $request['offset'];
-		$order    = $request['order'];
-		$orderby  = $request['orderby'];
-		$response = array(
-			'success' => true,
-		);
-
-		$limit  = $limit ? absint( $limit ) : 10;
-		$offset = absint( $offset );
-		$page   = $page ? absint( $page ) : 1;
-
-		if ( empty( $offset ) ) {
-			$offset = ( $page - 1 ) * $limit;
-		}
-
-		$args = array(
-			's'              => $s,
-			'posts_per_page' => $limit,
-			'offset'         => $offset,
-			'post_type'      => LP_COURSE_CPT,
-		);
-
-		if ( $orderby ) {
-			$args['orderby'] = $orderby;
-			$args['order']   = $order;
-		}
-
-		$count_posts = new WP_Query(
-			array_merge(
-				$args,
-				array(
-					'posts_per_page' => - 1,
-					'offset'         => 0,
-				)
-			)
-		);
-		$query       = new WP_Query( $args );
-		$num_pages   = $count_posts->post_count / $limit;
-		$courses     = array();
-
-		if ( $query->have_posts() ) {
-			global $post;
-
-			while ( $query->have_posts() ) {
-				$query->the_post();
-				$course = learn_press_get_course( $post->ID );
-
-				if ( has_post_thumbnail() ) {
-					$thumbnail = array(
-						'full'  => get_the_post_thumbnail_url(),
-						'small' => get_the_post_thumbnail_url( null, 'thumbnail' ),
-					);
-				} else {
-					$thumbnail = array(
-						'small' => $course->get_image_url(),
-					);
-				}
-
-				ob_start(); ?>
-
-				<div class="course-price">
-					<?php if ( $course->has_sale_price() ) { ?>
-						<span class="origin-price"> <?php echo $course->get_origin_price_html(); ?></span>
-					<?php } ?>
-					<span class="price"><?php echo $course->get_price_html(); ?></span>
-				</div>
-
-				<?php
-				$price_html = ob_get_clean();
-
-				$courses[] = array(
-					'id'         => $post->ID,
-					'title'      => get_the_title(),
-					'url'        => get_permalink(),
-					'content'    => get_the_content(),
-					'thumbnail'  => $thumbnail,
-					'author'     => $course->get_author_display_name(),
-					'price_html' => $price_html,
-				);
-			}
-
-			wp_reset_postdata();
-		}
-
-		$response['results'] = array(
-			'courses'   => $courses,
-			'count'     => $query->post_count,
-			'total'     => $count_posts->post_count,
-			'page'      => $page,
-			'num_pages' => $count_posts->post_count % $limit ? floor( $num_pages ) + 1 : absint( $num_pages ),
-		);
-
-		return rest_ensure_response( $response );
 	}
 
 	/**

@@ -20,7 +20,7 @@ class LP_Jwt_Auth {
 
 		// Is enable rest api?
 		// if ( LP()->settings()->get( 'enable_jwt_rest_api' ) !== 'yes' ) {
-		// 	return;
+		// return;
 		// }
 
 		$this->includes();
@@ -28,8 +28,14 @@ class LP_Jwt_Auth {
 	}
 
 	private function includes() {
+		// JWT Classes.
+		if ( ! class_exists( '\Firebase\JWT\JWT' ) ) {
+			foreach ( glob( LP_PLUGIN_PATH . 'inc/jwt/includes/php-jwt/*.php' ) as $filename ) {
+				require_once $filename;
+			}
+		}
+
 		// Authentic.
-		require_once LP_PLUGIN_PATH . 'inc/jwt/includes/vendor/autoload.php';
 		require_once LP_PLUGIN_PATH . 'inc/jwt/includes/class-jwt-public.php';
 
 		// Include Rest API.
@@ -41,6 +47,8 @@ class LP_Jwt_Auth {
 		require_once LP_PLUGIN_PATH . 'inc/jwt/rest-api/version1/class-lp-rest-questions-v1-controller.php';
 		require_once LP_PLUGIN_PATH . 'inc/jwt/rest-api/version1/class-lp-rest-users-v1-controller.php';
 		require_once LP_PLUGIN_PATH . 'inc/jwt/rest-api/version1/class-lp-rest-course-category-v1-controller.php';
+		require_once LP_PLUGIN_PATH . 'inc/jwt/rest-api/version1/class-lp-rest-sections-v1-controller.php';
+		require_once LP_PLUGIN_PATH . 'inc/jwt/rest-api/version1/class-lp-rest-section-items-v1-controller.php';
 
 		require_once LP_PLUGIN_PATH . 'inc/jwt/rest-api/lp-rest-function.php';
 		require_once LP_PLUGIN_PATH . 'inc/jwt/rest-api/class-rest-api.php';

@@ -8,7 +8,7 @@ if(!isset($_GET['glang']) or !isset($_POST['body']))
     exit;
 
 // check if body is base64_encoded
-if(!preg_match('/^[a-zA-Z0-9+/]+={0,2}$/', $_POST['body']))
+if(!preg_match('/^[a-zA-Z0-9+\/]+={0,2}$/', $_POST['body']))
     exit;
 
 $glang = $_GET['glang'];

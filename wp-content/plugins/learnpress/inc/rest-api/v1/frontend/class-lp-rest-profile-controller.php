@@ -9,18 +9,52 @@ class LP_REST_Profile_Controller extends LP_Abstract_REST_Controller {
 
 	public function register_routes() {
 		$this->routes = array(
-			'statistic'  => array(
+			'statistic'     => array(
 				array(
 					'methods'             => WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'statistic' ),
-					'permission_callback' => array( $this, 'check_admin_permission' ),
+					'permission_callback' => array( $this, 'check_permission' ),
 				),
 			),
-			'course-tab' => array(
+			'course-tab'    => array(
 				array(
 					'methods'             => WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'course_tab' ),
-					'permission_callback' => array( $this, 'check_admin_permission' ),
+					'permission_callback' => array( $this, 'check_permission' ),
+				),
+			),
+			'course-attend' => array(
+				array(
+					'methods'             => WP_REST_Server::CREATABLE,
+					'callback'            => array( $this, 'course_attend' ),
+					'permission_callback' => array( $this, 'check_permission' ),
+				),
+			),
+			'get-avatar'    => array(
+				array(
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'get_avatar' ),
+					'permission_callback' => function() {
+						return get_current_user_id() ? true : false;
+					},
+				),
+			),
+			'upload-avatar' => array(
+				array(
+					'methods'             => WP_REST_Server::CREATABLE,
+					'callback'            => array( $this, 'upload_avatar' ),
+					'permission_callback' => function() {
+						return get_current_user_id() ? true : false;
+					},
+				),
+			),
+			'remove-avatar' => array(
+				array(
+					'methods'             => WP_REST_Server::CREATABLE,
+					'callback'            => array( $this, 'remove_avatar' ),
+					'permission_callback' => function() {
+						return get_current_user_id() ? true : false;
+					},
 				),
 			),
 		);
@@ -28,7 +62,14 @@ class LP_REST_Profile_Controller extends LP_Abstract_REST_Controller {
 		parent::register_routes();
 	}
 
-	public function check_admin_permission( $request ) {
+	/**
+	 * Check permission
+	 *
+	 * @param $request
+	 *
+	 * @return bool
+	 */
+	public function check_permission( $request ): bool {
 		$user_id = $request->get_param( 'userID' );
 
 		if ( empty( $user_id ) ) {
@@ -42,6 +83,122 @@ class LP_REST_Profile_Controller extends LP_Abstract_REST_Controller {
 		}
 
 		return true;
+	}
+
+	public function get_avatar( WP_REST_Request $request ) {
+		$response = new LP_REST_Response();
+
+		$thumb_size = learn_press_get_avatar_thumb_size();
+
+		$profile    = learn_press_get_profile( get_current_user_id() );
+		$avatar_url = $profile->get_upload_profile_src();
+
+		$response->data->width  = $thumb_size['width'];
+		$response->data->height = $thumb_size['height'];
+		$response->data->url    = $avatar_url ? $avatar_url : '';
+
+		return rest_ensure_response( $response );
+	}
+
+	public function upload_avatar( WP_REST_Request $request ) {
+		$file_base64 = $request->get_param( 'file' );
+		$response    = new LP_REST_Response();
+
+		try {
+			$user_id = get_current_user_id();
+
+			if ( ! $user_id ) {
+				throw new Exception( __( 'User not found', 'learnpress' ) );
+			}
+
+			if ( empty( $file_base64 ) ) {
+				throw new Exception( __( 'File not found', 'learnpress' ) );
+			}
+
+			$upload_dir = learn_press_user_profile_picture_upload_dir( true );
+
+			$target_dir = LP_WP_Filesystem::instance()->is_dir( $upload_dir['path'] );
+
+			if ( ! $target_dir ) {
+				wp_mkdir_p( $upload_dir['path'] );
+			}
+
+			if ( ! LP_WP_Filesystem::instance()->is_writable( $upload_dir['path'] ) ) {
+				throw new Exception( __( 'Upload directory is not writable', 'learnpress' ) );
+			}
+
+			// Delete old image if exists
+			$path_img = get_user_meta( $user_id, '_lp_profile_picture', true );
+
+			if ( $path_img ) {
+				$path = $upload_dir['basedir'] . '/' . $path_img;
+
+				if ( file_exists( $path ) ) {
+					LP_WP_Filesystem::instance()->unlink( $path );
+				}
+			}
+
+			$file_name = md5( $user_id . microtime( true ) ) . '.jpeg';
+
+			$file_base64 = str_replace( 'data:image/jpeg;base64,', '', $file_base64 );
+			$file_base64 = base64_decode( $file_base64 );
+
+			$put_content = LP_WP_Filesystem::instance()->put_contents( $upload_dir['path'] . '/' . $file_name, $file_base64, FS_CHMOD_FILE );
+
+			if ( ! $put_content ) {
+				throw new Exception( __( 'Can not write file', 'learnpress' ) );
+			}
+
+			update_user_meta( $user_id, '_lp_profile_picture', $upload_dir['subdir'] . '/' . $file_name );
+
+			$response->status  = 'success';
+			$response->message = __( 'Avatar updated', 'learnpress' );
+		} catch ( \Throwable $th ) {
+			$response->message = $th->getMessage();
+		}
+
+		return rest_ensure_response( $response );
+	}
+
+	public function remove_avatar( WP_REST_Request $request ) {
+		$response = new LP_REST_Response();
+
+		try {
+			$user_id = get_current_user_id();
+
+			if ( ! $user_id ) {
+				throw new Exception( esc_html__( 'User is invalid', 'learnpress' ) );
+			}
+
+			$upload_dir = learn_press_user_profile_picture_upload_dir( true );
+
+			$target_dir = LP_WP_Filesystem::instance()->is_dir( $upload_dir['path'] );
+
+			if ( ! $target_dir ) {
+				wp_mkdir_p( $upload_dir['path'] );
+			}
+
+			if ( ! LP_WP_Filesystem::instance()->is_writable( $upload_dir['path'] ) ) {
+				throw new Exception( __( 'Upload directory is not writable', 'learnpress' ) );
+			}
+
+			$path_img = get_user_meta( $user_id, '_lp_profile_picture', true );
+
+			if ( $path_img ) {
+				$path = $upload_dir['basedir'] . '/' . $path_img;
+
+				if ( file_exists( $path ) ) {
+					LP_WP_Filesystem::instance()->unlink( $path );
+
+					$response->status  = 'success';
+					$response->message = esc_html__( 'Profile picture remove successfully', 'learnpress' );
+				}
+			}
+		} catch ( \Throwable $th ) {
+			$response->message = $th->getMessage();
+		}
+
+		return rest_ensure_response( $response );
 	}
 
 	public function statistic( WP_REST_Request $request ) {
@@ -61,17 +218,23 @@ class LP_REST_Profile_Controller extends LP_Abstract_REST_Controller {
 				throw new Exception( $profile->get_error_message() );
 			}
 
+			/*
 			$query = $profile->query_courses( 'purchased' );
 
-			$counts = $query['counts'];
+			$counts = $query['counts'];*/
 
 			// Count total courses has status 'in-progress'
-			$total_courses_has_status = $lp_user_items_db->get_total_courses_has_status( $user_id, 'in-progress' );
+			// $total_courses_has_status = $lp_user_items_db->get_total_courses_has_status( $user_id, 'in-progress' );
+
+			$filter            = new LP_User_Items_Filter();
+			$filter->user_id   = $user_id;
+			$filter->item_type = LP_COURSE_CPT;
+			$count_status      = $lp_user_items_db->count_status_by_items( $filter );
 
 			$statistic = array(
-				'enrolled_courses'  => $counts['all'] ?? 0,
-				'active_courses'    => $total_courses_has_status,
-				'completed_courses' => $counts['finished'] ?? 0,
+				'enrolled_courses'  => $count_status->{LP_COURSE_PURCHASED} + $count_status->{LP_COURSE_ENROLLED} + $count_status->{LP_COURSE_FINISHED},
+				'active_courses'    => $count_status->{LP_COURSE_GRADUATION_IN_PROGRESS},
+				'completed_courses' => $count_status->{LP_COURSE_FINISHED} ?? 0,
 				'total_courses'     => count_user_posts( $user_id, LP_COURSE_CPT ),
 				'total_users'       => learn_press_count_instructor_users( $user_id ),
 			);
@@ -89,14 +252,13 @@ class LP_REST_Profile_Controller extends LP_Abstract_REST_Controller {
 	}
 
 	public function course_tab( $request ) {
-		$request        = $request->get_params();
-		$user_id        = $request['userID'];
-		$status         = $request['status'] ?? '';
-		$paged          = $request['paged'] ?? 1;
-		$query_type     = $request['query'] ?? 'purchased';
-		$layout         = $request['layout'] ?? 'grid';
-		$response       = new LP_REST_Response();
-		$response->data = '';
+		$params     = $request->get_params();
+		$user_id    = $params['userID'] ?? get_current_user_id();
+		$status     = $params['status'] ?? '';
+		$paged      = $params['paged'] ?? 1;
+		$query_type = $params['query'] ?? 'purchased';
+		$layout     = $params['layout'] ?? 'grid';
+		$response   = new LP_REST_Response();
 
 		try {
 			if ( empty( $user_id ) ) {
@@ -141,19 +303,19 @@ class LP_REST_Profile_Controller extends LP_Abstract_REST_Controller {
 				throw new Exception( esc_html__( 'No User available!', 'learnpress' ) );
 			}
 
-			do_action( 'learnpress/rest/frontend/profile/course_tab', $request );
+			do_action( 'learnpress/rest/frontend/profile/course_tab', $params );
 
 			$num_pages    = $query->get_pages();
 			$current_page = $query->get_paged();
 
-			$content = $layout === 'grid' ? 'profile/tabs/courses/course-grid' : 'profile/tabs/courses/course-list';
+			$template = $layout === 'grid' ? 'profile/tabs/courses/course-grid' : 'profile/tabs/courses/course-list';
 
 			$response->data   = learn_press_get_template_content(
-				$content,
+				$template,
 				array(
 					'user'         => $user,
 					'course_ids'   => $course_ids,
-					'num_pages'    => absint( $num_pages ) > 1 ? absint( $num_pages ) : 1,
+					'num_pages'    => max( absint( $num_pages ), 1 ),
 					'current_page' => absint( $current_page ),
 				)
 			);
@@ -166,4 +328,40 @@ class LP_REST_Profile_Controller extends LP_Abstract_REST_Controller {
 		return rest_ensure_response( $response );
 	}
 
+	/**
+	 * Get course's user attend
+	 *
+	 * @param WP_REST_Request $request
+	 *
+	 * @author tungnx
+	 * @since 4.1.5
+	 * @version 1.0.0
+	 * @return LP_REST_Response
+	 */
+	public function course_attend( WP_REST_Request $request ): LP_REST_Response {
+		$params   = $request->get_params();
+		$user_id  = get_current_user_id();
+		$status   = $params['status'] ?? '';
+		$paged    = $params['paged'] ?? 1;
+		$layout   = $params['layout'] ?? 'grid';
+		$response = new LP_REST_Response();
+
+		try {
+			if ( ! $user_id ) {
+				throw new Exception( __( 'User is invalid!', 'learnpress' ) );
+			}
+
+			$filter                      = new LP_User_Items_Filter();
+			$filter->limit               = LP_Settings::get_option( 'archive_course_limit', 6 );
+			$filter->user_id             = $user_id;
+			$total_rows                  = 0;
+			$courses                     = LP_User_Item_Course::get_user_courses( $filter, $total_rows );
+			$response->data->courses     = $courses;
+			$response->data->total_pages = LP_Database::get_total_pages( $filter->limit, $total_rows );
+		} catch ( Throwable $e ) {
+			$response->message = $e->getMessage();
+		}
+
+		return $response;
+	}
 }

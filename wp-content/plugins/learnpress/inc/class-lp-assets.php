@@ -27,6 +27,8 @@ class LP_Assets extends LP_Abstract_Assets {
 	 * @return array
 	 */
 	protected function _get_styles(): array {
+		$is_rtl = is_rtl() ? '-rtl' : '';
+
 		return apply_filters(
 			'learn-press/frontend-default-styles',
 			array(
@@ -35,19 +37,14 @@ class LP_Assets extends LP_Abstract_Assets {
 					array(),
 					array()
 				),
-				'lp-bundle'          => new LP_Asset_Key(
-					self::url( 'css/bundle.min.css' ),
-					array(),
-					array()
-				),
 				'learnpress'         => new LP_Asset_Key(
-					self::url( 'css/learnpress.css' ),
-					array( 'lp-font-awesome-5', 'lp-bundle' ),
-					array( LP_PAGE_COURSES, LP_PAGE_SINGLE_COURSE, LP_PAGE_SINGLE_COURSE_CURRICULUM, LP_PAGE_QUIZ, LP_PAGE_QUESTION, LP_PAGE_CHECKOUT, LP_PAGE_BECOME_A_TEACHER ),
+					self::url( 'css/learnpress' . $is_rtl . self::$_min_assets . '.css' ),
+					array( 'lp-font-awesome-5' ),
+					array( LP_PAGE_COURSES, LP_PAGE_SINGLE_COURSE, LP_PAGE_SINGLE_COURSE_CURRICULUM, LP_PAGE_QUIZ, LP_PAGE_QUESTION, LP_PAGE_CHECKOUT, LP_PAGE_BECOME_A_TEACHER, LP_PAGE_PROFILE ),
 					0
 				),
 				'learnpress-widgets' => new LP_Asset_Key(
-					self::url( 'css/widgets.css' ),
+					self::url( 'css/widgets' . $is_rtl . self::$_min_assets . '.css' ),
 					array(),
 					array(),
 					0
@@ -207,32 +204,17 @@ class LP_Assets extends LP_Abstract_Assets {
 					1
 				),
 				'lp-courses'           => new LP_Asset_Key(
-					self::url( self::$_folder_source . 'js/frontend/courses' . self::$_min_assets . '.js' ),
+					self::url( 'js/dist/frontend/courses' . self::$_min_assets . '.js' ),
 					array( 'lp-global', 'lp-utils', 'wp-api-fetch' ),
 					array( LP_PAGE_COURSES ),
 					0,
 					1
 				),
-				'lp-profile-user'      => new LP_Asset_Key(
-					self::url( self::$_folder_source . 'js/frontend/profile' . self::$_min_assets . '.js' ),
-					array(
-						'lp-global',
-						'lp-utils',
-						'plupload',
-						'backbone',
-						'jquery-ui-slider',
-						'jquery-ui-draggable',
-						'jquery-touch-punch',
-					),
-					array( LP_PAGE_PROFILE ),
-					0,
-					1
-				),
-				'lp-profile-v2'        => new LP_Asset_Key(
+				'lp-profile'           => new LP_Asset_Key(
 					self::url( 'js/dist/frontend/profile' . self::$_min_assets . '.js' ),
 					array_merge(
 						$wp_js,
-						array( 'wp-i18n' )
+						array( 'wp-i18n', 'lp-utils' )
 					),
 					array( LP_PAGE_PROFILE ),
 					0,

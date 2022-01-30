@@ -2,15 +2,15 @@
 /*
 Plugin Name: GTranslate
 Plugin URI: https://gtranslate.io/?xyz=998
-Description: Makes your website <strong>multilingual</strong> and available to the world using Google Translate. For support visit <a href="https://wordpress.org/support/plugin/gtranslate">GTranslate Support</a>.
-Version: 2.9.7
+Description: Translate your website and make it multilingual. For support visit <a href="https://wordpress.org/support/plugin/gtranslate">GTranslate Support Forum</a>.
+Version: 2.9.8
 Author: Translate AI Multilingual Solutions
 Author URI: https://gtranslate.io
 Text Domain: gtranslate
 
 */
 
-/*  Copyright 2010 - 2021 GTranslate Inc. ( website: https://gtranslate.com )
+/*  Copyright 2010 - 2022 GTranslate Inc. ( website: https://gtranslate.com )
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -2511,8 +2511,8 @@ if($data['pro_version'] or $data['enterprise_version']) {
             case 'wc-address-i18n': {
                 $data['gt_translate_keys'] = array(
                     array('key' => 'locale', 'format' => 'json'),
-                    'i18n_required_text',
-                    'i18n_optional_text',
+                    array('key' => 'i18n_required_text', 'format' => 'text'),
+                    array('key' => 'i18n_optional_text', 'format' => 'html'),
                 );
 
                 $locale = json_decode($data['locale']);
@@ -2553,6 +2553,10 @@ if($data['pro_version'] or $data['enterprise_version']) {
                 $data['locale'] = json_encode($locale);
             } break;
 
+            case 'wc-single-product': {
+                $data['gt_translate_keys'] = array('i18n_required_rating_text');
+            } break;
+
             case 'wc-checkout': {
                 $data['gt_translate_keys'] = array('i18n_checkout_error');
             } break;
@@ -2563,6 +2567,10 @@ if($data['pro_version'] or $data['enterprise_version']) {
 
             case 'wc-add-to-cart': {
                 $data['gt_translate_keys'] = array('i18n_view_cart', array('key' => 'cart_url', 'format' => 'url'));
+            } break;
+
+            case 'wc-add-to-cart-variation': {
+                $data['gt_translate_keys'] = array('i18n_no_matching_variations_text', 'i18n_make_a_selection_text', 'i18n_unavailable_text');
             } break;
 
             case 'wc-password-strength-meter': {
@@ -2584,11 +2592,7 @@ if($data['pro_version'] or $data['enterprise_version']) {
         return $false;
     }
 
-    //add_action('wp_print_scripts', 'gtranslate_filter_l10n_scripts', 1);
-    //add_action('wp_print_header_scripts', 'gtranslate_filter_l10n_scripts', 1);
-    //add_action('wp_print_footer_scripts', 'gtranslate_filter_l10n_scripts', 1);
-
-    add_filter('script_loader_tag', 'gtranslate_add_script_attributes', 100, 2);
+    //add_filter('script_loader_tag', 'gtranslate_add_script_attributes', 100, 2);
 
     add_filter('woocommerce_get_script_data', 'gt_filter_woocommerce_scripts_data', 10, 2 );
 
