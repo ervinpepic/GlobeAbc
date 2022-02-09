@@ -1,4 +1,4 @@
-console.log("HD Quiz 1.8.3 Loaded");
+console.log("HD Quiz 1.8.5 Loaded");
 const HDQ = {
 	EL: {
 		quizzes: document.getElementsByClassName("hdq_quiz"),
@@ -51,6 +51,12 @@ const HDQ = {
 				}
 			});
 		}
+		
+		// kb nav
+		const buttons = document.getElementsByClassName("hdq_button");
+		for(let i = 0; i < buttons.length; i++){
+			buttons[i].addEventListener("keyup", HDQ.keyUp);
+		}
 
 		if (HDQ.VARS.timer.max > 3) {
 			if (HDQ.VARS.ads !== true) {
@@ -72,6 +78,15 @@ const HDQ = {
 					await window[init_actions[i]]();
 				}
 			}
+		}
+	},
+	keyUp: function(ev, el){
+		console.log(ev)
+		if(typeof el === "undefined"){
+			el = this;
+		}
+		if(ev.keyCode === 32){
+			el.click();
 		}
 	},
 	timer: {
@@ -149,7 +164,7 @@ const HDQ = {
 				for (let i = 0; i < answers.length; i++) {
 					answers[i].disabled = false;
 				}
-				HDQ.timer.question.question();
+				HDQ.timer.question.question();				
 
 				// hide jPagination until answer has been made
 				for (let i = 0; i < HDQ.EL.jPaginate.length; i++) {
@@ -184,16 +199,42 @@ const HDQ = {
 					}
 				}
 			},
-			changed: async function () {
-				// reset timer
-				HDQ.VARS.timer.time = HDQ.VARS.timer.max;
+			changed: async function (ev, sap = false) {
+				// reset timer				
+				let p = document.getElementsByClassName("hdq_active_question")[0];
+				if (!p.classList.contains("hdq_question")) {					
+					p = HDQ.getParent(p);
+				}
+				
+				// check question type
+				let qt = p.getAttribute("data-type");
+				if(qt == "select_all_apply_text" && sap === false){
+					// does "next" button already exist?
+					let n = p.getElementsByClassName("hdq_button");
+					if(typeof n[0] == "undefined"){
+						const html = `<div class="hdq_button" role="button" tabindex = "0" onkeyup="HDQ.keyUp(event, this)" onclick = "HDQ.timer.question.changed(this, true)" style = "display: flex; width: fit-content;">${HDQ.VARS.translations.next}</div>`;
+						p.insertAdjacentHTML("beforeend", html)
+					}
+					return;
+				} else if(qt == "select_all_apply_text"){
+					let n = p.getElementsByClassName("hdq_button")[0];
+					n.remove();
+				}
 
-				// figure out what the next question is
-				let p = await HDQ.getParent(this);
+				// reset timer
+				HDQ.VARS.timer.time = HDQ.VARS.timer.max;		
+
+				// figure out what the next question is		
 				let next_question = p.nextSibling;
 				let active_question = document.getElementsByClassName("hdq_active_question");
 				if (active_question.length > 0) {
 					active_question[0].classList.remove("hdq_active_question");
+				}		
+
+				// check if question has custom time
+				let t = parseInt(next_question.getAttribute("data-timer"));
+				if(t > 0){
+					HDQ.VARS.timer.time = t;
 				}
 				let status = await HDQ.timer.question.checkQuestion(next_question);
 
@@ -897,6 +938,7 @@ if (typeof hdq_local_vars != "undefined") {
 				jPage: 0,
 				paginate: false,
 				legacy_scroll: hdq_locals.hdq_legacy_scroll,
+				translations: hdq_locals.hdq_translations
 			};
 		}
 		await hdqSetInitVars();

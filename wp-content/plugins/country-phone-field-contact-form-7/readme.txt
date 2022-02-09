@@ -3,7 +3,7 @@ Contributors: narinderbisht,webgrex
 Donate link: https://www.paypal.me/webgrex
 Tags: country dropdown, flags, phone extension, form, contact form, contact form 7, country dropdown plugin, international telephone input, Country & Phone Field, WordPress plugin
 Requires at least: 5.0
-Tested up to: 5.6
+Tested up to: 5.9
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -141,3 +141,5 @@ Please use contact form 7 standard featured minlength and maxlength option. It w
 * Added a wordpress notice box image missing issue fixed.
 2.2.7
 * Remove affiliation notice box.
+2.2.8
+* Tested with new wordpress version and contact form 7 plugin.

@@ -105,6 +105,27 @@ if ($buildQuiz === true) {
 	if(isset($quiz_settings["hide_questions"]["value"][0])){
 		$hide_questions = $quiz_settings["hide_questions"]["value"][0];
 	}
+	
+	$finish = "Finish";
+	if(!isset($hdq_settings["hd_qu_finish"]) || $hdq_settings["hd_qu_finish"]["value"] !== ""){
+		$finish = $hdq_settings["hd_qu_finish"]["value"];
+	}
+	
+	$next = "Next";
+	if(!isset($hdq_settings["hd_qu_next"]) || $hdq_settings["hd_qu_next"]["value"] !== ""){
+		$next = $hdq_settings["hd_qu_next"]["value"];
+	}
+		
+	$results = "Results";
+	if(!isset($hdq_settings["hd_results"]) || $hdq_settings["hd_results"]["value"] !== ""){
+		$results = $hdq_settings["hd_results"]["value"];
+	}	
+	
+	$translations = array(
+		"finish" => $finish,
+		"next" => $next,
+		"results" => $results,		
+	);
 
     $jPaginate = false;
     // create object for localized script
@@ -129,6 +150,7 @@ if ($buildQuiz === true) {
     $hdq_local_vars->hdq_use_ads = $use_adcode;
     $hdq_local_vars->hdq_submit = array();
     $hdq_local_vars->hdq_init = array();
+	$hdq_local_vars->hdq_translations = $translations;
     do_action("hdq_submit", $hdq_local_vars); // add functions to quiz complete
     do_action("hdq_init", $hdq_local_vars); // add functions to quiz init
     $hdq_local_vars = json_encode($hdq_local_vars);
@@ -193,10 +215,22 @@ if ($buildQuiz === true) {
                         $jPaginate = true;
                         hdq_print_jPaginate($quiz_ID);
                     }
-                    echo '<div class = "hdq_question" data-type = "' . $question["question_type"]["value"] . '" id = "hdq_question_' . $question_ID . '">';
+					
+					// used to add custom data attributes to questions					
+					$extra = apply_filters('hdq_extra_question_data', array(), $question, $quiz_ID);
+					$extra_data = "";
+					foreach($extra as $k => $d){
+						$extra_data = "data-".$k.'="'.$d.'" ';
+					}
+					$extra_data = sanitize_text_field($extra_data);
+					
+                    echo '<div class = "hdq_question" '.$extra_data.' data-type = "' . $question["question_type"]["value"] . '" id = "hdq_question_' . $question_ID . '">';
 
                     hdq_print_question_featured_image($question);
 
+					do_action("hdq_after_featured_image", $question);
+					
+					
                     // deal with randomized answer order here,
                     // so that you don't have to in your custom question type functions
                     $ans_cor = hdq_get_question_answers($question["answers"]["value"], $question["selected"]["value"], $quiz_settings["randomize_answers"]["value"][0]);

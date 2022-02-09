@@ -275,8 +275,6 @@
 	<lse-dropzone-overlay></lse-dropzone-overlay>
 	<lse-dropzone></lse-dropzone>
 
-	<?php include LS_ROOT_PATH . '/templates/tmpl-post-options.php'; ?>
-
 	<lse-editor class="lse-editor-is-loading lse-layers-list-docked lse-highlight-layers lse-selection-is-on-front lse-desktop-view <?= $lseEditorClasses ?>">
 
 		<input type="hidden" name="slider_id" value="<?= $id ?>">
@@ -6589,10 +6587,8 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 																	<lse-text><?= __('Open With Slide', 'LayerSlider') ?></lse-text>
 																</lse-ib>
 																<lse-ib>
-																	<lse-fe-wrapper class="lse-select">
-																		<select name="slide" class="lse-layer-action-slide-list">
-																			<option value="" data-protected><?= __('No override', 'LayerSlider') ?></option>
-																		</select>
+																	<lse-fe-wrapper>
+																		<input name="slide" type="number" placeholder="<?= __('No override', 'LayerSlider') ?>" min="1" max="100">
 																	</lse-fe-wrapper>
 																</lse-ib>
 															</lse-col>
@@ -7279,6 +7275,7 @@ include LS_ROOT_PATH . '/templates/tmpl-revisions-welcome.php';
 include LS_ROOT_PATH . '/templates/tmpl-font-library.php';
 include LS_ROOT_PATH . '/templates/tmpl-search-window.php';
 include LS_ROOT_PATH . '/templates/tmpl-transition-window.php';
+include LS_ROOT_PATH . '/templates/tmpl-post-options.php';
 ?>
 
 

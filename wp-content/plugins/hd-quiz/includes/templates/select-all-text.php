@@ -24,7 +24,7 @@
 			<div class = "hdq_row">
 				<label class="hdq_label_answer" id = "hda_label_<?php echo $i . '_' . $question_ID; ?>" data-type = "radio" data-id = "hdq_question_<?php echo $question_ID; ?>" for="hdq_option_<?php echo $i . '_' . $question_ID; ?>">
 					<div class="hdq-options-check">
-						<input aria-labelledby = "hda_label_<?php echo $i . '_' . $question_ID; ?>" type="checkbox" data-id = "<?php echo $question_ID; ?>" class="hdq_option hdq_check_input" data-type = "radio_multi" value="<?php echo $selected; ?>" name="hdq_option_<?php echo $i . '_' . $question_ID; ?>" id="hdq_option_<?php echo $i . '_' . $question_ID; ?>">
+						<input aria-labelledby = "hda_label_<?php echo $i . '_' . $question_ID; ?>" autocomplete="off" type="checkbox" data-id = "<?php echo $question_ID; ?>" class="hdq_option hdq_check_input" data-type = "radio_multi" value="<?php echo $selected; ?>" name="hdq_option_<?php echo $i . '_' . $question_ID; ?>" id="hdq_option_<?php echo $i . '_' . $question_ID; ?>">
 						<span class = "hdq_toggle"><span class = "hdq_aria_label"><?php echo $answers[$i]["answer"]; ?></span></span>						
 					</div>
 				<?php echo $answers[$i]["answer"]; ?>

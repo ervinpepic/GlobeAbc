@@ -26,6 +26,11 @@ function hdq_register_tools_page_callbak()
     require dirname(__FILE__) . '/tools.php';
 }
 
+function hdq_register_triviadb_page_callback()
+{
+    require dirname(__FILE__) . '/triviadb.php';
+}
+
 // Get image ID (for *super* old HD Quiz users image as answer)
 // taken from https://wpscholar.com/blog/get-attachment-id-from-wp-image-url/
 // great work Micah! This is super elegant
@@ -829,7 +834,7 @@ function hdq_print_quiz_start($timer, $use_adcode)
         if ($hd_qu_start != "" && $hd_qu_start != null) {
             $label = $hd_qu_start;
         }
-        echo '<div class = "hdq_quiz_start hdq_button" role = "button" title = "' . $label . '">' . $label . '</div>';
+        echo '<div class = "hdq_quiz_start hdq_button" role = "button" tabindex = "0" title = "' . $label . '">' . $label . '</div>';
     }
 }
 
@@ -895,18 +900,16 @@ function hdq_get_question_answers($answers, $correct, $randomized)
 
 function hdq_print_jPaginate($hdq_id)
 {
-    // TODO: give tabindex = "0" once ready to fire off JS events to sim buttons
     $settings = hdq_get_settings();
     $next_text = $settings["hd_qu_next"]["value"];
     if ($next_text == "" || $next_text == null) {
         $next_text = "next";
     }
-    echo '<div class = "hdq_jPaginate"><div class = "hdq_next_button hdq_jPaginate_button hdq_button" data-id = "' . $hdq_id . '" role = "button">' . $next_text . '</div></div>';
+    echo '<div class = "hdq_jPaginate"><div class = "hdq_next_button hdq_jPaginate_button hdq_button" data-id = "' . $hdq_id . '" role = "button" tabindex = "0">' . $next_text . '</div></div>';
 }
 
 function hdq_print_finish($hdq_id, $jPaginate)
 {
-    // TODO: give tabindex = "0" once ready to fire off JS events to sim buttons
     $settings = hdq_get_settings();
     $finish_text = $settings["hd_qu_finish"]["value"];
     if ($finish_text == "" || $finish_text == null) {
@@ -917,7 +920,7 @@ function hdq_print_finish($hdq_id, $jPaginate)
     } else {
         $jPaginate = "";
     }
-    echo '<div class = "hdq_finish"><div class = "hdq_finsh_button hdq_button ' . $jPaginate . '" data-id = "' . $hdq_id . '" role = "button">' . $finish_text . '</div></div>';
+    echo '<div class = "hdq_finish"><div class = "hdq_finsh_button hdq_button ' . $jPaginate . '" data-id = "' . $hdq_id . '" role = "button" tabindex = "0">' . $finish_text . '</div></div>';
 }
 
 function hdq_print_next($hdq_id, $page_num)

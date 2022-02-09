@@ -110,6 +110,7 @@
 	}
 
 	$lsStoreHasUpdate = ( ! empty($lsStoreData['last_updated']) && $lsStoreLastViewed <  $lsStoreData['last_updated'] );
+	//$lsStoreHasUpdate = true;
 
 
 	// Notifications panel contents
@@ -458,15 +459,15 @@
 				</div>
 
 				<div class="ls-item import-templates <?= $lsStoreHasUpdate ? 'has-updates' : '' ?>">
-					<?= lsGetSVGIcon('exclamation-circle',null,[
-						'class' => 'ls-update-icon'
-					]); ?>
 					<div class="ls-item-inner">
 						<a href="#" id="ls-browse-templates-button" class="import-templates <?= $lsStoreHasUpdate ? 'has-updates' : '' ?>">
 							<?= lsGetSVGIcon('map'); ?>
 							<div class="ls-tile-text"><?= __('Browse Templates', 'LayerSlider') ?></div>
 						</a>
 					</div>
+					<lse-badge>
+						<?= __('NEW', 'LayerSlider') ?>
+					</lse-badge>
 				</div>
 
 				<div class="ls-item import-sliders">

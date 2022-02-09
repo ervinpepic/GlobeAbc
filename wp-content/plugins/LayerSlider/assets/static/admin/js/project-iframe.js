@@ -2,7 +2,7 @@ window.previewGoogleFonts = [];
 
 function attachProjectEvent( eventName, funcString ) {
 	try {
-		jQuery('#lse-project-preview' ).on( eventName, new Function( 'event', 'slider', funcString ) );
+		jQuery('#lse-project-preview-content' ).on( eventName, new Function( 'event', 'slider', funcString ) );
 	}catch(e){
 		console.error( 'LayerSlider: Error while calling event "' + eventName + '":\n\r\n\r', e );
 	}

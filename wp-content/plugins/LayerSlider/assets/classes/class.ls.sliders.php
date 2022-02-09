@@ -338,6 +338,47 @@ class LS_Sliders {
 	}
 
 
+
+		/**
+	 * Updates sliders
+	 *
+	 * @since 7.0.8
+	 * @access public
+	 * @param int $id The database ID of the project to be renamed
+	 * @param string $name The new name of the project
+	 * @return bool Returns true on success, false otherwise
+	 */
+	public static function rename( $id = 0, $name = 'Unnamed' ) {
+
+		global $wpdb;
+
+		// Get project
+		$slider = self::_getById( $id );
+
+		// Rename project
+		$slider['data']['properties']['title'] = $name;
+		$wpdb->update( $wpdb->prefix.LS_DB_TABLE, [
+				'name' => $name,
+				'data' => json_encode( $slider['data'] ),
+				'date_m' => time(),
+			],
+			[ 'id' => $id ],
+			[ '%s', '%s', '%d' ]
+		);
+
+		// Get draft
+		$draft = self::getDraft( $id );
+
+		// Rename draft
+		if( ! empty( $draft['data'] ) ) {
+			$draft['data']['properties']['title'] = $name;
+			self::saveDraft( $id, $draft['data'], false );
+		}
+	}
+
+
+
+
 	/**
 	 * Marking a slider as removed without deleting it
 	 * with its database ID.

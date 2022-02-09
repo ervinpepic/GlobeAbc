@@ -91,27 +91,31 @@ if( isset( $slides['properties']['props']['enhancedLazyLoad'] ) ) {
 $slides['properties']['props']['enhancedLazyLoad'] = $enhancedLazyLoad;
 
 
-$slides = ls_merge_google_fonts( $slides );
+// Project-level Google Fonts
+if( get_option('layerslider-google-fonts-enabled', true ) ) {
 
-// Load Google Fonts from Project
-if( ! empty( $slides['googlefonts'] ) && is_array( $slides['googlefonts'] ) ) {
-	$fontFragments = [];
-	foreach( $slides['googlefonts'] as $font ) {
+	$slides = ls_merge_google_fonts( $slides );
 
-		$fontName = explode( ':' , $font['param'] );
-		$fontName = urldecode( $fontName[0] );
+	// Load Google Fonts from Project
+	if( ! empty( $slides['googlefonts'] ) && is_array( $slides['googlefonts'] ) ) {
+		$fontFragments = [];
+		foreach( $slides['googlefonts'] as $font ) {
 
-		// Prevent loading fonts that are already loaded from other sliders
-		if( ! in_array( $fontName, $GLOBALS['lsLoadedFonts'] ) ) {
-			$fontFragments[] = urlencode( $fontName ).':100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i';
-			$GLOBALS['lsLoadedFonts'][] = $fontName;
+			$fontName = explode( ':' , $font['param'] );
+			$fontName = urldecode( $fontName[0] );
+
+			// Prevent loading fonts that are already loaded from other sliders
+			if( ! in_array( $fontName, $GLOBALS['lsLoadedFonts'] ) ) {
+				$fontFragments[] = urlencode( $fontName ).':100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i';
+				$GLOBALS['lsLoadedFonts'][] = $fontName;
+			}
 		}
-	}
 
-	if( ! empty( $fontFragments ) ) {
-		$fontsURL = implode('%7C', $fontFragments);
+		if( ! empty( $fontFragments ) ) {
+			$fontsURL = implode('%7C', $fontFragments);
 
-		$lsContainer[] = '<link href="https://fonts.googleapis.com/css?family='.$fontsURL.'" rel="stylesheet">';
+			$lsContainer[] = '<link href="https://fonts.googleapis.com/css?family='.$fontsURL.'" rel="stylesheet">';
+		}
 	}
 }
 

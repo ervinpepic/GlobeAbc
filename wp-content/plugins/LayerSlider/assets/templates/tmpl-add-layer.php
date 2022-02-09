@@ -24,7 +24,12 @@
 				<lse-b data-type="shape-modal">
 					<?= lsGetSVGIcon('shapes') ?>
 					<lse-text><?= __('Shape', 'LayerSlider') ?></lse-text>
-				</lse-b>
+<!--
+					<lse-badge>
+						<?= __('NEW', 'LayerSlider') ?>
+					</lse-badge>
+ -->
+ 				</lse-b>
 			</lse-row>
 			<lse-row>
 				<lse-b data-type="icon-modal">

@@ -238,6 +238,7 @@ add_action('init', function() {
 		add_action('wp_ajax_ls_save_google_fonts', 'ls_save_google_fonts');
 		add_action('wp_ajax_ls_save_plugin_settings', 'ls_save_plugin_settings');
 		add_action('wp_ajax_ls_save_slider', 'ls_save_slider');
+		add_action('wp_ajax_ls_rename_project', 'ls_rename_project');
 		add_action('wp_ajax_ls_publish_slider', 'ls_publish_slider');
 		add_action('wp_ajax_ls_revert_slider', 'ls_revert_slider');
 		add_action('wp_ajax_ls_import_bundled', 'ls_import_bundled');
@@ -748,6 +749,16 @@ function ls_get_mce_slides() {
 	die( json_encode( $slides ) );
 }
 
+
+function ls_rename_project() {
+
+	check_admin_referer( 'bulk-action' );
+
+	$id = (int) $_POST['id'];
+	$name = $_POST['name'];
+
+	LS_Sliders::rename( $id, $name );
+}
 
 
 function ls_prepare_save_data( $data ) {

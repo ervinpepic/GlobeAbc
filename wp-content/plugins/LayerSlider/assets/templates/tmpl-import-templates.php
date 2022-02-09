@@ -36,6 +36,17 @@ $demoSliders = LS_Sources::getDemoSliders();
  			<b class="modal-close-btn dashicons dashicons-no"></b>
 		</header>
 
+		<?php if( empty( $lsStoreData ) ) : ?>
+		<div class="ls-templates-error-wrapper">
+
+			<div class="ls-templates-error-inner">
+				<?= lsGetSVGIcon('wifi-slash', 'duotone') ?>
+				<ls-h1><?= __('Templates Unavailable', 'LayerSlider') ?></ls-h1>
+				<ls-p><?= sprintf(__('LayerSlider encountered a problem preventing it from downloading the list of available templates. It’s likely a web server configuration issue. Please visit %sSystem Status%s to check for potential causes or try to %sreconnect%s.', 'LayerSlider'), '<a href="'.admin_url('admin.php?page=layerslider&section=system-status').'">', '</a>', '<a href="'.wp_nonce_url( admin_url('admin.php?page=layerslider&action=update_store'), 'update_store').'">', '</a>' ) ?></ls-p>
+			</div>
+		</div>
+		<?php endif ?>
+
 		<!-- SLIDERS -->
 		<div class="ls-templates-holder inner sliders active">
 			<nav class="templates-sidemenu">
@@ -403,5 +414,7 @@ $demoSliders = LS_Sources::getDemoSliders();
 				<?php endif ?>
 			</div>
 		</div>
+
+
 	</div>
 </script>

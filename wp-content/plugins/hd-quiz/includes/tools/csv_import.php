@@ -167,6 +167,11 @@ function hdq_parse_csv_data($csvFile = "", $hdq_nonce = "")
 		echo 'permission not granted';
 		die();
 	}
+	
+	if(!function_exists('str_getcsv')) {
+		echo 'CSV function not found on server. Check your PHP version';
+		die();
+	}
 
 	if ($csvFile == "" && isset($_POST["path"])) {
 		$csvFile = sanitize_text_field($_POST["path"]);
@@ -192,7 +197,6 @@ function hdq_parse_csv_data($csvFile = "", $hdq_nonce = "")
 		$start = intval($_POST["start"]);
 	}
 
-
 	if ($csvAsArray[$start][0] != "" && $csvAsArray[$start][1] != "") {
 		$quizID = term_exists($csvAsArray[$start][0], "quiz");
 		if ($quizID == null) {
@@ -217,6 +221,14 @@ function hdq_parse_csv_data($csvFile = "", $hdq_nonce = "")
 			'post_status' => 'publish',
 			'menu_order' => $total // always set as the last question of the quiz
 		);
+		
+		// not advertised that we can upload the extra text since
+		// we santize most things out (plus hard to support people using HTML and formatting in CSVs)
+		$extraText = "";
+		if(isset($csvAsArray[$start][13])){
+			$extraText = $csvAsArray[$start][13];
+		}		
+		
 		$fields = array();
 		$fields["question_id"]["value"] = wp_insert_post($post_information);
 		$fields["question_id"]["type"] = "integer";
@@ -232,7 +244,7 @@ function hdq_parse_csv_data($csvFile = "", $hdq_nonce = "")
 		$fields["paginate"]["type"] = "checkbox";
 		$fields["tooltip"]["value"] = "";
 		$fields["tooltip"]["type"] = "text";
-		$fields["extra_text"]["value"] = $csvAsArray[$start][13];
+		$fields["extra_text"]["value"] = $extraText;
 		$fields["extra_text"]["type"] =  "editor";
 		$fields["featured_image"]["value"] = 0;
 		$fields["featured_image"]["type"] = "image";

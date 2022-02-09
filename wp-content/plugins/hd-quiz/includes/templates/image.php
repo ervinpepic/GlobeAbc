@@ -15,7 +15,7 @@
                 $selected = 1;
             } ?>
 			<div class = "hdq_row hdq_row_image">
-				<label role = "button" class="hdq_label_answer" data-type = "image" data-id = "hdq_question_<?php echo $question_ID; ?>" for="hdq_option_<?php echo $i . '_' . $question_ID; ?>">
+				<label role = "button" aria-labelledby = "hda_label_<?php echo $i . '_' . $question_ID; ?>"  id = "hda_label_<?php echo $i . '_' . $question_ID; ?>" class="hdq_label_answer" data-type = "image" data-id = "hdq_question_<?php echo $question_ID; ?>" for="hdq_option_<?php echo $i . '_' . $question_ID; ?>">
 				<?php
                 $image = "";
             if ($answers[$i]["image"] != "" && $answers[$i]["image"] != 0) {
@@ -26,7 +26,7 @@
             } ?>
 					<div>					
 						<div class="hdq-options-check">
-							<input type="checkbox" data-id = "<?php echo $question_ID; ?>" class="hdq_option hdq_check_input" data-type = "image" value="<?php echo $selected; ?>" name="hdq_option_<?php echo $i . '_' . $question_ID; ?>" id="hdq_option_<?php echo $i . '_' . $question_ID; ?>">
+							<input type="checkbox" autocomplete="off" data-id = "<?php echo $question_ID; ?>" class="hdq_option hdq_check_input" data-type = "image" value="<?php echo $selected; ?>" name="hdq_option_<?php echo $i . '_' . $question_ID; ?>" id="hdq_option_<?php echo $i . '_' . $question_ID; ?>">
 							<span class = "hdq_toggle"><span class = "hdq_aria_label"><?php echo $answers[$i]["answer"]; ?></span></span>
 						</div>
 					<?php echo $answers[$i]["answer"]; ?>

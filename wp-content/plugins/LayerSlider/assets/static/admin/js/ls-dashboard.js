@@ -10,7 +10,9 @@ var importModalWindowTimeline = null,
 
 	$lastOpenedGroup,
 
-	activeShuffleContainerIndex = 0;
+	activeShuffleContainerIndex = 0
+
+	projectRenameTimeout = 0;
 
 
 // Stores the lastly selected slider item
@@ -193,6 +195,10 @@ jQuery(function($) {
 
 	$('.ls-slider-list-items').on('contextmenu', '.slider-item', function( event ) {
 
+		if( $( event.target ).is('input') ) {
+			return true;
+		}
+
 		var $sliderItem = $( this );
 
 		if( $sliderItem.hasClass('group-item') ) {
@@ -236,11 +242,32 @@ jQuery(function($) {
 		}
 
 
-	}).on('mouseenter', '.slider-actions-button', function() {
+	}).on('mouseenter', '.slider-actions-button, .slider-item-wrapper input', function() {
 		$( this ).closest('.slider-item').addClass('ls-block-active-state');
 
-	}).on('mouseleave', '.slider-actions-button', function() {
+	}).on('mouseleave', '.slider-actions-button, .slider-item-wrapper input', function() {
 		$( this ).closest('.slider-item').removeClass('ls-block-active-state');
+
+	}).on('input', '.slider-item-wrapper input', function() {
+
+		var $this = $( this );
+
+		clearTimeout( projectRenameTimeout );
+		projectRenameTimeout = setTimeout( function() {
+
+			var $item = $this.closest('.slider-item'),
+				data  = $item.data(),
+				nonce = $('.ls-slider-list-form input[name="_wpnonce"]').val();
+
+			$.post( ajaxurl, {
+				action: 'ls_rename_project',
+				id: data.id,
+				name: $this.val(),
+				_wpnonce: nonce,
+			});
+
+		}, 500 );
+
 
 	}).on('click', '.slider-actions-button', function() {
 

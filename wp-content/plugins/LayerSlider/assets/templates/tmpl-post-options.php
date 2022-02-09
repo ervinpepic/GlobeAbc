@@ -37,7 +37,7 @@ $posts = LS_Posts::find($queryArgs)->getParsedObject();
 ?>
 <script type="text/javascript" class="lse-dn" id="ls-posts-json">window.lsPostsJSON = <?= $posts ? json_encode($posts) : '[]' ?> || [];</script>
 
-<div id="tmpl-post-options">
+<div id="tmpl-post-options" class="lse-dn">
 	<div id="lse-post-options">
 		<kmw-h1 class="kmw-modal-title"><?= __('Target posts with the filters below', 'LayerSlider') ?></kmw-h1>
 		<div class="ls-configure-posts-modal">

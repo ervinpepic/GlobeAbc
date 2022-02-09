@@ -138,7 +138,7 @@ class LS_Notifications {
 
 		$update = get_option( 'layerslider_update_info', false );
 
-		if( ! empty( $update ) ) {
+		if( ! empty( $update ) && ! empty( $update->basic ) ) {
 
 			$updateVersion 		= $update->basic->version;
 			$updateVersionDate 	= get_option( 'ls-latest-version-date', date('Y-m-d') );

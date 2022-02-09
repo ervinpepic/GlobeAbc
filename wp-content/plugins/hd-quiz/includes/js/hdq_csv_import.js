@@ -51,7 +51,7 @@ const HDQ = {
 						HDQ.parseNext(p);
 					}, 2000); // delay to stop overloading slow servers
 				} else {
-					let item = `<div class = "hdq_log_item" style = "color:darkseagreen">ALL QUESTIONS HAVE BEEN ADDED</div>`;
+					let item = `<div class = "hdq_log_item" style = "color:darkseagreen">ALL QUESTIONS HAVE BEEN ADDED<br/><br/>added ${HDQ.VARS.total} / ${HDQ.VARS.total} questions</div>`;
 					HDQ.EL.log.insertAdjacentHTML("afterbegin", item);
 				}
 			},

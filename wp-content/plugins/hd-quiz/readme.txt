@@ -2,8 +2,8 @@
 Contributors: HarmonicDesign
 Tags: quiz, quizzes, quizes, quiz, questionnaire, questionnaires, questionnairs, questionair, questionaires, hdquiz, hd quiz, test, question and answers, harmonic design
 Requires at least: 5
-Tested up to: 5.8
-Stable tag: 1.8.4
+Tested up to: 5.9
+Stable tag: 1.8.5
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -148,6 +148,13 @@ Quiz, quizzes, create a quiz, add a quiz, quiz plugin, hdq, harmonic design
 4. Questions Page
 
 == Changelog ==
+= 1.8.5 =
+* Better accessability (keyboard navigation)
+* Better support for timer per-question and select all that apply question type
+* New hook to better add custom data attributes to questions
+* Minor bug fixes
+* New Trivia Company page
+
 = 1.8.4 =
 * Minor updates
 * Security Update
@@ -265,6 +272,9 @@ Massive rewrite of almost the entire plugin. Please do not hesitate to ask for s
 * These options are global options and can be found under HD Quiz -> About / Options
 
 == Upgrade Notice ==
-= 1.8.4 =
-* Minor updates
-* Security Update
+= 1.8.5 =
+* Better accessability (keyboard navigation)
+* Better support for timer per-question and select all that apply question type
+* New hook to better add custom data attributes to questions
+* Minor bug fixes
+* New Trivia Company page
