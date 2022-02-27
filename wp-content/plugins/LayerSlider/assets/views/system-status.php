@@ -305,7 +305,7 @@ include LS_ROOT_PATH . '/includes/ls_global.php';
 						<tr class="<?= ! $test ? 'ls--error' : '' ?>">
 							<td><?= __('PHP Time Limit:', 'LayerSlider') ?></td>
 							<td><?= lsGetSVGIcon( ! $test ? 'exclamation-triangle' : 'check' ) ?></td>
-							<td><?= ! empty( $timeout ) ? $timeout.'s' : 'No limit' ?></td>
+							<td><?= ! empty( $timeout ) ? $timeout.'s' : __('No limit', 'LayerSlider') ?></td>
 							<td>
 								<?php if( ! $test ) : ?>
 								<ls-span><?= __('PHP max. execution time should be set to at least 60 seconds or higher when importing large projects. Please contact your host and ask them to change this PHP setting on your web server accordingly.', 'LayerSlider') ?></ls-span>

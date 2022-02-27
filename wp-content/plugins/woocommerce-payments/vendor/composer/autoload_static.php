@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit52c0942ff6f788f7ebcb683949362138
+class ComposerStaticInit3674d330746a378ff630133eb4e24307
 {
     public static $files = array (
         '3773ef3f09c37da5478d578e32b03a4b' => __DIR__ . '/..' . '/automattic/jetpack-assets/actions.php',
@@ -51,6 +51,7 @@ class ComposerStaticInit52c0942ff6f788f7ebcb683949362138
     public static $classMap = array (
         'Automattic\\Jetpack\\A8c_Mc_Stats' => __DIR__ . '/..' . '/automattic/jetpack-a8c-mc-stats/src/class-a8c-mc-stats.php',
         'Automattic\\Jetpack\\Assets' => __DIR__ . '/..' . '/automattic/jetpack-assets/src/class-assets.php',
+        'Automattic\\Jetpack\\Assets\\Logo' => __DIR__ . '/..' . '/automattic/jetpack-logo/src/class-logo.php',
         'Automattic\\Jetpack\\Assets\\Semver' => __DIR__ . '/..' . '/automattic/jetpack-assets/src/class-semver.php',
         'Automattic\\Jetpack\\Autoloader\\AutoloadFileWriter' => __DIR__ . '/..' . '/automattic/jetpack-autoloader/src/AutoloadFileWriter.php',
         'Automattic\\Jetpack\\Autoloader\\AutoloadGenerator' => __DIR__ . '/..' . '/automattic/jetpack-autoloader/src/AutoloadGenerator.php',
@@ -60,6 +61,7 @@ class ComposerStaticInit52c0942ff6f788f7ebcb683949362138
         'Automattic\\Jetpack\\Config' => __DIR__ . '/..' . '/automattic/jetpack-config/src/class-config.php',
         'Automattic\\Jetpack\\Connection\\Client' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-client.php',
         'Automattic\\Jetpack\\Connection\\Error_Handler' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-error-handler.php',
+        'Automattic\\Jetpack\\Connection\\Initial_State' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-initial-state.php',
         'Automattic\\Jetpack\\Connection\\Manager' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-manager.php',
         'Automattic\\Jetpack\\Connection\\Manager_Interface' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/interface-manager.php',
         'Automattic\\Jetpack\\Connection\\Nonce_Handler' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-nonce-handler.php',
@@ -79,12 +81,17 @@ class ComposerStaticInit52c0942ff6f788f7ebcb683949362138
         'Automattic\\Jetpack\\Connection\\XMLRPC_Connector' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-xmlrpc-connector.php',
         'Automattic\\Jetpack\\Constants' => __DIR__ . '/..' . '/automattic/jetpack-constants/src/class-constants.php',
         'Automattic\\Jetpack\\Heartbeat' => __DIR__ . '/..' . '/automattic/jetpack-heartbeat/src/class-heartbeat.php',
+        'Automattic\\Jetpack\\IdentityCrisis\\REST_Endpoints' => __DIR__ . '/..' . '/automattic/jetpack-identity-crisis/src/class-rest-endpoints.php',
+        'Automattic\\Jetpack\\IdentityCrisis\\UI' => __DIR__ . '/..' . '/automattic/jetpack-identity-crisis/src/class-ui.php',
+        'Automattic\\Jetpack\\Identity_Crisis' => __DIR__ . '/..' . '/automattic/jetpack-identity-crisis/src/class-identity-crisis.php',
         'Automattic\\Jetpack\\Redirect' => __DIR__ . '/..' . '/automattic/jetpack-redirect/src/class-redirect.php',
         'Automattic\\Jetpack\\Roles' => __DIR__ . '/..' . '/automattic/jetpack-roles/src/class-roles.php',
         'Automattic\\Jetpack\\Status' => __DIR__ . '/..' . '/automattic/jetpack-status/src/class-status.php',
         'Automattic\\Jetpack\\Status\\Host' => __DIR__ . '/..' . '/automattic/jetpack-status/src/class-host.php',
+        'Automattic\\Jetpack\\Status\\Visitor' => __DIR__ . '/..' . '/automattic/jetpack-status/src/class-visitor.php',
         'Automattic\\Jetpack\\Terms_Of_Service' => __DIR__ . '/..' . '/automattic/jetpack-terms-of-service/src/class-terms-of-service.php',
         'Automattic\\Jetpack\\Tracking' => __DIR__ . '/..' . '/automattic/jetpack-tracking/src/class-tracking.php',
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Composer\\Installers\\AglInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AglInstaller.php',
         'Composer\\Installers\\AimeosInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AimeosInstaller.php',
         'Composer\\Installers\\AnnotateCmsInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AnnotateCmsInstaller.php',
@@ -226,9 +233,9 @@ class ComposerStaticInit52c0942ff6f788f7ebcb683949362138
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit52c0942ff6f788f7ebcb683949362138::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit52c0942ff6f788f7ebcb683949362138::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit52c0942ff6f788f7ebcb683949362138::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3674d330746a378ff630133eb4e24307::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3674d330746a378ff630133eb4e24307::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit3674d330746a378ff630133eb4e24307::$classMap;
 
         }, null, ClassLoader::class);
     }

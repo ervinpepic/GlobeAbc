@@ -7,119 +7,119 @@ $baseDir   = dirname($vendorDir);
 
 return array(
 	'WCPay\\MultiCurrency\\Compatibility\\WooCommerceProductAddOns' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/Compatibility/WooCommerceProductAddOns.php'
 	),
 	'WCPay\\MultiCurrency\\Compatibility\\WooCommerceFedEx' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/Compatibility/WooCommerceFedEx.php'
 	),
 	'WCPay\\MultiCurrency\\Compatibility\\WooCommerceBookings' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/Compatibility/WooCommerceBookings.php'
 	),
 	'WCPay\\MultiCurrency\\Compatibility\\WooCommerceSubscriptions' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/Compatibility/WooCommerceSubscriptions.php'
 	),
 	'WCPay\\MultiCurrency\\Compatibility\\WooCommerceUPS' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/Compatibility/WooCommerceUPS.php'
 	),
 	'WCPay\\MultiCurrency\\Compatibility\\WooCommerceDeposits' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/Compatibility/WooCommerceDeposits.php'
 	),
 	'WCPay\\MultiCurrency\\Compatibility\\WooCommercePreOrders' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/Compatibility/WooCommercePreOrders.php'
 	),
 	'WCPay\\MultiCurrency\\Compatibility\\BaseCompatibility' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/Compatibility/BaseCompatibility.php'
 	),
 	'WCPay\\MultiCurrency\\RestController' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/RestController.php'
 	),
 	'WCPay\\MultiCurrency\\SettingsOnboardCta' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/SettingsOnboardCta.php'
 	),
 	'WCPay\\MultiCurrency\\Settings' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/Settings.php'
 	),
 	'WCPay\\MultiCurrency\\FrontendPrices' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/FrontendPrices.php'
 	),
 	'WCPay\\MultiCurrency\\Tracking' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/Tracking.php'
 	),
 	'WCPay\\MultiCurrency\\PaymentMethodsCompatibility' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/PaymentMethodsCompatibility.php'
 	),
 	'WCPay\\MultiCurrency\\Geolocation' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/Geolocation.php'
 	),
 	'WCPay\\MultiCurrency\\BackendCurrencies' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/BackendCurrencies.php'
 	),
 	'WCPay\\MultiCurrency\\Notes\\NoteMultiCurrencyAvailable' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/Notes/NoteMultiCurrencyAvailable.php'
 	),
 	'WCPay\\MultiCurrency\\UserSettings' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/UserSettings.php'
 	),
 	'WCPay\\MultiCurrency\\Currency' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/Currency.php'
 	),
 	'WCPay\\MultiCurrency\\Analytics' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/Analytics.php'
 	),
 	'WCPay\\MultiCurrency\\Utils' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/Utils.php'
 	),
 	'WCPay\\MultiCurrency\\CurrencySwitcherBlock' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/CurrencySwitcherBlock.php'
 	),
 	'WCPay\\MultiCurrency\\MultiCurrency' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/MultiCurrency.php'
 	),
 	'WCPay\\MultiCurrency\\CurrencySwitcherWidget' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/CurrencySwitcherWidget.php'
 	),
 	'WCPay\\MultiCurrency\\AdminNotices' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/AdminNotices.php'
 	),
 	'WCPay\\MultiCurrency\\CountryFlags' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/CountryFlags.php'
 	),
 	'WCPay\\MultiCurrency\\FrontendCurrencies' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/FrontendCurrencies.php'
 	),
 	'WCPay\\MultiCurrency\\Compatibility' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/Compatibility.php'
 	),
 	'WCPay\\MultiCurrency\\StorefrontIntegration' => array(
-		'version' => '9999999-dev',
+		'version' => 'dev-trunk',
 		'path'    => $baseDir . '/includes/multi-currency/StorefrontIntegration.php'
 	),
 	'MyCLabs\\Enum\\Enum' => array(
@@ -523,175 +523,199 @@ return array(
 		'path'    => $vendorDir . '/composer/installers/src/Composer/Installers/MicroweberInstaller.php'
 	),
 	'Automattic\\Jetpack\\Autoloader\\AutoloadGenerator' => array(
-		'version' => '2.10.10.0',
+		'version' => '2.10.11.0',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/AutoloadGenerator.php'
 	),
 	'Automattic\\Jetpack\\Autoloader\\AutoloadProcessor' => array(
-		'version' => '2.10.10.0',
+		'version' => '2.10.11.0',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/AutoloadProcessor.php'
 	),
 	'Automattic\\Jetpack\\Autoloader\\AutoloadFileWriter' => array(
-		'version' => '2.10.10.0',
+		'version' => '2.10.11.0',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/AutoloadFileWriter.php'
 	),
 	'Automattic\\Jetpack\\Autoloader\\CustomAutoloaderPlugin' => array(
-		'version' => '2.10.10.0',
+		'version' => '2.10.11.0',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/CustomAutoloaderPlugin.php'
 	),
 	'Automattic\\Jetpack\\Autoloader\\ManifestGenerator' => array(
-		'version' => '2.10.10.0',
+		'version' => '2.10.11.0',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/ManifestGenerator.php'
 	),
+	'Automattic\\Jetpack\\IdentityCrisis\\UI' => array(
+		'version' => '0.7.0.0',
+		'path'    => $vendorDir . '/automattic/jetpack-identity-crisis/src/class-ui.php'
+	),
+	'Automattic\\Jetpack\\IdentityCrisis\\REST_Endpoints' => array(
+		'version' => '0.7.0.0',
+		'path'    => $vendorDir . '/automattic/jetpack-identity-crisis/src/class-rest-endpoints.php'
+	),
+	'Automattic\\Jetpack\\Identity_Crisis' => array(
+		'version' => '0.7.0.0',
+		'path'    => $vendorDir . '/automattic/jetpack-identity-crisis/src/class-identity-crisis.php'
+	),
+	'Automattic\\Jetpack\\Config' => array(
+		'version' => '1.6.0.0',
+		'path'    => $vendorDir . '/automattic/jetpack-config/src/class-config.php'
+	),
 	'Jetpack_XMLRPC_Server' => array(
-		'version' => '1.30.13.0',
+		'version' => '1.36.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-connection/legacy/class-jetpack-xmlrpc-server.php'
 	),
 	'Jetpack_IXR_Client' => array(
-		'version' => '1.30.13.0',
+		'version' => '1.36.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-connection/legacy/class-jetpack-ixr-client.php'
 	),
 	'Jetpack_Signature' => array(
-		'version' => '1.30.13.0',
+		'version' => '1.36.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-connection/legacy/class-jetpack-signature.php'
 	),
 	'Jetpack_IXR_ClientMulticall' => array(
-		'version' => '1.30.13.0',
+		'version' => '1.36.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-connection/legacy/class-jetpack-ixr-clientmulticall.php'
 	),
 	'Automattic\\Jetpack\\Connection\\Error_Handler' => array(
-		'version' => '1.30.13.0',
+		'version' => '1.36.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-connection/src/class-error-handler.php'
 	),
 	'Automattic\\Jetpack\\Connection\\REST_Connector' => array(
-		'version' => '1.30.13.0',
+		'version' => '1.36.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-connection/src/class-rest-connector.php'
 	),
 	'Automattic\\Jetpack\\Connection\\Plugin_Storage' => array(
-		'version' => '1.30.13.0',
+		'version' => '1.36.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-connection/src/class-plugin-storage.php'
 	),
 	'Automattic\\Jetpack\\Connection\\Client' => array(
-		'version' => '1.30.13.0',
+		'version' => '1.36.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-connection/src/class-client.php'
 	),
 	'Automattic\\Jetpack\\Connection\\Rest_Authentication' => array(
-		'version' => '1.30.13.0',
+		'version' => '1.36.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-connection/src/class-rest-authentication.php'
 	),
 	'Automattic\\Jetpack\\Connection\\Utils' => array(
-		'version' => '1.30.13.0',
+		'version' => '1.36.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-connection/src/class-utils.php'
 	),
 	'Automattic\\Jetpack\\Connection\\Package_Version' => array(
-		'version' => '1.30.13.0',
+		'version' => '1.36.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-connection/src/class-package-version.php'
 	),
 	'Automattic\\Jetpack\\Connection\\Manager_Interface' => array(
-		'version' => '1.30.13.0',
+		'version' => '1.36.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-connection/src/interface-manager.php'
 	),
+	'Automattic\\Jetpack\\Connection\\Initial_State' => array(
+		'version' => '1.36.0.0',
+		'path'    => $vendorDir . '/automattic/jetpack-connection/src/class-initial-state.php'
+	),
 	'Automattic\\Jetpack\\Connection\\Urls' => array(
-		'version' => '1.30.13.0',
+		'version' => '1.36.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-connection/src/class-urls.php'
 	),
 	'Automattic\\Jetpack\\Connection\\Plugin' => array(
-		'version' => '1.30.13.0',
+		'version' => '1.36.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-connection/src/class-plugin.php'
 	),
 	'Automattic\\Jetpack\\Connection\\Package_Version_Tracker' => array(
-		'version' => '1.30.13.0',
+		'version' => '1.36.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-connection/src/class-package-version-tracker.php'
 	),
 	'Automattic\\Jetpack\\Connection\\Server_Sandbox' => array(
-		'version' => '1.30.13.0',
+		'version' => '1.36.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-connection/src/class-server-sandbox.php'
 	),
 	'Automattic\\Jetpack\\Connection\\Manager' => array(
-		'version' => '1.30.13.0',
+		'version' => '1.36.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-connection/src/class-manager.php'
 	),
 	'Automattic\\Jetpack\\Connection\\XMLRPC_Connector' => array(
-		'version' => '1.30.13.0',
+		'version' => '1.36.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-connection/src/class-xmlrpc-connector.php'
 	),
 	'Automattic\\Jetpack\\Connection\\XMLRPC_Async_Call' => array(
-		'version' => '1.30.13.0',
+		'version' => '1.36.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-connection/src/class-xmlrpc-async-call.php'
 	),
 	'Automattic\\Jetpack\\Connection\\Webhooks' => array(
-		'version' => '1.30.13.0',
+		'version' => '1.36.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-connection/src/class-webhooks.php'
 	),
 	'Automattic\\Jetpack\\Connection\\Secrets' => array(
-		'version' => '1.30.13.0',
+		'version' => '1.36.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-connection/src/class-secrets.php'
 	),
 	'Automattic\\Jetpack\\Connection\\Nonce_Handler' => array(
-		'version' => '1.30.13.0',
+		'version' => '1.36.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-connection/src/class-nonce-handler.php'
 	),
 	'Automattic\\Jetpack\\Connection\\Tokens' => array(
-		'version' => '1.30.13.0',
+		'version' => '1.36.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-connection/src/class-tokens.php'
 	),
-	'Automattic\\Jetpack\\Config' => array(
-		'version' => '1.5.3.0',
-		'path'    => $vendorDir . '/automattic/jetpack-config/src/class-config.php'
-	),
-	'Automattic\\Jetpack\\Heartbeat' => array(
-		'version' => '1.3.15.0',
-		'path'    => $vendorDir . '/automattic/jetpack-heartbeat/src/class-heartbeat.php'
+	'Automattic\\Jetpack\\Assets\\Logo' => array(
+		'version' => '1.5.14.0',
+		'path'    => $vendorDir . '/automattic/jetpack-logo/src/class-logo.php'
 	),
 	'Automattic\\Jetpack\\Redirect' => array(
-		'version' => '1.7.8.0',
+		'version' => '1.7.10.0',
 		'path'    => $vendorDir . '/automattic/jetpack-redirect/src/class-redirect.php'
 	),
 	'Automattic\\Jetpack\\Roles' => array(
-		'version' => '1.4.12.0',
+		'version' => '1.4.14.0',
 		'path'    => $vendorDir . '/automattic/jetpack-roles/src/class-roles.php'
 	),
+	'Automattic\\Jetpack\\Heartbeat' => array(
+		'version' => '1.4.0.0',
+		'path'    => $vendorDir . '/automattic/jetpack-heartbeat/src/class-heartbeat.php'
+	),
 	'Jetpack_Tracks_Client' => array(
-		'version' => '1.13.19.0',
+		'version' => '1.14.1.0',
 		'path'    => $vendorDir . '/automattic/jetpack-tracking/legacy/class-jetpack-tracks-client.php'
 	),
 	'Jetpack_Tracks_Event' => array(
-		'version' => '1.13.19.0',
+		'version' => '1.14.1.0',
 		'path'    => $vendorDir . '/automattic/jetpack-tracking/legacy/class-jetpack-tracks-event.php'
 	),
 	'Automattic\\Jetpack\\Tracking' => array(
-		'version' => '1.13.19.0',
+		'version' => '1.14.1.0',
 		'path'    => $vendorDir . '/automattic/jetpack-tracking/src/class-tracking.php'
 	),
 	'Automattic\\Jetpack\\Assets' => array(
-		'version' => '1.15.0.0',
+		'version' => '1.17.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-assets/src/class-assets.php'
 	),
 	'Automattic\\Jetpack\\Assets\\Semver' => array(
-		'version' => '1.15.0.0',
+		'version' => '1.17.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-assets/src/class-semver.php'
 	),
 	'Automattic\\Jetpack\\A8c_Mc_Stats' => array(
-		'version' => '1.4.10.0',
+		'version' => '1.4.12.0',
 		'path'    => $vendorDir . '/automattic/jetpack-a8c-mc-stats/src/class-a8c-mc-stats.php'
 	),
 	'Automattic\\Jetpack\\Terms_Of_Service' => array(
-		'version' => '1.9.17.0',
+		'version' => '1.9.19.0',
 		'path'    => $vendorDir . '/automattic/jetpack-terms-of-service/src/class-terms-of-service.php'
 	),
-	'Jetpack_Options' => array(
-		'version' => '1.14.1.0',
-		'path'    => $vendorDir . '/automattic/jetpack-options/legacy/class-jetpack-options.php'
+	'Automattic\\Jetpack\\Status\\Visitor' => array(
+		'version' => '1.10.0.0',
+		'path'    => $vendorDir . '/automattic/jetpack-status/src/class-visitor.php'
 	),
 	'Automattic\\Jetpack\\Status\\Host' => array(
-		'version' => '1.9.4.0',
+		'version' => '1.10.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-status/src/class-host.php'
 	),
 	'Automattic\\Jetpack\\Status' => array(
-		'version' => '1.9.4.0',
+		'version' => '1.10.0.0',
 		'path'    => $vendorDir . '/automattic/jetpack-status/src/class-status.php'
 	),
+	'Jetpack_Options' => array(
+		'version' => '1.14.2.0',
+		'path'    => $vendorDir . '/automattic/jetpack-options/legacy/class-jetpack-options.php'
+	),
 	'Automattic\\Jetpack\\Constants' => array(
-		'version' => '1.6.13.0',
+		'version' => '1.6.15.0',
 		'path'    => $vendorDir . '/automattic/jetpack-constants/src/class-constants.php'
 	),
 );

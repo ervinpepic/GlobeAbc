@@ -21,11 +21,11 @@
 						<td><?= __('Close active interface elements like panels, modal windows, etc.', 'LayerSlider') ?></td>
 					</tr>
 					<tr>
-						<td><kbd class="lse-key lse-key-wide lse-key-enter"></kbd> </lse-i><?= __('in text fields', 'LayerSlider') ?></lse-i></td>
+						<td><kbd class="lse-key lse-key-wide lse-key-enter"></kbd> <lse-i><?= __('in text fields', 'LayerSlider') ?></lse-i></td>
 						<td><?= __('Lose focus on current form item to make all keyboard shortcuts accessible.', 'LayerSlider') ?></td>
 					</tr>
 					<tr>
-						<td><kbd class="lse-key lse-key-wide lse-key-enter"></kbd> </lse-i><?= __('on selected layer', 'LayerSlider') ?></lse-i></td>
+						<td><kbd class="lse-key lse-key-wide lse-key-enter"></kbd> <lse-i><?= __('on selected layer', 'LayerSlider') ?></lse-i></td>
 						<td><?= __('Quick edit the selected layer, so you can change its contents in the preview area.', 'LayerSlider') ?></td>
 					</tr>
 					<tr>
@@ -57,7 +57,7 @@
 					<tr>
 						<td>
 							<kbd class="lse-key lse-key-wide lse-key-ctrl"></kbd> + <kbd class="lse-key">Y</kbd>
-							</lse-i class="lse-n1">or</lse-i><br>
+							<lse-i class="lse-n1">or</lse-i><br>
 							<kbd class="lse-key lse-key-wide lse-key-ctrl"></kbd> + <kbd class="lse-key lse-key-wide lse-key-shift"></kbd> +
 							<kbd class="lse-key">Z</kbd>
 						</td>
@@ -204,16 +204,15 @@
 					</tr>
 					<tr>
 						<td>
-							</lse-i>Hold</lse-i>
-							<kbd class="lse-key lse-key-wide lse-key-shift"></kbd>
-							</lse-i>while dragging layers</lse-i>
+							<lse-i><?= sprintf(__('Hold %s while dragging layers', 'LayerSlider'), '</lse-i>
+							<kbd class="lse-key lse-key-wide lse-key-shift"></kbd> <lse-i>') ?></lse-i>
 						</td>
 						<td><?= __('Move layers along their vertical or horizontal axis only.', 'LayerSlider') ?></td>
 					</tr>
 					<tr>
 						<td>
-							</lse-i>Hold</lse-i>
-							<kbd class="lse-key lse-key-wide lse-key-ctrl"></kbd> </lse-i>while dragging layers</lse-i>
+							<lse-i><?= sprintf(__('Hold %s while dragging layers', 'LayerSlider'), '</lse-i>
+							<kbd class="lse-key lse-key-wide lse-key-ctrl"></kbd> <lse-i>') ?></lse-i>
 						</td>
 						<td>
 							<?= __('Disable layer snapping to freely move layers around.', 'LayerSlider') ?>

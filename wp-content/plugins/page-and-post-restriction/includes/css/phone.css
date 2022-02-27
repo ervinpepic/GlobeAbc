@@ -89,7 +89,7 @@
 .f16 .flag {
     width: 16px;
     height: 16px;
-    background: url("images/flags16.png") no-repeat;
+    background: url("../images/flags16.png") no-repeat;
 }
 
 .f16 ._African_Union {

@@ -6781,8 +6781,8 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 														<lse-row>
 															<lse-col class="lse-placeholder lse-wide">
 																<lse-ib class="lse-1-2">
-																	<input type="text" placeholder="key" class="lse-key">
-																	<input type="text" placeholder="value" class="lse-value">
+																	<input type="text" placeholder="<?= _x('key', 'HTML attribute key', 'LayerSlider') ?>" class="lse-key">
+																	<input type="text" placeholder="<?= _x('value', 'HTML attribute value', 'LayerSlider') ?>" class="lse-value">
 																	<label class="ls-switch" data-tt-de="0" data-tt=".tt-custom-attributes-checkbox"><input type="checkbox" checked><ls-switch></ls-switch></label>
 																</lse-ib>
 															</lse-col>

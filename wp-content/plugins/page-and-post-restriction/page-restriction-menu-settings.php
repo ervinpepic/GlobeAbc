@@ -11,7 +11,7 @@ function papr_page_restriction(){
 	} ?>
 
     <div id="papr_settings">
-        <div class="miniorange_container">
+        <div>
             <table style="width:100%;">
                 <tr>
                     <h2 class="nav-tab-wrapper">
@@ -236,7 +236,7 @@ function papr_login_restriction_page() {
 					    $count=0;
 						for ( $i=0;$i<$round;$i++) {
 							if($i+1<$round && $pages[$i]->ID==$pages[$i+1]->post_parent) {
-								echo '<a href="#" onclick="jQuery(\'#view' . $pages[$i]->ID . '\').toggle();"><img src="'. plugin_dir_url(__FILE__) . 'images/collapse1.png"></a>';
+								echo '<a href="#" onclick="jQuery(\'#view' . $pages[$i]->ID . '\').toggle();"><img src="'. plugin_dir_url(__FILE__) . 'includes/images/collapse1.png"></a>';
 								echo '<input type="checkbox" class="checkBoxClass3" id='.$pages[$i]->ID.' name="' . $pages[$i]->ID . '" onclick="papr_Check('.$pages[$i]->ID.',this)" value="true"';
 										if ( array_key_exists($pages[$i]->ID , $allowed_page ) ) {
 											echo "checked";
@@ -261,7 +261,7 @@ function papr_login_restriction_page() {
 						        			}
 
 						        			if($j+1<$round&&$pages[$j]->ID==$pages[$j+1]->post_parent) {
-						        				echo '&nbsp&nbsp&nbsp<a href="#" onclick="jQuery(\'#view' . $pages[$j]->ID . '\').toggle();";"FUNCTION1()"><img id="ig1" src="'. plugin_dir_url(__FILE__) . 'images/collapse1.png"></a>';
+						        				echo '&nbsp&nbsp&nbsp<a href="#" onclick="jQuery(\'#view' . $pages[$j]->ID . '\').toggle();";"FUNCTION1()"><img id="ig1" src="'. plugin_dir_url(__FILE__) . 'includes/images/collapse1.png"></a>';
 						        				echo '<input type="checkbox" class="checkBoxClass3" name="'. $pages[$j]->ID . '" onclick="papr_Check('.$pages[$j]->ID.',this )"  value="true"';
 						                        	if ( array_key_exists($pages[$j]->ID , $allowed_page )) {
 														echo "checked";
@@ -659,7 +659,7 @@ function papr_user_restriction_page() {
 				for( $i=0; $i<$round; $i++){
 					$x=$i;
 					if($i+1<$round&&$pages[$i]->ID==$pages[$i+1]->post_parent){
-						echo '<a href="#" onclick="jQuery(\'#view' . $pages[$i]->ID . '\').toggle();"><img src="'. plugin_dir_url(__FILE__) . 'images/collapse1.png"></a>';
+						echo '<a href="#" onclick="jQuery(\'#view' . $pages[$i]->ID . '\').toggle();"><img src="'. plugin_dir_url(__FILE__) . 'includes/images/collapse1.png"></a>';
 						echo '<input type="checkbox" class="checkBoxClass1" name="'. $pages[$i]->ID . '" onclick="papr_Check('.$pages[$i]->ID.',this )"  value="true" onchange="papr_requireInput(this,\''. $pages[$i]->ID .'\');"';
 							if(is_array($restrictedpages))
 								if ( in_array($pages[$i]->ID, $restrictedpages) ) {
@@ -689,7 +689,7 @@ function papr_user_restriction_page() {
 	                    		}
 
 			                    if( $j+1 < $round && $pages[$j]->ID==$pages[$j+1]->post_parent){
-	                    			echo '&nbsp&nbsp&nbsp&nbsp<a href="#" onclick="jQuery(\'#view' . $pages[$j]->ID . '\').toggle();";"FUNCTION1()"><img id="ig1" src="'. plugin_dir_url(__FILE__) . 'images/collapse1.png"></a>';
+	                    			echo '&nbsp&nbsp&nbsp&nbsp<a href="#" onclick="jQuery(\'#view' . $pages[$j]->ID . '\').toggle();";"FUNCTION1()"><img id="ig1" src="'. plugin_dir_url(__FILE__) . 'includes/images/collapse1.png"></a>';
 	                    			echo '<input type="checkbox" class="checkBoxClass1" name="'. $pages[$j]->ID . '" onclick="papr_Check('.$pages[$j]->ID.',this )"  value="true" onchange="papr_requireInput(this,\''. $pages[$j]->ID .'\');"';
 										if(is_array($restrictedpages))
 											if ( in_array($pages[$j]->ID, $restrictedpages) ) {
@@ -913,7 +913,7 @@ function papr_restrict_complete_post_type(){
 				));
 
 				if(count($post_ids)!=0) {
-					echo '<a href="#" onclick="jQuery(\'#view' . $post_key . '\').toggle();"><img src="'. plugin_dir_url(__FILE__) . 'images/collapse1.png"></a>';
+					echo '<a href="#" onclick="jQuery(\'#view' . $post_key . '\').toggle();"><img src="'. plugin_dir_url(__FILE__) . 'includes/images/collapse1.png"></a>';
 				}
 
 				echo '&nbsp<input type="checkbox" class="checkBoxClass4" name="mo_redirect_post_' . $post_key . '" value="true" ';
@@ -1212,14 +1212,14 @@ function papr_show_new_registration_page() {
 	                <table>
 	                    <tr>
 	                        <td><b><font color="#FF0000">*</font>Email:</b></td>
-	                        <td><input class="mo_saml_table_textbox" style="width:100%" type="email" name="email"
+	                        <td><input class="mo_papr_table_textbox" style="width:100%" type="email" name="email"
 	                                   required placeholder="person@example.com"
 	                                   value="<?php echo ( get_option( 'papr_admin_email' ) == '' ) ? get_option( 'admin_email' ) : get_option( 'papr_admin_email' ); ?>"/>
 	                        </td>
 	                    </tr>
 	                    <tr>
 	                        <td><b><font color="#FF0000">*</font>Password:</b></td>
-	                        <td><input class="mo_saml_table_textbox" style="width:100%" required type="password"
+	                        <td><input class="mo_papr_table_textbox" style="width:100%" required type="password"
 	                                   name="password" placeholder="Choose your password (Min. length 6)"
 	                                   minlength="6" pattern="^[(\w)*(!@#$.%^&*-_)*]+$"
 	                                   title="Minimum 6 characters should be present. Maximum 15 characters should be present. Only following symbols (!@#.$%^&*) should be present."
@@ -1227,7 +1227,7 @@ function papr_show_new_registration_page() {
 	                    </tr>
 	                    <tr>
 	                        <td><b><font color="#FF0000">*</font>Confirm Password:</b></td>
-	                        <td><input class="mo_saml_table_textbox" style="width:100%" required type="password"
+	                        <td><input class="mo_papr_table_textbox" style="width:100%" required type="password"
 	                                   name="confirmPassword" placeholder="Confirm your password"
 	                                   minlength="6" pattern="^[(\w)*(!@#$.%^&*-_)*]+$"
 	                                   title="Minimum 6 characters should be present. Maximum 15 characters should be present. Only following symbols (!@#.$%^&*) should be present.">
@@ -1267,10 +1267,8 @@ function papr_show_verify_password_page() {
     <form name="f" method="post" action="">
     <?php wp_nonce_field("papr_verify_customer");?>
         <input type="hidden" name="option" value="papr_verify_customer">
-        <div style="display:block;margin-top:1px;background-color:rgba(255, 255, 255, 255);padding:10px 20px 20px 20px;border:solid 1px rgba(255, 255, 255, 255);border:solid 1px  #CCCCCC";>
-            <div id="toggle1" class="panel_toggle">
+        <div style="display:block;margin-top:1px;background-color:rgba(255, 255, 255, 255);padding:10px 20px 20px 20px;border:solid 1px rgba(255, 255, 255, 255);">
                 <h3>Login with miniOrange</h3>
-            </div>
             <hr>
             <div id="panel1">
                 <p>
@@ -1282,14 +1280,14 @@ function papr_show_verify_password_page() {
                 <table>
                     <tr>
                         <td><b><font color="#FF0000">*</font>Email:</b></td>
-                        <td><input class="mo_saml_table_textbox" style="width:120%" type="email" name="email"
+                        <td><input class="mo_papr_table_textbox" style="width:120%" type="email" name="email"
                                    required placeholder="person@example.com"
                                    value="<?php echo get_option( 'papr_admin_email' ); ?>"/>
                         </td>
                     </tr>
                     <tr>
                         <td><b><font color="#FF0000">*</font>Password:</b></td>
-                        <td><input class="mo_saml_table_textbox" style="width:120%" required type="password"
+                        <td><input class="mo_papr_table_textbox" style="width:120%" required type="password"
                                    name="password" placeholder="Enter your password"
                                    minlength="6" pattern="^[(\w)*(!@#$.%^&*-_)*]+$"
                                    title="Minimum 6 characters should be present. Maximum 15 characters should be present. Only following symbols (!@#.$%^&*) should be present.">

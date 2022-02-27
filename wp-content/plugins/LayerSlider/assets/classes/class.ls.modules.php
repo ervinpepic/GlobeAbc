@@ -40,6 +40,13 @@ class LS_Modules {
 				'file' 		=> 'icons.js'
 			],
 
+			'font-awesome-6' 	=> [
+				'name' 		=> 'Font Awesome 6',
+				'icon' 		=> 'font-awesome-6',
+				'handle' 	=> 'font-awesome-6.0.0',
+				'file' 		=> 'icons.js'
+			],
+
 			'ionicons' 	=> [
 				'name' 		=> 'Ionicons',
 				'icon' 		=> 'ionicons',

@@ -2,7 +2,7 @@
 /**
 * Plugin Name: Page Restriction WordPress (WP) - Protect WP Pages/Post
 * Description: This plugin allows restriction over users based on their roles and whether they are logged in or not.
-* Version: 1.2.4
+* Version: 1.2.5
 * Author: miniOrange
 * Author URI: http://miniorange.com
 * License: MIT/Expat
@@ -31,7 +31,7 @@ class page_and_post_restriction_add_on {
     }
 
     function papr_menu() {
-        add_menu_page('Page and Post Restriction','Page Restriction', 'administrator', 'page_restriction','papr_page_restriction',plugin_dir_url(__FILE__) . 'images/miniorange.png');
+        add_menu_page('Page and Post Restriction','Page Restriction', 'administrator', 'page_restriction','papr_page_restriction',plugin_dir_url(__FILE__) . 'includes/images/miniorange.png');
     }
 
     function papr_feedback_request() {
@@ -74,6 +74,7 @@ class page_and_post_restriction_add_on {
 
 
     function papr_add_custom_meta_box($post_type) {
+
     	global $pagenow;
         $papr_metabox_allowed_roles = get_option('papr_allowed_metabox_roles');
         if(empty($papr_metabox_allowed_roles))
@@ -220,9 +221,9 @@ class page_and_post_restriction_add_on {
             $role=get_option('papr_allowed_roles_for_posts');
         $roles=array();
         if(!empty($role) && array_key_exists($post->ID, $role)){
-        $string=$role[$post->ID];
-        $roles=explode(";",$string);
-    }
+            $string=$role[$post->ID];
+            $roles=explode(";",$string);
+        }
 
 
     $is_page_restrcited_for_loggedin_users = 'false';
@@ -242,7 +243,7 @@ class page_and_post_restriction_add_on {
     		<?php esc_html_e( "Limit access to Logged in users.", 'mo-wpum' );  ?>
         </p>
         <div class="page-restrict-loggedin-user-div">
-
+            <input type="hidden" name="papr_metabox" value="true">
             <ul class="page-restrict-loggedin-user">
 
                 <label>
@@ -282,10 +283,13 @@ class page_and_post_restriction_add_on {
 
 /* Function to save the meta box details during creation/editing */
     static function papr_save_meta_box_info($post_id , $post, $update) {
-            
+
+        if(!isset($_POST['papr_metabox'])) return;
+
+        error_log('papr 287: '. print_r($_POST,true));
         $type=get_post_type();
         //TODO : handle UI for different post types
-        $pages=array();
+
         $allowed_redirect_pages=array();
         $restricted_pages = array();
         $page_allowed_roles = array();
@@ -293,50 +297,36 @@ class page_and_post_restriction_add_on {
         if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
 
         if($type=='page'){
-            $pages=get_pages();
             $allowed_roles= maybe_unserialize(get_option('papr_allowed_roles_for_pages'));
             $restrictedposts = get_option('papr_restricted_pages');
             if(!$restrictedposts)
                 $restrictedposts = array();
             $allowed_redirect_pages = get_option('papr_allowed_redirect_for_pages');
         } else {
-            $pages=get_posts(array(
-                'fields'  => 'ids', // get post IDs
-                'fields'  => 'post_title',
-                'numberposts'  => -1  // to get all the posts
-            ));
-
             $allowed_roles= maybe_unserialize(get_option('papr_allowed_roles_for_posts'));
             $restrictedposts = get_option('papr_restricted_posts');
             if(!$restrictedposts)
                 $restrictedposts = array();
             $allowed_redirect_pages = get_option('papr_allowed_redirect_for_posts');
         }
-        foreach($pages as $page){
-            $pageid = $page->ID;
 
-            if($pageid == $post_id){
-                if(isset( $_POST['papr_access_role'] )){
-                    array_push($restrictedposts, $pageid);
-                    $new_roles = $_POST['papr_access_role'];
-                    $allowed_roles[$page->ID] = implode(";",$new_roles);
-                } else {
-                    $restrictedpostsarray = $restrictedposts;
-                    if(is_array($restrictedpostsarray))
-                        while(($i = array_search($pageid, $restrictedpostsarray)) !== false) {
-                            unset($restrictedpostsarray[$i]);
-                            unset($allowed_roles[$page->ID]);
-                        }
-
-                    $restrictedposts = $restrictedpostsarray;
-
-                    $new_roles = '';
-                }
+        if(isset( $_POST['papr_access_role'] )){
+            array_push($restrictedposts, $post_id);
+            $new_roles = $_POST['papr_access_role'];
+            $allowed_roles[$post_id] = implode(";",$new_roles);
+        } else {
+            $restrictedpostsarray = $restrictedposts;
+            if(is_array($restrictedpostsarray))
+                while(($i = array_search($post_id, $restrictedpostsarray)) !== false) {
+                unset($restrictedpostsarray[$i]);
+                unset($allowed_roles[$post_id]);
             }
 
+            $restrictedposts = $restrictedpostsarray;
+            $new_roles = '';
         }
 
-        if( isset( $_POST['restrict_page_access_loggedin_user'] ) ) {
+        if( isset($_POST['restrict_page_access_loggedin_user']) ) {
             $allowed_redirect_pages[$post_id]=true;
         }else{
             unset($allowed_redirect_pages[$post_id]);

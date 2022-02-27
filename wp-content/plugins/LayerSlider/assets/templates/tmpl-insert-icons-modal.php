@@ -6,6 +6,7 @@ $registered = LS_Config::isActivatedSite();
 
 $iconModules = [
 	$modules['font-awesome-5'],
+	$modules['font-awesome-6'],
 	'Material Design',
 	$modules['material-filled'],
 	$modules['material-outlined'],

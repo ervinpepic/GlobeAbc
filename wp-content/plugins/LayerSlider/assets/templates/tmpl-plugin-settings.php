@@ -147,7 +147,7 @@ $googleFonts = get_option( 'ls-google-fonts', [] );
 								])?>
 							</td>
 							<td>
-								<?= __('Making the web more beautiful, fast, and open through great typography. Google Fonts provides over a thousand of web-optimized fonts that you can use in your projects.') ?>
+								<?= __('Making the web more beautiful, fast, and open through great typography. Google Fonts provides over a thousand of web-optimized fonts that you can use in your projects.', 'LayerSlider') ?>
 							</td>
 						</tr>
 					</table>
