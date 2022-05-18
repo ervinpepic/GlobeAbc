@@ -10,14 +10,6 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
-<div class="wrapper-profile-header wrap-fullwidth">
-	<div class="lp-content-area lp-profile-content-area">
- 			<?php do_action( 'learn-press/user-profile-account' ); ?>
- 	</div>
-</div>
+<?php do_action( 'learn-press/user-profile-account' ); ?>
 
-<aside id="profile-sidebar">
-
-	<?php do_action( 'learn-press/user-profile-tabs' ); ?>
-
-</aside>
+<?php do_action( 'learn-press/user-profile-tabs' ); ?>
