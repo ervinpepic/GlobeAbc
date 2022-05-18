@@ -60,7 +60,7 @@
   height: 16px;
   margin-top: 15px;
   border-radius: 2px;
-  background: linear-gradient(90deg, rgba(190, 190, 190, 0.2) 25%, rgba(129, 129, 129, 0.24) 37%, rgba(190, 190, 190, 0.2) 63%);
+  background: linear-gradient(90deg, hsla(0deg, 0%, 74.5%, 0.2) 25%, hsla(0deg, 0%, 50.6%, 0.24) 37%, hsla(0deg, 0%, 74.5%, 0.2) 63%);
   background-size: 400% 100%;
   list-style: none;
   animation: lp-skeleton-loading 1.4s ease infinite;
@@ -147,6 +147,7 @@
 .learnpress-widget-wrapper .lp-widget-course__instructor__avatar img {
   width: 20px;
   border-radius: 20px;
+  height: 20px;
 }
 .learnpress-widget-wrapper .lp-widget-course__instructor > a {
   color: #777;

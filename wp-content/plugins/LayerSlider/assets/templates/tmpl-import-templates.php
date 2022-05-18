@@ -201,11 +201,11 @@ $demoSliders = LS_Sources::getDemoSliders();
 				<ul class="source-filter">
 					<li data-index="1" class="active">
 						<img src="<?= LS_ROOT_URL.'/static/admin/img/kreatura-logo-red.png' ?>" alt="Kreatura logo">
-						<?= __('Kreatura', 'LayerSlider') ?>
+						Kreatura
 					</li>
 					<li data-index="2">
 						<img src="<?= LS_ROOT_URL.'/static/admin/img/webshopworks-logo-red.png' ?>" alt="WebshopWorks logo">
-						<?= __('WebshopWorks', 'LayerSlider') ?>
+						WebshopWorks
 					</li>
 				</ul>
 
@@ -311,11 +311,11 @@ $demoSliders = LS_Sources::getDemoSliders();
 				<ul class="source-filter">
 					<li data-index="1">
 						<img src="<?= LS_ROOT_URL.'/static/admin/img/kreatura-logo-red.png' ?>" alt="Kreatura logo">
-						<?= __('Kreatura', 'LayerSlider') ?>
+						Kreatura
 					</li>
 					<li data-index="2" class="active">
 						<img src="<?= LS_ROOT_URL.'/static/admin/img/webshopworks-logo-red.png' ?>" alt="WebshopWorks logo">
-						<?= __('WebshopWorks', 'LayerSlider') ?>
+						WebshopWorks
 					</li>
 				</ul>
 

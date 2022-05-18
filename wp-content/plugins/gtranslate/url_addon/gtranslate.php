@@ -183,7 +183,7 @@ switch($_SERVER['REQUEST_METHOD']) {
 }
 
 // Debug
-if($debug or isset($_GET['enable_debug'])) {
+if($debug) {
     $fh = fopen(dirname(__FILE__).'/debug.txt', 'a');
     curl_setopt($ch, CURLOPT_VERBOSE, true);
     curl_setopt($ch, CURLOPT_STDERR, $fh);

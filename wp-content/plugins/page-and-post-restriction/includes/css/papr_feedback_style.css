@@ -1,7 +1,7 @@
 .mo_papr_modal {
     width: 90%;
     margin-left: 12%;
-    margin-top:5%;
+    margin-top: 5%;
     text-align: center;
     display: none;
     overflow: hidden;
@@ -27,9 +27,7 @@
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
     outline: 0;
-    margin-left: 20%;
-    margin-right: 24%;
-    margin-top: 6%;
+    margin: 2rem 29rem auto;
 }
 
 .papr_close {
@@ -48,10 +46,21 @@
     width: 75%;
 }
 
-.mo_papr_feedback_footer{
+.mo_papr_feedback_footer {
     margin-bottom: 2%;
 }
 
-.mo_papr_feedback_radio{
+.papr-btn-cstm {
+    background: linear-gradient(0deg, rgb(14 42 71) 0, rgb(26 69 138) 100%)!important;
+    border: none;
+    margin-right: 10px;
+    font-size: 1.1rem;
+    padding: .3rem 1.5rem;
+    color: #fff!important;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.mo_papr_feedback_radio {
     display: inline-block;
 }

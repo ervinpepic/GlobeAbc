@@ -3,9 +3,9 @@ Contributors: thimpress, tunnhn, kendy73
 Donate link:
 Tags: lms, elearning, e-learning, learning management system, education, course, courses, quiz, quizzes, questions, training, guru, sell courses
 Requires at least: 3.8
-Tested up to: 5.7
+Tested up to: 5.9
 Requires PHP: 7.0
-Stable tag: trunk
+Stable tag: 4.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,6 +55,12 @@ Check out <a href="http://docs.thimpress.com/learnpress" target="_blank">LearnPr
 1. LearnPress Prerequisite screenshot.
 
 == Changelog ==
+
+= 4.0.3 =
+~ Fixed: error can't add user on the backend LP Order.
+
+= 4.0.2 =
+~ Added: API wishlist.
 
 = 4.0.1 =
 + Fix minor bug.

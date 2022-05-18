@@ -299,6 +299,29 @@ $lsDefaults = [
 			]
 		],
 
+		'slideDuration' => [
+			'value' => '',
+			'name' => __('Slide Duration', 'LayerSlider'),
+			'keys' => 'slideDuration',
+			'desc' => __('The default time between slide changes. Leave this option empty to let LayerSlider manage it automatically. This value is in milliseconds, so the value 1000 means 1 second.', 'LayerSlider'),
+			'attrs' => ['type' => 'number']
+		],
+
+		'slideTransitionDuration' => [
+			'value' => '',
+			'name' => __('Transition Duration', 'LayerSlider'),
+			'keys' => 'slideTransitionDuration',
+			'desc' => __('You can speed up or slow down slide transitions by providing a custom animation duration. Leave this option empty to use the default speed. This value is in milliseconds, so the value 1000 means 1 second.', 'LayerSlider'),
+			'attrs' => ['type' => 'number']
+		],
+
+		'slideTimeShift' => [
+			'value' => 0,
+			'name' => __('TimeShift', 'LayerSlider'),
+			'keys' => 'slideTimeShift',
+			'desc' => __('You can shift the starting point of the slide animation timeline so that layers can animate in at an earlier time after a slide change. This value is in milliseconds, so the value 1000 means 1 second. You can only use negative values.', 'LayerSlider'),
+			'attrs' => ['max' => 0]
+		],
 
 		'parallaxSensitivity' => [
 			'value' => 10,
@@ -3906,7 +3929,9 @@ $lsDefaults = [
 			'keys' => 'position',
 			'options' => [
 				'' => __('Sides of the project', 'LayerSlider'),
-				'fixed' => __('Sides of the screen', 'LayerSlider')
+				'fixed' => __('Sides of the screen', 'LayerSlider'),
+				'fixedx' => __('Sides of the screen horizontally', 'LayerSlider'),
+				'fixedy' => __('Sides of the screen vertically', 'LayerSlider')
 			]
 		],
 

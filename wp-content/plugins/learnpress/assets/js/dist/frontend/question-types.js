@@ -1,142 +1,26 @@
-this["LP"] = this["LP"] || {}; this["LP"]["questionTypes"] =
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./assets/src/apps/js/frontend/question-types.js");
-/******/ })
-/************************************************************************/
-/******/ ({
-
-/***/ "./assets/src/apps/js/frontend/question-types.js":
-/*!*******************************************************!*\
-  !*** ./assets/src/apps/js/frontend/question-types.js ***!
-  \*******************************************************/
-/*! exports provided: QuestionBase, SingleChoice, MultipleChoices, TrueOrFalse, FillInBlanks, default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _question_types_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./question-types/index */ "./assets/src/apps/js/frontend/question-types/index.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "QuestionBase", function() { return _question_types_index__WEBPACK_IMPORTED_MODULE_0__["QuestionBase"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SingleChoice", function() { return _question_types_index__WEBPACK_IMPORTED_MODULE_0__["SingleChoice"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MultipleChoices", function() { return _question_types_index__WEBPACK_IMPORTED_MODULE_0__["MultipleChoices"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TrueOrFalse", function() { return _question_types_index__WEBPACK_IMPORTED_MODULE_0__["TrueOrFalse"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FillInBlanks", function() { return _question_types_index__WEBPACK_IMPORTED_MODULE_0__["FillInBlanks"]; });
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = (_question_types_index__WEBPACK_IMPORTED_MODULE_0__["default"]);
-
-/***/ }),
+/******/ (function() { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./assets/src/apps/js/frontend/question-types/components/index.js":
 /*!************************************************************************!*\
   !*** ./assets/src/apps/js/frontend/question-types/components/index.js ***!
   \************************************************************************/
-/*! exports provided: QuestionBase, SingleChoice, MultipleChoices, TrueOrFalse, FillInBlanks */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "FillInBlanks": function() { return /* reexport safe */ _questions_fill_in_blanks__WEBPACK_IMPORTED_MODULE_4__["default"]; },
+/* harmony export */   "MultipleChoices": function() { return /* reexport safe */ _questions_multiple_choices__WEBPACK_IMPORTED_MODULE_2__["default"]; },
+/* harmony export */   "QuestionBase": function() { return /* reexport safe */ _question_base__WEBPACK_IMPORTED_MODULE_0__["default"]; },
+/* harmony export */   "SingleChoice": function() { return /* reexport safe */ _questions_single_choice__WEBPACK_IMPORTED_MODULE_1__["default"]; },
+/* harmony export */   "TrueOrFalse": function() { return /* reexport safe */ _questions_true_or_false__WEBPACK_IMPORTED_MODULE_3__["default"]; }
+/* harmony export */ });
 /* harmony import */ var _question_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./question-base */ "./assets/src/apps/js/frontend/question-types/components/question-base/index.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "QuestionBase", function() { return _question_base__WEBPACK_IMPORTED_MODULE_0__["default"]; });
-
 /* harmony import */ var _questions_single_choice__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./questions/single-choice */ "./assets/src/apps/js/frontend/question-types/components/questions/single-choice/index.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SingleChoice", function() { return _questions_single_choice__WEBPACK_IMPORTED_MODULE_1__["default"]; });
-
 /* harmony import */ var _questions_multiple_choices__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./questions/multiple-choices */ "./assets/src/apps/js/frontend/question-types/components/questions/multiple-choices/index.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MultipleChoices", function() { return _questions_multiple_choices__WEBPACK_IMPORTED_MODULE_2__["default"]; });
-
 /* harmony import */ var _questions_true_or_false__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./questions/true-or-false */ "./assets/src/apps/js/frontend/question-types/components/questions/true-or-false/index.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TrueOrFalse", function() { return _questions_true_or_false__WEBPACK_IMPORTED_MODULE_3__["default"]; });
-
 /* harmony import */ var _questions_fill_in_blanks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./questions/fill-in-blanks */ "./assets/src/apps/js/frontend/question-types/components/questions/fill-in-blanks/index.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FillInBlanks", function() { return _questions_fill_in_blanks__WEBPACK_IMPORTED_MODULE_4__["default"]; });
-
 
 
 
@@ -149,64 +33,37 @@ __webpack_require__.r(__webpack_exports__);
 /*!**************************************************************************************!*\
   !*** ./assets/src/apps/js/frontend/question-types/components/question-base/index.js ***!
   \**************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /* eslint-disable no-mixed-spaces-and-tabs */
 
 
 
-var _lodash = lodash,
-    isArray = _lodash.isArray,
-    get = _lodash.get,
-    set = _lodash.set;
+const {
+  isArray,
+  get,
+  set
+} = lodash;
 
-var QuestionBase = /*#__PURE__*/function (_Component) {
-  _inherits(QuestionBase, _Component);
+class QuestionBase extends _wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Component {
+  constructor(_props) {
+    super(...arguments);
 
-  var _super = _createSuper(QuestionBase);
-
-  function QuestionBase(_props) {
-    var _this;
-
-    _classCallCheck(this, QuestionBase);
-
-    _this = _super.apply(this, arguments);
-
-    _defineProperty(_assertThisInitialized(_this), "prepare", function (props, state) {
-      var question = props.question;
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "prepare", (props, state) => {
+      const {
+        question
+      } = props;
 
       if (question && question.id !== state.questionId) {
         return {
@@ -217,64 +74,66 @@ var QuestionBase = /*#__PURE__*/function (_Component) {
       return null;
     });
 
-    _defineProperty(_assertThisInitialized(_this), "setInputRef", function (el, k) {
-      if (!_this.inputs) {
-        _this.inputs = {};
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "setInputRef", (el, k) => {
+      if (!this.inputs) {
+        this.inputs = {};
       }
 
-      _this.inputs[k] = el;
+      this.inputs[k] = el;
     });
 
-    _defineProperty(_assertThisInitialized(_this), "maybeShowCorrectAnswer", function () {
-      var _this$props = _this.props,
-          status = _this$props.status,
-          isCheckedAnswer = _this$props.isCheckedAnswer,
-          showCorrectReview = _this$props.showCorrectReview,
-          isReviewing = _this$props.isReviewing;
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "maybeShowCorrectAnswer", () => {
+      const {
+        status,
+        isCheckedAnswer,
+        showCorrectReview,
+        isReviewing
+      } = this.props;
       return status === 'completed' && showCorrectReview || isCheckedAnswer && !isReviewing;
     });
 
-    _defineProperty(_assertThisInitialized(_this), "maybeDisabledOption", function (option) {
-      var _this$props2 = _this.props,
-          answered = _this$props2.answered,
-          status = _this$props2.status,
-          isCheckedAnswer = _this$props2.isCheckedAnswer;
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "maybeDisabledOption", option => {
+      const {
+        answered,
+        status,
+        isCheckedAnswer
+      } = this.props;
       return isCheckedAnswer || status !== 'started';
     });
 
-    _defineProperty(_assertThisInitialized(_this), "setAnswerChecked", function () {
-      return function (event) {
-        var _this$props3 = _this.props,
-            updateUserQuestionAnswers = _this$props3.updateUserQuestionAnswers,
-            question = _this$props3.question,
-            status = _this$props3.status;
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "setAnswerChecked", () => event => {
+      const {
+        updateUserQuestionAnswers,
+        question,
+        status
+      } = this.props;
 
-        if (status !== 'started') {
-          return Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('LP Error: can not set answers', 'learnpress');
-        }
+      if (status !== 'started') {
+        return (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('LP Error: can not set answers', 'learnpress');
+      }
 
-        var $options = _this.$wrap.find('.option-check');
+      const $options = this.$wrap.find('.option-check');
+      const answered = [];
+      const isSingle = question.type !== 'multi_choice';
+      $options.each((i, option) => {
+        if (option.checked) {
+          answered.push(option.value);
 
-        var answered = [];
-        var isSingle = question.type !== 'multi_choice';
-        $options.each(function (i, option) {
-          if (option.checked) {
-            answered.push(option.value);
-
-            if (isSingle) {
-              return false;
-            }
+          if (isSingle) {
+            return false;
           }
-        });
-        updateUserQuestionAnswers(question.id, isSingle ? answered[0] : answered);
-      };
+        }
+      });
+      updateUserQuestionAnswers(question.id, isSingle ? answered[0] : answered);
     });
 
-    _defineProperty(_assertThisInitialized(_this), "maybeCheckedAnswer", function (value) {
-      var answered = _this.props.answered;
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "maybeCheckedAnswer", value => {
+      const {
+        answered
+      } = this.props;
 
       if (isArray(answered)) {
-        return !!answered.find(function (a) {
+        return !!answered.find(a => {
           return a == value;
         });
       }
@@ -282,8 +141,8 @@ var QuestionBase = /*#__PURE__*/function (_Component) {
       return value == answered;
     });
 
-    _defineProperty(_assertThisInitialized(_this), "getOptionType", function (questionType, option) {
-      var type = 'radio';
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "getOptionType", (questionType, option) => {
+      let type = 'radio';
 
       switch (questionType) {
         case 'multi_choice':
@@ -294,21 +153,23 @@ var QuestionBase = /*#__PURE__*/function (_Component) {
       return type;
     });
 
-    _defineProperty(_assertThisInitialized(_this), "isDefaultType", function () {
-      return _this.props.supportOptions;
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "isDefaultType", () => {
+      return this.props.supportOptions;
     });
 
-    _defineProperty(_assertThisInitialized(_this), "getWarningMessage", function () {
-      return /*#__PURE__*/React.createElement(React.Fragment, null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Render function should be overwritten from base.', 'learnpress'));
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "getWarningMessage", () => {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Render function should be overwritten from base.', 'learnpress'));
     });
 
-    _defineProperty(_assertThisInitialized(_this), "getOptionClass", function (option) {
-      var answered = _this.props.answered;
-      var classes = ['answer-option'];
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "getOptionClass", option => {
+      const {
+        answered
+      } = this.props;
+      const classes = ['answer-option'];
       return classes;
     });
 
-    _defineProperty(_assertThisInitialized(_this), "parseOptions", function (options) {
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "parseOptions", options => {
       if (options) {
         options = !isArray(options) ? JSON.parse(CryptoJS.AES.decrypt(options.data, options.key, {
           format: CryptoJSAesJson
@@ -319,20 +180,22 @@ var QuestionBase = /*#__PURE__*/function (_Component) {
       return options || [];
     });
 
-    _defineProperty(_assertThisInitialized(_this), "getOptions", function () {
-      return _this.state.options || [];
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "getOptions", () => {
+      return this.state.options || [];
     });
 
-    _defineProperty(_assertThisInitialized(_this), "isCorrect", function () {
-      var answered = _this.props.answered;
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "isCorrect", () => {
+      const {
+        answered
+      } = this.props;
 
       if (!answered) {
         return false;
       }
 
-      var i, option, options;
+      let i, option, options;
 
-      for (i = 0, options = _this.getOptions(); i < options.length; i++) {
+      for (i = 0, options = this.getOptions(); i < options.length; i++) {
         option = options[i];
 
         if (option.isTrue === 'yes') {
@@ -345,99 +208,95 @@ var QuestionBase = /*#__PURE__*/function (_Component) {
       return false;
     });
 
-    _defineProperty(_assertThisInitialized(_this), "isChecked", function () {
-      var question = _this.props.question;
-      return Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_1__["select"])('learnpress/quiz').isCheckedAnswer(question.id);
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "isChecked", () => {
+      const {
+        question
+      } = this.props;
+      return (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.select)('learnpress/quiz').isCheckedAnswer(question.id);
     });
 
-    _defineProperty(_assertThisInitialized(_this), "getCorrectLabel", function () {
-      var _this$props4 = _this.props,
-          status = _this$props4.status,
-          answered = _this$props4.answered,
-          question = _this$props4.question;
-      var checker = LP.config.isQuestionCorrect[question.type] || _this.isCorrect;
-      var isCorrect = checker.call(_assertThisInitialized(_this));
-      return _this.maybeShowCorrectAnswer() && /*#__PURE__*/React.createElement("div", {
-        className: "question-response" + (isCorrect ? ' correct' : ' incorrect')
-      }, /*#__PURE__*/React.createElement("span", {
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "getCorrectLabel", () => {
+      const {
+        status,
+        answered,
+        question
+      } = this.props;
+      const checker = LP.config.isQuestionCorrect[question.type] || this.isCorrect;
+      const isCorrect = checker.call(this);
+      return this.maybeShowCorrectAnswer() && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
+        className: `question-response` + (isCorrect ? ' correct' : ' incorrect')
+      }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("span", {
         className: "label"
-      }, isCorrect ? Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Correct', 'learnpress') : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Incorrect', 'learnpress')), /*#__PURE__*/React.createElement("span", {
+      }, isCorrect ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Correct', 'learnpress') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Incorrect', 'learnpress')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("span", {
         className: "point"
-      }, sprintf(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('%d/%d point', 'learnpress'), isCorrect ? question.point : 0, question.point)));
+      }, sprintf((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('%d/%d point', 'learnpress'), isCorrect ? question.point : 0, question.point)));
     });
 
-    var _question = _props.question;
-    _this.state = {
+    const {
+      question: _question
+    } = _props;
+    this.state = {
       optionClass: ['answer-option'],
       questionId: 0,
-      options: _question ? _this.parseOptions(_question.options) : [],
-      self: _assertThisInitialized(_this)
+      options: _question ? this.parseOptions(_question.options) : [],
+      self: this
     };
 
     if (_props.$wrap) {
-      _this.$wrap = _props.$wrap;
+      this.$wrap = _props.$wrap;
     }
-
-    return _this;
   }
 
-  _createClass(QuestionBase, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var newState = this.prepare(this.props, this.state);
+  static getDerivedStateFromProps(props, state) {
+    return state.self.prepare(props, state);
+  }
 
-      if (newState) {
-        this.setState(newState);
-      }
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this2 = this;
+  componentDidMount() {
+    const newState = this.prepare(this.props, this.state);
 
-      var _this$props5 = this.props,
-          question = _this$props5.question,
-          status = _this$props5.status;
-      return /*#__PURE__*/React.createElement("div", {
-        className: "question-answers"
-      }, this.isDefaultType() && /*#__PURE__*/React.createElement("ul", {
-        id: "answer-options-".concat(question.id),
-        className: "answer-options"
-      }, this.getOptions().map(function (option) {
-        var ID = "learn-press-answer-option-".concat(option.uid);
-        return /*#__PURE__*/React.createElement("li", {
-          className: _this2.getOptionClass(option).join(' '),
-          key: "answer-option-".concat(option.uid)
-        }, /*#__PURE__*/React.createElement("input", {
-          type: _this2.getOptionType(question.type, option),
-          className: "option-check",
-          name: status === 'started' ? "learn-press-question-".concat(question.id) : '',
-          id: ID,
-          ref: function ref(el) {
-            _this2.setInputRef(el, option.value);
-          },
-          onChange: _this2.setAnswerChecked(),
-          disabled: _this2.maybeDisabledOption(option),
-          checked: _this2.maybeCheckedAnswer(option.value),
-          value: status === 'started' ? option.value : ''
-        }), /*#__PURE__*/React.createElement("label", {
-          htmlFor: ID,
-          className: "option-title",
-          dangerouslySetInnerHTML: {
-            __html: option.title || option.value
-          }
-        }));
-      })), !this.isDefaultType() && this.getWarningMessage(), this.getCorrectLabel());
+    if (newState) {
+      this.setState(newState);
     }
-  }], [{
-    key: "getDerivedStateFromProps",
-    value: function getDerivedStateFromProps(props, state) {
-      return state.self.prepare(props, state);
-    }
-  }]);
+  }
 
-  return QuestionBase;
-}(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+  render() {
+    const {
+      question,
+      status
+    } = this.props;
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
+      className: "question-answers"
+    }, this.isDefaultType() && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("ul", {
+      id: `answer-options-${question.id}`,
+      className: "answer-options"
+    }, this.getOptions().map(option => {
+      const ID = `learn-press-answer-option-${option.uid}`;
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("li", {
+        className: this.getOptionClass(option).join(' '),
+        key: `answer-option-${option.uid}`
+      }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("input", {
+        type: this.getOptionType(question.type, option),
+        className: "option-check",
+        name: status === 'started' ? `learn-press-question-${question.id}` : '',
+        id: ID,
+        ref: el => {
+          this.setInputRef(el, option.value);
+        },
+        onChange: this.setAnswerChecked(),
+        disabled: this.maybeDisabledOption(option),
+        checked: this.maybeCheckedAnswer(option.value),
+        value: status === 'started' ? option.value : ''
+      }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("label", {
+        htmlFor: ID,
+        className: "option-title",
+        dangerouslySetInnerHTML: {
+          __html: option.title || option.value
+        }
+      }));
+    })), !this.isDefaultType() && this.getWarningMessage(), this.getCorrectLabel());
+  }
+
+}
 
 /* harmony default export */ __webpack_exports__["default"] = (QuestionBase);
 
@@ -447,103 +306,67 @@ var QuestionBase = /*#__PURE__*/function (_Component) {
 /*!*************************************************************************************************!*\
   !*** ./assets/src/apps/js/frontend/question-types/components/questions/fill-in-blanks/index.js ***!
   \*************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _question_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../question-base */ "./assets/src/apps/js/frontend/question-types/components/question-base/index.js");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _question_base__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../question-base */ "./assets/src/apps/js/frontend/question-types/components/question-base/index.js");
 
 
 
 
-var QuestionFillInBlanks = /*#__PURE__*/function (_QuestionBase) {
-  _inherits(QuestionFillInBlanks, _QuestionBase);
 
-  var _super = _createSuper(QuestionFillInBlanks);
+class QuestionFillInBlanks extends _question_base__WEBPACK_IMPORTED_MODULE_3__["default"] {
+  constructor() {
+    super(...arguments);
 
-  function QuestionFillInBlanks() {
-    var _this;
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "updateFibAnswer", () => {
+      const allFIBs = document.querySelectorAll('.lp-fib-input > input');
+      const {
+        answered
+      } = this.props;
+      const answereds = answered || {};
+      [...allFIBs].map(ele => {
+        if (answered === undefined) {
+          ele.value = '';
+        }
 
-    _classCallCheck(this, QuestionFillInBlanks);
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _super.call.apply(_super, [this].concat(args));
-
-    _defineProperty(_assertThisInitialized(_this), "updateFibAnswer", function () {
-      var allFIBs = document.querySelectorAll('.lp-fib-input > input');
-      var answered = _this.props.answered;
-      var answereds = answered || {};
-
-      _toConsumableArray(allFIBs).map(function (ele) {
-        ele.addEventListener('input', function (e) {
-          _this.setAnswered(answereds, ele.dataset.id, e.target.value);
+        ele.addEventListener('input', e => {
+          this.setAnswered(answereds, ele.dataset.id, e.target.value);
         });
-        ele.addEventListener('paste', function (e) {
-          _this.setAnswered(answereds, ele.dataset.id, e.target.value);
+        ele.addEventListener('paste', e => {
+          this.setAnswered(answereds, ele.dataset.id, e.target.value);
         });
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "setAnswered", function (answered, id, value) {
-      var _this$props = _this.props,
-          updateUserQuestionAnswers = _this$props.updateUserQuestionAnswers,
-          question = _this$props.question,
-          status = _this$props.status;
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "setAnswered", (answered, id, value) => {
+      const {
+        updateUserQuestionAnswers,
+        question,
+        status
+      } = this.props;
 
       if (status !== 'started') {
         return 'LP Error: can not set answers';
       }
 
-      var newAnswered = Object.assign(answered, _defineProperty({}, id, value));
+      const newAnswered = Object.assign(answered, {
+        [id]: value
+      });
       updateUserQuestionAnswers(question.id, newAnswered);
     });
 
-    _defineProperty(_assertThisInitialized(_this), "getCorrectLabel", function () {
-      var _this$props2 = _this.props,
-          question = _this$props2.question,
-          mark = _this$props2.mark;
-      var getMark = mark || 0;
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "getCorrectLabel", () => {
+      const {
+        question,
+        mark
+      } = this.props;
+      let getMark = mark || 0;
 
       if (mark) {
         if (!Number.isInteger(mark)) {
@@ -551,48 +374,57 @@ var QuestionFillInBlanks = /*#__PURE__*/function (_QuestionBase) {
         }
       }
 
-      return _this.maybeShowCorrectAnswer() && /*#__PURE__*/React.createElement("div", {
+      return this.maybeShowCorrectAnswer() && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
         className: "question-response correct"
-      }, /*#__PURE__*/React.createElement("span", {
+      }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("span", {
         className: "label"
-      }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Points', 'learnpress')), /*#__PURE__*/React.createElement("span", {
+      }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Points', 'learnpress')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("span", {
         className: "point"
-      }, "".concat(getMark, "/").concat(question.point, " ").concat(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('point', 'learnpress'))), /*#__PURE__*/React.createElement("span", {
+      }, `${getMark}/${question.point} ${(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('point', 'learnpress')}`), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("span", {
         className: "lp-fib-note"
-      }, /*#__PURE__*/React.createElement("span", {
+      }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("span", {
         style: {
           background: '#00adff'
         }
-      }), Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Correct', 'learnpress')), /*#__PURE__*/React.createElement("span", {
+      }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Correct', 'learnpress')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("span", {
         className: "lp-fib-note"
-      }, /*#__PURE__*/React.createElement("span", {
+      }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("span", {
         style: {
           background: '#d85554'
         }
-      }), Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__["__"])('Incorrect', 'learnpress')));
+      }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Incorrect', 'learnpress')));
     });
 
-    _defineProperty(_assertThisInitialized(_this), "convertInputField", function (option) {
-      var title = option.title;
-      var answers = option === null || option === void 0 ? void 0 : option.answers;
-      option.ids.map(function (id, index) {
-        var textReplace = '{{FIB_' + id + '}}';
-        var elContent = '';
-        var answerID = answers ? answers === null || answers === void 0 ? void 0 : answers[id] : undefined;
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "convertInputField", option => {
+      const {
+        answered,
+        isReviewing,
+        showCorrectReview,
+        isCheckedAnswer
+      } = this.props;
+      let title = option.title;
+      const answers = option === null || option === void 0 ? void 0 : option.answers;
+      option.ids.map((id, index) => {
+        const textReplace = '{{FIB_' + id + '}}';
+        let elContent = '';
+        const answerID = answers ? answers === null || answers === void 0 ? void 0 : answers[id] : undefined;
 
-        if (answerID) {
+        if (answerID || isReviewing) {
           var _answerID$correct;
 
-          // If is answered,
-          elContent += "<span class=\"lp-fib-answered ".concat(answerID !== null && answerID !== void 0 && answerID.isCorrect ? 'correct' : 'fail', "\">");
+          elContent += `<span class="lp-fib-answered ${(showCorrectReview || isCheckedAnswer) && answerID !== null && answerID !== void 0 && answerID.correct ? answerID !== null && answerID !== void 0 && answerID.isCorrect ? 'correct' : 'fail' : ''}">`;
 
           if (!(answerID !== null && answerID !== void 0 && answerID.isCorrect)) {
-            var _answerID$answer;
+            var _answered$id;
 
-            elContent += "<span class=\"lp-fib-answered__answer\">".concat((_answerID$answer = answerID === null || answerID === void 0 ? void 0 : answerID.answer) !== null && _answerID$answer !== void 0 ? _answerID$answer : '', "</span> \u2192 ");
+            elContent += `<span class="lp-fib-answered__answer">${(_answered$id = answered === null || answered === void 0 ? void 0 : answered[id]) !== null && _answered$id !== void 0 ? _answered$id : ''}</span>`;
           }
 
-          elContent += "<span class=\"lp-fib-answered__fill\">".concat((_answerID$correct = answerID === null || answerID === void 0 ? void 0 : answerID.correct) !== null && _answerID$correct !== void 0 ? _answerID$correct : '', "</span>");
+          if (!(answerID !== null && answerID !== void 0 && answerID.isCorrect) && answerID !== null && answerID !== void 0 && answerID.correct) {
+            elContent += ' → ';
+          }
+
+          elContent += `<span class="lp-fib-answered__fill">${(_answerID$correct = answerID === null || answerID === void 0 ? void 0 : answerID.correct) !== null && _answerID$correct !== void 0 ? _answerID$correct : ''}</span>`;
           elContent += '</span>';
         } else {
           elContent += '<div class="lp-fib-input" style="display: inline-block; width: auto;">';
@@ -604,54 +436,45 @@ var QuestionFillInBlanks = /*#__PURE__*/function (_QuestionBase) {
       });
       return title;
     });
-
-    return _this;
   }
 
-  _createClass(QuestionFillInBlanks, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var answered = this.props.answered;
+  componentDidMount() {
+    const {
+      answered
+    } = this.props;
 
-      if (answered) {
-        var allFIBs = document.querySelectorAll('.lp-fib-input > input');
+    if (answered) {
+      const allFIBs = document.querySelectorAll('.lp-fib-input > input');
+      [...allFIBs].map(ele => {
+        if (answered[ele.dataset.id]) {
+          ele.value = answered[ele.dataset.id];
+        }
+      });
+    }
 
-        _toConsumableArray(allFIBs).map(function (ele) {
-          if (answered[ele.dataset.id]) {
-            ele.value = answered[ele.dataset.id];
-          }
-        });
-      }
+    this.updateFibAnswer();
+  }
 
+  componentDidUpdate(prevProps) {
+    if (!prevProps.answered) {
       this.updateFibAnswer();
     }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      if (!prevProps.answered) {
-        this.updateFibAnswer();
-      }
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this2 = this;
+  }
 
-      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
-        className: "lp-fib-content"
-      }, this.getOptions().map(function (option) {
-        return /*#__PURE__*/React.createElement("div", {
-          key: "blank-".concat(option.uid),
-          dangerouslySetInnerHTML: {
-            __html: _this2.convertInputField(option) || option.value
-          }
-        });
-      })), !this.isDefaultType() && this.getWarningMessage(), this.getCorrectLabel());
-    }
-  }]);
+  render() {
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
+      className: "lp-fib-content"
+    }, this.getOptions().map(option => {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
+        key: `blank-${option.uid}`,
+        dangerouslySetInnerHTML: {
+          __html: this.convertInputField(option) || option.value
+        }
+      });
+    })), !this.isDefaultType() && this.getWarningMessage(), this.getCorrectLabel());
+  }
 
-  return QuestionFillInBlanks;
-}(_question_base__WEBPACK_IMPORTED_MODULE_1__["default"]);
+}
 
 /* harmony default export */ __webpack_exports__["default"] = (QuestionFillInBlanks);
 
@@ -661,84 +484,39 @@ var QuestionFillInBlanks = /*#__PURE__*/function (_QuestionBase) {
 /*!***************************************************************************************************!*\
   !*** ./assets/src/apps/js/frontend/question-types/components/questions/multiple-choices/index.js ***!
   \***************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _question_base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../question-base */ "./assets/src/apps/js/frontend/question-types/components/question-base/index.js");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _question_base__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../question-base */ "./assets/src/apps/js/frontend/question-types/components/question-base/index.js");
 
 
 
 
-var _lodash = lodash,
-    isBoolean = _lodash.isBoolean;
+const {
+  isBoolean
+} = lodash;
 
-var QuestionMultipleChoices = /*#__PURE__*/function (_QuestionBase) {
-  _inherits(QuestionMultipleChoices, _QuestionBase);
+class QuestionMultipleChoices extends _question_base__WEBPACK_IMPORTED_MODULE_3__["default"] {
+  constructor() {
+    super(...arguments);
 
-  var _super = _createSuper(QuestionMultipleChoices);
-
-  function QuestionMultipleChoices() {
-    var _this;
-
-    _classCallCheck(this, QuestionMultipleChoices);
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _super.call.apply(_super, [this].concat(args));
-
-    _defineProperty(_assertThisInitialized(_this), "isCorrect", function () {
-      var answered = _this.props.answered;
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "isCorrect", () => {
+      const {
+        answered
+      } = this.props;
 
       if (isBoolean(answered) || !answered) {
         return false;
       }
 
-      var i, option, options;
+      let i, option, options;
 
-      for (i = 0, options = _this.getOptions(); i < options.length; i++) {
+      for (i = 0, options = this.getOptions(); i < options.length; i++) {
         option = options[i];
 
         if (option.isTrue === 'yes') {
@@ -753,12 +531,13 @@ var QuestionMultipleChoices = /*#__PURE__*/function (_QuestionBase) {
       return true;
     });
 
-    _defineProperty(_assertThisInitialized(_this), "getOptionClass", function (option) {
-      var answered = _this.props.answered;
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "getOptionClass", option => {
+      const {
+        answered
+      } = this.props;
+      const optionClass = [...this.state.optionClass];
 
-      var optionClass = _toConsumableArray(_this.state.optionClass);
-
-      if (_this.maybeShowCorrectAnswer()) {
+      if (this.maybeShowCorrectAnswer()) {
         if (option.isTrue === 'yes') {
           optionClass.push('answer-correct');
         }
@@ -774,12 +553,9 @@ var QuestionMultipleChoices = /*#__PURE__*/function (_QuestionBase) {
 
       return optionClass;
     });
-
-    return _this;
   }
 
-  return _createClass(QuestionMultipleChoices);
-}(_question_base__WEBPACK_IMPORTED_MODULE_2__["default"]);
+}
 
 /* harmony default export */ __webpack_exports__["default"] = (QuestionMultipleChoices);
 
@@ -789,73 +565,27 @@ var QuestionMultipleChoices = /*#__PURE__*/function (_QuestionBase) {
 /*!************************************************************************************************!*\
   !*** ./assets/src/apps/js/frontend/question-types/components/questions/single-choice/index.js ***!
   \************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _question_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../question-base */ "./assets/src/apps/js/frontend/question-types/components/question-base/index.js");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _question_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../question-base */ "./assets/src/apps/js/frontend/question-types/components/question-base/index.js");
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /* eslint-disable no-mixed-spaces-and-tabs */
 
 
-var QuestionSingleChoice = /*#__PURE__*/function (_QuestionBase) {
-  _inherits(QuestionSingleChoice, _QuestionBase);
+class QuestionSingleChoice extends _question_base__WEBPACK_IMPORTED_MODULE_1__["default"] {
+  constructor() {
+    super(...arguments);
 
-  var _super = _createSuper(QuestionSingleChoice);
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "getOptionClass", option => {
+      const {
+        answered
+      } = this.props;
+      const optionClass = [...this.state.optionClass];
 
-  function QuestionSingleChoice() {
-    var _this;
-
-    _classCallCheck(this, QuestionSingleChoice);
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _super.call.apply(_super, [this].concat(args));
-
-    _defineProperty(_assertThisInitialized(_this), "getOptionClass", function (option) {
-      var answered = _this.props.answered;
-
-      var optionClass = _toConsumableArray(_this.state.optionClass);
-
-      if (_this.maybeShowCorrectAnswer()) {
+      if (this.maybeShowCorrectAnswer()) {
         if (option.isTrue === 'yes') {
           optionClass.push('answer-correct');
         }
@@ -871,12 +601,9 @@ var QuestionSingleChoice = /*#__PURE__*/function (_QuestionBase) {
 
       return optionClass;
     });
-
-    return _this;
   }
 
-  return _createClass(QuestionSingleChoice);
-}(_question_base__WEBPACK_IMPORTED_MODULE_0__["default"]);
+}
 
 /* harmony default export */ __webpack_exports__["default"] = (QuestionSingleChoice);
 
@@ -886,72 +613,25 @@ var QuestionSingleChoice = /*#__PURE__*/function (_QuestionBase) {
 /*!************************************************************************************************!*\
   !*** ./assets/src/apps/js/frontend/question-types/components/questions/true-or-false/index.js ***!
   \************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _question_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../question-base */ "./assets/src/apps/js/frontend/question-types/components/question-base/index.js");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _question_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../question-base */ "./assets/src/apps/js/frontend/question-types/components/question-base/index.js");
 
 
 
-var QuestionTrueOrFalse = /*#__PURE__*/function (_QuestionBase) {
-  _inherits(QuestionTrueOrFalse, _QuestionBase);
+class QuestionTrueOrFalse extends _question_base__WEBPACK_IMPORTED_MODULE_1__["default"] {
+  constructor() {
+    super(...arguments);
 
-  var _super = _createSuper(QuestionTrueOrFalse);
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "getOptionClass", option => {
+      const {
+        answered
+      } = this.props;
+      const optionClass = [...this.state.optionClass];
 
-  function QuestionTrueOrFalse() {
-    var _this;
-
-    _classCallCheck(this, QuestionTrueOrFalse);
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _super.call.apply(_super, [this].concat(args));
-
-    _defineProperty(_assertThisInitialized(_this), "getOptionClass", function (option) {
-      var answered = _this.props.answered;
-
-      var optionClass = _toConsumableArray(_this.state.optionClass);
-
-      if (_this.maybeShowCorrectAnswer()) {
+      if (this.maybeShowCorrectAnswer()) {
         if (option.isTrue === 'yes') {
           optionClass.push('answer-correct');
         }
@@ -967,12 +647,9 @@ var QuestionTrueOrFalse = /*#__PURE__*/function (_QuestionBase) {
 
       return optionClass;
     });
-
-    return _this;
   }
 
-  return _createClass(QuestionTrueOrFalse);
-}(_question_base__WEBPACK_IMPORTED_MODULE_0__["default"]);
+}
 
 /* harmony default export */ __webpack_exports__["default"] = (QuestionTrueOrFalse);
 
@@ -982,57 +659,26 @@ var QuestionTrueOrFalse = /*#__PURE__*/function (_QuestionBase) {
 /*!*************************************************************!*\
   !*** ./assets/src/apps/js/frontend/question-types/index.js ***!
   \*************************************************************/
-/*! exports provided: QuestionBase, SingleChoice, MultipleChoices, TrueOrFalse, FillInBlanks, default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
-/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components */ "./assets/src/apps/js/frontend/question-types/components/index.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "QuestionBase", function() { return _components__WEBPACK_IMPORTED_MODULE_4__["QuestionBase"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SingleChoice", function() { return _components__WEBPACK_IMPORTED_MODULE_4__["SingleChoice"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MultipleChoices", function() { return _components__WEBPACK_IMPORTED_MODULE_4__["MultipleChoices"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TrueOrFalse", function() { return _components__WEBPACK_IMPORTED_MODULE_4__["TrueOrFalse"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FillInBlanks", function() { return _components__WEBPACK_IMPORTED_MODULE_4__["FillInBlanks"]; });
-
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "FillInBlanks": function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_5__.FillInBlanks; },
+/* harmony export */   "MultipleChoices": function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_5__.MultipleChoices; },
+/* harmony export */   "QuestionBase": function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_5__.QuestionBase; },
+/* harmony export */   "SingleChoice": function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_5__.SingleChoice; },
+/* harmony export */   "TrueOrFalse": function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_5__.TrueOrFalse; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components */ "./assets/src/apps/js/frontend/question-types/components/index.js");
 
 
 
@@ -1040,25 +686,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var QuestionTypes = /*#__PURE__*/function (_Component) {
-  _inherits(QuestionTypes, _Component);
 
-  var _super = _createSuper(QuestionTypes);
+class QuestionTypes extends _wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Component {
+  constructor() {
+    super(...arguments);
 
-  function QuestionTypes() {
-    var _this;
-
-    _classCallCheck(this, QuestionTypes);
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _super.call.apply(_super, [this].concat(args));
-
-    _defineProperty(_assertThisInitialized(_this), "getQuestion", function () {
-      var question = _this.props.question;
-      var types = LP.Hook.applyFilters('question-types', {
+    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "getQuestion", () => {
+      const {
+        question
+      } = this.props;
+      const types = LP.Hook.applyFilters('question-types', {
         single_choice: LP.questionTypes.SingleChoice,
         multi_choice: LP.questionTypes.MultipleChoices,
         true_or_false: LP.questionTypes.TrueOrFalse,
@@ -1066,44 +703,41 @@ var QuestionTypes = /*#__PURE__*/function (_Component) {
       });
       return types[question.type];
     });
-
-    return _this;
   }
 
-  _createClass(QuestionTypes, [{
-    key: "render",
-    value: function render() {
-      var _this$props = this.props,
-          question = _this$props.question,
-          supportOptions = _this$props.supportOptions;
+  render() {
+    const {
+      question,
+      supportOptions
+    } = this.props;
+    const childProps = { ...this.props
+    };
+    childProps.supportOptions = supportOptions.indexOf(question.type) !== -1;
 
-      var childProps = _objectSpread({}, this.props);
+    const TheQuestion = this.getQuestion() || function () {
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
+        className: "question-types",
+        dangerouslySetInnerHTML: {
+          __html: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Question <code>%s</code> invalid!', 'learnpress'), question.type)
+        }
+      });
+    };
 
-      childProps.supportOptions = supportOptions.indexOf(question.type) !== -1;
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(TheQuestion, childProps));
+  }
 
-      var TheQuestion = this.getQuestion() || function () {
-        return /*#__PURE__*/React.createElement("div", {
-          className: "question-types",
-          dangerouslySetInnerHTML: {
-            __html: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["sprintf"])(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Question <code>%s</code> invalid!', 'learnpress'), question.type)
-          }
-        });
-      };
+}
 
-      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(TheQuestion, childProps));
+/* harmony default export */ __webpack_exports__["default"] = ((0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_2__.compose)((0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.withSelect)((select, _ref) => {
+  let {
+    question: {
+      id
     }
-  }]);
-
-  return QuestionTypes;
-}(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(_wordpress_compose__WEBPACK_IMPORTED_MODULE_1__["compose"])(Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_2__["withSelect"])(function (select, _ref) {
-  var id = _ref.question.id;
-
-  var _select = select('learnpress/quiz'),
-      getData = _select.getData,
-      isCheckedAnswer = _select.isCheckedAnswer;
-
+  } = _ref;
+  const {
+    getData,
+    isCheckedAnswer
+  } = select('learnpress/quiz');
   return {
     supportOptions: getData('supportOptions'),
     isCheckedAnswer: isCheckedAnswer(id),
@@ -1111,7 +745,7 @@ var QuestionTypes = /*#__PURE__*/function (_Component) {
     showCorrectReview: getData('showCorrectReview'),
     isReviewing: getData('mode') === 'reviewing'
   };
-}), Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_2__["withDispatch"])(function () {
+}), (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.withDispatch)(() => {
   return {};
 }))(QuestionTypes));
 
@@ -1121,10 +755,9 @@ var QuestionTypes = /*#__PURE__*/function (_Component) {
 /*!*********************************!*\
   !*** external ["wp","compose"] ***!
   \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module) {
 
-(function() { module.exports = window["wp"]["compose"]; }());
+module.exports = window["wp"]["compose"];
 
 /***/ }),
 
@@ -1132,10 +765,9 @@ var QuestionTypes = /*#__PURE__*/function (_Component) {
 /*!******************************!*\
   !*** external ["wp","data"] ***!
   \******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module) {
 
-(function() { module.exports = window["wp"]["data"]; }());
+module.exports = window["wp"]["data"];
 
 /***/ }),
 
@@ -1143,10 +775,9 @@ var QuestionTypes = /*#__PURE__*/function (_Component) {
 /*!*********************************!*\
   !*** external ["wp","element"] ***!
   \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module) {
 
-(function() { module.exports = window["wp"]["element"]; }());
+module.exports = window["wp"]["element"];
 
 /***/ }),
 
@@ -1154,12 +785,127 @@ var QuestionTypes = /*#__PURE__*/function (_Component) {
 /*!******************************!*\
   !*** external ["wp","i18n"] ***!
   \******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module) {
 
-(function() { module.exports = window["wp"]["i18n"]; }());
+module.exports = window["wp"]["i18n"];
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/defineProperty.js ***!
+  \*******************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ _defineProperty; }
+/* harmony export */ });
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
 
 /***/ })
 
-/******/ });
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	!function() {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = function(module) {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				function() { return module['default']; } :
+/******/ 				function() { return module; };
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+!function() {
+/*!*******************************************************!*\
+  !*** ./assets/src/apps/js/frontend/question-types.js ***!
+  \*******************************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "FillInBlanks": function() { return /* reexport safe */ _question_types_index__WEBPACK_IMPORTED_MODULE_0__.FillInBlanks; },
+/* harmony export */   "MultipleChoices": function() { return /* reexport safe */ _question_types_index__WEBPACK_IMPORTED_MODULE_0__.MultipleChoices; },
+/* harmony export */   "QuestionBase": function() { return /* reexport safe */ _question_types_index__WEBPACK_IMPORTED_MODULE_0__.QuestionBase; },
+/* harmony export */   "SingleChoice": function() { return /* reexport safe */ _question_types_index__WEBPACK_IMPORTED_MODULE_0__.SingleChoice; },
+/* harmony export */   "TrueOrFalse": function() { return /* reexport safe */ _question_types_index__WEBPACK_IMPORTED_MODULE_0__.TrueOrFalse; }
+/* harmony export */ });
+/* harmony import */ var _question_types_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./question-types/index */ "./assets/src/apps/js/frontend/question-types/index.js");
+
+
+/* harmony default export */ __webpack_exports__["default"] = (_question_types_index__WEBPACK_IMPORTED_MODULE_0__["default"]);
+}();
+(window.LP = window.LP || {}).questionTypes = __webpack_exports__;
+/******/ })()
+;
 //# sourceMappingURL=question-types.js.map

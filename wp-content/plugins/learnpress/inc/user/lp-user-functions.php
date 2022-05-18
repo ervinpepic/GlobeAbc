@@ -113,7 +113,7 @@ if ( ! function_exists( 'learn_press_get_user' ) ) {
 	 */
 	function learn_press_get_user( $user_id, $current = false, $force_new = false ) {
 		$is_guest = false;
-		if ( $user_id != LP()->session->guest_user_id ) {
+		if ( ! is_null( LP()->session ) && $user_id != LP()->session->guest_user_id ) {
 			if ( $current && ! get_user_by( 'id', $user_id ) ) {
 				$user_id = get_current_user_id();
 			}
@@ -159,7 +159,7 @@ if ( ! function_exists( 'learn_press_get_user' ) ) {
  */
 function learn_press_add_user_roles() {
 
-	$settings = LP()->settings;
+	$settings = LP_Settings::instance();
 
 	/* translators: user role */
 	_x( 'LP Instructor', 'User role' );
@@ -301,36 +301,6 @@ function learn_press_user_has_roles( $roles, $user_id = null ) {
 
 	return $has_role;
 }
-
-/**
- * Add user profile link into admin bar
- */
-function learn_press_edit_admin_bar() {
-	global $wp_admin_bar;
-
-	$profile = learn_press_get_page_id( 'profile' );
-
-	if ( $profile && learn_press_get_post_type( $profile ) == 'page' && get_post_status( $profile ) != 'trash' ) {
-		$user_id = learn_press_get_current_user_id();
-
-		$wp_admin_bar->add_menu(
-			array(
-				'id'     => 'course_profile',
-				'parent' => 'user-actions',
-				'title'  => get_the_title( $profile ),
-				'href'   => learn_press_user_profile_link( $user_id, false ),
-			)
-		);
-	}
-
-	$current_user = wp_get_current_user();
-
-	if ( in_array( LP_TEACHER_ROLE, $current_user->roles ) || in_array( 'administrator', $current_user->roles ) ) {
-		return;
-	}
-}
-
-add_action( 'admin_bar_menu', 'learn_press_edit_admin_bar' );
 
 function learn_press_current_user_can_view_profile_section( $section, $user ) {
 	$current_user = wp_get_current_user();
@@ -1766,7 +1736,11 @@ function learn_press_user_retake_quiz( $quiz_id, $user_id = 0, $course_id = 0, $
 
 	$user_item = new LP_User_Item_Quiz( $data );
 
-	$user_item->update_retake_count();
+	$ratake_count = get_post_meta( $quiz_id, '_lp_retake_count', true );
+
+	if ( $ratake_count > 0 ) {
+		$user_item->update_retake_count();
+	}
 
 	// Create new result in table learnpress_user_item_results.
 	LP_User_Items_Result_DB::instance()->insert( $data->user_item_id );

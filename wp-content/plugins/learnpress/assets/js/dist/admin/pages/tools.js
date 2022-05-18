@@ -1,254 +1,33 @@
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./assets/src/apps/js/admin/pages/tools.js");
-/******/ })
-/************************************************************************/
-/******/ ({
-
-/***/ "./assets/src/apps/js/admin/pages/tools.js":
-/*!*************************************************!*\
-  !*** ./assets/src/apps/js/admin/pages/tools.js ***!
-  \*************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _tools_database_upgrade__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tools/database/upgrade */ "./assets/src/apps/js/admin/pages/tools/database/upgrade.js");
-/* harmony import */ var _tools_database_create_indexs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tools/database/create_indexs */ "./assets/src/apps/js/admin/pages/tools/database/create_indexs.js");
-/* harmony import */ var _tools_database_re_upgrade_db__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tools/database/re-upgrade-db */ "./assets/src/apps/js/admin/pages/tools/database/re-upgrade-db.js");
-/* harmony import */ var _tools_database_clean_database__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tools/database/clean_database */ "./assets/src/apps/js/admin/pages/tools/database/clean_database.js");
-/* harmony import */ var _tools_reset_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./tools/reset-data */ "./assets/src/apps/js/admin/pages/tools/reset-data/index.js");
-
-
-
-
-
-
-(function ($) {
-  var $doc = $(document);
-  var isRunning = false;
-
-  var installSampleCourse = function installSampleCourse(e) {
-    e.preventDefault();
-    var $button = $(this);
-
-    if (isRunning) {
-      return;
-    }
-
-    if (!confirm(lpGlobalSettings.i18n.confirm_install_sample_data)) {
-      return;
-    }
-
-    $button.addClass('disabled').html($button.data('installing-text'));
-    $('.lp-install-sample__response').remove();
-    isRunning = true;
-    $.ajax({
-      url: $button.attr('href'),
-      data: $('.lp-install-sample__options').serializeJSON(),
-      success: function success(response) {
-        $button.removeClass('disabled').html($button.data('text'));
-        isRunning = false;
-        $(response).insertBefore($button.parent());
-      },
-      error: function error() {
-        $button.removeClass('disabled').html($button.data('text'));
-        isRunning = false;
-        $(response).insertBefore($button.parent());
-      }
-    });
-  };
-
-  var uninstallSampleCourse = function uninstallSampleCourse(e) {
-    e.preventDefault();
-    var $button = $(this);
-
-    if (isRunning) {
-      return;
-    }
-
-    if (!confirm(lpGlobalSettings.i18n.confirm_uninstall_sample_data)) {
-      return;
-    }
-
-    $button.addClass('disabled').html($button.data('uninstalling-text'));
-    isRunning = true;
-    $.ajax({
-      url: $button.attr('href'),
-      success: function success(response) {
-        $button.removeClass('disabled').html($button.data('text'));
-        isRunning = false;
-        $(response).insertBefore($button.parent());
-      },
-      error: function error() {
-        $button.removeClass('disabled').html($button.data('text'));
-        isRunning = false;
-        $(response).insertBefore($button.parent());
-      }
-    });
-  };
-
-  var clearHardCache = function clearHardCache(e) {
-    e.preventDefault();
-    var $button = $(this);
-
-    if ($button.hasClass('disabled')) {
-      return;
-    }
-
-    $button.addClass('disabled').html($button.data('cleaning-text'));
-    $.ajax({
-      url: $button.attr('href'),
-      data: {},
-      success: function success(response) {
-        $button.removeClass('disabled').html($button.data('text'));
-      },
-      error: function error() {
-        $button.removeClass('disabled').html($button.data('text'));
-      }
-    });
-  };
-
-  var toggleHardCache = function toggleHardCache() {
-    $.ajax({
-      url: 'admin.php?page=lp-toggle-hard-cache-option',
-      data: {
-        v: this.checked ? 'yes' : 'no'
-      },
-      success: function success(response) {},
-      error: function error() {}
-    });
-  };
-
-  var toggleOptions = function toggleOptions(e) {
-    e.preventDefault();
-    $('.lp-install-sample__options').toggleClass('hide-if-js');
-  };
-
-  $(function () {
-    Object(_tools_database_upgrade__WEBPACK_IMPORTED_MODULE_0__["default"])();
-    Object(_tools_database_create_indexs__WEBPACK_IMPORTED_MODULE_1__["default"])();
-    Object(_tools_database_re_upgrade_db__WEBPACK_IMPORTED_MODULE_2__["default"])();
-    Object(_tools_reset_data__WEBPACK_IMPORTED_MODULE_4__["default"])();
-    Object(_tools_database_clean_database__WEBPACK_IMPORTED_MODULE_3__["default"])();
-    $doc.on('click', '.lp-install-sample__install', installSampleCourse).on('click', '.lp-install-sample__uninstall', uninstallSampleCourse).on('click', '#learn-press-clear-cache', clearHardCache).on('click', 'input[name="enable_hard_cache"]', toggleHardCache).on('click', '.lp-install-sample__toggle-options', toggleOptions);
-  });
-})(jQuery);
-
-/***/ }),
+/******/ (function() { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./assets/src/apps/js/admin/pages/tools/database/clean_database.js":
 /*!*************************************************************************!*\
   !*** ./assets/src/apps/js/admin/pages/tools/database/clean_database.js ***!
   \*************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../utils/lp-modal-overlay */ "./assets/src/apps/js/utils/lp-modal-overlay.js");
 /* harmony import */ var _utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../utils/handle-ajax-api */ "./assets/src/apps/js/utils/handle-ajax-api.js");
 
 
 
-var cleanDatabases = function cleanDatabases() {
-  var elCleanDatabases = document.querySelector('#lp-tool-clean-database');
+const cleanDatabases = () => {
+  const elCleanDatabases = document.querySelector('#lp-tool-clean-database');
 
   if (!elCleanDatabases) {
     return;
   }
 
-  var elBtnCleanDatabases = elCleanDatabases.querySelector('.lp-btn-clean-db');
+  const elBtnCleanDatabases = elCleanDatabases.querySelector('.lp-btn-clean-db');
   elBtnCleanDatabases.addEventListener('click', function (e) {
     e.preventDefault();
-    var elToolsSelect = document.querySelector('#tools-select__id');
-    var ElToolSelectLi = elToolsSelect.querySelectorAll('ul li input');
-    var checkedOne = Array.prototype.slice.call(ElToolSelectLi).some(function (x) {
-      return x.checked;
-    });
-    var prepareMessage = elCleanDatabases.querySelector('.tools-prepare__message');
+    const elToolsSelect = document.querySelector('#tools-select__id');
+    const ElToolSelectLi = elToolsSelect.querySelectorAll('ul li input');
+    const checkedOne = Array.prototype.slice.call(ElToolSelectLi).some(x => x.checked);
+    const prepareMessage = elCleanDatabases.querySelector('.tools-prepare__message');
 
     if (checkedOne == false) {
       prepareMessage.style.display = 'block';
@@ -257,7 +36,7 @@ var cleanDatabases = function cleanDatabases() {
     }
 
     prepareMessage.style.display = 'none';
-    var elLoading = elCleanDatabases.querySelector('.wrapper-lp-loading');
+    const elLoading = elCleanDatabases.querySelector('.wrapper-lp-loading');
 
     if (!_utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].init()) {
       return;
@@ -269,16 +48,16 @@ var cleanDatabases = function cleanDatabases() {
     _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnYes[0].style.display = 'inline-block';
     _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnYes[0].textContent = 'Run';
     _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnNo[0].textContent = 'Close';
-    var listTables = new Array();
-    var ElToolSelectLiCheked = elToolsSelect.querySelectorAll('ul li input:checked');
-    ElToolSelectLiCheked.forEach(function (e) {
+    const listTables = new Array();
+    const ElToolSelectLiCheked = elToolsSelect.querySelectorAll('ul li input:checked');
+    ElToolSelectLiCheked.forEach(e => {
       listTables.push(e.value);
     });
-    var tables = listTables[0];
-    var item = elLoading.querySelector('.progressbar__item');
-    var itemtotal = item.getAttribute('data-total');
-    var modal = document.querySelector('.lp-modal-body .main-content');
-    var notice = modal.querySelector('.lp-tool__message');
+    const tables = listTables[0];
+    const item = elLoading.querySelector('.progressbar__item');
+    const itemtotal = item.getAttribute('data-total');
+    const modal = document.querySelector('.lp-modal-body .main-content');
+    const notice = modal.querySelector('.lp-tool__message');
 
     if (itemtotal <= 0) {
       _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnYes[0].style.display = 'none';
@@ -287,41 +66,44 @@ var cleanDatabases = function cleanDatabases() {
       return;
     }
 
-    _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].callBackYes = function () {
+    _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].callBackYes = () => {
       // warn user before doing
-      var r = confirm('The modified data is impossible to be restored. Please backup your website before doing this.');
+      const r = confirm('The modified data is impossible to be restored. Please backup your website before doing this.');
 
       if (r == false) {
         return;
       }
 
-      var modal = document.querySelector('.lp-modal-body .main-content');
-      var notice = modal.querySelector('.lp-tool__message');
+      const modal = document.querySelector('.lp-modal-body .main-content');
+      const notice = modal.querySelector('.lp-tool__message');
       notice.textContent = 'This action is in processing. Don\'t close this page';
       notice.style.display = 'block';
-      var url = '/lp/v1/admin/tools/clean-tables';
-      var params = {
-        tables: tables,
-        itemtotal: itemtotal
+      const url = '/lp/v1/admin/tools/clean-tables';
+      const params = {
+        tables,
+        itemtotal
       };
       _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnNo[0].style.display = 'none';
       _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnYes[0].style.display = 'none';
-      var functions = {
-        success: function success(res) {
-          var status = res.status,
-              message = res.message,
-              _res$data = res.data,
-              processed = _res$data.processed,
-              percent = _res$data.percent;
-          var modalItem = modal.querySelector('.progressbar__item');
-          var progressBarRows = modalItem.querySelector('.progressbar__rows');
-          var progressPercent = modalItem.querySelector('.progressbar__percent');
-          var progressValue = modalItem.querySelector('.progressbar__value');
+      const functions = {
+        success: res => {
+          const {
+            status,
+            message,
+            data: {
+              processed,
+              percent
+            }
+          } = res;
+          const modalItem = modal.querySelector('.progressbar__item');
+          const progressBarRows = modalItem.querySelector('.progressbar__rows');
+          const progressPercent = modalItem.querySelector('.progressbar__percent');
+          const progressValue = modalItem.querySelector('.progressbar__value');
           console.log(status);
 
           if ('success' === status) {
-            setTimeout(function () {
-              Object(_utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__["default"])(url, params, functions);
+            setTimeout(() => {
+              (0,_utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__["default"])(url, params, functions);
             }, 2000); // update processed quantity
 
             progressBarRows.textContent = processed + ' / ' + itemtotal; // update percent
@@ -334,13 +116,11 @@ var cleanDatabases = function cleanDatabases() {
             progressBarRows.textContent = itemtotal + ' / ' + itemtotal;
             progressPercent.textContent = '( 100% )'; // Update complete nofication
 
-            var _modal = document.querySelector('.lp-modal-body .main-content');
-
-            var _notice = _modal.querySelector('.lp-tool__message');
-
-            _notice.textContent = 'Process has been completed. Press click the finish button to close this popup';
-            _notice.style.color = 'white';
-            _notice.style.background = 'green';
+            const modal = document.querySelector('.lp-modal-body .main-content');
+            const notice = modal.querySelector('.lp-tool__message');
+            notice.textContent = 'Process has been completed. Press click the finish button to close this popup';
+            notice.style.color = 'white';
+            notice.style.background = 'green';
             progressValue.style.width = '100%'; // Show finish button
 
             _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnNo[0].style.display = 'inline-block';
@@ -352,12 +132,12 @@ var cleanDatabases = function cleanDatabases() {
             console.log(message);
           }
         },
-        error: function error(err) {
+        error: err => {
           console.log(err);
         },
-        completed: function completed() {}
+        completed: () => {}
       };
-      Object(_utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__["default"])(url, params, functions);
+      (0,_utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__["default"])(url, params, functions);
     };
   });
 };
@@ -370,27 +150,25 @@ var cleanDatabases = function cleanDatabases() {
 /*!************************************************************************!*\
   !*** ./assets/src/apps/js/admin/pages/tools/database/create_indexs.js ***!
   \************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../utils/lp-modal-overlay */ "./assets/src/apps/js/utils/lp-modal-overlay.js");
 /* harmony import */ var _utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../utils/handle-ajax-api */ "./assets/src/apps/js/utils/handle-ajax-api.js");
 
 
 
-var createIndexes = function createIndexes() {
-  var elCreateIndexTables = document.querySelector('#lp-tool-create-indexes-tables');
+const createIndexes = () => {
+  const elCreateIndexTables = document.querySelector('#lp-tool-create-indexes-tables');
 
   if (!elCreateIndexTables) {
     return;
   }
 
-  var elBtnCreateIndexes = elCreateIndexTables.querySelector('.lp-btn-create-indexes');
-  elBtnCreateIndexes.addEventListener('click', function (e) {
+  const elBtnCreateIndexes = elCreateIndexTables.querySelector('.lp-btn-create-indexes');
+  elBtnCreateIndexes.addEventListener('click', e => {
     e.preventDefault();
-    var elLoading = elCreateIndexTables.querySelector('.wrapper-lp-loading');
+    const elLoading = elCreateIndexTables.querySelector('.wrapper-lp-loading');
 
     if (!_utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].init()) {
       return;
@@ -402,21 +180,24 @@ var createIndexes = function createIndexes() {
     _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnYes[0].style.display = 'inline-block';
     _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnYes[0].textContent = 'Run';
     _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnNo[0].textContent = 'Close';
-    var url = '/lp/v1/admin/tools/list-tables-indexs';
-    var params = {};
-    var functions = {
-      success: function success(res) {
-        var status = res.status,
-            message = res.message,
-            _res$data = res.data,
-            tables = _res$data.tables,
-            table = _res$data.table;
-        var elSteps = document.querySelector('.example-lp-group-step');
+    const url = '/lp/v1/admin/tools/list-tables-indexs';
+    const params = {};
+    const functions = {
+      success: res => {
+        const {
+          status,
+          message,
+          data: {
+            tables,
+            table
+          }
+        } = res;
+        const elSteps = document.querySelector('.example-lp-group-step');
         _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].setContentModal(elSteps.innerHTML);
-        var elGroupStep = _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elLPOverlay[0].querySelector('.lp-group-step '); // Show progress when upgrading.
+        const elGroupStep = _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elLPOverlay[0].querySelector('.lp-group-step '); // Show progress when upgrading.
 
-        var showProgress = function showProgress(stepCurrent, percent) {
-          var elItemStepCurrent = elGroupStep.querySelector('input[value=' + stepCurrent + ']').closest('.lp-item-step');
+        const showProgress = (stepCurrent, percent) => {
+          const elItemStepCurrent = elGroupStep.querySelector('input[value=' + stepCurrent + ']').closest('.lp-item-step');
           elItemStepCurrent.classList.add('running');
 
           if (100 === percent) {
@@ -424,44 +205,47 @@ var createIndexes = function createIndexes() {
             elItemStepCurrent.classList.add('completed');
           }
 
-          var progressBar = elItemStepCurrent.querySelector('.progress-bar');
+          const progressBar = elItemStepCurrent.querySelector('.progress-bar');
           progressBar.style.width = percent;
         }; // Scroll to step current.
 
 
-        var scrollToStepCurrent = function scrollToStepCurrent(stepCurrent) {
-          var elItemStepCurrent = elGroupStep.querySelector('input[value=' + stepCurrent + ']').closest('.lp-item-step');
-          var offset = elItemStepCurrent.offsetTop - _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elMainContent[0].offsetTop + _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elMainContent[0].scrollTop;
+        const scrollToStepCurrent = stepCurrent => {
+          const elItemStepCurrent = elGroupStep.querySelector('input[value=' + stepCurrent + ']').closest('.lp-item-step');
+          const offset = elItemStepCurrent.offsetTop - _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elMainContent[0].offsetTop + _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elMainContent[0].scrollTop;
           _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elMainContent.stop().animate({
             scrollTop: offset
           }, 600);
         };
 
-        for (var _table in tables) {
-          var elItemStep = _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elLPOverlay[0].querySelector('.lp-item-step').cloneNode(true);
-          var input = elItemStep.querySelector('input');
-          var label = elItemStep.querySelector('label');
-          label.textContent = "Table: ".concat(_table);
-          input.value = _table;
+        for (const table in tables) {
+          const elItemStep = _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elLPOverlay[0].querySelector('.lp-item-step').cloneNode(true);
+          const input = elItemStep.querySelector('input');
+          const label = elItemStep.querySelector('label');
+          label.textContent = `Table: ${table}`;
+          input.value = table;
           elGroupStep.append(elItemStep);
         }
 
-        _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].callBackYes = function () {
-          var url = '/lp/v1/admin/tools/create-indexs';
-          var params = {
-            tables: tables,
-            table: table
+        _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].callBackYes = () => {
+          const url = '/lp/v1/admin/tools/create-indexs';
+          const params = {
+            tables,
+            table
           };
           _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnNo[0].style.display = 'none';
           _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnYes[0].style.display = 'none';
           showProgress(table, 0.1);
-          var functions = {
-            success: function success(res) {
-              var status = res.status,
-                  message = res.message,
-                  _res$data2 = res.data,
-                  table = _res$data2.table,
-                  percent = _res$data2.percent;
+          const functions = {
+            success: res => {
+              const {
+                status,
+                message,
+                data: {
+                  table,
+                  percent
+                }
+              } = res;
               showProgress(params.table, percent);
 
               if (undefined !== table) {
@@ -474,8 +258,8 @@ var createIndexes = function createIndexes() {
               }
 
               if ('success' === status) {
-                setTimeout(function () {
-                  Object(_utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__["default"])(url, params, functions);
+                setTimeout(() => {
+                  (0,_utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__["default"])(url, params, functions);
                 }, 2000);
               } else if ('finished' === status) {
                 console.log('finished');
@@ -485,18 +269,18 @@ var createIndexes = function createIndexes() {
                 console.log(message);
               }
             },
-            error: function error(err) {
+            error: err => {
               console.log(err);
             },
-            completed: function completed() {}
+            completed: () => {}
           };
-          Object(_utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__["default"])(url, params, functions);
+          (0,_utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__["default"])(url, params, functions);
         };
       },
-      error: function error(err) {},
-      completed: function completed() {}
+      error: err => {},
+      completed: () => {}
     };
-    Object(_utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__["default"])(url, params, functions);
+    (0,_utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__["default"])(url, params, functions);
   });
 };
 
@@ -508,60 +292,70 @@ var createIndexes = function createIndexes() {
 /*!************************************************************************!*\
   !*** ./assets/src/apps/js/admin/pages/tools/database/re-upgrade-db.js ***!
   \************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../utils/lp-modal-overlay */ "./assets/src/apps/js/utils/lp-modal-overlay.js");
 /* harmony import */ var _utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../utils/handle-ajax-api */ "./assets/src/apps/js/utils/handle-ajax-api.js");
 
 
 
-var reUpgradeDB = function reUpgradeDB() {
-  var elToolReUpgradeDB = document.querySelector('#lp-tool-re-upgrade-db');
+const reUpgradeDB = () => {
+  const elToolReUpgradeDB = document.querySelector('#lp-tool-re-upgrade-db');
 
   if (!elToolReUpgradeDB) {
     return;
   } // Check valid to show popup re-upgrade
 
 
-  var url = 'lp/v1/database/check-db-valid-re-upgrade';
-  Object(_utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__["default"])(url, {}, {
-    success: function success(res) {
-      var can_re_upgrade = res.data.can_re_upgrade;
+  let url = 'lp/v1/database/check-db-valid-re-upgrade';
+  (0,_utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__["default"])(url, {}, {
+    success(res) {
+      const {
+        data: {
+          can_re_upgrade
+        }
+      } = res;
 
       if (!can_re_upgrade) {
         return;
       }
 
       elToolReUpgradeDB.style.display = 'block';
-      var elBtnReUpradeDB = elToolReUpgradeDB.querySelector('.lp-btn-re-upgrade-db');
-      var elMessage = elToolReUpgradeDB.querySelector('.learn-press-message');
-      elBtnReUpradeDB.addEventListener('click', function () {
+      const elBtnReUpradeDB = elToolReUpgradeDB.querySelector('.lp-btn-re-upgrade-db');
+      const elMessage = elToolReUpgradeDB.querySelector('.learn-press-message');
+      elBtnReUpradeDB.addEventListener('click', () => {
         // eslint-disable-next-line no-alert
         if (confirm('Are you want to Re Upgrade!')) {
           url = 'lp/v1/database/del-tb-lp-upgrade-db';
-          Object(_utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__["default"])(url, {}, {
-            success: function success(res) {
-              var status = res.status,
-                  message = res.message,
-                  url = res.data.url;
+          (0,_utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__["default"])(url, {}, {
+            success(res) {
+              const {
+                status,
+                message,
+                data: {
+                  url
+                }
+              } = res;
 
               if ('success' === status && undefined !== url) {
                 window.location.href = url;
               }
             },
-            error: function error(err) {
+
+            error(err) {
               elMessage.classList.add('error');
               elMessage.textContent = err.message;
               elMessage.style.display = 'block';
             }
+
           });
         }
       });
     },
-    error: function error(err) {}
+
+    error(err) {}
+
   });
 };
 
@@ -573,39 +367,37 @@ var reUpgradeDB = function reUpgradeDB() {
 /*!******************************************************************!*\
   !*** ./assets/src/apps/js/admin/pages/tools/database/upgrade.js ***!
   \******************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../utils/lp-modal-overlay */ "./assets/src/apps/js/utils/lp-modal-overlay.js");
 /* harmony import */ var _utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../utils/handle-ajax-api */ "./assets/src/apps/js/utils/handle-ajax-api.js");
 
 
-var $ = jQuery;
-var elToolUpgradeDB = $('#lp-tool-upgrade-db');
+const $ = jQuery;
+const elToolUpgradeDB = $('#lp-tool-upgrade-db');
 
-var upgradeDB = function upgradeDB() {
-  var isUpgrading = 0;
-  var elWrapperTermsUpgrade = elToolUpgradeDB.find('.wrapper-terms-upgrade');
-  var elStatusUpgrade = elToolUpgradeDB.find('.wrapper-lp-status-upgrade');
-  var elWrapperUpgradeMessage = elToolUpgradeDB.find('.wrapper-lp-upgrade-message');
-  var checkValidBeforeUpgrade = null;
+const upgradeDB = () => {
+  let isUpgrading = 0;
+  const elWrapperTermsUpgrade = elToolUpgradeDB.find('.wrapper-terms-upgrade');
+  const elStatusUpgrade = elToolUpgradeDB.find('.wrapper-lp-status-upgrade');
+  const elWrapperUpgradeMessage = elToolUpgradeDB.find('.wrapper-lp-upgrade-message');
+  let checkValidBeforeUpgrade = null;
 
   if (elWrapperTermsUpgrade.length) {
     // Show Terms Upgrade.
     _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].setContentModal(elWrapperTermsUpgrade.html());
-    var elTermUpdate = _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elLPOverlay.find('.terms-upgrade');
-    var elLPAgreeTerm = elTermUpdate.find('input[name=lp-agree-term]');
-    var elTermMessage = elTermUpdate.find('.error');
-    var elMessageUpgrading = $('input[name=message-when-upgrading]').val();
+    const elTermUpdate = _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elLPOverlay.find('.terms-upgrade');
+    const elLPAgreeTerm = elTermUpdate.find('input[name=lp-agree-term]');
+    const elTermMessage = elTermUpdate.find('.error');
+    const elMessageUpgrading = $('input[name=message-when-upgrading]').val();
 
-    checkValidBeforeUpgrade = function checkValidBeforeUpgrade() {
+    checkValidBeforeUpgrade = function () {
       elTermMessage.hide();
       elTermMessage.removeClass('learn-press-message');
 
       if (elLPAgreeTerm.is(':checked')) {
-        Object(_utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__["default"])('/lp/v1/database/agree_terms', {
+        (0,_utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__["default"])('/lp/v1/database/agree_terms', {
           agree_terms: 1
         }, {});
         _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elFooter.find('.learn-press-notice').remove();
@@ -625,7 +417,7 @@ var upgradeDB = function upgradeDB() {
     // Show Steps Upgrade.
     _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].setContentModal(elStatusUpgrade.html());
 
-    checkValidBeforeUpgrade = function checkValidBeforeUpgrade() {
+    checkValidBeforeUpgrade = function () {
       return true;
     };
   }
@@ -643,26 +435,26 @@ var upgradeDB = function upgradeDB() {
     isUpgrading = 1;
     _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnYes.hide();
     _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnNo.hide();
-    var urlHandle = '/lp/v1/database/upgrade';
-    var elGroupStep = _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elLPOverlay.find('.lp-group-step');
-    var elItemSteps = elToolUpgradeDB.find('.lp-item-step'); // Get params.
+    const urlHandle = '/lp/v1/database/upgrade';
+    const elGroupStep = _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elLPOverlay.find('.lp-group-step');
+    const elItemSteps = elToolUpgradeDB.find('.lp-item-step'); // Get params.
 
-    var steps = [];
+    const steps = [];
     $.each(elItemSteps, function (i, el) {
-      var elItemStepsTmp = $(el);
+      const elItemStepsTmp = $(el);
 
       if (!elItemStepsTmp.hasClass('completed')) {
-        var step = elItemStepsTmp.find('input').val();
+        const step = elItemStepsTmp.find('input').val();
         steps.push(step);
       }
     });
-    var params = {
-      steps: steps,
+    const params = {
+      steps,
       step: steps[0]
     };
-    var elItemStepCurrent = null; // Show progress when upgrading.
+    let elItemStepCurrent = null; // Show progress when upgrading.
 
-    var showProgress = function showProgress(stepCurrent, percent) {
+    const showProgress = (stepCurrent, percent) => {
       elItemStepCurrent = elGroupStep.find('input[value=' + stepCurrent + ']').closest('.lp-item-step');
       elItemStepCurrent.addClass('running');
 
@@ -675,17 +467,17 @@ var upgradeDB = function upgradeDB() {
     }; // Scroll to step current.
 
 
-    var scrollToStepCurrent = function scrollToStepCurrent(stepCurrent) {
+    const scrollToStepCurrent = stepCurrent => {
       elItemStepCurrent = elGroupStep.find('input[value=' + stepCurrent + ']').closest('.lp-item-step');
-      var offset = elItemStepCurrent.offset().top - _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elMainContent.offset().top + _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elMainContent.scrollTop();
+      const offset = elItemStepCurrent.offset().top - _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elMainContent.offset().top + _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elMainContent.scrollTop();
       _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elMainContent.stop().animate({
         scrollTop: offset
       }, 600);
     };
 
     showProgress(steps[0], 0.1);
-    var funcCallBack = {
-      success: function success(res) {
+    const funcCallBack = {
+      success: res => {
         showProgress(params.step, res.percent);
 
         if (params.step !== res.name) {
@@ -697,18 +489,18 @@ var upgradeDB = function upgradeDB() {
         if ('success' === res.status) {
           params.step = res.name;
           params.data = res.data;
-          setTimeout(function () {
-            Object(_utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__["default"])(urlHandle, params, funcCallBack);
+          setTimeout(() => {
+            (0,_utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__["default"])(urlHandle, params, funcCallBack);
           }, 800);
         } else if ('finished' === res.status) {
           isUpgrading = 0;
           elItemStepCurrent.removeClass('running').addClass('completed');
-          setTimeout(function () {
+          setTimeout(() => {
             _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].setContentModal(elWrapperUpgradeMessage.html());
           }, 1000);
           _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elFooter.find('.learn-press-notice').remove();
           _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnNo.show();
-          _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnNo.on('click', function () {
+          _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnNo.on('click', () => {
             window.location.reload();
           });
         } else {
@@ -718,7 +510,7 @@ var upgradeDB = function upgradeDB() {
           _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].setContentModal(elWrapperUpgradeMessage.html(), function () {
             _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnYes.text('Retry').show();
 
-            _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].callBackYes = function () {
+            _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].callBackYes = () => {
               window.location.href = lpGlobalSettings.siteurl + '/wp-admin/admin.php?page=learn-press-tools&tab=database&action=upgrade-db';
             };
 
@@ -732,12 +524,12 @@ var upgradeDB = function upgradeDB() {
           });
         }
       },
-      error: function error(err) {
+      error: err => {
         isUpgrading = 0;
         _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].setContentModal(elWrapperUpgradeMessage.html(), function () {
           _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnYes.text('Retry').show();
 
-          _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].callBackYes = function () {
+          _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].callBackYes = () => {
             window.location.location = 'wp-admin/admin.php?page=learn-press-tools&tab=database&action=upgrade-db';
           };
 
@@ -750,9 +542,9 @@ var upgradeDB = function upgradeDB() {
           _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elMainContent.find('.learn-press-message').addClass('error').html(err.message);
         });
       },
-      completed: function completed() {}
+      completed: () => {}
     };
-    Object(_utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__["default"])(urlHandle, params, funcCallBack);
+    (0,_utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__["default"])(urlHandle, params, funcCallBack);
   }; // Show confirm if, within upgrading, the user reload the page.
 
 
@@ -770,7 +562,7 @@ var upgradeDB = function upgradeDB() {
   };
 };
 
-var getStepsUpgradeStatus = function getStepsUpgradeStatus() {
+const getStepsUpgradeStatus = () => {
   if (!elToolUpgradeDB.length) {
     return;
   } // initial LP Modal Overlay
@@ -780,12 +572,12 @@ var getStepsUpgradeStatus = function getStepsUpgradeStatus() {
     return;
   }
 
-  var elWrapperStatusUpgrade = $('.wrapper-lp-status-upgrade');
-  var urlHandle = '/lp/v1/database/get_steps'; // Show dialog upgrade database.
+  const elWrapperStatusUpgrade = $('.wrapper-lp-status-upgrade');
+  const urlHandle = '/lp/v1/database/get_steps'; // Show dialog upgrade database.
 
-  var queryString = window.location.search;
-  var urlParams = new URLSearchParams(queryString);
-  var action = urlParams.get('action');
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const action = urlParams.get('action');
 
   if ('upgrade-db' === action) {
     _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elLPOverlay.show();
@@ -793,10 +585,12 @@ var getStepsUpgradeStatus = function getStepsUpgradeStatus() {
     _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].setContentModal($('.wrapper-lp-loading').html());
   }
 
-  var funcCallBack = {
-    success: function success(res) {
-      var steps_completed = res.steps_completed,
-          steps_default = res.steps_default;
+  const funcCallBack = {
+    success: res => {
+      const {
+        steps_completed,
+        steps_default
+      } = res;
 
       if (undefined === steps_completed || undefined === steps_default) {
         console.log('invalid steps_completed and steps_default');
@@ -804,17 +598,17 @@ var getStepsUpgradeStatus = function getStepsUpgradeStatus() {
       } // Render show Steps.
 
 
-      var htmlStep = '';
+      let htmlStep = '';
 
-      for (var k_gr_steps in steps_default) {
-        var step_group = steps_default[k_gr_steps];
-        var steps = step_group.steps;
+      for (const k_gr_steps in steps_default) {
+        const step_group = steps_default[k_gr_steps];
+        const steps = step_group.steps;
         htmlStep = '<div class="lp-group-step">';
         htmlStep += '<h3>' + step_group.label + '</h3>';
 
-        for (var k_step in steps) {
-          var step = steps[k_step];
-          var completed = '';
+        for (const k_step in steps) {
+          const step = steps[k_step];
+          let completed = '';
 
           if (undefined !== steps_completed[k_step]) {
             completed = 'completed';
@@ -833,7 +627,7 @@ var getStepsUpgradeStatus = function getStepsUpgradeStatus() {
 
         htmlStep += '</div>';
         elWrapperStatusUpgrade.append(htmlStep);
-        var elBtnUpgradeDB = $('.lp-btn-upgrade-db');
+        const elBtnUpgradeDB = $('.lp-btn-upgrade-db');
 
         if ('upgrade-db' === action) {
           upgradeDB();
@@ -845,10 +639,10 @@ var getStepsUpgradeStatus = function getStepsUpgradeStatus() {
         });
       }
     },
-    error: function error(err) {},
-    completed: function completed() {}
+    error: err => {},
+    completed: () => {}
   };
-  Object(_utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__["default"])(urlHandle, {}, funcCallBack);
+  (0,_utils_handle_ajax_api__WEBPACK_IMPORTED_MODULE_1__["default"])(urlHandle, {}, funcCallBack);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (getStepsUpgradeStatus);
@@ -859,36 +653,12 @@ var getStepsUpgradeStatus = function getStepsUpgradeStatus() {
 /*!*******************************************************************!*\
   !*** ./assets/src/apps/js/admin/pages/tools/reset-data/course.js ***!
   \*******************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 /**
  * Reset course progress.
@@ -896,137 +666,85 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
  * @since 4.0.5.
  * @author Nhamdv - Code choi choi in Physcode.
  */
-var __ = wp.i18n.__;
-var _wp$components = wp.components,
-    TextControl = _wp$components.TextControl,
-    Button = _wp$components.Button,
-    Spinner = _wp$components.Spinner,
-    CheckboxControl = _wp$components.CheckboxControl,
-    Notice = _wp$components.Notice;
-var _wp$element = wp.element,
-    useState = _wp$element.useState,
-    useEffect = _wp$element.useEffect;
-var addQueryArgs = wp.url.addQueryArgs;
+const {
+  __
+} = wp.i18n;
+const {
+  TextControl,
+  Button,
+  Spinner,
+  CheckboxControl,
+  Notice
+} = wp.components;
+const {
+  useState,
+  useEffect
+} = wp.element;
+const {
+  addQueryArgs
+} = wp.url;
 
-var ResetCourse = function ResetCourse() {
-  var _useState = useState(false),
-      _useState2 = _slicedToArray(_useState, 2),
-      loading = _useState2[0],
-      setLoading = _useState2[1];
-
-  var _useState3 = useState(''),
-      _useState4 = _slicedToArray(_useState3, 2),
-      search = _useState4[0],
-      setSearch = _useState4[1];
-
-  var _useState5 = useState([]),
-      _useState6 = _slicedToArray(_useState5, 2),
-      data = _useState6[0],
-      setData = _useState6[1];
-
-  var _useState7 = useState([]),
-      _useState8 = _slicedToArray(_useState7, 2),
-      checkData = _useState8[0],
-      setCheckData = _useState8[1];
-
-  var _useState9 = useState([]),
-      _useState10 = _slicedToArray(_useState9, 2),
-      message = _useState10[0],
-      setMessage = _useState10[1];
-
-  var _useState11 = useState(false),
-      _useState12 = _slicedToArray(_useState11, 2),
-      loadingReset = _useState12[0],
-      setLoadingReset = _useState12[1];
-
-  useEffect(function () {
+const ResetCourse = () => {
+  const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState('');
+  const [data, setData] = useState([]);
+  const [checkData, setCheckData] = useState([]);
+  const [message, setMessage] = useState([]);
+  const [loadingReset, setLoadingReset] = useState(false);
+  useEffect(() => {
     responsiveData(search);
   }, [search]);
 
-  var responsiveData = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(s) {
-      var response, status, _data;
+  const responsiveData = async s => {
+    try {
+      if (!s || loading) {
+        setMessage([]);
+        setData([]);
+        return;
+      }
 
-      return regeneratorRuntime.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.prev = 0;
+      if (s.length < 3) {
+        setMessage([{
+          status: 'error',
+          message: 'Please enter at least 3 characters to searching course.'
+        }]);
+        setData([]);
+        return;
+      }
 
-              if (!(!s || loading)) {
-                _context.next = 5;
-                break;
-              }
+      setLoading(true);
+      const response = await wp.apiFetch({
+        path: addQueryArgs('lp/v1/admin/tools/reset-data/search-courses', {
+          s
+        }),
+        method: 'GET'
+      });
+      const {
+        status,
+        data
+      } = response;
+      setLoading(false);
 
-              setMessage([]);
-              setData([]);
-              return _context.abrupt("return");
-
-            case 5:
-              if (!(s.length < 3)) {
-                _context.next = 9;
-                break;
-              }
-
-              setMessage([{
-                status: 'error',
-                message: 'Please enter at least 3 characters to searching course.'
-              }]);
-              setData([]);
-              return _context.abrupt("return");
-
-            case 9:
-              setLoading(true);
-              _context.next = 12;
-              return wp.apiFetch({
-                path: addQueryArgs('lp/v1/admin/tools/reset-data/search-courses', {
-                  s: s
-                }),
-                method: 'GET'
-              });
-
-            case 12:
-              response = _context.sent;
-              status = response.status, _data = response.data;
-              setLoading(false);
-
-              if (status === 'success') {
-                setData(_data);
-                setMessage([]);
-              } else {
-                setMessage([{
-                  status: 'error',
-                  message: response.message || 'LearnPress: Search Course Fail!'
-                }]);
-                setData([]);
-              }
-
-              _context.next = 21;
-              break;
-
-            case 18:
-              _context.prev = 18;
-              _context.t0 = _context["catch"](0);
-              console.log(_context.t0.message);
-
-            case 21:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, null, [[0, 18]]);
-    }));
-
-    return function responsiveData(_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
+      if (status === 'success') {
+        setData(data);
+        setMessage([]);
+      } else {
+        setMessage([{
+          status: 'error',
+          message: response.message || 'LearnPress: Search Course Fail!'
+        }]);
+        setData([]);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   function checkItems(id) {
-    var datas = _toConsumableArray(checkData);
+    const datas = [...checkData];
 
     if (datas.includes(id)) {
-      var index = datas.indexOf(id);
+      const index = datas.indexOf(id);
 
       if (index > -1) {
         datas.splice(index, 1);
@@ -1038,183 +756,114 @@ var ResetCourse = function ResetCourse() {
     setCheckData(datas);
   }
 
-  var resetCourse = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-      var notice, _iterator, _step, courseId, response, status, _data2, _message;
+  const resetCourse = async () => {
+    if (checkData.length === 0) {
+      setMessage([{
+        status: 'error',
+        message: 'Please chooce Course for reset data!'
+      }]);
+      return;
+    } // eslint-disable-next-line no-alert
 
-      return regeneratorRuntime.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              if (!(checkData.length === 0)) {
-                _context2.next = 3;
-                break;
-              }
 
-              setMessage([{
-                status: 'error',
-                message: 'Please chooce Course for reset data!'
-              }]);
-              return _context2.abrupt("return");
+    if (!confirm('Are you sure to reset course progress of all users enrolled this course?')) {
+      return;
+    }
 
-            case 3:
-              if (confirm('Are you sure to reset course progress of all users enrolled this course?')) {
-                _context2.next = 5;
-                break;
-              }
+    const notice = [];
 
-              return _context2.abrupt("return");
+    try {
+      setLoadingReset(true);
 
-            case 5:
-              notice = [];
-              _context2.prev = 6;
-              setLoadingReset(true);
-              _iterator = _createForOfIteratorHelper(checkData);
-              _context2.prev = 9;
+      for (const courseId of checkData) {
+        const response = await wp.apiFetch({
+          path: addQueryArgs('lp/v1/admin/tools/reset-data/reset-courses', {
+            courseId
+          }),
+          method: 'GET'
+        });
+        const {
+          status,
+          data,
+          message
+        } = response;
+        notice.push({
+          status,
+          message: message || `Course #${courseId} reset successfully!`
+        });
+      }
 
-              _iterator.s();
+      setLoadingReset(false);
+    } catch (error) {
+      notice.push({
+        status: 'error',
+        message: error.message || `LearnPress Error: Reset Course Data.`
+      });
+    }
 
-            case 11:
-              if ((_step = _iterator.n()).done) {
-                _context2.next = 20;
-                break;
-              }
+    setMessage(notice);
+  };
 
-              courseId = _step.value;
-              _context2.next = 15;
-              return wp.apiFetch({
-                path: addQueryArgs('lp/v1/admin/tools/reset-data/reset-courses', {
-                  courseId: courseId
-                }),
-                method: 'GET'
-              });
-
-            case 15:
-              response = _context2.sent;
-              status = response.status, _data2 = response.data, _message = response.message;
-              notice.push({
-                status: status,
-                message: _message || "Course #".concat(courseId, " reset successfully!")
-              });
-
-            case 18:
-              _context2.next = 11;
-              break;
-
-            case 20:
-              _context2.next = 25;
-              break;
-
-            case 22:
-              _context2.prev = 22;
-              _context2.t0 = _context2["catch"](9);
-
-              _iterator.e(_context2.t0);
-
-            case 25:
-              _context2.prev = 25;
-
-              _iterator.f();
-
-              return _context2.finish(25);
-
-            case 28:
-              setLoadingReset(false);
-              _context2.next = 34;
-              break;
-
-            case 31:
-              _context2.prev = 31;
-              _context2.t1 = _context2["catch"](6);
-              notice.push({
-                status: 'error',
-                message: _context2.t1.message || "LearnPress Error: Reset Course Data."
-              });
-
-            case 34:
-              setMessage(notice);
-
-            case 35:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2, null, [[6, 31], [9, 22, 25, 28]]);
-    }));
-
-    return function resetCourse() {
-      return _ref2.apply(this, arguments);
-    };
-  }();
-
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h2", null, __('Reset course progress', 'learnpress')), /*#__PURE__*/React.createElement("div", {
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, __('Reset course progress', 'learnpress')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "description"
-  }, /*#__PURE__*/React.createElement("p", null, __('This action will reset progress of a course for all users have enrolled.', 'learnpress')), /*#__PURE__*/React.createElement("p", null, __('Search results only show course have user data.', 'learnpress')), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(TextControl, {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, __('This action will reset progress of a course for all users have enrolled.', 'learnpress')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, __('Search results only show course have user data.', 'learnpress')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(TextControl, {
     placeholder: __('Search course by name', 'learnpress'),
     value: search,
-    onChange: function onChange(value) {
-      return setSearch(value);
-    },
+    onChange: value => setSearch(value),
     style: {
       width: 300
     }
-  }))), loading && /*#__PURE__*/React.createElement(Spinner, null), data.length > 0 && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+  }))), loading && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(Spinner, null), data.length > 0 && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "lp-reset-course_progress",
     style: {
       border: '1px solid #eee'
     }
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     style: {
       background: '#eee'
     }
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(CheckboxControl, {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(CheckboxControl, {
     checked: checkData.length === data.length,
-    onChange: function onChange() {
+    onChange: () => {
       if (checkData.length === data.length) {
         setCheckData([]);
       } else {
-        setCheckData(data.map(function (dt) {
-          return dt.id;
-        }));
+        setCheckData(data.map(dt => dt.id));
       }
     },
     style: {
       margin: 0
     }
-  })), /*#__PURE__*/React.createElement("div", null, __('ID', 'learnpress')), /*#__PURE__*/React.createElement("div", null, __('Name', 'learnpress')), /*#__PURE__*/React.createElement("div", null, __('Students', 'learnpress')))), /*#__PURE__*/React.createElement("div", {
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, __('ID', 'learnpress')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, __('Name', 'learnpress')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, __('Students', 'learnpress')))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     style: {
       height: '100%',
       maxHeight: 200,
       overflow: 'auto'
     }
-  }, data.map(function (dt) {
-    return /*#__PURE__*/React.createElement("div", {
+  }, data.map(dt => {
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       style: {
         borderTop: '1px solid #eee'
       },
       key: dt.id
-    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(CheckboxControl, {
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(CheckboxControl, {
       checked: checkData.includes(dt.id),
-      onChange: function onChange() {
-        return checkItems(dt.id);
-      }
-    })), /*#__PURE__*/React.createElement("div", null, "#", dt.id), /*#__PURE__*/React.createElement("div", null, dt.title), /*#__PURE__*/React.createElement("div", null, dt.students));
-  }))), loadingReset ? /*#__PURE__*/React.createElement(Spinner, null) : /*#__PURE__*/React.createElement(Button, {
+      onChange: () => checkItems(dt.id)
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, "#", dt.id), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, dt.title), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, dt.students));
+  }))), loadingReset ? (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(Spinner, null) : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(Button, {
     isPrimary: true,
-    onClick: function onClick() {
-      return resetCourse();
-    },
+    onClick: () => resetCourse(),
     style: {
       marginTop: 10,
       height: 30
     }
-  }, __('Reset now', 'learnpress'))), message.length > 0 && message.map(function (mess, index) {
-    return /*#__PURE__*/React.createElement(Notice, {
+  }, __('Reset now', 'learnpress'))), message.length > 0 && message.map((mess, index) => {
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(Notice, {
       status: mess.status,
       key: index,
       isDismissible: false
     }, mess.message);
-  }), /*#__PURE__*/React.createElement("style", null, '\
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("style", null, '\
 				.lp-reset-course_progress .components-base-control__field {\
 					margin: 0;\
 				}\
@@ -1241,29 +890,18 @@ var ResetCourse = function ResetCourse() {
 /*!******************************************************************!*\
   !*** ./assets/src/apps/js/admin/pages/tools/reset-data/index.js ***!
   \******************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _course__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./course */ "./assets/src/apps/js/admin/pages/tools/reset-data/course.js");
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _course__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./course */ "./assets/src/apps/js/admin/pages/tools/reset-data/course.js");
 
 
 
-var resetData = function resetData() {
+const resetData = () => {
   if (document.querySelectorAll('#learn-press-reset-course-users').length > 0) {
-    wp.element.render( /*#__PURE__*/React.createElement(_course__WEBPACK_IMPORTED_MODULE_0__["default"], null), _toConsumableArray(document.querySelectorAll('#learn-press-reset-course-users'))[0]);
+    wp.element.render((0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_course__WEBPACK_IMPORTED_MODULE_1__["default"], null), [...document.querySelectorAll('#learn-press-reset-course-users')][0]);
   }
 };
 
@@ -1275,25 +913,23 @@ var resetData = function resetData() {
 /*!*****************************************************!*\
   !*** ./assets/src/apps/js/utils/handle-ajax-api.js ***!
   \*****************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
-var handleAjax = function handleAjax(url, params, functions) {
+const handleAjax = function (url, params, functions) {
   wp.apiFetch({
     path: url,
     method: 'POST',
     data: params
-  }).then(function (res) {
+  }).then(res => {
     if ('function' === typeof functions.success) {
       functions.success(res);
     }
-  })["catch"](function (err) {
+  }).catch(err => {
     if ('function' === typeof functions.error) {
       functions.error(err);
     }
-  }).then(function () {
+  }).then(() => {
     if ('function' === typeof functions.completed) {
       functions.completed();
     }
@@ -1308,14 +944,12 @@ var handleAjax = function handleAjax(url, params, functions) {
 /*!******************************************************!*\
   !*** ./assets/src/apps/js/utils/lp-modal-overlay.js ***!
   \******************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
-var $ = jQuery;
-var elLPOverlay = null;
-var lpModalOverlay = {
+const $ = jQuery;
+let elLPOverlay = null;
+const lpModalOverlay = {
   elLPOverlay: null,
   elMainContent: null,
   elTitle: null,
@@ -1325,7 +959,8 @@ var lpModalOverlay = {
   elCalledModal: null,
   callBackYes: null,
   instance: null,
-  init: function init() {
+
+  init() {
     if (this.instance) {
       return true;
     }
@@ -1356,23 +991,247 @@ var lpModalOverlay = {
     this.instance = this;
     return true;
   },
-  setElCalledModal: function setElCalledModal(elCalledModal) {
+
+  setElCalledModal(elCalledModal) {
     this.elCalledModal = elCalledModal;
   },
-  setContentModal: function setContentModal(content, event) {
+
+  setContentModal(content, event) {
     this.elMainContent.html(content);
 
     if ('function' === typeof event) {
       event();
     }
   },
-  setTitleModal: function setTitleModal(content) {
+
+  setTitleModal(content) {
     this.elTitle.html(content);
   }
+
 };
 /* harmony default export */ __webpack_exports__["default"] = (lpModalOverlay);
 
+/***/ }),
+
+/***/ "@wordpress/element":
+/*!*********************************!*\
+  !*** external ["wp","element"] ***!
+  \*********************************/
+/***/ (function(module) {
+
+module.exports = window["wp"]["element"];
+
 /***/ })
 
-/******/ });
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	!function() {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = function(module) {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				function() { return module['default']; } :
+/******/ 				function() { return module; };
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+!function() {
+/*!*************************************************!*\
+  !*** ./assets/src/apps/js/admin/pages/tools.js ***!
+  \*************************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _tools_database_upgrade__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tools/database/upgrade */ "./assets/src/apps/js/admin/pages/tools/database/upgrade.js");
+/* harmony import */ var _tools_database_create_indexs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tools/database/create_indexs */ "./assets/src/apps/js/admin/pages/tools/database/create_indexs.js");
+/* harmony import */ var _tools_database_re_upgrade_db__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tools/database/re-upgrade-db */ "./assets/src/apps/js/admin/pages/tools/database/re-upgrade-db.js");
+/* harmony import */ var _tools_database_clean_database__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tools/database/clean_database */ "./assets/src/apps/js/admin/pages/tools/database/clean_database.js");
+/* harmony import */ var _tools_reset_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./tools/reset-data */ "./assets/src/apps/js/admin/pages/tools/reset-data/index.js");
+
+
+
+
+
+
+(function ($) {
+  const $doc = $(document);
+  let isRunning = false;
+
+  const installSampleCourse = function installSampleCourse(e) {
+    e.preventDefault();
+    const $button = $(this);
+
+    if (isRunning) {
+      return;
+    }
+
+    if (!confirm(lpGlobalSettings.i18n.confirm_install_sample_data)) {
+      return;
+    }
+
+    $button.addClass('disabled').html($button.data('installing-text'));
+    $('.lp-install-sample__response').remove();
+    isRunning = true;
+    $.ajax({
+      url: $button.attr('href'),
+      data: $('.lp-install-sample__options').serializeJSON(),
+
+      success(response) {
+        $button.removeClass('disabled').html($button.data('text'));
+        isRunning = false;
+        $(response).insertBefore($button.parent());
+      },
+
+      error() {
+        $button.removeClass('disabled').html($button.data('text'));
+        isRunning = false;
+        $(response).insertBefore($button.parent());
+      }
+
+    });
+  };
+
+  const uninstallSampleCourse = function uninstallSampleCourse(e) {
+    e.preventDefault();
+    const $button = $(this);
+
+    if (isRunning) {
+      return;
+    }
+
+    if (!confirm(lpGlobalSettings.i18n.confirm_uninstall_sample_data)) {
+      return;
+    }
+
+    $button.addClass('disabled').html($button.data('uninstalling-text'));
+    isRunning = true;
+    $.ajax({
+      url: $button.attr('href'),
+
+      success(response) {
+        $button.removeClass('disabled').html($button.data('text'));
+        isRunning = false;
+        $(response).insertBefore($button.parent());
+      },
+
+      error() {
+        $button.removeClass('disabled').html($button.data('text'));
+        isRunning = false;
+        $(response).insertBefore($button.parent());
+      }
+
+    });
+  };
+
+  const clearHardCache = function clearHardCache(e) {
+    e.preventDefault();
+    const $button = $(this);
+
+    if ($button.hasClass('disabled')) {
+      return;
+    }
+
+    $button.addClass('disabled').html($button.data('cleaning-text'));
+    $.ajax({
+      url: $button.attr('href'),
+      data: {},
+
+      success(response) {
+        $button.removeClass('disabled').html($button.data('text'));
+      },
+
+      error() {
+        $button.removeClass('disabled').html($button.data('text'));
+      }
+
+    });
+  };
+
+  const toggleHardCache = function toggleHardCache() {
+    $.ajax({
+      url: 'admin.php?page=lp-toggle-hard-cache-option',
+      data: {
+        v: this.checked ? 'yes' : 'no'
+      },
+
+      success(response) {},
+
+      error() {}
+
+    });
+  };
+
+  const toggleOptions = function toggleOptions(e) {
+    e.preventDefault();
+    $('.lp-install-sample__options').toggleClass('hide-if-js');
+  };
+
+  $(function () {
+    (0,_tools_database_upgrade__WEBPACK_IMPORTED_MODULE_0__["default"])();
+    (0,_tools_database_create_indexs__WEBPACK_IMPORTED_MODULE_1__["default"])();
+    (0,_tools_database_re_upgrade_db__WEBPACK_IMPORTED_MODULE_2__["default"])();
+    (0,_tools_reset_data__WEBPACK_IMPORTED_MODULE_4__["default"])();
+    (0,_tools_database_clean_database__WEBPACK_IMPORTED_MODULE_3__["default"])();
+    $doc.on('click', '.lp-install-sample__install', installSampleCourse).on('click', '.lp-install-sample__uninstall', uninstallSampleCourse).on('click', '#learn-press-clear-cache', clearHardCache).on('click', 'input[name="enable_hard_cache"]', toggleHardCache).on('click', '.lp-install-sample__toggle-options', toggleOptions);
+  });
+})(jQuery);
+}();
+/******/ })()
+;
 //# sourceMappingURL=tools.js.map

@@ -1,108 +1,18 @@
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./assets/src/apps/js/admin/pages/setup.js");
-/******/ })
-/************************************************************************/
-/******/ ({
-
-/***/ "./assets/src/apps/js/admin/pages/setup.js":
+/******/ (function() { // webpackBootstrap
+var __webpack_exports__ = {};
 /*!*************************************************!*\
   !*** ./assets/src/apps/js/admin/pages/setup.js ***!
   \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
 (function ($) {
   'use strict';
 
-  var $main, $setupForm;
+  let $main, $setupForm;
 
-  var checkForm = function checkForm($form) {
-    var $emails = $form.find('input[type="email"]');
-    var valid = true;
+  const checkForm = function checkForm($form) {
+    const $emails = $form.find('input[type="email"]');
+    let valid = true;
     $emails.each(function () {
-      var $this = $(this);
+      const $this = $(this);
       $this.css('border-color', '');
 
       switch ($this.attr('name')) {
@@ -123,51 +33,49 @@
     return valid;
   };
 
-  var blockContent = function blockContent(block) {
+  const blockContent = function blockContent(block) {
     $main.toggleClass('loading', block === undefined ? true : block);
   };
 
-  var getFormData = function getFormData(more) {
+  const getFormData = function getFormData(more) {
     $setupForm = $('#learn-press-setup-form');
-    var data = $setupForm.serializeJSON();
+    const data = $setupForm.serializeJSON();
     return $.extend(data, more || {});
   };
 
-  var replaceMainContent = function replaceMainContent(newContent) {
-    var $newContent = $(newContent);
+  const replaceMainContent = function replaceMainContent(newContent) {
+    const $newContent = $(newContent);
     $main.replaceWith($newContent);
     $main = $newContent;
   };
+  /*const navPages = function navPages( e ) {
+  	e.preventDefault();
+  		if ( ! checkForm( $setupForm ) ) {
+  		return;
+  	}
+  		const loadUrl = $( this ).attr( 'href' );
+  		$main.addClass( 'loading' );
+  	$.post( {
+  		url: loadUrl,
+  		data: getFormData(),
+  		success( res ) {
+  			const $html = $( res );
+  			replaceMainContent( $html.contents().filter( '#main' ) );
+  				LP.setUrl( loadUrl );
+  				$( '.learn-press-dropdown-pages' ).LP( 'DropdownPages' );
+  			$( '.learn-press-tip' ).LP( 'QuickTip' );
+  			$main.removeClass( 'loading' );
+  		},
+  	} );
+  };*/
 
-  var navPages = function navPages(e) {
-    e.preventDefault();
 
-    if (!checkForm($setupForm)) {
-      return;
-    }
-
-    var loadUrl = $(this).attr('href');
-    $main.addClass('loading');
-    $.post({
-      url: loadUrl,
-      data: getFormData(),
-      success: function success(res) {
-        var $html = $(res);
-        replaceMainContent($html.contents().filter('#main'));
-        LP.setUrl(loadUrl);
-        $('.learn-press-dropdown-pages').LP('DropdownPages');
-        $('.learn-press-tip').LP('QuickTip');
-        $main.removeClass('loading');
-      }
-    });
-  };
-
-  var updateCurrency = function updateCurrency() {
-    var m = $(this).children(':selected').html().match(/\((.*)\)/),
-        symbol = m ? m[1] : '';
+  const updateCurrency = function updateCurrency() {
+    const m = $(this).children(':selected').html().match(/\((.*)\)/),
+          symbol = m ? m[1] : '';
     $('#currency-pos').children().each(function () {
-      var $option = $(this);
-      var text = $option.html();
+      const $option = $(this);
+      let text = $option.html();
 
       switch ($option.val()) {
         case 'left':
@@ -191,20 +99,22 @@
     });
   };
 
-  var updatePrice = function updatePrice() {
+  const updatePrice = function updatePrice() {
     $.post({
       url: '',
       dataType: 'html',
       data: getFormData({
         'lp-ajax': 'get-price-format'
       }),
-      success: function success(res) {
+
+      success(res) {
         $('#preview-price').html(res);
       }
+
     });
   };
 
-  var createPages = function createPages(e) {
+  const createPages = function createPages(e) {
     e.preventDefault();
     blockContent();
     $.post({
@@ -213,31 +123,18 @@
       data: getFormData({
         'lp-ajax': 'setup-create-pages'
       }),
-      success: function success(res) {
+
+      success(res) {
         replaceMainContent($(res).contents().filter('#main'));
         $('.learn-press-dropdown-pages').LP('DropdownPages');
         blockContent(false);
       }
-    });
-  };
 
-  var installSampleCourse = function installSampleCourse(e) {
-    e.preventDefault();
-    var $button = $(this);
-    blockContent();
-    $.post({
-      url: $(this).attr('href'),
-      dataType: 'html',
-      data: {},
-      success: function success(res) {
-        blockContent(false);
-        $button.replaceWith($(res).find('a:first').addClass('button button-primary'));
-      }
     });
   };
 
   function isEmail(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   }
 
@@ -245,11 +142,10 @@
     $main = $('#main');
     $setupForm = $('#learn-press-setup-form');
     $('.learn-press-select2').select2();
-    $(document).on('click', '.buttons .button', navPages).on('change', '#currency', updateCurrency).on('change', 'input, select', updatePrice).on('click', '#create-pages', createPages).on('click', '#install-sample-course', installSampleCourse);
+    $(document). // on( 'click', '.buttons .button', navPages ).
+    on('change', '#currency', updateCurrency).on('change', 'input, select', updatePrice).on('click', '#create-pages', createPages);
   });
 })(jQuery);
-
-/***/ })
-
-/******/ });
+/******/ })()
+;
 //# sourceMappingURL=setup.js.map

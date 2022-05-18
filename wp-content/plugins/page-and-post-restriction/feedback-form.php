@@ -54,9 +54,9 @@ function papr_display_feedback_form() {
 
                     <div class="mo_papr_feedback_footer">
                         <input type="submit" name="miniorange_feedback_submit"
-                               class="button button-primary button-large" value="Send"/>
+                               class="papr-btn-cstm rounded" value="Send"/>
                         <input type="button" name="miniorange_skip_feedback"
-                               class="button button-primary button-large" value="Skip" onclick="document.getElementById('papr_feedback_form_close').submit();"/>
+                               class="papr-btn-cstm rounded" value="Skip" onclick="document.getElementById('papr_feedback_form_close').submit();"/>
                     </div>
                 </div>
             </form>

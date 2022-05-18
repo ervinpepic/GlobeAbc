@@ -81,9 +81,16 @@ function nbcpf_phonetext_form_tag_handler( $tag ) {
 
 	$atts = wpcf7_format_atts( $atts );
 
+	$atts_country_code=array();
+	$atts_country_code['type'] = 'hidden';
+	$atts_country_code['name'] = $tag->name . '-country-code';
+	$atts_country_code['class'] = 'wpcf7-phonetext-country-code';
+
+	$atts_country_code = wpcf7_format_atts( $atts_country_code );
+
 	$html = sprintf(
-		'<span class="wpcf7-form-control-wrap %1$s"><input %2$s />%3$s</span>',
-		sanitize_html_class( $tag->name ), $atts, $validation_error );
+		'<span class="wpcf7-form-control-wrap %1$s"><input %2$s /><input %3$s />%4$s</span>',
+		sanitize_html_class( $tag->name ), $atts,  $atts_country_code, $validation_error);
 
 	return $html;
 }

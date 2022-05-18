@@ -4,12 +4,12 @@
  * Plugin URI: http://thimpress.com/learnpress
  * Description: Wishlist feature.
  * Author: ThimPress
- * Version: 4.0.1
+ * Version: 4.0.3
  * Author URI: http://thimpress.com
  * Tags: learnpress
  * Text Domain: learnpress-wishlist
  * Domain Path: /languages/
- * Require_LP_Version: 3.0.0
+ * Require_LP_Version: 4.1.6.4
  *
  * @package LearnPress-Course-Wishlist
  */
@@ -19,7 +19,7 @@
  */
 defined( 'ABSPATH' ) || exit();
 
-define( 'LP_ADDON_WISHLIST_FILE', __FILE__ );
+const LP_ADDON_WISHLIST_FILE = __FILE__;
 
 /**
  * Class LP_Addon_Wishlist_Preload

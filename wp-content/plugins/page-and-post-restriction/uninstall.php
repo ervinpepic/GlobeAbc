@@ -21,3 +21,4 @@ delete_option('papr_allowed_roles_for_posts');
 delete_option('papr_restricted_posts');
 delete_option('papr_allowed_redirect_for_pages');
 delete_option('papr_allowed_redirect_for_posts');
+?>

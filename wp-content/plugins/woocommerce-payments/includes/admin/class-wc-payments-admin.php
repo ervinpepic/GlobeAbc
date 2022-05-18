@@ -19,14 +19,7 @@ class WC_Payments_Admin {
 	 *
 	 * @var string
 	 */
-	const MENU_NOTIFICATION_BADGE = ' <span class="wcpay-menu-badge awaiting-mod count-1">1</span>';
-
-	/**
-	 * Option name used to hide Card Readers page behind a feature flag.
-	 *
-	 * @var string
-	 */
-	const CARD_READERS_FLAG_NAME = '_wcpay_feature_card_readers';
+	const MENU_NOTIFICATION_BADGE = ' <span class="wcpay-menu-badge awaiting-mod count-1"><span class="plugin-count">1</span></span>';
 
 	/**
 	 * Client for making requests to the WooCommerce Payments API.
@@ -123,15 +116,6 @@ class WC_Payments_Admin {
 	}
 
 	/**
-	 * Checks whether the Card Readers page is enabled.
-	 *
-	 * @return bool
-	 */
-	public static function is_card_readers_page_enabled() {
-		return '1' === get_option( self::CARD_READERS_FLAG_NAME, '0' );
-	}
-
-	/**
 	 * Add deposits and transactions menus for wcpay_empty_state_preview_mode_v1 experiment's treatment group.
 	 * This code can be removed once we're done with the experiment.
 	 */
@@ -223,13 +207,56 @@ class WC_Payments_Admin {
 			return;
 		}
 
+		if ( WC_Payments_Utils::is_in_onboarding_treatment_mode() && ! $should_render_full_menu ) {
+				wc_admin_register_page(
+					[
+						'id'         => 'wc-payments-onboarding',
+						'title'      => __( 'Onboarding', 'woocommerce-payments' ),
+						'parent'     => 'wc-payments',
+						'path'       => '/payments/onboarding',
+						'capability' => 'manage_woocommerce',
+						'nav_args'   => [
+							'parent' => 'wc-payments',
+						],
+					]
+				);
+				global $submenu;
+				remove_submenu_page( 'wc-admin&path=/payments/connect', 'wc-admin&path=/payments/onboarding' );
+		}
+
 		if ( $should_render_full_menu ) {
-			if ( self::is_card_readers_page_enabled() && $this->account->is_card_present_eligible() ) {
+			if ( $this->account->is_card_present_eligible() ) {
 				$this->admin_child_pages['wc-payments-card-readers'] = [
 					'id'       => 'wc-payments-card-readers',
 					'title'    => __( 'Card Readers', 'woocommerce-payments' ),
 					'parent'   => 'wc-payments',
 					'path'     => '/payments/card-readers',
+					'nav_args' => [
+						'parent' => 'wc-payments',
+						'order'  => 50,
+					],
+				];
+			}
+
+			if ( $this->account->get_capital()['has_previous_loans'] ) {
+				$this->admin_child_pages['wc-payments-capital'] = [
+					'id'       => 'wc-payments-capital',
+					'title'    => __( 'Capital Loans', 'woocommerce-payments' ),
+					'parent'   => 'wc-payments',
+					'path'     => '/payments/loans',
+					'nav_args' => [
+						'parent' => 'wc-payments',
+						'order'  => 60,
+					],
+				];
+			}
+
+			if ( WC_Payments_Features::is_documents_section_enabled() ) {
+				$this->admin_child_pages['wc-payments-documents'] = [
+					'id'       => 'wc-payments-documents',
+					'title'    => __( 'Documents', 'woocommerce-payments' ),
+					'parent'   => 'wc-payments',
+					'path'     => '/payments/documents',
 					'nav_args' => [
 						'parent' => 'wc-payments',
 						'order'  => 50,
@@ -257,7 +284,7 @@ class WC_Payments_Admin {
 						'parent' => 'wc-payments',
 						'title'  => __( 'Settings', 'woocommerce-payments' ),
 						'url'    => 'wc-settings&tab=checkout&section=woocommerce_payments',
-						'order'  => 50,
+						'order'  => 99,
 					],
 				]
 			);
@@ -320,6 +347,16 @@ class WC_Payments_Admin {
 					'path'   => '/payments/multi-currency-setup',
 				]
 			);
+
+			wc_admin_register_page(
+				[
+					'id'     => 'wc-payments-card-readers-preview-receipt',
+					'parent' => 'wc-payments-card-readers',
+					'title'  => __( 'Preview a printed receipt', 'woocommerce-payments' ),
+					'path'   => '/payments/card-readers/preview-receipt',
+
+				]
+			);
 		}
 
 		wp_enqueue_style(
@@ -355,6 +392,33 @@ class WC_Payments_Admin {
 		$error_message = get_transient( WC_Payments_Account::ERROR_MESSAGE_TRANSIENT );
 		delete_transient( WC_Payments_Account::ERROR_MESSAGE_TRANSIENT );
 
+		/**
+		 * This is a work around to pass the current user's email address to WCPay's settings until we do not need to rely
+		 * on backwards compatibility and can use `getCurrentUser` from `@wordpress/core-data`.
+		 */
+		$current_user       = wp_get_current_user();
+		$current_user_email = $current_user && $current_user->user_email ? $current_user->user_email : get_option( 'admin_email' );
+
+		if ( version_compare( WC_VERSION, '6.0', '<' ) ) {
+			$path = WCPAY_ABSPATH . 'i18n/locale-info.php';
+		} else {
+			$path = WC()->plugin_path() . '/i18n/locale-info.php';
+		}
+
+		$locale_info   = include $path;
+		$currency_data = [];
+
+		foreach ( $locale_info as $key => $value ) {
+			$currency_data[ $key ] = [
+				'code'              => $value['currency_code'] ?? '',
+				'symbol'            => $value['short_symbol'] ?? '',
+				'symbolPosition'    => $value['currency_pos'] ?? '',
+				'thousandSeparator' => $value['thousand_sep'] ?? '',
+				'decimalSeparator'  => $value['decimal_sep'] ?? '',
+				'precision'         => $value['num_decimals'],
+			];
+		}
+
 		$wcpay_settings = [
 			'connectUrl'              => WC_Payments_Account::get_connect_url(),
 			'connect'                 => [
@@ -375,6 +439,7 @@ class WC_Payments_Admin {
 			'isJetpackIdcActive'      => Jetpack_Identity_Crisis::has_identity_crisis(),
 			'accountStatus'           => $this->account->get_account_status_data(),
 			'accountFees'             => $this->account->get_fees(),
+			'accountLoans'            => $this->account->get_capital(),
 			'accountEmail'            => $this->account->get_account_email(),
 			'showUpdateDetailsTask'   => get_option( 'wcpay_show_update_business_details_task', 'no' ),
 			'wpcomReconnectUrl'       => $this->payments_api_client->is_server_connected() && ! $this->payments_api_client->has_server_connection_owner() ? WC_Payments_Account::get_wpcom_reconnect_url() : null,
@@ -391,6 +456,8 @@ class WC_Payments_Admin {
 				'deletedTodoTasks'       => get_option( 'woocommerce_deleted_todo_tasks', [] ),
 				'remindMeLaterTodoTasks' => get_option( 'woocommerce_remind_me_later_todo_tasks', [] ),
 			],
+			'currentUserEmail'        => $current_user_email,
+			'currencyData'            => $currency_data,
 		];
 
 		wp_localize_script(
@@ -498,6 +565,7 @@ class WC_Payments_Admin {
 	public function enqueue_payments_scripts() {
 		global $current_tab, $current_section;
 
+		// TODO: Add check to see if user can manage_woocommerce and exit early if they cannot.
 		$this->register_payments_scripts();
 
 		if ( WC_Payments_Utils::is_payments_settings_page() ) {

@@ -21,7 +21,8 @@ class LS_FileSystem {
 			return @unlink($path);
 
 		} elseif( is_dir( $path ) ) {
-			$scan = glob( rtrim ( $path, '/' ).'/*' );
+			$path = rtrim( $path, '/' );
+			$scan = glob( $path.'/{*,.[!.]*,..?*}*', GLOB_BRACE );
 			foreach( $scan as $index => $item) {
 				self::emptyDir( $item );
 			}

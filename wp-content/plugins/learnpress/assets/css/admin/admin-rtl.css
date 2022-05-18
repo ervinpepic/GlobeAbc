@@ -3864,7 +3864,7 @@ input[name=_lp_course_result]:checked ~ #passing-condition-quiz-result {
   margin-left: 0;
   margin-right: 0;
   border-radius: 999px;
-  background-color: #fee2e2;
+  background-color: rgb(254, 226, 226);
   justify-content: center;
   align-items: center;
   flex: 0 0 auto;
@@ -3872,10 +3872,10 @@ input[name=_lp_course_result]:checked ~ #passing-condition-quiz-result {
 .lp-update-db-modal__content-icon svg {
   width: 24px;
   height: 24px;
-  color: #dc2626;
+  color: rgb(220, 38, 38);
 }
 .lp-update-db-modal__content-icon svg:last-child {
-  color: #258d6c;
+  color: rgb(37, 141, 108);
 }
 .lp-update-db-modal__content-icon__success {
   display: none;
@@ -3899,7 +3899,7 @@ input[name=_lp_course_result]:checked ~ #passing-condition-quiz-result {
   display: flex;
   flex-direction: row;
   padding: 10px 24px;
-  background-color: #f9fafb;
+  background-color: rgb(249, 250, 251);
   justify-content: flex-end;
   align-items: center;
 }
@@ -3907,7 +3907,7 @@ input[name=_lp_course_result]:checked ~ #passing-condition-quiz-result {
   padding: 8px 16px;
   border: 1px solid #e5e7eb;
   border-radius: 6px;
-  color: #374151;
+  color: rgb(55, 65, 81);
   font-size: 13px;
   font-weight: 500;
   text-decoration: none;
@@ -3918,7 +3918,7 @@ input[name=_lp_course_result]:checked ~ #passing-condition-quiz-result {
   background-color: #0073aa;
 }
 .lp-update-db-modal__success .lp-update-db-modal__content-icon {
-  background-color: #def7ec;
+  background-color: rgb(222, 247, 236);
 }
 .lp-update-db-modal__success .lp-update-db-modal__content-icon__error {
   display: none;
@@ -6088,7 +6088,7 @@ body.lp-item-moving {
   width: 0;
   height: 100%;
   opacity: 0;
-  background: #7c60d9bf;
+  background: rgba(124, 96, 217, 0.7490196078);
   transition: 0.8s linear;
 }
 
@@ -6196,56 +6196,6 @@ body.lp-item-moving {
     bottom: 40px;
   }
 }
-.rtl .section-item-counts {
-  right: 41px;
-  left: auto;
-}
-.rtl #admin-editor-lp_course .lp-course-curriculum .heading .status {
-  margin-left: 10px;
-}
-.rtl #admin-editor-lp_course .lp-course-curriculum .collapse-sections {
-  right: 0;
-  left: unset !important;
-}
-.rtl #admin-editor-lp_course .lp-course-curriculum .section-list-items .section-item .title {
-  margin-left: 5px;
-}
-.rtl #admin-editor-lp_course .lp-course-curriculum .section-list-items .section-item .item-actions {
-  right: 0;
-  left: unset !important;
-}
-.rtl #admin-editor-lp_course .lp-course-curriculum .section-list-items .section-item .item-actions .actions .ui-sortable {
-  left: unset !important;
-  right: 0;
-}
-.rtl #admin-editor-lp_course .lp-course-curriculum .section-list-items .section-item .item-actions .actions .ui-sortable li {
-  text-align: right;
-}
-.rtl #admin-editor-lp_course .lp-course-curriculum .section-actions .remove {
-  float: right;
-}
-.rtl #admin-editor-lp_course .lp-course-curriculum .actions {
-  left: unset !important;
-  right: 0;
-}
-.rtl #admin-editor-lp_quiz .lp-list-questions .question-item .lp-toolbar-btn-dropdown ul {
-  right: 0;
-  left: unset !important;
-}
-.rtl #admin-editor-lp_quiz .lp-list-questions .question-item .lp-toolbar-btn-dropdown ul li a {
-  text-align: right;
-}
-.rtl #admin-editor-lp_quiz .add-new-question {
-  text-align: left;
-}
-.rtl #lp-modal-choose-items .header .preview-title {
-  padding-left: 20px;
-}
-.rtl #lp-modal-choose-items .header .close {
-  right: 0;
-  left: unset;
-}
-
 .lp-skeleton-animation {
   margin: 0;
   padding: 0;
@@ -6256,7 +6206,7 @@ body.lp-item-moving {
   height: 16px;
   margin-top: 15px;
   border-radius: 2px;
-  background: linear-gradient(-90deg, rgba(190, 190, 190, 0.2) 25%, rgba(129, 129, 129, 0.24) 37%, rgba(190, 190, 190, 0.2) 63%);
+  background: linear-gradient(-90deg, hsla(0deg, 0%, 74.5%, 0.2) 25%, hsla(0deg, 0%, 50.6%, 0.24) 37%, hsla(0deg, 0%, 74.5%, 0.2) 63%);
   background-size: 400% 100%;
   list-style: none;
   animation: lp-skeleton-loading 1.4s ease infinite;
@@ -6690,7 +6640,7 @@ body.post-type-lp_question #button-new-question div {
   min-width: 100px;
   margin: 0 -1px 0 0;
   border: 1px solid #999;
-  background: #ffff;
+  background: white;
   font-weight: 400;
 }
 body.post-type-lp_question #button-new-question div a {

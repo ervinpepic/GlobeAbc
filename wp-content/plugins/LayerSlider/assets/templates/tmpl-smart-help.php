@@ -115,6 +115,29 @@
 
 <lse-smart-help-contents>
 
+	<!-- SLIDE DURATION & TIMINGS -->
+	<div data-smart-help="slideduration">
+		<?= __('The time that this slide remains visible before the slideshow attempts to change to the next slide. Leave this option empty to let LayerSlider manage it automatically. This value is in milliseconds, so the value 1000 means 1 second.', 'LayerSlider') ?>
+	</div>
+
+
+	<div data-smart-help="transitionduration">
+		<?= __('You can speed up or slow down slide transitions by providing a custom animation duration. Leave this option empty to use the default speed. This value is in milliseconds, so the value 1000 means 1 second.', 'LayerSlider') ?>
+	</div>
+
+
+	<div data-smart-help="timeshift">
+		<?= __('You can shift the starting point of the slide animation timeline so that layers can animate in at an earlier time after a slide change. This value is in milliseconds, so the value 1000 means 1 second. You can only use negative values.', 'LayerSlider') ?>
+	</div>
+
+
+	<div data-smart-help="zindex">
+		<?= __('This option controls the stacking order of layers that overlap. In CSS, it’s commonly called as z-index. Elements with a higher value are stacked in front of elements with a lower one, effectively covering them. By default, this value is calculated automatically based on the order of your layers. Simply re-ordering them in the layers list can fix overlap issues. Use this option only if you want to set your own value manually in special cases like using static layers.', 'LayerSlider') ?>
+		<br><br>
+		<?= __('On each slide, the stacking order starts counting from 100. Providing a number less than 100 will put the layer behind every other layer on all slides. Specifying a much greater number like 500 will make the layer to be on top of everything else.', 'LayerSlider') ?>
+	</div>
+
+
 	<!-- OFFSETS -->
 	<div data-smart-help="offset">
 
@@ -212,6 +235,7 @@
 		<?= __('Shifts the layer position with the given amount while it’s animating out. Layers animate from their current state toward the value you set here. Refer to the below options to see special values and supported units.', 'LayerSlider') ?>
 	</div>
 
+
 	<div data-smart-help="offsettextout">
 
 		<lse-b class="lse-anim lse-jcsa">
@@ -284,6 +308,7 @@
 		<?= __('Sets the initial layer scale on the selected axis before the layer starts animating in. Use the value 1 for the original size. The value 2 will double, while 0.5 will shrink the layer to half of its original size. A negative value flips the layer on the given axis. Layers animate from this value toward their appearance set under the <b>STYLE</b> menu.', 'LayerSlider') ?>
 	</div>
 
+
 	<div data-smart-help="scaletextin">
 		<lse-b class="lse-anim lse-jcsb">
 			<lse-ib class="lse-anim-box-3 lse-anim-box lse-axis-x">
@@ -306,6 +331,7 @@
 
 		<?= __('Sets the initial scale of each text fragment on the selected axis before they start animating in. Use the value 1 for the original size. The value 2 will double, while 0.5 will shrink text fragments to half of their original size. A negative value flips text fragments on the given axis. Text fragments animate from this value toward the whole joint text. Refer to the below options to see special values and supported units.', 'LayerSlider') ?>
 	</div>
+
 
 	<div data-smart-help="scaleout">
 		<lse-b class="lse-anim lse-jcsb">
@@ -398,6 +424,7 @@
 		<?= __('Sets the initial layer rotation by the given number of degrees on the selected axis before the layer starts animating in. Negative values are allowed for counterclockwise rotation. Layers animate from this value toward their appearance set under the <b>STYLE</b> menu.', 'LayerSlider') ?>
 	</div>
 
+
 	<div data-smart-help="rotatetextin">
 		<lse-b class="lse-anim lse-jcsa">
 			<lse-ib class="lse-anim-box-7 lse-anim-box">
@@ -418,6 +445,7 @@
 		<?= __('Sets initial rotation of each text fragment by the given number of degrees on the selected axis before they start animating in. Negative values are allowed for counterclockwise rotation. Text fragments animate from this value toward the whole joint text.', 'LayerSlider') ?>
 	</div>
 
+
 	<div data-smart-help="rotateout">
 		<lse-b class="lse-anim lse-jcsa">
 			<lse-ib class="lse-anim-box-7 lse-anim-box">
@@ -437,6 +465,7 @@
 
 		<?= __('Rotates the layer with the given number of degrees on the selected axis while it’s animating out. Negative values are allowed for counterclockwise rotation. Layers animate from their current state toward the value you set here.', 'LayerSlider') ?>
 	</div>
+
 
 	<div data-smart-help="rotatetextout">
 		<lse-b class="lse-anim lse-jcsa">
@@ -460,6 +489,7 @@
 
 
 
+	<!-- SKEW -->
 	<div data-smart-help="skew">
 		<lse-b class="lse-anim lse-jcsa">
 			<lse-ib class="lse-anim-box-8 lse-anim-box lse-axis-x">
@@ -478,6 +508,7 @@
 
 		<?= __('Skews the layer by the given number of degrees on the selected axis. Negative values are allowed for the reverse direction.', 'LayerSlider') ?>
 	</div>
+
 
 	<div data-smart-help="skewin">
 		<lse-b class="lse-anim lse-jcsa">
@@ -498,6 +529,7 @@
 		<?= __('Sets the initial layer skew on the selected axis before the layer starts animating in. Negative values are allowed for the reverse direction. Layers animate from this value toward their appearance set under the <b>STYLE</b> menu.', 'LayerSlider') ?>
 	</div>
 
+
 	<div data-smart-help="skewtextin">
 		<lse-b class="lse-anim lse-jcsa">
 			<lse-ib class="lse-anim-box-8 lse-anim-box lse-axis-x">
@@ -517,6 +549,7 @@
 		<?= __('Sets the initial skew of each text fragment on the selected axis before they start animating in. Negative values are allowed for the reverse direction. Text fragments animate from this value toward the whole joint text.', 'LayerSlider') ?>
 	</div>
 
+
 	<div data-smart-help="skewout">
 		<lse-b class="lse-anim lse-jcsa">
 			<lse-ib class="lse-anim-box-8 lse-anim-box lse-axis-x">
@@ -535,6 +568,7 @@
 
 		<?= __('Skews the layer with the given amount of degrees on the selected axis while it’s animating out. Negative values are allowed for the reverse direction. Layers animate from their current state toward the value you set here.', 'LayerSlider') ?>
 	</div>
+
 
 	<div data-smart-help="skewtextout">
 		<lse-b class="lse-anim lse-jcsa">
@@ -557,7 +591,7 @@
 
 
 
-
+	<!-- TRANSFORM -->
 	<div data-smart-help="transformOrigin">
 		<lse-b class="lse-anim lse-jcsa">
 			<lse-ib class="lse-anim-box-13 lse-anim-box">
@@ -581,6 +615,7 @@
 
 	</div>
 
+
 	<div data-smart-help="perspective">
 		<lse-b class="lse-anim lse-jcsa">
 			<lse-ib class="lse-anim-box-14 lse-anim-box lse-axis-y">
@@ -596,6 +631,7 @@
 		<?= __('Changes the perspective of animated objects in the 3D space. Large values of perspective cause milder transformations. Smaller values cause stronger and more noticeable transformations.', 'LayerSlider') ?>
 
 	</div>
+
 
 	<div data-smart-help="mask">
 
@@ -622,6 +658,7 @@
 
 	</div>
 
+
 	<div data-smart-help="easing">
 
 		<lse-b class="lse-anim lse-jcsa">
@@ -647,21 +684,26 @@
 
 	</div>
 
+
 	<div data-smart-help="width">
 		<?= __('The width of the layer in pixels or percents. Percentage values are relative to the project canvas size.', 'LayerSlider') ?>
 	</div>
+
 
 	<div data-smart-help="height">
 		<?= __('The height of the layer in pixels or percents. Percentage values are relative to the project canvas size.', 'LayerSlider') ?>
 	</div>
 
+
 	<div data-smart-help="left">
 		<?= __('The layer’s position from the left edge of the project canvas. You can use pixels and percents. Percentage values align the layer’s center point to the given position, so 50% places the layer exactly at the center. The 0% and 100% special values align the layer to the left and right edges.', 'LayerSlider') ?>
 	</div>
 
+
 	<div data-smart-help="top">
 		<?= __('The layer’s position from the top edge of the project canvas. You can use pixels and percents. Percentage values align the layer’s center point to the given position, so 50% places the layer exactly at the middle. The 0% and 100% special values align the layer to the top and bottom edges.', 'LayerSlider') ?>
 	</div>
+
 
 	<div data-smart-help="duration">
 		<?= __('The length of the transition in milliseconds. A second equals to 1000 milliseconds.', 'LayerSlider') ?>
@@ -672,50 +714,70 @@
 		<?= __('Delays the transition of each text fragment relative to each other. A second equals to 1000 milliseconds.', 'LayerSlider') ?>
 	</div>
 
+
 	<div data-smart-help="parallaxlevel">
 		<?= __('Sets the intensity of the parallax effect. Use negative values to shift layers in the opposite direction.', 'LayerSlider') ?>
 	</div>
+
 
 	<div data-smart-help="parallaxmoveduration">
 		<?= __('Controls the speed of animating layers when you move your mouse cursor or tilt your mobile device. This value is in milliseconds. A second equals to 1000 milliseconds.', 'LayerSlider') ?>
 	</div>
 
+
 	<div data-smart-help="parallaxleaveduration">
 		<?= __('Controls how quickly parallax layers revert to their original position when you move your mouse cursor outside of the slider. This value is in milliseconds. A second equals to 1000 milliseconds.', 'LayerSlider') ?>
 	</div>
+
 
 	<div data-smart-help="parallaxdistance">
 		<?= __('Increase or decrease the amount of layer movement when moving your mouse cursor or tilting on a mobile device.', 'LayerSlider') ?>
 	</div>
 
+
 	<div data-smart-help="parallaxrotation">
 		<?= __('Increase or decrease the amount of layer rotation in the 3D space when moving your mouse cursor or tilting on a mobile device.', 'LayerSlider') ?>
 	</div>
 
+
 	<div data-smart-help="startat">
 		<?= __('Sets the start time of the selected transition with the given amount of milliseconds. A second equals to 1000 milliseconds.', 'LayerSlider') ?>
-
 	</div>
+
+	<div data-smart-help="startwhen">
+		<?= __('The starting time of this transition. Choose from one of the pre-defined options to use relative timing, which then can also be shifted with custom operations below.', 'LayerSlider') ?>
+	</div>
+	<div data-smart-help="startwhenmodifier">
+		<?= __('Shifts the above selected starting time by performing a custom operation.', 'LayerSlider') ?>
+		<br><br>
+		<?= __('For example, "- 1000" will advance the animation by playing it 1 second (1000 milliseconds) earlier.', 'LayerSlider') ?>
+	</div>
+
 
 	<div data-smart-help="filter">
 		<?= __('Filters provide effects like blurring, color shifting, or changing the brightness, contrast, saturation of your layers, among many others. Use the below options to easily apply multiple filters on your layers.', 'LayerSlider') ?>
 	</div>
 
+
 	<div data-smart-help="filterin">
 		<?= __('Sets the initial layer filters before it starts animating in. Layers animate from this value toward their appearance set under the <b>STYLE</b> menu. Filters provide effects like blurring, color shifting, or changing the brightness, contrast, saturation of your layers, among many others. Use the below options to easily apply multiple filters on your layers.', 'LayerSlider') ?>
 	</div>
+
 
 	<div data-smart-help="filterout">
 		<?= __('Applies filters on the layer while it’s animating out. Layers animate from their current state toward the value you set here. Filters provide effects like blurring, color shifting, or changing the brightness, contrast, saturation of your layers, among many others. Use the below options to easily apply multiple filters on your layers.', 'LayerSlider') ?>
 	</div>
 
+
 	<div data-smart-help="loopwait">
 		<?= __('Waiting time between repeats in milliseconds. A second is 1000 milliseconds.', 'LayerSlider') ?>
 	</div>
 
+
 	<div data-smart-help="static">
 		<?= __('Layers can be kept at their place across multiple slides. Here you can select the slide on which this layer should animate out.', 'LayerSlider') ?>
 	</div>
+
 
 	<div data-smart-help="fontfamily">
 
@@ -731,17 +793,22 @@
 		<?php endif ?>
 	</div>
 
+
 	<div data-smart-help="color">
 	</div>
+
 
 	<div data-smart-help="textColor">
 	</div>
 
+
 	<div data-smart-help="iconColor">
 	</div>
 
+
 	<div data-smart-help="backgroundColor">
 	</div>
+
 
 	<div data-smart-help="backgroundSize">
 		<?= __('Sets the size of the background image. The image can be left to its natural size, stretched, or constrained to fit the available space.', 'LayerSlider') ?>
@@ -845,7 +912,7 @@
 			<lse-li data-smart-inject="auto" data-tt><?= __('auto', 'LayerSlider') ?></lse-li><lse-tt><?= __('The background image is displayed in its original size', 'LayerSlider') ?></lse-tt>
 			<lse-li data-smart-inject="cover" data-tt><?= __('cover', 'LayerSlider') ?></lse-li><lse-tt><?= __('Resize the background image to cover the entire container, even if it has to stretch the image or cut a little bit off one of the edges', 'LayerSlider') ?></lse-tt>
 			<lse-li data-smart-inject="contain" data-tt><?= __('contain', 'LayerSlider') ?></lse-li><lse-tt><?= __('Resize the background image to make sure the image is fully visible', 'LayerSlider') ?></lse-tt>
-			<lse-li data-smart-inject="stretch" data-tt><?= __('stretch', 'LayerSlider') ?></lse-li><lse-tt><?= __('Stretches the background image to the same size as the layer. May result in distorted image.', 'LayerSlider') ?></lse-tt>
+			<lse-li data-smart-inject="100% 100%" data-tt><?= __('stretch', 'LayerSlider') ?></lse-li><lse-tt><?= __('Stretches the background image to the same size as the layer. May result in distorted image.', 'LayerSlider') ?></lse-tt>
 			<lse-li data-smart-inject="initial" data-tt><?= __('initial', 'LayerSlider') ?></lse-li><lse-tt><?= __('Sets this property to its default value.', 'LayerSlider') ?></lse-tt>
 			<lse-li data-smart-inject="300px" data-tt><?= __('300px (example)', 'LayerSlider') ?></lse-li><lse-tt><?= __('Sets this property to its default value.', 'LayerSlider') ?></lse-tt>
 			<lse-li data-smart-inject="80%" data-tt><?= __('80% (example)', 'LayerSlider') ?></lse-li><lse-tt><?= __('Sets this property to its default value.', 'LayerSlider') ?></lse-tt>
@@ -981,5 +1048,16 @@
 			</lse-row>
 		</lse-grid>
 	</div>
+
+	<div data-smart-options="applytoallslides">
+		<lse-grid class="lse-form-elements lse-smart-help-theme lse-form-rows">
+			<lse-row>
+				<lse-col>
+					<lse-button class="lse-apply-value-to-all-slides"><?= __('Apply Value To All Slides', 'LayerSlider') ?></lse-button>
+				</lse-col>
+			</lse-row>
+		</lse-grid>
+	</div>
+
 
 </lse-smart-options-contents>

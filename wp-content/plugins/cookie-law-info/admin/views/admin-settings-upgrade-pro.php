@@ -125,11 +125,6 @@ if ( ! defined( 'WPINC' ) ) {
 		<td><span class="wt-cli-badge wt-cli-success"></span></td>
 	  </tr>
 	  <tr>
-		<td><?php echo esc_html( __( 'Option to show ‘Do Not Sell My Personal Information’ link only to visitors from California', 'cookie-law-info' ) ); ?></td>
-		<td><span class="wt-cli-badge wt-cli-error"></span></td>
-		<td><span class="wt-cli-badge wt-cli-success"></span></td>
-	  </tr>
-	  <tr>
 		<td><?php echo esc_html( __( 'Disable ‘Powered by CookieYes’ branding', 'cookie-law-info' ) ); ?>
 		  <br />
 		  <p class="light">

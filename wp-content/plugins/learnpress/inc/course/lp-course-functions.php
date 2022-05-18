@@ -10,11 +10,19 @@
 defined( 'ABSPATH' ) || exit();
 
 /**
- * @param int $the_course
+ * Get course current on single course or course by id
+ * Only use learn_press_get_course() on the single page
+ * Another page use learn_press_get_course(id)
  *
+ * @param int $the_course
+ * @since 3.0.0
+ * @version 1.0.1
+ * @editor tungnx
  * @return bool|LP_Course|mixed
  */
-function learn_press_get_course( int $the_course = 0 ) {
+function learn_press_get_course( $the_course = 0 ) {
+	$the_course = (int) $the_course;
+
 	if ( 0 === $the_course ) {
 		$the_course = get_the_ID() ? get_the_ID() : 0;
 	}
@@ -72,9 +80,11 @@ function learn_press_verify_course_action_nonce( $nonce, $action, $course_id = 0
  *
  * @return mixed
  * @since 3.0.0
- *
+ * @editor tungnx
+ * @version  1.0.1
+ * @return array
  */
-function learn_press_get_course_item_types() {
+function learn_press_get_course_item_types( bool $return_only_value = true ): array {
 	return apply_filters(
 		'learn-press/course-item-type',
 		array( LP_LESSON_CPT, LP_QUIZ_CPT )
@@ -443,7 +453,7 @@ function learn_press_is_support_course_item_type( $type ) {
 			$support = $support && learn_press_is_support_course_item_type( $t );
 		}
 	} else {
-		$support = $type && ! empty( $types[ $type ] );
+		$support = is_string( $type ) && $type && ! empty( $types[ $type ] );
 	}
 
 	return $support;

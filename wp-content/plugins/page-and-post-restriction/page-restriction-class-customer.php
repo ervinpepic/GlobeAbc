@@ -23,6 +23,8 @@
  * Contains Request Calls to Customer service.
  */
 
+include_once 'page-restriction-utility.php';
+
 class Customer_page_restriction
 {
     public $email;
@@ -246,11 +248,11 @@ class Customer_page_restriction
 		if(!is_wp_error($response)){
 			return $response['body'];
 		} else {
-			$show_message = new page_and_post_restriction_add_on();
 			update_option('papr_message', 'Unable to connect to the Internet. Please try again.');
-			$show_message->papr_error_message();
+			papr_error_message();
 			return null;
 		}
 	}
 
 }
+?>

@@ -110,7 +110,7 @@ $sProps =& $slider['properties'];
 									<td class="lse-half">
 										<?php $sliderName = !empty($sProps['title']) ? htmlspecialchars(stripslashes($sProps['title'])) : ''; ?>
 										<input class="lse-large" type="text" name="title" value="<?= $sliderName ?>" id="title" autocomplete="off" placeholder="<?= __('Type your project name here', 'LayerSlider') ?>">
-										<input class="lse-large" type="text" name="slug" value="<?= !empty($sProps['slug']) ? $sProps['slug'] : '' ?>" autocomplete="off" placeholder="<?= __('slug: e.g. homepageslider', 'LayerSlider') ?>" data-help="<?= __('Set a custom project identifier to use in shortcodes instead of the database ID number. Needs to be unique, and can contain only alphanumeric characters. This setting is optional.', 'LayerSlider') ?>">
+										<input class="lse-large" type="text" name="slug" value="<?= !empty($sProps['slug']) ? htmlentities( $sProps['slug'] ) : '' ?>" autocomplete="off" placeholder="<?= __('slug: e.g. homepageslider', 'LayerSlider') ?>" data-help="<?= __('Set a custom project identifier to use in shortcodes instead of the database ID number. Needs to be unique, and can contain only alphanumeric characters. This setting is optional.', 'LayerSlider') ?>">
 									</td>
 								</tr>
 							</tbody>
@@ -1131,6 +1131,19 @@ $sProps =& $slider['properties'];
 								<?php
 								lsOptionRow('select', $sDefs['slideBGSize'], $sProps );
 								lsOptionRow('select', $sDefs['slideBGPosition'], $sProps );
+								?>
+							</tbody>
+						</table>
+					</lse-table-wrapper>
+
+					<lse-h2><?= __('Slide duration & timings defaults', 'LayerSlider') ?></lse-h2>
+					<lse-table-wrapper>
+						<table>
+							<tbody>
+								<?php
+								lsOptionRow('input', $sDefs['slideDuration'], $sProps );
+								lsOptionRow('input', $sDefs['slideTransitionDuration'], $sProps );
+								lsOptionRow('input', $sDefs['slideTimeShift'], $sProps );
 								?>
 							</tbody>
 						</table>

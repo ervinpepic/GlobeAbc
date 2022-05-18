@@ -1,131 +1,17 @@
-this["LP"] = this["LP"] || {}; this["LP"]["profile"] =
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./assets/src/apps/js/frontend/profile.js");
-/******/ })
-/************************************************************************/
-/******/ ({
-
-/***/ "./assets/src/apps/js/frontend/profile.js":
-/*!************************************************!*\
-  !*** ./assets/src/apps/js/frontend/profile.js ***!
-  \************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _profile_course_tab__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./profile/course-tab */ "./assets/src/apps/js/frontend/profile/course-tab.js");
-/* harmony import */ var _profile_statistic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./profile/statistic */ "./assets/src/apps/js/frontend/profile/statistic.js");
-/* harmony import */ var _profile_order_recover__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./profile/order-recover */ "./assets/src/apps/js/frontend/profile/order-recover.js");
-/* harmony import */ var _profile_avatar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./profile/avatar */ "./assets/src/apps/js/frontend/profile/avatar.js");
-
-
-
-
-document.addEventListener('DOMContentLoaded', function (event) {
-  Object(_profile_course_tab__WEBPACK_IMPORTED_MODULE_0__["default"])();
-  Object(_profile_statistic__WEBPACK_IMPORTED_MODULE_1__["default"])();
-  Object(_profile_order_recover__WEBPACK_IMPORTED_MODULE_2__["default"])();
-});
-
-if (document.getElementById('learnpress-avatar-upload')) {
-  wp.element.render( /*#__PURE__*/React.createElement(_profile_avatar__WEBPACK_IMPORTED_MODULE_3__["default"], null), document.getElementById('learnpress-avatar-upload'));
-}
-
-/***/ }),
+/******/ (function() { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./assets/src/apps/js/frontend/profile/avatar.js":
 /*!*******************************************************!*\
   !*** ./assets/src/apps/js/frontend/profile/avatar.js ***!
   \*******************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Avatar; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ Avatar; }
+/* harmony export */ });
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
@@ -133,173 +19,82 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_easy_crop__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-easy-crop */ "./node_modules/react-easy-crop/index.module.js");
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
 
 
 function Avatar() {
-  var _useState = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])(),
-      _useState2 = _slicedToArray(_useState, 2),
-      file = _useState2[0],
-      setFile = _useState2[1];
-
-  var _useState3 = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
-      _useState4 = _slicedToArray(_useState3, 2),
-      width = _useState4[0],
-      setWidth = _useState4[1];
-
-  var _useState5 = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
-      _useState6 = _slicedToArray(_useState5, 2),
-      height = _useState6[0],
-      setHeight = _useState6[1];
-
-  var _useState7 = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+  const [file, setFile] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)();
+  const [width, setWidth] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
+  const [height, setHeight] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
+  const [crop, setCrop] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)({
     x: 0,
     y: 0
-  }),
-      _useState8 = _slicedToArray(_useState7, 2),
-      crop = _useState8[0],
-      setCrop = _useState8[1];
-
-  var _useState9 = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
-      _useState10 = _slicedToArray(_useState9, 2),
-      rotation = _useState10[0],
-      setRotation = _useState10[1];
-
-  var _useState11 = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
-      _useState12 = _slicedToArray(_useState11, 2),
-      croppedAreaPixels = _useState12[0],
-      setCroppedAreaPixels = _useState12[1];
-
-  var _useState13 = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
-      _useState14 = _slicedToArray(_useState13, 2),
-      naturalWidth = _useState14[0],
-      setNaturalWidth = _useState14[1];
-
-  var _useState15 = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
-      _useState16 = _slicedToArray(_useState15, 2),
-      naturalHeight = _useState16[0],
-      setNaturalHeight = _useState16[1];
-
-  var _useState17 = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
-      _useState18 = _slicedToArray(_useState17, 2),
-      loading = _useState18[0],
-      setLoading = _useState18[1];
-
-  var _useState19 = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
-      _useState20 = _slicedToArray(_useState19, 2),
-      skeleton = _useState20[0],
-      setSkeleton = _useState20[1];
-
-  var _useState21 = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
-      _useState22 = _slicedToArray(_useState21, 2),
-      uploadError = _useState22[0],
-      setUploadError = _useState22[1];
-
-  var _useState23 = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+  });
+  const [rotation, setRotation] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
+  const [croppedAreaPixels, setCroppedAreaPixels] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const [naturalWidth, setNaturalWidth] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
+  const [naturalHeight, setNaturalHeight] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
+  const [loading, setLoading] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [skeleton, setSkeleton] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const [uploadError, setUploadError] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  const [notice, setNotice] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)({
     type: '',
     message: ''
-  }),
-      _useState24 = _slicedToArray(_useState23, 2),
-      notice = _useState24[0],
-      setNotice = _useState24[1];
+  });
+  const fileInput = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    async function getAvatar() {
+      setSkeleton(true);
 
-  var fileInput = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
-  Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    function getAvatar() {
-      return _getAvatar.apply(this, arguments);
-    }
+      try {
+        var _response$data, _response$data2, _response$data3;
 
-    function _getAvatar() {
-      _getAvatar = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var _response$data, _response$data2, _response$data3, response;
+        const response = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
+          method: 'GET',
+          path: 'lp/v1/profile/get-avatar'
+        });
+        setWidth(response !== null && response !== void 0 && (_response$data = response.data) !== null && _response$data !== void 0 && _response$data.width ? parseInt(response.data.width) : 0);
+        setHeight(response !== null && response !== void 0 && (_response$data2 = response.data) !== null && _response$data2 !== void 0 && _response$data2.height ? parseInt(response.data.height) : 0);
+        setFile(response !== null && response !== void 0 && (_response$data3 = response.data) !== null && _response$data3 !== void 0 && _response$data3.url ? response.data.url : '');
+      } catch (error) {
+        setNotice({
+          type: 'error',
+          message: error.message
+        });
+      }
 
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                setSkeleton(true);
-                _context.prev = 1;
-                _context.next = 4;
-                return _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
-                  method: 'GET',
-                  path: 'lp/v1/profile/get-avatar'
-                });
-
-              case 4:
-                response = _context.sent;
-                setWidth(response !== null && response !== void 0 && (_response$data = response.data) !== null && _response$data !== void 0 && _response$data.width ? parseInt(response.data.width) : 0);
-                setHeight(response !== null && response !== void 0 && (_response$data2 = response.data) !== null && _response$data2 !== void 0 && _response$data2.height ? parseInt(response.data.height) : 0);
-                setFile(response !== null && response !== void 0 && (_response$data3 = response.data) !== null && _response$data3 !== void 0 && _response$data3.url ? response.data.url : '');
-                _context.next = 13;
-                break;
-
-              case 10:
-                _context.prev = 10;
-                _context.t0 = _context["catch"](1);
-                setNotice({
-                  type: 'error',
-                  message: _context.t0.message
-                });
-
-              case 13:
-                setSkeleton(false);
-
-              case 14:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, null, [[1, 10]]);
-      }));
-      return _getAvatar.apply(this, arguments);
+      setSkeleton(false);
     }
 
     getAvatar();
   }, []);
 
   function readFile(file) {
-    return new Promise(function (resolve) {
-      var reader = new FileReader();
-      reader.addEventListener('load', function () {
-        return resolve(reader.result);
-      }, false);
+    return new Promise(resolve => {
+      const reader = new FileReader();
+      reader.addEventListener('load', () => resolve(reader.result), false);
       reader.readAsDataURL(file);
     });
   }
 
-  var onCropComplete = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(function (croppedArea, croppedAreaPixels) {
+  const onCropComplete = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
 
-  var base64Resize = function base64Resize(base64, width, height) {
-    return new Promise(function (resolve, reject) {
-      var canvas = document.createElement('canvas');
-      var img = document.createElement('img');
+  const base64Resize = (base64, width, height) => {
+    return new Promise((resolve, reject) => {
+      const canvas = document.createElement('canvas');
+      const img = document.createElement('img');
       img.src = base64;
       img.setAttribute('crossOrigin', 'anonymous');
 
-      img.onload = function () {
+      img.onload = () => {
         if (img.naturalWidth > width || img.naturalHeight > height) {
           canvas.width = width;
           canvas.height = height;
-          var ctx = canvas.getContext('2d');
+          const ctx = canvas.getContext('2d');
           ctx.drawImage(img, 0, 0, width, height);
           resolve(canvas.toDataURL('image/jpeg'));
         }
@@ -307,212 +102,114 @@ function Avatar() {
         resolve(base64);
       };
 
-      img.onerror = function (err) {
-        return reject(err);
-      };
+      img.onerror = err => reject(err);
     });
   };
 
-  var updateAvatar = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["useCallback"])( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-    var croppedImage, imageResize, response, _yield$response, data, status, message;
+  const updateAvatar = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(async () => {
+    setLoading({
+      save: true
+    });
 
-    return regeneratorRuntime.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            setLoading({
-              save: true
-            });
-            _context2.prev = 1;
-            _context2.next = 4;
-            return getCroppedImg(file, croppedAreaPixels, rotation);
-
-          case 4:
-            croppedImage = _context2.sent;
-            _context2.next = 7;
-            return base64Resize(croppedImage, width, height);
-
-          case 7:
-            imageResize = _context2.sent;
-            _context2.next = 10;
-            return _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
-              path: 'lp/v1/profile/upload-avatar',
-              method: 'POST',
-              data: {
-                file: imageResize || ''
-              }
-            });
-
-          case 10:
-            response = _context2.sent;
-            _context2.next = 13;
-            return response;
-
-          case 13:
-            _yield$response = _context2.sent;
-            data = _yield$response.data;
-            status = _yield$response.status;
-            message = _yield$response.message;
-
-            if (status === 'success') {
-              window.location.reload();
-            }
-
-            setNotice({
-              type: status,
-              message: message
-            });
-            _context2.next = 24;
-            break;
-
-          case 21:
-            _context2.prev = 21;
-            _context2.t0 = _context2["catch"](1);
-            setNotice({
-              type: 'error',
-              message: _context2.t0.message || ''
-            });
-
-          case 24:
-            setLoading({
-              save: false
-            });
-
-          case 25:
-          case "end":
-            return _context2.stop();
+    try {
+      const croppedImage = await getCroppedImg(file, croppedAreaPixels, rotation);
+      const imageResize = await base64Resize(croppedImage, width, height);
+      const response = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
+        path: 'lp/v1/profile/upload-avatar',
+        method: 'POST',
+        data: {
+          file: imageResize || ''
         }
+      });
+      const {
+        data,
+        status,
+        message
+      } = await response;
+
+      if (status === 'success') {
+        window.location.reload();
       }
-    }, _callee2, null, [[1, 21]]);
-  })), [croppedAreaPixels, rotation]);
 
-  var setFileInput = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(fileUpload) {
-      var file, img;
-      return regeneratorRuntime.wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              _context3.next = 2;
-              return readFile(fileUpload);
+      setNotice({
+        type: status,
+        message
+      });
+    } catch (e) {
+      setNotice({
+        type: 'error',
+        message: e.message || ''
+      });
+    }
 
-            case 2:
-              file = _context3.sent;
-              img = new Image();
-              _context3.next = 6;
-              return file;
+    setLoading({
+      save: false
+    });
+  }, [croppedAreaPixels, rotation]);
 
-            case 6:
-              img.src = _context3.sent;
-              _context3.next = 9;
-              return function () {
-                setNaturalWidth(img.naturalWidth);
-                setNaturalHeight(img.naturalHeight);
-                var error = '';
+  const setFileInput = async fileUpload => {
+    const file = await readFile(fileUpload);
+    const img = new Image();
+    img.src = await file;
+    img.onload = await function () {
+      setNaturalWidth(img.naturalWidth);
+      setNaturalHeight(img.naturalHeight);
+      let error = '';
 
-                if (parseInt(fileUpload.size) > 2097152) {
-                  error = Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('File size too large. You need to upload a file < 2MB', 'learnpress');
-                } else if (img.naturalWidth < width || img.naturalHeight < height) {
-                  error = Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["sprintf"])(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Image size must be greater than or equal to %1$sx%2$spx', 'learnpress'), width, height);
-                }
+      if (parseInt(fileUpload.size) > 2097152) {
+        error = (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('File size too large. You need to upload a file < 2MB', 'learnpress');
+      } else if (img.naturalWidth < width || img.naturalHeight < height) {
+        error = (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Image size must be greater than or equal to %1$sx%2$spx', 'learnpress'), width, height);
+      }
 
-                if (error) {
-                  setUploadError(error);
-                } else {
-                  setUploadError('');
-                  setFile(file);
-                }
-              };
-
-            case 9:
-              img.onload = _context3.sent;
-
-            case 10:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3);
-    }));
-
-    return function setFileInput(_x) {
-      return _ref2.apply(this, arguments);
+      if (error) {
+        setUploadError(error);
+      } else {
+        setUploadError('');
+        setFile(file);
+      }
     };
-  }();
+  };
 
-  function removeAvatar() {
-    return _removeAvatar.apply(this, arguments);
+  async function removeAvatar() {
+    if (confirm((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Are you sure you want to remove your avatar?', 'learnpress'))) {
+      setLoading({
+        remove: true
+      });
+
+      try {
+        const response = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
+          path: 'lp/v1/profile/remove-avatar',
+          method: 'POST'
+        });
+        const {
+          data,
+          status,
+          message
+        } = await response;
+        setNotice({
+          type: status,
+          message
+        });
+        setFile('');
+      } catch (e) {
+        setNotice({
+          type: 'error',
+          message: e.message || ''
+        });
+      }
+
+      setLoading({
+        remove: false
+      });
+    }
   }
 
-  function _removeAvatar() {
-    _removeAvatar = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-      var response, _yield$response2, data, status, message;
-
-      return regeneratorRuntime.wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-              if (!confirm(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Are you sure you want to remove your avatar?', 'learnpress'))) {
-                _context4.next = 20;
-                break;
-              }
-
-              setLoading({
-                remove: true
-              });
-              _context4.prev = 2;
-              _context4.next = 5;
-              return _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
-                path: 'lp/v1/profile/remove-avatar',
-                method: 'POST'
-              });
-
-            case 5:
-              response = _context4.sent;
-              _context4.next = 8;
-              return response;
-
-            case 8:
-              _yield$response2 = _context4.sent;
-              data = _yield$response2.data;
-              status = _yield$response2.status;
-              message = _yield$response2.message;
-              setNotice({
-                type: status,
-                message: message
-              });
-              setFile('');
-              _context4.next = 19;
-              break;
-
-            case 16:
-              _context4.prev = 16;
-              _context4.t0 = _context4["catch"](2);
-              setNotice({
-                type: 'error',
-                message: _context4.t0.message || ''
-              });
-
-            case 19:
-              setLoading({
-                remove: false
-              });
-
-            case 20:
-            case "end":
-              return _context4.stop();
-          }
-        }
-      }, _callee4, null, [[2, 16]]);
-    }));
-    return _removeAvatar.apply(this, arguments);
-  }
-
-  return /*#__PURE__*/React.createElement("div", {
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "learnpress_avatar"
-  }, !skeleton ? /*#__PURE__*/React.createElement(React.Fragment, null, file && !uploadError && /*#__PURE__*/React.createElement(React.Fragment, null, naturalHeight && naturalWidth ? /*#__PURE__*/React.createElement("div", {
+  }, !skeleton ? (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, file && !uploadError && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, naturalHeight && naturalWidth ? (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "learnpress_avatar__cropper"
-  }, /*#__PURE__*/React.createElement("div", {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     style: {
       position: 'relative',
       width: naturalWidth,
@@ -521,45 +218,43 @@ function Avatar() {
       maxWidth: '100%',
       maxHeight: '800px'
     }
-  }, /*#__PURE__*/React.createElement(react_easy_crop__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_easy_crop__WEBPACK_IMPORTED_MODULE_3__["default"], {
     image: file,
     crop: crop,
     zoom: "1",
     cropSize: {
-      width: width,
-      height: height
+      width,
+      height
     },
     onCropChange: setCrop,
     onCropComplete: onCropComplete
-  })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
-    className: "learnpress_avatar__button learnpress_avatar__button--save ".concat(loading !== null && loading !== void 0 && loading.save ? 'learnpress_avatar__button--loading' : ''),
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    className: `learnpress_avatar__button learnpress_avatar__button--save ${loading !== null && loading !== void 0 && loading.save ? 'learnpress_avatar__button--loading' : ''}`,
     onClick: updateAvatar
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Save', 'learnpress')))) : /*#__PURE__*/React.createElement("div", {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Save', 'learnpress')))) : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "learnpress_avatar__cropper"
-  }, /*#__PURE__*/React.createElement("img", {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
     src: file,
     alt: ""
-  }), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
-    className: "learnpress_avatar__button learnpress_avatar__button--replace",
-    onClick: function onClick() {
-      return fileInput.current && fileInput.current.click();
-    }
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Replace', 'learnpress')), /*#__PURE__*/React.createElement("button", {
-    className: "learnpress_avatar__button learnpress_avatar__button--remove ".concat(loading !== null && loading !== void 0 && loading.remove ? 'learnpress_avatar__button--loading' : ''),
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    className: `learnpress_avatar__button learnpress_avatar__button--replace`,
+    onClick: () => fileInput.current && fileInput.current.click()
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Replace', 'learnpress')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    className: `learnpress_avatar__button learnpress_avatar__button--remove ${loading !== null && loading !== void 0 && loading.remove ? 'learnpress_avatar__button--loading' : ''}`,
     onClick: removeAvatar
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Remove', 'learnpress'))))), /*#__PURE__*/React.createElement("form", {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Remove', 'learnpress'))))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("form", {
     style: {
       display: !file ? '' : 'none'
     }
-  }, /*#__PURE__*/React.createElement("div", {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "learnpress_avatar__form"
-  }, /*#__PURE__*/React.createElement("div", {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "learnpress_avatar__form-group"
-  }, /*#__PURE__*/React.createElement("label", {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
     htmlFor: "avatar-file"
-  }, /*#__PURE__*/React.createElement("div", {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "learnpress_avatar__form__upload"
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("svg", {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
     viewBox: "64 64 896 896",
     focusable: "false",
     "data-icon": "plus",
@@ -567,41 +262,39 @@ function Avatar() {
     height: "1em",
     fill: "currentColor",
     "aria-hidden": "true"
-  }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("style", null)), /*#__PURE__*/React.createElement("path", {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("defs", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("style", null)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
     d: "M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"
-  }), /*#__PURE__*/React.createElement("path", {
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
     d: "M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z"
-  }))), /*#__PURE__*/React.createElement("div", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Upload', 'learnpress')))), /*#__PURE__*/React.createElement("input", {
+  }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Upload', 'learnpress')))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
     ref: fileInput,
     type: "file",
     id: "avatar-file",
     accept: "image/*",
-    onChange: function onChange(e) {
-      return setFileInput(e.target.files && e.target.files.length > 0 ? e.target.files[0] : '');
-    }
-  }))))), uploadError && /*#__PURE__*/React.createElement("div", {
-    className: "lp-ajax-message error",
+    onChange: e => setFileInput(e.target.files && e.target.files.length > 0 ? e.target.files[0] : '')
+  }))))), uploadError && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: `lp-ajax-message error`,
     style: {
       display: 'block'
     }
-  }, uploadError), !uploadError && notice && notice.type && notice.message && /*#__PURE__*/React.createElement("div", {
-    className: "lp-ajax-message ".concat(notice.type),
+  }, uploadError), !uploadError && notice && notice.type && notice.message && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: `lp-ajax-message ${notice.type}`,
     style: {
       display: 'block'
     }
-  }, notice.message)) : /*#__PURE__*/React.createElement("ul", {
+  }, notice.message)) : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
     className: "lp-skeleton-animation"
-  }, /*#__PURE__*/React.createElement("li", {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
     style: {
       width: 200,
       height: 200
     }
-  }), /*#__PURE__*/React.createElement("li", {
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
     style: {
       width: 200,
       height: 20
     }
-  }), /*#__PURE__*/React.createElement("li", {
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
     style: {
       width: 200,
       height: 20
@@ -609,20 +302,14 @@ function Avatar() {
   })));
 } // Link: https://codesandbox.io/s/q8q1mnr01w
 
-var createImage = function createImage(url) {
-  return new Promise(function (resolve, reject) {
-    var image = new Image();
-    image.addEventListener('load', function () {
-      return resolve(image);
-    });
-    image.addEventListener('error', function (error) {
-      return reject(error);
-    });
-    image.setAttribute('crossOrigin', 'anonymous'); // needed to avoid cross-origin issues on CodeSandbox
+const createImage = url => new Promise((resolve, reject) => {
+  const image = new Image();
+  image.addEventListener('load', () => resolve(image));
+  image.addEventListener('error', error => reject(error));
+  image.setAttribute('crossOrigin', 'anonymous'); // needed to avoid cross-origin issues on CodeSandbox
 
-    image.src = url;
-  });
-};
+  image.src = url;
+});
 
 function getRadianAngle(degreeValue) {
   return degreeValue * Math.PI / 180;
@@ -637,7 +324,7 @@ function getRadianAngle(degreeValue) {
 
 
 function rotateSize(width, height, rotation) {
-  var rotRad = getRadianAngle(rotation);
+  const rotRad = getRadianAngle(rotation);
   return {
     width: Math.abs(Math.cos(rotRad) * width) + Math.abs(Math.sin(rotRad) * height),
     height: Math.abs(Math.sin(rotRad) * width) + Math.abs(Math.cos(rotRad) * height)
@@ -653,81 +340,46 @@ function rotateSize(width, height, rotation) {
  */
 
 
-function getCroppedImg(_x2, _x3) {
-  return _getCroppedImg.apply(this, arguments);
-}
+async function getCroppedImg(imageSrc, pixelCrop) {
+  let rotation = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+  let flip = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {
+    horizontal: false,
+    vertical: false
+  };
+  const image = await createImage(imageSrc);
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
 
-function _getCroppedImg() {
-  _getCroppedImg = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(imageSrc, pixelCrop) {
-    var rotation,
-        flip,
-        image,
-        canvas,
-        ctx,
-        rotRad,
-        _rotateSize,
-        bBoxWidth,
-        bBoxHeight,
-        data,
-        _args5 = arguments;
+  if (!ctx) {
+    return null;
+  }
 
-    return regeneratorRuntime.wrap(function _callee5$(_context5) {
-      while (1) {
-        switch (_context5.prev = _context5.next) {
-          case 0:
-            rotation = _args5.length > 2 && _args5[2] !== undefined ? _args5[2] : 0;
-            flip = _args5.length > 3 && _args5[3] !== undefined ? _args5[3] : {
-              horizontal: false,
-              vertical: false
-            };
-            _context5.next = 4;
-            return createImage(imageSrc);
+  const rotRad = getRadianAngle(rotation); // calculate bounding box of the rotated image
 
-          case 4:
-            image = _context5.sent;
-            canvas = document.createElement('canvas');
-            ctx = canvas.getContext('2d');
+  const {
+    width: bBoxWidth,
+    height: bBoxHeight
+  } = rotateSize(image.width, image.height, rotation); // set canvas size to match the bounding box
 
-            if (ctx) {
-              _context5.next = 9;
-              break;
-            }
+  canvas.width = bBoxWidth;
+  canvas.height = bBoxHeight; // translate canvas context to a central location to allow rotating and flipping around the center
 
-            return _context5.abrupt("return", null);
+  ctx.translate(bBoxWidth / 2, bBoxHeight / 2);
+  ctx.rotate(rotRad);
+  ctx.scale(flip.horizontal ? -1 : 1, flip.vertical ? -1 : 1);
+  ctx.translate(-image.width / 2, -image.height / 2); // draw rotated image
 
-          case 9:
-            rotRad = getRadianAngle(rotation); // calculate bounding box of the rotated image
+  ctx.drawImage(image, 0, 0); // croppedAreaPixels values are bounding box relative
+  // extract the cropped image using these values
 
-            _rotateSize = rotateSize(image.width, image.height, rotation), bBoxWidth = _rotateSize.width, bBoxHeight = _rotateSize.height; // set canvas size to match the bounding box
+  const data = ctx.getImageData(pixelCrop.x, pixelCrop.y, pixelCrop.width, pixelCrop.height); // set canvas width to final desired crop size - this will clear existing context
 
-            canvas.width = bBoxWidth;
-            canvas.height = bBoxHeight; // translate canvas context to a central location to allow rotating and flipping around the center
+  canvas.width = pixelCrop.width;
+  canvas.height = pixelCrop.height; // paste generated rotate image at the top left corner
 
-            ctx.translate(bBoxWidth / 2, bBoxHeight / 2);
-            ctx.rotate(rotRad);
-            ctx.scale(flip.horizontal ? -1 : 1, flip.vertical ? -1 : 1);
-            ctx.translate(-image.width / 2, -image.height / 2); // draw rotated image
+  ctx.putImageData(data, 0, 0); // As Base64 string
 
-            ctx.drawImage(image, 0, 0); // croppedAreaPixels values are bounding box relative
-            // extract the cropped image using these values
-
-            data = ctx.getImageData(pixelCrop.x, pixelCrop.y, pixelCrop.width, pixelCrop.height); // set canvas width to final desired crop size - this will clear existing context
-
-            canvas.width = pixelCrop.width;
-            canvas.height = pixelCrop.height; // paste generated rotate image at the top left corner
-
-            ctx.putImageData(data, 0, 0); // As Base64 string
-
-            return _context5.abrupt("return", canvas.toDataURL('image/jpeg'));
-
-          case 23:
-          case "end":
-            return _context5.stop();
-        }
-      }
-    }, _callee5);
-  }));
-  return _getCroppedImg.apply(this, arguments);
+  return canvas.toDataURL('image/jpeg');
 }
 
 /***/ }),
@@ -736,44 +388,25 @@ function _getCroppedImg() {
 /*!***********************************************************!*\
   !*** ./assets/src/apps/js/frontend/profile/course-tab.js ***!
   \***********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/url */ "@wordpress/url");
 /* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_url__WEBPACK_IMPORTED_MODULE_0__);
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
  // Rest API load content course enrolled, created - Nhamdv.
 
-var courseTab = function courseTab() {
-  var elements = document.querySelectorAll('.learn-press-course-tab__filter__content');
+const courseTab = () => {
+  const elements = document.querySelectorAll('.learn-press-course-tab__filter__content');
 
-  var getResponse = function getResponse(ele, dataset) {
-    var append = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-    var viewMoreEle = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+  const getResponse = function (ele, dataset) {
+    let append = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+    let viewMoreEle = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
     wp.apiFetch({
-      path: Object(_wordpress_url__WEBPACK_IMPORTED_MODULE_0__["addQueryArgs"])('lp/v1/profile/course-tab', dataset),
+      path: (0,_wordpress_url__WEBPACK_IMPORTED_MODULE_0__.addQueryArgs)('lp/v1/profile/course-tab', dataset),
       method: 'GET'
-    }).then(function (response) {
-      var skeleton = ele.querySelector('.lp-skeleton-animation');
+    }).then(response => {
+      const skeleton = ele.querySelector('.lp-skeleton-animation');
       skeleton && skeleton.remove();
 
       if (response.status === 'success' && response.data) {
@@ -783,15 +416,15 @@ var courseTab = function courseTab() {
           ele.innerHTML = response.data;
         }
       } else if (append) {
-        ele.innerHTML += "<div class=\"lp-ajax-message\" style=\"display:block\">".concat(response.message && response.message, "</div>");
+        ele.innerHTML += `<div class="lp-ajax-message" style="display:block">${response.message && response.message}</div>`;
       } else {
-        ele.innerHTML = "<div class=\"lp-ajax-message\" style=\"display:block\">".concat(response.message && response.message, "</div>");
+        ele.innerHTML = `<div class="lp-ajax-message" style="display:block">${response.message && response.message}</div>`;
       }
 
       if (viewMoreEle) {
         viewMoreEle.classList.remove('loading');
-        var paged = viewMoreEle.dataset.paged;
-        var numberPage = viewMoreEle.dataset.number;
+        const paged = viewMoreEle.dataset.paged;
+        const numberPage = viewMoreEle.dataset.number;
 
         if (numberPage <= paged) {
           viewMoreEle.remove();
@@ -801,17 +434,17 @@ var courseTab = function courseTab() {
       }
 
       viewMore(ele, dataset);
-    })["catch"](function (error) {
+    }).catch(error => {
       if (append) {
-        ele.innerHTML += "<div class=\"lp-ajax-message error\" style=\"display:block\">".concat(error.message && error.message, "</div>");
+        ele.innerHTML += `<div class="lp-ajax-message error" style="display:block">${error.message && error.message}</div>`;
       } else {
-        ele.innerHTML = "<div class=\"lp-ajax-message error\" style=\"display:block\">".concat(error.message && error.message, "</div>");
+        ele.innerHTML = `<div class="lp-ajax-message error" style="display:block">${error.message && error.message}</div>`;
       }
 
       if (viewMoreEle) {
         viewMoreEle.classList.remove('loading');
-        var paged = viewMoreEle.dataset.paged;
-        var numberPage = viewMoreEle.dataset.number;
+        const paged = viewMoreEle.dataset.paged;
+        const numberPage = viewMoreEle.dataset.number;
 
         if (numberPage <= paged) {
           viewMoreEle.remove();
@@ -823,53 +456,45 @@ var courseTab = function courseTab() {
   };
 
   if ('IntersectionObserver' in window) {
-    var eleObserver = new IntersectionObserver(function (entries, observer) {
-      entries.forEach(function (entry) {
+    const eleObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
-          var ele = entry.target;
-          var params = ele.parentNode.querySelector('.lp_profile_tab_input_param');
-
-          var data = _objectSpread(_objectSpread({}, JSON.parse(params.value)), {}, {
+          const ele = entry.target;
+          const params = ele.parentNode.querySelector('.lp_profile_tab_input_param');
+          const data = { ...JSON.parse(params.value),
             status: ele.dataset.tab || ''
-          });
-
+          };
           getResponse(ele, data);
           eleObserver.unobserve(ele);
         }
       });
     });
-
-    _toConsumableArray(elements).map(function (ele) {
+    [...elements].map(ele => {
       if (ele.dataset.tab !== 'all') {
         eleObserver.observe(ele);
       } else {
-        var params = ele.parentNode.querySelector('.lp_profile_tab_input_param');
-
-        var data = _objectSpread(_objectSpread({}, JSON.parse(params.value)), {}, {
+        const params = ele.parentNode.querySelector('.lp_profile_tab_input_param');
+        const data = { ...JSON.parse(params.value),
           status: ele.dataset.tab === 'all' ? '' : ele.dataset.tab || ''
-        });
-
+        };
         getResponse(ele, data);
       }
     });
   }
 
-  var changeFilter = function changeFilter() {
-    var tabs = document.querySelectorAll('.learn-press-course-tab-filters');
-    tabs.forEach(function (tab) {
-      var filters = tab.querySelectorAll('.learn-press-filters a');
-      filters.forEach(function (filter) {
-        filter.addEventListener('click', function (e) {
+  const changeFilter = () => {
+    const tabs = document.querySelectorAll('.learn-press-course-tab-filters');
+    tabs.forEach(tab => {
+      const filters = tab.querySelectorAll('.learn-press-filters a');
+      filters.forEach(filter => {
+        filter.addEventListener('click', e => {
           e.preventDefault();
-          var tabName = filter.dataset.tab;
-
-          _toConsumableArray(filters).map(function (ele) {
+          const tabName = filter.dataset.tab;
+          [...filters].map(ele => {
             ele.classList.remove('active');
           });
-
           filter.classList.add('active');
-
-          _toConsumableArray(tab.querySelectorAll('.learn-press-course-tab__filter__content')).map(function (ele) {
+          [...tab.querySelectorAll('.learn-press-course-tab__filter__content')].map(ele => {
             ele.style.display = 'none';
 
             if (ele.dataset.tab === tabName) {
@@ -883,22 +508,19 @@ var courseTab = function courseTab() {
 
   changeFilter();
 
-  var changeTab = function changeTab() {
-    var tabUls = document.querySelectorAll('.learn-press-profile-course__tab__inner');
-    tabUls.forEach(function (tabUl) {
-      var tabs = tabUl.querySelectorAll('li> a');
-      tabs.forEach(function (tab) {
-        tab.addEventListener('click', function (e) {
+  const changeTab = () => {
+    const tabUls = document.querySelectorAll('.learn-press-profile-course__tab__inner');
+    tabUls.forEach(tabUl => {
+      const tabs = tabUl.querySelectorAll('li> a');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', e => {
           e.preventDefault();
-          var tabName = tab.dataset.tab;
-
-          _toConsumableArray(tabs).map(function (ele) {
+          const tabName = tab.dataset.tab;
+          [...tabs].map(ele => {
             ele.classList.remove('active');
           });
-
           tab.classList.add('active');
-
-          _toConsumableArray(document.querySelectorAll('.learn-press-course-tab-filters')).map(function (ele) {
+          [...document.querySelectorAll('.learn-press-course-tab-filters')].map(ele => {
             ele.style.display = 'none';
 
             if (ele.dataset.tab === tabName) {
@@ -912,18 +534,20 @@ var courseTab = function courseTab() {
 
   changeTab();
 
-  var viewMore = function viewMore(ele, dataset) {
-    var viewMoreEle = ele.querySelector('button[data-paged]');
+  const viewMore = (ele, dataset) => {
+    const viewMoreEle = ele.querySelector('button[data-paged]');
 
     if (viewMoreEle) {
-      viewMoreEle.addEventListener('click', function (e) {
+      viewMoreEle.addEventListener('click', e => {
         e.preventDefault();
-        var paged = viewMoreEle && viewMoreEle.dataset.paged;
+        const paged = viewMoreEle && viewMoreEle.dataset.paged;
         viewMoreEle.classList.add('loading');
-        var element = dataset.layout === 'list' ? '.lp_profile_course_progress' : '.learn-press-courses';
-        getResponse(ele.querySelector(element), _objectSpread(_objectSpread({}, dataset), {
-          paged: paged
-        }), true, viewMoreEle);
+        const element = dataset.layout === 'list' ? '.lp_profile_course_progress' : '.learn-press-courses';
+        getResponse(ele.querySelector(element), { ...dataset,
+          ...{
+            paged
+          }
+        }, true, viewMoreEle);
       });
     }
   };
@@ -937,31 +561,34 @@ var courseTab = function courseTab() {
 /*!**************************************************************!*\
   !*** ./assets/src/apps/js/frontend/profile/order-recover.js ***!
   \**************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return recoverOrder; });
-var $ = window.jQuery;
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ recoverOrder; }
+/* harmony export */ });
+const $ = window.jQuery;
 function recoverOrder() {
-  var wrap = $('.order-recover'),
-      buttonRecoverOrder = wrap.find('.button-recover-order');
+  const wrap = $('.order-recover'),
+        buttonRecoverOrder = wrap.find('.button-recover-order');
 
-  var ajaxRecover = function ajaxRecover() {
+  const ajaxRecover = () => {
     wrap.find('.learn-press-message').remove();
     $('.profile-recover-order').find('.learn-press-message').remove();
     $.post({
       url: '',
       data: wrap.serializeJSON(),
-      beforeSend: function beforeSend() {
+
+      beforeSend() {
         buttonRecoverOrder.addClass('loading').attr('disabled', 'disabled');
       },
-      success: function success(response) {
+
+      success(response) {
         response = LP.parseJSON(response);
 
         if (response.message) {
-          var $msg = $('<div class="learn-press-message icon"><i class="fa"></i> ' + response.message + '</div>');
+          const $msg = $('<div class="learn-press-message icon"><i class="fa"></i> ' + response.message + '</div>');
 
           if (response.result == 'error') {
             $msg.addClass('error');
@@ -976,9 +603,11 @@ function recoverOrder() {
 
         buttonRecoverOrder.removeClass('loading').removeAttr('disabled', '');
       },
-      error: function error() {
+
+      error() {
         buttonRecoverOrder.removeClass('loading').removeAttr('disabled', '');
       }
+
     });
   };
 
@@ -992,8 +621,7 @@ function recoverOrder() {
 /*!**********************************************************!*\
   !*** ./assets/src/apps/js/frontend/profile/statistic.js ***!
   \**********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1001,35 +629,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_url__WEBPACK_IMPORTED_MODULE_0__);
  // Rest API load content course progress - Nhamdv.
 
-var courseStatistics = function courseStatistics() {
-  var elements = document.querySelector('.learn-press-profile-course__statistic');
+const courseStatistics = () => {
+  const elements = document.querySelector('.learn-press-profile-course__statistic');
 
   if (!elements) {
     return;
   }
 
-  var getResponse = function getResponse(ele, dataset) {
+  const getResponse = (ele, dataset) => {
     wp.apiFetch({
-      path: Object(_wordpress_url__WEBPACK_IMPORTED_MODULE_0__["addQueryArgs"])('lp/v1/profile/statistic', dataset),
+      path: (0,_wordpress_url__WEBPACK_IMPORTED_MODULE_0__.addQueryArgs)('lp/v1/profile/statistic', dataset),
       method: 'GET'
-    }).then(function (response) {
+    }).then(response => {
       if (response.status === 'success' && response.data) {
         ele.innerHTML = response.data;
       } else {
-        ele.innerHTML = "<div class=\"lp-ajax-message error\" style=\"display:block\">".concat(response.message && response.message, "</div>");
+        ele.innerHTML = `<div class="lp-ajax-message error" style="display:block">${response.message && response.message}</div>`;
       }
-    })["catch"](function (err) {
+    }).catch(err => {
       console.log(err); //ele.innerHTML += `<div class="lp-ajax-message error" style="display:block">${ err.message && err.message }</div>`;
     });
   };
 
-  var elArgStatistic = document.querySelector('[name="args_query_user_courses_statistic"]');
+  const elArgStatistic = document.querySelector('[name="args_query_user_courses_statistic"]');
 
   if (!elArgStatistic) {
     return;
   }
 
-  var data = JSON.parse(elArgStatistic.value);
+  const data = JSON.parse(elArgStatistic.value);
   getResponse(elements, data);
 };
 
@@ -1041,8 +669,7 @@ var courseStatistics = function courseStatistics() {
 /*!***********************************************!*\
   !*** ./node_modules/normalize-wheel/index.js ***!
   \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports = __webpack_require__(/*! ./src/normalizeWheel.js */ "./node_modules/normalize-wheel/src/normalizeWheel.js");
 
@@ -1053,8 +680,7 @@ module.exports = __webpack_require__(/*! ./src/normalizeWheel.js */ "./node_modu
 /*!******************************************************************!*\
   !*** ./node_modules/normalize-wheel/src/ExecutionEnvironment.js ***!
   \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module) {
 
 "use strict";
 /**
@@ -1108,8 +734,7 @@ module.exports = ExecutionEnvironment;
 /*!******************************************************************!*\
   !*** ./node_modules/normalize-wheel/src/UserAgent_DEPRECATED.js ***!
   \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module) {
 
 /**
  * Copyright 2004-present Facebook. All Rights Reserved.
@@ -1401,8 +1026,7 @@ module.exports = UserAgent_DEPRECATED;
 /*!**************************************************************!*\
   !*** ./node_modules/normalize-wheel/src/isEventSupported.js ***!
   \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 /**
@@ -1476,8 +1100,7 @@ module.exports = isEventSupported;
 /*!************************************************************!*\
   !*** ./node_modules/normalize-wheel/src/normalizeWheel.js ***!
   \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 /**
@@ -1669,16 +1292,15 @@ module.exports = normalizeWheel;
 /*!******************************************************!*\
   !*** ./node_modules/react-easy-crop/index.module.js ***!
   \******************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/react-easy-crop/node_modules/tslib/tslib.es6.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var normalize_wheel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! normalize-wheel */ "./node_modules/normalize-wheel/index.js");
-/* harmony import */ var normalize_wheel__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(normalize_wheel__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ "./node_modules/react-easy-crop/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var normalize_wheel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! normalize-wheel */ "./node_modules/normalize-wheel/index.js");
+/* harmony import */ var normalize_wheel__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(normalize_wheel__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -1794,7 +1416,7 @@ function computeCroppedArea(crop, mediaSize, cropSize, aspect, zoom, rotation, r
     height: Math.round(widthInPixels / aspect)
   };
 
-  var croppedAreaPixels = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])(Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])({}, sizePixels), {
+  var croppedAreaPixels = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)({}, sizePixels), {
     x: Math.round(limitAreaFn(mediaNaturalBBoxSize.width - sizePixels.width, croppedAreaPercentages.x * mediaNaturalBBoxSize.width / 100)),
     y: Math.round(limitAreaFn(mediaNaturalBBoxSize.height - sizePixels.height, croppedAreaPercentages.y * mediaNaturalBBoxSize.height / 100))
   });
@@ -1922,7 +1544,7 @@ var MAX_ZOOM = 3;
 var Cropper =
 /** @class */
 function (_super) {
-  Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"])(Cropper, _super);
+  (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__extends)(Cropper, _super);
 
   function Cropper() {
     var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -2063,7 +1685,7 @@ function (_super) {
           };
         }
 
-        _this.mediaSize = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])(Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])({}, renderedMediaSize), {
+        _this.mediaSize = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)({}, renderedMediaSize), {
           naturalWidth: naturalWidth,
           naturalHeight: naturalHeight
         });
@@ -2094,6 +1716,10 @@ function (_super) {
     };
 
     _this.onTouchStart = function (e) {
+      if (_this.props.onTouchRequest && !_this.props.onTouchRequest(e)) {
+        return;
+      }
+
       document.addEventListener('touchmove', _this.onTouchMove, {
         passive: false
       }); // iOS 11 now defaults to passive: true
@@ -2127,7 +1753,7 @@ function (_super) {
         x: x,
         y: y
       };
-      _this.dragStartCrop = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])({}, _this.props.crop);
+      _this.dragStartCrop = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)({}, _this.props.crop);
       (_c = (_b = _this.props).onInteractionStart) === null || _c === void 0 ? void 0 : _c.call(_b);
     };
 
@@ -2161,9 +1787,13 @@ function (_super) {
     };
 
     _this.onWheel = function (e) {
+      if (_this.props.onWheelRequest && !_this.props.onWheelRequest(e)) {
+        return;
+      }
+
       e.preventDefault();
       var point = Cropper.getMousePoint(e);
-      var pixelY = normalize_wheel__WEBPACK_IMPORTED_MODULE_2___default()(e).pixelY;
+      var pixelY = normalize_wheel__WEBPACK_IMPORTED_MODULE_1___default()(e).pixelY;
       var newZoom = _this.props.zoom - pixelY * _this.props.zoomSpeed / 200;
 
       _this.setNewZoom(newZoom, point);
@@ -2241,7 +1871,7 @@ function (_super) {
     _this.getCropData = function () {
       if (!_this.state.cropSize) {
         return null;
-      } // this is to ensure the crop is correctly restricted after a zoom back (https://github.com/ricardo-ch/react-easy-crop/issues/6)
+      } // this is to ensure the crop is correctly restricted after a zoom back (https://github.com/ValentinH/react-easy-crop/issues/6)
 
 
       var restrictedPosition = _this.props.restrictPosition ? restrictPosition(_this.props.crop, _this.mediaSize, _this.state.cropSize, _this.props.zoom, _this.props.rotation) : _this.props.crop;
@@ -2423,7 +2053,7 @@ function (_super) {
         cropAreaClassName = _d.cropAreaClassName,
         mediaClassName = _d.mediaClassName,
         objectFit = _a.objectFit;
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       onMouseDown: this.onMouseDown,
       onTouchStart: this.onTouchStart,
       ref: function ref(el) {
@@ -2432,7 +2062,7 @@ function (_super) {
       "data-testid": "container",
       style: containerStyle,
       className: classNames('reactEasyCrop_Container', containerClassName)
-    }, image ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])({
+    }, image ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)({
       alt: "",
       className: classNames('reactEasyCrop_Image', objectFit === 'contain' && 'reactEasyCrop_Contain', objectFit === 'horizontal-cover' && 'reactEasyCrop_Cover_Horizontal', objectFit === 'vertical-cover' && 'reactEasyCrop_Cover_Vertical', mediaClassName)
     }, mediaProps, {
@@ -2440,11 +2070,11 @@ function (_super) {
       ref: function ref(el) {
         return _this.imageRef = el;
       },
-      style: Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])(Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])({}, mediaStyle), {
+      style: (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)({}, mediaStyle), {
         transform: transform || "translate(" + x + "px, " + y + "px) rotate(" + rotation + "deg) scale(" + zoom + ")"
       }),
       onLoad: this.onMediaLoad
-    })) : video && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("video", Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])({
+    })) : video && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("video", (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)({
       autoPlay: true,
       loop: true,
       muted: true,
@@ -2454,18 +2084,18 @@ function (_super) {
         return _this.videoRef = el;
       },
       onLoadedMetadata: this.onMediaLoad,
-      style: Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])(Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])({}, mediaStyle), {
+      style: (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)({}, mediaStyle), {
         transform: transform || "translate(" + x + "px, " + y + "px) rotate(" + rotation + "deg) scale(" + zoom + ")"
       }),
       controls: false
     }), (Array.isArray(video) ? video : [{
       src: video
     }]).map(function (item) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("source", Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])({
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("source", (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)({
         key: item.src
       }, item));
-    })), this.state.cropSize && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-      style: Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])(Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])({}, cropAreaStyle), {
+    })), this.state.cropSize && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      style: (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)({}, cropAreaStyle), {
         width: this.state.cropSize.width,
         height: this.state.cropSize.height
       }),
@@ -2506,7 +2136,7 @@ function (_super) {
   };
 
   return Cropper;
-}(react__WEBPACK_IMPORTED_MODULE_1___default.a.Component);
+}((react__WEBPACK_IMPORTED_MODULE_0___default().Component));
 
 /* harmony default export */ __webpack_exports__["default"] = (Cropper);
 //# sourceMappingURL=index.module.js.map
@@ -2518,34 +2148,35 @@ function (_super) {
 /*!**********************************************************************!*\
   !*** ./node_modules/react-easy-crop/node_modules/tslib/tslib.es6.js ***!
   \**********************************************************************/
-/*! exports provided: __extends, __assign, __rest, __decorate, __param, __metadata, __awaiter, __generator, __createBinding, __exportStar, __values, __read, __spread, __spreadArrays, __await, __asyncGenerator, __asyncDelegator, __asyncValues, __makeTemplateObject, __importStar, __importDefault, __classPrivateFieldGet, __classPrivateFieldSet */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__extends", function() { return __extends; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__assign", function() { return __assign; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__rest", function() { return __rest; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__decorate", function() { return __decorate; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__param", function() { return __param; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__metadata", function() { return __metadata; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__awaiter", function() { return __awaiter; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__generator", function() { return __generator; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__createBinding", function() { return __createBinding; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__exportStar", function() { return __exportStar; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__values", function() { return __values; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__read", function() { return __read; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__spread", function() { return __spread; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__spreadArrays", function() { return __spreadArrays; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__await", function() { return __await; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__asyncGenerator", function() { return __asyncGenerator; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__asyncDelegator", function() { return __asyncDelegator; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__asyncValues", function() { return __asyncValues; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__makeTemplateObject", function() { return __makeTemplateObject; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__importStar", function() { return __importStar; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__importDefault", function() { return __importDefault; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__classPrivateFieldGet", function() { return __classPrivateFieldGet; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__classPrivateFieldSet", function() { return __classPrivateFieldSet; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "__assign": function() { return /* binding */ __assign; },
+/* harmony export */   "__asyncDelegator": function() { return /* binding */ __asyncDelegator; },
+/* harmony export */   "__asyncGenerator": function() { return /* binding */ __asyncGenerator; },
+/* harmony export */   "__asyncValues": function() { return /* binding */ __asyncValues; },
+/* harmony export */   "__await": function() { return /* binding */ __await; },
+/* harmony export */   "__awaiter": function() { return /* binding */ __awaiter; },
+/* harmony export */   "__classPrivateFieldGet": function() { return /* binding */ __classPrivateFieldGet; },
+/* harmony export */   "__classPrivateFieldSet": function() { return /* binding */ __classPrivateFieldSet; },
+/* harmony export */   "__createBinding": function() { return /* binding */ __createBinding; },
+/* harmony export */   "__decorate": function() { return /* binding */ __decorate; },
+/* harmony export */   "__exportStar": function() { return /* binding */ __exportStar; },
+/* harmony export */   "__extends": function() { return /* binding */ __extends; },
+/* harmony export */   "__generator": function() { return /* binding */ __generator; },
+/* harmony export */   "__importDefault": function() { return /* binding */ __importDefault; },
+/* harmony export */   "__importStar": function() { return /* binding */ __importStar; },
+/* harmony export */   "__makeTemplateObject": function() { return /* binding */ __makeTemplateObject; },
+/* harmony export */   "__metadata": function() { return /* binding */ __metadata; },
+/* harmony export */   "__param": function() { return /* binding */ __param; },
+/* harmony export */   "__read": function() { return /* binding */ __read; },
+/* harmony export */   "__rest": function() { return /* binding */ __rest; },
+/* harmony export */   "__spread": function() { return /* binding */ __spread; },
+/* harmony export */   "__spreadArrays": function() { return /* binding */ __spreadArrays; },
+/* harmony export */   "__values": function() { return /* binding */ __values; }
+/* harmony export */ });
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
 
@@ -2777,14 +2408,25 @@ function __classPrivateFieldSet(receiver, privateMap, value) {
 
 /***/ }),
 
+/***/ "react":
+/*!************************!*\
+  !*** external "React" ***!
+  \************************/
+/***/ (function(module) {
+
+"use strict";
+module.exports = window["React"];
+
+/***/ }),
+
 /***/ "@wordpress/api-fetch":
 /*!**********************************!*\
   !*** external ["wp","apiFetch"] ***!
   \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module) {
 
-(function() { module.exports = window["wp"]["apiFetch"]; }());
+"use strict";
+module.exports = window["wp"]["apiFetch"];
 
 /***/ }),
 
@@ -2792,10 +2434,10 @@ function __classPrivateFieldSet(receiver, privateMap, value) {
 /*!*********************************!*\
   !*** external ["wp","element"] ***!
   \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module) {
 
-(function() { module.exports = window["wp"]["element"]; }());
+"use strict";
+module.exports = window["wp"]["element"];
 
 /***/ }),
 
@@ -2803,10 +2445,10 @@ function __classPrivateFieldSet(receiver, privateMap, value) {
 /*!******************************!*\
   !*** external ["wp","i18n"] ***!
   \******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module) {
 
-(function() { module.exports = window["wp"]["i18n"]; }());
+"use strict";
+module.exports = window["wp"]["i18n"];
 
 /***/ }),
 
@@ -2814,23 +2456,110 @@ function __classPrivateFieldSet(receiver, privateMap, value) {
 /*!*****************************!*\
   !*** external ["wp","url"] ***!
   \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module) {
 
-(function() { module.exports = window["wp"]["url"]; }());
-
-/***/ }),
-
-/***/ "react":
-/*!*********************************!*\
-  !*** external {"this":"React"} ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-(function() { module.exports = this["React"]; }());
+"use strict";
+module.exports = window["wp"]["url"];
 
 /***/ })
 
-/******/ });
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	!function() {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = function(module) {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				function() { return module['default']; } :
+/******/ 				function() { return module; };
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+!function() {
+"use strict";
+/*!************************************************!*\
+  !*** ./assets/src/apps/js/frontend/profile.js ***!
+  \************************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _profile_course_tab__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./profile/course-tab */ "./assets/src/apps/js/frontend/profile/course-tab.js");
+/* harmony import */ var _profile_statistic__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./profile/statistic */ "./assets/src/apps/js/frontend/profile/statistic.js");
+/* harmony import */ var _profile_order_recover__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./profile/order-recover */ "./assets/src/apps/js/frontend/profile/order-recover.js");
+/* harmony import */ var _profile_avatar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./profile/avatar */ "./assets/src/apps/js/frontend/profile/avatar.js");
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function (event) {
+  (0,_profile_course_tab__WEBPACK_IMPORTED_MODULE_1__["default"])();
+  (0,_profile_statistic__WEBPACK_IMPORTED_MODULE_2__["default"])();
+  (0,_profile_order_recover__WEBPACK_IMPORTED_MODULE_3__["default"])();
+});
+
+if (document.getElementById('learnpress-avatar-upload')) {
+  wp.element.render((0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_profile_avatar__WEBPACK_IMPORTED_MODULE_4__["default"], null), document.getElementById('learnpress-avatar-upload'));
+}
+}();
+/******/ })()
+;
 //# sourceMappingURL=profile.js.map

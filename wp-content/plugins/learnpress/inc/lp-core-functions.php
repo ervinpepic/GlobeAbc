@@ -129,9 +129,10 @@ function learn_press_quick_tip( $tip, $echo = true, $options = array() ) {
  *
  * @return bool
  * @editor tungnx
- * @todo comment this function - replace with LP_Debug::is_debug()
+ * @depecated 4.1.6.4
  */
 function learn_press_is_debug() {
+	_deprecated_function( __FUNCTION__, '4.1.6.4' );
 	return LP_Debug::is_debug();
 }
 
@@ -999,6 +1000,7 @@ add_action( 'transition_post_status', 'learn_press_publish_course', 10, 3 );
  * @param $user_id
  *
  * @return WP_Query
+ * @depecated 4.1.6.4
  */
 function learn_press_get_enrolled_courses( $user_id ) {
 	return LP()->get_user( $user_id )->get( 'enrolled-courses' );
@@ -2053,23 +2055,26 @@ function learn_press_get_endpoint_url( $name, $value, $url ) {
  * Add all endpoints from settings to the pages.
  */
 function learn_press_add_endpoints() {
-	$settings = LP()->settings();
+	$settings = LP_Settings::instance();
 
-	if ( $endpoints = $settings->get_checkout_endpoints() ) {
+	$endpoints = $settings->get_checkout_endpoints();
+	if ( $endpoints ) {
 		foreach ( $endpoints as $endpoint => $value ) {
 			LP()->query_vars[ $endpoint ] = $value;
 			add_rewrite_endpoint( $value, EP_PAGES );
 		}
 	}
 
-	if ( $endpoints = $settings->get_profile_endpoints() ) {
+	$endpoints = $settings->get_profile_endpoints();
+	if ( $endpoints ) {
 		foreach ( $endpoints as $endpoint => $value ) {
 			LP()->query_vars[ $endpoint ] = $value;
 			add_rewrite_endpoint( $value, EP_PAGES );
 		}
 	}
 
-	if ( $endpoints = LP()->settings->get( 'quiz_endpoints' ) ) {
+	$endpoints = $settings->get( 'quiz_endpoints' );
+	if ( $endpoints ) {
 		foreach ( $endpoints as $endpoint => $value ) {
 			$endpoint                     = preg_replace( '!_!', '-', $endpoint );
 			LP()->query_vars[ $endpoint ] = $value;
@@ -2667,7 +2672,7 @@ function learn_press_comment_reply_link( $link, $args = array(), $comment = null
 add_filter( 'comment_reply_link', 'learn_press_comment_reply_link', 10, 4 );
 
 function learn_press_deprecated_function( $function, $version, $replacement = null ) {
-	if ( learn_press_is_debug() ) {
+	if ( LP_Debug::is_debug() ) {
 		_deprecated_function( $function, $version, $replacement );
 	}
 }
@@ -2851,12 +2856,16 @@ if ( ! function_exists( 'learn_press_get_widget_course_object' ) ) {
 	 * @param $query
 	 *
 	 * @return array
+	 * @deprecated v4.1.6.1 - we will remove on the version 4.1.7
 	 */
 	function learn_press_get_widget_course_object( $query ) {
+
+		_deprecated_function( __FUNCTION__, '4.1.6.1' );
+
 		global $wpdb;
 
-		if ( $posts = $wpdb->get_results( $query ) ) {
-
+		$posts = $wpdb->get_results( $query );
+		if ( $posts ) {
 			// get lp courses object from WordPress post
 			$courses = array_map( 'learn_press_get_lp_course', $posts );
 			$courses = array_filter( $courses );
@@ -2876,8 +2885,11 @@ if ( ! function_exists( 'learn_press_get_lp_course' ) ) {
 	 * @param object - reference $post WordPress post object
 	 *
 	 * @return LP_Course course
+	 * @deprecated v4.1.6.1 - we will remove on the version 4.1.7
 	 */
 	function learn_press_get_lp_course( $post ) {
+		_deprecated_function( __FUNCTION__, '4.1.6.1' );
+
 		$id     = $post->ID;
 		$course = null;
 		if ( ! empty( $id ) ) {
@@ -2896,9 +2908,11 @@ if ( ! function_exists( 'learn_press_get_lp_course' ) ) {
  *
  * @return array
  * @since 3.0.0
- * @deprecated 4.1.4.1
+ * @deprecated 4.1.4.1 - Will remove on version 4.1.7
  */
 function learn_press_get_unassigned_items( $type = '' ) {
+	_deprecated_function( __FUNCTION__, '4.1.6.1' );
+
 	global $wpdb;
 
 	if ( ! $type ) {
@@ -2943,8 +2957,11 @@ function learn_press_get_unassigned_items( $type = '' ) {
  *
  * @return array
  * @since 3.0.0
+ * @deprecated 4.1.6.1 - Will remove on version 4.1.7
  */
 function learn_press_get_unassigned_questions() {
+	_deprecated_function( __FUNCTION__, '4.1.6.1' );
+
 	global $wpdb;
 
 	if ( false === ( $questions = LP_Object_Cache::get( 'questions', 'learn-press/unassigned' ) ) ) {
@@ -3045,8 +3062,10 @@ function learn_press_date() {
  * @param int $keep
  *
  * @since 3.0.8
+ * @deprecated 4.1.6.1 - Will remove on version 4.1.7
  */
 function learn_press_remove_user_items_history( $item_id, $course_id, $user_id, $keep = 10 ) {
+	_deprecated_function( __FUNCTION__, '4.1.6.1' );
 
 	$user = learn_press_get_user( $user_id );
 	if ( $rows = $user->get_item_archive( $item_id, $course_id ) ) {
@@ -3097,7 +3116,9 @@ function learn_press_get_block_course_item_types() {
  * @since 3.1.0
  */
 function learn_press_get_post_type( $post ) {
-	if ( false === ( $post_types = LP_Object_Cache::get( 'post-types', 'learn-press' ) ) ) {
+	$post_types = LP_Object_Cache::get( 'post-types', 'learn-press' );
+
+	if ( false === $post_types ) {
 		$post_types = array();
 	}
 
@@ -3138,13 +3159,6 @@ function learn_press_cache_add_post_type( $id, $type = '' ) {
 	}
 
 	LP_Object_Cache::set( 'post-types', $post_types, 'learn-press' );
-}
-
-function _learn_press_deprecated_function( $function, $version, $replacement = null ) {
-	if ( ! learn_press_is_debug() ) {
-		return;
-	}
-	_deprecated_function( $function, $version, $replacement = null );
 }
 
 function learn_press_has_option( $name ) {
@@ -3587,68 +3601,68 @@ function learn_press_time_from_gmt( $gmt_time, $format = 'Y-m-d H:i:s' ) {
  * @since 4.0.0
  * @editor tungnx
  * @version 1.0.1
+ * @deprecated 4.1.6 replace to "get_statistic_info" function
  */
-function learn_press_count_instructor_users( int $instructor_id = 0 ): int {
-	try {
-		$filter_course                      = new LP_Course_Filter();
-		$filter_course->fields              = array( 'ID' );
-		$filter_course->post_author         = $instructor_id;
-		$filter_course->post_status         = 'publish';
-		$filter_course->return_string_query = true;
-		$query_courses_str                  = LP_Course_DB::getInstance()->get_courses( $filter_course );
-
-		$filter              = new LP_User_Items_Filter();
-		$filter->fields      = array( 'DISTINCT (ui.user_id)' );
-		$filter->field_count = 'DISTINCT (ui.user_id)';
-		$filter->where       = array();
-		$filter->where[]     = "AND item_id IN ({$query_courses_str})";
-		$filter->query_count = true;
-
-		return LP_User_Item_Course::get_user_courses( $filter );
-		//return LP_User_Items_DB::getInstance()->get_user_courses( $filter );
-	} catch ( Throwable $e ) {
-		error_log( __FUNCTION__ . ': ' . $e->getMessage() );
-
-		return 0;
-	}
-
-	/*$curd        = new LP_User_CURD();
-	$own_courses = $curd->query_own_courses( $instructor_id );
-	$course_ids  = $own_courses->get_items();*/
-
-	/*
-	global $wpdb;
-	$filter              = new LP_Course_Filter();
-	$filter->post_author = $instructor_id;
-	$filter->limit       = -1;
-	$courses             = LP_Course::get_courses( $filter );
-	$course_ids          = LP_Course::get_course_ids( $courses );
-
-	if ( ! empty( $course_ids ) ) {
-		$query = $wpdb->prepare(
-			"
-			SELECT COUNT(user_id)
-			FROM (
-				SELECT item_id, user_id
-				FROM {$wpdb->learnpress_user_items}
-				WHERE item_type = %s
-				GROUP BY item_id, user_id
-				HAVING item_id IN(" . join( ',', $course_ids ) . ')
-			) X
-			GROUP BY item_id
-		',
-			LP_COURSE_CPT
-		);
-
-		$rows = $wpdb->get_col( $query );
-
-		if ( $rows ) {
-			return array_sum( $rows );
-		}
-	}
-
-	return 0;*/
-}
+//function learn_press_count_instructor_users( int $instructor_id = 0 ): int {
+//	try {
+//		$filter_course                      = new LP_Course_Filter();
+//		$filter_course->only_fields         = array( 'ID' );
+//		$filter_course->post_author         = $instructor_id;
+//		$filter_course->post_status         = 'publish';
+//		$filter_course->return_string_query = true;
+//		$query_courses_str                  = LP_Course_DB::getInstance()->get_courses( $filter_course );
+//
+//		$filter              = new LP_User_Items_Filter();
+//		$filter->only_fields = array( 'DISTINCT (ui.user_id)' );
+//		$filter->field_count = 'DISTINCT (ui.user_id)';
+//		$filter->where[]     = "AND item_id IN ({$query_courses_str})";
+//		$filter->query_count = true;
+//
+//		return LP_User_Item_Course::get_user_courses( $filter );
+//		//return LP_User_Items_DB::getInstance()->get_user_courses( $filter );
+//	} catch ( Throwable $e ) {
+//		error_log( __FUNCTION__ . ': ' . $e->getMessage() );
+//
+//		return 0;
+//	}
+//
+//	/*$curd        = new LP_User_CURD();
+//	$own_courses = $curd->query_own_courses( $instructor_id );
+//	$course_ids  = $own_courses->get_items();*/
+//
+//	/*
+//	global $wpdb;
+//	$filter              = new LP_Course_Filter();
+//	$filter->post_author = $instructor_id;
+//	$filter->limit       = -1;
+//	$courses             = LP_Course::get_courses( $filter );
+//	$course_ids          = LP_Course::get_course_ids( $courses );
+//
+//	if ( ! empty( $course_ids ) ) {
+//		$query = $wpdb->prepare(
+//			"
+//			SELECT COUNT(user_id)
+//			FROM (
+//				SELECT item_id, user_id
+//				FROM {$wpdb->learnpress_user_items}
+//				WHERE item_type = %s
+//				GROUP BY item_id, user_id
+//				HAVING item_id IN(" . join( ',', $course_ids ) . ')
+//			) X
+//			GROUP BY item_id
+//		',
+//			LP_COURSE_CPT
+//		);
+//
+//		$rows = $wpdb->get_col( $query );
+//
+//		if ( $rows ) {
+//			return array_sum( $rows );
+//		}
+//	}
+//
+//	return 0;*/
+//}
 
 /**
  * Get max retrying quiz allowed.

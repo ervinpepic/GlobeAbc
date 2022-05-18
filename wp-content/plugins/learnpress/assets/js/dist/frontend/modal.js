@@ -1,121 +1,23 @@
-this["LP"] = this["LP"] || {}; this["LP"]["modal"] =
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./assets/src/apps/js/frontend/modal.js");
-/******/ })
-/************************************************************************/
-/******/ ({
-
-/***/ "./assets/src/apps/js/frontend/modal.js":
-/*!**********************************************!*\
-  !*** ./assets/src/apps/js/frontend/modal.js ***!
-  \**********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modal_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal/index */ "./assets/src/apps/js/frontend/modal/index.js");
-
-/* harmony default export */ __webpack_exports__["default"] = (_modal_index__WEBPACK_IMPORTED_MODULE_0__["default"]);
-
-/***/ }),
+/******/ (function() { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./assets/src/apps/js/frontend/modal/index.js":
 /*!****************************************************!*\
   !*** ./assets/src/apps/js/frontend/modal/index.js ***!
   \****************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./store */ "./assets/src/apps/js/frontend/modal/store/index.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./store */ "./assets/src/apps/js/frontend/modal/store/index.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_3__);
+
+
 /**
  * Create Modal popup.
  * Edit: Use React Hook.
@@ -126,52 +28,51 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var Modal = function Modal(_ref) {
-  var children = _ref.children;
-
-  var _dispatch = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_2__["dispatch"])('learnpress/modal'),
-      show = _dispatch.show,
-      hide = _dispatch.hide,
-      confirm = _dispatch.confirm;
-
-  var isShow = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_2__["useSelect"])(function (select) {
-    var isOpen = select('learnpress/modal').isOpen();
+const Modal = _ref => {
+  let {
+    children
+  } = _ref;
+  const {
+    show,
+    hide,
+    confirm
+  } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.dispatch)('learnpress/modal');
+  const isShow = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useSelect)(select => {
+    const isOpen = select('learnpress/modal').isOpen();
     return isOpen;
   });
-  var message = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_2__["useSelect"])(function (select) {
-    var getMessage = select('learnpress/modal').getMessage();
+  const message = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useSelect)(select => {
+    const getMessage = select('learnpress/modal').getMessage();
     return getMessage;
   });
 
-  var dataConfirm = function dataConfirm(c) {
-    return function (event) {
-      confirm(c);
-    };
+  const dataConfirm = c => event => {
+    confirm(c);
   };
 
-  var styles = {
+  const styles = {
     display: isShow ? 'block' : 'none'
   };
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     id: "lp-modal-overlay",
     style: styles
-  }), /*#__PURE__*/React.createElement("div", {
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     id: "lp-modal-window",
     style: styles
-  }, /*#__PURE__*/React.createElement("div", {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     id: "lp-modal-content",
     dangerouslySetInnerHTML: {
       __html: message
     }
-  }), /*#__PURE__*/React.createElement("div", {
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     id: "lp-modal-buttons"
-  }, /*#__PURE__*/React.createElement("button", {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
     className: "lp-button modal-button-ok",
     onClick: dataConfirm('yes')
-  }, /*#__PURE__*/React.createElement("span", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('OK', 'learnpress'))), /*#__PURE__*/React.createElement("button", {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('OK', 'learnpress'))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
     className: "lp-button modal-button-cancel",
     onClick: dataConfirm('no')
-  }, /*#__PURE__*/React.createElement("span", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Cancel', 'learnpress')))))), children);
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Cancel', 'learnpress')))))), children);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Modal);
@@ -182,19 +83,19 @@ var Modal = function Modal(_ref) {
 /*!************************************************************!*\
   !*** ./assets/src/apps/js/frontend/modal/store/actions.js ***!
   \************************************************************/
-/*! exports provided: show, hide, confirm */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "show", function() { return show; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hide", function() { return hide; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "confirm", function() { return confirm; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "confirm": function() { return /* binding */ confirm; },
+/* harmony export */   "hide": function() { return /* binding */ hide; },
+/* harmony export */   "show": function() { return /* binding */ show; }
+/* harmony export */ });
 function show(message, cb) {
   return {
     type: 'SHOW_MODAL',
-    message: message,
-    cb: cb
+    message,
+    cb
   };
 }
 function hide() {
@@ -205,7 +106,7 @@ function hide() {
 function confirm(value) {
   return {
     type: 'CONFIRM',
-    value: value
+    value
   };
 }
 
@@ -215,10 +116,8 @@ function confirm(value) {
 /*!**********************************************************!*\
   !*** ./assets/src/apps/js/frontend/modal/store/index.js ***!
   \**********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_0__);
@@ -226,25 +125,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./actions */ "./assets/src/apps/js/frontend/modal/store/actions.js");
 /* harmony import */ var _selectors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./selectors */ "./assets/src/apps/js/frontend/modal/store/selectors.js");
 /* harmony import */ var _middlewares__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./middlewares */ "./assets/src/apps/js/frontend/modal/store/middlewares.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
 
 
-
-var dataControls = LP.dataControls.controls;
-var store = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_0__["registerStore"])('learnpress/modal', {
+const {
+  controls: dataControls
+} = LP.dataControls;
+const store = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_0__.registerStore)('learnpress/modal', {
   reducer: _reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
   selectors: _selectors__WEBPACK_IMPORTED_MODULE_3__,
   actions: _actions__WEBPACK_IMPORTED_MODULE_2__,
-  controls: _objectSpread({}, dataControls)
+  controls: { ...dataControls
+  }
 });
-Object(_middlewares__WEBPACK_IMPORTED_MODULE_4__["default"])(store);
+(0,_middlewares__WEBPACK_IMPORTED_MODULE_4__["default"])(store);
 /* harmony default export */ __webpack_exports__["default"] = (store);
 
 /***/ }),
@@ -253,10 +149,8 @@ Object(_middlewares__WEBPACK_IMPORTED_MODULE_4__["default"])(store);
 /*!****************************************************************!*\
   !*** ./assets/src/apps/js/frontend/modal/store/middlewares.js ***!
   \****************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var refx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! refx */ "./node_modules/refx/refx.js");
 /* harmony import */ var refx__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(refx__WEBPACK_IMPORTED_MODULE_0__);
@@ -264,11 +158,13 @@ __webpack_require__.r(__webpack_exports__);
  * External dependencies
  */
 
-var effects = {
-  ENROLL_COURSE_X: function ENROLL_COURSE_X(action, store) {
-    enrollCourse: (function (action, store) {
-      var dispatch = store.dispatch; //dispatch()
-    });
+const effects = {
+  ENROLL_COURSE_X: (action, store) => {
+    enrollCourse: (action, store) => {
+      const {
+        dispatch
+      } = store; //dispatch()
+    };
   }
 };
 /**
@@ -280,14 +176,14 @@ var effects = {
  */
 
 function applyMiddlewares(store) {
-  var enhancedDispatch = function enhancedDispatch() {
+  let enhancedDispatch = () => {
     throw new Error('Dispatching while constructing your middleware is not allowed. ' + 'Other middleware would not be applied to this dispatch.');
   };
 
-  var middlewareAPI = {
+  const middlewareAPI = {
     getState: store.getState,
-    dispatch: function dispatch() {
-      return enhancedDispatch.apply(void 0, arguments);
+    dispatch: function () {
+      return enhancedDispatch(...arguments);
     }
   };
   enhancedDispatch = refx__WEBPACK_IMPORTED_MODULE_0___default()(effects)(middlewareAPI)(store.dispatch);
@@ -303,45 +199,39 @@ function applyMiddlewares(store) {
 /*!************************************************************!*\
   !*** ./assets/src/apps/js/frontend/modal/store/reducer.js ***!
   \************************************************************/
-/*! exports provided: Modal, default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Modal", function() { return Modal; });
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var STORE_DATA = {};
-var Modal = function Modal() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : STORE_DATA;
-  var action = arguments.length > 1 ? arguments[1] : undefined;
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Modal": function() { return /* binding */ Modal; }
+/* harmony export */ });
+const STORE_DATA = {};
+const Modal = function () {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : STORE_DATA;
+  let action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
     case 'SHOW_MODAL':
-      return _objectSpread(_objectSpread({}, state), {}, {
+      return { ...state,
         isOpen: true,
         message: action.message,
         cb: action.cb
-      });
+      };
 
     case 'HIDE_MODAL':
-      return _objectSpread(_objectSpread({}, state), {}, {
+      return { ...state,
         isOpen: false,
         message: false,
         cb: null
-      });
+      };
 
     case 'CONFIRM':
-      state.cb && setTimeout(function () {
+      state.cb && setTimeout(() => {
         state.cb();
       }, 10);
-      return _objectSpread(_objectSpread({}, state), {}, {
+      return { ...state,
         confirm: action.value
-      });
+      };
   }
 
   return state;
@@ -354,14 +244,14 @@ var Modal = function Modal() {
 /*!**************************************************************!*\
   !*** ./assets/src/apps/js/frontend/modal/store/selectors.js ***!
   \**************************************************************/
-/*! exports provided: isOpen, getMessage, confirm */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isOpen", function() { return isOpen; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getMessage", function() { return getMessage; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "confirm", function() { return confirm; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "confirm": function() { return /* binding */ confirm; },
+/* harmony export */   "getMessage": function() { return /* binding */ getMessage; },
+/* harmony export */   "isOpen": function() { return /* binding */ isOpen; }
+/* harmony export */ });
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -372,9 +262,10 @@ function getMessage(state) {
   return state.message;
 }
 function confirm(state, message, cb) {
-  var _dispatch = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_0__["dispatch"])('learnpress/modal'),
-      show = _dispatch.show,
-      hide = _dispatch.hide;
+  const {
+    show,
+    hide
+  } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_0__.dispatch)('learnpress/modal');
 
   if (!state.message) {
     show(message, cb);
@@ -392,10 +283,8 @@ function confirm(state, message, cb) {
 /*!***********************************!*\
   !*** ./node_modules/refx/refx.js ***!
   \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module) {
 
-"use strict";
 
 
 function flattenIntoMap( map, effects ) {
@@ -452,10 +341,19 @@ module.exports = refx;
 /*!******************************!*\
   !*** external ["wp","data"] ***!
   \******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module) {
 
-(function() { module.exports = window["wp"]["data"]; }());
+module.exports = window["wp"]["data"];
+
+/***/ }),
+
+/***/ "@wordpress/element":
+/*!*********************************!*\
+  !*** external ["wp","element"] ***!
+  \*********************************/
+/***/ (function(module) {
+
+module.exports = window["wp"]["element"];
 
 /***/ }),
 
@@ -463,12 +361,92 @@ module.exports = refx;
 /*!******************************!*\
   !*** external ["wp","i18n"] ***!
   \******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module) {
 
-(function() { module.exports = window["wp"]["i18n"]; }());
+module.exports = window["wp"]["i18n"];
 
 /***/ })
 
-/******/ });
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	!function() {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = function(module) {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				function() { return module['default']; } :
+/******/ 				function() { return module; };
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+!function() {
+/*!**********************************************!*\
+  !*** ./assets/src/apps/js/frontend/modal.js ***!
+  \**********************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _modal_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal/index */ "./assets/src/apps/js/frontend/modal/index.js");
+
+/* harmony default export */ __webpack_exports__["default"] = (_modal_index__WEBPACK_IMPORTED_MODULE_0__["default"]);
+}();
+(window.LP = window.LP || {}).modal = __webpack_exports__;
+/******/ })()
+;
 //# sourceMappingURL=modal.js.map

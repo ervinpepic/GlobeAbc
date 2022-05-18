@@ -24,9 +24,9 @@ class LP_Template_Course extends LP_Abstract_Template {
 	}
 
 	public function get_course() {
-		global $post;
+		// global $post;
 
-		$this->course = LP_Global::course();
+		$this->course = learn_press_get_course();
 	}
 
 	public function course_sidebar_preview() {
@@ -499,7 +499,11 @@ class LP_Template_Course extends LP_Abstract_Template {
 
 	public function course_finish_button() {
 		$user   = LP_Global::user();
-		$course = LP_Global::course();
+		$course = learn_press_get_course();
+
+		if ( ! $course ) {
+			return;
+		}
 
 		// Course has no items
 		if ( empty( $course->get_item_ids() ) ) {
@@ -561,16 +565,18 @@ class LP_Template_Course extends LP_Abstract_Template {
 		}
 
 		$percentage      = 0;
+		$total_items     = 0;
 		$completed_items = 0;
 		$course_data     = $user->get_course_data( $course->get_id() );
 
 		if ( $course_data && ! $course->is_no_required_enroll() ) {
 			$course_results  = $course_data->get_result();
 			$completed_items = $course_results['completed_items'];
+			$total_items     = $course_results['count_items'];
 			$percentage      = $course_results['count_items'] ? absint( $course_results['completed_items'] / $course_results['count_items'] * 100 ) : 0;
 		}
 
-		learn_press_get_template( 'single-course/content-item/popup-header', compact( 'user', 'course', 'completed_items', 'percentage' ) );
+		learn_press_get_template( 'single-course/content-item/popup-header', compact( 'user', 'course', 'total_items', 'completed_items', 'percentage' ) );
 	}
 
 	public function popup_sidebar() {
@@ -843,7 +849,9 @@ class LP_Template_Course extends LP_Abstract_Template {
 		if ( $lesson->setup_postdata() ) {
 
 			if ( comments_open() || get_comments_number() ) {
+				add_filter( 'deprecated_file_trigger_error', '__return_false' );
 				comments_template();
+				remove_filter( 'deprecated_file_trigger_error', '__return_false' );
 			}
 			$lesson->reset_postdata();
 		}
@@ -1040,7 +1048,9 @@ class LP_Template_Course extends LP_Abstract_Template {
 		global $post;
 
 		if ( comments_open() || get_comments_number() ) {
+			add_filter( 'deprecated_file_trigger_error', '__return_false' );
 			comments_template();
+			remove_filter( 'deprecated_file_trigger_error', '__return_false' );
 		}
 	}
 

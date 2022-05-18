@@ -26,17 +26,17 @@ class WC_Gateway_Payssion_Order {
 	 */
 	public $total_tax = 0;
 	
-	public function get_billing_address($json = false) {
+	public function get_billing_address($json = true) {
 	    $order       = $this->order;
 	    $billing_address = array(
 	        'email'           => $order->billing_email,
 	        'postal_code'     => $order->billing_postcode,
 	        'country'         => $order->billing_country,
 	        'phone'           => $order->billing_phone,
-	        'given_name'      => $order->billing_first_name,
-	        'family_name'     => $order->billing_last_name,
-	        'street_address'  => $order->billing_address_1,
-	        'street_address2' => $order->billing_address_2,
+	        'first_name'      => $order->billing_first_name,
+	        'last_name'     => $order->billing_last_name,
+	        'line1'  => $order->billing_address_1,
+	        'line2'  => $order->billing_address_2,
 	        'city'            => $order->billing_city,
 	        'region'          => $order->billing_state,
 	    );
@@ -50,7 +50,7 @@ class WC_Gateway_Payssion_Order {
 	 * @param int $order_id The WooCommerce order id.
 	 * @return array
 	 */
-	public function get_order_lines($json = false) {
+	public function get_order_lines($json = true) {
 	    $order       = $this->order;
 	    $order_lines = array();
 	    

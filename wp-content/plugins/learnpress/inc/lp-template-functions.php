@@ -302,12 +302,19 @@ add_filter( 'admin_bar_menu', 'learn_press_content_item_edit_links', 90 );
 
 if ( ! function_exists( 'learn_press_single_quiz_args' ) ) {
 	function learn_press_single_quiz_args() {
-		$args   = array();
+		$args = array();
+
+		if ( LP_PAGE_QUIZ !== LP_Page_Controller::page_current() ) {
+			return $args;
+		}
+
 		$quiz   = LP_Global::course_item_quiz();
 		$course = LP_Global::course();
-		if ( $quiz ) {
+
+		if ( $quiz && $course ) {
 			$user      = LP_Global::user();
-			$user_quiz = $user->get_item_data( $quiz->get_id(), LP_Global::course( true ) );
+			$course_id = $course->get_id();
+			$user_quiz = $user->get_item_data( $quiz->get_id(), $course_id );
 
 			if ( $user_quiz ) {
 				$remaining_time = $user_quiz->get_time_remaining();
@@ -319,7 +326,7 @@ if ( ! function_exists( 'learn_press_single_quiz_args' ) ) {
 				'id'                  => $quiz->get_id(),
 				'totalTime'           => $quiz->get_duration()->get(),
 				'remainingTime'       => $remaining_time ? $remaining_time->get() : $quiz->get_duration()->get(),
-				'status'              => $user->get_item_status( $quiz->get_id(), LP_Global::course( true ) ),
+				'status'              => $user->get_item_status( $quiz->get_id(), $course_id ),
 				'checkNorequizenroll' => $course->is_no_required_enroll(),
 				'navigationPosition'  => LP_Settings::get_option( 'navigation_position', 'yes' ),
 			);
@@ -568,38 +575,6 @@ if ( ! function_exists( 'learn_press_course_class' ) ) {
 		return apply_filters( 'learn_press_course_class', $classes );
 	}
 }
-/**
- * When the_post is called, put course data into a global.
- *
- * @param mixed $post
- *
- * @return LP_Course
- */
-function learn_press_setup_object_data( $post ) {
-	$object = null;
-
-	if ( is_int( $post ) ) {
-		$post = get_post( $post );
-	}
-
-	if ( ! $post ) {
-		return $object;
-	}
-
-	if ( LP_COURSE_CPT === $post->post_type ) {
-		if ( isset( $GLOBALS['course'] ) ) {
-			unset( $GLOBALS['course'] );
-		}
-
-		$object = learn_press_get_course( $post->ID );
-
-		LP()->global['course'] = $GLOBALS['course'] = $GLOBALS['lp_course'] = $object;
-	}
-
-	return $object;
-}
-
-add_action( 'the_post', 'learn_press_setup_object_data' );
 
 function learn_press_setup_user() {
 	$GLOBALS['lp_user'] = learn_press_get_current_user();
@@ -807,7 +782,11 @@ if ( ! function_exists( 'learn_press_page_title' ) ) {
 	}
 }
 
+/**
+ * @depecated 4.1.6.4
+ */
 function learn_press_template_redirect() {
+	_deprecated_function( __FUNCTION__, '4.1.6.4' );
 	global $wp_query, $wp;
 
 	// When default permalinks are enabled, redirect shop page to post type archive url
@@ -817,7 +796,7 @@ function learn_press_template_redirect() {
 	}
 }
 
-add_action( 'template_redirect', 'learn_press_template_redirect' );
+// add_action( 'template_redirect', 'learn_press_template_redirect' );
 
 
 /**
@@ -907,7 +886,7 @@ function learn_press_get_template( $template_name = '', $args = array(), $templa
 		$log = sprintf( 'TEMPLATE MISSING: Template %s doesn\'t exists.', $template_name );
 		error_log( $log );
 
-		if ( learn_press_is_debug() ) {
+		if ( LP_Debug::is_debug() ) {
 			echo sprintf( '<span title="%s" class="learn-press-template-warning"></span>', $log );
 		}
 
@@ -1160,7 +1139,9 @@ if ( ! function_exists( 'learn_press_content_item_comments' ) ) {
 			return;
 		}
 
+		add_filter( 'deprecated_file_trigger_error', '__return_false' );
 		comments_template();
+		remove_filter( 'deprecated_file_trigger_error', '__return_false' );
 
 		wp_reset_postdata();
 	}
@@ -1188,7 +1169,11 @@ function learn_press_label_html( $label, $type = '' ) {
 	<?php
 }
 
+/**
+ * @depecated 4.1.6.4
+ */
 function learn_press_get_course_redirect( $link ) {
+	_deprecated_function( __FUNCTION__, '4.1.6.4' );
 	if ( empty( $_SERVER['HTTP_REFERER'] ) ) {
 		return $link;
 	}
@@ -1866,10 +1851,10 @@ function lp_archive_skeleton_get_args() {
 	$params = apply_filters(
 		'lp/template/archive-course/skeleton/args',
 		array(
-			'paged'   => 1,
-			's'       => '',
-			'orderby' => '',
-			'order'   => '',
+			'paged'    => 1,
+			'c_search' => '',
+			'orderby'  => '',
+			'order'    => '',
 		)
 	);
 
@@ -1882,8 +1867,8 @@ function lp_archive_skeleton_get_args() {
 
 	if ( learn_press_is_course_archive() ) {
 		foreach ( $params as $key => $param ) {
-			if ( get_query_var( $key ) ) {
-				$args[ $key ] = get_query_var( $key );
+			if ( isset( $_REQUEST[ $key ] ) ) {
+				$args[ $key ] = $_REQUEST[ $key ];
 			} else {
 				$args[ $key ] = $param;
 			}

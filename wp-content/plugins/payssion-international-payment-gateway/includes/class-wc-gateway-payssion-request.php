@@ -49,7 +49,7 @@ class WC_Gateway_Payssion_Request {
 	    if ($sandbox) {
 	        $url = 'http://sandbox.payssion.com/payment/create.html';
 	    } else {
-	        $url = 'https://www.payssion.com/payment/create.html';
+	        $url = 'https://www.payssion.cn/payment/create.html';
 	    }
 	    
 		$Payssion_args = http_build_query( $this->get_payssion_args( $order ), '', '&' );
@@ -101,9 +101,9 @@ class WC_Gateway_Payssion_Request {
 		$data['api_sig'] = $this->generateSignature($data, $this->gateway->get_secretkey());
 		
 		
-		if (substr($pm_id, 0, strlen('klarna')) === 'klarna') {
-		    $data['billing_address'] = $order->get_billing_address();
-		    $data['order_items'] = $order->get_order_lines();
+		if (substr($this->gateway->get_pmid(), -2) === 'br' /*|| substr($pm_id, 0, strlen('klarna')) === 'klarna'*/) {
+		    $data['billing_address'] = base64_encode($order->get_billing_address());
+		    $data['order_items'] = base64_encode($order->get_order_lines());
 		}
 		
 		return $apply_filters ? apply_filters( 'woocommerce_Payssion_args', $data, $order->getOrginOrder()) : $data;

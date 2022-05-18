@@ -114,14 +114,24 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 		try {
 			$filter             = new LP_Course_Filter();
 			$filter->page       = absint( $request['paged'] ?? 1 );
-			$filter->post_title = LP_Helper::sanitize_params_submitted( $request['s'] ?? '' );
-			$fields_str         = LP_Helper::sanitize_params_submitted( $request['c_fields'] ?? '' );
+			$filter->post_title = LP_Helper::sanitize_params_submitted( $request['c_search'] ?? '' );
+			$fields_str         = LP_Helper::sanitize_params_submitted( urldecode( $request['c_fields'] ) ?? '' );
+			$fields_exclude_str = LP_Helper::sanitize_params_submitted( urldecode( $request['c_exclude_fields'] ) ?? '' );
 			if ( ! empty( $fields_str ) ) {
 				$fields         = explode( ',', $fields_str );
 				$filter->fields = $fields;
 			}
+			if ( ! empty( $fields_exclude_str ) ) {
+				$fields_exclude         = explode( ',', $fields_exclude_str );
+				$filter->exclude_fields = $fields_exclude;
+			}
 			$filter->post_author = LP_Helper::sanitize_params_submitted( $request['c_author'] ?? 0 );
-			$term_ids_str        = LP_Helper::sanitize_params_submitted( $request['term_id'] ?? '' );
+			$author_ids_str      = LP_Helper::sanitize_params_submitted( $request['c_authors'] ?? 0 );
+			if ( ! empty( $author_ids_str ) ) {
+				$author_ids           = explode( ',', $author_ids_str );
+				$filter->post_authors = $author_ids;
+			}
+			$term_ids_str = LP_Helper::sanitize_params_submitted( urldecode( $request['term_id'] ) ?? '' );
 			if ( ! empty( $term_ids_str ) ) {
 				$term_ids         = explode( ',', $term_ids_str );
 				$filter->term_ids = $term_ids;
@@ -132,15 +142,17 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 			$on_feature                            = absint( $request['on_feature'] ?? '0' );
 			1 === $on_feature ? $filter->sort_by[] = 'on_feature' : '';
 
-			$filter->order_by = LP_Helper::sanitize_params_submitted( $request['order_by'] ?? 'post_date' );
-			$filter->order    = LP_Helper::sanitize_params_submitted( $request['order'] ?? 'DESC' );
+			$filter->order_by = LP_Helper::sanitize_params_submitted( ! empty( $request['order_by'] ) ? $request['order_by'] : 'post_date' );
+			$filter->order    = LP_Helper::sanitize_params_submitted( ! empty( $request['order'] ) ? $request['order'] : 'DESC' );
 			$filter->limit    = LP_Settings::get_option( 'archive_course_limit', 10 );
+			$return_type      = $request['return_type'] ?? 'html';
+			if ( 'json' !== $return_type ) {
+				$filter->only_fields = array( 'DISTINCT(ID) AS ID' );
+			}
 
-			$total_rows = 0;
-			$filter     = apply_filters( 'lp/api/courses/filter', $filter, $request );
-			$courses    = LP_Course::get_courses( $filter, $total_rows );
-
-			$return_type = $request['return_type'] ?? 'html';
+			$total_rows  = 0;
+			$filter      = apply_filters( 'lp/api/courses/filter', $filter, $request );
+			$courses     = LP_Course::get_courses( $filter, $total_rows );
 			$total_pages = LP_Database::get_total_pages( $filter->limit, $total_rows );
 
 			if ( 'json' === $return_type ) {
@@ -149,9 +161,7 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 			} else {
 				// For return data has html
 				if ( $courses ) {
-					ob_start();
-
-					global $post, $wp;
+					global $wp, $post;
 					$archive_link = get_post_type_archive_link( LP_COURSE_CPT );
 
 					if ( isset( $term_link ) && ! is_wp_error( $term_link ) ) {
@@ -170,7 +180,11 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 						)
 					);
 
-					foreach ( $courses as $post ) {
+					ob_start();
+
+					// Todo: tungnx - should rewrite call template
+					foreach ( $courses as $course ) {
+						$post = get_post( $course->ID );
 						setup_postdata( $post );
 						learn_press_get_template_part( 'content', 'course' );
 					}
@@ -181,6 +195,23 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 				}
 
 				$response->data->content = ob_get_clean();
+				$response->data->totals  = $total_rows;
+
+				$from = 1 + ( $filter->page - 1 ) * $filter->limit;
+				$to   = ( $filter->page * $filter->limit > $total_rows ) ? $total_rows : $filter->page * $filter->limit;
+
+				if ( 0 === $total_rows ) {
+					$response->data->from_to = '';
+				} elseif ( 1 === $total_rows ) {
+					$response->data->from_to = esc_html__( 'Showing only one result', 'learnpress' );
+				} else {
+					if ( $from == $to ) {
+						$response->data->from_to = sprintf( esc_html__( 'Showing last course of %s results', 'learnpress' ), $total_rows );
+					} else {
+						$from_to                 = $from . '-' . $to;
+						$response->data->from_to = sprintf( esc_html__( 'Showing %1$s of %2$s results', 'learnpress' ), $from_to, $total_rows );
+					}
+				}
 			}
 
 			$response->status = 'success';
@@ -191,7 +222,7 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 		return apply_filters( 'lp/rest-api/frontend/course/archive_course/response', $response );
 	}
 
-	public function archive_course( WP_REST_Request $request ) {
+	/*public function archive_course( WP_REST_Request $request ) {
 		$response       = new LP_REST_Response();
 		$response->data = new stdClass();
 
@@ -283,7 +314,7 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 		$response->data->content = ob_get_clean();
 
 		return rest_ensure_response( apply_filters( 'lp/rest-api/frontend/course/archive_course/response', $response ) );
-	}
+	}*/
 
 	/**
 	 * Rest API for Enroll in single course.

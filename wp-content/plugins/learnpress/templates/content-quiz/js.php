@@ -113,9 +113,12 @@ $js = array(
 	'crypto'              => $crypto_js_aes,
 	'edit_permalink'      => $editable ? get_edit_post_link( $quiz->get_id() ) : '',
 	'results'             => array(),
+	'required_password'   => post_password_required( $quiz->get_id() ),
+	'allow_retake'        => $quiz->get_retake_count() == -1,
 );
 
-/*if ( $course->is_no_required_enroll() ) {
+/*
+if ( $course->is_no_required_enroll() ) {
 	$cookie_user_status = 'quiz_submit_status_' . $course->get_id() . '_' . $quiz->get_id() . '';
 	if ( ! empty( $_COOKIE[ $cookie_user_status ] ) ) {
 		$js_status    = $_COOKIE[ $cookie_user_status ];

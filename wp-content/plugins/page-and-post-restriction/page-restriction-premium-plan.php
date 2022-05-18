@@ -2,213 +2,256 @@
 
 require_once 'page-restriction-menu-settings.php';
 
-function papr_show_premium_plans(){
-	?>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <div class="papr-background">
-        <b><div style="text-align:center; font-size: 25px; margin-top: 1em; margin-bottom: 0.75em;">Page and Post Restriction</div></b>
-        <div class="papr-subheading">
-            You are currently on the Free version of the plugin
+function papr_show_premium_plans()
+{
+?>
+    <div class="bg-white mt-4 ml-2 pl-0 mb-4 pl-3 rounded">
+        <h2 class="text-center pt-4">Page and Post Restriction</h2>
+        <h5 class="text-danger text-center">You are currently on the Free version of the plugin</h5>
+
+        <input type="hidden" value="<?php echo papr_is_customer_registered(); ?>" id="papr_customer_registered">
+
+        <div class="mr-3">
+            <table class="w-100 text-center mt-4 papr-license-plan">
+                <tr class="papr-lic-head rounded">
+                    <th class="h2 p-3">Choose Your Plan</th>
+                    <th class="h2 p-3">Premium</th>
+                    <th class="h2 p-3">Enterprise</th>
+                </tr>
+                <tr class="bg-white">
+                    <td class="p-2"></td>
+                    <td class="p-2 h2 papr-price">$149 <sup>*</sup></td>
+                    <td class="p-2 h2 papr-price">$249 <sup>*</sup></td>
+                </tr>
+                <tr>
+                    <td class="p-2">Restrict specific Pages/Posts</td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-success" viewBox="0 0 14 14">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    </td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-success" viewBox="0 0 14 14">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="p-2">Restrict Complete Site</td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-success" viewBox="0 0 14 14">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    </td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-success" viewBox="0 0 14 14">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="p-2">Restrict based on User's Login Status</td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-success" viewBox="0 0 14 14">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    </td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-success" viewBox="0 0 14 14">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="p-2">Number of Restricted Pages/Posts</td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-success" viewBox="0 0 14 14">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    </td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-success" viewBox="0 0 14 14">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="p-2">Error Message to Restricted User</td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-success" viewBox="0 0 14 14">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    </td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-success" viewBox="0 0 14 14">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="p-2">Restrict Pages/Posts while Creating (Meta Box)</td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-success" viewBox="0 0 14 14">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    </td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-success" viewBox="0 0 14 14">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="p-2">Restrict Category Page</td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-success" viewBox="0 0 14 14">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    </td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-success" viewBox="0 0 14 14">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="p-2">Restrict posts of a particular Category</td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-success" viewBox="0 0 14 14">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    </td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-success" viewBox="0 0 14 14">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="p-2">Restrict Category based on User Roles</td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-success" viewBox="0 0 14 14">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    </td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-success" viewBox="0 0 14 14">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="p-2">Redirect Restricted User to a URL</td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-success" viewBox="0 0 14 14">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    </td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-success" viewBox="0 0 14 14">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="p-2">Redirect Restricted User to WordPress Login Page</td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-success" viewBox="0 0 14 14">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    </td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-success" viewBox="0 0 14 14">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="p-2">Restrict Entire Custom Post type</td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-danger rotate-45" viewBox="0 0 14 14">
+                            <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+                        </svg>
+                    </td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-success" viewBox="0 0 14 14">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="p-2">Integration with SAML/OAuth SSO</td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-danger rotate-45" viewBox="0 0 14 14">
+                            <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+                        </svg>
+                    </td>
+                    <td class="p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="align-middle text-success" viewBox="0 0 14 14">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="p-2 pt-3"> <a href="https://www.miniorange.com/contact" class="btn papr-btn-cstm">Contact Us</a> </td>
+                    <td class="p-2 pt-3"> <a onclick="papr_select_plan('wp_page_restriction_premium_plan')" class="btn papr-btn-cstm">Purchase Now</a> </td>
+                    <td class="p-2 pt-3"> <a onclick="papr_select_plan('wp_page_restriction_plan')" class="btn papr-btn-cstm">Purchase Now</a> </td>
+                </tr>
+
+            </table>
         </div>
-        <br>
-        <input type="hidden" value="<?php echo papr_is_customer_registered();?>" id="papr_customer_registered">
-        <div class="papr-pricing-div" style="width: 50%;">
-            <header style="height: 65px;padding: 1em 0.9em 1.6em;pointer-events: auto;text-align: center;color: #2f6062;background-color: transparent;">
-                <p style="margin-bottom: 15px;text-transform: uppercase; font-weight: 700; font-size: 20px; margin-top: 0px;" >Choose Your Plan</p>
-            </header>
-            <div class="cd-pricing-body" style="text-align: center;">
-                <ul class="cd-pricing-features">
-                    <li>Restrict specific Pages/Posts</li>
-                    <li>Restrict Complete Site</li>
-                    <li>Restrict based on User Roles</li>
-                    <li>Restrict based on User's Login Status</li>
-                    <li>Number of Restricted Pages/Posts</li>
-                    <li>Error Message to Restricted User</li>
-                    <li>Restrict Pages/Posts while Creating (Meta Box)</li>
-                    <li>Restrict Category Page</li>
-                    <li>Restrict posts of a particular Category</li>
-                    <li>Restrict Category based on User Roles</li>
-                    <li>Redirect Restricted User to a URL</li>
-                    <li>Redirect Restricted User to WordPress Login Page</li>
-                    <li>Restrict Entire Custom Post type</li>
-                    <li>Integration with SAML/OAuth SSO</li>
-                    <li><a style="color:blue; font-size:14px;" href="https://www.miniorange.com/contact"><b>Contact us</b></a></li>
-                    <li></li>
-                </ul>
-
-            </div>
-        </div>
-
-        <div class="papr-pricing-div" style="width: 25%;">
-            <header style="height: 65px;padding: 1em 0.9em 1.6em;pointer-events: auto;text-align: center;color: #2f6062;background-color: transparent;">
-                <p style="margin-bottom: 15px;text-transform: uppercase; font-weight: 700; font-size: 20px; margin-top: 0px;" >Premium</p>
-                <div class="cd-price" >
-                    <span class="cd-currency">$</span>
-                    <span class="cd-value">149*</span>
-                </div>
-            </header>
-            <div class="cd-pricing-body" style="text-align: center;">
-                <ul class="cd-pricing-features">
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><i class="fa fa-times unavailable"></i></li>
-                    <li><i class="fa fa-times unavailable"></i></li>
-                    <li><a style="color:blue; font-size:14px;" href="https://www.miniorange.com/contact"><b>Contact us</b></a></li>
-                    <li></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="papr-pricing-div" style="width: 25%;">
-            <header style="height: 65px;padding: 1em 0.9em 1.6em;pointer-events: auto;text-align: center;color: #2f6062;background-color: transparent;">
-                <p style="margin-bottom: 15px;text-transform: uppercase; font-weight: 700; font-size: 20px; margin-top: 0px;" >Enterprise</p>
-                <div class="cd-price" >
-                    <span class="cd-currency">$</span>
-                    <span class="cd-value">249*</span>
-                </div>
-            </header>
-            <div class="cd-pricing-body" style="text-align: center;">
-                <ul class="cd-pricing-features">
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><i class="fa fa-check available"></i></li>
-                    <li><a style="color:blue; font-size:14px;" href="https://www.miniorange.com/contact"><b>Contact us</b></a></li>
-                    <li></li>
-                </ul>
-            </div>
-        </div>
-
-        <div style="text-align:left; font-size:12px; padding-top: 1em;">
-            <h3></h3>
-            <div style="margin-right: 20px; margin-left: 20px;">
-
-            </div>
-
-            <h3 style="padding: 0px 10px; padding-left: 5px;">* Cost applicable for one instance only. Licenses are perpetual and the Support Plan includes 12 months of maintenance (support and version updates). You can renew maintenance after 12 months at 50% of the current license cost.</h3>
-
-            <h3>10 Days Return Policy -</h3>
-            At miniOrange, we want to ensure you are 100% happy with your purchase. If the premium plugin you purchased is
-            not working as advertised and you've attempted to resolve any issues with our support team, which couldn't get
-            resolved. We will refund the whole amount within 10 days of the purchase. Please email us at <b><a href="mailto:info@xecurify.com">info@xecurify.com</a></b>
-            for any queries regarding the return policy.
-
-        </div>
-        <br>
     </div>
-
-    <form style="display:none;" id="loginform"
-          action="<?php echo get_option('papr_host_name') . '/moas/login'; ?>"
-          target="_blank" method="post">
-        <input type="email" name="username" value="<?php echo get_option( 'papr_admin_email' ); ?>"/>
-        <input type="text" name="redirectUrl"
-               value="<?php echo get_option('papr_host_name') . '/moas/initializepayment'; ?>"/>
-        <input type="text" name="requestOrigin" id="requestOrigin"/>
+    <div class="ml-3">
+        <p><b>* Cost applicable for one instance only.</b></p>
+    </div>
+    <br>
+    <div class="ml-3">
+        <h6><u>Steps to Upgrade to Paid Plugin</u></h6>
+        <ol style="font-size:13px;">
+            <li>
+                Click on 'Purchase now' button of the required Licensing Plan. You will be redirected to Account Setup tab of the plugin.
+                    Login or Signup with miniOrange to move forward with the purchase.
+            </li>
+            <li>
+                Once you are logged in, you can click on the 'Purchase Now' button again in the Licensing Plans tab of the plugin.
+                    You will be redirected to miniOrange Login Console, where you need to enter your password for the miniOrange account.
+            </li>
+            <li>
+                You will be then redirected to the payment page. Enter you card details and complete the payment.
+                    On successful payment completion, you will see the link to download the plugin.
+            </li>
+            <li>
+                Now navigate to 'Plugins > Installed Plugins' on the WordPress Dashboard. Click on "Add New" and upload the downloaded paid plugin zip.
+            </li>
+            <li>
+                From this point on, please do not update the paid plugin from the WordPress marketplace.
+            </li>
+        </ol>
+    </div>
+    <br>
+    <div class="ml-3">
+        <h6><u>10 Days Return Policy</u></h6>
+        <p>At miniOrange, we want to ensure you are 100% happy with your purchase. If the paid plugin you purchased is not working as
+                advertised and you've attempted to resolve any issues with our support team which couldn't get resolved, we will refund the whole
+            amount within 10 days of the purchase. <b>Please email us at samlsupport@xecurify.com for any queries</b> regarding the return policy.</p>
+    </div>
+    <form style="display:none;" id="paprloginform" action="https://login.xecurify.com/moas/login" target="_blank" method="post">
+        <input type="email" name="username" value="<?php echo get_option('papr_admin_email'); ?>" />
+        <input type="text" name="redirectUrl" value="https://login.xecurify.com/moas/initializepayment" />
+        <input type="text" name="requestOrigin" id="requestOrigin" />
     </form>
-    <a  id="paprbacktoaccountsetup" style="display:none;" href="<?php echo admin_url( "admin.php?page=page_restriction&tab=account_setup" ); ?>">Back</a>
-
-    <style>
-
-        .papr-background{
-            display:block;
-            margin-top:1px;
-            background-color:rgba(255, 255, 255, 255);
-            padding-left:15px;
-            padding-right:15px;
-            border:solid 1px rgba(255, 255, 255, 255);
+    <a id="paprbacktoaccountsetup" style="display:none;" href="<?php echo papr_add_query_arg(htmlentities($_SERVER['REQUEST_URI'])); ?>"></a>
+    <script>
+        function papr_select_plan(planType) {
+            jQuery('#requestOrigin').val(planType);
+            if (jQuery('#papr_customer_registered').val() == 1) {
+                jQuery('#paprloginform').submit();
+            }
+            else {
+                location.href = jQuery('#paprbacktoaccountsetup').attr('href');
+            }
         }
-        .papr-subheading{
-            text-align:center;
-            color: rgb(233, 125, 104);
-            font-size: 20px;
-        }
-        .unavailable{
-            color: red;
-        }
-
-        html {
-            font-size: 62.5%;
-        }
-        html * {
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        .papr-pricing-div{
-            float: left;
-        }
-        .cd-currency, .cd-value {
-            font-size: 4rem;
-            font-weight: 300;
-        }
-        .cd-currency {
-            display: inline-block;
-            margin-top: 10px;
-            vertical-align: top;
-            font-size: 2rem;
-            font-weight: 700;
-        }
-        .cd-pricing-features {
-            width: auto;
-            word-wrap: break-word;
-            padding: 0em 0em;
-        }
-        .cd-pricing-features li {
-            padding: 0.75em 1em;
-            margin: 0px !important;
-            font-size: 1.2em;
-            text-align: center;
-            white-space: initial;
-            line-height:1.1em;
-            color: #2f6062;
-            float: none;
-            width: auto;
-        }
-        .cd-pricing-features li:nth-of-type(2n+1) {
-            background-color: rgba(23, 61, 80, 0.06);
-        }
-
-        .cd-pricing-footer {
-            position: relative;
-            height: auto;
-            padding: 1.8em 0;
-            text-align: center;
-        }
-
-        .cd-select {
-            position: static;
-            display: inline-block;
-            height: auto;
-            padding: 1.3em 3em;
-            color: #FFFFFF;
-            border-radius: 2px;
-            background-color: #0c1f28;
-            font-size: 1.4rem;
-            text-indent: 0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-    </style>
-	<?php
+    </script>
+<?php
 }
+?>

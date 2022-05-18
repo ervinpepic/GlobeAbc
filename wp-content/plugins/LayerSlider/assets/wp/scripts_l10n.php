@@ -201,6 +201,10 @@ $l10n_ls = [
 			'title' => __('Video poster', 'LayerSlider'),
 			'icon' 	=> lsGetSVGIcon('photo-video')
 		],
+		'MODIFY_SHAPE' 	=> [
+			'title' => __('Modify Shape', 'LayerSlider'),
+			'icon' 	=> lsGetSVGIcon('shapes')
+		]
 	],
 
 	// Slider Builder
@@ -255,6 +259,8 @@ $l10n_ls = [
 	'SBImportLayerNoSlide' 		=> __('No slides found.', 'LayerSlider'),
 	'SBImportLayerNoLayer' 		=> __('No layers found.', 'LayerSlider'),
 
+	'SBConfirmApplyToAllSlides' => __('Are you sure you want to apply this setting on all slides? You won’t be able to undo this.', 'LayerSlider'),
+
 	'SBImportLayerSelectSlide' 	=> __('Select a slide first.', 'LayerSlider'),
 
 	'SBLayerTypeImg' 			=> __('Image', 'LayerSlider'),
@@ -273,6 +279,7 @@ $l10n_ls = [
 
 	'SBInsertShapeTitle' 		=> __('Insert Shape', 'LayerSlider'),
 	'SBModifyShapeTitle' 		=> __('Modify Shape', 'LayerSlider'),
+	'SBShapeOptionsTitle' 		=> _x('%s Options', 'Shape Options (e.g. Wave Options, etc.)', 'LayerSlider'),
 
 	'SBRevisionsLoading' 		=> __('Loading, please wait...', 'LayerSlider'),
 

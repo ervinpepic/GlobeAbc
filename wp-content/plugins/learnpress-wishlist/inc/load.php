@@ -60,6 +60,10 @@ if ( ! class_exists( 'LP_Addon_Wishlist' ) ) {
 		 */
 		protected function _includes() {
 			include_once LP_ADDON_WISHLIST_INC . 'functions.php';
+
+			// Rest API
+			include_once LP_ADDON_WISHLIST_INC . 'rest-api/class-lp-rest-wishlist-v1-controller.php';
+			include_once LP_ADDON_WISHLIST_INC . 'rest-api/class-rest-api.php';
 		}
 
 		/**
@@ -78,11 +82,8 @@ if ( ! class_exists( 'LP_Addon_Wishlist' ) ) {
 		 * Wishlist scripts.
 		 */
 		protected function _enqueue_assets() {
-			wp_enqueue_style( 'lp-course-wishlist-style',
-				untrailingslashit( plugins_url( '/', LP_ADDON_WISHLIST_FILE ) ) . '/assets/css/wishlist.css' );
-			wp_enqueue_script( 'lp-course-wishlist-script',
-				untrailingslashit( plugins_url( '/', LP_ADDON_WISHLIST_FILE ) ) . '/assets/js/wishlist.js',
-				array( 'jquery' ) );
+			wp_enqueue_style( 'lp-course-wishlist-style', untrailingslashit( plugins_url( '/', LP_ADDON_WISHLIST_FILE ) ) . '/assets/css/wishlist.css' );
+			wp_enqueue_script( 'lp-course-wishlist-script', untrailingslashit( plugins_url( '/', LP_ADDON_WISHLIST_FILE ) ) . '/assets/js/wishlist.js', array( 'jquery' ) );
 		}
 
 		/**
@@ -104,7 +105,7 @@ if ( ! class_exists( 'LP_Addon_Wishlist' ) ) {
 			sleep( 1 );
 			$nonce = ! empty( $_POST['nonce'] ) ? $_POST['nonce'] : null;
 			if ( ! wp_verify_nonce( $nonce, 'course-toggle-wishlist' ) ) {
-				die ( __( 'You have not permission to do this action', 'learnpress-wishlist' ) );
+				die( __( 'You have not permission to do this action', 'learnpress-wishlist' ) );
 			}
 
 			$course_id = ! empty( $_POST['course_id'] ) ? absint( $_POST['course_id'] ) : 0;
@@ -140,8 +141,10 @@ if ( ! class_exists( 'LP_Addon_Wishlist' ) ) {
 					'user_id'     => $user_id,
 					'title'       => $this->_get_state_title( $state ),
 					'message'     => '',
-					'button_text' => $state != 'on' ? __( 'Add to Wishlist',
-						'learnpress-wishlist' ) : __( 'Remove from Wishlist', 'learnpress-wishlist' )
+					'button_text' => $state != 'on' ? __(
+						'Add to Wishlist',
+						'learnpress-wishlist'
+					) : __( 'Remove from Wishlist', 'learnpress-wishlist' ),
 				)
 			);
 		}
@@ -152,8 +155,10 @@ if ( ! class_exists( 'LP_Addon_Wishlist' ) ) {
 		 * @return mixed
 		 */
 		private function _get_state_title( $state = 'on' ) {
-			return $state == 'on' ? __( 'Remove this course from your wishlist',
-				'learnpress-wishlist' ) : __( 'Add this course to your wishlist', 'learnpress-wishlist' );
+			return $state == 'on' ? __(
+				'Remove this course from your wishlist',
+				'learnpress-wishlist'
+			) : __( 'Add this course to your wishlist', 'learnpress-wishlist' );
 		}
 
 		/**
@@ -162,8 +167,10 @@ if ( ! class_exists( 'LP_Addon_Wishlist' ) ) {
 		 * @return mixed
 		 */
 		private function _get_state_message( $state = 'on' ) {
-			return $state == 'on' ? __( 'This course added to your wishlist',
-				'learnpress-wishlist' ) : __( 'This course removed from your wishlist', 'learnpress-wishlist' );
+			return $state == 'on' ? __(
+				'This course added to your wishlist',
+				'learnpress-wishlist'
+			) : __( 'This course removed from your wishlist', 'learnpress-wishlist' );
 		}
 
 		/*
@@ -191,8 +198,10 @@ if ( ! class_exists( 'LP_Addon_Wishlist' ) ) {
 			$title   = $this->_get_state_title( $state );
 
 			// fetch template
-			learn_press_course_wishlist_template( 'button.php',
-				compact( 'user_id', 'course_id', 'classes', 'title', 'state' ) );
+			learn_press_course_wishlist_template(
+				'button.php',
+				compact( 'user_id', 'course_id', 'classes', 'title', 'state' )
+			);
 		}
 
 		public function get_tab_slug() {
@@ -211,7 +220,7 @@ if ( ! class_exists( 'LP_Addon_Wishlist' ) ) {
 				'title'    => __( 'Wishlist', 'learnpress-wishlist' ),
 				'slug'     => $this->get_tab_slug(),
 				'callback' => array( $this, 'wishlist_tab_content' ),
-				'priority' => 20
+				'priority' => 20,
 			);
 
 			return $tabs;
@@ -229,7 +238,7 @@ if ( ! class_exists( 'LP_Addon_Wishlist' ) ) {
 			learn_press_course_wishlist_template(
 				'user-wishlist.php',
 				array(
-					'wishlist' => $this->get_wishlist_courses( $viewing_user->get_id() )
+					'wishlist' => $this->get_wishlist_courses( $viewing_user->get_id() ),
 				)
 			);
 		}
@@ -242,13 +251,14 @@ if ( ! class_exists( 'LP_Addon_Wishlist' ) ) {
 				'post__in'            => $pid,
 				'post_status'         => 'publish',
 				'ignore_sticky_posts' => true,
-				'posts_per_page'      => - 1
+				'posts_per_page'      => - 1,
 			);
 			$query    = new WP_Query( $args );
 			$wishlist = array();
 			global $post;
 			if ( $query->have_posts() ) :
-				while ( $query->have_posts() ) : $query->the_post();
+				while ( $query->have_posts() ) :
+					$query->the_post();
 					$wishlist[ $post->ID ] = $post;
 				endwhile;
 			endif;

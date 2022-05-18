@@ -96,7 +96,22 @@ function nb_cpf_embedCssJs() {
 						&& $nb_cpf_settings_options['phone_auto_select'] == 1 ?
 							'initialCountry: location.country_code.toLowerCase(),' : '';
 						$custom_inline_js .= $phone_onlyCountries.''.$phone_preferredCountries.''.$phone_excludeCountries.'	
-						});			
+						});
+						
+						$(".wpcf7-phonetext").each(function () {
+							var hiddenInput = $(this).attr(\'name\');
+							//console.log(hiddenInput);
+							$("input[name="+hiddenInput+"-country-code]").val($(this).val());
+						});
+						
+						$(".wpcf7-phonetext").on("countrychange", function() {
+							// do something with iti.getSelectedCountryData()
+							//console.log(this.value);
+							var hiddenInput = $(this).attr("name");
+							$("input[name="+hiddenInput+"-country-code]").val(this.value);
+							
+						});
+
 					}
 				})
 			});
@@ -116,6 +131,21 @@ function nb_cpf_embedCssJs() {
 					hiddenInput: "full_number",
 					'.$phone_defaultCountry.''.$phone_onlyCountries.''.$phone_preferredCountries.''.$phone_excludeCountries.'	
 				});
+
+				$(".wpcf7-phonetext").each(function () {
+					var hiddenInput = $(this).attr(\'name\');
+					//console.log(hiddenInput);
+					$("input[name="+hiddenInput+"-country-code]").val($(this).val());
+				});
+				
+				$(".wpcf7-phonetext").on("countrychange", function() {
+					// do something with iti.getSelectedCountryData()
+					//console.log(this.value);
+					var hiddenInput = $(this).attr("name");
+					$("input[name="+hiddenInput+"-country-code]").val(this.value);
+					
+				});
+				
 			});
 		})(jQuery);';
 	}

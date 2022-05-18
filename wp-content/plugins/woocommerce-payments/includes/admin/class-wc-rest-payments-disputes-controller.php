@@ -43,6 +43,15 @@ class WC_REST_Payments_Disputes_Controller extends WC_Payments_REST_Controller {
 		);
 		register_rest_route(
 			$this->namespace,
+			'/' . $this->rest_base . '/download',
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => [ $this, 'get_disputes_export' ],
+				'permission_callback' => [ $this, 'check_permission' ],
+			]
+		);
+		register_rest_route(
+			$this->namespace,
 			'/' . $this->rest_base . '/(?P<dispute_id>\w+)',
 			[
 				'methods'             => WP_REST_Server::READABLE,
@@ -56,16 +65,6 @@ class WC_REST_Payments_Disputes_Controller extends WC_Payments_REST_Controller {
 			[
 				'methods'             => WP_REST_Server::CREATABLE,
 				'callback'            => [ $this, 'update_dispute' ],
-				'permission_callback' => [ $this, 'check_permission' ],
-			]
-		);
-
-		register_rest_route(
-			$this->namespace,
-			'/payments/file',
-			[
-				'methods'             => WP_REST_Server::CREATABLE,
-				'callback'            => [ $this, 'upload_evidence' ],
 				'permission_callback' => [ $this, 'check_permission' ],
 			]
 		);
@@ -136,15 +135,6 @@ class WC_REST_Payments_Disputes_Controller extends WC_Payments_REST_Controller {
 	}
 
 	/**
-	 * Create file and respond with file object via API.
-	 *
-	 * @param WP_REST_Request $request Full data about the request.
-	 */
-	public function upload_evidence( $request ) {
-		return $this->forward_request( 'upload_evidence', [ $request ] );
-	}
-
-	/**
 	 * Close and respond with dispute via API.
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -152,6 +142,18 @@ class WC_REST_Payments_Disputes_Controller extends WC_Payments_REST_Controller {
 	public function close_dispute( $request ) {
 		$dispute_id = $request->get_param( 'dispute_id' );
 		return $this->forward_request( 'close_dispute', [ $dispute_id ] );
+	}
+
+	/**
+	 * Initiate disputes export via API.
+	 *
+	 * @param WP_REST_Request $request Full data about the request.
+	 */
+	public function get_disputes_export( $request ) {
+		$user_email = $request->get_param( 'user_email' );
+		$filters    = $this->get_disputes_filters( $request );
+
+		return $this->forward_request( 'get_disputes_export', [ $filters, $user_email ] );
 	}
 
 	/**

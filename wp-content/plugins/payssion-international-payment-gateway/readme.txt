@@ -3,7 +3,7 @@ Contributors: Payssion
 Tags: payment, paymentgateway, woocommerce, ecommerce, sofortbanking, paysafecard, iDeal, przelewy24, webmoney, qiwi, boleto, alipay, tenpay, eNETS
 Requires at least: 4.0
 Tested up to: 5.7.2
-Stable tag: 1.1.7
+Stable tag: 1.1.9
 License: The MIT License (MIT)
 
 Official Payssion module for WordPress WooCommerce.
@@ -70,6 +70,13 @@ Payssion is a global payment solution provider, that enables people to collect p
 1. Screenshot 1 - Payssion Settings Page
 
 == Changelog ==
+
+
+= 1.1.9 =
+* add more payment options: BCP, Mexico Credit Card, Efecty, Interbank, Kakaopay, PagoEfectivo, PayNow, SPEI
+
+= 1.1.8 =
+* add more payment options: Grabpay, Brasil Credit Card
 
 = 1.1.7 =
 * fix status issue for multiple transactions originated by the same order and add more payment options: caixa_br, creditcard_za, creditcard_br, trustly, paybybankapp_gb, grabpay_my, touchngo_my, boost_my, fawry_eg

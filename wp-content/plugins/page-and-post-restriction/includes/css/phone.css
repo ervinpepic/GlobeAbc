@@ -12,8 +12,9 @@
 }
 
 .intl-number-input .flag-dropdown .selected-flag {
-    margin: 1px;
-    padding: 8px 16px 6px 7px;
+    position: absolute;
+    top: 32px;
+    left: 16px;
 }
 
 .intl-number-input .flag-dropdown .selected-flag:hover {
@@ -80,7 +81,7 @@
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     height: 30px;
-    padding-left: 40px;
+    padding-left: 54px!important;
 }
 
 
@@ -1069,9 +1070,9 @@
 }
 
 .intl-number-input input {
-	border-radius: 0 !important;
+    border-radius: 0 !important;
 }
 
 .actions {
-  margin-top: 20px;
+    margin-top: 20px;
 }

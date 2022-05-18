@@ -77,9 +77,10 @@ class LP_Assets extends LP_Abstract_Assets {
 				'lp_rest_url'                        => get_rest_url(),
 				'nonce'                              => wp_create_nonce( 'wp_rest' ),
 				'option_enable_popup_confirm_finish' => LP_Settings::get_option( 'enable_popup_confirm_finish', 'yes' ),
+				'is_course_archive'                  => learn_press_is_courses(),
 			),
 			'lp-checkout'     => array(
-				'ajaxurl'            => home_url(),
+				'ajaxurl'            => home_url( '/' ),
 				'user_checkout'      => LP()->checkout()->get_checkout_email(),
 				'i18n_processing'    => esc_html__( 'Processing', 'learnpress' ),
 				'i18n_redirecting'   => esc_html__( 'Redirecting', 'learnpress' ),
@@ -136,8 +137,8 @@ class LP_Assets extends LP_Abstract_Assets {
 					array( 'jquery' )
 				),
 				'lp-checkout'          => new LP_Asset_Key(
-					self::url( self::$_folder_source . 'js/frontend/checkout' . self::$_min_assets . '.js' ),
-					array( 'lp-global', 'lp-utils' ),
+					self::url( 'js/dist/frontend/checkout' . self::$_min_assets . '.js' ),
+					array( 'lp-global', 'lp-utils', 'wp-api-fetch', 'jquery' ),
 					array( LP_PAGE_CHECKOUT ),
 					0,
 					1
@@ -205,7 +206,7 @@ class LP_Assets extends LP_Abstract_Assets {
 				),
 				'lp-courses'           => new LP_Asset_Key(
 					self::url( 'js/dist/frontend/courses' . self::$_min_assets . '.js' ),
-					array( 'lp-global', 'lp-utils', 'wp-api-fetch' ),
+					array( 'lp-global', 'lp-utils', 'wp-api-fetch', 'wp-hooks' ),
 					array( LP_PAGE_COURSES ),
 					0,
 					1

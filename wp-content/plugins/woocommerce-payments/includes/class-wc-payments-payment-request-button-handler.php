@@ -150,7 +150,12 @@ class WC_Payments_Payment_Request_Button_Handler {
 	 * @return void
 	 */
 	public function set_session() {
-		if ( ! $this->is_product() || ( isset( WC()->session ) && WC()->session->has_session() ) ) {
+		// Don't set session cookies on product pages to allow for caching when payment request
+		// buttons are disabled. But keep cookies if there is already an active WC session in place.
+		if (
+			! ( $this->is_product() && $this->should_show_payment_request_button() )
+			|| ( isset( WC()->session ) && WC()->session->has_session() )
+		) {
 			return;
 		}
 
@@ -224,7 +229,7 @@ class WC_Payments_Payment_Request_Button_Handler {
 		$product  = $this->get_product();
 		$currency = get_woocommerce_currency();
 
-		if ( 'variable' === $product->get_type() ) {
+		if ( 'variable' === $product->get_type() || 'variable-subscription' === $product->get_type() ) {
 			$variation_attributes = $product->get_variation_attributes();
 			$attributes           = [];
 
@@ -321,9 +326,9 @@ class WC_Payments_Payment_Request_Button_Handler {
 
 		if ( 'woocommerce_payments' === $id && ! empty( $method_title ) ) {
 			if (
-				'Apple Pay (WooCommerce Payments)' === $method_title
-				|| 'Google Pay (WooCommerce Payments)' === $method_title
-				|| 'Payment Request (WooCommerce Payments)' === $method_title
+				strpos( $method_title, 'Apple Pay' ) === 0
+				|| strpos( $method_title, 'Google Pay' ) === 0
+				|| strpos( $method_title, 'Payment Request' ) === 0
 			) {
 				return $method_title;
 			}
@@ -373,16 +378,19 @@ class WC_Payments_Payment_Request_Button_Handler {
 
 		$payment_request_type = wc_clean( wp_unslash( $_POST['payment_request_type'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
 
-		if ( 'apple_pay' === $payment_request_type ) {
-			$order->set_payment_method_title( 'Apple Pay (WooCommerce Payments)' );
-			$order->save();
-		} elseif ( 'google_pay' === $payment_request_type ) {
-			$order->set_payment_method_title( 'Google Pay (WooCommerce Payments)' );
-			$order->save();
-		} else {
-			$order->set_payment_method_title( 'Payment Request (WooCommerce Payments)' );
-			$order->save();
+		$payment_method_titles = [
+			'apple_pay'  => 'Apple Pay',
+			'google_pay' => 'Google Pay',
+		];
+
+		$suffix = apply_filters( 'wcpay_payment_request_payment_method_title_suffix', 'WooCommerce Payments' );
+		if ( ! empty( $suffix ) ) {
+			$suffix = " ($suffix)";
 		}
+
+		$payment_method_title = isset( $payment_method_titles[ $payment_request_type ] ) ? $payment_method_titles[ $payment_request_type ] : 'Payment Request';
+		$order->set_payment_method_title( $payment_method_title . $suffix );
+		$order->save();
 	}
 
 	/**
@@ -624,6 +632,7 @@ class WC_Payments_Payment_Request_Button_Handler {
 				'checkout'                  => wp_create_nonce( 'woocommerce-process_checkout' ),
 				'add_to_cart'               => wp_create_nonce( 'wcpay-add-to-cart' ),
 				'get_selected_product_data' => wp_create_nonce( 'wcpay-get-selected-product-data' ),
+				'platform_tracker'          => wp_create_nonce( 'platform_tracks_nonce' ),
 			],
 			'checkout'           => [
 				'currency_code'     => strtolower( get_woocommerce_currency() ),
@@ -658,6 +667,9 @@ class WC_Payments_Payment_Request_Button_Handler {
 	 * Display the payment request button.
 	 */
 	public function display_payment_request_button_html() {
+		if ( ! $this->should_show_payment_request_button() ) {
+			return;
+		}
 		?>
 		<div id="wcpay-payment-request-wrapper" style="clear:both;padding-top:1.5em;display:none;">
 			<div id="wcpay-payment-request-button">
@@ -671,6 +683,9 @@ class WC_Payments_Payment_Request_Button_Handler {
 	 * Display payment request button separator.
 	 */
 	public function display_payment_request_button_separator_html() {
+		if ( ! $this->should_show_payment_request_button() ) {
+			return;
+		}
 		?>
 		<p id="wcpay-payment-request-button-separator" style="margin-top:1.5em;text-align:center;display:none;">&mdash; <?php esc_html_e( 'OR', 'woocommerce-payments' ); ?> &mdash;</p>
 		<?php
@@ -908,7 +923,7 @@ class WC_Payments_Payment_Request_Button_Handler {
 				throw new Exception( sprintf( __( 'Product with the ID (%d) cannot be found.', 'woocommerce-payments' ), $product_id ) );
 			}
 
-			if ( 'variable' === $product->get_type() && isset( $_POST['attributes'] ) ) {
+			if ( ( 'variable' === $product->get_type() || 'variable-subscription' === $product->get_type() ) && isset( $_POST['attributes'] ) ) {
 				$attributes = wc_clean( wp_unslash( $_POST['attributes'] ) );
 
 				$data_store   = WC_Data_Store::load( 'product' );

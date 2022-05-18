@@ -24,11 +24,9 @@
 				<lse-b data-type="shape-modal">
 					<?= lsGetSVGIcon('shapes') ?>
 					<lse-text><?= __('Shape', 'LayerSlider') ?></lse-text>
-<!--
 					<lse-badge>
 						<?= __('NEW', 'LayerSlider') ?>
 					</lse-badge>
- -->
  				</lse-b>
 			</lse-row>
 			<lse-row>
@@ -38,7 +36,7 @@
 				</lse-b>
 				<lse-b data-type="svg-modal">
 					<?= lsGetSVGIcon('stars') ?>
-					<lse-text><?= __('Object', 'LayerSlider') ?></lse-text>
+					<lse-text><?= __('Object / SVG', 'LayerSlider') ?></lse-text>
 				</lse-b>
 				<lse-b data-type="html">
 					<?= lsGetSVGIcon('code') ?>

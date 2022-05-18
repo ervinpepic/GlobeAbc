@@ -3,9 +3,9 @@ Contributors: webtoffee, cookieyesdev
 Donate link: https://www.webtoffee.com/plugins/ 
 Tags: GDPR, CCPA, cookie notice, DSGVO, RGPD, LGPD, PIPEDA, POPIA, cookies , cookie law, cookie consent, Opt-in, cookie policy, privacy, compliance
 Requires at least: 4.4.0
-Tested up to: 5.9
+Tested up to: 6.0
 Requires PHP: 5.6
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -190,6 +190,10 @@ For every update of the plugin, you will be notified of the installed plugins pa
 13. Add a privacy policy overview
 
 == Changelog ==
+
+= 2.1.2 =
+
+* Fix - Accept/Reject button is not working as expected with some themes.
 
 = 2.1.1 =
 
@@ -555,6 +559,6 @@ For every update of the plugin, you will be notified of the installed plugins pa
 
 == Upgrade Notice ==
 
-= 2.1.1 =
+= 2.1.2 =
 
-* Fix - Compatibility issue with PHP 7.3.0 and below.
+* Fix - Accept/Reject button is not working as expected with some themes.
