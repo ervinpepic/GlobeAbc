@@ -636,6 +636,14 @@
 
 													</lse-slide-menu-item>
 
+													<lse-slide-menu-item>
+
+														<?= lsGetSVGIcon('window-maximize') ?>
+														<lse-text><?= __('Quick Tip when publishing', 'LayerSlider') ?></lse-text>
+														<label class="ls-switch lse-small"><input type="checkbox" checked data-lse-action="showQuickTip"><ls-switch></ls-switch></label>
+													</lse-slide-menu-item>
+
+
 												</lse-slide-menu-holder>
 
 												<lse-slide-menu-holder data-tour-url="<?= LS_ROOT_URL . '/static/admin/js/ls-tours.js' ?>">
@@ -1947,6 +1955,7 @@
 											<lse-text><?= __('Attributes', 'LayerSlider') ?></lse-text>
 										</lse-subnav-item>
 
+										<lse-flex-placeholder></lse-flex-placeholder>
 										<lse-flex-placeholder></lse-flex-placeholder>
 										<lse-flex-placeholder></lse-flex-placeholder>
 										<lse-flex-placeholder></lse-flex-placeholder>
@@ -6605,7 +6614,18 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 														<!-- Popups -->
 														<lse-b data-layer-action="openPopup">
 															<lse-col class="lse-wide lse-layer-action-desc">
-																<?= __('Opens Popups waiting in the background to be launched. Popups must be embedded on page.', 'LayerSlider') ?>
+																<?= __('Opens the selected Popup. Embedding it to the page is optional; the Popup will be loaded dynamically if needed. Manually embedding it in advance makes it open faster.', 'LayerSlider') ?>
+															</lse-col>
+															<lse-col>
+																<lse-ib>
+																	<lse-text><?= __('Popup', 'LayerSlider') ?></lse-text>
+																</lse-ib>
+																<lse-ib>
+																	<lse-fe-wrapper class="lse-select">
+																		<select name="popup" class="lse-layer-action-popup-list">
+																		</select>
+																	</lse-fe-wrapper>
+																</lse-ib>
 															</lse-col>
 															<lse-col>
 																<lse-ib>
@@ -6617,11 +6637,25 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 																	</lse-fe-wrapper>
 																</lse-ib>
 															</lse-col>
+															<lse-col>
+																<lse-ib>
+																	<lse-text><?= __('Close if already open', 'LayerSlider') ?></lse-text>
+																</lse-ib>
+																<lse-ib>
+																	<?= lsGetSwitchControl(['name' => 'toggle']) ?>
+																</lse-ib>
+															</lse-col>
 														</lse-b>
 
 														<lse-b data-layer-action="closePopup">
 															<lse-col class="lse-wide lse-layer-action-desc">
 																<?= __('Closes this Popup. Works only if the current project type is set to a Popup.', 'LayerSlider') ?>
+															</lse-col>
+														</lse-b>
+
+														<lse-b data-layer-action="launchPopups">
+															<lse-col class="lse-wide lse-layer-action-desc">
+																<?= __('Opens all Popups waiting in the background to be launched. Popups must be embedded on the page beforehand.', 'LayerSlider') ?>
 															</lse-col>
 														</lse-b>
 
@@ -6701,6 +6735,7 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 																			<optgroup label="<?= __('Popups', 'LayerSlider') ?>">
 																				<option value="openPopup"><?= __('Open Popup', 'LayerSlider') ?></option>
 																				<option value="closePopup"><?= __('Close Popup', 'LayerSlider') ?></option>
+																				<option value="launchPopups"><?= __('Launch Popups', 'LayerSlider') ?></option>
 																				<option value="closeAllPopups"><?= __('Close All Popups', 'LayerSlider') ?></option>
 																			</optgroup>
 
@@ -6825,6 +6860,57 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 								<!-- NAVIGATION SETTINGS -->
 
 								<lse-action-buttons class="lse-sidebar">
+
+									<lse-b class="lse-bottom-info" id="lse-after-publish">
+										<lse-sidebar-section-head>
+											<lse-text><?= __('Quick Tip', 'LayerSlider') ?></lse-text>
+											<lse-options data-tt data-tt-de="0">
+												<label class="ls-switch lse-small"><input type="checkbox" checked data-lse-action="showQuickTip"><ls-switch></ls-switch></label>
+											</lse-options>
+											<lse-tt>
+												<?= __('Show QUICK TIP when publishing projects.', 'LayerSlider') ?>
+											</lse-tt>
+										</lse-sidebar-section-head>
+										<lse-grid class="lse-form-elements lse-light-theme-alternate">
+											<lse-row>
+												<lse-col class="lse-wide">
+													<lse-ib>
+														<lse-text>
+															<?= __('Grab the embed code:', 'LayerSlider') ?>
+														</lse-text>
+													</lse-ib>
+												</lse-col>
+												<lse-col class="lse-wide lse-2-1">
+													<lse-ib>
+														<input id="lse-project-shortcode-input" type="text" value='[layerslider id="<?= $id ?>"]' readonly>
+													</lse-ib>
+													<lse-ib>
+														<lse-button data-copy-to-clipboard="lse-project-shortcode-input" class="lse-jcc">
+															<lse-text>
+																<?= __('copy', 'LayerSlider') ?>
+															</lse-text>
+															<lse-text class="lse-show-on-action lse-f01">
+																<?= __('OK', 'LayerSlider') ?>
+															</lse-text>
+															<?= lsGetSVGIcon('check', false, ['class' => 'lse-show-on-action lse-it-fix']) ?>
+														</lse-button>
+													</lse-ib>
+												</lse-col>
+												<lse-col class="lse-wide">
+													<lse-ib>
+														<lse-button class="lse-open-embed-modal">
+															<lse-text class="lse-f11 lse-tac">
+																<?= __('Show more embed options', 'LayerSlider') ?>
+															</lse-text>
+														</lse-button>
+													</lse-ib>
+												</lse-col>
+											</lse-row>
+										</lse-grid>
+									</lse-b>
+
+									<lse-separator>
+									</lse-separator>
 
 									<lse-button-group class="lse-text-center">
 										<lse-button id="lse-save-button">
@@ -7222,6 +7308,15 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 						</lse-ib>
 						<lse-ib class="lse-jcc">
 							<label class="ls-switch lse-small"><input type="checkbox" checked data-lse-action="pinLayersList"><ls-switch></ls-switch></label>
+						</lse-ib>
+					</lse-col>
+					<lse-separator></lse-separator>
+					<lse-col>
+						<lse-ib>
+							<lse-text><?= __('Show Quick Tip when publishing', 'LayerSlider') ?></lse-text>
+						</lse-ib>
+						<lse-ib class="lse-jcc">
+							<label class="ls-switch lse-small"><input type="checkbox" checked data-lse-action="showQuickTip"><ls-switch></ls-switch></label>
 						</lse-ib>
 					</lse-col>
 				</lse-row>

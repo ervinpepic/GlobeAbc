@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: LayerSlider WP 7.1.2\n"
-"POT-Creation-Date: 2022-03-10 16:24+0100\n"
-"PO-Revision-Date: 2022-03-10 16:26+0100\n"
+"Project-Id-Version: LayerSlider WP 7.2.2\n"
+"POT-Creation-Date: 2022-06-01 16:25+0200\n"
+"PO-Revision-Date: 2022-06-01 16:27+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: hu_HU\n"
@@ -47,8 +47,8 @@ msgid "Changes you made may not be saved. Are you sure you want to continue?"
 msgstr ""
 
 #: assets/classes/class.ls.elementor.widget.php:42
-#: assets/views/project-editor.php:1916 assets/views/project-editor.php:1954
-#: assets/views/project-editor.php:2039
+#: assets/views/project-editor.php:1928 assets/views/project-editor.php:1967
+#: assets/views/project-editor.php:2052
 msgid "Content"
 msgstr "Tartalom"
 
@@ -93,7 +93,7 @@ msgstr "Elrendezés"
 #: assets/classes/class.ls.elementor.widget.php:103
 #: assets/classes/class.ls.elementor.widget.php:118
 #: assets/classes/class.ls.elementor.widget.php:128
-#: assets/views/project-editor.php:6597 assets/wp/gutenberg_l10n.php:20
+#: assets/views/project-editor.php:6636 assets/wp/gutenberg_l10n.php:20
 #: assets/wp/gutenberg_l10n.php:23 assets/wp/gutenberg_l10n.php:26
 #: assets/wp/gutenberg_l10n.php:31
 #, fuzzy
@@ -253,8 +253,7 @@ msgstr ""
 msgid "An update is available for LayerSlider!"
 msgstr "Új frissítés érhető el a LayerSlider WP-hez!"
 
-#: assets/classes/class.ls.notifications.php:190
-#: assets/views/dashboard.php:1112
+#: assets/classes/class.ls.notifications.php:190 assets/views/dashboard.php:769
 #, fuzzy
 #| msgid "Install now"
 msgid "Install Now"
@@ -299,7 +298,7 @@ msgstr ""
 msgid "What’s this?"
 msgstr "Újdonságok"
 
-#: assets/classes/class.ls.notifications.php:236 assets/wp/notices.php:126
+#: assets/classes/class.ls.notifications.php:236 assets/wp/notices.php:129
 msgid "OK, I understand"
 msgstr "Megértettem"
 
@@ -539,8 +538,8 @@ msgstr "Y tengely"
 #: assets/config/defaults.php:273 assets/config/defaults.php:668
 #: assets/config/defaults.php:3795
 #: assets/templates/tmpl-project-settings.php:1001
-#: assets/views/project-editor.php:1257 assets/views/project-editor.php:3322
-#: assets/views/project-editor.php:3326
+#: assets/views/project-editor.php:1269 assets/views/project-editor.php:3336
+#: assets/views/project-editor.php:3340
 #, fuzzy
 #| msgid "Background size"
 msgid "Background Size"
@@ -555,7 +554,7 @@ msgstr ""
 #: assets/config/defaults.php:277 assets/config/defaults.php:1534
 #: assets/config/defaults.php:2108 assets/config/defaults.php:2119
 #: assets/config/defaults.php:2167 assets/config/defaults.php:2180
-#: assets/config/defaults.php:3799 assets/config/defaults.php:3952
+#: assets/config/defaults.php:3799 assets/config/defaults.php:3954
 msgid "Auto"
 msgstr ""
 
@@ -575,8 +574,8 @@ msgid "Stretch"
 msgstr ""
 
 #: assets/config/defaults.php:286 assets/config/defaults.php:661
-#: assets/config/defaults.php:3808 assets/views/project-editor.php:1233
-#: assets/views/project-editor.php:3298
+#: assets/config/defaults.php:3808 assets/views/project-editor.php:1245
+#: assets/views/project-editor.php:3312
 #, fuzzy
 #| msgid "Background position"
 msgid "Background Position"
@@ -624,7 +623,7 @@ msgstr ""
 msgid "right bottom"
 msgstr ""
 
-#: assets/config/defaults.php:304 assets/views/project-editor.php:1336
+#: assets/config/defaults.php:304 assets/views/project-editor.php:1348
 #, fuzzy
 #| msgid "Slide Transition"
 msgid "Slide Duration"
@@ -637,13 +636,13 @@ msgid ""
 "value 1000 means 1 second."
 msgstr ""
 
-#: assets/config/defaults.php:312 assets/views/project-editor.php:1377
+#: assets/config/defaults.php:312 assets/views/project-editor.php:1389
 #, fuzzy
 #| msgid "custom duration"
 msgid "Transition Duration"
 msgstr "egyéni időtartam"
 
-#: assets/config/defaults.php:314 assets/templates/tmpl-smart-help.php:125
+#: assets/config/defaults.php:314 assets/templates/tmpl-smart-help.php:127
 msgid ""
 "You can speed up or slow down slide transitions by providing a custom "
 "animation duration. Leave this option empty to use the default speed. This "
@@ -654,7 +653,7 @@ msgstr ""
 msgid "TimeShift"
 msgstr ""
 
-#: assets/config/defaults.php:322 assets/templates/tmpl-smart-help.php:130
+#: assets/config/defaults.php:322 assets/templates/tmpl-smart-help.php:132
 msgid ""
 "You can shift the starting point of the slide animation timeline so that "
 "layers can animate in at an earlier time after a slide change. This value is "
@@ -999,12 +998,12 @@ msgid ""
 msgstr ""
 
 #: assets/config/defaults.php:613 assets/config/defaults.php:1549
-#: assets/config/defaults.php:3786 assets/views/project-editor.php:1218
-#: assets/views/project-editor.php:1222 assets/views/project-editor.php:3280
-#: assets/views/project-editor.php:3284 assets/views/project-editor.php:4068
-#: assets/views/project-editor.php:4072 assets/views/project-editor.php:5565
-#: assets/views/project-editor.php:5569 assets/views/project-editor.php:5960
-#: assets/views/project-editor.php:5964
+#: assets/config/defaults.php:3786 assets/views/project-editor.php:1230
+#: assets/views/project-editor.php:1234 assets/views/project-editor.php:3294
+#: assets/views/project-editor.php:3298 assets/views/project-editor.php:4088
+#: assets/views/project-editor.php:4092 assets/views/project-editor.php:5593
+#: assets/views/project-editor.php:5597 assets/views/project-editor.php:5988
+#: assets/views/project-editor.php:5992
 #, fuzzy
 #| msgid "Background color"
 msgid "Background Color"
@@ -1019,8 +1018,8 @@ msgstr ""
 
 #: assets/config/defaults.php:620
 #: assets/templates/tmpl-project-settings.php:987
-#: assets/views/project-editor.php:1202 assets/views/project-editor.php:1207
-#: assets/views/project-editor.php:3264 assets/views/project-editor.php:3269
+#: assets/views/project-editor.php:1214 assets/views/project-editor.php:1219
+#: assets/views/project-editor.php:3278 assets/views/project-editor.php:3283
 #, fuzzy
 #| msgid "Background image"
 msgid "Background Image"
@@ -1033,7 +1032,7 @@ msgid ""
 msgstr ""
 
 #: assets/config/defaults.php:635 assets/config/defaults.php:3825
-#: assets/views/project-editor.php:3334
+#: assets/views/project-editor.php:3348
 #, fuzzy
 #| msgid "Background repeat"
 msgid "Background Repeat"
@@ -1048,7 +1047,7 @@ msgid "No-repeat"
 msgstr "Nincs ismétlés"
 
 #: assets/config/defaults.php:640 assets/config/defaults.php:3092
-#: assets/config/defaults.php:3829 assets/views/project-editor.php:4790
+#: assets/config/defaults.php:3829 assets/views/project-editor.php:4814
 msgid "Repeat"
 msgstr "Ismétlés"
 
@@ -1071,7 +1070,7 @@ msgid "Choose between a scrollable or fixed global background image."
 msgstr ""
 
 #: assets/config/defaults.php:653 assets/config/defaults.php:1800
-#: assets/config/defaults.php:3335 assets/views/project-editor.php:6645
+#: assets/config/defaults.php:3335 assets/views/project-editor.php:6698
 msgid "Scroll"
 msgstr ""
 
@@ -1175,7 +1174,7 @@ msgstr ""
 msgid "Use thumbnail navigation instead of slide bullet buttons."
 msgstr ""
 
-#: assets/config/defaults.php:748 assets/views/project-editor.php:1464
+#: assets/config/defaults.php:748 assets/views/project-editor.php:1476
 msgid "Hover"
 msgstr ""
 
@@ -1436,8 +1435,8 @@ msgstr "Navigációs gombok mutatása"
 #: assets/config/defaults.php:926
 msgid ""
 "Disable this option to hide the Popup close button. This option is also "
-"useful when you would like to use a custom close button. To do that, select "
-"the “Close the Popup” option from the layer linking field."
+"useful when you would like to use a custom close button with the “Close "
+"Popup” layer action."
 msgstr ""
 
 #: assets/config/defaults.php:931
@@ -1573,7 +1572,7 @@ msgid ""
 msgstr ""
 
 #: assets/config/defaults.php:1094 assets/config/defaults.php:1203
-#: assets/views/project-editor.php:3730 assets/views/project-editor.php:3746
+#: assets/views/project-editor.php:3744 assets/views/project-editor.php:3766
 #, fuzzy
 #| msgid "Opening<br>Transition"
 msgid "Opening Transition"
@@ -1588,8 +1587,8 @@ msgstr ""
 #: assets/config/defaults.php:2259 assets/config/defaults.php:2450
 #: assets/config/defaults.php:2666 assets/config/defaults.php:2840
 #: assets/templates/tmpl-2d-transition.php:100
-#: assets/views/project-editor.php:4039 assets/views/project-editor.php:4496
-#: assets/views/project-editor.php:5203 assets/views/project-editor.php:5536
+#: assets/views/project-editor.php:4059 assets/views/project-editor.php:4518
+#: assets/views/project-editor.php:5229 assets/views/project-editor.php:5564
 #: assets/views/transition-builder.php:554
 msgid "Fade"
 msgstr ""
@@ -1659,17 +1658,17 @@ msgstr ""
 #: assets/config/defaults.php:1111 assets/config/defaults.php:1138
 #: assets/config/defaults.php:1216 assets/config/defaults.php:1235
 #: assets/config/defaults.php:1772 assets/templates/tmpl-2d-transition.php:128
-#: assets/views/project-editor.php:1438 assets/views/project-editor.php:3372
-#: assets/views/project-editor.php:3376 assets/views/project-editor.php:3383
-#: assets/views/project-editor.php:3821 assets/views/project-editor.php:3825
-#: assets/views/project-editor.php:3832 assets/views/project-editor.php:4275
-#: assets/views/project-editor.php:4279 assets/views/project-editor.php:4286
-#: assets/views/project-editor.php:4589 assets/views/project-editor.php:4593
-#: assets/views/project-editor.php:4600 assets/views/project-editor.php:4983
-#: assets/views/project-editor.php:4987 assets/views/project-editor.php:4994
-#: assets/views/project-editor.php:5296 assets/views/project-editor.php:5300
-#: assets/views/project-editor.php:5307 assets/views/project-editor.php:5711
-#: assets/views/project-editor.php:5715 assets/views/project-editor.php:5722
+#: assets/views/project-editor.php:1450 assets/views/project-editor.php:3386
+#: assets/views/project-editor.php:3390 assets/views/project-editor.php:3397
+#: assets/views/project-editor.php:3841 assets/views/project-editor.php:3845
+#: assets/views/project-editor.php:3852 assets/views/project-editor.php:4295
+#: assets/views/project-editor.php:4299 assets/views/project-editor.php:4306
+#: assets/views/project-editor.php:4611 assets/views/project-editor.php:4615
+#: assets/views/project-editor.php:4622 assets/views/project-editor.php:5007
+#: assets/views/project-editor.php:5011 assets/views/project-editor.php:5018
+#: assets/views/project-editor.php:5322 assets/views/project-editor.php:5326
+#: assets/views/project-editor.php:5333 assets/views/project-editor.php:5739
+#: assets/views/project-editor.php:5743 assets/views/project-editor.php:5750
 #: assets/views/transition-builder.php:582
 msgid "Scale"
 msgstr ""
@@ -2056,8 +2055,8 @@ msgstr "Csökkenő"
 msgid "Set A Slide Image"
 msgstr "Dia-kép beállítása"
 
-#: assets/config/defaults.php:1530 assets/views/project-editor.php:2593
-#: assets/views/project-editor.php:3892 assets/views/project-editor.php:5367
+#: assets/config/defaults.php:1530 assets/views/project-editor.php:2606
+#: assets/views/project-editor.php:3912 assets/views/project-editor.php:5393
 msgid "Size"
 msgstr "Méret"
 
@@ -2070,7 +2069,8 @@ msgstr "Méret"
 msgid "Inherit"
 msgstr "Örököl"
 
-#: assets/config/defaults.php:1543 assets/views/project-editor.php:2618
+#: assets/config/defaults.php:1543 assets/templates/tmpl-shape-modal.php:474
+#: assets/views/project-editor.php:2631
 msgid "Position"
 msgstr "Pozíció"
 
@@ -2087,15 +2087,15 @@ msgstr "Dia előnézete"
 #: assets/templates/tmpl-3d-transition.php:69
 #: assets/templates/tmpl-3d-transition.php:129
 #: assets/templates/tmpl-3d-transition.php:211
-#: assets/views/project-editor.php:1332 assets/views/project-editor.php:3990
-#: assets/views/project-editor.php:3994 assets/views/project-editor.php:4431
-#: assets/views/project-editor.php:4435 assets/views/project-editor.php:4760
-#: assets/views/project-editor.php:4764 assets/views/project-editor.php:5138
-#: assets/views/project-editor.php:5142 assets/views/project-editor.php:5486
-#: assets/views/project-editor.php:5490 assets/views/project-editor.php:5831
-#: assets/views/project-editor.php:5835 assets/views/project-editor.php:6320
-#: assets/views/project-editor.php:6358 assets/views/project-editor.php:6396
-#: assets/views/project-editor.php:6434 assets/views/transition-builder.php:217
+#: assets/views/project-editor.php:1344 assets/views/project-editor.php:4010
+#: assets/views/project-editor.php:4014 assets/views/project-editor.php:4453
+#: assets/views/project-editor.php:4457 assets/views/project-editor.php:4784
+#: assets/views/project-editor.php:4788 assets/views/project-editor.php:5164
+#: assets/views/project-editor.php:5168 assets/views/project-editor.php:5514
+#: assets/views/project-editor.php:5518 assets/views/project-editor.php:5859
+#: assets/views/project-editor.php:5863 assets/views/project-editor.php:6348
+#: assets/views/project-editor.php:6386 assets/views/project-editor.php:6424
+#: assets/views/project-editor.php:6462 assets/views/transition-builder.php:217
 #: assets/views/transition-builder.php:290
 #: assets/views/transition-builder.php:381
 #: assets/views/transition-builder.php:509
@@ -2103,8 +2103,8 @@ msgid "Duration"
 msgstr "Időtartam"
 
 #: assets/config/defaults.php:1574 assets/config/defaults.php:1621
-#: assets/config/defaults.php:2158 assets/config/defaults.php:3943
-#: assets/templates/tmpl-smart-help.php:904 assets/wp/gutenberg_l10n.php:37
+#: assets/config/defaults.php:2158 assets/config/defaults.php:3945
+#: assets/templates/tmpl-smart-help.php:914 assets/wp/gutenberg_l10n.php:37
 msgid "auto"
 msgstr ""
 
@@ -2118,7 +2118,7 @@ msgstr "Origami"
 msgid "Custom Transition Duration"
 msgstr "egyéni időtartam"
 
-#: assets/config/defaults.php:1627 assets/views/project-editor.php:1349
+#: assets/config/defaults.php:1627 assets/views/project-editor.php:1361
 msgid "Time Shift"
 msgstr ""
 
@@ -2177,14 +2177,14 @@ msgstr ""
 msgid "Hidden"
 msgstr "Rejtett"
 
-#: assets/config/defaults.php:1744 assets/views/project-editor.php:1842
+#: assets/config/defaults.php:1744 assets/views/project-editor.php:1854
 #, fuzzy
 #| msgid "Overline"
 msgid "Overflow Layers"
 msgstr "Föléhúzás"
 
 #: assets/config/defaults.php:1750 assets/views/project-editor.php:371
-#: assets/views/project-editor.php:1426
+#: assets/views/project-editor.php:1438
 msgid "Zoom"
 msgstr ""
 
@@ -2201,28 +2201,29 @@ msgstr ""
 #: assets/config/defaults.php:2705 assets/config/defaults.php:2883
 #: assets/config/defaults.php:3031 assets/config/defaults.php:3214
 #: assets/config/defaults.php:3388 assets/config/defaults.php:3880
-#: assets/views/project-editor.php:1448 assets/views/project-editor.php:1564
-#: assets/views/project-editor.php:3395 assets/views/project-editor.php:3399
-#: assets/views/project-editor.php:3405 assets/views/project-editor.php:3411
-#: assets/views/project-editor.php:3844 assets/views/project-editor.php:3848
-#: assets/views/project-editor.php:3854 assets/views/project-editor.php:3860
-#: assets/views/project-editor.php:4298 assets/views/project-editor.php:4302
-#: assets/views/project-editor.php:4308 assets/views/project-editor.php:4314
-#: assets/views/project-editor.php:4612 assets/views/project-editor.php:4616
-#: assets/views/project-editor.php:4622 assets/views/project-editor.php:4628
-#: assets/views/project-editor.php:5006 assets/views/project-editor.php:5010
-#: assets/views/project-editor.php:5016 assets/views/project-editor.php:5022
-#: assets/views/project-editor.php:5319 assets/views/project-editor.php:5323
-#: assets/views/project-editor.php:5329 assets/views/project-editor.php:5335
-#: assets/views/project-editor.php:5734 assets/views/project-editor.php:5738
-#: assets/views/project-editor.php:5744 assets/views/project-editor.php:5750
-#: assets/views/project-editor.php:6140
+#: assets/views/project-editor.php:1460 assets/views/project-editor.php:1576
+#: assets/views/project-editor.php:3409 assets/views/project-editor.php:3413
+#: assets/views/project-editor.php:3419 assets/views/project-editor.php:3425
+#: assets/views/project-editor.php:3864 assets/views/project-editor.php:3868
+#: assets/views/project-editor.php:3874 assets/views/project-editor.php:3880
+#: assets/views/project-editor.php:4318 assets/views/project-editor.php:4322
+#: assets/views/project-editor.php:4328 assets/views/project-editor.php:4334
+#: assets/views/project-editor.php:4634 assets/views/project-editor.php:4638
+#: assets/views/project-editor.php:4644 assets/views/project-editor.php:4650
+#: assets/views/project-editor.php:5030 assets/views/project-editor.php:5034
+#: assets/views/project-editor.php:5040 assets/views/project-editor.php:5046
+#: assets/views/project-editor.php:5345 assets/views/project-editor.php:5349
+#: assets/views/project-editor.php:5355 assets/views/project-editor.php:5361
+#: assets/views/project-editor.php:5762 assets/views/project-editor.php:5766
+#: assets/views/project-editor.php:5772 assets/views/project-editor.php:5778
+#: assets/views/project-editor.php:6168
 msgid "Rotation"
 msgstr ""
 
 #: assets/config/defaults.php:1786 assets/config/defaults.php:3319
 #: assets/templates/tmpl-2d-transition.php:96
-#: assets/views/project-editor.php:1516 assets/views/project-editor.php:6084
+#: assets/templates/tmpl-shape-modal.php:450
+#: assets/views/project-editor.php:1528 assets/views/project-editor.php:6112
 #: assets/views/transition-builder.php:550
 msgid "Type"
 msgstr "Típus"
@@ -2238,7 +2239,7 @@ msgid "3D"
 msgstr "3D"
 
 #: assets/config/defaults.php:1796 assets/config/defaults.php:3330
-#: assets/views/project-editor.php:1528 assets/views/project-editor.php:6098
+#: assets/views/project-editor.php:1540 assets/views/project-editor.php:6126
 msgid "Event"
 msgstr "Esemény"
 
@@ -2247,7 +2248,7 @@ msgid "Cursor or Tilt"
 msgstr ""
 
 #: assets/config/defaults.php:1806 assets/config/defaults.php:3341
-#: assets/views/project-editor.php:1540 assets/views/project-editor.php:6112
+#: assets/views/project-editor.php:1552 assets/views/project-editor.php:6140
 msgid "Axes"
 msgstr "Tengelyek"
 
@@ -2272,32 +2273,32 @@ msgstr "Függőleges"
 #: assets/config/defaults.php:2505 assets/config/defaults.php:2756
 #: assets/config/defaults.php:2934 assets/config/defaults.php:3080
 #: assets/config/defaults.php:3264 assets/config/defaults.php:3355
-#: assets/views/project-editor.php:1605 assets/views/project-editor.php:1609
-#: assets/views/project-editor.php:3449 assets/views/project-editor.php:3453
-#: assets/views/project-editor.php:3928 assets/views/project-editor.php:3932
-#: assets/views/project-editor.php:4347 assets/views/project-editor.php:4351
-#: assets/views/project-editor.php:4676 assets/views/project-editor.php:4680
-#: assets/views/project-editor.php:5055 assets/views/project-editor.php:5059
-#: assets/views/project-editor.php:5403 assets/views/project-editor.php:5407
-#: assets/views/project-editor.php:5784 assets/views/project-editor.php:5788
-#: assets/views/project-editor.php:6155 assets/views/project-editor.php:6159
+#: assets/views/project-editor.php:1617 assets/views/project-editor.php:1621
+#: assets/views/project-editor.php:3463 assets/views/project-editor.php:3467
+#: assets/views/project-editor.php:3948 assets/views/project-editor.php:3952
+#: assets/views/project-editor.php:4367 assets/views/project-editor.php:4371
+#: assets/views/project-editor.php:4698 assets/views/project-editor.php:4702
+#: assets/views/project-editor.php:5079 assets/views/project-editor.php:5083
+#: assets/views/project-editor.php:5429 assets/views/project-editor.php:5433
+#: assets/views/project-editor.php:5812 assets/views/project-editor.php:5816
+#: assets/views/project-editor.php:6183 assets/views/project-editor.php:6187
 msgid "Transform Origin"
 msgstr ""
 
 #: assets/config/defaults.php:1825 assets/config/defaults.php:3364
-#: assets/views/project-editor.php:1578 assets/views/project-editor.php:1582
-#: assets/views/project-editor.php:6203 assets/views/project-editor.php:6207
+#: assets/views/project-editor.php:1590 assets/views/project-editor.php:1594
+#: assets/views/project-editor.php:6231 assets/views/project-editor.php:6235
 msgid "Move Duration"
 msgstr ""
 
 #: assets/config/defaults.php:1836 assets/config/defaults.php:3376
-#: assets/views/project-editor.php:1591 assets/views/project-editor.php:1595
-#: assets/views/project-editor.php:6218 assets/views/project-editor.php:6222
+#: assets/views/project-editor.php:1603 assets/views/project-editor.php:1607
+#: assets/views/project-editor.php:6246 assets/views/project-editor.php:6250
 msgid "Leave Duration"
 msgstr ""
 
 #: assets/config/defaults.php:1847 assets/config/defaults.php:3399
-#: assets/views/project-editor.php:1552 assets/views/project-editor.php:6126
+#: assets/views/project-editor.php:1564 assets/views/project-editor.php:6154
 msgid "Distance"
 msgstr ""
 
@@ -2305,14 +2306,14 @@ msgstr ""
 #: assets/config/defaults.php:2523 assets/config/defaults.php:2762
 #: assets/config/defaults.php:2942 assets/config/defaults.php:3138
 #: assets/config/defaults.php:3288 assets/config/defaults.php:3410
-#: assets/views/project-editor.php:1617 assets/views/project-editor.php:1621
-#: assets/views/project-editor.php:3943 assets/views/project-editor.php:3947
-#: assets/views/project-editor.php:4361 assets/views/project-editor.php:4365
-#: assets/views/project-editor.php:4690 assets/views/project-editor.php:4694
-#: assets/views/project-editor.php:5069 assets/views/project-editor.php:5073
-#: assets/views/project-editor.php:5417 assets/views/project-editor.php:5421
-#: assets/views/project-editor.php:5798 assets/views/project-editor.php:5802
-#: assets/views/project-editor.php:6169 assets/views/project-editor.php:6173
+#: assets/views/project-editor.php:1629 assets/views/project-editor.php:1633
+#: assets/views/project-editor.php:3963 assets/views/project-editor.php:3967
+#: assets/views/project-editor.php:4381 assets/views/project-editor.php:4385
+#: assets/views/project-editor.php:4712 assets/views/project-editor.php:4716
+#: assets/views/project-editor.php:5093 assets/views/project-editor.php:5097
+#: assets/views/project-editor.php:5443 assets/views/project-editor.php:5447
+#: assets/views/project-editor.php:5826 assets/views/project-editor.php:5830
+#: assets/views/project-editor.php:6197 assets/views/project-editor.php:6201
 msgid "Perspective"
 msgstr ""
 
@@ -2320,14 +2321,14 @@ msgstr ""
 msgid "HTML Element"
 msgstr ""
 
-#: assets/config/defaults.php:2009 assets/views/project-editor.php:2226
-#: assets/views/project-editor.php:2229 assets/views/project-editor.php:2723
+#: assets/config/defaults.php:2009 assets/views/project-editor.php:2239
+#: assets/views/project-editor.php:2242 assets/views/project-editor.php:2736
 #, fuzzy
 #| msgid "Color"
 msgid "Icon Color"
 msgstr "Szín"
 
-#: assets/config/defaults.php:2018 assets/views/project-editor.php:2239
+#: assets/config/defaults.php:2018 assets/views/project-editor.php:2252
 #, fuzzy
 #| msgid "Icon"
 msgid "Icon Placement"
@@ -2336,34 +2337,34 @@ msgstr "Ikon"
 #: assets/config/defaults.php:2021 assets/config/defaults.php:3535
 #: assets/templates/tmpl-2d-transition.php:110
 #: assets/templates/tmpl-project-settings.php:439
-#: assets/templates/tmpl-smart-help.php:821
-#: assets/templates/tmpl-smart-help.php:963
+#: assets/templates/tmpl-smart-help.php:831
+#: assets/templates/tmpl-smart-help.php:973
 #: assets/views/transition-builder.php:564
 msgid "Left"
 msgstr "Bal"
 
 #: assets/config/defaults.php:2022 assets/templates/tmpl-2d-transition.php:108
 #: assets/templates/tmpl-project-settings.php:457
-#: assets/templates/tmpl-smart-help.php:823
-#: assets/templates/tmpl-smart-help.php:965
+#: assets/templates/tmpl-smart-help.php:833
+#: assets/templates/tmpl-smart-help.php:975
 #: assets/views/transition-builder.php:562
 msgid "Right"
 msgstr "Jobb"
 
-#: assets/config/defaults.php:2031 assets/views/project-editor.php:2251
-#: assets/views/project-editor.php:2682 assets/views/project-editor.php:2695
+#: assets/config/defaults.php:2031 assets/views/project-editor.php:2264
+#: assets/views/project-editor.php:2695 assets/views/project-editor.php:2708
 #, fuzzy
 #| msgid "Size"
 msgid "Icon Size"
 msgstr "Méret"
 
-#: assets/config/defaults.php:2045 assets/views/project-editor.php:2267
+#: assets/config/defaults.php:2045 assets/views/project-editor.php:2280
 #, fuzzy
 #| msgid "Icon"
 msgid "Icon Gap"
 msgstr "Ikon"
 
-#: assets/config/defaults.php:2059 assets/views/project-editor.php:2283
+#: assets/config/defaults.php:2059 assets/views/project-editor.php:2296
 #, fuzzy
 #| msgid "Vertical Center"
 msgid "Vertical Adjustment"
@@ -2476,16 +2477,16 @@ msgstr ""
 #: assets/templates/tmpl-3d-transition.php:71
 #: assets/templates/tmpl-3d-transition.php:131
 #: assets/templates/tmpl-3d-transition.php:213
-#: assets/views/project-editor.php:4004 assets/views/project-editor.php:4008
-#: assets/views/project-editor.php:4461 assets/views/project-editor.php:4465
-#: assets/views/project-editor.php:4775 assets/views/project-editor.php:4779
-#: assets/views/project-editor.php:5168 assets/views/project-editor.php:5172
-#: assets/views/project-editor.php:5501 assets/views/project-editor.php:5505
-#: assets/views/project-editor.php:5862 assets/views/project-editor.php:5866
-#: assets/views/project-editor.php:6329 assets/views/project-editor.php:6332
-#: assets/views/project-editor.php:6367 assets/views/project-editor.php:6370
-#: assets/views/project-editor.php:6405 assets/views/project-editor.php:6408
-#: assets/views/project-editor.php:6443 assets/views/project-editor.php:6446
+#: assets/views/project-editor.php:4024 assets/views/project-editor.php:4028
+#: assets/views/project-editor.php:4483 assets/views/project-editor.php:4487
+#: assets/views/project-editor.php:4799 assets/views/project-editor.php:4803
+#: assets/views/project-editor.php:5194 assets/views/project-editor.php:5198
+#: assets/views/project-editor.php:5529 assets/views/project-editor.php:5533
+#: assets/views/project-editor.php:5890 assets/views/project-editor.php:5894
+#: assets/views/project-editor.php:6357 assets/views/project-editor.php:6360
+#: assets/views/project-editor.php:6395 assets/views/project-editor.php:6398
+#: assets/views/project-editor.php:6433 assets/views/project-editor.php:6436
+#: assets/views/project-editor.php:6471 assets/views/project-editor.php:6474
 #: assets/views/transition-builder.php:219
 #: assets/views/transition-builder.php:292
 #: assets/views/transition-builder.php:383
@@ -2540,25 +2541,25 @@ msgid "ScaleY"
 msgstr ""
 
 #: assets/config/defaults.php:2320 assets/config/defaults.php:2511
-#: assets/config/defaults.php:3086 assets/views/project-editor.php:3913
-#: assets/views/project-editor.php:3917 assets/views/project-editor.php:4660
-#: assets/views/project-editor.php:4664 assets/views/project-editor.php:5388
-#: assets/views/project-editor.php:5392
+#: assets/config/defaults.php:3086 assets/views/project-editor.php:3933
+#: assets/views/project-editor.php:3937 assets/views/project-editor.php:4682
+#: assets/views/project-editor.php:4686 assets/views/project-editor.php:5414
+#: assets/views/project-editor.php:5418
 msgid "Mask"
 msgstr "Elfedés"
 
 #: assets/config/defaults.php:2326 assets/config/defaults.php:2540
-#: assets/config/defaults.php:3270 assets/views/project-editor.php:1141
-#: assets/views/project-editor.php:1183 assets/views/project-editor.php:3249
+#: assets/config/defaults.php:3270 assets/views/project-editor.php:1153
+#: assets/views/project-editor.php:1195 assets/views/project-editor.php:3263
 msgid "Background"
 msgstr "Háttér"
 
 #: assets/config/defaults.php:2332 assets/config/defaults.php:2546
 #: assets/config/defaults.php:3276 assets/config/defaults.php:3765
-#: assets/templates/tmpl-shape-modal.php:267
-#: assets/views/project-editor.php:3032 assets/views/project-editor.php:3036
-#: assets/views/project-editor.php:3154 assets/views/project-editor.php:3502
-#: assets/views/project-editor.php:3506
+#: assets/templates/tmpl-shape-modal.php:300
+#: assets/views/project-editor.php:2746 assets/views/project-editor.php:3046
+#: assets/views/project-editor.php:3050 assets/views/project-editor.php:3168
+#: assets/views/project-editor.php:3516 assets/views/project-editor.php:3520
 msgid "Color"
 msgstr "Szín"
 
@@ -2568,22 +2569,22 @@ msgid "Rounded Corners"
 msgstr "Lekerekítés"
 
 #: assets/config/defaults.php:2344 assets/config/defaults.php:2558
-#: assets/config/defaults.php:3508 assets/views/project-editor.php:2597
+#: assets/config/defaults.php:3508 assets/views/project-editor.php:2610
 msgid "Width"
 msgstr "Szélesség"
 
 #: assets/config/defaults.php:2350 assets/config/defaults.php:2564
-#: assets/config/defaults.php:3517 assets/views/project-editor.php:2605
+#: assets/config/defaults.php:3517 assets/views/project-editor.php:2618
 msgid "Height"
 msgstr "Magasság"
 
 #: assets/config/defaults.php:2356 assets/config/defaults.php:2517
-#: assets/config/defaults.php:3144 assets/config/defaults.php:3998
+#: assets/config/defaults.php:3144 assets/config/defaults.php:4000
 #: assets/templates/tmpl-import-templates.php:109
-#: assets/views/project-editor.php:3619 assets/views/project-editor.php:3623
-#: assets/views/project-editor.php:4085 assets/views/project-editor.php:4089
-#: assets/views/project-editor.php:4872 assets/views/project-editor.php:4876
-#: assets/views/project-editor.php:5582 assets/views/project-editor.php:5586
+#: assets/views/project-editor.php:3633 assets/views/project-editor.php:3637
+#: assets/views/project-editor.php:4105 assets/views/project-editor.php:4109
+#: assets/views/project-editor.php:4896 assets/views/project-editor.php:4900
+#: assets/views/project-editor.php:5610 assets/views/project-editor.php:5614
 msgid "Filter"
 msgstr "Szűrő"
 
@@ -2647,7 +2648,7 @@ msgid "Ending Text and Loop Transitions complete"
 msgstr ""
 
 #: assets/config/defaults.php:2606 assets/config/defaults.php:2779
-#: assets/views/project-editor.php:4231 assets/views/project-editor.php:4939
+#: assets/views/project-editor.php:4251 assets/views/project-editor.php:4963
 msgid "Animate"
 msgstr ""
 
@@ -2711,7 +2712,7 @@ msgstr ""
 msgid "by chars edge to center"
 msgstr ""
 
-#: assets/config/defaults.php:2632 assets/views/project-editor.php:4450
+#: assets/config/defaults.php:2632 assets/views/project-editor.php:4472
 msgid "Shift In"
 msgstr ""
 
@@ -2723,14 +2724,14 @@ msgstr ""
 msgid "Opening Transition starts"
 msgstr ""
 
-#: assets/config/defaults.php:2805 assets/views/project-editor.php:5157
+#: assets/config/defaults.php:2805 assets/views/project-editor.php:5183
 msgid "Shift Out"
 msgstr ""
 
 #: assets/config/defaults.php:3024 assets/config/defaults.php:3203
-#: assets/config/defaults.php:3729 assets/templates/tmpl-smart-help.php:1027
-#: assets/views/project-editor.php:3585 assets/views/project-editor.php:4851
-#: assets/views/project-editor.php:5911
+#: assets/config/defaults.php:3729 assets/templates/tmpl-smart-help.php:1037
+#: assets/views/project-editor.php:3599 assets/views/project-editor.php:4875
+#: assets/views/project-editor.php:5939
 msgid "Opacity"
 msgstr "Átlátszóság"
 
@@ -2824,11 +2825,11 @@ msgstr ""
 msgid "20x"
 msgstr ""
 
-#: assets/config/defaults.php:3125 assets/views/project-editor.php:4804
+#: assets/config/defaults.php:3125 assets/views/project-editor.php:4828
 msgid "Wait"
 msgstr ""
 
-#: assets/config/defaults.php:3132 assets/views/project-editor.php:4819
+#: assets/config/defaults.php:3132 assets/views/project-editor.php:4843
 msgid "Yoyo"
 msgstr "Yoyo"
 
@@ -2858,8 +2859,8 @@ msgstr "Örököl"
 msgid "Always On Top"
 msgstr "Mindig"
 
-#: assets/config/defaults.php:3310 assets/views/project-editor.php:6061
-#: assets/views/project-editor.php:6073
+#: assets/config/defaults.php:3310 assets/views/project-editor.php:6089
+#: assets/views/project-editor.php:6101
 msgid "Parallax Level"
 msgstr ""
 
@@ -2881,7 +2882,7 @@ msgstr ""
 msgid "Forever (the layer will never animate out)"
 msgstr ""
 
-#: assets/config/defaults.php:3433 assets/views/project-editor.php:4164
+#: assets/config/defaults.php:3433 assets/views/project-editor.php:4184
 msgid "Play By Scroll Keyframe"
 msgstr ""
 
@@ -2890,7 +2891,7 @@ msgid "URL target"
 msgstr ""
 
 #: assets/config/defaults.php:3486 assets/config/defaults.php:3496
-#: assets/views/project-editor.php:6780
+#: assets/views/project-editor.php:6834
 msgid "Custom Attributes"
 msgstr "Egyedi Attribútumok"
 
@@ -2906,8 +2907,8 @@ msgstr ""
 
 #: assets/config/defaults.php:3526 assets/templates/tmpl-2d-transition.php:107
 #: assets/templates/tmpl-project-settings.php:421
-#: assets/templates/tmpl-smart-help.php:830
-#: assets/templates/tmpl-smart-help.php:982
+#: assets/templates/tmpl-smart-help.php:840
+#: assets/templates/tmpl-smart-help.php:992
 #: assets/views/transition-builder.php:561
 msgid "Top"
 msgstr "Felső"
@@ -2990,21 +2991,21 @@ msgstr ""
 msgid "Border Color"
 msgstr "Szegély"
 
-#: assets/config/defaults.php:3620 assets/views/project-editor.php:3468
+#: assets/config/defaults.php:3620 assets/views/project-editor.php:3482
 msgid "Box Shadow"
 msgstr ""
 
-#: assets/config/defaults.php:3629 assets/views/project-editor.php:3007
+#: assets/config/defaults.php:3629 assets/views/project-editor.php:3021
 msgid "Text Shadow"
 msgstr ""
 
-#: assets/config/defaults.php:3638 assets/views/project-editor.php:2766
+#: assets/config/defaults.php:3638 assets/views/project-editor.php:2780
 #, fuzzy
 #| msgid "Family"
 msgid "Font Family"
 msgstr "Betűtípus"
 
-#: assets/config/defaults.php:3644 assets/views/project-editor.php:2781
+#: assets/config/defaults.php:3644 assets/views/project-editor.php:2795
 #, fuzzy
 #| msgid "Font size"
 msgid "Font Size"
@@ -3038,7 +3039,7 @@ msgstr "Szöveg dekoráció"
 msgid "Text Transform"
 msgstr "Transzformációk"
 
-#: assets/config/defaults.php:3705 assets/views/project-editor.php:2940
+#: assets/config/defaults.php:3705 assets/views/project-editor.php:2954
 #, fuzzy
 #| msgid "Letter spacing"
 msgid "Letter Spacing"
@@ -3050,13 +3051,13 @@ msgstr "Betűköz"
 msgid "Text Align"
 msgstr "Igazítás"
 
-#: assets/config/defaults.php:3743 assets/views/project-editor.php:2965
+#: assets/config/defaults.php:3743 assets/views/project-editor.php:2979
 #, fuzzy
 #| msgid "Min. font size"
 msgid "Min. Font Size"
 msgstr "Min. betűméret"
 
-#: assets/config/defaults.php:3753 assets/views/project-editor.php:2984
+#: assets/config/defaults.php:3753 assets/views/project-editor.php:2998
 #, fuzzy
 #| msgid "Min. mobile font size"
 msgid "Min. Mobile Font Size"
@@ -3102,78 +3103,90 @@ msgstr ""
 msgid "Sides of the screen"
 msgstr "Mutatás"
 
-#: assets/config/defaults.php:3938 assets/views/project-editor.php:3658
+#: assets/config/defaults.php:3933
+#, fuzzy
+#| msgid "Show on screen"
+msgid "Sides of the screen horizontally"
+msgstr "Mutatás"
+
+#: assets/config/defaults.php:3934
+#, fuzzy
+#| msgid "Show on screen"
+msgid "Sides of the screen vertically"
+msgstr "Mutatás"
+
+#: assets/config/defaults.php:3940 assets/views/project-editor.php:3672
 #, fuzzy
 #| msgid "Starting Slide:"
 msgid "Stacking Order"
 msgstr "Kezdő dia:"
 
-#: assets/config/defaults.php:3949 assets/views/project-editor.php:3669
+#: assets/config/defaults.php:3951 assets/views/project-editor.php:3683
 msgid "Mouse Cursor"
 msgstr ""
 
-#: assets/config/defaults.php:3953 assets/config/defaults.php:3976
+#: assets/config/defaults.php:3955 assets/config/defaults.php:3978
 #, fuzzy
 #| msgid "Default Options"
 msgid "Default"
 msgstr "Alapértelmezett beállítások"
 
-#: assets/config/defaults.php:3954
+#: assets/config/defaults.php:3956
 #, fuzzy
 #| msgid "Center"
 msgid "Pointer"
 msgstr "Közép"
 
-#: assets/config/defaults.php:3955 assets/views/about.php:247
+#: assets/config/defaults.php:3957 assets/views/about.php:247
 #: assets/views/dashboard.php:260
 msgid "Help"
 msgstr "Segítség"
 
-#: assets/config/defaults.php:3956 assets/templates/tmpl-add-layer.php:14
-#: assets/views/project-editor.php:1968 assets/views/project-editor.php:6937
-#: assets/wp/scripts_l10n.php:264
+#: assets/config/defaults.php:3958 assets/templates/tmpl-add-layer.php:14
+#: assets/views/project-editor.php:1981 assets/views/project-editor.php:7042
+#: assets/wp/scripts_l10n.php:268
 msgid "Text"
 msgstr "Szöveg"
 
-#: assets/config/defaults.php:3957
+#: assets/config/defaults.php:3959
 #, fuzzy
 #| msgid "Vertical Center"
 msgid "Vertical text"
 msgstr "Függőleges középpont"
 
-#: assets/config/defaults.php:3958
+#: assets/config/defaults.php:3960
 msgid "Zoom in"
 msgstr ""
 
-#: assets/config/defaults.php:3959
+#: assets/config/defaults.php:3961
 msgid "Zoom out"
 msgstr ""
 
-#: assets/config/defaults.php:3966
+#: assets/config/defaults.php:3968
 msgid "Prevent Mouse Events"
 msgstr ""
 
-#: assets/config/defaults.php:3973 assets/views/project-editor.php:3605
+#: assets/config/defaults.php:3975 assets/views/project-editor.php:3619
 msgid "Blend Mode"
 msgstr ""
 
-#: assets/config/defaults.php:4008
+#: assets/config/defaults.php:4010
 msgid "ID"
 msgstr "ID"
 
-#: assets/config/defaults.php:4017
+#: assets/config/defaults.php:4019
 msgid "Classes"
 msgstr "Osztályok"
 
-#: assets/config/defaults.php:4026
+#: assets/config/defaults.php:4028
 msgid "Title"
 msgstr "Cím"
 
-#: assets/config/defaults.php:4035
+#: assets/config/defaults.php:4037
 msgid "Alt"
 msgstr ""
 
-#: assets/config/defaults.php:4044
+#: assets/config/defaults.php:4046
 msgid "Rel"
 msgstr ""
 
@@ -3255,7 +3268,7 @@ msgstr ""
 #: assets/templates/tmpl-3d-transition.php:114
 #: assets/templates/tmpl-3d-transition.php:193
 #: assets/templates/tmpl-3d-transition.php:256
-#: assets/views/project-editor.php:6713 assets/views/transition-builder.php:174
+#: assets/views/project-editor.php:6767 assets/views/transition-builder.php:174
 #: assets/views/transition-builder.php:275
 #: assets/views/transition-builder.php:359
 #: assets/views/transition-builder.php:439
@@ -3295,7 +3308,7 @@ msgstr ""
 
 #: assets/templates/tmpl-2d-transition.php:36
 #: assets/templates/tmpl-3d-transition.php:36
-#: assets/views/project-editor.php:5846 assets/views/project-editor.php:5877
+#: assets/views/project-editor.php:5874 assets/views/project-editor.php:5905
 #: assets/views/transition-builder.php:180
 #: assets/views/transition-builder.php:490
 msgid "Reverse"
@@ -3316,7 +3329,7 @@ msgid "Col-reverse"
 msgstr ""
 
 #: assets/templates/tmpl-2d-transition.php:50
-#: assets/views/project-editor.php:1926 assets/views/project-editor.php:3718
+#: assets/views/project-editor.php:1938 assets/views/project-editor.php:3732
 #: assets/views/transition-builder.php:504
 msgid "Transition"
 msgstr ""
@@ -3374,8 +3387,8 @@ msgstr ""
 
 #: assets/templates/tmpl-2d-transition.php:109
 #: assets/templates/tmpl-project-settings.php:475
-#: assets/templates/tmpl-smart-help.php:832
-#: assets/templates/tmpl-smart-help.php:984
+#: assets/templates/tmpl-smart-help.php:842
+#: assets/templates/tmpl-smart-help.php:994
 #: assets/views/transition-builder.php:563
 msgid "Bottom"
 msgstr "Alsó"
@@ -3519,13 +3532,13 @@ msgid "The direction of rotation."
 msgstr "A forgatás iránya"
 
 #: assets/templates/tmpl-3d-transition.php:168
-#: assets/views/project-editor.php:3058 assets/views/project-editor.php:3528
+#: assets/views/project-editor.php:3072 assets/views/project-editor.php:3542
 #: assets/views/transition-builder.php:329
 msgid "Vertical"
 msgstr "Függőleges"
 
 #: assets/templates/tmpl-3d-transition.php:169
-#: assets/views/project-editor.php:3047 assets/views/project-editor.php:3517
+#: assets/views/project-editor.php:3061 assets/views/project-editor.php:3531
 #: assets/views/transition-builder.php:330
 msgid "Horizontal"
 msgstr "Vízszintes"
@@ -3575,11 +3588,11 @@ msgstr ""
 msgid "Register your license to receive premium benefits like:"
 msgstr "Aktiváld a LayerSlidert hogy hozzáférj ezekhez:"
 
-#: assets/templates/tmpl-activation.php:28 assets/views/dashboard.php:873
+#: assets/templates/tmpl-activation.php:28 assets/views/dashboard.php:883
 msgid "Automatic Updates"
 msgstr "Automatikus frissítések"
 
-#: assets/templates/tmpl-activation.php:29 assets/views/dashboard.php:876
+#: assets/templates/tmpl-activation.php:29 assets/views/dashboard.php:886
 msgid "Always receive the latest LayerSlider version."
 msgstr "Használd mindig a legújabb verziót."
 
@@ -3589,11 +3602,11 @@ msgstr "Használd mindig a legújabb verziót."
 msgid "Premium Project Templates"
 msgstr "Prémium slider sablonok"
 
-#: assets/templates/tmpl-activation.php:34 assets/views/dashboard.php:939
+#: assets/templates/tmpl-activation.php:34 assets/views/dashboard.php:949
 msgid "Access more templates to get started with projects."
 msgstr "Prémium sablonokkal könnyen indulnak az új projektek."
 
-#: assets/templates/tmpl-activation.php:38 assets/views/project-editor.php:6682
+#: assets/templates/tmpl-activation.php:38 assets/views/project-editor.php:6735
 msgid "Popups"
 msgstr ""
 
@@ -3603,11 +3616,11 @@ msgid ""
 "visitors’ attention."
 msgstr ""
 
-#: assets/templates/tmpl-activation.php:43 assets/views/dashboard.php:915
+#: assets/templates/tmpl-activation.php:43 assets/views/dashboard.php:925
 msgid "Exclusive Features"
 msgstr "Exkluzív funkciók"
 
-#: assets/templates/tmpl-activation.php:44 assets/views/dashboard.php:918
+#: assets/templates/tmpl-activation.php:44 assets/views/dashboard.php:928
 msgid "Unlock exclusive and early-access features."
 msgstr "Hozzáférés az exkluzív és korai hozzáférésű funkciókhoz."
 
@@ -3620,15 +3633,15 @@ msgid ""
 "Access to special effects, features, and additional ready-to-use content. "
 msgstr ""
 
-#: assets/templates/tmpl-activation.php:53 assets/views/dashboard.php:894
+#: assets/templates/tmpl-activation.php:53 assets/views/dashboard.php:904
 msgid "Product Support"
 msgstr "Terméktámogatás"
 
-#: assets/templates/tmpl-activation.php:54 assets/views/dashboard.php:897
+#: assets/templates/tmpl-activation.php:54 assets/views/dashboard.php:907
 msgid "Direct help from our Support Team."
 msgstr "Ügyfélszolgálatunk segít bármilyen problémában."
 
-#: assets/templates/tmpl-activation.php:64 assets/views/dashboard.php:968
+#: assets/templates/tmpl-activation.php:64 assets/views/dashboard.php:978
 #, fuzzy
 #| msgid "Regular License"
 msgid "Register License"
@@ -3659,59 +3672,61 @@ msgstr ""
 msgid "Add New Layer"
 msgstr "Réteg hozzáadása"
 
-#: assets/templates/tmpl-add-layer.php:10 assets/views/project-editor.php:1967
-#: assets/views/project-editor.php:2025 assets/views/project-editor.php:6933
-#: assets/wp/scripts_l10n.php:262
+#: assets/templates/tmpl-add-layer.php:10 assets/views/project-editor.php:1980
+#: assets/views/project-editor.php:2038 assets/views/project-editor.php:7038
+#: assets/wp/scripts_l10n.php:266
 msgid "Image"
 msgstr "Kép"
 
 #: assets/templates/tmpl-add-layer.php:18
 #: assets/templates/tmpl-project-settings.php:57
-#: assets/views/project-editor.php:1969 assets/views/project-editor.php:6941
-#: assets/wp/scripts_l10n.php:266
+#: assets/views/project-editor.php:1982 assets/views/project-editor.php:7046
+#: assets/wp/scripts_l10n.php:270
 msgid "Video / Audio"
 msgstr "Videó / Audió"
 
-#: assets/templates/tmpl-add-layer.php:22 assets/views/project-editor.php:1970
-#: assets/views/project-editor.php:6945 assets/wp/scripts_l10n.php:228
-#: assets/wp/scripts_l10n.php:265
+#: assets/templates/tmpl-add-layer.php:22 assets/views/project-editor.php:1983
+#: assets/views/project-editor.php:7050 assets/wp/scripts_l10n.php:232
+#: assets/wp/scripts_l10n.php:269
 msgid "Button"
 msgstr "Gomb"
 
-#: assets/templates/tmpl-add-layer.php:26 assets/views/project-editor.php:1971
-#: assets/views/project-editor.php:6949 assets/wp/scripts_l10n.php:269
+#: assets/templates/tmpl-add-layer.php:26 assets/views/project-editor.php:1984
+#: assets/views/project-editor.php:7054 assets/wp/scripts_l10n.php:273
 msgid "Shape"
 msgstr "Alakzat"
 
-#: assets/templates/tmpl-add-layer.php:29 assets/views/dashboard.php:469
+#: assets/templates/tmpl-add-layer.php:28
+#: assets/templates/tmpl-shape-modal.php:33
+#: assets/templates/tmpl-shape-modal.php:41 assets/views/dashboard.php:469
 msgid "NEW"
 msgstr ""
 
-#: assets/templates/tmpl-add-layer.php:37 assets/views/project-editor.php:1972
-#: assets/views/project-editor.php:2127 assets/views/project-editor.php:2211
-#: assets/views/project-editor.php:6953 assets/wp/scripts_l10n.php:263
+#: assets/templates/tmpl-add-layer.php:35 assets/views/project-editor.php:1985
+#: assets/views/project-editor.php:2140 assets/views/project-editor.php:2224
+#: assets/views/project-editor.php:7058 assets/wp/scripts_l10n.php:267
 msgid "Icon"
 msgstr "Ikon"
 
-#: assets/templates/tmpl-add-layer.php:41
+#: assets/templates/tmpl-add-layer.php:39
 #, fuzzy
 #| msgid "Object"
 msgid "Object / SVG"
 msgstr "Objektum"
 
-#: assets/templates/tmpl-add-layer.php:45 assets/views/project-editor.php:1974
-#: assets/views/project-editor.php:6961 assets/wp/scripts_l10n.php:267
+#: assets/templates/tmpl-add-layer.php:43 assets/views/project-editor.php:1987
+#: assets/views/project-editor.php:7066 assets/wp/scripts_l10n.php:271
 msgid "HTML"
 msgstr "HTML"
 
-#: assets/templates/tmpl-add-layer.php:49 assets/views/project-editor.php:1975
-#: assets/views/project-editor.php:6965
+#: assets/templates/tmpl-add-layer.php:47 assets/views/project-editor.php:1988
+#: assets/views/project-editor.php:7070
 msgid "Dynamic Layer"
 msgstr "Dinamikus Réteg"
 
-#: assets/templates/tmpl-add-layer.php:53
+#: assets/templates/tmpl-add-layer.php:51
 #: assets/templates/tmpl-import-layer.php:6
-#: assets/views/project-editor.php:6969
+#: assets/views/project-editor.php:7074
 msgid "Import Layer"
 msgstr "Réteg importálása"
 
@@ -3750,7 +3765,7 @@ msgid "LayerSlider Add-Ons"
 msgstr "LayerSlider Hírek"
 
 #: assets/templates/tmpl-button-presets.php:3
-#: assets/views/project-editor.php:2047 assets/views/project-editor.php:2050
+#: assets/views/project-editor.php:2060 assets/views/project-editor.php:2063
 #, fuzzy
 #| msgid "Choose a role"
 msgid "Choose Button Preset"
@@ -3784,7 +3799,7 @@ msgstr "Animáció"
 
 #: assets/templates/tmpl-button-presets.php:290
 #: assets/templates/tmpl-project-settings.php:47
-#: assets/views/project-editor.php:6653 assets/wp/scripts_l10n.php:207
+#: assets/views/project-editor.php:6706 assets/wp/scripts_l10n.php:211
 #, fuzzy
 #| msgid "Navigation Area"
 msgid "Navigation"
@@ -4123,7 +4138,7 @@ msgid ""
 msgstr ""
 
 #: assets/templates/tmpl-embed-slider.php:130
-#: assets/views/project-editor.php:6688
+#: assets/views/project-editor.php:6742
 msgid "Advanced"
 msgstr "Haladó"
 
@@ -4249,7 +4264,7 @@ msgstr "Betöltés ..."
 msgid "Select a project first."
 msgstr "Válassz egy diát először."
 
-#: assets/templates/tmpl-import-layer.php:27 assets/wp/scripts_l10n.php:260
+#: assets/templates/tmpl-import-layer.php:27 assets/wp/scripts_l10n.php:264
 msgid "Select a slide first."
 msgstr "Válassz egy diát először."
 
@@ -4732,7 +4747,7 @@ msgstr ""
 msgid "Disable layer snapping to freely move layers around."
 msgstr ""
 
-#: assets/templates/tmpl-layer-item.php:10 assets/wp/scripts_l10n.php:213
+#: assets/templates/tmpl-layer-item.php:10 assets/wp/scripts_l10n.php:217
 #, php-format
 msgid "Layer #%d"
 msgstr "Réteg #%d"
@@ -5275,13 +5290,13 @@ msgid "Preview from currenty matched elements"
 msgstr "Előnézet a jelenlegi szűrők alapján"
 
 #: assets/templates/tmpl-project-settings.php:16
-#: assets/views/project-editor.php:322 assets/wp/scripts_l10n.php:208
+#: assets/views/project-editor.php:322 assets/wp/scripts_l10n.php:212
 msgid "Project Settings"
 msgstr "Projekt beállítások"
 
 #: assets/templates/tmpl-project-settings.php:22
 #: assets/templates/tmpl-project-settings.php:103
-#: assets/views/project-editor.php:6820 assets/wp/scripts_l10n.php:15
+#: assets/views/project-editor.php:6925 assets/wp/scripts_l10n.php:15
 msgid "Publish"
 msgstr "Közzététel"
 
@@ -5300,7 +5315,7 @@ msgstr "Mobil"
 
 #: assets/templates/tmpl-project-settings.php:37
 #: assets/templates/tmpl-project-settings.php:843
-#: assets/views/project-editor.php:6659
+#: assets/views/project-editor.php:6712
 msgid "Slideshow"
 msgstr "Diavetítés"
 
@@ -5312,8 +5327,8 @@ msgstr "Megjelenés"
 
 #: assets/templates/tmpl-project-settings.php:62
 #: assets/templates/tmpl-project-settings.php:1112
-#: assets/views/project-editor.php:1156 assets/views/project-editor.php:1639
-#: assets/views/project-editor.php:1647
+#: assets/views/project-editor.php:1168 assets/views/project-editor.php:1651
+#: assets/views/project-editor.php:1659
 #, fuzzy
 #| msgid "Content"
 msgid "Content Sources"
@@ -5327,7 +5342,7 @@ msgid "Defaults"
 msgstr "Alapértelmezett beállítások"
 
 #: assets/templates/tmpl-project-settings.php:86
-#: assets/views/project-editor.php:3637
+#: assets/views/project-editor.php:3651
 msgid "Advanced Settings"
 msgstr "Haladó beállítások"
 
@@ -5355,7 +5370,7 @@ msgid ""
 msgstr ""
 
 #: assets/templates/tmpl-project-settings.php:136
-#: assets/views/project-editor.php:1166 assets/views/project-editor.php:1772
+#: assets/views/project-editor.php:1178 assets/views/project-editor.php:1784
 #, fuzzy
 #| msgid "Schedule Until"
 msgid "Schedule"
@@ -5366,6 +5381,7 @@ msgid "Hero"
 msgstr ""
 
 #: assets/templates/tmpl-project-settings.php:288
+#: assets/views/project-editor.php:6621
 msgid "Popup"
 msgstr ""
 
@@ -5450,7 +5466,7 @@ msgid "Top Right Corner"
 msgstr ""
 
 #: assets/templates/tmpl-project-settings.php:448
-#: assets/templates/tmpl-smart-help.php:831
+#: assets/templates/tmpl-smart-help.php:841
 msgid "Middle"
 msgstr ""
 
@@ -5471,18 +5487,18 @@ msgid "Popup Canvas Size"
 msgstr ""
 
 #: assets/templates/tmpl-project-settings.php:525
-#: assets/views/project-editor.php:2593 assets/views/project-editor.php:2601
-#: assets/views/project-editor.php:3892 assets/views/project-editor.php:3899
-#: assets/views/project-editor.php:5367 assets/views/project-editor.php:5374
+#: assets/views/project-editor.php:2606 assets/views/project-editor.php:2614
+#: assets/views/project-editor.php:3912 assets/views/project-editor.php:3919
+#: assets/views/project-editor.php:5393 assets/views/project-editor.php:5400
 #, fuzzy
 #| msgid "Width"
 msgid "width"
 msgstr "Szélesség"
 
 #: assets/templates/tmpl-project-settings.php:525
-#: assets/views/project-editor.php:2593 assets/views/project-editor.php:2609
-#: assets/views/project-editor.php:3892 assets/views/project-editor.php:3905
-#: assets/views/project-editor.php:5367 assets/views/project-editor.php:5380
+#: assets/views/project-editor.php:2606 assets/views/project-editor.php:2622
+#: assets/views/project-editor.php:3912 assets/views/project-editor.php:3925
+#: assets/views/project-editor.php:5393 assets/views/project-editor.php:5406
 #, fuzzy
 #| msgid "Height"
 msgid "height"
@@ -5495,8 +5511,8 @@ msgid "Distance from Sides"
 msgstr "Sormagasság"
 
 #: assets/templates/tmpl-project-settings.php:550
-#: assets/views/project-editor.php:2618 assets/views/project-editor.php:2634
-#: assets/views/project-editor.php:3116 assets/views/project-editor.php:3215
+#: assets/views/project-editor.php:2631 assets/views/project-editor.php:2647
+#: assets/views/project-editor.php:3130 assets/views/project-editor.php:3229
 #: assets/wp/gutenberg_l10n.php:38
 #, fuzzy
 #| msgid "Top"
@@ -5504,7 +5520,7 @@ msgid "top"
 msgstr "Felső"
 
 #: assets/templates/tmpl-project-settings.php:550
-#: assets/views/project-editor.php:3119 assets/views/project-editor.php:3222
+#: assets/views/project-editor.php:3133 assets/views/project-editor.php:3236
 #: assets/wp/gutenberg_l10n.php:39
 #, fuzzy
 #| msgid "Right"
@@ -5512,7 +5528,7 @@ msgid "right"
 msgstr "Jobb"
 
 #: assets/templates/tmpl-project-settings.php:550
-#: assets/views/project-editor.php:3127 assets/views/project-editor.php:3229
+#: assets/views/project-editor.php:3141 assets/views/project-editor.php:3243
 #: assets/wp/gutenberg_l10n.php:40
 #, fuzzy
 #| msgid "Bottom"
@@ -5520,8 +5536,8 @@ msgid "bottom"
 msgstr "Alsó"
 
 #: assets/templates/tmpl-project-settings.php:550
-#: assets/views/project-editor.php:2618 assets/views/project-editor.php:2626
-#: assets/views/project-editor.php:3130 assets/views/project-editor.php:3236
+#: assets/views/project-editor.php:2631 assets/views/project-editor.php:2639
+#: assets/views/project-editor.php:3144 assets/views/project-editor.php:3250
 #: assets/wp/gutenberg_l10n.php:41
 #, fuzzy
 #| msgid "left top"
@@ -5539,7 +5555,7 @@ msgid "seconds"
 msgstr ""
 
 #: assets/templates/tmpl-project-settings.php:603
-#: assets/views/project-editor.php:6684
+#: assets/views/project-editor.php:6737
 msgid "Close Popup"
 msgstr ""
 
@@ -5706,7 +5722,7 @@ msgstr ""
 
 #: assets/templates/tmpl-project-settings.php:1166
 #: assets/templates/tmpl-project-settings.php:1179
-#: assets/views/project-editor.php:1171 assets/views/project-editor.php:1819
+#: assets/views/project-editor.php:1183 assets/views/project-editor.php:1831
 msgid "Misc"
 msgstr "Egyebek"
 
@@ -5827,7 +5843,7 @@ msgid "Interface Settings"
 msgstr "Interfész beállítások"
 
 #: assets/templates/tmpl-search-window.php:39
-#: assets/views/project-editor.php:546 assets/views/project-editor.php:646
+#: assets/views/project-editor.php:546 assets/views/project-editor.php:654
 msgid "Interactive Guides"
 msgstr "Interaktív útmutatók"
 
@@ -5845,89 +5861,195 @@ msgstr "Súgó"
 msgid "More"
 msgstr "Továbbiak"
 
-#: assets/templates/tmpl-shape-modal.php:28
+#: assets/templates/tmpl-shape-modal.php:9
+#: assets/templates/tmpl-shape-modal.php:11
+msgctxt "Shape Type"
+msgid "Line"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:14
+#: assets/templates/tmpl-shape-modal.php:16
+msgctxt "Shape Type"
+msgid "Rectangle"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:19
+#: assets/templates/tmpl-shape-modal.php:21
+msgctxt "Shape Type"
+msgid "Oval"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:24
+#: assets/templates/tmpl-shape-modal.php:26
+msgctxt "Shape Type"
+msgid "Polygon"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:29
+#: assets/templates/tmpl-shape-modal.php:31
+msgctxt "Shape Type"
+msgid "Blob"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:37
+#: assets/templates/tmpl-shape-modal.php:39
+msgctxt "Shape Type"
+msgid "Wave"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:52
+#, fuzzy
+#| msgid "Default Options"
+msgctxt "Default Shape Type"
+msgid "Polygon Options"
+msgstr "Alapértelmezett beállítások"
+
+#: assets/templates/tmpl-shape-modal.php:61
 #, fuzzy
 #| msgid "left top"
 msgid "Side Count"
 msgstr "bal felső"
 
-#: assets/templates/tmpl-shape-modal.php:39
+#: assets/templates/tmpl-shape-modal.php:72
 #, fuzzy
 #| msgid "Slide Linking"
 msgid "Side Length"
 msgstr "Dia linkelése"
 
-#: assets/templates/tmpl-shape-modal.php:50
-#: assets/templates/tmpl-shape-modal.php:182
+#: assets/templates/tmpl-shape-modal.php:83
+#: assets/templates/tmpl-shape-modal.php:215
 msgid "Radius"
 msgstr ""
 
-#: assets/templates/tmpl-shape-modal.php:61
-#: assets/templates/tmpl-shape-modal.php:121
-#: assets/templates/tmpl-shape-modal.php:193
+#: assets/templates/tmpl-shape-modal.php:94
+#: assets/templates/tmpl-shape-modal.php:154
+#: assets/templates/tmpl-shape-modal.php:226
 #, fuzzy
 #| msgid "Width"
 msgid "Stroke size"
 msgstr "Szélesség"
 
-#: assets/templates/tmpl-shape-modal.php:72
-#: assets/templates/tmpl-shape-modal.php:76
-#: assets/templates/tmpl-shape-modal.php:132
-#: assets/templates/tmpl-shape-modal.php:204
+#: assets/templates/tmpl-shape-modal.php:105
+#: assets/templates/tmpl-shape-modal.php:109
+#: assets/templates/tmpl-shape-modal.php:165
+#: assets/templates/tmpl-shape-modal.php:237
 msgid "Stroke Color"
 msgstr ""
 
-#: assets/templates/tmpl-shape-modal.php:84
-#: assets/templates/tmpl-shape-modal.php:88
-#: assets/templates/tmpl-shape-modal.php:136
-#: assets/templates/tmpl-shape-modal.php:144
-#: assets/templates/tmpl-shape-modal.php:148
-#: assets/templates/tmpl-shape-modal.php:208
-#: assets/templates/tmpl-shape-modal.php:216
-#: assets/templates/tmpl-shape-modal.php:220
-#: assets/templates/tmpl-shape-modal.php:263
+#: assets/templates/tmpl-shape-modal.php:117
+#: assets/templates/tmpl-shape-modal.php:121
+#: assets/templates/tmpl-shape-modal.php:169
+#: assets/templates/tmpl-shape-modal.php:177
+#: assets/templates/tmpl-shape-modal.php:181
+#: assets/templates/tmpl-shape-modal.php:241
+#: assets/templates/tmpl-shape-modal.php:249
+#: assets/templates/tmpl-shape-modal.php:253
+#: assets/templates/tmpl-shape-modal.php:296
+#: assets/templates/tmpl-shape-modal.php:350
+#: assets/templates/tmpl-shape-modal.php:354
+#: assets/templates/tmpl-shape-modal.php:435
+#: assets/templates/tmpl-shape-modal.php:439
 #, fuzzy
 #| msgid "Color"
 msgid "Fill Color"
 msgstr "Szín"
 
-#: assets/templates/tmpl-shape-modal.php:99
-#: assets/templates/tmpl-shape-modal.php:160
+#: assets/templates/tmpl-shape-modal.php:132
+#: assets/templates/tmpl-shape-modal.php:193
 #, fuzzy
 #| msgid "Horizontal"
 msgid "Horizontal size"
 msgstr "Vízszintes"
 
-#: assets/templates/tmpl-shape-modal.php:110
-#: assets/templates/tmpl-shape-modal.php:171
+#: assets/templates/tmpl-shape-modal.php:143
+#: assets/templates/tmpl-shape-modal.php:204
 #, fuzzy
 #| msgid "Vertical"
 msgid "Vertical size"
 msgstr "Függőleges"
 
-#: assets/templates/tmpl-shape-modal.php:231
+#: assets/templates/tmpl-shape-modal.php:264
 #, fuzzy
 #| msgid "Slide Linking"
 msgid "Length"
 msgstr "Dia linkelése"
 
-#: assets/templates/tmpl-shape-modal.php:242
+#: assets/templates/tmpl-shape-modal.php:275
 msgid "Thickness"
 msgstr ""
 
-#: assets/templates/tmpl-shape-modal.php:253
+#: assets/templates/tmpl-shape-modal.php:286
 #, fuzzy
 #| msgid "Rounded Corners"
 msgid "Rounded Endings"
 msgstr "Lekerekítés"
 
-#: assets/templates/tmpl-shape-modal.php:281 assets/wp/scripts_l10n.php:276
+#: assets/templates/tmpl-shape-modal.php:312
+#: assets/templates/tmpl-shape-modal.php:386
+msgid "Complexity"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:324
+#: assets/templates/tmpl-shape-modal.php:397
+#, fuzzy
+#| msgid "Navigation Area"
+msgid "Variation"
+msgstr "Navigáció"
+
+#: assets/templates/tmpl-shape-modal.php:338
+#: assets/templates/tmpl-shape-modal.php:423
+#: assets/views/project-editor.php:755 assets/views/project-editor.php:1098
+#: assets/wp/scripts_l10n.php:222
+msgid "Layers"
+msgstr "Rétegek"
+
+#: assets/templates/tmpl-shape-modal.php:364
+#: assets/templates/tmpl-shape-modal.php:525
+#, fuzzy
+#| msgid "Random"
+msgid "Randomize"
+msgstr "Véletlenszerű"
+
+#: assets/templates/tmpl-shape-modal.php:410
+msgid "Balance"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:457
+msgid "Smooth"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:460
+msgid "Square"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:463
+#, fuzzy
+#| msgid "Center"
+msgid "Pointy"
+msgstr "Közép"
+
+#: assets/templates/tmpl-shape-modal.php:501
+#, fuzzy
+#| msgid "Tooltips"
+msgid "Tools"
+msgstr "Szövegbuborékok"
+
+#: assets/templates/tmpl-shape-modal.php:508
+#: assets/templates/tmpl-smart-help.php:1036
+msgid "Invert"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:511
+msgid "Perfect wave"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:552 assets/wp/scripts_l10n.php:280
 #, fuzzy
 #| msgid "Kreatura Media"
 msgid "Insert Shape"
 msgstr "Kreatura Media"
 
-#: assets/templates/tmpl-shape-modal.php:283
+#: assets/templates/tmpl-shape-modal.php:554
 msgid ""
 "You can resize, rotate, and do other things with your shape once it’s "
 "inserted into the editor"
@@ -5939,7 +6061,7 @@ msgstr ""
 #: assets/templates/tmpl-slider-library.php:30
 #: assets/templates/tmpl-slider-library.php:65
 #: assets/templates/tmpl-slider-library.php:99 assets/views/dashboard.php:631
-#: assets/wp/scripts_l10n.php:282 assets/wp/slider_library_l10n.php:13
+#: assets/wp/scripts_l10n.php:287 assets/wp/slider_library_l10n.php:13
 #: assets/wp/tinymce_l10n.php:15
 msgid "No Preview"
 msgstr "Nincs előnézet"
@@ -5965,8 +6087,8 @@ msgid ""
 "not be visible on front-end pages until you publish them."
 msgstr ""
 
-#: assets/templates/tmpl-slider-group-item.php:13 assets/wp/actions.php:303
-#: assets/wp/actions.php:461
+#: assets/templates/tmpl-slider-group-item.php:13 assets/wp/actions.php:325
+#: assets/wp/actions.php:483
 msgid "Unnamed Group"
 msgstr "Névtelen csoport"
 
@@ -6018,132 +6140,132 @@ msgstr "Mutatás"
 msgid "Delete"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:18
+#: assets/templates/tmpl-smart-help.php:20
 #, fuzzy
 #| msgid "Slideshow"
 msgid "show"
 msgstr "Diavetítés"
 
-#: assets/templates/tmpl-smart-help.php:18
+#: assets/templates/tmpl-smart-help.php:20
 #, fuzzy
 #| msgid "Unhide"
 msgid "hide"
 msgstr "Mutatás"
 
-#: assets/templates/tmpl-smart-help.php:18
+#: assets/templates/tmpl-smart-help.php:20
 msgid "more"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:19
+#: assets/templates/tmpl-smart-help.php:21
 #, fuzzy, php-format
 #| msgid "options"
 msgctxt "Possessive case: filter options, font options, etc."
 msgid "%s options"
 msgstr "beállítások"
 
-#: assets/templates/tmpl-smart-help.php:20
+#: assets/templates/tmpl-smart-help.php:22
 #, php-format
 msgctxt "Possessive case: example of what value an input field can take, etc."
 msgid "%s examples"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:23
+#: assets/templates/tmpl-smart-help.php:25
 #, fuzzy
 #| msgid "Layer options"
 msgid "smart operations"
 msgstr "Réteg beállításai"
 
-#: assets/templates/tmpl-smart-help.php:24
+#: assets/templates/tmpl-smart-help.php:26
 #, fuzzy
 #| msgid "Merge selected as new"
 msgid "on selected layers’ values"
 msgstr "Kijelöltek összeolvasztása újként"
 
-#: assets/templates/tmpl-smart-help.php:32
+#: assets/templates/tmpl-smart-help.php:34
 msgid ""
 "QUICK HELP: You can use numbers and math expressions with the following "
 "operators:"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:54
+#: assets/templates/tmpl-smart-help.php:56
 msgid "Apply new values"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:67
+#: assets/templates/tmpl-smart-help.php:69
 #, fuzzy
 #| msgid "Color"
 msgid "Solid Color"
 msgstr "Szín"
 
-#: assets/templates/tmpl-smart-help.php:68
+#: assets/templates/tmpl-smart-help.php:70
 msgid "Linear Gradient"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:69
+#: assets/templates/tmpl-smart-help.php:71
 msgid "Radial Gradient"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:83
+#: assets/templates/tmpl-smart-help.php:85
 msgid "Ellipse"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:84
+#: assets/templates/tmpl-smart-help.php:86
 msgid "Circle"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:89 assets/views/project-editor.php:7017
+#: assets/templates/tmpl-smart-help.php:91 assets/views/project-editor.php:7122
 msgid "Center Center"
 msgstr "Középpont"
 
-#: assets/templates/tmpl-smart-help.php:90
+#: assets/templates/tmpl-smart-help.php:92
 #, fuzzy
 #| msgid "center left"
 msgid "Center Left"
 msgstr "bal közép"
 
-#: assets/templates/tmpl-smart-help.php:91
+#: assets/templates/tmpl-smart-help.php:93
 #, fuzzy
 #| msgid "center right"
 msgid "Center Right"
 msgstr "jobb közép"
 
-#: assets/templates/tmpl-smart-help.php:92
+#: assets/templates/tmpl-smart-help.php:94
 #, fuzzy
 #| msgid "top center"
 msgid "Top Center"
 msgstr "felső közép"
 
-#: assets/templates/tmpl-smart-help.php:93
+#: assets/templates/tmpl-smart-help.php:95
 #, fuzzy
 #| msgid "Rounded Corners"
 msgid "Top Left"
 msgstr "Lekerekítés"
 
-#: assets/templates/tmpl-smart-help.php:94
+#: assets/templates/tmpl-smart-help.php:96
 #, fuzzy
 #| msgid "top right"
 msgid "Top Right"
 msgstr "jobb felső"
 
-#: assets/templates/tmpl-smart-help.php:95
+#: assets/templates/tmpl-smart-help.php:97
 #, fuzzy
 #| msgid "bottom center"
 msgid "Bottom Center"
 msgstr "alsó közép"
 
-#: assets/templates/tmpl-smart-help.php:96
+#: assets/templates/tmpl-smart-help.php:98
 #, fuzzy
 #| msgid "bottom left"
 msgid "Bottom Left"
 msgstr "bal alsó"
 
-#: assets/templates/tmpl-smart-help.php:97
+#: assets/templates/tmpl-smart-help.php:99
 #, fuzzy
 #| msgid "bottom right"
 msgid "Bottom Right"
 msgstr "jobb alsó"
 
-#: assets/templates/tmpl-smart-help.php:120
+#: assets/templates/tmpl-smart-help.php:122
 msgid ""
 "The time that this slide remains visible before the slideshow attempts to "
 "change to the next slide. Leave this option empty to let LayerSlider manage "
@@ -6151,7 +6273,7 @@ msgid ""
 "second."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:135
+#: assets/templates/tmpl-smart-help.php:137
 msgid ""
 "This option controls the stacking order of layers that overlap. In CSS, it’s "
 "commonly called as z-index. Elements with a higher value are stacked in "
@@ -6162,7 +6284,7 @@ msgid ""
 "using static layers."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:137
+#: assets/templates/tmpl-smart-help.php:139
 msgid ""
 "On each slide, the stacking order starts counting from 100. Providing a "
 "number less than 100 will put the layer behind every other layer on all "
@@ -6170,14 +6292,14 @@ msgid ""
 "on top of everything else."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:166
+#: assets/templates/tmpl-smart-help.php:168
 msgid ""
 "Shifts the layer position from its original with the given amount on the "
 "selected axis. Refer to the below options to see special values and "
 "supported units."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:189
+#: assets/templates/tmpl-smart-help.php:191
 msgid ""
 "Shifts the layer starting position with the given amount on the selected "
 "axis. Layers animate from the offset value toward their position set under "
@@ -6185,7 +6307,7 @@ msgid ""
 "supported units."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:212
+#: assets/templates/tmpl-smart-help.php:214
 msgid ""
 "Shifts each text fragment starting position with the given amount on the "
 "selected axis. Text fragments animate from the offset value toward the whole "
@@ -6193,14 +6315,14 @@ msgid ""
 "units."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:235
+#: assets/templates/tmpl-smart-help.php:237
 msgid ""
 "Shifts the layer position with the given amount while it’s animating out. "
 "Layers animate from their current state toward the value you set here. Refer "
 "to the below options to see special values and supported units."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:258
+#: assets/templates/tmpl-smart-help.php:260
 msgid ""
 "Shifts each text fragment position with the given amount on the selected "
 "axis while the layer animates out. Text fragments animate from the whole "
@@ -6208,7 +6330,7 @@ msgid ""
 "special values and supported units."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:284
+#: assets/templates/tmpl-smart-help.php:286
 msgid ""
 "Scales the layer with the given amount on the selected axis. Use the value 1 "
 "for the original size. The value 2 will double, while 0.5 will shrink the "
@@ -6216,7 +6338,7 @@ msgid ""
 "given axis."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:308
+#: assets/templates/tmpl-smart-help.php:310
 msgid ""
 "Sets the initial layer scale on the selected axis before the layer starts "
 "animating in. Use the value 1 for the original size. The value 2 will "
@@ -6225,7 +6347,7 @@ msgid ""
 "value toward their appearance set under the <b>STYLE</b> menu."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:332
+#: assets/templates/tmpl-smart-help.php:334
 msgid ""
 "Sets the initial scale of each text fragment on the selected axis before "
 "they start animating in. Use the value 1 for the original size. The value 2 "
@@ -6235,7 +6357,7 @@ msgid ""
 "below options to see special values and supported units."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:356
+#: assets/templates/tmpl-smart-help.php:358
 msgid ""
 "Scales the layer with the given amount on the selected axis while it’s "
 "animating out. Use the value 1 for the original size. The value 2 will "
@@ -6244,7 +6366,7 @@ msgid ""
 "current state toward the value you set here."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:380
+#: assets/templates/tmpl-smart-help.php:382
 msgid ""
 "Scales each text fragment with the given amount on the selected axis while "
 "they’re animating out. Use the value 1 for the original size. The value 2 "
@@ -6253,13 +6375,13 @@ msgid ""
 "animate from the whole joint text toward the value you set here."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:403
+#: assets/templates/tmpl-smart-help.php:405
 msgid ""
 "Rotates the layer by the given number of degrees on the selected axis. "
 "Negative values are allowed for counterclockwise rotation."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:424
+#: assets/templates/tmpl-smart-help.php:426
 msgid ""
 "Sets the initial layer rotation by the given number of degrees on the "
 "selected axis before the layer starts animating in. Negative values are "
@@ -6267,7 +6389,7 @@ msgid ""
 "their appearance set under the <b>STYLE</b> menu."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:445
+#: assets/templates/tmpl-smart-help.php:447
 msgid ""
 "Sets initial rotation of each text fragment by the given number of degrees "
 "on the selected axis before they start animating in. Negative values are "
@@ -6275,7 +6397,7 @@ msgid ""
 "value toward the whole joint text."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:466
+#: assets/templates/tmpl-smart-help.php:468
 msgid ""
 "Rotates the layer with the given number of degrees on the selected axis "
 "while it’s animating out. Negative values are allowed for counterclockwise "
@@ -6283,7 +6405,7 @@ msgid ""
 "here."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:487
+#: assets/templates/tmpl-smart-help.php:489
 msgid ""
 "Rotates each text fragment with the given number of degrees on the selected "
 "axis while they’re animating out. Negative values are allowed for "
@@ -6291,13 +6413,13 @@ msgid ""
 "toward the value you set here."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:509
+#: assets/templates/tmpl-smart-help.php:511
 msgid ""
 "Skews the layer by the given number of degrees on the selected axis. "
 "Negative values are allowed for the reverse direction."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:529
+#: assets/templates/tmpl-smart-help.php:531
 msgid ""
 "Sets the initial layer skew on the selected axis before the layer starts "
 "animating in. Negative values are allowed for the reverse direction. Layers "
@@ -6305,21 +6427,21 @@ msgid ""
 "menu."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:549
+#: assets/templates/tmpl-smart-help.php:551
 msgid ""
 "Sets the initial skew of each text fragment on the selected axis before they "
 "start animating in. Negative values are allowed for the reverse direction. "
 "Text fragments animate from this value toward the whole joint text."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:569
+#: assets/templates/tmpl-smart-help.php:571
 msgid ""
 "Skews the layer with the given amount of degrees on the selected axis while "
 "it’s animating out. Negative values are allowed for the reverse direction. "
 "Layers animate from their current state toward the value you set here."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:589
+#: assets/templates/tmpl-smart-help.php:591
 msgid ""
 "Skews each text fragment with the given amount of degrees on the selected "
 "axis while they’re animating out. Negative values are allowed for the "
@@ -6327,7 +6449,7 @@ msgid ""
 "the value you set here."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:614
+#: assets/templates/tmpl-smart-help.php:616
 msgid ""
 "The transform origin is the point around which transformations are applied. "
 "For example, a layer may rotate around its center point or an entirely "
@@ -6335,14 +6457,14 @@ msgid ""
 "values."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:631
+#: assets/templates/tmpl-smart-help.php:633
 msgid ""
 "Changes the perspective of animated objects in the 3D space. Large values of "
 "perspective cause milder transformations. Smaller values cause stronger and "
 "more noticeable transformations."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:657
+#: assets/templates/tmpl-smart-help.php:659
 msgid ""
 "Clips (cuts off) the sides of layers by the given amount specified in pixels "
 "or percentages. Similar to animating layer dimensions, except it will not "
@@ -6350,7 +6472,7 @@ msgid ""
 "bottom, and the layer’s left side."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:683
+#: assets/templates/tmpl-smart-help.php:685
 msgid ""
 "The timing function of the animation. With this function, you can manipulate "
 "the movement of the animated object. Please click on the link to open <a "
@@ -6358,19 +6480,19 @@ msgid ""
 "information and more detailed examples."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:689
+#: assets/templates/tmpl-smart-help.php:691
 msgid ""
 "The width of the layer in pixels or percents. Percentage values are relative "
 "to the project canvas size."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:694
+#: assets/templates/tmpl-smart-help.php:696
 msgid ""
 "The height of the layer in pixels or percents. Percentage values are "
 "relative to the project canvas size."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:699
+#: assets/templates/tmpl-smart-help.php:701
 msgid ""
 "The layer’s position from the left edge of the project canvas. You can use "
 "pixels and percents. Percentage values align the layer’s center point to the "
@@ -6378,7 +6500,7 @@ msgid ""
 "100% special values align the layer to the left and right edges."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:704
+#: assets/templates/tmpl-smart-help.php:706
 msgid ""
 "The layer’s position from the top edge of the project canvas. You can use "
 "pixels and percents. Percentage values align the layer’s center point to the "
@@ -6386,51 +6508,51 @@ msgid ""
 "100% special values align the layer to the top and bottom edges."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:709
+#: assets/templates/tmpl-smart-help.php:711
 msgid ""
 "The length of the transition in milliseconds. A second equals to 1000 "
 "milliseconds."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:714
+#: assets/templates/tmpl-smart-help.php:716
 msgid ""
 "Delays the transition of each text fragment relative to each other. A second "
 "equals to 1000 milliseconds."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:719
+#: assets/templates/tmpl-smart-help.php:721
 msgid ""
 "Sets the intensity of the parallax effect. Use negative values to shift "
 "layers in the opposite direction."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:724
+#: assets/templates/tmpl-smart-help.php:726
 msgid ""
 "Controls the speed of animating layers when you move your mouse cursor or "
 "tilt your mobile device. This value is in milliseconds. A second equals to "
 "1000 milliseconds."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:729
+#: assets/templates/tmpl-smart-help.php:731
 msgid ""
 "Controls how quickly parallax layers revert to their original position when "
 "you move your mouse cursor outside of the slider. This value is in "
 "milliseconds. A second equals to 1000 milliseconds."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:734
+#: assets/templates/tmpl-smart-help.php:736
 msgid ""
 "Increase or decrease the amount of layer movement when moving your mouse "
 "cursor or tilting on a mobile device."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:739
+#: assets/templates/tmpl-smart-help.php:741
 msgid ""
 "Increase or decrease the amount of layer rotation in the 3D space when "
 "moving your mouse cursor or tilting on a mobile device."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:744
+#: assets/templates/tmpl-smart-help.php:746
 msgid ""
 "Sets the start time of the selected transition with the given amount of "
 "milliseconds. A second equals to 1000 milliseconds."
@@ -6438,12 +6560,30 @@ msgstr ""
 
 #: assets/templates/tmpl-smart-help.php:750
 msgid ""
+"The starting time of this transition. Choose from one of the pre-defined "
+"options to use relative timing, which then can also be shifted with custom "
+"operations below."
+msgstr ""
+
+#: assets/templates/tmpl-smart-help.php:753
+msgid ""
+"Shifts the above selected starting time by performing a custom operation."
+msgstr ""
+
+#: assets/templates/tmpl-smart-help.php:755
+msgid ""
+"For example, \"- 1000\" will advance the animation by playing it 1 second "
+"(1000 milliseconds) earlier."
+msgstr ""
+
+#: assets/templates/tmpl-smart-help.php:760
+msgid ""
 "Filters provide effects like blurring, color shifting, or changing the "
 "brightness, contrast, saturation of your layers, among many others. Use the "
 "below options to easily apply multiple filters on your layers."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:755
+#: assets/templates/tmpl-smart-help.php:765
 msgid ""
 "Sets the initial layer filters before it starts animating in. Layers animate "
 "from this value toward their appearance set under the <b>STYLE</b> menu. "
@@ -6452,7 +6592,7 @@ msgid ""
 "below options to easily apply multiple filters on your layers."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:760
+#: assets/templates/tmpl-smart-help.php:770
 msgid ""
 "Applies filters on the layer while it’s animating out. Layers animate from "
 "their current state toward the value you set here. Filters provide effects "
@@ -6461,43 +6601,43 @@ msgid ""
 "easily apply multiple filters on your layers."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:765
+#: assets/templates/tmpl-smart-help.php:775
 msgid ""
 "Waiting time between repeats in milliseconds. A second is 1000 milliseconds."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:770
+#: assets/templates/tmpl-smart-help.php:780
 msgid ""
 "Layers can be kept at their place across multiple slides. Here you can "
 "select the slide on which this layer should animate out."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:778
+#: assets/templates/tmpl-smart-help.php:788
 msgid ""
 "It looks like you’ve disabled Google Fonts in LayerSlider plugin settings. "
 "We recommend enabling Google Fonts, so you can enhance your content with "
 "beautiful and unique typography."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:781
+#: assets/templates/tmpl-smart-help.php:791
 msgid ""
 "Enhance your content with beautiful and unique typography. Google Fonts "
 "provides over a thousand web-optimized fonts."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:783
+#: assets/templates/tmpl-smart-help.php:793
 #, fuzzy
 #| msgid "Google Fonts"
 msgid "Browse Google Fonts"
 msgstr "Google Fonts"
 
-#: assets/templates/tmpl-smart-help.php:806
+#: assets/templates/tmpl-smart-help.php:816
 msgid ""
 "Sets the size of the background image. The image can be left to its natural "
 "size, stretched, or constrained to fit the available space."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:811
+#: assets/templates/tmpl-smart-help.php:821
 msgid ""
 "A slide alias name, which you can use in your URLs with a hash tag so "
 "LayerSlider will start with the corresponding slide when visitors arrive to "
@@ -6506,329 +6646,325 @@ msgid ""
 "slide navigation with links."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:822
-#: assets/templates/tmpl-smart-help.php:964
-#: assets/templates/tmpl-smart-help.php:983
+#: assets/templates/tmpl-smart-help.php:832
+#: assets/templates/tmpl-smart-help.php:974
+#: assets/templates/tmpl-smart-help.php:993
 msgid "Center"
 msgstr "Közép"
 
-#: assets/templates/tmpl-smart-help.php:839
+#: assets/templates/tmpl-smart-help.php:849
 msgid "100px"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:840
+#: assets/templates/tmpl-smart-help.php:850
 msgid "Enter the stage from left"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:841
+#: assets/templates/tmpl-smart-help.php:851
 msgid "Enter the stage from right"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:842
+#: assets/templates/tmpl-smart-help.php:852
 msgid "Leave the stage on left"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:843
+#: assets/templates/tmpl-smart-help.php:853
 msgid "Leave the stage on right"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:844
+#: assets/templates/tmpl-smart-help.php:854
 msgid "Enter the stage from top"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:845
+#: assets/templates/tmpl-smart-help.php:855
 msgid "Enter the stage from bottom"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:846
+#: assets/templates/tmpl-smart-help.php:856
 msgid "Leave the stage on top"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:847
+#: assets/templates/tmpl-smart-help.php:857
 msgid "Leave the stage on bottom"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:848
+#: assets/templates/tmpl-smart-help.php:858
 msgid "Move out of stage on left"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:849
+#: assets/templates/tmpl-smart-help.php:859
 msgid "Move out of stage on right"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:850
+#: assets/templates/tmpl-smart-help.php:860
 msgid "Move out of stage on top"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:851
+#: assets/templates/tmpl-smart-help.php:861
 msgid "Move out of stage on bottom"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:852
+#: assets/templates/tmpl-smart-help.php:862
 msgid "100% layer width"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:853
+#: assets/templates/tmpl-smart-help.php:863
 msgid "-100% layer width"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:854
+#: assets/templates/tmpl-smart-help.php:864
 #, fuzzy, php-format
 #| msgid "%d slider"
 #| msgid_plural "%d sliders"
 msgid "50% slider width"
 msgstr "%d slider"
 
-#: assets/templates/tmpl-smart-help.php:855
+#: assets/templates/tmpl-smart-help.php:865
 #, fuzzy, php-format
 #| msgid "%d slider"
 #| msgid_plural "%d sliders"
 msgid "-50% slider width"
 msgstr "%d slider"
 
-#: assets/templates/tmpl-smart-help.php:856
+#: assets/templates/tmpl-smart-help.php:866
 msgid "100% layer height"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:857
+#: assets/templates/tmpl-smart-help.php:867
 msgid "-100% layer height"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:858
+#: assets/templates/tmpl-smart-help.php:868
 #, fuzzy, php-format
 #| msgid "Line height"
 msgid "50% slider height"
 msgstr "Sormagasság"
 
-#: assets/templates/tmpl-smart-help.php:859
+#: assets/templates/tmpl-smart-help.php:869
 #, fuzzy, php-format
 #| msgid "Line height"
 msgid "-50% slider height"
 msgstr "Sormagasság"
 
-#: assets/templates/tmpl-smart-help.php:860
+#: assets/templates/tmpl-smart-help.php:870
 msgid "20% layer width"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:861
+#: assets/templates/tmpl-smart-help.php:871
 msgid "-20% layer width"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:862
+#: assets/templates/tmpl-smart-help.php:872
 msgid "20% layer height"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:863
+#: assets/templates/tmpl-smart-help.php:873
 msgid "-20% layer height"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:864
-#: assets/templates/tmpl-smart-help.php:873
-#: assets/templates/tmpl-smart-help.php:886
-#: assets/templates/tmpl-smart-help.php:895
+#: assets/templates/tmpl-smart-help.php:874
+#: assets/templates/tmpl-smart-help.php:883
+#: assets/templates/tmpl-smart-help.php:896
+#: assets/templates/tmpl-smart-help.php:905
 msgid "Random between two values"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:865
-#: assets/templates/tmpl-smart-help.php:874
-#: assets/templates/tmpl-smart-help.php:887
-#: assets/templates/tmpl-smart-help.php:896
+#: assets/templates/tmpl-smart-help.php:875
+#: assets/templates/tmpl-smart-help.php:884
+#: assets/templates/tmpl-smart-help.php:897
+#: assets/templates/tmpl-smart-help.php:906
 msgid "Cycle through multiple values"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:882
+#: assets/templates/tmpl-smart-help.php:892
 #, fuzzy
 #| msgid "Horizontal"
 msgid "Original size"
 msgstr "Vízszintes"
 
-#: assets/templates/tmpl-smart-help.php:883
+#: assets/templates/tmpl-smart-help.php:893
 msgid "Enlarge layer to double size"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:884
+#: assets/templates/tmpl-smart-help.php:894
 msgid "Shrink layer to half size"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:885
+#: assets/templates/tmpl-smart-help.php:895
 #, fuzzy
 #| msgid "Hide layer"
 msgid "Flip layer"
 msgstr "Réteg elrejtése a szerkesztőben"
 
-#: assets/templates/tmpl-smart-help.php:904
+#: assets/templates/tmpl-smart-help.php:914
 msgid "The background image is displayed in its original size"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:905
+#: assets/templates/tmpl-smart-help.php:915
 msgid "cover"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:905
+#: assets/templates/tmpl-smart-help.php:915
 msgid ""
 "Resize the background image to cover the entire container, even if it has to "
 "stretch the image or cut a little bit off one of the edges"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:906
+#: assets/templates/tmpl-smart-help.php:916
 msgid "contain"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:906
+#: assets/templates/tmpl-smart-help.php:916
 msgid "Resize the background image to make sure the image is fully visible"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:907
+#: assets/templates/tmpl-smart-help.php:917
 msgid "stretch"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:907
+#: assets/templates/tmpl-smart-help.php:917
 msgid ""
 "Stretches the background image to the same size as the layer. May result in "
 "distorted image."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:908
+#: assets/templates/tmpl-smart-help.php:918
 msgid "initial"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:908
-#: assets/templates/tmpl-smart-help.php:909
-#: assets/templates/tmpl-smart-help.php:910
+#: assets/templates/tmpl-smart-help.php:918
+#: assets/templates/tmpl-smart-help.php:919
+#: assets/templates/tmpl-smart-help.php:920
 msgid "Sets this property to its default value."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:909
+#: assets/templates/tmpl-smart-help.php:919
 msgid "300px (example)"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:910
+#: assets/templates/tmpl-smart-help.php:920
 msgid "80% (example)"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:919
+#: assets/templates/tmpl-smart-help.php:929
 #, fuzzy
 #| msgid "Add New Project"
 msgid "Used in Project"
 msgstr "Új Projekt hozzáadása"
 
-#: assets/templates/tmpl-smart-help.php:927
+#: assets/templates/tmpl-smart-help.php:937
 #, fuzzy
 #| msgid "Icon"
 msgid "Common Fonts"
 msgstr "Ikon"
 
-#: assets/templates/tmpl-smart-help.php:943
+#: assets/templates/tmpl-smart-help.php:953
 msgid "From top"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:944
+#: assets/templates/tmpl-smart-help.php:954
 #, fuzzy
 #| msgid "Font weight"
 msgid "From right"
 msgstr "Betűvastagság"
 
-#: assets/templates/tmpl-smart-help.php:945
+#: assets/templates/tmpl-smart-help.php:955
 #, fuzzy
 #| msgid "left bottom"
 msgid "From bottom"
 msgstr "bal alsó"
 
-#: assets/templates/tmpl-smart-help.php:946
+#: assets/templates/tmpl-smart-help.php:956
 msgid "From left"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:957
+#: assets/templates/tmpl-smart-help.php:967
 msgid "X axis"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:966
+#: assets/templates/tmpl-smart-help.php:976
 msgid "Left side of the project canvas"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:967
+#: assets/templates/tmpl-smart-help.php:977
 msgid "Center of the project canvas"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:968
+#: assets/templates/tmpl-smart-help.php:978
 msgid "Right side of the project canvas"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:976
+#: assets/templates/tmpl-smart-help.php:986
 msgid "Y axis"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:985
+#: assets/templates/tmpl-smart-help.php:995
 msgid "Top of the project canvas"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:986
+#: assets/templates/tmpl-smart-help.php:996
 msgid "Middle of the project canvas"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:987
+#: assets/templates/tmpl-smart-help.php:997
 msgid "Bottom of the project canvas"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:995
+#: assets/templates/tmpl-smart-help.php:1005
 msgid "Z axis"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1005
-#: assets/templates/tmpl-smart-help.php:1038
+#: assets/templates/tmpl-smart-help.php:1015
+#: assets/templates/tmpl-smart-help.php:1048
 #, fuzzy
 #| msgid "Preview for Selected Revision"
 msgid "Apply selected values"
 msgstr "Előnézet a kiválasztott változathoz"
 
-#: assets/templates/tmpl-smart-help.php:1019
+#: assets/templates/tmpl-smart-help.php:1029
 #, fuzzy
 #| msgid "Add New Project"
 msgid "Add new property"
 msgstr "Új Projekt hozzáadása"
 
-#: assets/templates/tmpl-smart-help.php:1020
-#: assets/views/project-editor.php:3069 assets/views/project-editor.php:3539
+#: assets/templates/tmpl-smart-help.php:1030
+#: assets/views/project-editor.php:3083 assets/views/project-editor.php:3553
 msgid "Blur"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1021
+#: assets/templates/tmpl-smart-help.php:1031
 msgid "Brightness"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1022
+#: assets/templates/tmpl-smart-help.php:1032
 #, fuzzy
 #| msgid "Content"
 msgid "Contrast"
 msgstr "Tartalom"
 
-#: assets/templates/tmpl-smart-help.php:1023
+#: assets/templates/tmpl-smart-help.php:1033
 msgid "Drop Shadow"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1024
+#: assets/templates/tmpl-smart-help.php:1034
 msgid "Grayscale"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1025
+#: assets/templates/tmpl-smart-help.php:1035
 #, fuzzy
 #| msgid "Rotate"
 msgid "Hue-Rotate"
 msgstr "Forgatás"
 
-#: assets/templates/tmpl-smart-help.php:1026
-msgid "Invert"
-msgstr ""
-
-#: assets/templates/tmpl-smart-help.php:1028
+#: assets/templates/tmpl-smart-help.php:1038
 msgid "Saturate"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1029
+#: assets/templates/tmpl-smart-help.php:1039
 msgid "Sepia"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1048
+#: assets/templates/tmpl-smart-help.php:1058
 #, fuzzy
 #| msgid "Pause slideshow"
 msgid "Apply Value To All Slides"
@@ -7069,7 +7205,7 @@ msgstr "Fejlesztői dokumentáció"
 msgid "Frequently Asked Questions"
 msgstr "Gyakori kérdések"
 
-#: assets/views/about.php:257 assets/views/dashboard.php:1047
+#: assets/views/about.php:257 assets/views/dashboard.php:1148
 msgid "Stay Updated"
 msgstr "Maradj naprakész"
 
@@ -7283,12 +7419,12 @@ msgid "Projects"
 msgstr "Projektek"
 
 #: assets/views/dashboard.php:250
-msgid "License"
-msgstr "Licencelés"
-
-#: assets/views/dashboard.php:255
 msgid "News"
 msgstr "Hírek"
+
+#: assets/views/dashboard.php:255
+msgid "License"
+msgstr "Licencelés"
 
 #: assets/views/dashboard.php:319
 msgid "Notifications"
@@ -7563,126 +7699,116 @@ msgstr "Ugrás a következő lapra"
 msgid "Go to the last page"
 msgstr "Ugrás az utolsó oldalra"
 
-#: assets/views/dashboard.php:727
-#, fuzzy
-#| msgid "Support"
-msgid "Help & Support"
-msgstr "Terméktámogatás"
+#: assets/views/dashboard.php:728
+msgid "Latest News"
+msgstr "Legfrissebb hírek"
 
-#: assets/views/dashboard.php:732
-msgid "Read the documentation"
-msgstr "Olvasd el a dokumentációt"
+#: assets/views/dashboard.php:742
+msgid "Plugin Updates"
+msgstr "Plugin frissítések"
 
-#: assets/views/dashboard.php:733
-msgid "Get started with using LayerSlider."
-msgstr "Kezdő lépések a LayerSlider elsajátításához."
-
-#: assets/views/dashboard.php:737
-msgid "Browse the FAQs"
-msgstr "A GYIK böngészése"
-
-#: assets/views/dashboard.php:738
-msgid "Find answers for common questions."
-msgstr "Válaszok a leggyakoribb kérdésekre."
-
-#: assets/views/dashboard.php:747
-msgid "Direct Support"
-msgstr "Közvetlen támogatás"
-
-#: assets/views/dashboard.php:749
-msgid "Unlock Now"
-msgstr "Feloldás"
-
-#: assets/views/dashboard.php:752
-msgid "Get in touch with our Support Team."
-msgstr "Lépj kapcsolatba a terméktámogatói csapatunkkal."
+#: assets/views/dashboard.php:746
+msgid "Re-Check"
+msgstr ""
 
 #: assets/views/dashboard.php:756
-#, fuzzy
-#| msgid "Center Center"
-msgid "Open Help Center"
-msgstr "Középpont"
+msgid "Installed Version:"
+msgstr "Telepített verzió:"
 
-#: assets/views/dashboard.php:765
-msgid "Connect With LayerSlider"
-msgstr "Kapcsolat a LayerSliderrel"
+#: assets/views/dashboard.php:763
+msgid "Available Version: "
+msgstr "Elérhető verzió:"
 
-#: assets/views/dashboard.php:768
+#: assets/views/dashboard.php:784
+msgid "Release Channel"
+msgstr "Kiadási csatorna:"
+
+#: assets/views/dashboard.php:790
+msgid "Stable"
+msgstr "Stabil"
+
+#: assets/views/dashboard.php:791
+msgid "Beta"
+msgstr "Béta"
+
+#: assets/views/dashboard.php:804
+#, php-format
 msgid ""
-"Follow us on Social Media and get notified about the latest product updates, "
-"sales, deals, and participate in giveaways and other programs."
+"Couldn’t display the release log. Please check %sSystem Status%s for "
+"potential errors."
 msgstr ""
-"Kövessen minket a közösségi médiában, és értesüljön a legújabb "
-"termékfrissítésekről, akciókról, ajánlatokról, valamint vegyen részt "
-"ajándék- és egyéb programjainkban."
 
-#: assets/views/dashboard.php:835
+#: assets/views/dashboard.php:813
+msgid "Show More"
+msgstr "Mutass többet"
+
+#: assets/views/dashboard.php:845
 #, fuzzy
 #| msgid "Regular License"
 msgid "Register Your License"
 msgstr "Hagyományos licenc"
 
-#: assets/views/dashboard.php:839
+#: assets/views/dashboard.php:849
 #, fuzzy
 #| msgid "Regular License"
 msgid "Registered License"
 msgstr "Hagyományos licenc"
 
-#: assets/views/dashboard.php:847
+#: assets/views/dashboard.php:857
 #, fuzzy
 #| msgid "Enter your purchase code:"
 msgid "Please enter your license key below."
 msgstr "Add meg a vásárlási kódod:"
 
-#: assets/views/dashboard.php:851
+#: assets/views/dashboard.php:861
 msgid "Thank you for your purchase!"
 msgstr ""
 
-#: assets/views/dashboard.php:858
+#: assets/views/dashboard.php:868
 msgid "Unlock all these benefits and get the full LayerSlider experience:"
 msgstr ""
 
-#: assets/views/dashboard.php:862
+#: assets/views/dashboard.php:872
 msgid "You can now access all these benefits:"
 msgstr ""
 
-#: assets/views/dashboard.php:936
+#: assets/views/dashboard.php:946
 #, fuzzy
 #| msgid "Premium Slider Templates"
 msgid "Premium Templates"
 msgstr "Prémium slider sablonok"
 
-#: assets/views/dashboard.php:960
+#: assets/views/dashboard.php:970
 #, fuzzy
 #| msgid "Enter your purchase code:"
 msgid "Enter your license key:"
 msgstr "Add meg a vásárlási kódod:"
 
-#: assets/views/dashboard.php:962
+#: assets/views/dashboard.php:972
 #, fuzzy
 #| msgid "Where’s my purchase code?"
 msgid "Where’s my license key?"
 msgstr "Merre találom a vásárlási kódom?"
 
-#: assets/views/dashboard.php:965
+#: assets/views/dashboard.php:975
 #, fuzzy
 #| msgid "Enter your purchase code:"
 msgid "Enter your license key here"
 msgstr "Add meg a vásárlási kódod:"
 
-#: assets/views/dashboard.php:969
+#: assets/views/dashboard.php:979
 msgid "Update License"
 msgstr "Liszensz frissítése"
 
-#: assets/views/dashboard.php:970
+#: assets/views/dashboard.php:980
 msgid "Deregister License"
 msgstr "Licenc törlése"
 
-#: assets/views/dashboard.php:972
+#: assets/views/dashboard.php:982
 msgid "Purchase license"
 msgstr "Licenc vásárlása"
 
-#: assets/views/dashboard.php:977
+#: assets/views/dashboard.php:987
 #, php-format
 msgid ""
 "License registration requires a direct purchase of a LayerSlider license if "
@@ -7690,7 +7816,7 @@ msgid ""
 "please refer to %sthis article%s."
 msgstr ""
 
-#: assets/views/dashboard.php:979
+#: assets/views/dashboard.php:989
 #, fuzzy, php-format
 #| msgid ""
 #| "If you experience any issue or need further information, please read our "
@@ -7700,92 +7826,102 @@ msgid ""
 "%sregistration guide%s."
 msgstr "Olvasd el az %saktivációs útmutatónkat%s ha bármilyen probléma adódna."
 
-#: assets/views/dashboard.php:996
+#: assets/views/dashboard.php:1006
 #, fuzzy
 #| msgid "All Premium"
 msgid "Go Premium!"
 msgstr "Összes prémium"
 
-#: assets/views/dashboard.php:1011
+#: assets/views/dashboard.php:1021
 msgid "Premium activated!"
 msgstr ""
 
-#: assets/views/dashboard.php:1029
+#: assets/views/dashboard.php:1037
+#, fuzzy
+#| msgid "Support"
+msgid "Help & Support"
+msgstr "Terméktámogatás"
+
+#: assets/views/dashboard.php:1042
+msgid "Read the documentation"
+msgstr "Olvasd el a dokumentációt"
+
+#: assets/views/dashboard.php:1043
+msgid "Get started with using LayerSlider."
+msgstr "Kezdő lépések a LayerSlider elsajátításához."
+
+#: assets/views/dashboard.php:1047
+msgid "Browse the FAQs"
+msgstr "A GYIK böngészése"
+
+#: assets/views/dashboard.php:1048
+msgid "Find answers for common questions."
+msgstr "Válaszok a leggyakoribb kérdésekre."
+
+#: assets/views/dashboard.php:1057
+msgid "Direct Support"
+msgstr "Közvetlen támogatás"
+
+#: assets/views/dashboard.php:1059
+msgid "Unlock Now"
+msgstr "Feloldás"
+
+#: assets/views/dashboard.php:1062
+msgid "Get in touch with our Support Team."
+msgstr "Lépj kapcsolatba a terméktámogatói csapatunkkal."
+
+#: assets/views/dashboard.php:1066
+#, fuzzy
+#| msgid "Center Center"
+msgid "Open Help Center"
+msgstr "Középpont"
+
+#: assets/views/dashboard.php:1075
+msgid "Connect With LayerSlider"
+msgstr "Kapcsolat a LayerSliderrel"
+
+#: assets/views/dashboard.php:1078
+msgid ""
+"Follow us on Social Media and get notified about the latest product updates, "
+"sales, deals, and participate in giveaways and other programs."
+msgstr ""
+"Kövessen minket a közösségi médiában, és értesüljön a legújabb "
+"termékfrissítésekről, akciókról, ajánlatokról, valamint vegyen részt "
+"ajándék- és egyéb programjainkban."
+
+#: assets/views/dashboard.php:1130
 msgid "LayerSlider Newsletter"
 msgstr "LayerSlider hírlevél"
 
-#: assets/views/dashboard.php:1032
+#: assets/views/dashboard.php:1133
 msgid "Enter your email address"
 msgstr "Add meg e-mail címed"
 
-#: assets/views/dashboard.php:1037
+#: assets/views/dashboard.php:1138
 msgid "Subscribe"
 msgstr "Feliratkozás"
 
-#: assets/views/dashboard.php:1048
+#: assets/views/dashboard.php:1149
 msgid "News about the latest features and other product info."
 msgstr ""
 "Hírek a legutóbbi frissítésekről és egyéb termékkel kapcsolatos "
 "bejelentésekről."
 
-#: assets/views/dashboard.php:1052
+#: assets/views/dashboard.php:1153
 msgid "Sneak Peek on Product Updates"
 msgstr "Nyerj bepillantást a kulisszák mögé"
 
-#: assets/views/dashboard.php:1053
+#: assets/views/dashboard.php:1154
 msgid "Access to all the cool new features before anyone else."
 msgstr "Korai hozzáférés a legújabb szuper funkciókhoz."
 
-#: assets/views/dashboard.php:1057
+#: assets/views/dashboard.php:1158
 msgid "Provide Feedback"
 msgstr "Visszajelzés küldése"
 
-#: assets/views/dashboard.php:1058
+#: assets/views/dashboard.php:1159
 msgid "Participate in various programs and help us improving LayerSlider."
 msgstr "Érdekel minket a véleményed! Tegyük együtt jobbá a LayerSlidert."
-
-#: assets/views/dashboard.php:1071
-msgid "Latest News"
-msgstr "Legfrissebb hírek"
-
-#: assets/views/dashboard.php:1085
-msgid "Plugin Updates"
-msgstr "Plugin frissítések"
-
-#: assets/views/dashboard.php:1089
-msgid "Re-Check"
-msgstr ""
-
-#: assets/views/dashboard.php:1099
-msgid "Installed Version:"
-msgstr "Telepített verzió:"
-
-#: assets/views/dashboard.php:1106
-msgid "Available Version: "
-msgstr "Elérhető verzió:"
-
-#: assets/views/dashboard.php:1127
-msgid "Release Channel"
-msgstr "Kiadási csatorna:"
-
-#: assets/views/dashboard.php:1133
-msgid "Stable"
-msgstr "Stabil"
-
-#: assets/views/dashboard.php:1134
-msgid "Beta"
-msgstr "Béta"
-
-#: assets/views/dashboard.php:1147
-#, php-format
-msgid ""
-"Couldn’t display the release log. Please check %sSystem Status%s for "
-"potential errors."
-msgstr ""
-
-#: assets/views/dashboard.php:1156
-msgid "Show More"
-msgstr "Mutass többet"
 
 #: assets/views/project-editor.php:203
 msgid "Incompatible Browser Detected"
@@ -7839,8 +7975,8 @@ msgstr "Diák"
 msgid "Slides List"
 msgstr "Diák"
 
-#: assets/views/project-editor.php:340 assets/views/project-editor.php:737
-#: assets/views/project-editor.php:6481 assets/wp/scripts_l10n.php:217
+#: assets/views/project-editor.php:340 assets/views/project-editor.php:745
+#: assets/views/project-editor.php:6509 assets/wp/scripts_l10n.php:221
 msgid "Slide"
 msgstr "Dia"
 
@@ -7964,938 +8100,942 @@ msgstr "LayerSlider beszúrása az oldalakba."
 msgid "Tooltips"
 msgstr "Szövegbuborékok"
 
-#: assets/views/project-editor.php:655
+#: assets/views/project-editor.php:642
+msgid "Quick Tip when publishing"
+msgstr ""
+
+#: assets/views/project-editor.php:663
 #, fuzzy
 #| msgid "Line through"
 msgid "Interface Walkthrough"
 msgstr "Áthúzott"
 
-#: assets/views/project-editor.php:661
+#: assets/views/project-editor.php:669
 #, fuzzy
 #| msgid "Interactive Guides"
 msgid "Interactive Guides are coming soon."
 msgstr "Interaktív útmutatók"
 
-#: assets/views/project-editor.php:682
+#: assets/views/project-editor.php:690
 #, fuzzy
 #| msgid "Basic Settings"
 msgid "Revisions Settings"
 msgstr "Alapbeállítások"
 
-#: assets/views/project-editor.php:692
+#: assets/views/project-editor.php:700
 #, fuzzy
 #| msgid "Revisions Preferences"
 msgid "Revisions per project"
 msgstr "Változatok beállítások"
 
-#: assets/views/project-editor.php:702
+#: assets/views/project-editor.php:710
 #, fuzzy
 #| msgid "Update Revisions Preferences"
 msgid "Create revisions after"
 msgstr "Beállítások frissítése"
 
-#: assets/views/project-editor.php:706
+#: assets/views/project-editor.php:714
 #, fuzzy
 #| msgid "Admin"
 msgid "min"
 msgstr "Adminisztrátor"
 
-#: assets/views/project-editor.php:717
+#: assets/views/project-editor.php:725
 #, fuzzy
 #| msgid "Slide Timing"
 msgid "Exit Timeline View"
 msgstr "Dia időzítése"
 
-#: assets/views/project-editor.php:722
+#: assets/views/project-editor.php:730
 #, fuzzy
 #| msgid "Revisions"
 msgid "Exit Revisions"
 msgstr "Változatok"
 
-#: assets/views/project-editor.php:727
+#: assets/views/project-editor.php:735
 msgid "Exit Project View"
 msgstr ""
 
-#: assets/views/project-editor.php:734 assets/views/project-editor.php:1127
+#: assets/views/project-editor.php:742 assets/views/project-editor.php:1139
 #, fuzzy
 #| msgid "Slider Settings"
 msgid "Slide Settings"
 msgstr "Slider beállítások"
 
-#: assets/views/project-editor.php:744 assets/views/project-editor.php:1892
+#: assets/views/project-editor.php:752 assets/views/project-editor.php:1904
 #, fuzzy
 #| msgid "Layer settings"
 msgid "Layer Settings"
 msgstr "Réteg beállítások"
 
-#: assets/views/project-editor.php:747 assets/views/project-editor.php:1086
-#: assets/wp/scripts_l10n.php:218
-msgid "Layers"
-msgstr "Rétegek"
-
-#: assets/views/project-editor.php:777 assets/views/project-editor.php:1911
+#: assets/views/project-editor.php:785 assets/views/project-editor.php:1923
 #, fuzzy
 #| msgid "Layers"
 msgid "Layers List"
 msgstr "Rétegek"
 
-#: assets/views/project-editor.php:809 assets/views/project-editor.php:6927
+#: assets/views/project-editor.php:817 assets/views/project-editor.php:7032
 msgid "Add Layer"
 msgstr "Réteg hozzáadása"
 
-#: assets/views/project-editor.php:820
+#: assets/views/project-editor.php:828
 msgid "Layers on this slide"
 msgstr "Rétegek ezen a dián"
 
-#: assets/views/project-editor.php:825
+#: assets/views/project-editor.php:833
 #, fuzzy
 #| msgid "Toggle layer visibility."
 msgid "Toggle layer visibility"
 msgstr "Réteg láthatósága"
 
-#: assets/views/project-editor.php:828
+#: assets/views/project-editor.php:836
 #, fuzzy
 #| msgid "Lock layer"
 msgid "Lock / Unlock layer"
 msgstr "Réteg zárolása"
 
-#: assets/views/project-editor.php:831
+#: assets/views/project-editor.php:839
 #, fuzzy
 #| msgid "Duplicate Layer"
 msgid "Duplicate layer"
 msgstr "Réteg duplikálása"
 
-#: assets/views/project-editor.php:837
+#: assets/views/project-editor.php:845
 #, fuzzy
 #| msgid "Remove Layer"
 msgid "Remove layer"
 msgstr "Réteg törlése"
 
 #: assets/views/project-editor.php:852
+msgid ""
+"This layer uses a premium feature, which requires license registration to "
+"use it on front-end pages."
+msgstr ""
+
+#: assets/views/project-editor.php:864
 msgid "This slide has no layers."
 msgstr ""
 
-#: assets/views/project-editor.php:853
+#: assets/views/project-editor.php:865
 msgid "Click ADD LAYER to add your first layer."
 msgstr ""
 
-#: assets/views/project-editor.php:862
+#: assets/views/project-editor.php:874
 msgid "Static layers from other slides"
 msgstr "Statikus rétegek más diákról"
 
-#: assets/views/project-editor.php:889
+#: assets/views/project-editor.php:901
 msgid ""
 "Highlight layers: Hovering over layers in the layers list and workspace will "
 "be highlighted in the editor."
 msgstr ""
 
-#: assets/views/project-editor.php:897
+#: assets/views/project-editor.php:909
 msgid ""
 "Snapping: Easily align layer edges, anchor points, and centers to other "
 "editor objects such as layers, ruler guides, etc."
 msgstr ""
 
-#: assets/views/project-editor.php:905
+#: assets/views/project-editor.php:917
 msgid ""
 "Bring selection to front: Selected layer will always be on top of "
 "overlapping layers."
 msgstr ""
 
-#: assets/views/project-editor.php:913
+#: assets/views/project-editor.php:925
 msgid "Workspace overflow: Show objects outside of the project canvas."
 msgstr ""
 
-#: assets/views/project-editor.php:938 assets/views/transition-builder.php:90
+#: assets/views/project-editor.php:950 assets/views/transition-builder.php:90
 #: assets/views/transition-builder.php:117 assets/wp/menus.php:54
 msgid "Add New"
 msgstr "Új hozzáadása"
 
-#: assets/views/project-editor.php:948 assets/views/transition-builder.php:86
+#: assets/views/project-editor.php:960 assets/views/transition-builder.php:86
 #: assets/views/transition-builder.php:113
 msgid "Import"
 msgstr "Importálás"
 
-#: assets/views/project-editor.php:996
+#: assets/views/project-editor.php:1008
 #, fuzzy
 #| msgid "Duration"
 msgid "rotation"
 msgstr "Időtartam"
 
-#: assets/views/project-editor.php:996
+#: assets/views/project-editor.php:1008
 msgid "drag to rotate"
 msgstr ""
 
-#: assets/views/project-editor.php:1004
+#: assets/views/project-editor.php:1016
 msgid "Darg & Drop Images or SVGs"
 msgstr ""
 
-#: assets/views/project-editor.php:1006
+#: assets/views/project-editor.php:1018
 #, fuzzy
 #| msgid "Loading ..."
 msgid "Processing..."
 msgstr "Betöltés ..."
 
-#: assets/views/project-editor.php:1039
+#: assets/views/project-editor.php:1051
 msgid "Now"
 msgstr "Most"
 
-#: assets/views/project-editor.php:1047
+#: assets/views/project-editor.php:1059
 #, fuzzy
 #| msgid "Preview for Selected Revision"
 msgid "Selected revision by"
 msgstr "Előnézet a kiválasztott változathoz"
 
-#: assets/views/project-editor.php:1059
+#: assets/views/project-editor.php:1071
 #, fuzzy
 #| msgid "Preview for Selected Revision"
 msgid "Apply selected revision"
 msgstr "Előnézet a kiválasztott változathoz"
 
-#: assets/views/project-editor.php:1065
+#: assets/views/project-editor.php:1077
 msgid ""
 "No revisions are available for this project yet. Revisions will be added "
 "over time when you make new changes."
 msgstr ""
 
-#: assets/views/project-editor.php:1067
+#: assets/views/project-editor.php:1079
 msgid ""
 "You can review Revisions Settings at the top to make sure that snapshots are "
 "made frequently."
 msgstr ""
 
-#: assets/views/project-editor.php:1075
+#: assets/views/project-editor.php:1087
 #, fuzzy
 #| msgid "Delay"
 msgid "delay"
 msgstr "Késleltetés"
 
-#: assets/views/project-editor.php:1076
+#: assets/views/project-editor.php:1088
 #, fuzzy
 #| msgid "Skin"
 msgid "in"
 msgstr "Témák"
 
-#: assets/views/project-editor.php:1077
+#: assets/views/project-editor.php:1089
 #, fuzzy
 #| msgid "About"
 msgid "out"
 msgstr "Rólunk"
 
-#: assets/views/project-editor.php:1078
+#: assets/views/project-editor.php:1090
 #, fuzzy
 #| msgid "Text align"
 msgid "text in"
 msgstr "Igazítás"
 
-#: assets/views/project-editor.php:1079
+#: assets/views/project-editor.php:1091
 msgid "text out"
 msgstr ""
 
-#: assets/views/project-editor.php:1080
+#: assets/views/project-editor.php:1092
 msgid "loop / middle"
 msgstr ""
 
-#: assets/views/project-editor.php:1081
+#: assets/views/project-editor.php:1093
 #, fuzzy
 #| msgid "Automatic Updates"
 msgid "static"
 msgstr "Automatikus frissítések"
 
-#: assets/views/project-editor.php:1082
+#: assets/views/project-editor.php:1094
 #, fuzzy
 #| msgid "custom duration"
 msgid "over slide duration"
 msgstr "egyéni időtartam"
 
-#: assets/views/project-editor.php:1128
+#: assets/views/project-editor.php:1140
 msgid "Select slide background, set slide transitions, effects and linking."
 msgstr ""
 
-#: assets/views/project-editor.php:1146 assets/views/project-editor.php:1313
+#: assets/views/project-editor.php:1158 assets/views/project-editor.php:1325
 #, fuzzy
 #| msgid "Timing &amp; Transform"
 msgid "Timing & Transition"
 msgstr "Időzítés és transzformáció"
 
-#: assets/views/project-editor.php:1151 assets/views/project-editor.php:1407
-#: assets/views/project-editor.php:3570
+#: assets/views/project-editor.php:1163 assets/views/project-editor.php:1419
+#: assets/views/project-editor.php:3584
 #, fuzzy
 #| msgid "Special Effects"
 msgid "Effects"
 msgstr "Különleges effektek"
 
-#: assets/views/project-editor.php:1161 assets/views/project-editor.php:1677
-#: assets/views/project-editor.php:1685
+#: assets/views/project-editor.php:1173 assets/views/project-editor.php:1689
+#: assets/views/project-editor.php:1697
 #, fuzzy
 #| msgid "Slide Timing"
 msgid "Slide Linking"
 msgstr "Dia időzítése"
 
-#: assets/views/project-editor.php:1191
+#: assets/views/project-editor.php:1203
 #, fuzzy
 #| msgid "Slide Background Image"
 msgid "Slide Background"
 msgstr "Dia háttérképe"
 
-#: assets/views/project-editor.php:1272
+#: assets/views/project-editor.php:1284
 #, fuzzy
 #| msgid "Slide Thumbnail"
 msgid "Slide Thumbnail"
 msgstr "Dia előnézete"
 
-#: assets/views/project-editor.php:1283
+#: assets/views/project-editor.php:1295
 #, fuzzy
 #| msgid "Slide Thumbnail"
 msgid "Set Thumbnail"
 msgstr "Dia előnézete"
 
-#: assets/views/project-editor.php:1288
+#: assets/views/project-editor.php:1300
 #, fuzzy
 #| msgid "Slide Thumbnail"
 msgid "Thumbnail"
 msgstr "Dia előnézete"
 
-#: assets/views/project-editor.php:1298
+#: assets/views/project-editor.php:1310
 #, fuzzy
 #| msgid "Duplicate slide"
 msgid "Capture Slide"
 msgstr "Dia duplikálása"
 
-#: assets/views/project-editor.php:1321
+#: assets/views/project-editor.php:1333
 msgid "Slide Timing"
 msgstr "Dia időzítése"
 
-#: assets/views/project-editor.php:1345
+#: assets/views/project-editor.php:1357
 msgid "Time shift"
 msgstr ""
 
-#: assets/views/project-editor.php:1362
+#: assets/views/project-editor.php:1374
 msgid "Slide Transition"
 msgstr "Dia animáció"
 
-#: assets/views/project-editor.php:1373
+#: assets/views/project-editor.php:1385
 #, fuzzy
 #| msgid "custom duration"
 msgid "Transition duration"
 msgstr "egyéni időtartam"
 
-#: assets/views/project-editor.php:1385
+#: assets/views/project-editor.php:1397
 #, fuzzy
 #| msgid "Select transitions"
 msgid "Select Transitions"
 msgstr "Animáció kiválasztása"
 
-#: assets/views/project-editor.php:1391
+#: assets/views/project-editor.php:1403
 msgid ""
 "Slide transitions won’t be visible until you set a slide background image or "
 "color."
 msgstr ""
 
-#: assets/views/project-editor.php:1415
+#: assets/views/project-editor.php:1427
 msgid "Ken Burns"
 msgstr ""
 
-#: assets/views/project-editor.php:1482
+#: assets/views/project-editor.php:1494
 msgid "Global hover"
 msgstr ""
 
-#: assets/views/project-editor.php:1494
+#: assets/views/project-editor.php:1506
 #, fuzzy
 #| msgid "Screen Options"
 msgid "See it in action"
 msgstr "Mit lássunk?"
 
-#: assets/views/project-editor.php:1504
+#: assets/views/project-editor.php:1516
 #, fuzzy
 #| msgid "Slide background defaults"
 msgid "Parallax Defaults"
 msgstr "Dia háttérkép alapértelmezés"
 
-#: assets/views/project-editor.php:1556 assets/views/project-editor.php:6130
+#: assets/views/project-editor.php:1568 assets/views/project-editor.php:6158
 #, fuzzy
 #| msgid "Parallax<br>Transition"
 msgid "Parallax Distance"
 msgstr "Parallax animáció"
 
-#: assets/views/project-editor.php:1568 assets/views/project-editor.php:6144
+#: assets/views/project-editor.php:1580 assets/views/project-editor.php:6172
 #, fuzzy
 #| msgid "Parallax<br>Transition"
 msgid "Parallax Rotation"
 msgstr "Parallax animáció"
 
-#: assets/views/project-editor.php:1657 assets/views/project-editor.php:1660
+#: assets/views/project-editor.php:1669 assets/views/project-editor.php:1672
 #, fuzzy
 #| msgid "Configure post options"
 msgid "Configure Post Options"
 msgstr "Bejegyzés beállítások konfigurálása"
 
-#: assets/views/project-editor.php:1696 assets/views/project-editor.php:6256
+#: assets/views/project-editor.php:1708 assets/views/project-editor.php:6284
 #, fuzzy
 #| msgid "next in line"
 msgid "Set link"
 msgstr "következő a sorban"
 
-#: assets/views/project-editor.php:1715 assets/views/project-editor.php:6277
+#: assets/views/project-editor.php:1727 assets/views/project-editor.php:6305
 #, fuzzy
 #| msgid "Choose a role"
 msgid "Choose Post or Page"
 msgstr "Válassz szerepkört"
 
-#: assets/views/project-editor.php:1720 assets/views/project-editor.php:6282
+#: assets/views/project-editor.php:1732 assets/views/project-editor.php:6310
 #, fuzzy
 #| msgid "Use Dynamic post URL"
 msgid "Use dynamic post URL"
 msgstr "Bejegyzés URL-jének használata"
 
-#: assets/views/project-editor.php:1745
+#: assets/views/project-editor.php:1757
 #, fuzzy
 #| msgid "Linking"
 msgid "Deep linking"
 msgstr "Linkelés"
 
-#: assets/views/project-editor.php:1755
+#: assets/views/project-editor.php:1767
 msgid "Deep Link"
 msgstr ""
 
-#: assets/views/project-editor.php:1780
+#: assets/views/project-editor.php:1792
 #, fuzzy
 #| msgid "Schedule Until"
 msgid "Schedule Slide"
 msgstr "Ütemezés vége"
 
-#: assets/views/project-editor.php:1791
+#: assets/views/project-editor.php:1803
 msgid "From"
 msgstr ""
 
-#: assets/views/project-editor.php:1801
+#: assets/views/project-editor.php:1813
 #, fuzzy
 #| msgid "Top"
 msgid "To"
 msgstr "Felső"
 
-#: assets/views/project-editor.php:1827 assets/views/project-editor.php:4139
+#: assets/views/project-editor.php:1839 assets/views/project-editor.php:4159
 #, fuzzy
 #| msgid "Additional Slide Settings"
 msgid "Additional Settings"
 msgstr "További dia beállítások"
 
-#: assets/views/project-editor.php:1857
+#: assets/views/project-editor.php:1869
 #, fuzzy
 #| msgid "Style properties"
 msgid "Custom Slide Properties"
 msgstr "Stílusbeállítások"
 
-#: assets/views/project-editor.php:1893
+#: assets/views/project-editor.php:1905
 msgid "Set content, style, transitions and linking of selected layers."
 msgstr ""
 
-#: assets/views/project-editor.php:1904
+#: assets/views/project-editor.php:1916
 #, fuzzy
 #| msgid "Multiple Selection Mode"
 msgid "Multiple selection mode"
 msgstr "Többszörös kijelölési mód"
 
-#: assets/views/project-editor.php:1921 assets/views/project-editor.php:2497
+#: assets/views/project-editor.php:1933 assets/views/project-editor.php:2510
 #, fuzzy
 #| msgid "Styles"
 msgid "Style"
 msgstr "Stílusok"
 
-#: assets/views/project-editor.php:1931 assets/views/project-editor.php:6243
+#: assets/views/project-editor.php:1943 assets/views/project-editor.php:6271
 #, fuzzy
 #| msgid "Linking"
 msgid "Link"
 msgstr "Linkelés"
 
-#: assets/views/project-editor.php:1938 assets/views/project-editor.php:6301
+#: assets/views/project-editor.php:1950 assets/views/project-editor.php:6329
 msgid "Actions"
 msgstr "Műveletek"
 
-#: assets/views/project-editor.php:1943 assets/views/project-editor.php:6732
+#: assets/views/project-editor.php:1955 assets/views/project-editor.php:6786
 #, fuzzy
 #| msgid "Attribute name"
 msgid "Attributes"
 msgstr "Attribútum neve"
 
-#: assets/views/project-editor.php:1973 assets/views/project-editor.php:6957
-#: assets/wp/scripts_l10n.php:270
+#: assets/views/project-editor.php:1986 assets/views/project-editor.php:7062
+#: assets/wp/scripts_l10n.php:274
 msgid "Object"
 msgstr "Objektum"
 
-#: assets/views/project-editor.php:1981
+#: assets/views/project-editor.php:1994
 #, fuzzy
 #| msgid "Click to change"
 msgid "Click to change layer type"
 msgstr "Kattints a módosítás"
 
-#: assets/views/project-editor.php:1997
+#: assets/views/project-editor.php:2010
 #, fuzzy
 #| msgid "Toggle layer visibility."
 msgid "Toggle device visibility"
 msgstr "Réteg láthatósága"
 
-#: assets/views/project-editor.php:2021
+#: assets/views/project-editor.php:2034
 #, fuzzy
 #| msgid "use post image"
 msgid "Set image"
 msgstr "bejegyzés képének használata"
 
-#: assets/views/project-editor.php:2039
+#: assets/views/project-editor.php:2052
 #, fuzzy
 #| msgid "Type your slider name here"
 msgid "Type / add your layer content here"
 msgstr "Írd ide a slidered nevét"
 
-#: assets/views/project-editor.php:2062
+#: assets/views/project-editor.php:2075
 #, fuzzy
 #| msgid "Change Media"
 msgid "Change media"
 msgstr "Média módosítása"
 
-#: assets/views/project-editor.php:2074
+#: assets/views/project-editor.php:2087
 msgid "line breaks"
 msgstr ""
 
-#: assets/views/project-editor.php:2086
+#: assets/views/project-editor.php:2099
 msgid "HTML element"
 msgstr ""
 
-#: assets/views/project-editor.php:2101 assets/views/project-editor.php:2104
-#: assets/wp/scripts_l10n.php:274
+#: assets/views/project-editor.php:2114 assets/views/project-editor.php:2117
+#: assets/wp/scripts_l10n.php:278
 #, fuzzy
 #| msgid "Modified"
 msgid "Modify Object"
 msgstr "Módosítva"
 
-#: assets/views/project-editor.php:2114 assets/views/project-editor.php:2117
-#: assets/wp/scripts_l10n.php:277
+#: assets/views/project-editor.php:2127 assets/views/project-editor.php:2130
+#: assets/wp/scripts_l10n.php:205 assets/wp/scripts_l10n.php:281
 #, fuzzy
 #| msgid "Modified"
 msgid "Modify Shape"
 msgstr "Módosítva"
 
-#: assets/views/project-editor.php:2131 assets/views/project-editor.php:2215
+#: assets/views/project-editor.php:2144 assets/views/project-editor.php:2228
 #, fuzzy
 #| msgid "Choose a role"
 msgid "Choose Icon"
 msgstr "Válassz szerepkört"
 
-#: assets/views/project-editor.php:2169
+#: assets/views/project-editor.php:2182
 msgid ""
 "Click on one or more post placeholders to insert them into your layer’s "
 "content. Post placeholders act like shortcodes in WP, and they will be "
 "filled with the actual content from your posts."
 msgstr ""
 
-#: assets/views/project-editor.php:2175
+#: assets/views/project-editor.php:2188
 msgid "Limit text length (if any)"
 msgstr "Szöveghossz korlátozása"
 
-#: assets/views/project-editor.php:2189
+#: assets/views/project-editor.php:2202
 msgid "Configure post options"
 msgstr "Bejegyzés beállítások konfigurálása"
 
-#: assets/views/project-editor.php:2202
+#: assets/views/project-editor.php:2215
 #, fuzzy
 #| msgid "Default Options"
 msgid "Additional Options"
 msgstr "Alapértelmezett beállítások"
 
-#: assets/views/project-editor.php:2307
+#: assets/views/project-editor.php:2320
 #, fuzzy
 #| msgid "Default Options"
 msgid "Media Options"
 msgstr "Alapértelmezett beállítások"
 
-#: assets/views/project-editor.php:2319
+#: assets/views/project-editor.php:2332
 #, fuzzy
 #| msgid "use post image"
 msgid "Poster image"
 msgstr "bejegyzés képének használata"
 
-#: assets/views/project-editor.php:2323
+#: assets/views/project-editor.php:2336
 #, fuzzy
 #| msgid "Post Title"
 msgid "Poster"
 msgstr "Bejegyzés címe"
 
-#: assets/views/project-editor.php:2333
+#: assets/views/project-editor.php:2346
 #, fuzzy
 #| msgid "Background size"
 msgid "background video"
 msgstr "Háttér mérete"
 
-#: assets/views/project-editor.php:2349
+#: assets/views/project-editor.php:2362
 msgid ""
 "Please note, the slide background image and any layers will cover the video."
 msgstr ""
 
-#: assets/views/project-editor.php:2358
+#: assets/views/project-editor.php:2371
 msgid "Autoplay"
 msgstr "Automatikus lejátszás"
 
-#: assets/views/project-editor.php:2371
+#: assets/views/project-editor.php:2384
 msgid "Play muted"
 msgstr ""
 
-#: assets/views/project-editor.php:2384
+#: assets/views/project-editor.php:2397
 msgid "Volume"
 msgstr "Hangerő"
 
-#: assets/views/project-editor.php:2402
+#: assets/views/project-editor.php:2415
 msgid "Fill mode"
 msgstr "Kitöltési mód"
 
-#: assets/views/project-editor.php:2415
+#: assets/views/project-editor.php:2428
 msgid "Controls"
 msgstr ""
 
-#: assets/views/project-editor.php:2428
+#: assets/views/project-editor.php:2441
 #, fuzzy
 #| msgid "Show me"
 msgid "Show info"
 msgstr "Mutasd"
 
-#: assets/views/project-editor.php:2441
+#: assets/views/project-editor.php:2454
 msgid "Loop"
 msgstr ""
 
-#: assets/views/project-editor.php:2455
+#: assets/views/project-editor.php:2468
 #, fuzzy
 #| msgid "Overline"
 msgid "Overlay image"
 msgstr "Föléhúzás"
 
-#: assets/views/project-editor.php:2462
+#: assets/views/project-editor.php:2475
 #, fuzzy
 #| msgid "Overline"
 msgid "No overlay image"
 msgstr "Föléhúzás"
 
-#: assets/views/project-editor.php:2517
+#: assets/views/project-editor.php:2530
 #, fuzzy
 #| msgid "sizing & position"
 msgid "Size & Position"
 msgstr "méret és pozíció"
 
-#: assets/views/project-editor.php:2533
+#: assets/views/project-editor.php:2546
 msgid "Set layer to full size"
 msgstr ""
 
-#: assets/views/project-editor.php:2540
+#: assets/views/project-editor.php:2553
 #, fuzzy
 #| msgid "Static layers from other slides"
 msgid "Set layer to auto size"
 msgstr "Statikus rétegek más diákról"
 
-#: assets/views/project-editor.php:2547
+#: assets/views/project-editor.php:2560
 msgid "Clear all size and position values"
 msgstr ""
 
-#: assets/views/project-editor.php:2554
+#: assets/views/project-editor.php:2567
 msgid "Convert left and top values to percentages"
 msgstr ""
 
-#: assets/views/project-editor.php:2561
+#: assets/views/project-editor.php:2574
 msgid "Convert left and top values to pixels"
 msgstr ""
 
-#: assets/views/project-editor.php:2569
+#: assets/views/project-editor.php:2582
 #, fuzzy
 #| msgid "Horizontal Center"
 msgid "Position to horizontal center"
 msgstr "Vízszintes középpont"
 
-#: assets/views/project-editor.php:2576
+#: assets/views/project-editor.php:2589
 msgid "Position to vertical middle"
 msgstr ""
 
-#: assets/views/project-editor.php:2579
+#: assets/views/project-editor.php:2592
 msgid "Position to absolute center"
 msgstr ""
 
-#: assets/views/project-editor.php:2622
+#: assets/views/project-editor.php:2635
 #, fuzzy
 #| msgid "Position"
 msgid "Left position"
 msgstr "Pozíció"
 
-#: assets/views/project-editor.php:2630
+#: assets/views/project-editor.php:2643
 #, fuzzy
 #| msgid "Position"
 msgid "Top position"
 msgstr "Pozíció"
 
-#: assets/views/project-editor.php:2643
+#: assets/views/project-editor.php:2656
 #, fuzzy
 #| msgid "sizing & position"
-msgid "Align position from"
+msgid "Align positions from"
 msgstr "méret és pozíció"
 
-#: assets/views/project-editor.php:2661
+#: assets/views/project-editor.php:2674
 #, fuzzy
 #| msgid "Font style"
 msgid "Icon Style"
 msgstr "Betűstílus"
 
-#: assets/views/project-editor.php:2664
+#: assets/views/project-editor.php:2677
 #, fuzzy
 #| msgid "Object"
 msgid "Object Style"
 msgstr "Objektum"
 
-#: assets/views/project-editor.php:2667
+#: assets/views/project-editor.php:2680
 #, fuzzy
 #| msgid "Shape"
 msgid "Shape Style"
 msgstr "Alakzat"
 
-#: assets/views/project-editor.php:2703 assets/views/project-editor.php:2801
+#: assets/views/project-editor.php:2716 assets/views/project-editor.php:2815
 #, fuzzy
 #| msgid "Line height"
 msgid "Line Height"
 msgstr "Sormagasság"
 
-#: assets/views/project-editor.php:2726
+#: assets/views/project-editor.php:2739
 #, fuzzy
 #| msgid "Object"
 msgid "Object Color"
 msgstr "Objektum"
 
-#: assets/views/project-editor.php:2729
+#: assets/views/project-editor.php:2742
 #, fuzzy
 #| msgid "Color"
 msgid "Shape Color"
 msgstr "Szín"
 
-#: assets/views/project-editor.php:2733 assets/views/project-editor.php:2821
-#: assets/views/project-editor.php:2825 assets/views/project-editor.php:4051
-#: assets/views/project-editor.php:4055 assets/views/project-editor.php:5548
-#: assets/views/project-editor.php:5552 assets/views/project-editor.php:5943
-#: assets/views/project-editor.php:5947
-#, fuzzy
-#| msgid "Color"
-msgid "Text Color"
-msgstr "Szín"
-
-#: assets/views/project-editor.php:2751
+#: assets/views/project-editor.php:2765
 msgid "Text & Typography"
 msgstr ""
 
-#: assets/views/project-editor.php:2770
+#: assets/views/project-editor.php:2784
 #, fuzzy
 #| msgid "Family"
 msgid "Font family"
 msgstr "Betűtípus"
 
-#: assets/views/project-editor.php:2839
+#: assets/views/project-editor.php:2835 assets/views/project-editor.php:2839
+#: assets/views/project-editor.php:4071 assets/views/project-editor.php:4075
+#: assets/views/project-editor.php:5576 assets/views/project-editor.php:5580
+#: assets/views/project-editor.php:5971 assets/views/project-editor.php:5975
+#, fuzzy
+#| msgid "Color"
+msgid "Text Color"
+msgstr "Szín"
+
+#: assets/views/project-editor.php:2853
 #, fuzzy
 #| msgid "Word-wrap"
 msgid "Word Wrap"
 msgstr "Hosszú sorok tördelése"
 
-#: assets/views/project-editor.php:2912
+#: assets/views/project-editor.php:2926
 msgid "sample text"
 msgstr ""
 
-#: assets/views/project-editor.php:2919
+#: assets/views/project-editor.php:2933
 msgid "Font weight"
 msgstr "Betűvastagság"
 
-#: assets/views/project-editor.php:3089
+#: assets/views/project-editor.php:3103
 msgid "Border, corners & padding"
 msgstr ""
 
-#: assets/views/project-editor.php:3108 assets/views/project-editor.php:3172
-#: assets/views/project-editor.php:3205 assets/views/project-editor.php:3369
-#: assets/views/project-editor.php:3818 assets/views/project-editor.php:4105
-#: assets/views/project-editor.php:4272 assets/views/project-editor.php:4586
-#: assets/views/project-editor.php:4980 assets/views/project-editor.php:5293
-#: assets/views/project-editor.php:5601 assets/views/project-editor.php:5708
-#: assets/views/project-editor.php:5981
+#: assets/views/project-editor.php:3122 assets/views/project-editor.php:3186
+#: assets/views/project-editor.php:3219 assets/views/project-editor.php:3383
+#: assets/views/project-editor.php:3838 assets/views/project-editor.php:4125
+#: assets/views/project-editor.php:4292 assets/views/project-editor.php:4608
+#: assets/views/project-editor.php:5004 assets/views/project-editor.php:5319
+#: assets/views/project-editor.php:5629 assets/views/project-editor.php:5736
+#: assets/views/project-editor.php:6009
 msgid "Link / Unlink fields"
 msgstr ""
 
-#: assets/views/project-editor.php:3111
+#: assets/views/project-editor.php:3125
 #, fuzzy
 #| msgid "Border"
 msgid "Border size"
 msgstr "Szegély"
 
-#: assets/views/project-editor.php:3137
+#: assets/views/project-editor.php:3151
 #, fuzzy
 #| msgid "Layer styles"
 msgid "Border style"
 msgstr "Rétegstílusok"
 
-#: assets/views/project-editor.php:3150
+#: assets/views/project-editor.php:3164
 #, fuzzy
 #| msgid "Border"
 msgid "Border color"
 msgstr "Szegély"
 
-#: assets/views/project-editor.php:3175 assets/views/project-editor.php:4108
-#: assets/views/project-editor.php:5604 assets/views/project-editor.php:5984
+#: assets/views/project-editor.php:3189 assets/views/project-editor.php:4128
+#: assets/views/project-editor.php:5632 assets/views/project-editor.php:6012
 msgid "Rounding"
 msgstr ""
 
-#: assets/views/project-editor.php:3180 assets/views/project-editor.php:4113
-#: assets/views/project-editor.php:5609 assets/views/project-editor.php:5989
+#: assets/views/project-editor.php:3194 assets/views/project-editor.php:4133
+#: assets/views/project-editor.php:5637 assets/views/project-editor.php:6017
 #, fuzzy
 #| msgid "top left"
 msgid "top-left"
 msgstr "bal felső"
 
-#: assets/views/project-editor.php:3183 assets/views/project-editor.php:4116
-#: assets/views/project-editor.php:5612 assets/views/project-editor.php:5992
+#: assets/views/project-editor.php:3197 assets/views/project-editor.php:4136
+#: assets/views/project-editor.php:5640 assets/views/project-editor.php:6020
 #, fuzzy
 #| msgid "top right"
 msgid "top-right"
 msgstr "jobb felső"
 
-#: assets/views/project-editor.php:3186 assets/views/project-editor.php:4119
-#: assets/views/project-editor.php:5615 assets/views/project-editor.php:5995
+#: assets/views/project-editor.php:3200 assets/views/project-editor.php:4139
+#: assets/views/project-editor.php:5643 assets/views/project-editor.php:6023
 #, fuzzy
 #| msgid "bottom right"
 msgid "btm-right"
 msgstr "jobb alsó"
 
-#: assets/views/project-editor.php:3189 assets/views/project-editor.php:4122
-#: assets/views/project-editor.php:5618 assets/views/project-editor.php:5998
+#: assets/views/project-editor.php:3203 assets/views/project-editor.php:4142
+#: assets/views/project-editor.php:5646 assets/views/project-editor.php:6026
 #, fuzzy
 #| msgid "bottom left"
 msgid "btm-left"
 msgstr "bal alsó"
 
-#: assets/views/project-editor.php:3208
+#: assets/views/project-editor.php:3222
 msgid "Padding"
 msgstr "Kitöltés"
 
-#: assets/views/project-editor.php:3350 assets/views/project-editor.php:3776
-#: assets/views/project-editor.php:4216 assets/views/project-editor.php:4544
-#: assets/views/project-editor.php:4924 assets/views/project-editor.php:5251
-#: assets/views/project-editor.php:5666
+#: assets/views/project-editor.php:3364 assets/views/project-editor.php:3796
+#: assets/views/project-editor.php:4236 assets/views/project-editor.php:4566
+#: assets/views/project-editor.php:4948 assets/views/project-editor.php:5277
+#: assets/views/project-editor.php:5694
 #, fuzzy
 #| msgid "Transforms"
 msgid "Transformation"
 msgstr "Transzformációk"
 
-#: assets/views/project-editor.php:3372 assets/views/project-editor.php:3821
-#: assets/views/project-editor.php:4275 assets/views/project-editor.php:4589
-#: assets/views/project-editor.php:4983 assets/views/project-editor.php:5296
-#: assets/views/project-editor.php:5711
+#: assets/views/project-editor.php:3386 assets/views/project-editor.php:3841
+#: assets/views/project-editor.php:4295 assets/views/project-editor.php:4611
+#: assets/views/project-editor.php:5007 assets/views/project-editor.php:5322
+#: assets/views/project-editor.php:5739
 msgid "number"
 msgstr ""
 
-#: assets/views/project-editor.php:3376 assets/views/project-editor.php:3825
-#: assets/views/project-editor.php:4279 assets/views/project-editor.php:4593
-#: assets/views/project-editor.php:4987 assets/views/project-editor.php:5300
-#: assets/views/project-editor.php:5715
+#: assets/views/project-editor.php:3390 assets/views/project-editor.php:3845
+#: assets/views/project-editor.php:4299 assets/views/project-editor.php:4615
+#: assets/views/project-editor.php:5011 assets/views/project-editor.php:5326
+#: assets/views/project-editor.php:5743
 msgid "Scale | X axis"
 msgstr ""
 
-#: assets/views/project-editor.php:3383 assets/views/project-editor.php:3832
-#: assets/views/project-editor.php:4286 assets/views/project-editor.php:4600
-#: assets/views/project-editor.php:4994 assets/views/project-editor.php:5307
-#: assets/views/project-editor.php:5722
+#: assets/views/project-editor.php:3397 assets/views/project-editor.php:3852
+#: assets/views/project-editor.php:4306 assets/views/project-editor.php:4622
+#: assets/views/project-editor.php:5018 assets/views/project-editor.php:5333
+#: assets/views/project-editor.php:5750
 msgid "Scale | Y axis"
 msgstr ""
 
-#: assets/views/project-editor.php:3395 assets/views/project-editor.php:3422
-#: assets/views/project-editor.php:3844 assets/views/project-editor.php:3871
-#: assets/views/project-editor.php:4298 assets/views/project-editor.php:4325
-#: assets/views/project-editor.php:4612 assets/views/project-editor.php:4639
-#: assets/views/project-editor.php:5006 assets/views/project-editor.php:5033
-#: assets/views/project-editor.php:5319 assets/views/project-editor.php:5346
-#: assets/views/project-editor.php:5734 assets/views/project-editor.php:5761
+#: assets/views/project-editor.php:3409 assets/views/project-editor.php:3436
+#: assets/views/project-editor.php:3864 assets/views/project-editor.php:3891
+#: assets/views/project-editor.php:4318 assets/views/project-editor.php:4345
+#: assets/views/project-editor.php:4634 assets/views/project-editor.php:4661
+#: assets/views/project-editor.php:5030 assets/views/project-editor.php:5057
+#: assets/views/project-editor.php:5345 assets/views/project-editor.php:5372
+#: assets/views/project-editor.php:5762 assets/views/project-editor.php:5789
 msgctxt "measurement unit"
 msgid "degree"
 msgstr ""
 
-#: assets/views/project-editor.php:3402 assets/views/project-editor.php:3851
-#: assets/views/project-editor.php:4305 assets/views/project-editor.php:4619
-#: assets/views/project-editor.php:5013 assets/views/project-editor.php:5326
-#: assets/views/project-editor.php:5741
+#: assets/views/project-editor.php:3416 assets/views/project-editor.php:3871
+#: assets/views/project-editor.php:4325 assets/views/project-editor.php:4641
+#: assets/views/project-editor.php:5037 assets/views/project-editor.php:5352
+#: assets/views/project-editor.php:5769
 #, fuzzy
 #| msgid "Normal"
 msgid "Z (normal)"
 msgstr "Normál"
 
-#: assets/views/project-editor.php:3405 assets/views/project-editor.php:3854
-#: assets/views/project-editor.php:4308 assets/views/project-editor.php:4622
-#: assets/views/project-editor.php:5016 assets/views/project-editor.php:5329
-#: assets/views/project-editor.php:5744
+#: assets/views/project-editor.php:3419 assets/views/project-editor.php:3874
+#: assets/views/project-editor.php:4328 assets/views/project-editor.php:4644
+#: assets/views/project-editor.php:5040 assets/views/project-editor.php:5355
+#: assets/views/project-editor.php:5772
 msgid "Rotation | X axis"
 msgstr ""
 
-#: assets/views/project-editor.php:3411 assets/views/project-editor.php:3860
-#: assets/views/project-editor.php:4314 assets/views/project-editor.php:4628
-#: assets/views/project-editor.php:5022 assets/views/project-editor.php:5335
-#: assets/views/project-editor.php:5750
+#: assets/views/project-editor.php:3425 assets/views/project-editor.php:3880
+#: assets/views/project-editor.php:4334 assets/views/project-editor.php:4650
+#: assets/views/project-editor.php:5046 assets/views/project-editor.php:5361
+#: assets/views/project-editor.php:5778
 msgid "Rotation | Y axis"
 msgstr ""
 
-#: assets/views/project-editor.php:3422 assets/views/project-editor.php:3426
-#: assets/views/project-editor.php:3432 assets/views/project-editor.php:3871
-#: assets/views/project-editor.php:3875 assets/views/project-editor.php:3881
-#: assets/views/project-editor.php:4325 assets/views/project-editor.php:4329
-#: assets/views/project-editor.php:4335 assets/views/project-editor.php:4639
-#: assets/views/project-editor.php:4643 assets/views/project-editor.php:4649
-#: assets/views/project-editor.php:5033 assets/views/project-editor.php:5037
-#: assets/views/project-editor.php:5043 assets/views/project-editor.php:5346
-#: assets/views/project-editor.php:5350 assets/views/project-editor.php:5356
-#: assets/views/project-editor.php:5761 assets/views/project-editor.php:5765
-#: assets/views/project-editor.php:5771
+#: assets/views/project-editor.php:3436 assets/views/project-editor.php:3440
+#: assets/views/project-editor.php:3446 assets/views/project-editor.php:3891
+#: assets/views/project-editor.php:3895 assets/views/project-editor.php:3901
+#: assets/views/project-editor.php:4345 assets/views/project-editor.php:4349
+#: assets/views/project-editor.php:4355 assets/views/project-editor.php:4661
+#: assets/views/project-editor.php:4665 assets/views/project-editor.php:4671
+#: assets/views/project-editor.php:5057 assets/views/project-editor.php:5061
+#: assets/views/project-editor.php:5067 assets/views/project-editor.php:5372
+#: assets/views/project-editor.php:5376 assets/views/project-editor.php:5382
+#: assets/views/project-editor.php:5789 assets/views/project-editor.php:5793
+#: assets/views/project-editor.php:5799
 #, fuzzy
 #| msgid "SkewX"
 msgid "Skew"
 msgstr "Döntés X"
 
-#: assets/views/project-editor.php:3426 assets/views/project-editor.php:3875
-#: assets/views/project-editor.php:4329 assets/views/project-editor.php:4643
-#: assets/views/project-editor.php:5037 assets/views/project-editor.php:5350
-#: assets/views/project-editor.php:5765
+#: assets/views/project-editor.php:3440 assets/views/project-editor.php:3895
+#: assets/views/project-editor.php:4349 assets/views/project-editor.php:4665
+#: assets/views/project-editor.php:5061 assets/views/project-editor.php:5376
+#: assets/views/project-editor.php:5793
 msgid "Skew | X axis"
 msgstr ""
 
-#: assets/views/project-editor.php:3432 assets/views/project-editor.php:3881
-#: assets/views/project-editor.php:4335 assets/views/project-editor.php:4649
-#: assets/views/project-editor.php:5043 assets/views/project-editor.php:5356
-#: assets/views/project-editor.php:5771
+#: assets/views/project-editor.php:3446 assets/views/project-editor.php:3901
+#: assets/views/project-editor.php:4355 assets/views/project-editor.php:4671
+#: assets/views/project-editor.php:5067 assets/views/project-editor.php:5382
+#: assets/views/project-editor.php:5799
 msgid "Skew | Y axis"
 msgstr ""
 
-#: assets/views/project-editor.php:3494
+#: assets/views/project-editor.php:3508
 msgid "outside"
 msgstr ""
 
-#: assets/views/project-editor.php:3495
+#: assets/views/project-editor.php:3509
 msgid "inside"
 msgstr ""
 
-#: assets/views/project-editor.php:3550
+#: assets/views/project-editor.php:3564
 msgid "Spread"
 msgstr ""
 
-#: assets/views/project-editor.php:3654
+#: assets/views/project-editor.php:3668
 msgid "Stacking order"
 msgstr ""
 
-#: assets/views/project-editor.php:3660
+#: assets/views/project-editor.php:3674
 #, fuzzy
 #| msgid "Default Options"
 msgid "default"
 msgstr "Alapértelmezett beállítások"
 
-#: assets/views/project-editor.php:3684
+#: assets/views/project-editor.php:3698
 msgid "Prevent mouse events"
 msgstr ""
 
-#: assets/views/project-editor.php:3696 assets/views/project-editor.php:3699
+#: assets/views/project-editor.php:3710 assets/views/project-editor.php:3713
 msgid "Custom CSS"
 msgstr "Egyedi CSS"
 
-#: assets/views/project-editor.php:3699
+#: assets/views/project-editor.php:3713
 msgid ""
 "You can enter CSS properties here for further customization. Example:\n"
 "\n"
@@ -8903,570 +9043,643 @@ msgid ""
 "overflow: hidden;"
 msgstr ""
 
-#: assets/views/project-editor.php:3731 assets/views/project-editor.php:4181
+#: assets/views/project-editor.php:3745 assets/views/project-editor.php:4201
 #, fuzzy
 #| msgid "Opening Text<br>Transition"
 msgid "Opening Text Transition"
 msgstr "Kezdő szöveg-animáció"
 
-#: assets/views/project-editor.php:3732 assets/views/project-editor.php:4514
+#: assets/views/project-editor.php:3746 assets/views/project-editor.php:4536
 #, fuzzy
 #| msgid "Loop or Middle<br>Transition"
 msgid "Loop or Middle Transition"
 msgstr "Ismétlődő vagy középső animáció"
 
-#: assets/views/project-editor.php:3733 assets/views/project-editor.php:4891
+#: assets/views/project-editor.php:3747 assets/views/project-editor.php:4915
 #, fuzzy
 #| msgid "Ending Text<br>Transition"
 msgid "Ending Text Transition"
 msgstr "Befejező szöveg-animáció"
 
-#: assets/views/project-editor.php:3734 assets/views/project-editor.php:5221
+#: assets/views/project-editor.php:3748 assets/views/project-editor.php:5247
 #, fuzzy
 #| msgid "Ending<br>Transition"
 msgid "Ending Transition"
 msgstr "Befejező animáció"
 
-#: assets/views/project-editor.php:3735 assets/views/project-editor.php:5636
+#: assets/views/project-editor.php:3749 assets/views/project-editor.php:5664
 #, fuzzy
 #| msgid "Hover<br>Transition"
 msgid "Hover Transition"
 msgstr "Hover animáció"
 
-#: assets/views/project-editor.php:3736 assets/views/project-editor.php:6015
+#: assets/views/project-editor.php:3750 assets/views/project-editor.php:6043
 #, fuzzy
 #| msgid "Parallax<br>Transition"
 msgid "Parallax Transition"
 msgstr "Parallax animáció"
 
-#: assets/views/project-editor.php:3741
+#: assets/views/project-editor.php:3752
+#, fuzzy
+#| msgid "Slide Transition"
+msgid "Scroll Transition"
+msgstr "Dia animáció"
+
+#: assets/views/project-editor.php:3761
 #, fuzzy
 #| msgid "Click here to choose an other icon"
 msgid "Click to choose transition"
 msgstr "Kattints ide egy másik ikon kiválasztásához"
 
-#: assets/views/project-editor.php:3771
+#: assets/views/project-editor.php:3791
 msgid ""
 "Plays when layers enter the scene. <br><br> Layers animate from these "
 "options toward their appearance set under the <b>STYLE</b> menu."
 msgstr ""
 
-#: assets/views/project-editor.php:3791 assets/views/project-editor.php:3795
-#: assets/views/project-editor.php:3802 assets/views/project-editor.php:4245
-#: assets/views/project-editor.php:4249 assets/views/project-editor.php:4256
-#: assets/views/project-editor.php:4559 assets/views/project-editor.php:4563
-#: assets/views/project-editor.php:4570 assets/views/project-editor.php:4953
-#: assets/views/project-editor.php:4957 assets/views/project-editor.php:4964
-#: assets/views/project-editor.php:5266 assets/views/project-editor.php:5270
-#: assets/views/project-editor.php:5277 assets/views/project-editor.php:5681
-#: assets/views/project-editor.php:5685 assets/views/project-editor.php:5692
+#: assets/views/project-editor.php:3811 assets/views/project-editor.php:3815
+#: assets/views/project-editor.php:3822 assets/views/project-editor.php:4265
+#: assets/views/project-editor.php:4269 assets/views/project-editor.php:4276
+#: assets/views/project-editor.php:4581 assets/views/project-editor.php:4585
+#: assets/views/project-editor.php:4592 assets/views/project-editor.php:4977
+#: assets/views/project-editor.php:4981 assets/views/project-editor.php:4988
+#: assets/views/project-editor.php:5292 assets/views/project-editor.php:5296
+#: assets/views/project-editor.php:5303 assets/views/project-editor.php:5709
+#: assets/views/project-editor.php:5713 assets/views/project-editor.php:5720
 msgid "Offset"
 msgstr ""
 
-#: assets/views/project-editor.php:3795 assets/views/project-editor.php:4249
-#: assets/views/project-editor.php:4563 assets/views/project-editor.php:4957
-#: assets/views/project-editor.php:5270 assets/views/project-editor.php:5685
+#: assets/views/project-editor.php:3815 assets/views/project-editor.php:4269
+#: assets/views/project-editor.php:4585 assets/views/project-editor.php:4981
+#: assets/views/project-editor.php:5296 assets/views/project-editor.php:5713
 msgid "Offset | X axis"
 msgstr ""
 
-#: assets/views/project-editor.php:3802 assets/views/project-editor.php:4256
-#: assets/views/project-editor.php:4570 assets/views/project-editor.php:4964
-#: assets/views/project-editor.php:5277 assets/views/project-editor.php:5692
+#: assets/views/project-editor.php:3822 assets/views/project-editor.php:4276
+#: assets/views/project-editor.php:4592 assets/views/project-editor.php:4988
+#: assets/views/project-editor.php:5303 assets/views/project-editor.php:5720
 msgid "Offset | Y axis"
 msgstr ""
 
-#: assets/views/project-editor.php:3961 assets/views/project-editor.php:4379
-#: assets/views/project-editor.php:4708 assets/views/project-editor.php:5087
-#: assets/views/project-editor.php:5435 assets/views/project-editor.php:5816
-#: assets/views/project-editor.php:6188
+#: assets/views/project-editor.php:3981 assets/views/project-editor.php:4399
+#: assets/views/project-editor.php:4730 assets/views/project-editor.php:5111
+#: assets/views/project-editor.php:5461 assets/views/project-editor.php:5844
+#: assets/views/project-editor.php:6216
 #, fuzzy
 #| msgid "Hover Transition properties"
 msgid "Transition Properties"
 msgstr "Hover animáció beállításai"
 
-#: assets/views/project-editor.php:3976 assets/views/project-editor.php:3980
+#: assets/views/project-editor.php:3996 assets/views/project-editor.php:4000
 msgid "Start at"
 msgstr ""
 
-#: assets/views/project-editor.php:4024 assets/views/project-editor.php:4481
-#: assets/views/project-editor.php:4836 assets/views/project-editor.php:5188
-#: assets/views/project-editor.php:5521 assets/views/project-editor.php:5896
+#: assets/views/project-editor.php:4044 assets/views/project-editor.php:4503
+#: assets/views/project-editor.php:4860 assets/views/project-editor.php:5214
+#: assets/views/project-editor.php:5549 assets/views/project-editor.php:5924
 #, fuzzy
 #| msgid "Style properties"
 msgid "Style Properties"
 msgstr "Stílusbeállítások"
 
-#: assets/views/project-editor.php:4150
+#: assets/views/project-editor.php:4170
 #, fuzzy
 #| msgid "Remove this layer"
 msgid "Keep this layer visible"
 msgstr "Réteg törlése"
 
-#: assets/views/project-editor.php:4154
+#: assets/views/project-editor.php:4174
 #, fuzzy
 #| msgid "Paste Layer"
 msgid "Static Layers"
 msgstr "Réteg beillesztése"
 
-#: assets/views/project-editor.php:4210
+#: assets/views/project-editor.php:4230
 msgid ""
 "Animates characters, words, or lines of text as they enter the scene. "
 "<br><br> Options specified here are the initial state of each fragment "
 "before they start animating toward the whole joint text."
 msgstr ""
 
-#: assets/views/project-editor.php:4394 assets/views/project-editor.php:4723
-#: assets/views/project-editor.php:5102 assets/views/project-editor.php:5450
+#: assets/views/project-editor.php:4414 assets/views/project-editor.php:4745
+#: assets/views/project-editor.php:5126 assets/views/project-editor.php:5476
 msgid "Start when"
 msgstr ""
 
-#: assets/views/project-editor.php:4412 assets/views/project-editor.php:4740
-#: assets/views/project-editor.php:5119 assets/views/project-editor.php:5467
+#: assets/views/project-editor.php:4422 assets/views/project-editor.php:4752
+#: assets/views/project-editor.php:5133 assets/views/project-editor.php:5483
+#, fuzzy
+#| msgid "Starting Slide:"
+msgid "Start When"
+msgstr "Kezdő dia:"
+
+#: assets/views/project-editor.php:4432 assets/views/project-editor.php:4762
+#: assets/views/project-editor.php:5143 assets/views/project-editor.php:5493
 msgid "with modifier"
 msgstr ""
 
-#: assets/views/project-editor.php:4446
+#: assets/views/project-editor.php:4441 assets/views/project-editor.php:4772
+#: assets/views/project-editor.php:5152 assets/views/project-editor.php:5502
+#, fuzzy
+#| msgid "Last Modified"
+msgid "Start When Modifier"
+msgstr "Utolsó módosítás"
+
+#: assets/views/project-editor.php:4468
 msgid "Shift in"
 msgstr ""
 
-#: assets/views/project-editor.php:4539
+#: assets/views/project-editor.php:4561
 msgid ""
 "Animates layers continuously with an optional Yo-yo effect. <br><br>Can also "
 "act as a middle animation step between Opening and Ending transitions."
 msgstr ""
 
-#: assets/views/project-editor.php:4808
+#: assets/views/project-editor.php:4832
 msgid "Loop Wait"
 msgstr ""
 
-#: assets/views/project-editor.php:4919
+#: assets/views/project-editor.php:4943
 msgid ""
 "Animates characters, words, or lines of text as they leave the scene. "
 "<br><br> Each fragment animate from the whole joint text toward the options "
 "you set here."
 msgstr ""
 
-#: assets/views/project-editor.php:5153
+#: assets/views/project-editor.php:5179
 msgid "Shift out"
 msgstr ""
 
-#: assets/views/project-editor.php:5246
+#: assets/views/project-editor.php:5272
 msgid ""
 "Plays when layers leave the scene. <br><br> Animates layers from their "
 "current state toward the options you set here."
 msgstr ""
 
-#: assets/views/project-editor.php:5660
+#: assets/views/project-editor.php:5688
 msgid "Plays transition when users tap or move their mouse cursor over layers."
 msgstr ""
 
-#: assets/views/project-editor.php:5850
+#: assets/views/project-editor.php:5878
 #, fuzzy
 #| msgid "Duration"
 msgid "Duration | reverse"
 msgstr "Időtartam"
 
-#: assets/views/project-editor.php:5853 assets/views/project-editor.php:5884
+#: assets/views/project-editor.php:5881 assets/views/project-editor.php:5912
 msgid "Same"
 msgstr ""
 
-#: assets/views/project-editor.php:5881
+#: assets/views/project-editor.php:5909
 msgid "Easing | reverse"
 msgstr ""
 
-#: assets/views/project-editor.php:5931
+#: assets/views/project-editor.php:5959
 msgid "Always on top"
 msgstr ""
 
-#: assets/views/project-editor.php:6041
+#: assets/views/project-editor.php:6069
 msgid ""
 "Moves layers at a different pace when scrolling or moving the mouse cursor."
 msgstr ""
 
-#: assets/views/project-editor.php:6046
+#: assets/views/project-editor.php:6074
 #, fuzzy
 #| msgid "Plugin Settings"
 msgid "Parallax Settings"
 msgstr "Plugin beállítások"
 
-#: assets/views/project-editor.php:6248
+#: assets/views/project-editor.php:6276
 #, fuzzy
 #| msgid "Linking"
 msgid "Layer linking"
 msgstr "Linkelés"
 
-#: assets/views/project-editor.php:6306
+#: assets/views/project-editor.php:6334
 #, fuzzy
 #| msgid "Layer options"
 msgid "Layer Actions"
 msgstr "Réteg beállításai"
 
-#: assets/views/project-editor.php:6316
+#: assets/views/project-editor.php:6344
 msgid ""
 "Scrolls below the project, pushing it outside of the viewport to make room "
 "for any content that follows."
 msgstr ""
 
-#: assets/views/project-editor.php:6343 assets/views/project-editor.php:6381
-#: assets/views/project-editor.php:6419 assets/views/project-editor.php:6457
+#: assets/views/project-editor.php:6371 assets/views/project-editor.php:6409
+#: assets/views/project-editor.php:6447 assets/views/project-editor.php:6485
 msgid "Scroll Offset"
 msgstr ""
 
-#: assets/views/project-editor.php:6354
+#: assets/views/project-editor.php:6382
 msgid "Scrolls to the next LayerSlider project on page (if there’s any)."
 msgstr ""
 
-#: assets/views/project-editor.php:6392
+#: assets/views/project-editor.php:6420
 msgid "Scrolls to the previous LayerSlider project on page (if there’s any)."
 msgstr ""
 
-#: assets/views/project-editor.php:6430
+#: assets/views/project-editor.php:6458
 msgid ""
 "Scrolls to the specified element. You can enter a CSS/jQuery selector to "
 "target elements. To target LayerSlider projects, use custom class names "
 "instead of relying on their randomized ID."
 msgstr ""
 
-#: assets/views/project-editor.php:6466
+#: assets/views/project-editor.php:6494
 #, fuzzy
 #| msgid "Select all"
 msgid "Selector"
 msgstr "Összes kijelölése"
 
-#: assets/views/project-editor.php:6477
+#: assets/views/project-editor.php:6505
 msgid ""
 "Jumps to the specified slide. Project Settings like Shuffle mode does not "
 "affect the selected slide."
 msgstr ""
 
-#: assets/views/project-editor.php:6486
+#: assets/views/project-editor.php:6514
 #, fuzzy
 #| msgid "Select slider"
 msgid "Select Slide"
 msgstr "Válassz egy slidert"
 
-#: assets/views/project-editor.php:6495
+#: assets/views/project-editor.php:6523
 msgid ""
 "Jumps to the next slide. Options like Shuffle mode or Two way slideshow can "
 "affect the sequence."
 msgstr ""
 
-#: assets/views/project-editor.php:6501
+#: assets/views/project-editor.php:6529
 msgid ""
 "Jumps to the previous slide. Options like Shuffle mode or Two way slideshow "
 "can affect the sequence."
 msgstr ""
 
-#: assets/views/project-editor.php:6508
+#: assets/views/project-editor.php:6536
 msgid ""
 "Stops the slideshow. Depending on your settings, layer animations and "
 "progress timers may not be interrupted, but your project will not commence "
 "to the next slide automatically."
 msgstr ""
 
-#: assets/views/project-editor.php:6514
+#: assets/views/project-editor.php:6542
 msgid "Resumes the slideshow and re-enables the automatic slide change."
 msgstr ""
 
-#: assets/views/project-editor.php:6522
+#: assets/views/project-editor.php:6550
 msgid ""
 "Instantly restarts the slide replaying all layer transitions from the "
 "beginning."
 msgstr ""
 
-#: assets/views/project-editor.php:6528
+#: assets/views/project-editor.php:6556
 msgid ""
 "Plays all transitions backward from the moment it’s triggered, then pauses "
 "at the beginning of the slide. An option is provided to continue replaying "
 "the slide normally afterward."
 msgstr ""
 
-#: assets/views/project-editor.php:6532
+#: assets/views/project-editor.php:6560
 msgid "Replay"
 msgstr ""
 
-#: assets/views/project-editor.php:6542
+#: assets/views/project-editor.php:6570
 msgid ""
 "Immediately sets the current slide back to its starting state and pauses it."
 msgstr ""
 
-#: assets/views/project-editor.php:6549
+#: assets/views/project-editor.php:6577
 msgid ""
 "Stops the project by freezing every animation taking place when triggered, "
 "including slide transitions when changing slides."
 msgstr ""
 
-#: assets/views/project-editor.php:6555
+#: assets/views/project-editor.php:6583
 msgid "Resumes the project and continues playing frozen animations."
 msgstr ""
 
-#: assets/views/project-editor.php:6561
+#: assets/views/project-editor.php:6589
 msgid ""
 "Toggles between Pause Project and Resume Project by respecting the current "
 "state."
 msgstr ""
 
-#: assets/views/project-editor.php:6569
+#: assets/views/project-editor.php:6597
 msgid "Starts playback of any active media element on the current slide."
 msgstr ""
 
-#: assets/views/project-editor.php:6575
+#: assets/views/project-editor.php:6603
 msgid "Pauses playback of any active media element on the current slide."
 msgstr ""
 
-#: assets/views/project-editor.php:6581
+#: assets/views/project-editor.php:6609
 msgid ""
 "Unmutes playback of any active media element on the current slide. Using "
 "this action may require a Click or Tap trigger due to browser restrictions."
 msgstr ""
 
-#: assets/views/project-editor.php:6589
+#: assets/views/project-editor.php:6617
 msgid ""
-"Opens Popups waiting in the background to be launched. Popups must be "
-"embedded on page."
+"Opens the selected Popup. Embedding it to the page is optional; the Popup "
+"will be loaded dynamically if needed. Manually embedding it in advance makes "
+"it open faster."
 msgstr ""
 
-#: assets/views/project-editor.php:6593
+#: assets/views/project-editor.php:6632
 #, fuzzy
 #| msgid "On this slide"
 msgid "Open With Slide"
 msgstr "Ezen a dián"
 
-#: assets/views/project-editor.php:6605
+#: assets/views/project-editor.php:6642
+msgid "Close if already open"
+msgstr ""
+
+#: assets/views/project-editor.php:6652
 msgid ""
 "Closes this Popup. Works only if the current project type is set to a Popup."
 msgstr ""
 
-#: assets/views/project-editor.php:6611
+#: assets/views/project-editor.php:6658
+msgid ""
+"Opens all Popups waiting in the background to be launched. Popups must be "
+"embedded on the page beforehand."
+msgstr ""
+
+#: assets/views/project-editor.php:6664
 msgid "Closes all opened Popups on page."
 msgstr ""
 
-#: assets/views/project-editor.php:6619
+#: assets/views/project-editor.php:6672
 msgid ""
 "Calls a JavaScript function by its name. This is intended for web "
 "developers. The function must be present on page prior triggering this "
 "action."
 msgstr ""
 
-#: assets/views/project-editor.php:6623
+#: assets/views/project-editor.php:6676
 msgid "Function Name"
 msgstr ""
 
-#: assets/views/project-editor.php:6626
+#: assets/views/project-editor.php:6679
 msgid "myFunction"
 msgstr ""
 
-#: assets/views/project-editor.php:6641
+#: assets/views/project-editor.php:6694
 #, fuzzy
 #| msgid "Layer options"
 msgid "Layer Action"
 msgstr "Réteg beállításai"
 
-#: assets/views/project-editor.php:6642
+#: assets/views/project-editor.php:6695
 msgid "ADD NEW LAYER ACTION..."
 msgstr ""
 
-#: assets/views/project-editor.php:6647
+#: assets/views/project-editor.php:6700
 #, fuzzy
 #| msgid "Add New Project"
 msgid "Scroll Below Project"
 msgstr "Új Projekt hozzáadása"
 
-#: assets/views/project-editor.php:6648
+#: assets/views/project-editor.php:6701
 msgid "Scroll to Next Project"
 msgstr ""
 
-#: assets/views/project-editor.php:6649
+#: assets/views/project-editor.php:6702
 msgid "Scroll to Previous Project"
 msgstr ""
 
-#: assets/views/project-editor.php:6650
+#: assets/views/project-editor.php:6703
 #, fuzzy
 #| msgid "Slider type"
 msgid "Scroll to Element"
 msgstr "Slider típus"
 
-#: assets/views/project-editor.php:6654
+#: assets/views/project-editor.php:6707
 #, fuzzy
 #| msgid "Import Slide"
 msgid "Jump to Slide"
 msgstr "Dia importálása"
 
-#: assets/views/project-editor.php:6655
+#: assets/views/project-editor.php:6708
 #, fuzzy
 #| msgid "Embed Slider"
 msgid "Next Slide"
 msgstr "Slider beágyazása"
 
-#: assets/views/project-editor.php:6656
+#: assets/views/project-editor.php:6709
 #, fuzzy
 #| msgid "Preview Slide"
 msgid "Previous Slide"
 msgstr "Dia előnézete"
 
-#: assets/views/project-editor.php:6660
+#: assets/views/project-editor.php:6713
 #, fuzzy
 #| msgid "Pause slideshow"
 msgid "Stop Slideshow"
 msgstr "Diavetítés szüneteltetése"
 
-#: assets/views/project-editor.php:6661
+#: assets/views/project-editor.php:6714
 #, fuzzy
 #| msgid "Pause slideshow"
 msgid "Start Slideshow"
 msgstr "Diavetítés szüneteltetése"
 
-#: assets/views/project-editor.php:6664
+#: assets/views/project-editor.php:6717
 #, fuzzy
 #| msgid "Slide Timing"
 msgid "Slide Animation Timeline"
 msgstr "Dia időzítése"
 
-#: assets/views/project-editor.php:6665
+#: assets/views/project-editor.php:6718
 #, fuzzy
 #| msgid "Duplicate"
 msgid "Replay Slide"
 msgstr "Duplikálás"
 
-#: assets/views/project-editor.php:6666
+#: assets/views/project-editor.php:6719
 #, fuzzy
 #| msgid "Removed slider"
 msgid "Reverse Slide"
 msgstr "Eltávolított slider"
 
-#: assets/views/project-editor.php:6667
+#: assets/views/project-editor.php:6720
 #, fuzzy
 #| msgid "Select slider"
 msgid "Reset Slide"
 msgstr "Válassz egy slidert"
 
-#: assets/views/project-editor.php:6670
+#: assets/views/project-editor.php:6723
 msgid "Project Animation Timeline"
 msgstr ""
 
-#: assets/views/project-editor.php:6671
+#: assets/views/project-editor.php:6724
 #, fuzzy
 #| msgid "My Projects"
 msgid "Pause Project"
 msgstr "Projektjeim"
 
-#: assets/views/project-editor.php:6672
+#: assets/views/project-editor.php:6725
 #, fuzzy
 #| msgid "Imported Group"
 msgid "Resume Project"
 msgstr "Importált csoport"
 
-#: assets/views/project-editor.php:6673
+#: assets/views/project-editor.php:6726
 msgid "Toggle Pause/Resume"
 msgstr ""
 
-#: assets/views/project-editor.php:6676
+#: assets/views/project-editor.php:6729
 msgid "Media Playback"
 msgstr ""
 
-#: assets/views/project-editor.php:6677
+#: assets/views/project-editor.php:6730
 #, fuzzy
 #| msgid "Media"
 msgid "Play Media"
 msgstr "Média"
 
-#: assets/views/project-editor.php:6678
+#: assets/views/project-editor.php:6731
 #, fuzzy
 #| msgid "Choose a role"
 msgid "Pause Media"
 msgstr "Válassz szerepkört"
 
-#: assets/views/project-editor.php:6679
+#: assets/views/project-editor.php:6732
 #, fuzzy
 #| msgid "Change Media"
 msgid "Unmute Media"
 msgstr "Média módosítása"
 
-#: assets/views/project-editor.php:6683
+#: assets/views/project-editor.php:6736
 #, fuzzy
 #| msgid "Repeat"
 msgid "Open Popup"
 msgstr "Ismétlés"
 
-#: assets/views/project-editor.php:6685
+#: assets/views/project-editor.php:6738
+#, fuzzy
+#| msgid "Repeat"
+msgid "Launch Popups"
+msgstr "Ismétlés"
+
+#: assets/views/project-editor.php:6739
 #, fuzzy
 #| msgid "Background position"
 msgid "Close All Popups"
 msgstr "Háttér pozíciója"
 
-#: assets/views/project-editor.php:6689
+#: assets/views/project-editor.php:6743
 msgid "Call JavaScript function"
 msgstr ""
 
-#: assets/views/project-editor.php:6699
+#: assets/views/project-editor.php:6753
 msgid "Trigger"
 msgstr ""
 
-#: assets/views/project-editor.php:6704
+#: assets/views/project-editor.php:6758
 #, fuzzy
 #| msgid "Click to import"
 msgid "Click or Tap"
 msgstr "Kattints az importáláshoz"
 
-#: assets/views/project-editor.php:6705
+#: assets/views/project-editor.php:6759
 msgid "Mouse Enter"
 msgstr ""
 
-#: assets/views/project-editor.php:6706
+#: assets/views/project-editor.php:6760
 msgid "Mouse Leave"
 msgstr ""
 
-#: assets/views/project-editor.php:6737
+#: assets/views/project-editor.php:6791
 msgid "Common Attributes"
 msgstr "Általános attribútumok"
 
-#: assets/views/project-editor.php:6790
+#: assets/views/project-editor.php:6844
 #, fuzzy
 #| msgid "Key"
 msgctxt "HTML attribute key"
 msgid "key"
 msgstr "Kulcs"
 
-#: assets/views/project-editor.php:6791
+#: assets/views/project-editor.php:6845
 #, fuzzy
 #| msgid "Value"
 msgctxt "HTML attribute value"
 msgid "value"
 msgstr "Érték"
 
-#: assets/views/project-editor.php:6814 assets/wp/scripts_l10n.php:11
+#: assets/views/project-editor.php:6866
+msgid "Quick Tip"
+msgstr ""
+
+#: assets/views/project-editor.php:6871
+msgid "Show QUICK TIP when publishing projects."
+msgstr ""
+
+#: assets/views/project-editor.php:6879
+#, fuzzy
+#| msgid "Paste embed or HTML code"
+msgid "Grab the embed code:"
+msgstr "Embed vagy HTML kód beillesztése"
+
+#: assets/views/project-editor.php:6890
+msgid "copy"
+msgstr ""
+
+#: assets/views/project-editor.php:6893 assets/views/system-status.php:135
+#: assets/views/system-status.php:172 assets/views/system-status.php:197
+#: assets/views/system-status.php:234
+msgid "OK"
+msgstr "Rendben"
+
+#: assets/views/project-editor.php:6903
+#, fuzzy
+#| msgid "Show More Options"
+msgid "Show more embed options"
+msgstr "Több opció mutatása"
+
+#: assets/views/project-editor.php:6919 assets/wp/scripts_l10n.php:11
 msgid "Save"
 msgstr "Mentés"
 
-#: assets/views/project-editor.php:6815
+#: assets/views/project-editor.php:6920
 msgid "Saving"
 msgstr ""
 
-#: assets/views/project-editor.php:6821
+#: assets/views/project-editor.php:6926
 #, fuzzy
 #| msgid "Publish"
 msgid "Publishing"
 msgstr "Közzététel"
 
-#: assets/views/project-editor.php:6847
+#: assets/views/project-editor.php:6952
 #, fuzzy
 #| msgid "leave it empty to use default"
 msgid "Restore to defaults"
 msgstr "hagyd üresen az a alapérték használatához"
 
-#: assets/views/project-editor.php:6852 assets/views/project-editor.php:6855
+#: assets/views/project-editor.php:6957
+#, fuzzy
+#| msgid "Advanced option"
+msgid "Advanced Option"
+msgstr "Haladó beállítás"
+
+#: assets/views/project-editor.php:6960
 msgid ""
 "This feature requires license registration. Click on the padlock to learn "
 "more."
 msgstr ""
 
-#: assets/views/project-editor.php:6858
+#: assets/views/project-editor.php:6963
 msgid ""
 "Triggers all hover transitions at once when moving the mouse cursor over or "
 "tapping on the slide."
 msgstr ""
 
-#: assets/views/project-editor.php:6861
+#: assets/views/project-editor.php:6966
 msgid ""
 "In some cases your layers may be wrapped by another element. For example, an "
 "＜A＞ tag when you use layer linking. By default, new attributes will be "
@@ -9476,351 +9689,355 @@ msgid ""
 "to apply this attribute on the layer element in all cases."
 msgstr ""
 
-#: assets/views/project-editor.php:6864
+#: assets/views/project-editor.php:6969
 msgid "Set layers list position"
 msgstr ""
 
-#: assets/views/project-editor.php:6867
+#: assets/views/project-editor.php:6972
 #, fuzzy
 #| msgid "Lock layer"
 msgid "Dock layers list"
 msgstr "Réteg zárolása"
 
-#: assets/views/project-editor.php:6870
+#: assets/views/project-editor.php:6975
 #, fuzzy
 #| msgid "Position"
 msgid "Pin layers list"
 msgstr "Pozíció"
 
-#: assets/views/project-editor.php:6873
+#: assets/views/project-editor.php:6978
 #, fuzzy
 #| msgid "Choose a role"
 msgid "Close layers list"
 msgstr "Válassz szerepkört"
 
-#: assets/views/project-editor.php:6876
+#: assets/views/project-editor.php:6981
 #, fuzzy
 #| msgid "Style properties"
 msgid "Copy style properties"
 msgstr "Stílusbeállítások"
 
-#: assets/views/project-editor.php:6879
+#: assets/views/project-editor.php:6984
 #, fuzzy
 #| msgid "Style properties"
 msgid "Paste style properties"
 msgstr "Stílusbeállítások"
 
-#: assets/views/project-editor.php:6882
+#: assets/views/project-editor.php:6987
 msgid "Copy transition properties"
 msgstr "Animáció beállítások másolása"
 
-#: assets/views/project-editor.php:6885
+#: assets/views/project-editor.php:6990
 msgid "Paste transition properties"
 msgstr "Animáció beállítások beillesztése"
 
-#: assets/views/project-editor.php:6888
+#: assets/views/project-editor.php:6993
 msgid "Expand / shrink sidebar"
 msgstr ""
 
-#: assets/views/project-editor.php:6891
+#: assets/views/project-editor.php:6996
 #, fuzzy
 #| msgid "Slider type"
 msgid "Align item to top left"
 msgstr "Slider típus"
 
-#: assets/views/project-editor.php:6894
+#: assets/views/project-editor.php:6999
 msgid "Align item to top center"
 msgstr ""
 
-#: assets/views/project-editor.php:6897
+#: assets/views/project-editor.php:7002
 #, fuzzy
 #| msgid "Slide settings"
 msgid "Align item to top right"
 msgstr "Dia beállítások"
 
-#: assets/views/project-editor.php:6900
+#: assets/views/project-editor.php:7005
 #, fuzzy
 #| msgid "leave it empty to use default"
 msgid "Align item to center left"
 msgstr "hagyd üresen az a alapérték használatához"
 
-#: assets/views/project-editor.php:6903
+#: assets/views/project-editor.php:7008
 #, fuzzy
 #| msgid "center center"
 msgid "Align item to center center"
 msgstr "középpont"
 
-#: assets/views/project-editor.php:6906
+#: assets/views/project-editor.php:7011
 #, fuzzy
 #| msgid "center right"
 msgid "Align item to center right"
 msgstr "jobb közép"
 
-#: assets/views/project-editor.php:6909
+#: assets/views/project-editor.php:7014
 #, fuzzy
 #| msgid "left bottom"
 msgid "Align item to bottom left"
 msgstr "bal alsó"
 
-#: assets/views/project-editor.php:6912
+#: assets/views/project-editor.php:7017
 #, fuzzy
 #| msgid "bottom center"
 msgid "Align item to bottom center"
 msgstr "alsó közép"
 
-#: assets/views/project-editor.php:6915
+#: assets/views/project-editor.php:7020
 #, fuzzy
 #| msgid "left bottom"
 msgid "Align item to bottom right"
 msgstr "bal alsó"
 
-#: assets/views/project-editor.php:6976
+#: assets/views/project-editor.php:7081
 #, fuzzy
 #| msgid "Overline"
 msgid "Overlapping Layers"
 msgstr "Föléhúzás"
 
-#: assets/views/project-editor.php:6984
+#: assets/views/project-editor.php:7089
 msgid "Align Layer"
 msgstr "Réteg igazítása"
 
-#: assets/views/project-editor.php:6985
+#: assets/views/project-editor.php:7090
 #, fuzzy
 #| msgid "Align Layer"
 msgid "Align Layers"
 msgstr "Réteg igazítása"
 
-#: assets/views/project-editor.php:6991 assets/views/project-editor.php:7030
+#: assets/views/project-editor.php:7096 assets/views/project-editor.php:7135
 msgid "Left Edge"
 msgstr "Bal szegély"
 
-#: assets/views/project-editor.php:6995 assets/views/project-editor.php:7034
+#: assets/views/project-editor.php:7100 assets/views/project-editor.php:7139
 msgid "Horizontal Center"
 msgstr "Vízszintes középpont"
 
-#: assets/views/project-editor.php:6999 assets/views/project-editor.php:7038
+#: assets/views/project-editor.php:7104 assets/views/project-editor.php:7143
 msgid "Right Edge"
 msgstr "Jobb szegély"
 
-#: assets/views/project-editor.php:7004 assets/views/project-editor.php:7043
+#: assets/views/project-editor.php:7109 assets/views/project-editor.php:7148
 msgid "Top Edge"
 msgstr "Felső szegély"
 
-#: assets/views/project-editor.php:7008 assets/views/project-editor.php:7047
+#: assets/views/project-editor.php:7113 assets/views/project-editor.php:7152
 msgid "Vertical Center"
 msgstr "Függőleges középpont"
 
-#: assets/views/project-editor.php:7012 assets/views/project-editor.php:7051
+#: assets/views/project-editor.php:7117 assets/views/project-editor.php:7156
 msgid "Bottom Edge"
 msgstr "Alsó szegély"
 
-#: assets/views/project-editor.php:7024
+#: assets/views/project-editor.php:7129
 #, fuzzy
 #| msgid "View Selection"
 msgid "Align Layers in Selection"
 msgstr "Kijelölés megtekintése"
 
-#: assets/views/project-editor.php:7057
+#: assets/views/project-editor.php:7162
 msgid "Duplicate Layer"
 msgstr "Réteg duplikálása"
 
-#: assets/views/project-editor.php:7058
+#: assets/views/project-editor.php:7163
 #, fuzzy
 #| msgid "Duplicate Layer"
 msgid "Duplicate Layers"
 msgstr "Réteg duplikálása"
 
-#: assets/views/project-editor.php:7067
+#: assets/views/project-editor.php:7172
 msgid "Remove Layer"
 msgstr "Réteg törlése"
 
-#: assets/views/project-editor.php:7068
+#: assets/views/project-editor.php:7173
 #, fuzzy
 #| msgid "Remove Layer"
 msgid "Remove Layers"
 msgstr "Réteg törlése"
 
-#: assets/views/project-editor.php:7073
+#: assets/views/project-editor.php:7178
 msgid "Copy Layer"
 msgstr "Réteg másolása"
 
-#: assets/views/project-editor.php:7074
+#: assets/views/project-editor.php:7179
 #, fuzzy
 #| msgid "Copy Layer"
 msgid "Copy Layers"
 msgstr "Réteg másolása"
 
-#: assets/views/project-editor.php:7083
+#: assets/views/project-editor.php:7188
 msgid "Paste Layer"
 msgstr "Réteg beillesztése"
 
-#: assets/views/project-editor.php:7084
+#: assets/views/project-editor.php:7189
 #, fuzzy
 #| msgid "Paste Layer"
 msgid "Paste Layers"
 msgstr "Réteg beillesztése"
 
-#: assets/views/project-editor.php:7094
+#: assets/views/project-editor.php:7199
 msgid "Toggle Layer Visibility"
 msgstr "Réteg láthatóságának váltása"
 
-#: assets/views/project-editor.php:7095
+#: assets/views/project-editor.php:7200
 #, fuzzy
 #| msgid "Toggle Layer Visibility"
 msgid "Toggle Layers Visibility"
 msgstr "Réteg láthatóságának váltása"
 
-#: assets/views/project-editor.php:7099
+#: assets/views/project-editor.php:7204
 msgid "Toggle Layer Locking"
 msgstr "Réteg zárolásának váltása"
 
-#: assets/views/project-editor.php:7100
+#: assets/views/project-editor.php:7205
 #, fuzzy
 #| msgid "Toggle Layer Locking"
 msgid "Toggle Layers Locking"
 msgstr "Réteg zárolásának váltása"
 
-#: assets/views/project-editor.php:7105
+#: assets/views/project-editor.php:7210
 msgid "Copy Layer Styles"
 msgstr "Rétegstílusok másolása"
 
-#: assets/views/project-editor.php:7109
+#: assets/views/project-editor.php:7214
 msgid "Paste Layer Styles"
 msgstr "Rétegstílusok beillesztése"
 
-#: assets/views/project-editor.php:7116
+#: assets/views/project-editor.php:7221
 #, fuzzy
 #| msgid "Background image"
 msgid "Pick image"
 msgstr "Háttérkép"
 
-#: assets/views/project-editor.php:7117
+#: assets/views/project-editor.php:7222
 #, fuzzy
 #| msgid "use post image"
 msgid "Use post image"
 msgstr "bejegyzés képének használata"
 
-#: assets/views/project-editor.php:7118
+#: assets/views/project-editor.php:7223
 #, fuzzy
 #| msgid "insert from URL"
 msgid "Enter from URL"
 msgstr "URL megadása"
 
-#: assets/views/project-editor.php:7120
+#: assets/views/project-editor.php:7225
 #, fuzzy
 #| msgid "Image Editor"
 msgid "Image editor"
 msgstr "Képszerkesztő"
 
-#: assets/views/project-editor.php:7122
+#: assets/views/project-editor.php:7227
 #, fuzzy
 #| msgid "Remove Layer"
 msgid "Remove image"
 msgstr "Réteg törlése"
 
-#: assets/views/project-editor.php:7130
+#: assets/views/project-editor.php:7235
 #, fuzzy
 #| msgid "Duplicate"
 msgid "Duplicate Slide"
 msgstr "Duplikálás"
 
-#: assets/views/project-editor.php:7134
+#: assets/views/project-editor.php:7239
 #, fuzzy
 #| msgid "published"
 msgid "Unpublish Slide"
 msgstr "közzétett"
 
-#: assets/views/project-editor.php:7138
+#: assets/views/project-editor.php:7243
 #, fuzzy
 #| msgid "Publish"
 msgid "Publish Slide"
 msgstr "Közzététel"
 
-#: assets/views/project-editor.php:7142
+#: assets/views/project-editor.php:7247
 #, fuzzy
 #| msgid "Removed slider"
 msgid "Remove Slide"
 msgstr "Eltávolított slider"
 
-#: assets/views/project-editor.php:7147
+#: assets/views/project-editor.php:7252
 #, fuzzy
 #| msgid "Slide Thumbnail"
 msgid "Generate Thumbnail"
 msgstr "Dia előnézete"
 
-#: assets/views/project-editor.php:7154
+#: assets/views/project-editor.php:7259
 #, fuzzy
 #| msgid "Slider Settings"
 msgid "Sidebar Settings"
 msgstr "Slider beállítások"
 
-#: assets/views/project-editor.php:7161
+#: assets/views/project-editor.php:7266
 #, fuzzy
 #| msgid "Actions"
 msgid "Section tabs"
 msgstr "Műveletek"
 
-#: assets/views/project-editor.php:7165
+#: assets/views/project-editor.php:7270
 msgid "Expand all"
 msgstr ""
 
-#: assets/views/project-editor.php:7174
+#: assets/views/project-editor.php:7279
 msgid "Collapse all"
 msgstr ""
 
-#: assets/views/project-editor.php:7180
+#: assets/views/project-editor.php:7285
 msgid "Auto close"
 msgstr ""
 
-#: assets/views/project-editor.php:7189
+#: assets/views/project-editor.php:7294
 #, fuzzy
 #| msgid "Layer editor"
 msgid "Layers List Pos."
 msgstr "Réteg szerkesztő"
 
-#: assets/views/project-editor.php:7194
+#: assets/views/project-editor.php:7299
 #, fuzzy
 #| msgid "Left Edge"
 msgid "Left side"
 msgstr "Bal szegély"
 
-#: assets/views/project-editor.php:7195
+#: assets/views/project-editor.php:7300
 #, fuzzy
 #| msgid "Right Edge"
 msgid "Right side"
 msgstr "Jobb szegély"
 
-#: assets/views/project-editor.php:7202
+#: assets/views/project-editor.php:7307
 #, fuzzy
 #| msgid "Align Layer"
 msgid "Pin Layers List"
 msgstr "Réteg igazítása"
 
-#: assets/views/project-editor.php:7215
+#: assets/views/project-editor.php:7316
+msgid "Show Quick Tip when publishing"
+msgstr ""
+
+#: assets/views/project-editor.php:7329
 #, fuzzy
 #| msgid "Interface Settings"
 msgid "Workspace Settings"
 msgstr "Interfész beállítások"
 
-#: assets/views/project-editor.php:7221
+#: assets/views/project-editor.php:7335
 #, fuzzy
 #| msgid "Show More"
 msgid "Show rulers"
 msgstr "Mutass többet"
 
-#: assets/views/project-editor.php:7227
+#: assets/views/project-editor.php:7341
 #, fuzzy
 #| msgid "Show me"
 msgid "Show guides"
 msgstr "Mutasd"
 
-#: assets/views/project-editor.php:7233
+#: assets/views/project-editor.php:7347
 #, fuzzy
 #| msgid "Show me"
 msgid "Show info panel"
 msgstr "Mutasd"
 
-#: assets/views/project-editor.php:7242
+#: assets/views/project-editor.php:7356
 msgid "Workspace Padding"
 msgstr ""
 
@@ -9930,11 +10147,6 @@ msgstr "LayerSlider adatbázis:"
 #: assets/views/system-status.php:135
 msgid "Error"
 msgstr ""
-
-#: assets/views/system-status.php:135 assets/views/system-status.php:172
-#: assets/views/system-status.php:197 assets/views/system-status.php:234
-msgid "OK"
-msgstr "Rendben"
 
 #: assets/views/system-status.php:139
 msgid ""
@@ -10276,13 +10488,13 @@ msgstr "LayerSlider animáció építő"
 
 #: assets/views/transition-builder.php:100
 #: assets/views/transition-builder.php:127
-#: assets/views/transition-builder.php:629 assets/wp/scripts_l10n.php:286
+#: assets/views/transition-builder.php:629 assets/wp/scripts_l10n.php:291
 msgid "Type transition name"
 msgstr ""
 
 #: assets/views/transition-builder.php:101
 #: assets/views/transition-builder.php:128
-#: assets/views/transition-builder.php:630 assets/wp/scripts_l10n.php:287
+#: assets/views/transition-builder.php:630 assets/wp/scripts_l10n.php:292
 msgid "Remove transition"
 msgstr ""
 
@@ -10305,24 +10517,24 @@ msgstr ""
 msgid "Untitled"
 msgstr ""
 
-#: assets/wp/actions.php:292
+#: assets/wp/actions.php:314
 #, php-format
 msgid " %s ago"
 msgstr "%s ezelőtt"
 
-#: assets/wp/actions.php:388
+#: assets/wp/actions.php:410
 #, fuzzy
 #| msgid "Embedding Your Projects"
 msgid "Unnamed Project"
 msgstr "Projektek beágyazása"
 
-#: assets/wp/actions.php:1133 assets/wp/scripts_l10n.php:65
+#: assets/wp/actions.php:1175 assets/wp/scripts_l10n.php:65
 #, fuzzy
 #| msgid "Imported Group"
 msgid "Import Error"
 msgstr "Importált csoport"
 
-#: assets/wp/actions.php:1134
+#: assets/wp/actions.php:1176
 msgid ""
 "LayerSlider couldn’t download your selected slider. Please check LayerSlider "
 "→ Options → System Status for potential issues. The WP Remote functions may "
@@ -10330,7 +10542,7 @@ msgid ""
 "connections to our domain."
 msgstr ""
 
-#: assets/wp/actions.php:1177
+#: assets/wp/actions.php:1219
 msgid ""
 "LayerSlider couldn’t save the downloaded slider on your server. Please check "
 "LayerSlider → Options → System Status for potential issues. The most common "
@@ -10338,25 +10550,25 @@ msgid ""
 "uploads/ directory."
 msgstr ""
 
-#: assets/wp/actions.php:1223
+#: assets/wp/actions.php:1265
 msgid "Imported Group"
 msgstr "Importált csoport"
 
-#: assets/wp/actions.php:1355 assets/wp/actions.php:1383
+#: assets/wp/actions.php:1397 assets/wp/actions.php:1425
 msgid ""
 "It looks like your files isn’t writable, so PHP couldn’t make any changes "
 "(CHMOD)."
 msgstr ""
 
-#: assets/wp/actions.php:1355 assets/wp/actions.php:1383
+#: assets/wp/actions.php:1397 assets/wp/actions.php:1425
 msgid "Cannot write to file"
 msgstr ""
 
-#: assets/wp/actions.php:1369
+#: assets/wp/actions.php:1411
 msgid "It looks like you haven’t selected any skin to edit."
 msgstr ""
 
-#: assets/wp/actions.php:1369
+#: assets/wp/actions.php:1411
 msgid "No skin selected."
 msgstr ""
 
@@ -10434,11 +10646,11 @@ msgstr "Utolsó módosítás"
 msgid "Sliders"
 msgstr "Sliderek"
 
-#: assets/wp/notices.php:107
+#: assets/wp/notices.php:110
 msgid "Hide this banner"
 msgstr "Banner elrejtése"
 
-#: assets/wp/notices.php:145
+#: assets/wp/notices.php:148
 #, php-format
 msgid ""
 "Register your LayerSlider license to receive live updates and premium "
@@ -10870,145 +11082,145 @@ msgstr "Mit lássunk?"
 msgid "Video poster"
 msgstr "Videó poszter"
 
-#: assets/wp/scripts_l10n.php:209
+#: assets/wp/scripts_l10n.php:213
 msgid "Slide Options"
 msgstr "Dia beállítások"
 
-#: assets/wp/scripts_l10n.php:210
+#: assets/wp/scripts_l10n.php:214
 #, fuzzy
 #| msgid "Layer options"
 msgid "Layer Options"
 msgstr "Réteg beállításai"
 
-#: assets/wp/scripts_l10n.php:211
+#: assets/wp/scripts_l10n.php:215
 #, php-format
 msgid "Slide #%d"
 msgstr "Dia #%d"
 
-#: assets/wp/scripts_l10n.php:212
+#: assets/wp/scripts_l10n.php:216
 #, php-format
 msgid "Slide #%d copy"
 msgstr "Dia #%d másolat"
 
-#: assets/wp/scripts_l10n.php:214
+#: assets/wp/scripts_l10n.php:218
 #, php-format
 msgid "Layer #%d copy"
 msgstr "Réteg #%d másolat"
 
-#: assets/wp/scripts_l10n.php:220
+#: assets/wp/scripts_l10n.php:224
 #, fuzzy
 #| msgid "Google Fonts"
 msgid "Used Fonts"
 msgstr "Google Fonts"
 
-#: assets/wp/scripts_l10n.php:221
+#: assets/wp/scripts_l10n.php:225
 msgid "Drag me :)"
 msgstr "Fogj meg! :)"
 
-#: assets/wp/scripts_l10n.php:222
+#: assets/wp/scripts_l10n.php:226
 msgid "Double click to<br> set image"
 msgstr "Dupla katt a kép <br> kiválasztásához"
 
-#: assets/wp/scripts_l10n.php:223
+#: assets/wp/scripts_l10n.php:227
 msgid "Double click to<br> add media"
 msgstr "Dupla katt a média <br> kiválasztásához"
 
-#: assets/wp/scripts_l10n.php:224
+#: assets/wp/scripts_l10n.php:228
 msgid "Double click to<br> add icon"
 msgstr "Dupla katt az ikon <br> kiválasztásához"
 
-#: assets/wp/scripts_l10n.php:225
+#: assets/wp/scripts_l10n.php:229
 #, fuzzy
 #| msgid "Double click to<br> add media"
 msgid "Double click to<br> add shape"
 msgstr "Dupla katt a média <br> kiválasztásához"
 
-#: assets/wp/scripts_l10n.php:226
+#: assets/wp/scripts_l10n.php:230
 msgid "Text Layer"
 msgstr "Szövegréteg"
 
-#: assets/wp/scripts_l10n.php:227
+#: assets/wp/scripts_l10n.php:231
 msgid "HTML Layer"
 msgstr "HTML réteg"
 
-#: assets/wp/scripts_l10n.php:229
+#: assets/wp/scripts_l10n.php:233
 msgid "Howdy, [author]"
 msgstr ""
 
-#: assets/wp/scripts_l10n.php:230
+#: assets/wp/scripts_l10n.php:234
 msgid "Preview Slide"
 msgstr "Dia előnézete"
 
-#: assets/wp/scripts_l10n.php:231
+#: assets/wp/scripts_l10n.php:235
 #, fuzzy
 #| msgid "No Preview"
 msgid "Stop Preview"
 msgstr "Nincs előnézet"
 
-#: assets/wp/scripts_l10n.php:232
+#: assets/wp/scripts_l10n.php:236
 msgid ""
 "Layer Preview is not available in Multiple Selection Mode. Select only one "
 "layer to use this feature. "
 msgstr ""
 
-#: assets/wp/scripts_l10n.php:233
+#: assets/wp/scripts_l10n.php:237
 #, php-format
 msgid ""
 "Auto-generated URLs are not available in Preview. This layer will link to "
 "“%s” on your front-end pages."
 msgstr ""
 
-#: assets/wp/scripts_l10n.php:234
+#: assets/wp/scripts_l10n.php:238
 #, php-format
 msgid "Until the end of Slide #%d"
 msgstr ""
 
-#: assets/wp/scripts_l10n.php:235
+#: assets/wp/scripts_l10n.php:239
 msgid "There’s nothing to paste. Copy a layer first!"
 msgstr "Nincs mit beilleszteni. Másolj egy réteget először!"
 
-#: assets/wp/scripts_l10n.php:236
+#: assets/wp/scripts_l10n.php:240
 msgid "There is nothing to paste!"
 msgstr "Nincs mit beilleszteni!"
 
-#: assets/wp/scripts_l10n.php:237
+#: assets/wp/scripts_l10n.php:241
 msgid "Are you sure you want to remove this slide?"
 msgstr "Biztos törölni szeretnéd ezt a diát?"
 
-#: assets/wp/scripts_l10n.php:238
+#: assets/wp/scripts_l10n.php:242
 msgid "Are you sure you want to remove this layer?"
 msgstr "Biztos törölni szeretnéd ezt a réteget?"
 
-#: assets/wp/scripts_l10n.php:239
+#: assets/wp/scripts_l10n.php:243
 #, fuzzy
 #| msgid "Pick an image to use it in LayerSlider WP"
 msgid "Pick an image to use it in LayerSlider"
 msgstr "Válassz egy képet a LayerSliderben való használathoz"
 
-#: assets/wp/scripts_l10n.php:240
+#: assets/wp/scripts_l10n.php:244
 #, fuzzy
 #| msgid "Choose a file to import sliders."
 msgid "Choose video or audio files"
 msgstr "Válassz ki egy fájlt az importáláshoz."
 
-#: assets/wp/scripts_l10n.php:241
+#: assets/wp/scripts_l10n.php:245
 msgid "Upload error"
 msgstr "Hiba a feltöltés során"
 
-#: assets/wp/scripts_l10n.php:242
+#: assets/wp/scripts_l10n.php:246
 #, php-format
 msgid "Upload error: %s"
 msgstr "Hiba a feltöltés során %s"
 
-#: assets/wp/scripts_l10n.php:243
+#: assets/wp/scripts_l10n.php:247
 msgid "Invalid format"
 msgstr "Érvénytelen formátum"
 
-#: assets/wp/scripts_l10n.php:244
+#: assets/wp/scripts_l10n.php:248
 msgid "Enter an image URL"
 msgstr "Kép URL megadása"
 
-#: assets/wp/scripts_l10n.php:245
+#: assets/wp/scripts_l10n.php:249
 msgid ""
 "Are you sure you want to apply the currently selected transitions and "
 "effects on the other slides?"
@@ -11016,11 +11228,11 @@ msgstr ""
 "Biztos szeretnéd értelmezni a jelenleg kiválasztott animációkat az összes "
 "többi diára?"
 
-#: assets/wp/scripts_l10n.php:246
+#: assets/wp/scripts_l10n.php:250
 msgid "No posts were found with the current filters."
 msgstr "Nem találhatóak bejegyzések jelen szűrők mellett."
 
-#: assets/wp/scripts_l10n.php:247
+#: assets/wp/scripts_l10n.php:251
 #, php-format
 msgid ""
 "It seems there is a server issue that prevented LayerSlider from saving your "
@@ -11032,7 +11244,7 @@ msgid ""
 " %s"
 msgstr ""
 
-#: assets/wp/scripts_l10n.php:248
+#: assets/wp/scripts_l10n.php:252
 msgid ""
 "You have unsaved changes on this page. Do you want to leave and discard the "
 "changes made since your last save?"
@@ -11040,49 +11252,49 @@ msgstr ""
 "Az oldalon nem mentett változások találhatóak, melyek elnavigálás esetén "
 "elvesznének. Biztos folytatod?"
 
-#: assets/wp/scripts_l10n.php:249
+#: assets/wp/scripts_l10n.php:253
 #, php-format
 msgid "WP Page: %s"
 msgstr ""
 
-#: assets/wp/scripts_l10n.php:250
+#: assets/wp/scripts_l10n.php:254
 #, php-format
 msgid "WP Post: %s"
 msgstr ""
 
-#: assets/wp/scripts_l10n.php:251
+#: assets/wp/scripts_l10n.php:255
 #, fuzzy, php-format
 #| msgid "Attachments"
 msgid "WP Attachment: %s"
 msgstr "Csatolmányok"
 
-#: assets/wp/scripts_l10n.php:252
+#: assets/wp/scripts_l10n.php:256
 #, fuzzy
 #| msgid "Dynamic content from posts"
 msgid "URL from Dynamic content"
 msgstr "Dinamikus tartalom bejegyzésekből"
 
-#: assets/wp/scripts_l10n.php:253
+#: assets/wp/scripts_l10n.php:257
 #, fuzzy, php-format
 #| msgid "LayerSlider Action: %s"
 msgid "LS Action: %s"
 msgstr "LayerSlider akció: %s"
 
-#: assets/wp/scripts_l10n.php:254
+#: assets/wp/scripts_l10n.php:258
 #, fuzzy
 #| msgid "No slides found."
 msgid "No projects found."
 msgstr "Nem található dia."
 
-#: assets/wp/scripts_l10n.php:255
+#: assets/wp/scripts_l10n.php:259
 msgid "No slides found."
 msgstr "Nem található dia."
 
-#: assets/wp/scripts_l10n.php:256
+#: assets/wp/scripts_l10n.php:260
 msgid "No layers found."
 msgstr "Nem találhatóak rétegek."
 
-#: assets/wp/scripts_l10n.php:258
+#: assets/wp/scripts_l10n.php:262
 #, fuzzy
 #| msgid ""
 #| "Are you sure you want to apply the currently selected transitions and "
@@ -11094,36 +11306,43 @@ msgstr ""
 "Biztos szeretnéd értelmezni a jelenleg kiválasztott animációkat az összes "
 "többi diára?"
 
-#: assets/wp/scripts_l10n.php:268
+#: assets/wp/scripts_l10n.php:272
 msgid "Dynamic"
 msgstr ""
 
-#: assets/wp/scripts_l10n.php:272
+#: assets/wp/scripts_l10n.php:276
 msgid "The entered SVG code doesn’t seem to be valid."
 msgstr ""
 
-#: assets/wp/scripts_l10n.php:273
+#: assets/wp/scripts_l10n.php:277
 #, fuzzy
 #| msgid "Kreatura Media"
 msgid "Insert Object"
 msgstr "Kreatura Media"
 
-#: assets/wp/scripts_l10n.php:279
+#: assets/wp/scripts_l10n.php:282
+#, fuzzy, php-format
+#| msgid "options"
+msgctxt "Shape Options (e.g. Wave Options, etc.)"
+msgid "%s Options"
+msgstr "beállítások"
+
+#: assets/wp/scripts_l10n.php:284
 #, fuzzy
 #| msgid "Uploading, please wait ..."
 msgid "Loading, please wait..."
 msgstr "Feltöltés, kérlek várj"
 
-#: assets/wp/scripts_l10n.php:281
+#: assets/wp/scripts_l10n.php:286
 msgctxt "Input value is changed via smart operation"
 msgid "SET"
 msgstr ""
 
-#: assets/wp/scripts_l10n.php:288
+#: assets/wp/scripts_l10n.php:293
 msgid "Are you sure you want to remove this transition?"
 msgstr ""
 
-#: assets/wp/scripts_l10n.php:293
+#: assets/wp/scripts_l10n.php:298
 #, fuzzy
 #| msgid ""
 #| "You’re about to remove this group. All your sliders will be moved and "
@@ -11204,11 +11423,11 @@ msgstr ""
 "látogatóid számára. Töröld az ütemezést a %sSlider Beállítások -> Közzététel"
 "%s menüpont alatt amennyiben újra láthatóvá szeretnéd tenni."
 
-#: assets/wp/shortcodes.php:392
+#: assets/wp/shortcodes.php:394
 msgid "Premium features is available for preview purposes only."
 msgstr "A prémium funkciók csak előnézetként elérhetőek."
 
-#: assets/wp/shortcodes.php:393
+#: assets/wp/shortcodes.php:395
 #, fuzzy, php-format
 #| msgid ""
 #| "We’ve detected that you’re using premium features in this slider, but you "
@@ -11226,14 +11445,14 @@ msgstr ""
 "elérhetőek látogatóid számára aktiváció nélkül. %sKattints ide a további "
 "részletekért%s. Észlelt prémium funkciók: %s "
 
-#: assets/wp/shortcodes.php:427
+#: assets/wp/shortcodes.php:429
 #, fuzzy
 #| msgid ""
 #| "LayerSlider encountered a problem while it tried to show your slider."
 msgid "LayerSlider encountered a problem while it tried to show your project."
 msgstr "A LayerSlider problémába ütközött slidered megjelenítése közben."
 
-#: assets/wp/shortcodes.php:431
+#: assets/wp/shortcodes.php:433
 #, fuzzy
 #| msgid ""
 #| "Please make sure that you’ve used the right shortcode or method to insert "
@@ -11248,7 +11467,7 @@ msgstr ""
 "slidered beszúrására, valamint hogy a kérdéses slider létezik és nem került "
 "eltávolításra korábban."
 
-#: assets/wp/shortcodes.php:439
+#: assets/wp/shortcodes.php:441
 msgid ""
 "Only you and other administrators can see this to take appropriate actions "
 "if necessary."
@@ -11505,9 +11724,6 @@ msgstr "https://layerslider.kreaturamedia.com"
 
 #~ msgid "Justify"
 #~ msgstr "Sorkizárt"
-
-#~ msgid "Advanced option"
-#~ msgstr "Haladó beállítás"
 
 #~ msgid "Web Application Icons"
 #~ msgstr "Webalkalmazások"
@@ -11944,9 +12160,6 @@ msgstr "https://layerslider.kreaturamedia.com"
 
 #~ msgid "Remove"
 #~ msgstr "Eltávolítás"
-
-#~ msgid "Show More Options"
-#~ msgstr "Több opció mutatása"
 
 #~ msgid "Linking, Ken Burns, Parallax"
 #~ msgstr "Linkelés, Ken Burns, Parallax"

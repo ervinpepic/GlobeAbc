@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: LayerSlider WP 7.1.2\n"
-"POT-Creation-Date: 2022-03-10 16:24+0100\n"
+"Project-Id-Version: LayerSlider WP 7.2.2\n"
+"POT-Creation-Date: 2022-06-01 16:25+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Patrick PERRONO <patrick.perrono@instinct-photo.fr>\n"
 "Language-Team: \n"
@@ -43,8 +43,8 @@ msgstr ""
 "Êtes-vous sûr de vouloir continuer ?"
 
 #: assets/classes/class.ls.elementor.widget.php:42
-#: assets/views/project-editor.php:1916 assets/views/project-editor.php:1954
-#: assets/views/project-editor.php:2039
+#: assets/views/project-editor.php:1928 assets/views/project-editor.php:1967
+#: assets/views/project-editor.php:2052
 msgid "Content"
 msgstr "Contenu"
 
@@ -79,7 +79,7 @@ msgstr "Mode de mise en page"
 #: assets/classes/class.ls.elementor.widget.php:103
 #: assets/classes/class.ls.elementor.widget.php:118
 #: assets/classes/class.ls.elementor.widget.php:128
-#: assets/views/project-editor.php:6597 assets/wp/gutenberg_l10n.php:20
+#: assets/views/project-editor.php:6636 assets/wp/gutenberg_l10n.php:20
 #: assets/wp/gutenberg_l10n.php:23 assets/wp/gutenberg_l10n.php:26
 #: assets/wp/gutenberg_l10n.php:31
 msgid "No override"
@@ -252,8 +252,7 @@ msgstr ""
 msgid "An update is available for LayerSlider!"
 msgstr "Une mise à jour est disponible pour LayerSlider !"
 
-#: assets/classes/class.ls.notifications.php:190
-#: assets/views/dashboard.php:1112
+#: assets/classes/class.ls.notifications.php:190 assets/views/dashboard.php:769
 msgid "Install Now"
 msgstr "Installer maintenant"
 
@@ -304,7 +303,7 @@ msgstr ""
 msgid "What’s this?"
 msgstr "Qu'est-ce que c'est ?"
 
-#: assets/classes/class.ls.notifications.php:236 assets/wp/notices.php:126
+#: assets/classes/class.ls.notifications.php:236 assets/wp/notices.php:129
 msgid "OK, I understand"
 msgstr "OK, je comprends"
 
@@ -552,8 +551,8 @@ msgstr "Axe Y"
 #: assets/config/defaults.php:273 assets/config/defaults.php:668
 #: assets/config/defaults.php:3795
 #: assets/templates/tmpl-project-settings.php:1001
-#: assets/views/project-editor.php:1257 assets/views/project-editor.php:3322
-#: assets/views/project-editor.php:3326
+#: assets/views/project-editor.php:1269 assets/views/project-editor.php:3336
+#: assets/views/project-editor.php:3340
 msgid "Background Size"
 msgstr "Taille de l’arrière plan"
 
@@ -568,7 +567,7 @@ msgstr ""
 #: assets/config/defaults.php:277 assets/config/defaults.php:1534
 #: assets/config/defaults.php:2108 assets/config/defaults.php:2119
 #: assets/config/defaults.php:2167 assets/config/defaults.php:2180
-#: assets/config/defaults.php:3799 assets/config/defaults.php:3952
+#: assets/config/defaults.php:3799 assets/config/defaults.php:3954
 msgid "Auto"
 msgstr "Auto"
 
@@ -588,8 +587,8 @@ msgid "Stretch"
 msgstr "Etendu"
 
 #: assets/config/defaults.php:286 assets/config/defaults.php:661
-#: assets/config/defaults.php:3808 assets/views/project-editor.php:1233
-#: assets/views/project-editor.php:3298
+#: assets/config/defaults.php:3808 assets/views/project-editor.php:1245
+#: assets/views/project-editor.php:3312
 msgid "Background Position"
 msgstr "Position de l’arrière-plan"
 
@@ -637,7 +636,7 @@ msgstr "centrer à droite"
 msgid "right bottom"
 msgstr "en bas à droite"
 
-#: assets/config/defaults.php:304 assets/views/project-editor.php:1336
+#: assets/config/defaults.php:304 assets/views/project-editor.php:1348
 #, fuzzy
 #| msgid "Slide Transition"
 msgid "Slide Duration"
@@ -656,13 +655,13 @@ msgstr ""
 "Durée de votre animation. Cette valeur est en millisecondes (1000 ms = 1 "
 "seconde)."
 
-#: assets/config/defaults.php:312 assets/views/project-editor.php:1377
+#: assets/config/defaults.php:312 assets/views/project-editor.php:1389
 #, fuzzy
 #| msgid "Transition duration"
 msgid "Transition Duration"
 msgstr "Durée de la transition"
 
-#: assets/config/defaults.php:314 assets/templates/tmpl-smart-help.php:125
+#: assets/config/defaults.php:314 assets/templates/tmpl-smart-help.php:127
 msgid ""
 "You can speed up or slow down slide transitions by providing a custom "
 "animation duration. Leave this option empty to use the default speed. This "
@@ -675,7 +674,7 @@ msgstr ""
 msgid "TimeShift"
 msgstr "Décalage de temps"
 
-#: assets/config/defaults.php:322 assets/templates/tmpl-smart-help.php:130
+#: assets/config/defaults.php:322 assets/templates/tmpl-smart-help.php:132
 msgid ""
 "You can shift the starting point of the slide animation timeline so that "
 "layers can animate in at an earlier time after a slide change. This value is "
@@ -1050,12 +1049,12 @@ msgstr ""
 "être appliqués avec l'éditeur de styles personnalisés."
 
 #: assets/config/defaults.php:613 assets/config/defaults.php:1549
-#: assets/config/defaults.php:3786 assets/views/project-editor.php:1218
-#: assets/views/project-editor.php:1222 assets/views/project-editor.php:3280
-#: assets/views/project-editor.php:3284 assets/views/project-editor.php:4068
-#: assets/views/project-editor.php:4072 assets/views/project-editor.php:5565
-#: assets/views/project-editor.php:5569 assets/views/project-editor.php:5960
-#: assets/views/project-editor.php:5964
+#: assets/config/defaults.php:3786 assets/views/project-editor.php:1230
+#: assets/views/project-editor.php:1234 assets/views/project-editor.php:3294
+#: assets/views/project-editor.php:3298 assets/views/project-editor.php:4088
+#: assets/views/project-editor.php:4092 assets/views/project-editor.php:5593
+#: assets/views/project-editor.php:5597 assets/views/project-editor.php:5988
+#: assets/views/project-editor.php:5992
 msgid "Background Color"
 msgstr "Couleur d’arrière-plan"
 
@@ -1071,8 +1070,8 @@ msgstr ""
 
 #: assets/config/defaults.php:620
 #: assets/templates/tmpl-project-settings.php:987
-#: assets/views/project-editor.php:1202 assets/views/project-editor.php:1207
-#: assets/views/project-editor.php:3264 assets/views/project-editor.php:3269
+#: assets/views/project-editor.php:1214 assets/views/project-editor.php:1219
+#: assets/views/project-editor.php:3278 assets/views/project-editor.php:3283
 msgid "Background Image"
 msgstr "Image d'arrière-plan"
 
@@ -1086,7 +1085,7 @@ msgstr ""
 "mode Responsive."
 
 #: assets/config/defaults.php:635 assets/config/defaults.php:3825
-#: assets/views/project-editor.php:3334
+#: assets/views/project-editor.php:3348
 msgid "Background Repeat"
 msgstr "Répétition de l'arrière-plan"
 
@@ -1099,7 +1098,7 @@ msgid "No-repeat"
 msgstr "Pas de répétition"
 
 #: assets/config/defaults.php:640 assets/config/defaults.php:3092
-#: assets/config/defaults.php:3829 assets/views/project-editor.php:4790
+#: assets/config/defaults.php:3829 assets/views/project-editor.php:4814
 msgid "Repeat"
 msgstr "Répéter"
 
@@ -1120,7 +1119,7 @@ msgid "Choose between a scrollable or fixed global background image."
 msgstr "Choisir entre une image de fond globale défilable ou fixe."
 
 #: assets/config/defaults.php:653 assets/config/defaults.php:1800
-#: assets/config/defaults.php:3335 assets/views/project-editor.php:6645
+#: assets/config/defaults.php:3335 assets/views/project-editor.php:6698
 msgid "Scroll"
 msgstr "Défilement"
 
@@ -1228,7 +1227,7 @@ msgstr "Navigation par miniature"
 msgid "Use thumbnail navigation instead of slide bullet buttons."
 msgstr "Utilisez la navigation par miniature au lieu des boutons de la diapo."
 
-#: assets/config/defaults.php:748 assets/views/project-editor.php:1464
+#: assets/config/defaults.php:748 assets/views/project-editor.php:1476
 msgid "Hover"
 msgstr "Survol"
 
@@ -1499,10 +1498,15 @@ msgid "Show Close Button"
 msgstr "Afficher le bouton Fermer"
 
 #: assets/config/defaults.php:926
+#, fuzzy
+#| msgid ""
+#| "Disable this option to hide the Popup close button. This option is also "
+#| "useful when you would like to use a custom close button. To do that, "
+#| "select the “Close the Popup” option from the layer linking field."
 msgid ""
 "Disable this option to hide the Popup close button. This option is also "
-"useful when you would like to use a custom close button. To do that, select "
-"the “Close the Popup” option from the layer linking field."
+"useful when you would like to use a custom close button with the “Close "
+"Popup” layer action."
 msgstr ""
 "Désactiver cette option pour masquer le bouton de fermeture du Popup. Cette "
 "option est également utile quand vous voulez utiliser un bouton de fermeture "
@@ -1630,7 +1634,7 @@ msgstr ""
 "millisecondes."
 
 #: assets/config/defaults.php:1094 assets/config/defaults.php:1203
-#: assets/views/project-editor.php:3730 assets/views/project-editor.php:3746
+#: assets/views/project-editor.php:3744 assets/views/project-editor.php:3766
 msgid "Opening Transition"
 msgstr "Transition d'Ouverture"
 
@@ -1643,8 +1647,8 @@ msgstr "Choisir l'un des Popups de transition d'ouverture prédéfinis."
 #: assets/config/defaults.php:2259 assets/config/defaults.php:2450
 #: assets/config/defaults.php:2666 assets/config/defaults.php:2840
 #: assets/templates/tmpl-2d-transition.php:100
-#: assets/views/project-editor.php:4039 assets/views/project-editor.php:4496
-#: assets/views/project-editor.php:5203 assets/views/project-editor.php:5536
+#: assets/views/project-editor.php:4059 assets/views/project-editor.php:4518
+#: assets/views/project-editor.php:5229 assets/views/project-editor.php:5564
 #: assets/views/transition-builder.php:554
 msgid "Fade"
 msgstr "Fondu"
@@ -1700,17 +1704,17 @@ msgstr "Redimensionner à partir de la droite"
 #: assets/config/defaults.php:1111 assets/config/defaults.php:1138
 #: assets/config/defaults.php:1216 assets/config/defaults.php:1235
 #: assets/config/defaults.php:1772 assets/templates/tmpl-2d-transition.php:128
-#: assets/views/project-editor.php:1438 assets/views/project-editor.php:3372
-#: assets/views/project-editor.php:3376 assets/views/project-editor.php:3383
-#: assets/views/project-editor.php:3821 assets/views/project-editor.php:3825
-#: assets/views/project-editor.php:3832 assets/views/project-editor.php:4275
-#: assets/views/project-editor.php:4279 assets/views/project-editor.php:4286
-#: assets/views/project-editor.php:4589 assets/views/project-editor.php:4593
-#: assets/views/project-editor.php:4600 assets/views/project-editor.php:4983
-#: assets/views/project-editor.php:4987 assets/views/project-editor.php:4994
-#: assets/views/project-editor.php:5296 assets/views/project-editor.php:5300
-#: assets/views/project-editor.php:5307 assets/views/project-editor.php:5711
-#: assets/views/project-editor.php:5715 assets/views/project-editor.php:5722
+#: assets/views/project-editor.php:1450 assets/views/project-editor.php:3386
+#: assets/views/project-editor.php:3390 assets/views/project-editor.php:3397
+#: assets/views/project-editor.php:3841 assets/views/project-editor.php:3845
+#: assets/views/project-editor.php:3852 assets/views/project-editor.php:4295
+#: assets/views/project-editor.php:4299 assets/views/project-editor.php:4306
+#: assets/views/project-editor.php:4611 assets/views/project-editor.php:4615
+#: assets/views/project-editor.php:4622 assets/views/project-editor.php:5007
+#: assets/views/project-editor.php:5011 assets/views/project-editor.php:5018
+#: assets/views/project-editor.php:5322 assets/views/project-editor.php:5326
+#: assets/views/project-editor.php:5333 assets/views/project-editor.php:5739
+#: assets/views/project-editor.php:5743 assets/views/project-editor.php:5750
 #: assets/views/transition-builder.php:582
 msgid "Scale"
 msgstr "Redimensionner"
@@ -2069,8 +2073,8 @@ msgstr "Descendant"
 msgid "Set A Slide Image"
 msgstr "Définir une image de diapo"
 
-#: assets/config/defaults.php:1530 assets/views/project-editor.php:2593
-#: assets/views/project-editor.php:3892 assets/views/project-editor.php:5367
+#: assets/config/defaults.php:1530 assets/views/project-editor.php:2606
+#: assets/views/project-editor.php:3912 assets/views/project-editor.php:5393
 msgid "Size"
 msgstr "Taille"
 
@@ -2083,7 +2087,8 @@ msgstr "Taille"
 msgid "Inherit"
 msgstr "Hérité"
 
-#: assets/config/defaults.php:1543 assets/views/project-editor.php:2618
+#: assets/config/defaults.php:1543 assets/templates/tmpl-shape-modal.php:474
+#: assets/views/project-editor.php:2631
 msgid "Position"
 msgstr "Position"
 
@@ -2098,15 +2103,15 @@ msgstr "Définir une miniature de diapo"
 #: assets/templates/tmpl-3d-transition.php:69
 #: assets/templates/tmpl-3d-transition.php:129
 #: assets/templates/tmpl-3d-transition.php:211
-#: assets/views/project-editor.php:1332 assets/views/project-editor.php:3990
-#: assets/views/project-editor.php:3994 assets/views/project-editor.php:4431
-#: assets/views/project-editor.php:4435 assets/views/project-editor.php:4760
-#: assets/views/project-editor.php:4764 assets/views/project-editor.php:5138
-#: assets/views/project-editor.php:5142 assets/views/project-editor.php:5486
-#: assets/views/project-editor.php:5490 assets/views/project-editor.php:5831
-#: assets/views/project-editor.php:5835 assets/views/project-editor.php:6320
-#: assets/views/project-editor.php:6358 assets/views/project-editor.php:6396
-#: assets/views/project-editor.php:6434 assets/views/transition-builder.php:217
+#: assets/views/project-editor.php:1344 assets/views/project-editor.php:4010
+#: assets/views/project-editor.php:4014 assets/views/project-editor.php:4453
+#: assets/views/project-editor.php:4457 assets/views/project-editor.php:4784
+#: assets/views/project-editor.php:4788 assets/views/project-editor.php:5164
+#: assets/views/project-editor.php:5168 assets/views/project-editor.php:5514
+#: assets/views/project-editor.php:5518 assets/views/project-editor.php:5859
+#: assets/views/project-editor.php:5863 assets/views/project-editor.php:6348
+#: assets/views/project-editor.php:6386 assets/views/project-editor.php:6424
+#: assets/views/project-editor.php:6462 assets/views/transition-builder.php:217
 #: assets/views/transition-builder.php:290
 #: assets/views/transition-builder.php:381
 #: assets/views/transition-builder.php:509
@@ -2114,8 +2119,8 @@ msgid "Duration"
 msgstr "Durée"
 
 #: assets/config/defaults.php:1574 assets/config/defaults.php:1621
-#: assets/config/defaults.php:2158 assets/config/defaults.php:3943
-#: assets/templates/tmpl-smart-help.php:904 assets/wp/gutenberg_l10n.php:37
+#: assets/config/defaults.php:2158 assets/config/defaults.php:3945
+#: assets/templates/tmpl-smart-help.php:914 assets/wp/gutenberg_l10n.php:37
 msgid "auto"
 msgstr "auto"
 
@@ -2127,7 +2132,7 @@ msgstr "Origami"
 msgid "Custom Transition Duration"
 msgstr "Durée de transition personnalisée"
 
-#: assets/config/defaults.php:1627 assets/views/project-editor.php:1349
+#: assets/config/defaults.php:1627 assets/views/project-editor.php:1361
 msgid "Time Shift"
 msgstr "Décalage de temps"
 
@@ -2184,12 +2189,12 @@ msgstr "Survol global"
 msgid "Hidden"
 msgstr "Masqué"
 
-#: assets/config/defaults.php:1744 assets/views/project-editor.php:1842
+#: assets/config/defaults.php:1744 assets/views/project-editor.php:1854
 msgid "Overflow Layers"
 msgstr "Calques de débordement"
 
 #: assets/config/defaults.php:1750 assets/views/project-editor.php:371
-#: assets/views/project-editor.php:1426
+#: assets/views/project-editor.php:1438
 msgid "Zoom"
 msgstr "Zoom"
 
@@ -2206,28 +2211,29 @@ msgstr "Zoom Arrière"
 #: assets/config/defaults.php:2705 assets/config/defaults.php:2883
 #: assets/config/defaults.php:3031 assets/config/defaults.php:3214
 #: assets/config/defaults.php:3388 assets/config/defaults.php:3880
-#: assets/views/project-editor.php:1448 assets/views/project-editor.php:1564
-#: assets/views/project-editor.php:3395 assets/views/project-editor.php:3399
-#: assets/views/project-editor.php:3405 assets/views/project-editor.php:3411
-#: assets/views/project-editor.php:3844 assets/views/project-editor.php:3848
-#: assets/views/project-editor.php:3854 assets/views/project-editor.php:3860
-#: assets/views/project-editor.php:4298 assets/views/project-editor.php:4302
-#: assets/views/project-editor.php:4308 assets/views/project-editor.php:4314
-#: assets/views/project-editor.php:4612 assets/views/project-editor.php:4616
-#: assets/views/project-editor.php:4622 assets/views/project-editor.php:4628
-#: assets/views/project-editor.php:5006 assets/views/project-editor.php:5010
-#: assets/views/project-editor.php:5016 assets/views/project-editor.php:5022
-#: assets/views/project-editor.php:5319 assets/views/project-editor.php:5323
-#: assets/views/project-editor.php:5329 assets/views/project-editor.php:5335
-#: assets/views/project-editor.php:5734 assets/views/project-editor.php:5738
-#: assets/views/project-editor.php:5744 assets/views/project-editor.php:5750
-#: assets/views/project-editor.php:6140
+#: assets/views/project-editor.php:1460 assets/views/project-editor.php:1576
+#: assets/views/project-editor.php:3409 assets/views/project-editor.php:3413
+#: assets/views/project-editor.php:3419 assets/views/project-editor.php:3425
+#: assets/views/project-editor.php:3864 assets/views/project-editor.php:3868
+#: assets/views/project-editor.php:3874 assets/views/project-editor.php:3880
+#: assets/views/project-editor.php:4318 assets/views/project-editor.php:4322
+#: assets/views/project-editor.php:4328 assets/views/project-editor.php:4334
+#: assets/views/project-editor.php:4634 assets/views/project-editor.php:4638
+#: assets/views/project-editor.php:4644 assets/views/project-editor.php:4650
+#: assets/views/project-editor.php:5030 assets/views/project-editor.php:5034
+#: assets/views/project-editor.php:5040 assets/views/project-editor.php:5046
+#: assets/views/project-editor.php:5345 assets/views/project-editor.php:5349
+#: assets/views/project-editor.php:5355 assets/views/project-editor.php:5361
+#: assets/views/project-editor.php:5762 assets/views/project-editor.php:5766
+#: assets/views/project-editor.php:5772 assets/views/project-editor.php:5778
+#: assets/views/project-editor.php:6168
 msgid "Rotation"
 msgstr "Rotation"
 
 #: assets/config/defaults.php:1786 assets/config/defaults.php:3319
 #: assets/templates/tmpl-2d-transition.php:96
-#: assets/views/project-editor.php:1516 assets/views/project-editor.php:6084
+#: assets/templates/tmpl-shape-modal.php:450
+#: assets/views/project-editor.php:1528 assets/views/project-editor.php:6112
 #: assets/views/transition-builder.php:550
 msgid "Type"
 msgstr "Type"
@@ -2243,7 +2249,7 @@ msgid "3D"
 msgstr "3D"
 
 #: assets/config/defaults.php:1796 assets/config/defaults.php:3330
-#: assets/views/project-editor.php:1528 assets/views/project-editor.php:6098
+#: assets/views/project-editor.php:1540 assets/views/project-editor.php:6126
 msgid "Event"
 msgstr "Événement"
 
@@ -2252,7 +2258,7 @@ msgid "Cursor or Tilt"
 msgstr "Curseur ou Inclinaison"
 
 #: assets/config/defaults.php:1806 assets/config/defaults.php:3341
-#: assets/views/project-editor.php:1540 assets/views/project-editor.php:6112
+#: assets/views/project-editor.php:1552 assets/views/project-editor.php:6140
 msgid "Axes"
 msgstr "Axes"
 
@@ -2277,32 +2283,32 @@ msgstr "Vertical uniquement"
 #: assets/config/defaults.php:2505 assets/config/defaults.php:2756
 #: assets/config/defaults.php:2934 assets/config/defaults.php:3080
 #: assets/config/defaults.php:3264 assets/config/defaults.php:3355
-#: assets/views/project-editor.php:1605 assets/views/project-editor.php:1609
-#: assets/views/project-editor.php:3449 assets/views/project-editor.php:3453
-#: assets/views/project-editor.php:3928 assets/views/project-editor.php:3932
-#: assets/views/project-editor.php:4347 assets/views/project-editor.php:4351
-#: assets/views/project-editor.php:4676 assets/views/project-editor.php:4680
-#: assets/views/project-editor.php:5055 assets/views/project-editor.php:5059
-#: assets/views/project-editor.php:5403 assets/views/project-editor.php:5407
-#: assets/views/project-editor.php:5784 assets/views/project-editor.php:5788
-#: assets/views/project-editor.php:6155 assets/views/project-editor.php:6159
+#: assets/views/project-editor.php:1617 assets/views/project-editor.php:1621
+#: assets/views/project-editor.php:3463 assets/views/project-editor.php:3467
+#: assets/views/project-editor.php:3948 assets/views/project-editor.php:3952
+#: assets/views/project-editor.php:4367 assets/views/project-editor.php:4371
+#: assets/views/project-editor.php:4698 assets/views/project-editor.php:4702
+#: assets/views/project-editor.php:5079 assets/views/project-editor.php:5083
+#: assets/views/project-editor.php:5429 assets/views/project-editor.php:5433
+#: assets/views/project-editor.php:5812 assets/views/project-editor.php:5816
+#: assets/views/project-editor.php:6183 assets/views/project-editor.php:6187
 msgid "Transform Origin"
 msgstr "Transformer l'origine"
 
 #: assets/config/defaults.php:1825 assets/config/defaults.php:3364
-#: assets/views/project-editor.php:1578 assets/views/project-editor.php:1582
-#: assets/views/project-editor.php:6203 assets/views/project-editor.php:6207
+#: assets/views/project-editor.php:1590 assets/views/project-editor.php:1594
+#: assets/views/project-editor.php:6231 assets/views/project-editor.php:6235
 msgid "Move Duration"
 msgstr "Durée du déplacement"
 
 #: assets/config/defaults.php:1836 assets/config/defaults.php:3376
-#: assets/views/project-editor.php:1591 assets/views/project-editor.php:1595
-#: assets/views/project-editor.php:6218 assets/views/project-editor.php:6222
+#: assets/views/project-editor.php:1603 assets/views/project-editor.php:1607
+#: assets/views/project-editor.php:6246 assets/views/project-editor.php:6250
 msgid "Leave Duration"
 msgstr "Durée de la sortie"
 
 #: assets/config/defaults.php:1847 assets/config/defaults.php:3399
-#: assets/views/project-editor.php:1552 assets/views/project-editor.php:6126
+#: assets/views/project-editor.php:1564 assets/views/project-editor.php:6154
 msgid "Distance"
 msgstr "Distance"
 
@@ -2310,14 +2316,14 @@ msgstr "Distance"
 #: assets/config/defaults.php:2523 assets/config/defaults.php:2762
 #: assets/config/defaults.php:2942 assets/config/defaults.php:3138
 #: assets/config/defaults.php:3288 assets/config/defaults.php:3410
-#: assets/views/project-editor.php:1617 assets/views/project-editor.php:1621
-#: assets/views/project-editor.php:3943 assets/views/project-editor.php:3947
-#: assets/views/project-editor.php:4361 assets/views/project-editor.php:4365
-#: assets/views/project-editor.php:4690 assets/views/project-editor.php:4694
-#: assets/views/project-editor.php:5069 assets/views/project-editor.php:5073
-#: assets/views/project-editor.php:5417 assets/views/project-editor.php:5421
-#: assets/views/project-editor.php:5798 assets/views/project-editor.php:5802
-#: assets/views/project-editor.php:6169 assets/views/project-editor.php:6173
+#: assets/views/project-editor.php:1629 assets/views/project-editor.php:1633
+#: assets/views/project-editor.php:3963 assets/views/project-editor.php:3967
+#: assets/views/project-editor.php:4381 assets/views/project-editor.php:4385
+#: assets/views/project-editor.php:4712 assets/views/project-editor.php:4716
+#: assets/views/project-editor.php:5093 assets/views/project-editor.php:5097
+#: assets/views/project-editor.php:5443 assets/views/project-editor.php:5447
+#: assets/views/project-editor.php:5826 assets/views/project-editor.php:5830
+#: assets/views/project-editor.php:6197 assets/views/project-editor.php:6201
 msgid "Perspective"
 msgstr "Perspective"
 
@@ -2325,42 +2331,42 @@ msgstr "Perspective"
 msgid "HTML Element"
 msgstr "Élément HTML"
 
-#: assets/config/defaults.php:2009 assets/views/project-editor.php:2226
-#: assets/views/project-editor.php:2229 assets/views/project-editor.php:2723
+#: assets/config/defaults.php:2009 assets/views/project-editor.php:2239
+#: assets/views/project-editor.php:2242 assets/views/project-editor.php:2736
 msgid "Icon Color"
 msgstr "Couleur d’icône"
 
-#: assets/config/defaults.php:2018 assets/views/project-editor.php:2239
+#: assets/config/defaults.php:2018 assets/views/project-editor.php:2252
 msgid "Icon Placement"
 msgstr "Placement de l'icône"
 
 #: assets/config/defaults.php:2021 assets/config/defaults.php:3535
 #: assets/templates/tmpl-2d-transition.php:110
 #: assets/templates/tmpl-project-settings.php:439
-#: assets/templates/tmpl-smart-help.php:821
-#: assets/templates/tmpl-smart-help.php:963
+#: assets/templates/tmpl-smart-help.php:831
+#: assets/templates/tmpl-smart-help.php:973
 #: assets/views/transition-builder.php:564
 msgid "Left"
 msgstr "Gauche"
 
 #: assets/config/defaults.php:2022 assets/templates/tmpl-2d-transition.php:108
 #: assets/templates/tmpl-project-settings.php:457
-#: assets/templates/tmpl-smart-help.php:823
-#: assets/templates/tmpl-smart-help.php:965
+#: assets/templates/tmpl-smart-help.php:833
+#: assets/templates/tmpl-smart-help.php:975
 #: assets/views/transition-builder.php:562
 msgid "Right"
 msgstr "Droite"
 
-#: assets/config/defaults.php:2031 assets/views/project-editor.php:2251
-#: assets/views/project-editor.php:2682 assets/views/project-editor.php:2695
+#: assets/config/defaults.php:2031 assets/views/project-editor.php:2264
+#: assets/views/project-editor.php:2695 assets/views/project-editor.php:2708
 msgid "Icon Size"
 msgstr "Taille d'icône"
 
-#: assets/config/defaults.php:2045 assets/views/project-editor.php:2267
+#: assets/config/defaults.php:2045 assets/views/project-editor.php:2280
 msgid "Icon Gap"
 msgstr "Écart d’icône"
 
-#: assets/config/defaults.php:2059 assets/views/project-editor.php:2283
+#: assets/config/defaults.php:2059 assets/views/project-editor.php:2296
 msgid "Vertical Adjustment"
 msgstr "Ajustement vertical"
 
@@ -2449,16 +2455,16 @@ msgstr "Commencer à"
 #: assets/templates/tmpl-3d-transition.php:71
 #: assets/templates/tmpl-3d-transition.php:131
 #: assets/templates/tmpl-3d-transition.php:213
-#: assets/views/project-editor.php:4004 assets/views/project-editor.php:4008
-#: assets/views/project-editor.php:4461 assets/views/project-editor.php:4465
-#: assets/views/project-editor.php:4775 assets/views/project-editor.php:4779
-#: assets/views/project-editor.php:5168 assets/views/project-editor.php:5172
-#: assets/views/project-editor.php:5501 assets/views/project-editor.php:5505
-#: assets/views/project-editor.php:5862 assets/views/project-editor.php:5866
-#: assets/views/project-editor.php:6329 assets/views/project-editor.php:6332
-#: assets/views/project-editor.php:6367 assets/views/project-editor.php:6370
-#: assets/views/project-editor.php:6405 assets/views/project-editor.php:6408
-#: assets/views/project-editor.php:6443 assets/views/project-editor.php:6446
+#: assets/views/project-editor.php:4024 assets/views/project-editor.php:4028
+#: assets/views/project-editor.php:4483 assets/views/project-editor.php:4487
+#: assets/views/project-editor.php:4799 assets/views/project-editor.php:4803
+#: assets/views/project-editor.php:5194 assets/views/project-editor.php:5198
+#: assets/views/project-editor.php:5529 assets/views/project-editor.php:5533
+#: assets/views/project-editor.php:5890 assets/views/project-editor.php:5894
+#: assets/views/project-editor.php:6357 assets/views/project-editor.php:6360
+#: assets/views/project-editor.php:6395 assets/views/project-editor.php:6398
+#: assets/views/project-editor.php:6433 assets/views/project-editor.php:6436
+#: assets/views/project-editor.php:6471 assets/views/project-editor.php:6474
 #: assets/views/transition-builder.php:219
 #: assets/views/transition-builder.php:292
 #: assets/views/transition-builder.php:383
@@ -2509,25 +2515,25 @@ msgid "ScaleY"
 msgstr "Échelle Y"
 
 #: assets/config/defaults.php:2320 assets/config/defaults.php:2511
-#: assets/config/defaults.php:3086 assets/views/project-editor.php:3913
-#: assets/views/project-editor.php:3917 assets/views/project-editor.php:4660
-#: assets/views/project-editor.php:4664 assets/views/project-editor.php:5388
-#: assets/views/project-editor.php:5392
+#: assets/config/defaults.php:3086 assets/views/project-editor.php:3933
+#: assets/views/project-editor.php:3937 assets/views/project-editor.php:4682
+#: assets/views/project-editor.php:4686 assets/views/project-editor.php:5414
+#: assets/views/project-editor.php:5418
 msgid "Mask"
 msgstr "Masque"
 
 #: assets/config/defaults.php:2326 assets/config/defaults.php:2540
-#: assets/config/defaults.php:3270 assets/views/project-editor.php:1141
-#: assets/views/project-editor.php:1183 assets/views/project-editor.php:3249
+#: assets/config/defaults.php:3270 assets/views/project-editor.php:1153
+#: assets/views/project-editor.php:1195 assets/views/project-editor.php:3263
 msgid "Background"
 msgstr "Arrière-plan"
 
 #: assets/config/defaults.php:2332 assets/config/defaults.php:2546
 #: assets/config/defaults.php:3276 assets/config/defaults.php:3765
-#: assets/templates/tmpl-shape-modal.php:267
-#: assets/views/project-editor.php:3032 assets/views/project-editor.php:3036
-#: assets/views/project-editor.php:3154 assets/views/project-editor.php:3502
-#: assets/views/project-editor.php:3506
+#: assets/templates/tmpl-shape-modal.php:300
+#: assets/views/project-editor.php:2746 assets/views/project-editor.php:3046
+#: assets/views/project-editor.php:3050 assets/views/project-editor.php:3168
+#: assets/views/project-editor.php:3516 assets/views/project-editor.php:3520
 msgid "Color"
 msgstr "Couleur"
 
@@ -2537,22 +2543,22 @@ msgid "Rounded Corners"
 msgstr "Coins arrondis"
 
 #: assets/config/defaults.php:2344 assets/config/defaults.php:2558
-#: assets/config/defaults.php:3508 assets/views/project-editor.php:2597
+#: assets/config/defaults.php:3508 assets/views/project-editor.php:2610
 msgid "Width"
 msgstr "Largeur"
 
 #: assets/config/defaults.php:2350 assets/config/defaults.php:2564
-#: assets/config/defaults.php:3517 assets/views/project-editor.php:2605
+#: assets/config/defaults.php:3517 assets/views/project-editor.php:2618
 msgid "Height"
 msgstr "Hauteur"
 
 #: assets/config/defaults.php:2356 assets/config/defaults.php:2517
-#: assets/config/defaults.php:3144 assets/config/defaults.php:3998
+#: assets/config/defaults.php:3144 assets/config/defaults.php:4000
 #: assets/templates/tmpl-import-templates.php:109
-#: assets/views/project-editor.php:3619 assets/views/project-editor.php:3623
-#: assets/views/project-editor.php:4085 assets/views/project-editor.php:4089
-#: assets/views/project-editor.php:4872 assets/views/project-editor.php:4876
-#: assets/views/project-editor.php:5582 assets/views/project-editor.php:5586
+#: assets/views/project-editor.php:3633 assets/views/project-editor.php:3637
+#: assets/views/project-editor.php:4105 assets/views/project-editor.php:4109
+#: assets/views/project-editor.php:4896 assets/views/project-editor.php:4900
+#: assets/views/project-editor.php:5610 assets/views/project-editor.php:5614
 msgid "Filter"
 msgstr "Filtrer"
 
@@ -2616,7 +2622,7 @@ msgid "Ending Text and Loop Transitions complete"
 msgstr "Les transitions du texte de fin et de boucle s'achèvent"
 
 #: assets/config/defaults.php:2606 assets/config/defaults.php:2779
-#: assets/views/project-editor.php:4231 assets/views/project-editor.php:4939
+#: assets/views/project-editor.php:4251 assets/views/project-editor.php:4963
 msgid "Animate"
 msgstr "Animer"
 
@@ -2680,7 +2686,7 @@ msgstr "par caractères du centre au bord"
 msgid "by chars edge to center"
 msgstr "par caractères du bord au centre"
 
-#: assets/config/defaults.php:2632 assets/views/project-editor.php:4450
+#: assets/config/defaults.php:2632 assets/views/project-editor.php:4472
 msgid "Shift In"
 msgstr "Décaler dans"
 
@@ -2692,14 +2698,14 @@ msgstr "Commencer à"
 msgid "Opening Transition starts"
 msgstr "Début de la transition d'ouverture"
 
-#: assets/config/defaults.php:2805 assets/views/project-editor.php:5157
+#: assets/config/defaults.php:2805 assets/views/project-editor.php:5183
 msgid "Shift Out"
 msgstr "Décaler hors"
 
 #: assets/config/defaults.php:3024 assets/config/defaults.php:3203
-#: assets/config/defaults.php:3729 assets/templates/tmpl-smart-help.php:1027
-#: assets/views/project-editor.php:3585 assets/views/project-editor.php:4851
-#: assets/views/project-editor.php:5911
+#: assets/config/defaults.php:3729 assets/templates/tmpl-smart-help.php:1037
+#: assets/views/project-editor.php:3599 assets/views/project-editor.php:4875
+#: assets/views/project-editor.php:5939
 msgid "Opacity"
 msgstr "Opacité"
 
@@ -2791,11 +2797,11 @@ msgstr "19x"
 msgid "20x"
 msgstr "20x"
 
-#: assets/config/defaults.php:3125 assets/views/project-editor.php:4804
+#: assets/config/defaults.php:3125 assets/views/project-editor.php:4828
 msgid "Wait"
 msgstr "Patientez"
 
-#: assets/config/defaults.php:3132 assets/views/project-editor.php:4819
+#: assets/config/defaults.php:3132 assets/views/project-editor.php:4843
 msgid "Yoyo"
 msgstr "Yoyo"
 
@@ -2819,8 +2825,8 @@ msgstr "hérité"
 msgid "Always On Top"
 msgstr "Toujours en haut"
 
-#: assets/config/defaults.php:3310 assets/views/project-editor.php:6061
-#: assets/views/project-editor.php:6073
+#: assets/config/defaults.php:3310 assets/views/project-editor.php:6089
+#: assets/views/project-editor.php:6101
 msgid "Parallax Level"
 msgstr "Niveau de parallaxe"
 
@@ -2840,7 +2846,7 @@ msgstr "Jusqu'à la fin de cette diapo (par défaut)"
 msgid "Forever (the layer will never animate out)"
 msgstr "Permanent (le calque ne s'anime jamais)"
 
-#: assets/config/defaults.php:3433 assets/views/project-editor.php:4164
+#: assets/config/defaults.php:3433 assets/views/project-editor.php:4184
 msgid "Play By Scroll Keyframe"
 msgstr "Image-clé de lecture par défilement"
 
@@ -2849,7 +2855,7 @@ msgid "URL target"
 msgstr "URL cible"
 
 #: assets/config/defaults.php:3486 assets/config/defaults.php:3496
-#: assets/views/project-editor.php:6780
+#: assets/views/project-editor.php:6834
 msgid "Custom Attributes"
 msgstr "Attributs personnalisés"
 
@@ -2872,8 +2878,8 @@ msgstr ""
 
 #: assets/config/defaults.php:3526 assets/templates/tmpl-2d-transition.php:107
 #: assets/templates/tmpl-project-settings.php:421
-#: assets/templates/tmpl-smart-help.php:830
-#: assets/templates/tmpl-smart-help.php:982
+#: assets/templates/tmpl-smart-help.php:840
+#: assets/templates/tmpl-smart-help.php:992
 #: assets/views/transition-builder.php:561
 msgid "Top"
 msgstr "En haut"
@@ -2938,19 +2944,19 @@ msgstr "Extérieure"
 msgid "Border Color"
 msgstr "Couleur de bordure"
 
-#: assets/config/defaults.php:3620 assets/views/project-editor.php:3468
+#: assets/config/defaults.php:3620 assets/views/project-editor.php:3482
 msgid "Box Shadow"
 msgstr "Ombre du cadre"
 
-#: assets/config/defaults.php:3629 assets/views/project-editor.php:3007
+#: assets/config/defaults.php:3629 assets/views/project-editor.php:3021
 msgid "Text Shadow"
 msgstr "Ombre du texte"
 
-#: assets/config/defaults.php:3638 assets/views/project-editor.php:2766
+#: assets/config/defaults.php:3638 assets/views/project-editor.php:2780
 msgid "Font Family"
 msgstr "Famille de Police"
 
-#: assets/config/defaults.php:3644 assets/views/project-editor.php:2781
+#: assets/config/defaults.php:3644 assets/views/project-editor.php:2795
 msgid "Font Size"
 msgstr "Taille de police"
 
@@ -2974,7 +2980,7 @@ msgstr "Décoration du texte"
 msgid "Text Transform"
 msgstr "Transformation du texte"
 
-#: assets/config/defaults.php:3705 assets/views/project-editor.php:2940
+#: assets/config/defaults.php:3705 assets/views/project-editor.php:2954
 msgid "Letter Spacing"
 msgstr "Espacement des caractères"
 
@@ -2982,11 +2988,11 @@ msgstr "Espacement des caractères"
 msgid "Text Align"
 msgstr "Alignement du texte"
 
-#: assets/config/defaults.php:3743 assets/views/project-editor.php:2965
+#: assets/config/defaults.php:3743 assets/views/project-editor.php:2979
 msgid "Min. Font Size"
 msgstr "Taille min. de police"
 
-#: assets/config/defaults.php:3753 assets/views/project-editor.php:2984
+#: assets/config/defaults.php:3753 assets/views/project-editor.php:2998
 msgid "Min. Mobile Font Size"
 msgstr "Taille min. de police sur mobile"
 
@@ -3022,70 +3028,82 @@ msgstr "Des côtés du projet"
 msgid "Sides of the screen"
 msgstr "des côtés de l'écran"
 
-#: assets/config/defaults.php:3938 assets/views/project-editor.php:3658
+#: assets/config/defaults.php:3933
+#, fuzzy
+#| msgid "Sides of the screen"
+msgid "Sides of the screen horizontally"
+msgstr "des côtés de l'écran"
+
+#: assets/config/defaults.php:3934
+#, fuzzy
+#| msgid "Sides of the screen"
+msgid "Sides of the screen vertically"
+msgstr "des côtés de l'écran"
+
+#: assets/config/defaults.php:3940 assets/views/project-editor.php:3672
 msgid "Stacking Order"
 msgstr "Ordre d’empilement"
 
-#: assets/config/defaults.php:3949 assets/views/project-editor.php:3669
+#: assets/config/defaults.php:3951 assets/views/project-editor.php:3683
 msgid "Mouse Cursor"
 msgstr "Curseur de la souris"
 
-#: assets/config/defaults.php:3953 assets/config/defaults.php:3976
+#: assets/config/defaults.php:3955 assets/config/defaults.php:3978
 msgid "Default"
 msgstr "Par défaut"
 
-#: assets/config/defaults.php:3954
+#: assets/config/defaults.php:3956
 msgid "Pointer"
 msgstr "Pointeur"
 
-#: assets/config/defaults.php:3955 assets/views/about.php:247
+#: assets/config/defaults.php:3957 assets/views/about.php:247
 #: assets/views/dashboard.php:260
 msgid "Help"
 msgstr "Aide"
 
-#: assets/config/defaults.php:3956 assets/templates/tmpl-add-layer.php:14
-#: assets/views/project-editor.php:1968 assets/views/project-editor.php:6937
-#: assets/wp/scripts_l10n.php:264
+#: assets/config/defaults.php:3958 assets/templates/tmpl-add-layer.php:14
+#: assets/views/project-editor.php:1981 assets/views/project-editor.php:7042
+#: assets/wp/scripts_l10n.php:268
 msgid "Text"
 msgstr "Texte"
 
-#: assets/config/defaults.php:3957
+#: assets/config/defaults.php:3959
 msgid "Vertical text"
 msgstr "Texte vertical"
 
-#: assets/config/defaults.php:3958
+#: assets/config/defaults.php:3960
 msgid "Zoom in"
 msgstr "Zoom avant"
 
-#: assets/config/defaults.php:3959
+#: assets/config/defaults.php:3961
 msgid "Zoom out"
 msgstr "Zoom arrière"
 
-#: assets/config/defaults.php:3966
+#: assets/config/defaults.php:3968
 msgid "Prevent Mouse Events"
 msgstr "Empêcher les événements de souris"
 
-#: assets/config/defaults.php:3973 assets/views/project-editor.php:3605
+#: assets/config/defaults.php:3975 assets/views/project-editor.php:3619
 msgid "Blend Mode"
 msgstr "Modes de fusion"
 
-#: assets/config/defaults.php:4008
+#: assets/config/defaults.php:4010
 msgid "ID"
 msgstr "ID"
 
-#: assets/config/defaults.php:4017
+#: assets/config/defaults.php:4019
 msgid "Classes"
 msgstr "Classes"
 
-#: assets/config/defaults.php:4026
+#: assets/config/defaults.php:4028
 msgid "Title"
 msgstr "Titre"
 
-#: assets/config/defaults.php:4035
+#: assets/config/defaults.php:4037
 msgid "Alt"
 msgstr "Alt"
 
-#: assets/config/defaults.php:4044
+#: assets/config/defaults.php:4046
 msgid "Rel"
 msgstr "Rel"
 
@@ -3175,7 +3193,7 @@ msgstr ""
 #: assets/templates/tmpl-3d-transition.php:114
 #: assets/templates/tmpl-3d-transition.php:193
 #: assets/templates/tmpl-3d-transition.php:256
-#: assets/views/project-editor.php:6713 assets/views/transition-builder.php:174
+#: assets/views/project-editor.php:6767 assets/views/transition-builder.php:174
 #: assets/views/transition-builder.php:275
 #: assets/views/transition-builder.php:359
 #: assets/views/transition-builder.php:439
@@ -3217,7 +3235,7 @@ msgstr "Suivant"
 
 #: assets/templates/tmpl-2d-transition.php:36
 #: assets/templates/tmpl-3d-transition.php:36
-#: assets/views/project-editor.php:5846 assets/views/project-editor.php:5877
+#: assets/views/project-editor.php:5874 assets/views/project-editor.php:5905
 #: assets/views/transition-builder.php:180
 #: assets/views/transition-builder.php:490
 msgid "Reverse"
@@ -3238,7 +3256,7 @@ msgid "Col-reverse"
 msgstr "Col-inverse"
 
 #: assets/templates/tmpl-2d-transition.php:50
-#: assets/views/project-editor.php:1926 assets/views/project-editor.php:3718
+#: assets/views/project-editor.php:1938 assets/views/project-editor.php:3732
 #: assets/views/transition-builder.php:504
 msgid "Transition"
 msgstr "Transition"
@@ -3304,8 +3322,8 @@ msgstr ""
 
 #: assets/templates/tmpl-2d-transition.php:109
 #: assets/templates/tmpl-project-settings.php:475
-#: assets/templates/tmpl-smart-help.php:832
-#: assets/templates/tmpl-smart-help.php:984
+#: assets/templates/tmpl-smart-help.php:842
+#: assets/templates/tmpl-smart-help.php:994
 #: assets/views/transition-builder.php:563
 msgid "Bottom"
 msgstr "En bas"
@@ -3466,13 +3484,13 @@ msgid "The direction of rotation."
 msgstr "Le sens de rotation."
 
 #: assets/templates/tmpl-3d-transition.php:168
-#: assets/views/project-editor.php:3058 assets/views/project-editor.php:3528
+#: assets/views/project-editor.php:3072 assets/views/project-editor.php:3542
 #: assets/views/transition-builder.php:329
 msgid "Vertical"
 msgstr "Vertical"
 
 #: assets/templates/tmpl-3d-transition.php:169
-#: assets/views/project-editor.php:3047 assets/views/project-editor.php:3517
+#: assets/views/project-editor.php:3061 assets/views/project-editor.php:3531
 #: assets/views/transition-builder.php:330
 msgid "Horizontal"
 msgstr "Horizontal"
@@ -3532,11 +3550,11 @@ msgstr ""
 msgid "Register your license to receive premium benefits like:"
 msgstr "Enregistrez votre licence pour bénéficier d'avantages premium comme :"
 
-#: assets/templates/tmpl-activation.php:28 assets/views/dashboard.php:873
+#: assets/templates/tmpl-activation.php:28 assets/views/dashboard.php:883
 msgid "Automatic Updates"
 msgstr "Mises à jour automatiques"
 
-#: assets/templates/tmpl-activation.php:29 assets/views/dashboard.php:876
+#: assets/templates/tmpl-activation.php:29 assets/views/dashboard.php:886
 msgid "Always receive the latest LayerSlider version."
 msgstr "Toujours recevoir la dernière version de LayerSlider."
 
@@ -3544,11 +3562,11 @@ msgstr "Toujours recevoir la dernière version de LayerSlider."
 msgid "Premium Project Templates"
 msgstr "Modèles de projets Premium"
 
-#: assets/templates/tmpl-activation.php:34 assets/views/dashboard.php:939
+#: assets/templates/tmpl-activation.php:34 assets/views/dashboard.php:949
 msgid "Access more templates to get started with projects."
 msgstr "Accéder à plus de modèles pour vous lancer dans les projets."
 
-#: assets/templates/tmpl-activation.php:38 assets/views/project-editor.php:6682
+#: assets/templates/tmpl-activation.php:38 assets/views/project-editor.php:6735
 msgid "Popups"
 msgstr "Popups"
 
@@ -3560,11 +3578,11 @@ msgstr ""
 "Avec la puissance de LayerSlider, vous pouvez avoir les plus beaux Popups "
 "pour attirer l'attention de vos visiteurs."
 
-#: assets/templates/tmpl-activation.php:43 assets/views/dashboard.php:915
+#: assets/templates/tmpl-activation.php:43 assets/views/dashboard.php:925
 msgid "Exclusive Features"
 msgstr "Fonctionnalités exclusives"
 
-#: assets/templates/tmpl-activation.php:44 assets/views/dashboard.php:918
+#: assets/templates/tmpl-activation.php:44 assets/views/dashboard.php:928
 msgid "Unlock exclusive and early-access features."
 msgstr "Débloquez des fonctionnalités exclusives et en accès anticipé."
 
@@ -3579,15 +3597,15 @@ msgstr ""
 "Accéder à des effets spéciaux, des fonctionnalités et du contenu "
 "supplémentaire prêt à l'emploi. "
 
-#: assets/templates/tmpl-activation.php:53 assets/views/dashboard.php:894
+#: assets/templates/tmpl-activation.php:53 assets/views/dashboard.php:904
 msgid "Product Support"
 msgstr "Support produit"
 
-#: assets/templates/tmpl-activation.php:54 assets/views/dashboard.php:897
+#: assets/templates/tmpl-activation.php:54 assets/views/dashboard.php:907
 msgid "Direct help from our Support Team."
 msgstr "Aide directe de notre équipe Support."
 
-#: assets/templates/tmpl-activation.php:64 assets/views/dashboard.php:968
+#: assets/templates/tmpl-activation.php:64 assets/views/dashboard.php:978
 msgid "Register License"
 msgstr "Enregistrer la Licence"
 
@@ -3617,62 +3635,64 @@ msgstr ""
 msgid "Add New Layer"
 msgstr "Ajouter un nouveau calque"
 
-#: assets/templates/tmpl-add-layer.php:10 assets/views/project-editor.php:1967
-#: assets/views/project-editor.php:2025 assets/views/project-editor.php:6933
-#: assets/wp/scripts_l10n.php:262
+#: assets/templates/tmpl-add-layer.php:10 assets/views/project-editor.php:1980
+#: assets/views/project-editor.php:2038 assets/views/project-editor.php:7038
+#: assets/wp/scripts_l10n.php:266
 msgid "Image"
 msgstr "Image"
 
 #: assets/templates/tmpl-add-layer.php:18
 #: assets/templates/tmpl-project-settings.php:57
-#: assets/views/project-editor.php:1969 assets/views/project-editor.php:6941
-#: assets/wp/scripts_l10n.php:266
+#: assets/views/project-editor.php:1982 assets/views/project-editor.php:7046
+#: assets/wp/scripts_l10n.php:270
 msgid "Video / Audio"
 msgstr "Vidéo / Audio"
 
-#: assets/templates/tmpl-add-layer.php:22 assets/views/project-editor.php:1970
-#: assets/views/project-editor.php:6945 assets/wp/scripts_l10n.php:228
-#: assets/wp/scripts_l10n.php:265
+#: assets/templates/tmpl-add-layer.php:22 assets/views/project-editor.php:1983
+#: assets/views/project-editor.php:7050 assets/wp/scripts_l10n.php:232
+#: assets/wp/scripts_l10n.php:269
 msgid "Button"
 msgstr "Bouton"
 
-#: assets/templates/tmpl-add-layer.php:26 assets/views/project-editor.php:1971
-#: assets/views/project-editor.php:6949 assets/wp/scripts_l10n.php:269
+#: assets/templates/tmpl-add-layer.php:26 assets/views/project-editor.php:1984
+#: assets/views/project-editor.php:7054 assets/wp/scripts_l10n.php:273
 msgid "Shape"
 msgstr "Forme"
 
-#: assets/templates/tmpl-add-layer.php:29 assets/views/dashboard.php:469
+#: assets/templates/tmpl-add-layer.php:28
+#: assets/templates/tmpl-shape-modal.php:33
+#: assets/templates/tmpl-shape-modal.php:41 assets/views/dashboard.php:469
 #, fuzzy
 #| msgctxt "Template Store"
 #| msgid "NEW"
 msgid "NEW"
 msgstr "NOUVEAU"
 
-#: assets/templates/tmpl-add-layer.php:37 assets/views/project-editor.php:1972
-#: assets/views/project-editor.php:2127 assets/views/project-editor.php:2211
-#: assets/views/project-editor.php:6953 assets/wp/scripts_l10n.php:263
+#: assets/templates/tmpl-add-layer.php:35 assets/views/project-editor.php:1985
+#: assets/views/project-editor.php:2140 assets/views/project-editor.php:2224
+#: assets/views/project-editor.php:7058 assets/wp/scripts_l10n.php:267
 msgid "Icon"
 msgstr "Icône"
 
-#: assets/templates/tmpl-add-layer.php:41
+#: assets/templates/tmpl-add-layer.php:39
 #, fuzzy
 #| msgid "Object Style"
 msgid "Object / SVG"
 msgstr "Style de l'objet"
 
-#: assets/templates/tmpl-add-layer.php:45 assets/views/project-editor.php:1974
-#: assets/views/project-editor.php:6961 assets/wp/scripts_l10n.php:267
+#: assets/templates/tmpl-add-layer.php:43 assets/views/project-editor.php:1987
+#: assets/views/project-editor.php:7066 assets/wp/scripts_l10n.php:271
 msgid "HTML"
 msgstr "HTML"
 
-#: assets/templates/tmpl-add-layer.php:49 assets/views/project-editor.php:1975
-#: assets/views/project-editor.php:6965
+#: assets/templates/tmpl-add-layer.php:47 assets/views/project-editor.php:1988
+#: assets/views/project-editor.php:7070
 msgid "Dynamic Layer"
 msgstr "Calque dynamique"
 
-#: assets/templates/tmpl-add-layer.php:53
+#: assets/templates/tmpl-add-layer.php:51
 #: assets/templates/tmpl-import-layer.php:6
-#: assets/views/project-editor.php:6969
+#: assets/views/project-editor.php:7074
 msgid "Import Layer"
 msgstr "Importer un calque"
 
@@ -3705,7 +3725,7 @@ msgid "LayerSlider Add-Ons"
 msgstr "Modules de LayerSilder"
 
 #: assets/templates/tmpl-button-presets.php:3
-#: assets/views/project-editor.php:2047 assets/views/project-editor.php:2050
+#: assets/views/project-editor.php:2060 assets/views/project-editor.php:2063
 msgid "Choose Button Preset"
 msgstr "Choisir un bouton prédéfini"
 
@@ -3731,7 +3751,7 @@ msgstr "Communication"
 
 #: assets/templates/tmpl-button-presets.php:290
 #: assets/templates/tmpl-project-settings.php:47
-#: assets/views/project-editor.php:6653 assets/wp/scripts_l10n.php:207
+#: assets/views/project-editor.php:6706 assets/wp/scripts_l10n.php:211
 msgid "Navigation"
 msgstr "Navigation"
 
@@ -4137,7 +4157,7 @@ msgstr ""
 "également être utilisés pour intégrer du contenu LayerSlider."
 
 #: assets/templates/tmpl-embed-slider.php:130
-#: assets/views/project-editor.php:6688
+#: assets/views/project-editor.php:6742
 msgid "Advanced"
 msgstr "Avancé"
 
@@ -4254,7 +4274,7 @@ msgstr "Chargement..."
 msgid "Select a project first."
 msgstr "Sélectionnez d'abord un projet."
 
-#: assets/templates/tmpl-import-layer.php:27 assets/wp/scripts_l10n.php:260
+#: assets/templates/tmpl-import-layer.php:27 assets/wp/scripts_l10n.php:264
 msgid "Select a slide first."
 msgstr "Sélectionnez d'abord une diapo."
 
@@ -4729,7 +4749,7 @@ msgstr ""
 msgid "Disable layer snapping to freely move layers around."
 msgstr "Désactiver l'accrochage des calques pour les déplacer librement."
 
-#: assets/templates/tmpl-layer-item.php:10 assets/wp/scripts_l10n.php:213
+#: assets/templates/tmpl-layer-item.php:10 assets/wp/scripts_l10n.php:217
 #, php-format
 msgid "Layer #%d"
 msgstr "Calque #%d"
@@ -5319,13 +5339,13 @@ msgid "Preview from currenty matched elements"
 msgstr "Aperçu des éléments correspondants actuels"
 
 #: assets/templates/tmpl-project-settings.php:16
-#: assets/views/project-editor.php:322 assets/wp/scripts_l10n.php:208
+#: assets/views/project-editor.php:322 assets/wp/scripts_l10n.php:212
 msgid "Project Settings"
 msgstr "Réglages du Projet"
 
 #: assets/templates/tmpl-project-settings.php:22
 #: assets/templates/tmpl-project-settings.php:103
-#: assets/views/project-editor.php:6820 assets/wp/scripts_l10n.php:15
+#: assets/views/project-editor.php:6925 assets/wp/scripts_l10n.php:15
 msgid "Publish"
 msgstr "Publier"
 
@@ -5344,7 +5364,7 @@ msgstr "Mobile"
 
 #: assets/templates/tmpl-project-settings.php:37
 #: assets/templates/tmpl-project-settings.php:843
-#: assets/views/project-editor.php:6659
+#: assets/views/project-editor.php:6712
 msgid "Slideshow"
 msgstr "Diaporama"
 
@@ -5356,8 +5376,8 @@ msgstr "Apparence"
 
 #: assets/templates/tmpl-project-settings.php:62
 #: assets/templates/tmpl-project-settings.php:1112
-#: assets/views/project-editor.php:1156 assets/views/project-editor.php:1639
-#: assets/views/project-editor.php:1647
+#: assets/views/project-editor.php:1168 assets/views/project-editor.php:1651
+#: assets/views/project-editor.php:1659
 msgid "Content Sources"
 msgstr "Sources de contenu"
 
@@ -5367,7 +5387,7 @@ msgid "Defaults"
 msgstr "Par défauts"
 
 #: assets/templates/tmpl-project-settings.php:86
-#: assets/views/project-editor.php:3637
+#: assets/views/project-editor.php:3651
 msgid "Advanced Settings"
 msgstr "Réglages avancés"
 
@@ -5395,7 +5415,7 @@ msgstr ""
 "est facultatif."
 
 #: assets/templates/tmpl-project-settings.php:136
-#: assets/views/project-editor.php:1166 assets/views/project-editor.php:1772
+#: assets/views/project-editor.php:1178 assets/views/project-editor.php:1784
 msgid "Schedule"
 msgstr "Planifier"
 
@@ -5404,6 +5424,7 @@ msgid "Hero"
 msgstr "Hero"
 
 #: assets/templates/tmpl-project-settings.php:288
+#: assets/views/project-editor.php:6621
 msgid "Popup"
 msgstr "Popup"
 
@@ -5484,7 +5505,7 @@ msgid "Top Right Corner"
 msgstr "Coin supérieur droit"
 
 #: assets/templates/tmpl-project-settings.php:448
-#: assets/templates/tmpl-smart-help.php:831
+#: assets/templates/tmpl-smart-help.php:841
 msgid "Middle"
 msgstr "Milieu"
 
@@ -5505,16 +5526,16 @@ msgid "Popup Canvas Size"
 msgstr "Taille du canevas du Popup"
 
 #: assets/templates/tmpl-project-settings.php:525
-#: assets/views/project-editor.php:2593 assets/views/project-editor.php:2601
-#: assets/views/project-editor.php:3892 assets/views/project-editor.php:3899
-#: assets/views/project-editor.php:5367 assets/views/project-editor.php:5374
+#: assets/views/project-editor.php:2606 assets/views/project-editor.php:2614
+#: assets/views/project-editor.php:3912 assets/views/project-editor.php:3919
+#: assets/views/project-editor.php:5393 assets/views/project-editor.php:5400
 msgid "width"
 msgstr "largeur"
 
 #: assets/templates/tmpl-project-settings.php:525
-#: assets/views/project-editor.php:2593 assets/views/project-editor.php:2609
-#: assets/views/project-editor.php:3892 assets/views/project-editor.php:3905
-#: assets/views/project-editor.php:5367 assets/views/project-editor.php:5380
+#: assets/views/project-editor.php:2606 assets/views/project-editor.php:2622
+#: assets/views/project-editor.php:3912 assets/views/project-editor.php:3925
+#: assets/views/project-editor.php:5393 assets/views/project-editor.php:5406
 msgid "height"
 msgstr "hauteur"
 
@@ -5523,27 +5544,27 @@ msgid "Distance from Sides"
 msgstr "Distance des côtés"
 
 #: assets/templates/tmpl-project-settings.php:550
-#: assets/views/project-editor.php:2618 assets/views/project-editor.php:2634
-#: assets/views/project-editor.php:3116 assets/views/project-editor.php:3215
+#: assets/views/project-editor.php:2631 assets/views/project-editor.php:2647
+#: assets/views/project-editor.php:3130 assets/views/project-editor.php:3229
 #: assets/wp/gutenberg_l10n.php:38
 msgid "top"
 msgstr "haut"
 
 #: assets/templates/tmpl-project-settings.php:550
-#: assets/views/project-editor.php:3119 assets/views/project-editor.php:3222
+#: assets/views/project-editor.php:3133 assets/views/project-editor.php:3236
 #: assets/wp/gutenberg_l10n.php:39
 msgid "right"
 msgstr "droite"
 
 #: assets/templates/tmpl-project-settings.php:550
-#: assets/views/project-editor.php:3127 assets/views/project-editor.php:3229
+#: assets/views/project-editor.php:3141 assets/views/project-editor.php:3243
 #: assets/wp/gutenberg_l10n.php:40
 msgid "bottom"
 msgstr "bas"
 
 #: assets/templates/tmpl-project-settings.php:550
-#: assets/views/project-editor.php:2618 assets/views/project-editor.php:2626
-#: assets/views/project-editor.php:3130 assets/views/project-editor.php:3236
+#: assets/views/project-editor.php:2631 assets/views/project-editor.php:2639
+#: assets/views/project-editor.php:3144 assets/views/project-editor.php:3250
 #: assets/wp/gutenberg_l10n.php:41
 msgid "left"
 msgstr "gauche"
@@ -5559,7 +5580,7 @@ msgid "seconds"
 msgstr "secondes"
 
 #: assets/templates/tmpl-project-settings.php:603
-#: assets/views/project-editor.php:6684
+#: assets/views/project-editor.php:6737
 msgid "Close Popup"
 msgstr "Fermer le Popup"
 
@@ -5705,7 +5726,7 @@ msgstr "Parallaxe par défaut"
 
 #: assets/templates/tmpl-project-settings.php:1166
 #: assets/templates/tmpl-project-settings.php:1179
-#: assets/views/project-editor.php:1171 assets/views/project-editor.php:1819
+#: assets/views/project-editor.php:1183 assets/views/project-editor.php:1831
 msgid "Misc"
 msgstr "Misc"
 
@@ -5832,7 +5853,7 @@ msgid "Interface Settings"
 msgstr "Réglages de l'interface"
 
 #: assets/templates/tmpl-search-window.php:39
-#: assets/views/project-editor.php:546 assets/views/project-editor.php:646
+#: assets/views/project-editor.php:546 assets/views/project-editor.php:654
 msgid "Interactive Guides"
 msgstr "Guides interactifs"
 
@@ -5850,71 +5871,179 @@ msgstr "Obtenir de l’aide"
 msgid "More"
 msgstr "Plus"
 
-#: assets/templates/tmpl-shape-modal.php:28
+#: assets/templates/tmpl-shape-modal.php:9
+#: assets/templates/tmpl-shape-modal.php:11
+msgctxt "Shape Type"
+msgid "Line"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:14
+#: assets/templates/tmpl-shape-modal.php:16
+msgctxt "Shape Type"
+msgid "Rectangle"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:19
+#: assets/templates/tmpl-shape-modal.php:21
+msgctxt "Shape Type"
+msgid "Oval"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:24
+#: assets/templates/tmpl-shape-modal.php:26
+msgctxt "Shape Type"
+msgid "Polygon"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:29
+#: assets/templates/tmpl-shape-modal.php:31
+msgctxt "Shape Type"
+msgid "Blob"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:37
+#: assets/templates/tmpl-shape-modal.php:39
+msgctxt "Shape Type"
+msgid "Wave"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:52
+#, fuzzy
+#| msgid "Modal Options"
+msgctxt "Default Shape Type"
+msgid "Polygon Options"
+msgstr "Options modales"
+
+#: assets/templates/tmpl-shape-modal.php:61
 msgid "Side Count"
 msgstr "Nombre de côtés"
 
-#: assets/templates/tmpl-shape-modal.php:39
+#: assets/templates/tmpl-shape-modal.php:72
 msgid "Side Length"
 msgstr "Longueur du côté"
 
-#: assets/templates/tmpl-shape-modal.php:50
-#: assets/templates/tmpl-shape-modal.php:182
+#: assets/templates/tmpl-shape-modal.php:83
+#: assets/templates/tmpl-shape-modal.php:215
 msgid "Radius"
 msgstr "Rayon"
 
-#: assets/templates/tmpl-shape-modal.php:61
-#: assets/templates/tmpl-shape-modal.php:121
-#: assets/templates/tmpl-shape-modal.php:193
+#: assets/templates/tmpl-shape-modal.php:94
+#: assets/templates/tmpl-shape-modal.php:154
+#: assets/templates/tmpl-shape-modal.php:226
 msgid "Stroke size"
 msgstr "Épaisseur de bordure"
 
-#: assets/templates/tmpl-shape-modal.php:72
-#: assets/templates/tmpl-shape-modal.php:76
-#: assets/templates/tmpl-shape-modal.php:132
-#: assets/templates/tmpl-shape-modal.php:204
+#: assets/templates/tmpl-shape-modal.php:105
+#: assets/templates/tmpl-shape-modal.php:109
+#: assets/templates/tmpl-shape-modal.php:165
+#: assets/templates/tmpl-shape-modal.php:237
 msgid "Stroke Color"
 msgstr "Couleur de bordure"
 
-#: assets/templates/tmpl-shape-modal.php:84
-#: assets/templates/tmpl-shape-modal.php:88
-#: assets/templates/tmpl-shape-modal.php:136
-#: assets/templates/tmpl-shape-modal.php:144
-#: assets/templates/tmpl-shape-modal.php:148
-#: assets/templates/tmpl-shape-modal.php:208
-#: assets/templates/tmpl-shape-modal.php:216
-#: assets/templates/tmpl-shape-modal.php:220
-#: assets/templates/tmpl-shape-modal.php:263
+#: assets/templates/tmpl-shape-modal.php:117
+#: assets/templates/tmpl-shape-modal.php:121
+#: assets/templates/tmpl-shape-modal.php:169
+#: assets/templates/tmpl-shape-modal.php:177
+#: assets/templates/tmpl-shape-modal.php:181
+#: assets/templates/tmpl-shape-modal.php:241
+#: assets/templates/tmpl-shape-modal.php:249
+#: assets/templates/tmpl-shape-modal.php:253
+#: assets/templates/tmpl-shape-modal.php:296
+#: assets/templates/tmpl-shape-modal.php:350
+#: assets/templates/tmpl-shape-modal.php:354
+#: assets/templates/tmpl-shape-modal.php:435
+#: assets/templates/tmpl-shape-modal.php:439
 msgid "Fill Color"
 msgstr "Couleur de remplissage"
 
-#: assets/templates/tmpl-shape-modal.php:99
-#: assets/templates/tmpl-shape-modal.php:160
+#: assets/templates/tmpl-shape-modal.php:132
+#: assets/templates/tmpl-shape-modal.php:193
 msgid "Horizontal size"
 msgstr "Taille horizontale"
 
-#: assets/templates/tmpl-shape-modal.php:110
-#: assets/templates/tmpl-shape-modal.php:171
+#: assets/templates/tmpl-shape-modal.php:143
+#: assets/templates/tmpl-shape-modal.php:204
 msgid "Vertical size"
 msgstr "Taille verticale"
 
-#: assets/templates/tmpl-shape-modal.php:231
+#: assets/templates/tmpl-shape-modal.php:264
 msgid "Length"
 msgstr "Longueur"
 
-#: assets/templates/tmpl-shape-modal.php:242
+#: assets/templates/tmpl-shape-modal.php:275
 msgid "Thickness"
 msgstr "Épaisseur"
 
-#: assets/templates/tmpl-shape-modal.php:253
+#: assets/templates/tmpl-shape-modal.php:286
 msgid "Rounded Endings"
 msgstr "Finitions arrondies"
 
-#: assets/templates/tmpl-shape-modal.php:281 assets/wp/scripts_l10n.php:276
+#: assets/templates/tmpl-shape-modal.php:312
+#: assets/templates/tmpl-shape-modal.php:386
+msgid "Complexity"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:324
+#: assets/templates/tmpl-shape-modal.php:397
+#, fuzzy
+#| msgid "Navigation"
+msgid "Variation"
+msgstr "Navigation"
+
+#: assets/templates/tmpl-shape-modal.php:338
+#: assets/templates/tmpl-shape-modal.php:423
+#: assets/views/project-editor.php:755 assets/views/project-editor.php:1098
+#: assets/wp/scripts_l10n.php:222
+msgid "Layers"
+msgstr "Calques"
+
+#: assets/templates/tmpl-shape-modal.php:364
+#: assets/templates/tmpl-shape-modal.php:525
+#, fuzzy
+#| msgid "Random"
+msgid "Randomize"
+msgstr "Aléatoire"
+
+#: assets/templates/tmpl-shape-modal.php:410
+#, fuzzy
+#| msgid "Cancel"
+msgid "Balance"
+msgstr "Annuler"
+
+#: assets/templates/tmpl-shape-modal.php:457
+msgid "Smooth"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:460
+msgid "Square"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:463
+#, fuzzy
+#| msgid "Pointer"
+msgid "Pointy"
+msgstr "Pointeur"
+
+#: assets/templates/tmpl-shape-modal.php:501
+#, fuzzy
+#| msgid "Tooltips"
+msgid "Tools"
+msgstr "Info-bulles"
+
+#: assets/templates/tmpl-shape-modal.php:508
+#: assets/templates/tmpl-smart-help.php:1036
+msgid "Invert"
+msgstr "Inverser"
+
+#: assets/templates/tmpl-shape-modal.php:511
+msgid "Perfect wave"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:552 assets/wp/scripts_l10n.php:280
 msgid "Insert Shape"
 msgstr "Insérer une forme"
 
-#: assets/templates/tmpl-shape-modal.php:283
+#: assets/templates/tmpl-shape-modal.php:554
 msgid ""
 "You can resize, rotate, and do other things with your shape once it’s "
 "inserted into the editor"
@@ -5928,7 +6057,7 @@ msgstr ""
 #: assets/templates/tmpl-slider-library.php:30
 #: assets/templates/tmpl-slider-library.php:65
 #: assets/templates/tmpl-slider-library.php:99 assets/views/dashboard.php:631
-#: assets/wp/scripts_l10n.php:282 assets/wp/slider_library_l10n.php:13
+#: assets/wp/scripts_l10n.php:287 assets/wp/slider_library_l10n.php:13
 #: assets/wp/tinymce_l10n.php:15
 msgid "No Preview"
 msgstr "Pas d'aperçu"
@@ -5954,8 +6083,8 @@ msgstr ""
 "modifications ne seront pas visibles sur les pages front-end tant que vous "
 "ne les aurez pas publiées."
 
-#: assets/templates/tmpl-slider-group-item.php:13 assets/wp/actions.php:303
-#: assets/wp/actions.php:461
+#: assets/templates/tmpl-slider-group-item.php:13 assets/wp/actions.php:325
+#: assets/wp/actions.php:483
 msgid "Unnamed Group"
 msgstr "Groupe sans nom"
 
@@ -6010,39 +6139,39 @@ msgstr "Rendre visible"
 msgid "Delete"
 msgstr "Supprimer"
 
-#: assets/templates/tmpl-smart-help.php:18
+#: assets/templates/tmpl-smart-help.php:20
 msgid "show"
 msgstr "afficher"
 
-#: assets/templates/tmpl-smart-help.php:18
+#: assets/templates/tmpl-smart-help.php:20
 msgid "hide"
 msgstr "masquer"
 
-#: assets/templates/tmpl-smart-help.php:18
+#: assets/templates/tmpl-smart-help.php:20
 msgid "more"
 msgstr "plus"
 
-#: assets/templates/tmpl-smart-help.php:19
+#: assets/templates/tmpl-smart-help.php:21
 #, php-format
 msgctxt "Possessive case: filter options, font options, etc."
 msgid "%s options"
 msgstr "Options %s"
 
-#: assets/templates/tmpl-smart-help.php:20
+#: assets/templates/tmpl-smart-help.php:22
 #, php-format
 msgctxt "Possessive case: example of what value an input field can take, etc."
 msgid "%s examples"
 msgstr "%s exemples"
 
-#: assets/templates/tmpl-smart-help.php:23
+#: assets/templates/tmpl-smart-help.php:25
 msgid "smart operations"
 msgstr "opérations intelligentes"
 
-#: assets/templates/tmpl-smart-help.php:24
+#: assets/templates/tmpl-smart-help.php:26
 msgid "on selected layers’ values"
 msgstr "sur les valeurs du calque sélectionné"
 
-#: assets/templates/tmpl-smart-help.php:32
+#: assets/templates/tmpl-smart-help.php:34
 msgid ""
 "QUICK HELP: You can use numbers and math expressions with the following "
 "operators:"
@@ -6050,67 +6179,67 @@ msgstr ""
 "AIDE RAPIDE : Vous pouvez utiliser des nombres et des expressions "
 "mathématiques avec les opérateurs suivants :"
 
-#: assets/templates/tmpl-smart-help.php:54
+#: assets/templates/tmpl-smart-help.php:56
 msgid "Apply new values"
 msgstr "Appliquer les nouvelles valeurs"
 
-#: assets/templates/tmpl-smart-help.php:67
+#: assets/templates/tmpl-smart-help.php:69
 msgid "Solid Color"
 msgstr "Couleur unie"
 
-#: assets/templates/tmpl-smart-help.php:68
+#: assets/templates/tmpl-smart-help.php:70
 msgid "Linear Gradient"
 msgstr "Dégradé linéaire"
 
-#: assets/templates/tmpl-smart-help.php:69
+#: assets/templates/tmpl-smart-help.php:71
 msgid "Radial Gradient"
 msgstr "Dégradé radial"
 
-#: assets/templates/tmpl-smart-help.php:83
+#: assets/templates/tmpl-smart-help.php:85
 msgid "Ellipse"
 msgstr "Ellipse"
 
-#: assets/templates/tmpl-smart-help.php:84
+#: assets/templates/tmpl-smart-help.php:86
 msgid "Circle"
 msgstr "Cercle"
 
-#: assets/templates/tmpl-smart-help.php:89 assets/views/project-editor.php:7017
+#: assets/templates/tmpl-smart-help.php:91 assets/views/project-editor.php:7122
 msgid "Center Center"
 msgstr "Centré au centre"
 
-#: assets/templates/tmpl-smart-help.php:90
+#: assets/templates/tmpl-smart-help.php:92
 msgid "Center Left"
 msgstr "Centré à gauche"
 
-#: assets/templates/tmpl-smart-help.php:91
+#: assets/templates/tmpl-smart-help.php:93
 msgid "Center Right"
 msgstr "Centré à droite"
 
-#: assets/templates/tmpl-smart-help.php:92
+#: assets/templates/tmpl-smart-help.php:94
 msgid "Top Center"
 msgstr "En haut au centre"
 
-#: assets/templates/tmpl-smart-help.php:93
+#: assets/templates/tmpl-smart-help.php:95
 msgid "Top Left"
 msgstr "En haut à gauche"
 
-#: assets/templates/tmpl-smart-help.php:94
+#: assets/templates/tmpl-smart-help.php:96
 msgid "Top Right"
 msgstr "En haut à droite"
 
-#: assets/templates/tmpl-smart-help.php:95
+#: assets/templates/tmpl-smart-help.php:97
 msgid "Bottom Center"
 msgstr "En bas au centre"
 
-#: assets/templates/tmpl-smart-help.php:96
+#: assets/templates/tmpl-smart-help.php:98
 msgid "Bottom Left"
 msgstr "En bas à gauche"
 
-#: assets/templates/tmpl-smart-help.php:97
+#: assets/templates/tmpl-smart-help.php:99
 msgid "Bottom Right"
 msgstr "En bas à droite"
 
-#: assets/templates/tmpl-smart-help.php:120
+#: assets/templates/tmpl-smart-help.php:122
 msgid ""
 "The time that this slide remains visible before the slideshow attempts to "
 "change to the next slide. Leave this option empty to let LayerSlider manage "
@@ -6118,7 +6247,7 @@ msgid ""
 "second."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:135
+#: assets/templates/tmpl-smart-help.php:137
 msgid ""
 "This option controls the stacking order of layers that overlap. In CSS, it’s "
 "commonly called as z-index. Elements with a higher value are stacked in "
@@ -6129,7 +6258,7 @@ msgid ""
 "using static layers."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:137
+#: assets/templates/tmpl-smart-help.php:139
 msgid ""
 "On each slide, the stacking order starts counting from 100. Providing a "
 "number less than 100 will put the layer behind every other layer on all "
@@ -6137,7 +6266,7 @@ msgid ""
 "on top of everything else."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:166
+#: assets/templates/tmpl-smart-help.php:168
 msgid ""
 "Shifts the layer position from its original with the given amount on the "
 "selected axis. Refer to the below options to see special values and "
@@ -6147,7 +6276,7 @@ msgstr ""
 "valeur indiquée sur l'axe sélectionné. Consultez les options ci-dessous pour "
 "connaître les valeurs particulières et les unités supportées."
 
-#: assets/templates/tmpl-smart-help.php:189
+#: assets/templates/tmpl-smart-help.php:191
 msgid ""
 "Shifts the layer starting position with the given amount on the selected "
 "axis. Layers animate from the offset value toward their position set under "
@@ -6159,7 +6288,7 @@ msgstr ""
 "leur position définie dans le menu <b>STYLE</b>. Consultez les options ci-"
 "dessous pour connaître les valeurs particulières et les unités supportées."
 
-#: assets/templates/tmpl-smart-help.php:212
+#: assets/templates/tmpl-smart-help.php:214
 msgid ""
 "Shifts each text fragment starting position with the given amount on the "
 "selected axis. Text fragments animate from the offset value toward the whole "
@@ -6171,7 +6300,7 @@ msgstr ""
 "la valeur de décalage vers le texte complet joint. Consultez les options ci-"
 "dessous pour connaître les valeurs particulières et les unités supportées."
 
-#: assets/templates/tmpl-smart-help.php:235
+#: assets/templates/tmpl-smart-help.php:237
 msgid ""
 "Shifts the layer position with the given amount while it’s animating out. "
 "Layers animate from their current state toward the value you set here. Refer "
@@ -6182,7 +6311,7 @@ msgstr ""
 "définissez ici. Consultez les options ci-dessous pour connaître les valeurs "
 "particulières et les unités supportées."
 
-#: assets/templates/tmpl-smart-help.php:258
+#: assets/templates/tmpl-smart-help.php:260
 msgid ""
 "Shifts each text fragment position with the given amount on the selected "
 "axis while the layer animates out. Text fragments animate from the whole "
@@ -6195,7 +6324,7 @@ msgstr ""
 "ici. Consultez les options ci-dessous pour connaître les valeurs "
 "particulières et les unités supportées."
 
-#: assets/templates/tmpl-smart-help.php:284
+#: assets/templates/tmpl-smart-help.php:286
 msgid ""
 "Scales the layer with the given amount on the selected axis. Use the value 1 "
 "for the original size. The value 2 will double, while 0.5 will shrink the "
@@ -6207,7 +6336,7 @@ msgstr ""
 "tandis que 0,5 réduit le calque à la moitié de sa taille d'origine. Une "
 "valeur négative bascule le calque sur l'axe donné."
 
-#: assets/templates/tmpl-smart-help.php:308
+#: assets/templates/tmpl-smart-help.php:310
 msgid ""
 "Sets the initial layer scale on the selected axis before the layer starts "
 "animating in. Use the value 1 for the original size. The value 2 will "
@@ -6222,7 +6351,7 @@ msgstr ""
 "calque sur l'axe donné. Les calques s'animent à partir de cette valeur vers "
 "leur apparence définie dans le menu <b>STYLE</b>."
 
-#: assets/templates/tmpl-smart-help.php:332
+#: assets/templates/tmpl-smart-help.php:334
 msgid ""
 "Sets the initial scale of each text fragment on the selected axis before "
 "they start animating in. Use the value 1 for the original size. The value 2 "
@@ -6240,7 +6369,7 @@ msgstr ""
 "les options ci-dessous pour connaître les valeurs spéciales et les unités "
 "prises en charge."
 
-#: assets/templates/tmpl-smart-help.php:356
+#: assets/templates/tmpl-smart-help.php:358
 msgid ""
 "Scales the layer with the given amount on the selected axis while it’s "
 "animating out. Use the value 1 for the original size. The value 2 will "
@@ -6255,7 +6384,7 @@ msgstr ""
 "calques s'animent à partir de leur état actuel vers la valeur que vous "
 "définissez ici."
 
-#: assets/templates/tmpl-smart-help.php:380
+#: assets/templates/tmpl-smart-help.php:382
 msgid ""
 "Scales each text fragment with the given amount on the selected axis while "
 "they’re animating out. Use the value 1 for the original size. The value 2 "
@@ -6270,7 +6399,7 @@ msgstr ""
 "fragments sur l'axe donné. Les fragments de texte s'animent à partir de "
 "l'ensemble du texte joint vers la valeur que vous avez définie ici."
 
-#: assets/templates/tmpl-smart-help.php:403
+#: assets/templates/tmpl-smart-help.php:405
 msgid ""
 "Rotates the layer by the given number of degrees on the selected axis. "
 "Negative values are allowed for counterclockwise rotation."
@@ -6279,7 +6408,7 @@ msgstr ""
 "valeurs négatives sont autorisées pour une rotation dans le sens anti-"
 "horaire."
 
-#: assets/templates/tmpl-smart-help.php:424
+#: assets/templates/tmpl-smart-help.php:426
 msgid ""
 "Sets the initial layer rotation by the given number of degrees on the "
 "selected axis before the layer starts animating in. Negative values are "
@@ -6291,7 +6420,7 @@ msgstr ""
 "sont autorisées pour une rotation anti-horaire. Les calques s'animent à "
 "partir de cette valeur vers leur apparence définie dans le menu <b>STYLE</b>."
 
-#: assets/templates/tmpl-smart-help.php:445
+#: assets/templates/tmpl-smart-help.php:447
 msgid ""
 "Sets initial rotation of each text fragment by the given number of degrees "
 "on the selected axis before they start animating in. Negative values are "
@@ -6304,7 +6433,7 @@ msgstr ""
 "fragments de texte s'animent à partir de cette valeur vers l'ensemble du "
 "texte conjoint."
 
-#: assets/templates/tmpl-smart-help.php:466
+#: assets/templates/tmpl-smart-help.php:468
 msgid ""
 "Rotates the layer with the given number of degrees on the selected axis "
 "while it’s animating out. Negative values are allowed for counterclockwise "
@@ -6316,7 +6445,7 @@ msgstr ""
 "rotation dans le sens anti-horaire. Les calques s'animent à partir de leur "
 "état actuel vers la valeur que vous définissez ici."
 
-#: assets/templates/tmpl-smart-help.php:487
+#: assets/templates/tmpl-smart-help.php:489
 msgid ""
 "Rotates each text fragment with the given number of degrees on the selected "
 "axis while they’re animating out. Negative values are allowed for "
@@ -6329,7 +6458,7 @@ msgstr ""
 "à partir de l'ensemble du texte joint vers la valeur que vous avez définie "
 "ici."
 
-#: assets/templates/tmpl-smart-help.php:509
+#: assets/templates/tmpl-smart-help.php:511
 msgid ""
 "Skews the layer by the given number of degrees on the selected axis. "
 "Negative values are allowed for the reverse direction."
@@ -6337,7 +6466,7 @@ msgstr ""
 "Incline le calque du nombre de degrés indiqué sur l'axe sélectionné. Les "
 "valeurs négatives sont autorisées pour la direction inverse."
 
-#: assets/templates/tmpl-smart-help.php:529
+#: assets/templates/tmpl-smart-help.php:531
 msgid ""
 "Sets the initial layer skew on the selected axis before the layer starts "
 "animating in. Negative values are allowed for the reverse direction. Layers "
@@ -6349,7 +6478,7 @@ msgstr ""
 "direction inverse. Les calques s'animent à partir de cette valeur vers leur "
 "apparence définie dans le menu <b>STYLE</b>."
 
-#: assets/templates/tmpl-smart-help.php:549
+#: assets/templates/tmpl-smart-help.php:551
 msgid ""
 "Sets the initial skew of each text fragment on the selected axis before they "
 "start animating in. Negative values are allowed for the reverse direction. "
@@ -6360,7 +6489,7 @@ msgstr ""
 "sont autorisées pour la direction inverse. Les fragments de texte s'animent "
 "à partir de cette valeur vers l'ensemble du texte joint."
 
-#: assets/templates/tmpl-smart-help.php:569
+#: assets/templates/tmpl-smart-help.php:571
 msgid ""
 "Skews the layer with the given amount of degrees on the selected axis while "
 "it’s animating out. Negative values are allowed for the reverse direction. "
@@ -6371,7 +6500,7 @@ msgstr ""
 "inverse. Les calques s'animent à partir de leur état actuel vers la valeur "
 "que vous définissez ici."
 
-#: assets/templates/tmpl-smart-help.php:589
+#: assets/templates/tmpl-smart-help.php:591
 msgid ""
 "Skews each text fragment with the given amount of degrees on the selected "
 "axis while they’re animating out. Negative values are allowed for the "
@@ -6383,7 +6512,7 @@ msgstr ""
 "pour la direction inverse. Les fragments de texte s'animent à partir de "
 "l'ensemble du texte joint vers la valeur que vous avez définie ici."
 
-#: assets/templates/tmpl-smart-help.php:614
+#: assets/templates/tmpl-smart-help.php:616
 msgid ""
 "The transform origin is the point around which transformations are applied. "
 "For example, a layer may rotate around its center point or an entirely "
@@ -6395,7 +6524,7 @@ msgstr ""
 "de son point central ou d'un point entièrement personnalisé comme l'un de "
 "ses coins. Voir les options ci-dessous pour les valeurs communes."
 
-#: assets/templates/tmpl-smart-help.php:631
+#: assets/templates/tmpl-smart-help.php:633
 msgid ""
 "Changes the perspective of animated objects in the 3D space. Large values of "
 "perspective cause milder transformations. Smaller values cause stronger and "
@@ -6406,7 +6535,7 @@ msgstr ""
 "valeurs plus petites entraînent des transformations plus fortes et plus "
 "perceptibles."
 
-#: assets/templates/tmpl-smart-help.php:657
+#: assets/templates/tmpl-smart-help.php:659
 msgid ""
 "Clips (cuts off) the sides of layers by the given amount specified in pixels "
 "or percentages. Similar to animating layer dimensions, except it will not "
@@ -6418,7 +6547,7 @@ msgstr ""
 "pas le calque et son contenu. Les quatre valeurs sont dans l'ordre : haut, "
 "droite, bas et le côté gauche du calque."
 
-#: assets/templates/tmpl-smart-help.php:683
+#: assets/templates/tmpl-smart-help.php:685
 msgid ""
 "The timing function of the animation. With this function, you can manipulate "
 "the movement of the animated object. Please click on the link to open <a "
@@ -6430,7 +6559,7 @@ msgstr ""
 "ouvrir <a href=\"https://easings.net/\" target=\"_blank\">easings.net</a> "
 "pour plus d'informations et plus d'exemples détaillés."
 
-#: assets/templates/tmpl-smart-help.php:689
+#: assets/templates/tmpl-smart-help.php:691
 msgid ""
 "The width of the layer in pixels or percents. Percentage values are relative "
 "to the project canvas size."
@@ -6438,7 +6567,7 @@ msgstr ""
 "La largeur du calque en pixels ou en pourcentages. Les valeurs en "
 "pourcentage sont relatives à la taille du canevas du projet."
 
-#: assets/templates/tmpl-smart-help.php:694
+#: assets/templates/tmpl-smart-help.php:696
 msgid ""
 "The height of the layer in pixels or percents. Percentage values are "
 "relative to the project canvas size."
@@ -6446,7 +6575,7 @@ msgstr ""
 "La hauteur du calque en pixels ou en pourcents. Les valeurs en pourcentage "
 "sont relatives à la taille du canevas du projet."
 
-#: assets/templates/tmpl-smart-help.php:699
+#: assets/templates/tmpl-smart-help.php:701
 msgid ""
 "The layer’s position from the left edge of the project canvas. You can use "
 "pixels and percents. Percentage values align the layer’s center point to the "
@@ -6459,7 +6588,7 @@ msgstr ""
 "calque exactement au centre. Les valeurs 0% et 100% alignent le calque sur "
 "les bords gauche et droit."
 
-#: assets/templates/tmpl-smart-help.php:704
+#: assets/templates/tmpl-smart-help.php:706
 msgid ""
 "The layer’s position from the top edge of the project canvas. You can use "
 "pixels and percents. Percentage values align the layer’s center point to the "
@@ -6472,14 +6601,14 @@ msgstr ""
 "aligne le calque exactement au centre. Les valeurs 0% a et 100% alignent le "
 "calque sur les bords supérieur et inférieur."
 
-#: assets/templates/tmpl-smart-help.php:709
+#: assets/templates/tmpl-smart-help.php:711
 msgid ""
 "The length of the transition in milliseconds. A second equals to 1000 "
 "milliseconds."
 msgstr ""
 "Durée de la transition en millisecondes. 1 seconde = 1000 millisecondes."
 
-#: assets/templates/tmpl-smart-help.php:714
+#: assets/templates/tmpl-smart-help.php:716
 msgid ""
 "Delays the transition of each text fragment relative to each other. A second "
 "equals to 1000 milliseconds."
@@ -6487,7 +6616,7 @@ msgstr ""
 "Retarde la transition de chaque fragment de texte les uns par rapport aux "
 "autres. 1 seconde = 1000 millisecondes."
 
-#: assets/templates/tmpl-smart-help.php:719
+#: assets/templates/tmpl-smart-help.php:721
 msgid ""
 "Sets the intensity of the parallax effect. Use negative values to shift "
 "layers in the opposite direction."
@@ -6495,7 +6624,7 @@ msgstr ""
 "Définit l'intensité de l'effet de parallaxe. Utilisez des valeurs négatives "
 "pour déplacer les calques dans la direction opposée."
 
-#: assets/templates/tmpl-smart-help.php:724
+#: assets/templates/tmpl-smart-help.php:726
 msgid ""
 "Controls the speed of animating layers when you move your mouse cursor or "
 "tilt your mobile device. This value is in milliseconds. A second equals to "
@@ -6505,7 +6634,7 @@ msgstr ""
 "pointeur de votre souris ou inclinez votre appareil mobile. Cette valeur est "
 "exprimée en millisecondes. 1 seconde = 1000 millisecondes."
 
-#: assets/templates/tmpl-smart-help.php:729
+#: assets/templates/tmpl-smart-help.php:731
 msgid ""
 "Controls how quickly parallax layers revert to their original position when "
 "you move your mouse cursor outside of the slider. This value is in "
@@ -6515,7 +6644,7 @@ msgstr ""
 "position d'origine quand vous déplacez le pointeur de souris en dehors du "
 "diaporama. Cette valeur est en millisecondes. 1 seconde = 1000 millisecondes."
 
-#: assets/templates/tmpl-smart-help.php:734
+#: assets/templates/tmpl-smart-help.php:736
 msgid ""
 "Increase or decrease the amount of layer movement when moving your mouse "
 "cursor or tilting on a mobile device."
@@ -6523,7 +6652,7 @@ msgstr ""
 "Augmenter ou diminuer l'ampleur du mouvement du calque en déplaçant le "
 "curseur de la souris ou en inclinant un mobile."
 
-#: assets/templates/tmpl-smart-help.php:739
+#: assets/templates/tmpl-smart-help.php:741
 msgid ""
 "Increase or decrease the amount of layer rotation in the 3D space when "
 "moving your mouse cursor or tilting on a mobile device."
@@ -6531,7 +6660,7 @@ msgstr ""
 "Augmenter ou diminuer la valeur de rotation du calque dans l'espace 3D en "
 "déplaçant le curseur de la souris ou en inclinant un mobile."
 
-#: assets/templates/tmpl-smart-help.php:744
+#: assets/templates/tmpl-smart-help.php:746
 msgid ""
 "Sets the start time of the selected transition with the given amount of "
 "milliseconds. A second equals to 1000 milliseconds."
@@ -6540,6 +6669,24 @@ msgstr ""
 "indiqué de millisecondes. 1 seconde = 1000 millisecondes."
 
 #: assets/templates/tmpl-smart-help.php:750
+msgid ""
+"The starting time of this transition. Choose from one of the pre-defined "
+"options to use relative timing, which then can also be shifted with custom "
+"operations below."
+msgstr ""
+
+#: assets/templates/tmpl-smart-help.php:753
+msgid ""
+"Shifts the above selected starting time by performing a custom operation."
+msgstr ""
+
+#: assets/templates/tmpl-smart-help.php:755
+msgid ""
+"For example, \"- 1000\" will advance the animation by playing it 1 second "
+"(1000 milliseconds) earlier."
+msgstr ""
+
+#: assets/templates/tmpl-smart-help.php:760
 msgid ""
 "Filters provide effects like blurring, color shifting, or changing the "
 "brightness, contrast, saturation of your layers, among many others. Use the "
@@ -6550,7 +6697,7 @@ msgstr ""
 "de vos calques, parmi beaucoup d'autres. Utilisez les options ci-dessous "
 "pour appliquer facilement plusieurs filtres sur vos calques."
 
-#: assets/templates/tmpl-smart-help.php:755
+#: assets/templates/tmpl-smart-help.php:765
 msgid ""
 "Sets the initial layer filters before it starts animating in. Layers animate "
 "from this value toward their appearance set under the <b>STYLE</b> menu. "
@@ -6565,7 +6712,7 @@ msgstr ""
 "du contraste et de la saturation de vos calques, entre autres. Utilisez les "
 "options ci-dessous pour appliquer facilement plusieurs filtres à vos calques."
 
-#: assets/templates/tmpl-smart-help.php:760
+#: assets/templates/tmpl-smart-help.php:770
 msgid ""
 "Applies filters on the layer while it’s animating out. Layers animate from "
 "their current state toward the value you set here. Filters provide effects "
@@ -6580,14 +6727,14 @@ msgstr ""
 "vos calques, entre autres. Utilisez les options ci-dessous pour appliquer "
 "facilement plusieurs filtres à vos calques."
 
-#: assets/templates/tmpl-smart-help.php:765
+#: assets/templates/tmpl-smart-help.php:775
 msgid ""
 "Waiting time between repeats in milliseconds. A second is 1000 milliseconds."
 msgstr ""
 "Temps d'attente entre les répétitions en millisecondes. 1 seconde = 1000 "
 "millisecondes."
 
-#: assets/templates/tmpl-smart-help.php:770
+#: assets/templates/tmpl-smart-help.php:780
 msgid ""
 "Layers can be kept at their place across multiple slides. Here you can "
 "select the slide on which this layer should animate out."
@@ -6595,7 +6742,7 @@ msgstr ""
 "Les calques peuvent être maintenus à leur place sur plusieurs diapos. Ici, "
 "vous pouvez sélectionner la diapo sur laquelle ce calque doit s'animer."
 
-#: assets/templates/tmpl-smart-help.php:778
+#: assets/templates/tmpl-smart-help.php:788
 msgid ""
 "It looks like you’ve disabled Google Fonts in LayerSlider plugin settings. "
 "We recommend enabling Google Fonts, so you can enhance your content with "
@@ -6605,7 +6752,7 @@ msgstr ""
 "LayerSlider. Nous vous recommandons d'activer Google Fonts, afin de pouvoir "
 "enrichir votre contenu avec une typographie belle et unique."
 
-#: assets/templates/tmpl-smart-help.php:781
+#: assets/templates/tmpl-smart-help.php:791
 msgid ""
 "Enhance your content with beautiful and unique typography. Google Fonts "
 "provides over a thousand web-optimized fonts."
@@ -6613,11 +6760,11 @@ msgstr ""
 "Mettez en valeur votre contenu avec une typographie belle et unique. Google "
 "Fonts propose plus d'un millier de polices optimisées pour le web."
 
-#: assets/templates/tmpl-smart-help.php:783
+#: assets/templates/tmpl-smart-help.php:793
 msgid "Browse Google Fonts"
 msgstr "Parcourir Google Fonts"
 
-#: assets/templates/tmpl-smart-help.php:806
+#: assets/templates/tmpl-smart-help.php:816
 msgid ""
 "Sets the size of the background image. The image can be left to its natural "
 "size, stretched, or constrained to fit the available space."
@@ -6625,7 +6772,7 @@ msgstr ""
 "Définit la taille de l'image d'arrière-plan. L'image peut être laissée à sa "
 "taille d'origine, étirée ou contrainte pour s'adapter à l'espace disponible."
 
-#: assets/templates/tmpl-smart-help.php:811
+#: assets/templates/tmpl-smart-help.php:821
 msgid ""
 "A slide alias name, which you can use in your URLs with a hash tag so "
 "LayerSlider will start with the corresponding slide when visitors arrive to "
@@ -6640,159 +6787,159 @@ msgstr ""
 "minuscule. Vous pouvez également utiliser cette fonction pour mettre en "
 "place une navigation de diapo avec des liens."
 
-#: assets/templates/tmpl-smart-help.php:822
-#: assets/templates/tmpl-smart-help.php:964
-#: assets/templates/tmpl-smart-help.php:983
+#: assets/templates/tmpl-smart-help.php:832
+#: assets/templates/tmpl-smart-help.php:974
+#: assets/templates/tmpl-smart-help.php:993
 msgid "Center"
 msgstr "Au centre"
 
-#: assets/templates/tmpl-smart-help.php:839
+#: assets/templates/tmpl-smart-help.php:849
 msgid "100px"
 msgstr "100px"
 
-#: assets/templates/tmpl-smart-help.php:840
+#: assets/templates/tmpl-smart-help.php:850
 msgid "Enter the stage from left"
 msgstr "Entrer en scène depuis la gauche"
 
-#: assets/templates/tmpl-smart-help.php:841
+#: assets/templates/tmpl-smart-help.php:851
 msgid "Enter the stage from right"
 msgstr "Entrer en scène depuis la droite"
 
-#: assets/templates/tmpl-smart-help.php:842
+#: assets/templates/tmpl-smart-help.php:852
 msgid "Leave the stage on left"
 msgstr "Quitter la scène à gauche"
 
-#: assets/templates/tmpl-smart-help.php:843
+#: assets/templates/tmpl-smart-help.php:853
 msgid "Leave the stage on right"
 msgstr "Quitter la scène à droite"
 
-#: assets/templates/tmpl-smart-help.php:844
+#: assets/templates/tmpl-smart-help.php:854
 msgid "Enter the stage from top"
 msgstr "Entrer en scène depuis le haut"
 
-#: assets/templates/tmpl-smart-help.php:845
+#: assets/templates/tmpl-smart-help.php:855
 msgid "Enter the stage from bottom"
 msgstr "Entrer en scène depuis le bas"
 
-#: assets/templates/tmpl-smart-help.php:846
+#: assets/templates/tmpl-smart-help.php:856
 msgid "Leave the stage on top"
 msgstr "Quitter la scène en haut"
 
-#: assets/templates/tmpl-smart-help.php:847
+#: assets/templates/tmpl-smart-help.php:857
 msgid "Leave the stage on bottom"
 msgstr "Quitter la scène en bas"
 
-#: assets/templates/tmpl-smart-help.php:848
+#: assets/templates/tmpl-smart-help.php:858
 msgid "Move out of stage on left"
 msgstr "Sortir de la scène sur la gauche"
 
-#: assets/templates/tmpl-smart-help.php:849
+#: assets/templates/tmpl-smart-help.php:859
 msgid "Move out of stage on right"
 msgstr "Sortir de la scène sur la droite"
 
-#: assets/templates/tmpl-smart-help.php:850
+#: assets/templates/tmpl-smart-help.php:860
 msgid "Move out of stage on top"
 msgstr "Sortir de la scène en haut"
 
-#: assets/templates/tmpl-smart-help.php:851
+#: assets/templates/tmpl-smart-help.php:861
 msgid "Move out of stage on bottom"
 msgstr "Sortir de la scène en bas"
 
-#: assets/templates/tmpl-smart-help.php:852
+#: assets/templates/tmpl-smart-help.php:862
 msgid "100% layer width"
 msgstr "100 % en largeur de calque"
 
-#: assets/templates/tmpl-smart-help.php:853
+#: assets/templates/tmpl-smart-help.php:863
 msgid "-100% layer width"
 msgstr "-100 % en largeur de calque"
 
-#: assets/templates/tmpl-smart-help.php:854
+#: assets/templates/tmpl-smart-help.php:864
 #, fuzzy, php-format
 #| msgid "50% slider width"
 msgid "50% slider width"
 msgstr "50% en largeur de diaporama"
 
-#: assets/templates/tmpl-smart-help.php:855
+#: assets/templates/tmpl-smart-help.php:865
 #, fuzzy, php-format
 #| msgid "-50% slider width"
 msgid "-50% slider width"
 msgstr "-50% en largeur de diaporama"
 
-#: assets/templates/tmpl-smart-help.php:856
+#: assets/templates/tmpl-smart-help.php:866
 msgid "100% layer height"
 msgstr "100 % en hauteur de calque"
 
-#: assets/templates/tmpl-smart-help.php:857
+#: assets/templates/tmpl-smart-help.php:867
 msgid "-100% layer height"
 msgstr "-100% en hauteur de calque"
 
-#: assets/templates/tmpl-smart-help.php:858
+#: assets/templates/tmpl-smart-help.php:868
 #, fuzzy, php-format
 #| msgid "50% slider height"
 msgid "50% slider height"
 msgstr "50% en hauteur de diaporama"
 
-#: assets/templates/tmpl-smart-help.php:859
+#: assets/templates/tmpl-smart-help.php:869
 #, fuzzy, php-format
 #| msgid "-50% slider height"
 msgid "-50% slider height"
 msgstr "-50% en hauteur de diaporama"
 
-#: assets/templates/tmpl-smart-help.php:860
+#: assets/templates/tmpl-smart-help.php:870
 msgid "20% layer width"
 msgstr "20% en largeur de calque"
 
-#: assets/templates/tmpl-smart-help.php:861
+#: assets/templates/tmpl-smart-help.php:871
 msgid "-20% layer width"
 msgstr "-20% en largeur de calque"
 
-#: assets/templates/tmpl-smart-help.php:862
+#: assets/templates/tmpl-smart-help.php:872
 msgid "20% layer height"
 msgstr "20% en hauteur de calque"
 
-#: assets/templates/tmpl-smart-help.php:863
+#: assets/templates/tmpl-smart-help.php:873
 msgid "-20% layer height"
 msgstr "-20% en hauteur de calque"
 
-#: assets/templates/tmpl-smart-help.php:864
-#: assets/templates/tmpl-smart-help.php:873
-#: assets/templates/tmpl-smart-help.php:886
-#: assets/templates/tmpl-smart-help.php:895
+#: assets/templates/tmpl-smart-help.php:874
+#: assets/templates/tmpl-smart-help.php:883
+#: assets/templates/tmpl-smart-help.php:896
+#: assets/templates/tmpl-smart-help.php:905
 msgid "Random between two values"
 msgstr "Aléatoire entre deux valeurs"
 
-#: assets/templates/tmpl-smart-help.php:865
-#: assets/templates/tmpl-smart-help.php:874
-#: assets/templates/tmpl-smart-help.php:887
-#: assets/templates/tmpl-smart-help.php:896
+#: assets/templates/tmpl-smart-help.php:875
+#: assets/templates/tmpl-smart-help.php:884
+#: assets/templates/tmpl-smart-help.php:897
+#: assets/templates/tmpl-smart-help.php:906
 msgid "Cycle through multiple values"
 msgstr "Parcourir plusieurs valeurs"
 
-#: assets/templates/tmpl-smart-help.php:882
+#: assets/templates/tmpl-smart-help.php:892
 msgid "Original size"
 msgstr "Taille d'origine"
 
-#: assets/templates/tmpl-smart-help.php:883
+#: assets/templates/tmpl-smart-help.php:893
 msgid "Enlarge layer to double size"
 msgstr "Doubler la taille du calque"
 
-#: assets/templates/tmpl-smart-help.php:884
+#: assets/templates/tmpl-smart-help.php:894
 msgid "Shrink layer to half size"
 msgstr "Réduire le calque à la moitié de sa taille"
 
-#: assets/templates/tmpl-smart-help.php:885
+#: assets/templates/tmpl-smart-help.php:895
 msgid "Flip layer"
 msgstr "Retourner le calque"
 
-#: assets/templates/tmpl-smart-help.php:904
+#: assets/templates/tmpl-smart-help.php:914
 msgid "The background image is displayed in its original size"
 msgstr "L'image d'arrière-plan est affichée dans sa taille originale"
 
-#: assets/templates/tmpl-smart-help.php:905
+#: assets/templates/tmpl-smart-help.php:915
 msgid "cover"
 msgstr "couverture"
 
-#: assets/templates/tmpl-smart-help.php:905
+#: assets/templates/tmpl-smart-help.php:915
 msgid ""
 "Resize the background image to cover the entire container, even if it has to "
 "stretch the image or cut a little bit off one of the edges"
@@ -6800,20 +6947,20 @@ msgstr ""
 "Redimensionne l'image d'arrière-plan pour couvrir l'ensemble du conteneur, "
 "même s'il faut étirer l'image ou couper un peu l'un des bords"
 
-#: assets/templates/tmpl-smart-help.php:906
+#: assets/templates/tmpl-smart-help.php:916
 msgid "contain"
 msgstr "contenu"
 
-#: assets/templates/tmpl-smart-help.php:906
+#: assets/templates/tmpl-smart-help.php:916
 msgid "Resize the background image to make sure the image is fully visible"
 msgstr ""
 "Redimensionne l'image d'arrière-plan pour qu'elle soit entièrement visible"
 
-#: assets/templates/tmpl-smart-help.php:907
+#: assets/templates/tmpl-smart-help.php:917
 msgid "stretch"
 msgstr "étiré"
 
-#: assets/templates/tmpl-smart-help.php:907
+#: assets/templates/tmpl-smart-help.php:917
 msgid ""
 "Stretches the background image to the same size as the layer. May result in "
 "distorted image."
@@ -6821,131 +6968,127 @@ msgstr ""
 "Étire l'image d'arrière-plan à la même taille que le calque. Il peut en "
 "résulter une image déformée."
 
-#: assets/templates/tmpl-smart-help.php:908
+#: assets/templates/tmpl-smart-help.php:918
 msgid "initial"
 msgstr "initial"
 
-#: assets/templates/tmpl-smart-help.php:908
-#: assets/templates/tmpl-smart-help.php:909
-#: assets/templates/tmpl-smart-help.php:910
+#: assets/templates/tmpl-smart-help.php:918
+#: assets/templates/tmpl-smart-help.php:919
+#: assets/templates/tmpl-smart-help.php:920
 msgid "Sets this property to its default value."
 msgstr "Définit cette propriété à sa valeur par défaut."
 
-#: assets/templates/tmpl-smart-help.php:909
+#: assets/templates/tmpl-smart-help.php:919
 msgid "300px (example)"
 msgstr "300px (exemple)"
 
-#: assets/templates/tmpl-smart-help.php:910
+#: assets/templates/tmpl-smart-help.php:920
 msgid "80% (example)"
 msgstr "80% (exemple)"
 
-#: assets/templates/tmpl-smart-help.php:919
+#: assets/templates/tmpl-smart-help.php:929
 msgid "Used in Project"
 msgstr "Utilisé dans le projet"
 
-#: assets/templates/tmpl-smart-help.php:927
+#: assets/templates/tmpl-smart-help.php:937
 msgid "Common Fonts"
 msgstr "Polices communes"
 
-#: assets/templates/tmpl-smart-help.php:943
+#: assets/templates/tmpl-smart-help.php:953
 msgid "From top"
 msgstr "Depuis le haut"
 
-#: assets/templates/tmpl-smart-help.php:944
+#: assets/templates/tmpl-smart-help.php:954
 msgid "From right"
 msgstr "Depuis la droite"
 
-#: assets/templates/tmpl-smart-help.php:945
+#: assets/templates/tmpl-smart-help.php:955
 msgid "From bottom"
 msgstr "Depuis le bas"
 
-#: assets/templates/tmpl-smart-help.php:946
+#: assets/templates/tmpl-smart-help.php:956
 msgid "From left"
 msgstr "Depuis la gauche"
 
-#: assets/templates/tmpl-smart-help.php:957
+#: assets/templates/tmpl-smart-help.php:967
 msgid "X axis"
 msgstr "axe X"
 
-#: assets/templates/tmpl-smart-help.php:966
+#: assets/templates/tmpl-smart-help.php:976
 msgid "Left side of the project canvas"
 msgstr "Côté gauche du canevas de projet"
 
-#: assets/templates/tmpl-smart-help.php:967
+#: assets/templates/tmpl-smart-help.php:977
 msgid "Center of the project canvas"
 msgstr "Centre du canevas de projet"
 
-#: assets/templates/tmpl-smart-help.php:968
+#: assets/templates/tmpl-smart-help.php:978
 msgid "Right side of the project canvas"
 msgstr "Côté droit du canevas de projet"
 
-#: assets/templates/tmpl-smart-help.php:976
+#: assets/templates/tmpl-smart-help.php:986
 msgid "Y axis"
 msgstr "axe Y"
 
-#: assets/templates/tmpl-smart-help.php:985
+#: assets/templates/tmpl-smart-help.php:995
 msgid "Top of the project canvas"
 msgstr "Haut du canevas de projet"
 
-#: assets/templates/tmpl-smart-help.php:986
+#: assets/templates/tmpl-smart-help.php:996
 msgid "Middle of the project canvas"
 msgstr "Milieu du canevas de projet"
 
-#: assets/templates/tmpl-smart-help.php:987
+#: assets/templates/tmpl-smart-help.php:997
 msgid "Bottom of the project canvas"
 msgstr "Bas du canevas de projet"
 
-#: assets/templates/tmpl-smart-help.php:995
+#: assets/templates/tmpl-smart-help.php:1005
 msgid "Z axis"
 msgstr "Axe Z"
 
-#: assets/templates/tmpl-smart-help.php:1005
-#: assets/templates/tmpl-smart-help.php:1038
+#: assets/templates/tmpl-smart-help.php:1015
+#: assets/templates/tmpl-smart-help.php:1048
 msgid "Apply selected values"
 msgstr "Appliquer les valeurs sélectionnées"
 
-#: assets/templates/tmpl-smart-help.php:1019
+#: assets/templates/tmpl-smart-help.php:1029
 msgid "Add new property"
 msgstr "Ajouté une nouvelle propriété"
 
-#: assets/templates/tmpl-smart-help.php:1020
-#: assets/views/project-editor.php:3069 assets/views/project-editor.php:3539
+#: assets/templates/tmpl-smart-help.php:1030
+#: assets/views/project-editor.php:3083 assets/views/project-editor.php:3553
 msgid "Blur"
 msgstr "Flou"
 
-#: assets/templates/tmpl-smart-help.php:1021
+#: assets/templates/tmpl-smart-help.php:1031
 msgid "Brightness"
 msgstr "Luminosité"
 
-#: assets/templates/tmpl-smart-help.php:1022
+#: assets/templates/tmpl-smart-help.php:1032
 msgid "Contrast"
 msgstr "Constraste"
 
-#: assets/templates/tmpl-smart-help.php:1023
+#: assets/templates/tmpl-smart-help.php:1033
 msgid "Drop Shadow"
 msgstr "Ombre portée"
 
-#: assets/templates/tmpl-smart-help.php:1024
+#: assets/templates/tmpl-smart-help.php:1034
 msgid "Grayscale"
 msgstr "Niveau de gris"
 
-#: assets/templates/tmpl-smart-help.php:1025
+#: assets/templates/tmpl-smart-help.php:1035
 msgid "Hue-Rotate"
 msgstr "Teinte-rotation"
 
-#: assets/templates/tmpl-smart-help.php:1026
-msgid "Invert"
-msgstr "Inverser"
-
-#: assets/templates/tmpl-smart-help.php:1028
+#: assets/templates/tmpl-smart-help.php:1038
 msgid "Saturate"
 msgstr "Saturé"
 
-#: assets/templates/tmpl-smart-help.php:1029
+#: assets/templates/tmpl-smart-help.php:1039
 msgid "Sepia"
 msgstr "Sépia"
 
-#: assets/templates/tmpl-smart-help.php:1048
+#: assets/templates/tmpl-smart-help.php:1058
 #, fuzzy
 #| msgid "Apply to other slides"
 msgid "Apply Value To All Slides"
@@ -7194,7 +7337,7 @@ msgstr "Documentation du développeur"
 msgid "Frequently Asked Questions"
 msgstr "Foire Aux Questions"
 
-#: assets/views/about.php:257 assets/views/dashboard.php:1047
+#: assets/views/about.php:257 assets/views/dashboard.php:1148
 msgid "Stay Updated"
 msgstr "Rester informé"
 
@@ -7383,12 +7526,12 @@ msgid "Projects"
 msgstr "Projets"
 
 #: assets/views/dashboard.php:250
-msgid "License"
-msgstr "Licence"
-
-#: assets/views/dashboard.php:255
 msgid "News"
 msgstr "Actualités"
+
+#: assets/views/dashboard.php:255
+msgid "License"
+msgstr "Licence"
 
 #: assets/views/dashboard.php:319
 msgid "Notifications"
@@ -7647,110 +7790,106 @@ msgstr "Aller à la page suivante"
 msgid "Go to the last page"
 msgstr "Aller à la dernière page"
 
-#: assets/views/dashboard.php:727
-msgid "Help & Support"
-msgstr "Aide & Support"
+#: assets/views/dashboard.php:728
+msgid "Latest News"
+msgstr "Dernières actualités"
 
-#: assets/views/dashboard.php:732
-msgid "Read the documentation"
-msgstr "Lire la documentation"
+#: assets/views/dashboard.php:742
+msgid "Plugin Updates"
+msgstr "Mises à jour de l'extension"
 
-#: assets/views/dashboard.php:733
-msgid "Get started with using LayerSlider."
-msgstr "Commencez à utiliser LayerSlider."
-
-#: assets/views/dashboard.php:737
-msgid "Browse the FAQs"
-msgstr "Consulter les FAQs"
-
-#: assets/views/dashboard.php:738
-msgid "Find answers for common questions."
-msgstr "Trouvez des réponses aux questions courantes."
-
-#: assets/views/dashboard.php:747
-msgid "Direct Support"
-msgstr "Support direct"
-
-#: assets/views/dashboard.php:749
-msgid "Unlock Now"
-msgstr "Débloquer maintenant"
-
-#: assets/views/dashboard.php:752
-msgid "Get in touch with our Support Team."
-msgstr "Contactez notre équipe Support."
+#: assets/views/dashboard.php:746
+msgid "Re-Check"
+msgstr "Re-vérifier"
 
 #: assets/views/dashboard.php:756
-msgid "Open Help Center"
-msgstr "Ouvrir le centre d'aide"
+msgid "Installed Version:"
+msgstr "Version installée :"
 
-#: assets/views/dashboard.php:765
-msgid "Connect With LayerSlider"
-msgstr "Connectez-vous avec LayerSlider"
+#: assets/views/dashboard.php:763
+msgid "Available Version: "
+msgstr "Version disponible : "
 
-#: assets/views/dashboard.php:768
+#: assets/views/dashboard.php:784
+msgid "Release Channel"
+msgstr "Canal de sortie"
+
+#: assets/views/dashboard.php:790
+msgid "Stable"
+msgstr "Stable"
+
+#: assets/views/dashboard.php:791
+msgid "Beta"
+msgstr "Béta"
+
+#: assets/views/dashboard.php:804
+#, php-format
 msgid ""
-"Follow us on Social Media and get notified about the latest product updates, "
-"sales, deals, and participate in giveaways and other programs."
+"Couldn’t display the release log. Please check %sSystem Status%s for "
+"potential errors."
 msgstr ""
-"Suivez-nous sur les médias sociaux et soyez avertis des dernières mises à "
-"jour du produit, des ventes et des offres, et participez à des promotions et "
-"à d'autres programmes."
+"Impossible d'afficher le journal de version. Veuillez vérifier %sEtat du "
+"système%s pour des erreurs potentielles."
 
-#: assets/views/dashboard.php:835
+#: assets/views/dashboard.php:813
+msgid "Show More"
+msgstr "Voir plus"
+
+#: assets/views/dashboard.php:845
 msgid "Register Your License"
 msgstr "Enregistrer votre licence"
 
-#: assets/views/dashboard.php:839
+#: assets/views/dashboard.php:849
 msgid "Registered License"
 msgstr "Licence enregistrée"
 
-#: assets/views/dashboard.php:847
+#: assets/views/dashboard.php:857
 msgid "Please enter your license key below."
 msgstr "Saisissez votre clé de licence ci-dessous."
 
-#: assets/views/dashboard.php:851
+#: assets/views/dashboard.php:861
 msgid "Thank you for your purchase!"
 msgstr "Merci pour votre achat !"
 
-#: assets/views/dashboard.php:858
+#: assets/views/dashboard.php:868
 msgid "Unlock all these benefits and get the full LayerSlider experience:"
 msgstr ""
 "Débloquez tous ces avantages et profitez pleinement des possibilités de "
 "LayerSlider :"
 
-#: assets/views/dashboard.php:862
+#: assets/views/dashboard.php:872
 msgid "You can now access all these benefits:"
 msgstr "Vous pouvez maintenant accéder à tous ces avantages :"
 
-#: assets/views/dashboard.php:936
+#: assets/views/dashboard.php:946
 msgid "Premium Templates"
 msgstr "Modèles Premium"
 
-#: assets/views/dashboard.php:960
+#: assets/views/dashboard.php:970
 msgid "Enter your license key:"
 msgstr "Entrer votre clé de licence :"
 
-#: assets/views/dashboard.php:962
+#: assets/views/dashboard.php:972
 msgid "Where’s my license key?"
 msgstr "Où est ma clé de licence?"
 
-#: assets/views/dashboard.php:965
+#: assets/views/dashboard.php:975
 msgid "Enter your license key here"
 msgstr "Entrer votre clé de licence ici"
 
-#: assets/views/dashboard.php:969
+#: assets/views/dashboard.php:979
 msgid "Update License"
 msgstr "Mettre à jour la licence"
 
-#: assets/views/dashboard.php:970
+#: assets/views/dashboard.php:980
 msgid "Deregister License"
 msgstr "Désenregistrer la licence"
 
-#: assets/views/dashboard.php:972
+#: assets/views/dashboard.php:982
 msgid "Purchase license"
 msgstr "Acheter une licence"
 
-#: assets/views/dashboard.php:977
+#: assets/views/dashboard.php:987
 #, php-format
 msgid ""
 "License registration requires a direct purchase of a LayerSlider license if "
@@ -7761,7 +7900,7 @@ msgstr ""
 "LayerSlider si vous avez reçu le plugin avec un thème WordPress. Pour plus "
 "d'informations, veuillez vous référer à %scet article%s."
 
-#: assets/views/dashboard.php:979
+#: assets/views/dashboard.php:989
 #, php-format
 msgid ""
 "If you experience any issue or need further information,<br> please read our "
@@ -7770,95 +7909,99 @@ msgstr ""
 "Si vous rencontrez un problème ou si vous avez besoin de plus d'informations,"
 "<br>veuillez lire notre %sguide d'enregistrement%s."
 
-#: assets/views/dashboard.php:996
+#: assets/views/dashboard.php:1006
 msgid "Go Premium!"
 msgstr "Devenez Premium!"
 
-#: assets/views/dashboard.php:1011
+#: assets/views/dashboard.php:1021
 msgid "Premium activated!"
 msgstr "Premium activé !"
 
-#: assets/views/dashboard.php:1029
+#: assets/views/dashboard.php:1037
+msgid "Help & Support"
+msgstr "Aide & Support"
+
+#: assets/views/dashboard.php:1042
+msgid "Read the documentation"
+msgstr "Lire la documentation"
+
+#: assets/views/dashboard.php:1043
+msgid "Get started with using LayerSlider."
+msgstr "Commencez à utiliser LayerSlider."
+
+#: assets/views/dashboard.php:1047
+msgid "Browse the FAQs"
+msgstr "Consulter les FAQs"
+
+#: assets/views/dashboard.php:1048
+msgid "Find answers for common questions."
+msgstr "Trouvez des réponses aux questions courantes."
+
+#: assets/views/dashboard.php:1057
+msgid "Direct Support"
+msgstr "Support direct"
+
+#: assets/views/dashboard.php:1059
+msgid "Unlock Now"
+msgstr "Débloquer maintenant"
+
+#: assets/views/dashboard.php:1062
+msgid "Get in touch with our Support Team."
+msgstr "Contactez notre équipe Support."
+
+#: assets/views/dashboard.php:1066
+msgid "Open Help Center"
+msgstr "Ouvrir le centre d'aide"
+
+#: assets/views/dashboard.php:1075
+msgid "Connect With LayerSlider"
+msgstr "Connectez-vous avec LayerSlider"
+
+#: assets/views/dashboard.php:1078
+msgid ""
+"Follow us on Social Media and get notified about the latest product updates, "
+"sales, deals, and participate in giveaways and other programs."
+msgstr ""
+"Suivez-nous sur les médias sociaux et soyez avertis des dernières mises à "
+"jour du produit, des ventes et des offres, et participez à des promotions et "
+"à d'autres programmes."
+
+#: assets/views/dashboard.php:1130
 msgid "LayerSlider Newsletter"
 msgstr "Newsletter LayerSlider"
 
-#: assets/views/dashboard.php:1032
+#: assets/views/dashboard.php:1133
 msgid "Enter your email address"
 msgstr "Entrer votre adresse email"
 
-#: assets/views/dashboard.php:1037
+#: assets/views/dashboard.php:1138
 msgid "Subscribe"
 msgstr "Souscrire"
 
-#: assets/views/dashboard.php:1048
+#: assets/views/dashboard.php:1149
 msgid "News about the latest features and other product info."
 msgstr ""
 "Nouvelles sur les dernières fonctionnalités et autres informations sur le "
 "produit."
 
-#: assets/views/dashboard.php:1052
+#: assets/views/dashboard.php:1153
 msgid "Sneak Peek on Product Updates"
 msgstr "Aperçu des mises à jour du produit"
 
-#: assets/views/dashboard.php:1053
+#: assets/views/dashboard.php:1154
 msgid "Access to all the cool new features before anyone else."
 msgstr ""
 "Accédez à toutes les nouvelles fonctionnalités intéressantes avant tout le "
 "monde."
 
-#: assets/views/dashboard.php:1057
+#: assets/views/dashboard.php:1158
 msgid "Provide Feedback"
 msgstr "Donnez votre avis"
 
-#: assets/views/dashboard.php:1058
+#: assets/views/dashboard.php:1159
 msgid "Participate in various programs and help us improving LayerSlider."
 msgstr ""
 "Participez à différents programmes et aidez-nous à améliorer LayerSlider."
-
-#: assets/views/dashboard.php:1071
-msgid "Latest News"
-msgstr "Dernières actualités"
-
-#: assets/views/dashboard.php:1085
-msgid "Plugin Updates"
-msgstr "Mises à jour de l'extension"
-
-#: assets/views/dashboard.php:1089
-msgid "Re-Check"
-msgstr "Re-vérifier"
-
-#: assets/views/dashboard.php:1099
-msgid "Installed Version:"
-msgstr "Version installée :"
-
-#: assets/views/dashboard.php:1106
-msgid "Available Version: "
-msgstr "Version disponible : "
-
-#: assets/views/dashboard.php:1127
-msgid "Release Channel"
-msgstr "Canal de sortie"
-
-#: assets/views/dashboard.php:1133
-msgid "Stable"
-msgstr "Stable"
-
-#: assets/views/dashboard.php:1134
-msgid "Beta"
-msgstr "Béta"
-
-#: assets/views/dashboard.php:1147
-#, php-format
-msgid ""
-"Couldn’t display the release log. Please check %sSystem Status%s for "
-"potential errors."
-msgstr ""
-"Impossible d'afficher le journal de version. Veuillez vérifier %sEtat du "
-"système%s pour des erreurs potentielles."
-
-#: assets/views/dashboard.php:1156
-msgid "Show More"
-msgstr "Voir plus"
 
 #: assets/views/project-editor.php:203
 msgid "Incompatible Browser Detected"
@@ -7909,8 +8052,8 @@ msgstr "Diapositives"
 msgid "Slides List"
 msgstr "Liste des diapos"
 
-#: assets/views/project-editor.php:340 assets/views/project-editor.php:737
-#: assets/views/project-editor.php:6481 assets/wp/scripts_l10n.php:217
+#: assets/views/project-editor.php:340 assets/views/project-editor.php:745
+#: assets/views/project-editor.php:6509 assets/wp/scripts_l10n.php:221
 msgid "Slide"
 msgstr "Diapo"
 
@@ -8024,96 +8167,104 @@ msgstr "Insérer LayerSlider dans les pages."
 msgid "Tooltips"
 msgstr "Info-bulles"
 
-#: assets/views/project-editor.php:655
+#: assets/views/project-editor.php:642
+msgid "Quick Tip when publishing"
+msgstr ""
+
+#: assets/views/project-editor.php:663
 msgid "Interface Walkthrough"
 msgstr "Visite de l'interface"
 
-#: assets/views/project-editor.php:661
+#: assets/views/project-editor.php:669
 msgid "Interactive Guides are coming soon."
 msgstr "Les guides interactifs seront bientôt disponibles."
 
-#: assets/views/project-editor.php:682
+#: assets/views/project-editor.php:690
 msgid "Revisions Settings"
 msgstr "Réglages des révisions"
 
-#: assets/views/project-editor.php:692
+#: assets/views/project-editor.php:700
 msgid "Revisions per project"
 msgstr "Révisions par projet"
 
-#: assets/views/project-editor.php:702
+#: assets/views/project-editor.php:710
 msgid "Create revisions after"
 msgstr "Créer des révisions après"
 
-#: assets/views/project-editor.php:706
+#: assets/views/project-editor.php:714
 msgid "min"
 msgstr "min"
 
-#: assets/views/project-editor.php:717
+#: assets/views/project-editor.php:725
 msgid "Exit Timeline View"
 msgstr "Quitter la chronologie"
 
-#: assets/views/project-editor.php:722
+#: assets/views/project-editor.php:730
 msgid "Exit Revisions"
 msgstr "Qiutter les révisions"
 
-#: assets/views/project-editor.php:727
+#: assets/views/project-editor.php:735
 msgid "Exit Project View"
 msgstr "Quitter la vue projet"
 
-#: assets/views/project-editor.php:734 assets/views/project-editor.php:1127
+#: assets/views/project-editor.php:742 assets/views/project-editor.php:1139
 msgid "Slide Settings"
 msgstr "Réglages de la diapo"
 
-#: assets/views/project-editor.php:744 assets/views/project-editor.php:1892
+#: assets/views/project-editor.php:752 assets/views/project-editor.php:1904
 msgid "Layer Settings"
 msgstr "Réglages de calque"
 
-#: assets/views/project-editor.php:747 assets/views/project-editor.php:1086
-#: assets/wp/scripts_l10n.php:218
-msgid "Layers"
-msgstr "Calques"
-
-#: assets/views/project-editor.php:777 assets/views/project-editor.php:1911
+#: assets/views/project-editor.php:785 assets/views/project-editor.php:1923
 msgid "Layers List"
 msgstr "Liste des calques"
 
-#: assets/views/project-editor.php:809 assets/views/project-editor.php:6927
+#: assets/views/project-editor.php:817 assets/views/project-editor.php:7032
 msgid "Add Layer"
 msgstr "Ajouter Calque"
 
-#: assets/views/project-editor.php:820
+#: assets/views/project-editor.php:828
 msgid "Layers on this slide"
 msgstr "Calques de cette diapo"
 
-#: assets/views/project-editor.php:825
+#: assets/views/project-editor.php:833
 msgid "Toggle layer visibility"
 msgstr "Modifier la visibilité du calque"
 
-#: assets/views/project-editor.php:828
+#: assets/views/project-editor.php:836
 msgid "Lock / Unlock layer"
 msgstr "Verrouiller / Déverrouiller le calque"
 
-#: assets/views/project-editor.php:831
+#: assets/views/project-editor.php:839
 msgid "Duplicate layer"
 msgstr "Dupliquer le calque"
 
-#: assets/views/project-editor.php:837
+#: assets/views/project-editor.php:845
 msgid "Remove layer"
 msgstr "Supprimer le calque"
 
 #: assets/views/project-editor.php:852
+#, fuzzy
+#| msgid "This is a Popup template, which requires license registration."
+msgid ""
+"This layer uses a premium feature, which requires license registration to "
+"use it on front-end pages."
+msgstr ""
+"Il s'agit d'un modèle Popup, qui nécessite l'enregistrement d'une licence."
+
+#: assets/views/project-editor.php:864
 msgid "This slide has no layers."
 msgstr "Cette diapo n'a pas de calque."
 
-#: assets/views/project-editor.php:853
+#: assets/views/project-editor.php:865
 msgid "Click ADD LAYER to add your first layer."
 msgstr "Cliquer sur AJOUTER CALQUE pour ajouter votre premier calque."
 
-#: assets/views/project-editor.php:862
+#: assets/views/project-editor.php:874
 msgid "Static layers from other slides"
 msgstr "Calques statiques d'autres diapos"
 
-#: assets/views/project-editor.php:889
+#: assets/views/project-editor.php:901
 msgid ""
 "Highlight layers: Hovering over layers in the layers list and workspace will "
 "be highlighted in the editor."
@@ -8121,7 +8272,7 @@ msgstr ""
 "Mettre en évidence les calques : En survolant les calques dans la liste des "
 "calques et l'espace de travail, ils seront mis en évidence dans l'éditeur."
 
-#: assets/views/project-editor.php:897
+#: assets/views/project-editor.php:909
 msgid ""
 "Snapping: Easily align layer edges, anchor points, and centers to other "
 "editor objects such as layers, ruler guides, etc."
@@ -8130,7 +8281,7 @@ msgstr ""
 "et les centres sur d'autres objets de l'éditeur tels que les calques, les "
 "guides de règle, etc."
 
-#: assets/views/project-editor.php:905
+#: assets/views/project-editor.php:917
 msgid ""
 "Bring selection to front: Selected layer will always be on top of "
 "overlapping layers."
@@ -8138,51 +8289,51 @@ msgstr ""
 "Mettre la sélection au premier plan : le calque sélectionné sera toujours au "
 "dessus des calques qui se chevauchent."
 
-#: assets/views/project-editor.php:913
+#: assets/views/project-editor.php:925
 msgid "Workspace overflow: Show objects outside of the project canvas."
 msgstr ""
 "Remplissage de l'espace de travail : Afficher les objets en dehors du "
 "canevas de projet."
 
-#: assets/views/project-editor.php:938 assets/views/transition-builder.php:90
+#: assets/views/project-editor.php:950 assets/views/transition-builder.php:90
 #: assets/views/transition-builder.php:117 assets/wp/menus.php:54
 msgid "Add New"
 msgstr "Ajouter"
 
-#: assets/views/project-editor.php:948 assets/views/transition-builder.php:86
+#: assets/views/project-editor.php:960 assets/views/transition-builder.php:86
 #: assets/views/transition-builder.php:113
 msgid "Import"
 msgstr "Importer"
 
-#: assets/views/project-editor.php:996
+#: assets/views/project-editor.php:1008
 msgid "rotation"
 msgstr "rotation"
 
-#: assets/views/project-editor.php:996
+#: assets/views/project-editor.php:1008
 msgid "drag to rotate"
 msgstr "glisser pour faire pivoter"
 
-#: assets/views/project-editor.php:1004
+#: assets/views/project-editor.php:1016
 msgid "Darg & Drop Images or SVGs"
 msgstr "Drag & Drop Images ou SVGs"
 
-#: assets/views/project-editor.php:1006
+#: assets/views/project-editor.php:1018
 msgid "Processing..."
 msgstr "En cours..."
 
-#: assets/views/project-editor.php:1039
+#: assets/views/project-editor.php:1051
 msgid "Now"
 msgstr "Maintenant"
 
-#: assets/views/project-editor.php:1047
+#: assets/views/project-editor.php:1059
 msgid "Selected revision by"
 msgstr "Révision sélectionnée par"
 
-#: assets/views/project-editor.php:1059
+#: assets/views/project-editor.php:1071
 msgid "Apply selected revision"
 msgstr "Appliquer la révision sélectionnée"
 
-#: assets/views/project-editor.php:1065
+#: assets/views/project-editor.php:1077
 msgid ""
 "No revisions are available for this project yet. Revisions will be added "
 "over time when you make new changes."
@@ -8190,7 +8341,7 @@ msgstr ""
 "Aucune révision n'est encore disponible pour ce projet. Les révisions seront "
 "ajoutées au fil du temps lorsque vous apporterez de nouvelles modifications."
 
-#: assets/views/project-editor.php:1067
+#: assets/views/project-editor.php:1079
 msgid ""
 "You can review Revisions Settings at the top to make sure that snapshots are "
 "made frequently."
@@ -8198,99 +8349,99 @@ msgstr ""
 "Vous pouvez consulter les réglages de révision en haut de la page pour vous "
 "assurer que des instantanés sont réalisés fréquemment."
 
-#: assets/views/project-editor.php:1075
+#: assets/views/project-editor.php:1087
 msgid "delay"
 msgstr "délai"
 
-#: assets/views/project-editor.php:1076
+#: assets/views/project-editor.php:1088
 msgid "in"
 msgstr "dans"
 
-#: assets/views/project-editor.php:1077
+#: assets/views/project-editor.php:1089
 msgid "out"
 msgstr "en dehors"
 
-#: assets/views/project-editor.php:1078
+#: assets/views/project-editor.php:1090
 msgid "text in"
 msgstr "texte dans"
 
-#: assets/views/project-editor.php:1079
+#: assets/views/project-editor.php:1091
 msgid "text out"
 msgstr "texte hors"
 
-#: assets/views/project-editor.php:1080
+#: assets/views/project-editor.php:1092
 msgid "loop / middle"
 msgstr "boucle / milieu"
 
-#: assets/views/project-editor.php:1081
+#: assets/views/project-editor.php:1093
 msgid "static"
 msgstr "statique"
 
-#: assets/views/project-editor.php:1082
+#: assets/views/project-editor.php:1094
 msgid "over slide duration"
 msgstr "sur la durée de la diapo"
 
-#: assets/views/project-editor.php:1128
+#: assets/views/project-editor.php:1140
 msgid "Select slide background, set slide transitions, effects and linking."
 msgstr ""
 "Sélectionnez l'arrière-plan de diapo, définissez les transitions, les effets "
 "et les liens."
 
-#: assets/views/project-editor.php:1146 assets/views/project-editor.php:1313
+#: assets/views/project-editor.php:1158 assets/views/project-editor.php:1325
 msgid "Timing & Transition"
 msgstr "Minutage & Transition"
 
-#: assets/views/project-editor.php:1151 assets/views/project-editor.php:1407
-#: assets/views/project-editor.php:3570
+#: assets/views/project-editor.php:1163 assets/views/project-editor.php:1419
+#: assets/views/project-editor.php:3584
 msgid "Effects"
 msgstr "Effets"
 
-#: assets/views/project-editor.php:1161 assets/views/project-editor.php:1677
-#: assets/views/project-editor.php:1685
+#: assets/views/project-editor.php:1173 assets/views/project-editor.php:1689
+#: assets/views/project-editor.php:1697
 msgid "Slide Linking"
 msgstr "Lien de diapo"
 
-#: assets/views/project-editor.php:1191
+#: assets/views/project-editor.php:1203
 msgid "Slide Background"
 msgstr "Arrière-plan de la diapo"
 
-#: assets/views/project-editor.php:1272
+#: assets/views/project-editor.php:1284
 msgid "Slide Thumbnail"
 msgstr "Miniature de la diapo"
 
-#: assets/views/project-editor.php:1283
+#: assets/views/project-editor.php:1295
 msgid "Set Thumbnail"
 msgstr "Définir la miniature"
 
-#: assets/views/project-editor.php:1288
+#: assets/views/project-editor.php:1300
 msgid "Thumbnail"
 msgstr "Miniature"
 
-#: assets/views/project-editor.php:1298
+#: assets/views/project-editor.php:1310
 msgid "Capture Slide"
 msgstr "Diapo de capture"
 
-#: assets/views/project-editor.php:1321
+#: assets/views/project-editor.php:1333
 msgid "Slide Timing"
 msgstr "Temporisation de la diapo"
 
-#: assets/views/project-editor.php:1345
+#: assets/views/project-editor.php:1357
 msgid "Time shift"
 msgstr "Décalage de Temps"
 
-#: assets/views/project-editor.php:1362
+#: assets/views/project-editor.php:1374
 msgid "Slide Transition"
 msgstr "Transition de diapo"
 
-#: assets/views/project-editor.php:1373
+#: assets/views/project-editor.php:1385
 msgid "Transition duration"
 msgstr "Durée de la transition"
 
-#: assets/views/project-editor.php:1385
+#: assets/views/project-editor.php:1397
 msgid "Select Transitions"
 msgstr "Sélectionner les transitions"
 
-#: assets/views/project-editor.php:1391
+#: assets/views/project-editor.php:1403
 msgid ""
 "Slide transitions won’t be visible until you set a slide background image or "
 "color."
@@ -8298,148 +8449,148 @@ msgstr ""
 "Les transitions des diapos ne seront pas visibles tant que vous n'aurez pas "
 "défini une image ou une couleur d'arrière-plan."
 
-#: assets/views/project-editor.php:1415
+#: assets/views/project-editor.php:1427
 msgid "Ken Burns"
 msgstr "Ken Burns"
 
-#: assets/views/project-editor.php:1482
+#: assets/views/project-editor.php:1494
 msgid "Global hover"
 msgstr "Survol global"
 
-#: assets/views/project-editor.php:1494
+#: assets/views/project-editor.php:1506
 msgid "See it in action"
 msgstr "Le voir en action"
 
-#: assets/views/project-editor.php:1504
+#: assets/views/project-editor.php:1516
 msgid "Parallax Defaults"
 msgstr "Parallaxe par défaut"
 
-#: assets/views/project-editor.php:1556 assets/views/project-editor.php:6130
+#: assets/views/project-editor.php:1568 assets/views/project-editor.php:6158
 msgid "Parallax Distance"
 msgstr "Distance de parallaxe"
 
-#: assets/views/project-editor.php:1568 assets/views/project-editor.php:6144
+#: assets/views/project-editor.php:1580 assets/views/project-editor.php:6172
 msgid "Parallax Rotation"
 msgstr "Rotation de la parallaxe"
 
-#: assets/views/project-editor.php:1657 assets/views/project-editor.php:1660
+#: assets/views/project-editor.php:1669 assets/views/project-editor.php:1672
 msgid "Configure Post Options"
 msgstr "Configurer les options de message"
 
-#: assets/views/project-editor.php:1696 assets/views/project-editor.php:6256
+#: assets/views/project-editor.php:1708 assets/views/project-editor.php:6284
 msgid "Set link"
 msgstr "Définir le lien"
 
-#: assets/views/project-editor.php:1715 assets/views/project-editor.php:6277
+#: assets/views/project-editor.php:1727 assets/views/project-editor.php:6305
 msgid "Choose Post or Page"
 msgstr "Choisir un article ou une page"
 
-#: assets/views/project-editor.php:1720 assets/views/project-editor.php:6282
+#: assets/views/project-editor.php:1732 assets/views/project-editor.php:6310
 msgid "Use dynamic post URL"
 msgstr "Utiliser l'URL dynamique des articles"
 
-#: assets/views/project-editor.php:1745
+#: assets/views/project-editor.php:1757
 msgid "Deep linking"
 msgstr "Lien profond en cours"
 
-#: assets/views/project-editor.php:1755
+#: assets/views/project-editor.php:1767
 msgid "Deep Link"
 msgstr "Lien profond"
 
-#: assets/views/project-editor.php:1780
+#: assets/views/project-editor.php:1792
 msgid "Schedule Slide"
 msgstr "Planifier la Diapo"
 
-#: assets/views/project-editor.php:1791
+#: assets/views/project-editor.php:1803
 msgid "From"
 msgstr "À partir de"
 
-#: assets/views/project-editor.php:1801
+#: assets/views/project-editor.php:1813
 msgid "To"
 msgstr "Jusqu'à"
 
-#: assets/views/project-editor.php:1827 assets/views/project-editor.php:4139
+#: assets/views/project-editor.php:1839 assets/views/project-editor.php:4159
 msgid "Additional Settings"
 msgstr "Réglages supplémentaires"
 
-#: assets/views/project-editor.php:1857
+#: assets/views/project-editor.php:1869
 msgid "Custom Slide Properties"
 msgstr "Propriétés de diapo personnalisées"
 
-#: assets/views/project-editor.php:1893
+#: assets/views/project-editor.php:1905
 msgid "Set content, style, transitions and linking of selected layers."
 msgstr ""
 "Définir le contenu, le style, les transitions et les liens des calques "
 "sélectionnés."
 
-#: assets/views/project-editor.php:1904
+#: assets/views/project-editor.php:1916
 msgid "Multiple selection mode"
 msgstr "Mode de sélection multiple"
 
-#: assets/views/project-editor.php:1921 assets/views/project-editor.php:2497
+#: assets/views/project-editor.php:1933 assets/views/project-editor.php:2510
 msgid "Style"
 msgstr "Style"
 
-#: assets/views/project-editor.php:1931 assets/views/project-editor.php:6243
+#: assets/views/project-editor.php:1943 assets/views/project-editor.php:6271
 msgid "Link"
 msgstr "Lien"
 
-#: assets/views/project-editor.php:1938 assets/views/project-editor.php:6301
+#: assets/views/project-editor.php:1950 assets/views/project-editor.php:6329
 msgid "Actions"
 msgstr "Actions"
 
-#: assets/views/project-editor.php:1943 assets/views/project-editor.php:6732
+#: assets/views/project-editor.php:1955 assets/views/project-editor.php:6786
 msgid "Attributes"
 msgstr "Attributs"
 
-#: assets/views/project-editor.php:1973 assets/views/project-editor.php:6957
-#: assets/wp/scripts_l10n.php:270
+#: assets/views/project-editor.php:1986 assets/views/project-editor.php:7062
+#: assets/wp/scripts_l10n.php:274
 msgid "Object"
 msgstr "Objet"
 
-#: assets/views/project-editor.php:1981
+#: assets/views/project-editor.php:1994
 msgid "Click to change layer type"
 msgstr "Cliquer pour changer le type de calque"
 
-#: assets/views/project-editor.php:1997
+#: assets/views/project-editor.php:2010
 msgid "Toggle device visibility"
 msgstr "Modifier la visibilité du dispositif"
 
-#: assets/views/project-editor.php:2021
+#: assets/views/project-editor.php:2034
 msgid "Set image"
 msgstr "Définir l’image"
 
-#: assets/views/project-editor.php:2039
+#: assets/views/project-editor.php:2052
 msgid "Type / add your layer content here"
 msgstr "Taper / ajouter le contenu de votre calque ici"
 
-#: assets/views/project-editor.php:2062
+#: assets/views/project-editor.php:2075
 msgid "Change media"
 msgstr "Changer le média"
 
-#: assets/views/project-editor.php:2074
+#: assets/views/project-editor.php:2087
 msgid "line breaks"
 msgstr "saut de ligne"
 
-#: assets/views/project-editor.php:2086
+#: assets/views/project-editor.php:2099
 msgid "HTML element"
 msgstr "Élément HTML"
 
-#: assets/views/project-editor.php:2101 assets/views/project-editor.php:2104
-#: assets/wp/scripts_l10n.php:274
+#: assets/views/project-editor.php:2114 assets/views/project-editor.php:2117
+#: assets/wp/scripts_l10n.php:278
 msgid "Modify Object"
 msgstr "Modifier l'objet"
 
-#: assets/views/project-editor.php:2114 assets/views/project-editor.php:2117
-#: assets/wp/scripts_l10n.php:277
+#: assets/views/project-editor.php:2127 assets/views/project-editor.php:2130
+#: assets/wp/scripts_l10n.php:205 assets/wp/scripts_l10n.php:281
 msgid "Modify Shape"
 msgstr "Modifier la forme"
 
-#: assets/views/project-editor.php:2131 assets/views/project-editor.php:2215
+#: assets/views/project-editor.php:2144 assets/views/project-editor.php:2228
 msgid "Choose Icon"
 msgstr "Choisir l’icône"
 
-#: assets/views/project-editor.php:2169
+#: assets/views/project-editor.php:2182
 msgid ""
 "Click on one or more post placeholders to insert them into your layer’s "
 "content. Post placeholders act like shortcodes in WP, and they will be "
@@ -8449,349 +8600,350 @@ msgstr ""
 "contenu de votre calque. Post placeholders agir comme shortcodes dans WP, et "
 "ils seront remplis avec le contenu réel de vos messages."
 
-#: assets/views/project-editor.php:2175
+#: assets/views/project-editor.php:2188
 msgid "Limit text length (if any)"
 msgstr "Limiter la longueur du texte (le cas échéant)"
 
-#: assets/views/project-editor.php:2189
+#: assets/views/project-editor.php:2202
 msgid "Configure post options"
 msgstr "Configurer les options de post"
 
-#: assets/views/project-editor.php:2202
+#: assets/views/project-editor.php:2215
 msgid "Additional Options"
 msgstr "Options supplémentaires"
 
-#: assets/views/project-editor.php:2307
+#: assets/views/project-editor.php:2320
 msgid "Media Options"
 msgstr "Options de média"
 
-#: assets/views/project-editor.php:2319
+#: assets/views/project-editor.php:2332
 msgid "Poster image"
 msgstr "Image d'aperçu"
 
-#: assets/views/project-editor.php:2323
+#: assets/views/project-editor.php:2336
 msgid "Poster"
 msgstr "Affiche"
 
-#: assets/views/project-editor.php:2333
+#: assets/views/project-editor.php:2346
 msgid "background video"
 msgstr "video d'arrière-plan"
 
-#: assets/views/project-editor.php:2349
+#: assets/views/project-editor.php:2362
 msgid ""
 "Please note, the slide background image and any layers will cover the video."
 msgstr ""
 "Veuillez noter, l'image d'arrière-plan de la diapo tous les calques "
 "couvriront la vidéo."
 
-#: assets/views/project-editor.php:2358
+#: assets/views/project-editor.php:2371
 msgid "Autoplay"
 msgstr "Lecture automatique"
 
-#: assets/views/project-editor.php:2371
+#: assets/views/project-editor.php:2384
 msgid "Play muted"
 msgstr "Lancer en sourdine"
 
-#: assets/views/project-editor.php:2384
+#: assets/views/project-editor.php:2397
 msgid "Volume"
 msgstr "Volume"
 
-#: assets/views/project-editor.php:2402
+#: assets/views/project-editor.php:2415
 msgid "Fill mode"
 msgstr "Mode de remplissage"
 
-#: assets/views/project-editor.php:2415
+#: assets/views/project-editor.php:2428
 msgid "Controls"
 msgstr "Contrôle"
 
-#: assets/views/project-editor.php:2428
+#: assets/views/project-editor.php:2441
 msgid "Show info"
 msgstr "Afficher les infos"
 
-#: assets/views/project-editor.php:2441
+#: assets/views/project-editor.php:2454
 msgid "Loop"
 msgstr "Boucle"
 
-#: assets/views/project-editor.php:2455
+#: assets/views/project-editor.php:2468
 msgid "Overlay image"
 msgstr "Image de superposition"
 
-#: assets/views/project-editor.php:2462
+#: assets/views/project-editor.php:2475
 msgid "No overlay image"
 msgstr "Pas d'image superposée"
 
-#: assets/views/project-editor.php:2517
+#: assets/views/project-editor.php:2530
 msgid "Size & Position"
 msgstr "Taille & Position"
 
-#: assets/views/project-editor.php:2533
+#: assets/views/project-editor.php:2546
 msgid "Set layer to full size"
 msgstr "Régler le calque en taille réelle"
 
-#: assets/views/project-editor.php:2540
+#: assets/views/project-editor.php:2553
 msgid "Set layer to auto size"
 msgstr "Régler le calque en taille Auto"
 
-#: assets/views/project-editor.php:2547
+#: assets/views/project-editor.php:2560
 msgid "Clear all size and position values"
 msgstr "Effacer toutes les valeurs de taille et de position"
 
-#: assets/views/project-editor.php:2554
+#: assets/views/project-editor.php:2567
 msgid "Convert left and top values to percentages"
 msgstr "Convertir les valeurs gauche et haut en pourcentages"
 
-#: assets/views/project-editor.php:2561
+#: assets/views/project-editor.php:2574
 msgid "Convert left and top values to pixels"
 msgstr "Convertir les valeurs gauche et haut en pixels"
 
-#: assets/views/project-editor.php:2569
+#: assets/views/project-editor.php:2582
 msgid "Position to horizontal center"
 msgstr "Centrer horizontalement"
 
-#: assets/views/project-editor.php:2576
+#: assets/views/project-editor.php:2589
 msgid "Position to vertical middle"
 msgstr "Centrer verticalement"
 
-#: assets/views/project-editor.php:2579
+#: assets/views/project-editor.php:2592
 msgid "Position to absolute center"
 msgstr "Position au centre absolu"
 
-#: assets/views/project-editor.php:2622
+#: assets/views/project-editor.php:2635
 msgid "Left position"
 msgstr "Position gauche"
 
-#: assets/views/project-editor.php:2630
+#: assets/views/project-editor.php:2643
 msgid "Top position"
 msgstr "Position supérieure"
 
-#: assets/views/project-editor.php:2643
-msgid "Align position from"
+#: assets/views/project-editor.php:2656
+#, fuzzy
+#| msgid "Align position from"
+msgid "Align positions from"
 msgstr "Calculer la position à partir"
 
-#: assets/views/project-editor.php:2661
+#: assets/views/project-editor.php:2674
 msgid "Icon Style"
 msgstr "Style d’icone"
 
-#: assets/views/project-editor.php:2664
+#: assets/views/project-editor.php:2677
 msgid "Object Style"
 msgstr "Style de l'objet"
 
-#: assets/views/project-editor.php:2667
+#: assets/views/project-editor.php:2680
 msgid "Shape Style"
 msgstr "Style de la forme"
 
-#: assets/views/project-editor.php:2703 assets/views/project-editor.php:2801
+#: assets/views/project-editor.php:2716 assets/views/project-editor.php:2815
 msgid "Line Height"
 msgstr "Hauteur de ligne"
 
-#: assets/views/project-editor.php:2726
+#: assets/views/project-editor.php:2739
 msgid "Object Color"
 msgstr "Couleur de l'objet"
 
-#: assets/views/project-editor.php:2729
+#: assets/views/project-editor.php:2742
 msgid "Shape Color"
 msgstr "Couleur de la forme"
 
-#: assets/views/project-editor.php:2733 assets/views/project-editor.php:2821
-#: assets/views/project-editor.php:2825 assets/views/project-editor.php:4051
-#: assets/views/project-editor.php:4055 assets/views/project-editor.php:5548
-#: assets/views/project-editor.php:5552 assets/views/project-editor.php:5943
-#: assets/views/project-editor.php:5947
-msgid "Text Color"
-msgstr "Couleur du texte"
-
-#: assets/views/project-editor.php:2751
+#: assets/views/project-editor.php:2765
 msgid "Text & Typography"
 msgstr "Texte & Typographie"
 
-#: assets/views/project-editor.php:2770
+#: assets/views/project-editor.php:2784
 msgid "Font family"
 msgstr "Famille de police"
 
-#: assets/views/project-editor.php:2839
+#: assets/views/project-editor.php:2835 assets/views/project-editor.php:2839
+#: assets/views/project-editor.php:4071 assets/views/project-editor.php:4075
+#: assets/views/project-editor.php:5576 assets/views/project-editor.php:5580
+#: assets/views/project-editor.php:5971 assets/views/project-editor.php:5975
+msgid "Text Color"
+msgstr "Couleur du texte"
+
+#: assets/views/project-editor.php:2853
 msgid "Word Wrap"
 msgstr "Retour à la ligne"
 
-#: assets/views/project-editor.php:2912
+#: assets/views/project-editor.php:2926
 msgid "sample text"
 msgstr "texte exemple"
 
-#: assets/views/project-editor.php:2919
+#: assets/views/project-editor.php:2933
 msgid "Font weight"
 msgstr "Graisse de police"
 
-#: assets/views/project-editor.php:3089
+#: assets/views/project-editor.php:3103
 msgid "Border, corners & padding"
 msgstr "Bordure, coins & marge int."
 
-#: assets/views/project-editor.php:3108 assets/views/project-editor.php:3172
-#: assets/views/project-editor.php:3205 assets/views/project-editor.php:3369
-#: assets/views/project-editor.php:3818 assets/views/project-editor.php:4105
-#: assets/views/project-editor.php:4272 assets/views/project-editor.php:4586
-#: assets/views/project-editor.php:4980 assets/views/project-editor.php:5293
-#: assets/views/project-editor.php:5601 assets/views/project-editor.php:5708
-#: assets/views/project-editor.php:5981
+#: assets/views/project-editor.php:3122 assets/views/project-editor.php:3186
+#: assets/views/project-editor.php:3219 assets/views/project-editor.php:3383
+#: assets/views/project-editor.php:3838 assets/views/project-editor.php:4125
+#: assets/views/project-editor.php:4292 assets/views/project-editor.php:4608
+#: assets/views/project-editor.php:5004 assets/views/project-editor.php:5319
+#: assets/views/project-editor.php:5629 assets/views/project-editor.php:5736
+#: assets/views/project-editor.php:6009
 msgid "Link / Unlink fields"
 msgstr "Lier / Délier les champs"
 
-#: assets/views/project-editor.php:3111
+#: assets/views/project-editor.php:3125
 msgid "Border size"
 msgstr "Taille de bordure"
 
-#: assets/views/project-editor.php:3137
+#: assets/views/project-editor.php:3151
 msgid "Border style"
 msgstr "Style de bordure"
 
-#: assets/views/project-editor.php:3150
+#: assets/views/project-editor.php:3164
 msgid "Border color"
 msgstr "Couleur de bordure"
 
-#: assets/views/project-editor.php:3175 assets/views/project-editor.php:4108
-#: assets/views/project-editor.php:5604 assets/views/project-editor.php:5984
+#: assets/views/project-editor.php:3189 assets/views/project-editor.php:4128
+#: assets/views/project-editor.php:5632 assets/views/project-editor.php:6012
 msgid "Rounding"
 msgstr "Arrondi"
 
-#: assets/views/project-editor.php:3180 assets/views/project-editor.php:4113
-#: assets/views/project-editor.php:5609 assets/views/project-editor.php:5989
+#: assets/views/project-editor.php:3194 assets/views/project-editor.php:4133
+#: assets/views/project-editor.php:5637 assets/views/project-editor.php:6017
 msgid "top-left"
 msgstr "haut-gauche"
 
-#: assets/views/project-editor.php:3183 assets/views/project-editor.php:4116
-#: assets/views/project-editor.php:5612 assets/views/project-editor.php:5992
+#: assets/views/project-editor.php:3197 assets/views/project-editor.php:4136
+#: assets/views/project-editor.php:5640 assets/views/project-editor.php:6020
 msgid "top-right"
 msgstr "haut-droite"
 
-#: assets/views/project-editor.php:3186 assets/views/project-editor.php:4119
-#: assets/views/project-editor.php:5615 assets/views/project-editor.php:5995
+#: assets/views/project-editor.php:3200 assets/views/project-editor.php:4139
+#: assets/views/project-editor.php:5643 assets/views/project-editor.php:6023
 msgid "btm-right"
 msgstr "bas-droite"
 
-#: assets/views/project-editor.php:3189 assets/views/project-editor.php:4122
-#: assets/views/project-editor.php:5618 assets/views/project-editor.php:5998
+#: assets/views/project-editor.php:3203 assets/views/project-editor.php:4142
+#: assets/views/project-editor.php:5646 assets/views/project-editor.php:6026
 msgid "btm-left"
 msgstr "bas-gauche"
 
-#: assets/views/project-editor.php:3208
+#: assets/views/project-editor.php:3222
 msgid "Padding"
 msgstr "Marge intérieure"
 
-#: assets/views/project-editor.php:3350 assets/views/project-editor.php:3776
-#: assets/views/project-editor.php:4216 assets/views/project-editor.php:4544
-#: assets/views/project-editor.php:4924 assets/views/project-editor.php:5251
-#: assets/views/project-editor.php:5666
+#: assets/views/project-editor.php:3364 assets/views/project-editor.php:3796
+#: assets/views/project-editor.php:4236 assets/views/project-editor.php:4566
+#: assets/views/project-editor.php:4948 assets/views/project-editor.php:5277
+#: assets/views/project-editor.php:5694
 msgid "Transformation"
 msgstr "Transformation"
 
-#: assets/views/project-editor.php:3372 assets/views/project-editor.php:3821
-#: assets/views/project-editor.php:4275 assets/views/project-editor.php:4589
-#: assets/views/project-editor.php:4983 assets/views/project-editor.php:5296
-#: assets/views/project-editor.php:5711
+#: assets/views/project-editor.php:3386 assets/views/project-editor.php:3841
+#: assets/views/project-editor.php:4295 assets/views/project-editor.php:4611
+#: assets/views/project-editor.php:5007 assets/views/project-editor.php:5322
+#: assets/views/project-editor.php:5739
 msgid "number"
 msgstr "nombre"
 
-#: assets/views/project-editor.php:3376 assets/views/project-editor.php:3825
-#: assets/views/project-editor.php:4279 assets/views/project-editor.php:4593
-#: assets/views/project-editor.php:4987 assets/views/project-editor.php:5300
-#: assets/views/project-editor.php:5715
+#: assets/views/project-editor.php:3390 assets/views/project-editor.php:3845
+#: assets/views/project-editor.php:4299 assets/views/project-editor.php:4615
+#: assets/views/project-editor.php:5011 assets/views/project-editor.php:5326
+#: assets/views/project-editor.php:5743
 msgid "Scale | X axis"
 msgstr "Echelle | axe X"
 
-#: assets/views/project-editor.php:3383 assets/views/project-editor.php:3832
-#: assets/views/project-editor.php:4286 assets/views/project-editor.php:4600
-#: assets/views/project-editor.php:4994 assets/views/project-editor.php:5307
-#: assets/views/project-editor.php:5722
+#: assets/views/project-editor.php:3397 assets/views/project-editor.php:3852
+#: assets/views/project-editor.php:4306 assets/views/project-editor.php:4622
+#: assets/views/project-editor.php:5018 assets/views/project-editor.php:5333
+#: assets/views/project-editor.php:5750
 msgid "Scale | Y axis"
 msgstr "Echelle | axe Y"
 
-#: assets/views/project-editor.php:3395 assets/views/project-editor.php:3422
-#: assets/views/project-editor.php:3844 assets/views/project-editor.php:3871
-#: assets/views/project-editor.php:4298 assets/views/project-editor.php:4325
-#: assets/views/project-editor.php:4612 assets/views/project-editor.php:4639
-#: assets/views/project-editor.php:5006 assets/views/project-editor.php:5033
-#: assets/views/project-editor.php:5319 assets/views/project-editor.php:5346
-#: assets/views/project-editor.php:5734 assets/views/project-editor.php:5761
+#: assets/views/project-editor.php:3409 assets/views/project-editor.php:3436
+#: assets/views/project-editor.php:3864 assets/views/project-editor.php:3891
+#: assets/views/project-editor.php:4318 assets/views/project-editor.php:4345
+#: assets/views/project-editor.php:4634 assets/views/project-editor.php:4661
+#: assets/views/project-editor.php:5030 assets/views/project-editor.php:5057
+#: assets/views/project-editor.php:5345 assets/views/project-editor.php:5372
+#: assets/views/project-editor.php:5762 assets/views/project-editor.php:5789
 msgctxt "measurement unit"
 msgid "degree"
 msgstr "degré"
 
-#: assets/views/project-editor.php:3402 assets/views/project-editor.php:3851
-#: assets/views/project-editor.php:4305 assets/views/project-editor.php:4619
-#: assets/views/project-editor.php:5013 assets/views/project-editor.php:5326
-#: assets/views/project-editor.php:5741
+#: assets/views/project-editor.php:3416 assets/views/project-editor.php:3871
+#: assets/views/project-editor.php:4325 assets/views/project-editor.php:4641
+#: assets/views/project-editor.php:5037 assets/views/project-editor.php:5352
+#: assets/views/project-editor.php:5769
 msgid "Z (normal)"
 msgstr "Z (normal)"
 
-#: assets/views/project-editor.php:3405 assets/views/project-editor.php:3854
-#: assets/views/project-editor.php:4308 assets/views/project-editor.php:4622
-#: assets/views/project-editor.php:5016 assets/views/project-editor.php:5329
-#: assets/views/project-editor.php:5744
+#: assets/views/project-editor.php:3419 assets/views/project-editor.php:3874
+#: assets/views/project-editor.php:4328 assets/views/project-editor.php:4644
+#: assets/views/project-editor.php:5040 assets/views/project-editor.php:5355
+#: assets/views/project-editor.php:5772
 msgid "Rotation | X axis"
 msgstr "Rotation | axe X"
 
-#: assets/views/project-editor.php:3411 assets/views/project-editor.php:3860
-#: assets/views/project-editor.php:4314 assets/views/project-editor.php:4628
-#: assets/views/project-editor.php:5022 assets/views/project-editor.php:5335
-#: assets/views/project-editor.php:5750
+#: assets/views/project-editor.php:3425 assets/views/project-editor.php:3880
+#: assets/views/project-editor.php:4334 assets/views/project-editor.php:4650
+#: assets/views/project-editor.php:5046 assets/views/project-editor.php:5361
+#: assets/views/project-editor.php:5778
 msgid "Rotation | Y axis"
 msgstr "Rotation | axe Y"
 
-#: assets/views/project-editor.php:3422 assets/views/project-editor.php:3426
-#: assets/views/project-editor.php:3432 assets/views/project-editor.php:3871
-#: assets/views/project-editor.php:3875 assets/views/project-editor.php:3881
-#: assets/views/project-editor.php:4325 assets/views/project-editor.php:4329
-#: assets/views/project-editor.php:4335 assets/views/project-editor.php:4639
-#: assets/views/project-editor.php:4643 assets/views/project-editor.php:4649
-#: assets/views/project-editor.php:5033 assets/views/project-editor.php:5037
-#: assets/views/project-editor.php:5043 assets/views/project-editor.php:5346
-#: assets/views/project-editor.php:5350 assets/views/project-editor.php:5356
-#: assets/views/project-editor.php:5761 assets/views/project-editor.php:5765
-#: assets/views/project-editor.php:5771
+#: assets/views/project-editor.php:3436 assets/views/project-editor.php:3440
+#: assets/views/project-editor.php:3446 assets/views/project-editor.php:3891
+#: assets/views/project-editor.php:3895 assets/views/project-editor.php:3901
+#: assets/views/project-editor.php:4345 assets/views/project-editor.php:4349
+#: assets/views/project-editor.php:4355 assets/views/project-editor.php:4661
+#: assets/views/project-editor.php:4665 assets/views/project-editor.php:4671
+#: assets/views/project-editor.php:5057 assets/views/project-editor.php:5061
+#: assets/views/project-editor.php:5067 assets/views/project-editor.php:5372
+#: assets/views/project-editor.php:5376 assets/views/project-editor.php:5382
+#: assets/views/project-editor.php:5789 assets/views/project-editor.php:5793
+#: assets/views/project-editor.php:5799
 msgid "Skew"
 msgstr "Inclinaison"
 
-#: assets/views/project-editor.php:3426 assets/views/project-editor.php:3875
-#: assets/views/project-editor.php:4329 assets/views/project-editor.php:4643
-#: assets/views/project-editor.php:5037 assets/views/project-editor.php:5350
-#: assets/views/project-editor.php:5765
+#: assets/views/project-editor.php:3440 assets/views/project-editor.php:3895
+#: assets/views/project-editor.php:4349 assets/views/project-editor.php:4665
+#: assets/views/project-editor.php:5061 assets/views/project-editor.php:5376
+#: assets/views/project-editor.php:5793
 msgid "Skew | X axis"
 msgstr "Inclinaison | axe X"
 
-#: assets/views/project-editor.php:3432 assets/views/project-editor.php:3881
-#: assets/views/project-editor.php:4335 assets/views/project-editor.php:4649
-#: assets/views/project-editor.php:5043 assets/views/project-editor.php:5356
-#: assets/views/project-editor.php:5771
+#: assets/views/project-editor.php:3446 assets/views/project-editor.php:3901
+#: assets/views/project-editor.php:4355 assets/views/project-editor.php:4671
+#: assets/views/project-editor.php:5067 assets/views/project-editor.php:5382
+#: assets/views/project-editor.php:5799
 msgid "Skew | Y axis"
 msgstr "Inclinaison | axe Y"
 
-#: assets/views/project-editor.php:3494
+#: assets/views/project-editor.php:3508
 msgid "outside"
 msgstr "à l'extérieur"
 
-#: assets/views/project-editor.php:3495
+#: assets/views/project-editor.php:3509
 msgid "inside"
 msgstr "à l'intérieur"
 
-#: assets/views/project-editor.php:3550
+#: assets/views/project-editor.php:3564
 msgid "Spread"
 msgstr "Diffusion"
 
-#: assets/views/project-editor.php:3654
+#: assets/views/project-editor.php:3668
 msgid "Stacking order"
 msgstr "Ordre d'empilement"
 
-#: assets/views/project-editor.php:3660
+#: assets/views/project-editor.php:3674
 msgid "default"
 msgstr "par défaut"
 
-#: assets/views/project-editor.php:3684
+#: assets/views/project-editor.php:3698
 msgid "Prevent mouse events"
 msgstr "Prévenir les événements de souris"
 
-#: assets/views/project-editor.php:3696 assets/views/project-editor.php:3699
+#: assets/views/project-editor.php:3710 assets/views/project-editor.php:3713
 msgid "Custom CSS"
 msgstr "CSS personnalisé"
 
-#: assets/views/project-editor.php:3699
+#: assets/views/project-editor.php:3713
 msgid ""
 "You can enter CSS properties here for further customization. Example:\n"
 "\n"
@@ -8804,35 +8956,41 @@ msgstr ""
 "cursor : pointeur ;\n"
 "overflow : hidden ;"
 
-#: assets/views/project-editor.php:3731 assets/views/project-editor.php:4181
+#: assets/views/project-editor.php:3745 assets/views/project-editor.php:4201
 msgid "Opening Text Transition"
 msgstr "Transition du texte d'ouverture"
 
-#: assets/views/project-editor.php:3732 assets/views/project-editor.php:4514
+#: assets/views/project-editor.php:3746 assets/views/project-editor.php:4536
 msgid "Loop or Middle Transition"
 msgstr "Boucle ou transition intermédiaire"
 
-#: assets/views/project-editor.php:3733 assets/views/project-editor.php:4891
+#: assets/views/project-editor.php:3747 assets/views/project-editor.php:4915
 msgid "Ending Text Transition"
 msgstr "Transition du texte de fin"
 
-#: assets/views/project-editor.php:3734 assets/views/project-editor.php:5221
+#: assets/views/project-editor.php:3748 assets/views/project-editor.php:5247
 msgid "Ending Transition"
 msgstr "Transition de fin"
 
-#: assets/views/project-editor.php:3735 assets/views/project-editor.php:5636
+#: assets/views/project-editor.php:3749 assets/views/project-editor.php:5664
 msgid "Hover Transition"
 msgstr "Transition au survol"
 
-#: assets/views/project-editor.php:3736 assets/views/project-editor.php:6015
+#: assets/views/project-editor.php:3750 assets/views/project-editor.php:6043
 msgid "Parallax Transition"
 msgstr "Transition de la parallaxe"
 
-#: assets/views/project-editor.php:3741
+#: assets/views/project-editor.php:3752
+#, fuzzy
+#| msgid "Slide Transition"
+msgid "Scroll Transition"
+msgstr "Transition de diapo"
+
+#: assets/views/project-editor.php:3761
 msgid "Click to choose transition"
 msgstr "Cliquer pour choisir la transition"
 
-#: assets/views/project-editor.php:3771
+#: assets/views/project-editor.php:3791
 msgid ""
 "Plays when layers enter the scene. <br><br> Layers animate from these "
 "options toward their appearance set under the <b>STYLE</b> menu."
@@ -8841,56 +8999,56 @@ msgstr ""
 "s'animent à partir de ces options vers leur apparence définie dans le menu "
 "<b>STYLE</b>."
 
-#: assets/views/project-editor.php:3791 assets/views/project-editor.php:3795
-#: assets/views/project-editor.php:3802 assets/views/project-editor.php:4245
-#: assets/views/project-editor.php:4249 assets/views/project-editor.php:4256
-#: assets/views/project-editor.php:4559 assets/views/project-editor.php:4563
-#: assets/views/project-editor.php:4570 assets/views/project-editor.php:4953
-#: assets/views/project-editor.php:4957 assets/views/project-editor.php:4964
-#: assets/views/project-editor.php:5266 assets/views/project-editor.php:5270
-#: assets/views/project-editor.php:5277 assets/views/project-editor.php:5681
-#: assets/views/project-editor.php:5685 assets/views/project-editor.php:5692
+#: assets/views/project-editor.php:3811 assets/views/project-editor.php:3815
+#: assets/views/project-editor.php:3822 assets/views/project-editor.php:4265
+#: assets/views/project-editor.php:4269 assets/views/project-editor.php:4276
+#: assets/views/project-editor.php:4581 assets/views/project-editor.php:4585
+#: assets/views/project-editor.php:4592 assets/views/project-editor.php:4977
+#: assets/views/project-editor.php:4981 assets/views/project-editor.php:4988
+#: assets/views/project-editor.php:5292 assets/views/project-editor.php:5296
+#: assets/views/project-editor.php:5303 assets/views/project-editor.php:5709
+#: assets/views/project-editor.php:5713 assets/views/project-editor.php:5720
 msgid "Offset"
 msgstr "Décalage"
 
-#: assets/views/project-editor.php:3795 assets/views/project-editor.php:4249
-#: assets/views/project-editor.php:4563 assets/views/project-editor.php:4957
-#: assets/views/project-editor.php:5270 assets/views/project-editor.php:5685
+#: assets/views/project-editor.php:3815 assets/views/project-editor.php:4269
+#: assets/views/project-editor.php:4585 assets/views/project-editor.php:4981
+#: assets/views/project-editor.php:5296 assets/views/project-editor.php:5713
 msgid "Offset | X axis"
 msgstr "Décalage | Axe X"
 
-#: assets/views/project-editor.php:3802 assets/views/project-editor.php:4256
-#: assets/views/project-editor.php:4570 assets/views/project-editor.php:4964
-#: assets/views/project-editor.php:5277 assets/views/project-editor.php:5692
+#: assets/views/project-editor.php:3822 assets/views/project-editor.php:4276
+#: assets/views/project-editor.php:4592 assets/views/project-editor.php:4988
+#: assets/views/project-editor.php:5303 assets/views/project-editor.php:5720
 msgid "Offset | Y axis"
 msgstr "Décalage | Axe Y"
 
-#: assets/views/project-editor.php:3961 assets/views/project-editor.php:4379
-#: assets/views/project-editor.php:4708 assets/views/project-editor.php:5087
-#: assets/views/project-editor.php:5435 assets/views/project-editor.php:5816
-#: assets/views/project-editor.php:6188
+#: assets/views/project-editor.php:3981 assets/views/project-editor.php:4399
+#: assets/views/project-editor.php:4730 assets/views/project-editor.php:5111
+#: assets/views/project-editor.php:5461 assets/views/project-editor.php:5844
+#: assets/views/project-editor.php:6216
 msgid "Transition Properties"
 msgstr "Propriétés de transition"
 
-#: assets/views/project-editor.php:3976 assets/views/project-editor.php:3980
+#: assets/views/project-editor.php:3996 assets/views/project-editor.php:4000
 msgid "Start at"
 msgstr "Commencer à"
 
-#: assets/views/project-editor.php:4024 assets/views/project-editor.php:4481
-#: assets/views/project-editor.php:4836 assets/views/project-editor.php:5188
-#: assets/views/project-editor.php:5521 assets/views/project-editor.php:5896
+#: assets/views/project-editor.php:4044 assets/views/project-editor.php:4503
+#: assets/views/project-editor.php:4860 assets/views/project-editor.php:5214
+#: assets/views/project-editor.php:5549 assets/views/project-editor.php:5924
 msgid "Style Properties"
 msgstr "Propriétés de style"
 
-#: assets/views/project-editor.php:4150
+#: assets/views/project-editor.php:4170
 msgid "Keep this layer visible"
 msgstr "Gardez ce calque visible"
 
-#: assets/views/project-editor.php:4154
+#: assets/views/project-editor.php:4174
 msgid "Static Layers"
 msgstr "Calques statiques"
 
-#: assets/views/project-editor.php:4210
+#: assets/views/project-editor.php:4230
 msgid ""
 "Animates characters, words, or lines of text as they enter the scene. "
 "<br><br> Options specified here are the initial state of each fragment "
@@ -8900,21 +9058,35 @@ msgstr ""
 "<br><br> Les options spécifiées ici sont l'état initial de chaque fragment "
 "avant qu'ils ne commencent à s'animer vers le texte complet joint."
 
-#: assets/views/project-editor.php:4394 assets/views/project-editor.php:4723
-#: assets/views/project-editor.php:5102 assets/views/project-editor.php:5450
+#: assets/views/project-editor.php:4414 assets/views/project-editor.php:4745
+#: assets/views/project-editor.php:5126 assets/views/project-editor.php:5476
 msgid "Start when"
 msgstr "Commencer quand"
 
-#: assets/views/project-editor.php:4412 assets/views/project-editor.php:4740
-#: assets/views/project-editor.php:5119 assets/views/project-editor.php:5467
+#: assets/views/project-editor.php:4422 assets/views/project-editor.php:4752
+#: assets/views/project-editor.php:5133 assets/views/project-editor.php:5483
+#, fuzzy
+#| msgid "Start when"
+msgid "Start When"
+msgstr "Commencer quand"
+
+#: assets/views/project-editor.php:4432 assets/views/project-editor.php:4762
+#: assets/views/project-editor.php:5143 assets/views/project-editor.php:5493
 msgid "with modifier"
 msgstr "avec modificateur"
 
-#: assets/views/project-editor.php:4446
+#: assets/views/project-editor.php:4441 assets/views/project-editor.php:4772
+#: assets/views/project-editor.php:5152 assets/views/project-editor.php:5502
+#, fuzzy
+#| msgid "Date Modified"
+msgid "Start When Modifier"
+msgstr "Date de modification"
+
+#: assets/views/project-editor.php:4468
 msgid "Shift in"
 msgstr "Décaler dans"
 
-#: assets/views/project-editor.php:4539
+#: assets/views/project-editor.php:4561
 msgid ""
 "Animates layers continuously with an optional Yo-yo effect. <br><br>Can also "
 "act as a middle animation step between Opening and Ending transitions."
@@ -8923,11 +9095,11 @@ msgstr ""
 "aussi servir d'étape d'animation intermédiaire entre les transitions "
 "d'ouverture et de fin."
 
-#: assets/views/project-editor.php:4808
+#: assets/views/project-editor.php:4832
 msgid "Loop Wait"
 msgstr "Boucle d'attente"
 
-#: assets/views/project-editor.php:4919
+#: assets/views/project-editor.php:4943
 msgid ""
 "Animates characters, words, or lines of text as they leave the scene. "
 "<br><br> Each fragment animate from the whole joint text toward the options "
@@ -8937,11 +9109,11 @@ msgstr ""
 "<br><br> Chaque fragment s'anime à partir du texte complet joint en fonction "
 "des options que vous définissez ici."
 
-#: assets/views/project-editor.php:5153
+#: assets/views/project-editor.php:5179
 msgid "Shift out"
 msgstr "Décaler hors"
 
-#: assets/views/project-editor.php:5246
+#: assets/views/project-editor.php:5272
 msgid ""
 "Plays when layers leave the scene. <br><br> Animates layers from their "
 "current state toward the options you set here."
@@ -8950,48 +9122,48 @@ msgstr ""
 "calques à partir de leur état actuel vers les options que vous définissez "
 "ici."
 
-#: assets/views/project-editor.php:5660
+#: assets/views/project-editor.php:5688
 msgid "Plays transition when users tap or move their mouse cursor over layers."
 msgstr ""
 "Lance une transition lorsque les utilisateurs tapent ou déplacent le curseur "
 "de leur souris sur les calques."
 
-#: assets/views/project-editor.php:5850
+#: assets/views/project-editor.php:5878
 msgid "Duration | reverse"
 msgstr "Durée | inverse"
 
-#: assets/views/project-editor.php:5853 assets/views/project-editor.php:5884
+#: assets/views/project-editor.php:5881 assets/views/project-editor.php:5912
 msgid "Same"
 msgstr "Identique"
 
-#: assets/views/project-editor.php:5881
+#: assets/views/project-editor.php:5909
 msgid "Easing | reverse"
 msgstr "Atténuation | inverse"
 
-#: assets/views/project-editor.php:5931
+#: assets/views/project-editor.php:5959
 msgid "Always on top"
 msgstr "Toujours en haut"
 
-#: assets/views/project-editor.php:6041
+#: assets/views/project-editor.php:6069
 msgid ""
 "Moves layers at a different pace when scrolling or moving the mouse cursor."
 msgstr ""
 "Déplace les calques à un rythme différent lors du défilement ou du "
 "déplacement du curseur de la souris."
 
-#: assets/views/project-editor.php:6046
+#: assets/views/project-editor.php:6074
 msgid "Parallax Settings"
 msgstr "Réglages de parallaxe"
 
-#: assets/views/project-editor.php:6248
+#: assets/views/project-editor.php:6276
 msgid "Layer linking"
 msgstr "Lien du calque"
 
-#: assets/views/project-editor.php:6306
+#: assets/views/project-editor.php:6334
 msgid "Layer Actions"
 msgstr "Actions du calque"
 
-#: assets/views/project-editor.php:6316
+#: assets/views/project-editor.php:6344
 msgid ""
 "Scrolls below the project, pushing it outside of the viewport to make room "
 "for any content that follows."
@@ -8999,24 +9171,24 @@ msgstr ""
 "Fait défiler sous le projet, le poussant en dehors de l'affichage pour faire "
 "place au contenu qui suit."
 
-#: assets/views/project-editor.php:6343 assets/views/project-editor.php:6381
-#: assets/views/project-editor.php:6419 assets/views/project-editor.php:6457
+#: assets/views/project-editor.php:6371 assets/views/project-editor.php:6409
+#: assets/views/project-editor.php:6447 assets/views/project-editor.php:6485
 msgid "Scroll Offset"
 msgstr "Défilement Offset"
 
-#: assets/views/project-editor.php:6354
+#: assets/views/project-editor.php:6382
 msgid "Scrolls to the next LayerSlider project on page (if there’s any)."
 msgstr ""
 "Fait défiler jusqu'au projet LayerSlider suivant sur la page (s'il y en a "
 "un)."
 
-#: assets/views/project-editor.php:6392
+#: assets/views/project-editor.php:6420
 msgid "Scrolls to the previous LayerSlider project on page (if there’s any)."
 msgstr ""
 "Fait défiler jusqu'au projet LayerSlider précédent sur la page (s'il y en a "
 "un)."
 
-#: assets/views/project-editor.php:6430
+#: assets/views/project-editor.php:6458
 msgid ""
 "Scrolls to the specified element. You can enter a CSS/jQuery selector to "
 "target elements. To target LayerSlider projects, use custom class names "
@@ -9027,11 +9199,11 @@ msgstr ""
 "utilisez des noms de classe personnalisés au lieu de vous fier à leur ID "
 "aléatoire."
 
-#: assets/views/project-editor.php:6466
+#: assets/views/project-editor.php:6494
 msgid "Selector"
 msgstr "Sélecteur"
 
-#: assets/views/project-editor.php:6477
+#: assets/views/project-editor.php:6505
 msgid ""
 "Jumps to the specified slide. Project Settings like Shuffle mode does not "
 "affect the selected slide."
@@ -9039,11 +9211,11 @@ msgstr ""
 "Passe à la diapo spécifiée. Les réglages du projet, comme le mode aléatoire, "
 "n'affectent pas la diapo sélectionnée."
 
-#: assets/views/project-editor.php:6486
+#: assets/views/project-editor.php:6514
 msgid "Select Slide"
 msgstr "Sélectionner la diapo"
 
-#: assets/views/project-editor.php:6495
+#: assets/views/project-editor.php:6523
 msgid ""
 "Jumps to the next slide. Options like Shuffle mode or Two way slideshow can "
 "affect the sequence."
@@ -9051,7 +9223,7 @@ msgstr ""
 "Passe à la diapo suivante. Des options telles que le mode aléatoire ou le "
 "diaporama à deux voies peuvent affecter la séquence."
 
-#: assets/views/project-editor.php:6501
+#: assets/views/project-editor.php:6529
 msgid ""
 "Jumps to the previous slide. Options like Shuffle mode or Two way slideshow "
 "can affect the sequence."
@@ -9059,7 +9231,7 @@ msgstr ""
 "Passe à la diapo précédente. Des options telles que le mode aléatoire ou le "
 "diaporama à deux voies peuvent affecter la séquence."
 
-#: assets/views/project-editor.php:6508
+#: assets/views/project-editor.php:6536
 msgid ""
 "Stops the slideshow. Depending on your settings, layer animations and "
 "progress timers may not be interrupted, but your project will not commence "
@@ -9069,11 +9241,11 @@ msgstr ""
 "et les timers de progression peuvent ne pas être interrompus, mais votre "
 "projet ne passera pas automatiquement à la diapositive suivante."
 
-#: assets/views/project-editor.php:6514
+#: assets/views/project-editor.php:6542
 msgid "Resumes the slideshow and re-enables the automatic slide change."
 msgstr "Reprend le diaporama et réactive le changement automatique des diapos."
 
-#: assets/views/project-editor.php:6522
+#: assets/views/project-editor.php:6550
 msgid ""
 "Instantly restarts the slide replaying all layer transitions from the "
 "beginning."
@@ -9081,7 +9253,7 @@ msgstr ""
 "Redémarre instantanément la diapo en rejouant toutes les transitions de "
 "calque depuis le début."
 
-#: assets/views/project-editor.php:6528
+#: assets/views/project-editor.php:6556
 msgid ""
 "Plays all transitions backward from the moment it’s triggered, then pauses "
 "at the beginning of the slide. An option is provided to continue replaying "
@@ -9091,17 +9263,17 @@ msgstr ""
 "déclenché, puis s'arrête au début de la diapo. Une option permet de "
 "poursuivre la lecture de la diapo normalement ensuite."
 
-#: assets/views/project-editor.php:6532
+#: assets/views/project-editor.php:6560
 msgid "Replay"
 msgstr "Rejouer"
 
-#: assets/views/project-editor.php:6542
+#: assets/views/project-editor.php:6570
 msgid ""
 "Immediately sets the current slide back to its starting state and pauses it."
 msgstr ""
 "Met immédiatement la diapo en cours à son état initial et la met en pause."
 
-#: assets/views/project-editor.php:6549
+#: assets/views/project-editor.php:6577
 msgid ""
 "Stops the project by freezing every animation taking place when triggered, "
 "including slide transitions when changing slides."
@@ -9109,26 +9281,26 @@ msgstr ""
 "Arrête le projet en gelant toutes les animations en cours lorsqu'il est "
 "déclenché, y compris les transitions lors du changement de diapos."
 
-#: assets/views/project-editor.php:6555
+#: assets/views/project-editor.php:6583
 msgid "Resumes the project and continues playing frozen animations."
 msgstr "Reprend le projet et continue à jouer les animations gelées."
 
-#: assets/views/project-editor.php:6561
+#: assets/views/project-editor.php:6589
 msgid ""
 "Toggles between Pause Project and Resume Project by respecting the current "
 "state."
 msgstr ""
 "Bascule entre Pause Projet et Reprise Projet en respectant l'état actuel."
 
-#: assets/views/project-editor.php:6569
+#: assets/views/project-editor.php:6597
 msgid "Starts playback of any active media element on the current slide."
 msgstr "Lance la lecture de tout élément Média actif sur la diapo actuelle."
 
-#: assets/views/project-editor.php:6575
+#: assets/views/project-editor.php:6603
 msgid "Pauses playback of any active media element on the current slide."
 msgstr "Suspend la lecture de tout élément média actif sur la diapo actuelle."
 
-#: assets/views/project-editor.php:6581
+#: assets/views/project-editor.php:6609
 msgid ""
 "Unmutes playback of any active media element on the current slide. Using "
 "this action may require a Click or Tap trigger due to browser restrictions."
@@ -9137,30 +9309,45 @@ msgstr ""
 "Utiliser cette action peut nécessiter un clic ou une tape de déclenchement "
 "en raison des restrictions du navigateur."
 
-#: assets/views/project-editor.php:6589
+#: assets/views/project-editor.php:6617
 msgid ""
-"Opens Popups waiting in the background to be launched. Popups must be "
-"embedded on page."
+"Opens the selected Popup. Embedding it to the page is optional; the Popup "
+"will be loaded dynamically if needed. Manually embedding it in advance makes "
+"it open faster."
 msgstr ""
-"Ouvre les Popups qui attendent d'être lancées en arrière-plan. Les Popups "
-"doivent être intégrées à la page."
 
-#: assets/views/project-editor.php:6593
+#: assets/views/project-editor.php:6632
 msgid "Open With Slide"
 msgstr "Ouvrir avec la Diapo"
 
-#: assets/views/project-editor.php:6605
+#: assets/views/project-editor.php:6642
+msgid "Close if already open"
+msgstr ""
+
+#: assets/views/project-editor.php:6652
 msgid ""
 "Closes this Popup. Works only if the current project type is set to a Popup."
 msgstr ""
 "Ferme ce Popup. Ne fonctionne que si le type de projet actuel est défini "
 "comme une fenêtre Popup."
 
-#: assets/views/project-editor.php:6611
+#: assets/views/project-editor.php:6658
+#, fuzzy
+#| msgid ""
+#| "Opens Popups waiting in the background to be launched. Popups must be "
+#| "embedded on page."
+msgid ""
+"Opens all Popups waiting in the background to be launched. Popups must be "
+"embedded on the page beforehand."
+msgstr ""
+"Ouvre les Popups qui attendent d'être lancées en arrière-plan. Les Popups "
+"doivent être intégrées à la page."
+
+#: assets/views/project-editor.php:6664
 msgid "Closes all opened Popups on page."
 msgstr "Ferme tous les Popups ouverts sur la page."
 
-#: assets/views/project-editor.php:6619
+#: assets/views/project-editor.php:6672
 msgid ""
 "Calls a JavaScript function by its name. This is intended for web "
 "developers. The function must be present on page prior triggering this "
@@ -9169,165 +9356,205 @@ msgstr ""
 "Appelle une fonction JavaScript par son nom. Destiné aux développeurs web. "
 "La fonction doit être présente sur la page avant de déclencher cette action."
 
-#: assets/views/project-editor.php:6623
+#: assets/views/project-editor.php:6676
 msgid "Function Name"
 msgstr "Nom de la fonction"
 
-#: assets/views/project-editor.php:6626
+#: assets/views/project-editor.php:6679
 msgid "myFunction"
 msgstr "maFonction"
 
-#: assets/views/project-editor.php:6641
+#: assets/views/project-editor.php:6694
 msgid "Layer Action"
 msgstr "Action de calque"
 
-#: assets/views/project-editor.php:6642
+#: assets/views/project-editor.php:6695
 msgid "ADD NEW LAYER ACTION..."
 msgstr "AJOUTER UN NOUVEAU CALQUE..."
 
-#: assets/views/project-editor.php:6647
+#: assets/views/project-editor.php:6700
 msgid "Scroll Below Project"
 msgstr "Défiler sous le projet"
 
-#: assets/views/project-editor.php:6648
+#: assets/views/project-editor.php:6701
 msgid "Scroll to Next Project"
 msgstr "Défiler jusqu'à projet suivant"
 
-#: assets/views/project-editor.php:6649
+#: assets/views/project-editor.php:6702
 msgid "Scroll to Previous Project"
 msgstr "Défiler jusqu'au projet précédent"
 
-#: assets/views/project-editor.php:6650
+#: assets/views/project-editor.php:6703
 msgid "Scroll to Element"
 msgstr "Défiler jusqu'à l'élément"
 
-#: assets/views/project-editor.php:6654
+#: assets/views/project-editor.php:6707
 msgid "Jump to Slide"
 msgstr "Aller à la diapo"
 
-#: assets/views/project-editor.php:6655
+#: assets/views/project-editor.php:6708
 msgid "Next Slide"
 msgstr "Diapositive suivante"
 
-#: assets/views/project-editor.php:6656
+#: assets/views/project-editor.php:6709
 msgid "Previous Slide"
 msgstr "Diapositive précédente"
 
-#: assets/views/project-editor.php:6660
+#: assets/views/project-editor.php:6713
 msgid "Stop Slideshow"
 msgstr "Arrêter le diaporama"
 
-#: assets/views/project-editor.php:6661
+#: assets/views/project-editor.php:6714
 msgid "Start Slideshow"
 msgstr "Lancer le diaporama"
 
-#: assets/views/project-editor.php:6664
+#: assets/views/project-editor.php:6717
 msgid "Slide Animation Timeline"
 msgstr "Chronologie d'animation de la diapo"
 
-#: assets/views/project-editor.php:6665
+#: assets/views/project-editor.php:6718
 msgid "Replay Slide"
 msgstr "Rejouer la diapo"
 
-#: assets/views/project-editor.php:6666
+#: assets/views/project-editor.php:6719
 msgid "Reverse Slide"
 msgstr "Glissement inversé"
 
-#: assets/views/project-editor.php:6667
+#: assets/views/project-editor.php:6720
 msgid "Reset Slide"
 msgstr "Réinitialiser la diapo"
 
-#: assets/views/project-editor.php:6670
+#: assets/views/project-editor.php:6723
 msgid "Project Animation Timeline"
 msgstr "Chronologie d'animation du projet"
 
-#: assets/views/project-editor.php:6671
+#: assets/views/project-editor.php:6724
 msgid "Pause Project"
 msgstr "Suspendre le projet"
 
-#: assets/views/project-editor.php:6672
+#: assets/views/project-editor.php:6725
 msgid "Resume Project"
 msgstr "Reprendre le projet"
 
-#: assets/views/project-editor.php:6673
+#: assets/views/project-editor.php:6726
 msgid "Toggle Pause/Resume"
 msgstr "Permuter Pause/Reprise"
 
-#: assets/views/project-editor.php:6676
+#: assets/views/project-editor.php:6729
 msgid "Media Playback"
 msgstr "Lecture Média"
 
-#: assets/views/project-editor.php:6677
+#: assets/views/project-editor.php:6730
 msgid "Play Media"
 msgstr "Lancer le Média"
 
-#: assets/views/project-editor.php:6678
+#: assets/views/project-editor.php:6731
 msgid "Pause Media"
 msgstr "Suspendre le Média"
 
-#: assets/views/project-editor.php:6679
+#: assets/views/project-editor.php:6732
 msgid "Unmute Media"
 msgstr "Réactiver le son"
 
-#: assets/views/project-editor.php:6683
+#: assets/views/project-editor.php:6736
 msgid "Open Popup"
 msgstr "Ouvrir le Popup"
 
-#: assets/views/project-editor.php:6685
+#: assets/views/project-editor.php:6738
+#, fuzzy
+#| msgid "Launch Popup"
+msgid "Launch Popups"
+msgstr "Lancement de Popup"
+
+#: assets/views/project-editor.php:6739
 msgid "Close All Popups"
 msgstr "Fermer tous les Popups"
 
-#: assets/views/project-editor.php:6689
+#: assets/views/project-editor.php:6743
 msgid "Call JavaScript function"
 msgstr "Appeler la fonction JavaScript"
 
-#: assets/views/project-editor.php:6699
+#: assets/views/project-editor.php:6753
 msgid "Trigger"
 msgstr "Déclencheur"
 
-#: assets/views/project-editor.php:6704
+#: assets/views/project-editor.php:6758
 msgid "Click or Tap"
 msgstr "Cliquer ou taper"
 
-#: assets/views/project-editor.php:6705
+#: assets/views/project-editor.php:6759
 msgid "Mouse Enter"
 msgstr "Entrée de la souris"
 
-#: assets/views/project-editor.php:6706
+#: assets/views/project-editor.php:6760
 msgid "Mouse Leave"
 msgstr "Sortie de la souris"
 
-#: assets/views/project-editor.php:6737
+#: assets/views/project-editor.php:6791
 msgid "Common Attributes"
 msgstr "Attributs communs"
 
-#: assets/views/project-editor.php:6790
+#: assets/views/project-editor.php:6844
 msgctxt "HTML attribute key"
 msgid "key"
 msgstr ""
 
-#: assets/views/project-editor.php:6791
+#: assets/views/project-editor.php:6845
 msgctxt "HTML attribute value"
 msgid "value"
 msgstr ""
 
-#: assets/views/project-editor.php:6814 assets/wp/scripts_l10n.php:11
+#: assets/views/project-editor.php:6866
+msgid "Quick Tip"
+msgstr ""
+
+#: assets/views/project-editor.php:6871
+msgid "Show QUICK TIP when publishing projects."
+msgstr ""
+
+#: assets/views/project-editor.php:6879
+#, fuzzy
+#| msgid "Paste embed or HTML code"
+msgid "Grab the embed code:"
+msgstr "Coller le code d’intégration ou le code HTML"
+
+#: assets/views/project-editor.php:6890
+msgid "copy"
+msgstr ""
+
+#: assets/views/project-editor.php:6893 assets/views/system-status.php:135
+#: assets/views/system-status.php:172 assets/views/system-status.php:197
+#: assets/views/system-status.php:234
+msgid "OK"
+msgstr "OK"
+
+#: assets/views/project-editor.php:6903
+msgid "Show more embed options"
+msgstr ""
+
+#: assets/views/project-editor.php:6919 assets/wp/scripts_l10n.php:11
 msgid "Save"
 msgstr "Enregistrer"
 
-#: assets/views/project-editor.php:6815
+#: assets/views/project-editor.php:6920
 msgid "Saving"
 msgstr "Enregistrement"
 
-#: assets/views/project-editor.php:6821
+#: assets/views/project-editor.php:6926
 msgid "Publishing"
 msgstr "Publication"
 
-#: assets/views/project-editor.php:6847
+#: assets/views/project-editor.php:6952
 msgid "Restore to defaults"
 msgstr "Restaurer les valeurs par défaut"
 
-#: assets/views/project-editor.php:6852 assets/views/project-editor.php:6855
+#: assets/views/project-editor.php:6957
+#, fuzzy
+#| msgid "Advanced Settings"
+msgid "Advanced Option"
+msgstr "Réglages avancés"
+
+#: assets/views/project-editor.php:6960
 msgid ""
 "This feature requires license registration. Click on the padlock to learn "
 "more."
@@ -9335,7 +9562,7 @@ msgstr ""
 "Cette fonctionnalité nécessite l'enregistrement d'une licence. Cliquez sur "
 "le cadenas pour en savoir plus."
 
-#: assets/views/project-editor.php:6858
+#: assets/views/project-editor.php:6963
 msgid ""
 "Triggers all hover transitions at once when moving the mouse cursor over or "
 "tapping on the slide."
@@ -9343,7 +9570,7 @@ msgstr ""
 "Déclenche toutes les transitions au survol en une fois quand le curseur de "
 "la souris passe sur la diapo ou que l'on tape dessus."
 
-#: assets/views/project-editor.php:6861
+#: assets/views/project-editor.php:6966
 msgid ""
 "In some cases your layers may be wrapped by another element. For example, an "
 "＜A＞ tag when you use layer linking. By default, new attributes will be "
@@ -9361,267 +9588,271 @@ msgstr ""
 "lorsque vous devez appliquer cet attribut sur l'élément calque dans tous les "
 "cas."
 
-#: assets/views/project-editor.php:6864
+#: assets/views/project-editor.php:6969
 msgid "Set layers list position"
 msgstr "Définir la position de la liste des calques"
 
-#: assets/views/project-editor.php:6867
+#: assets/views/project-editor.php:6972
 msgid "Dock layers list"
 msgstr "Ancrer la liste des calques"
 
-#: assets/views/project-editor.php:6870
+#: assets/views/project-editor.php:6975
 msgid "Pin layers list"
 msgstr "Epingler la liste des calques"
 
-#: assets/views/project-editor.php:6873
+#: assets/views/project-editor.php:6978
 msgid "Close layers list"
 msgstr "Fermer la liste des calques"
 
-#: assets/views/project-editor.php:6876
+#: assets/views/project-editor.php:6981
 msgid "Copy style properties"
 msgstr "Copier les propriétés de style"
 
-#: assets/views/project-editor.php:6879
+#: assets/views/project-editor.php:6984
 msgid "Paste style properties"
 msgstr "Coller les propriétés de style"
 
-#: assets/views/project-editor.php:6882
+#: assets/views/project-editor.php:6987
 msgid "Copy transition properties"
 msgstr "Copier les propriétés de transition"
 
-#: assets/views/project-editor.php:6885
+#: assets/views/project-editor.php:6990
 msgid "Paste transition properties"
 msgstr "Coller les propriétés de transition"
 
-#: assets/views/project-editor.php:6888
+#: assets/views/project-editor.php:6993
 msgid "Expand / shrink sidebar"
 msgstr "Agrandir / réduire la barre latérale"
 
-#: assets/views/project-editor.php:6891
+#: assets/views/project-editor.php:6996
 msgid "Align item to top left"
 msgstr "Aligner l'élément en haut à gauche"
 
-#: assets/views/project-editor.php:6894
+#: assets/views/project-editor.php:6999
 msgid "Align item to top center"
 msgstr "Aligner l'élément en haut au centre"
 
-#: assets/views/project-editor.php:6897
+#: assets/views/project-editor.php:7002
 msgid "Align item to top right"
 msgstr "Aligner l'élément en haut à droite"
 
-#: assets/views/project-editor.php:6900
+#: assets/views/project-editor.php:7005
 msgid "Align item to center left"
 msgstr "Aligner l'élément au centre gauche"
 
-#: assets/views/project-editor.php:6903
+#: assets/views/project-editor.php:7008
 msgid "Align item to center center"
 msgstr "Aligner l'élément au centre"
 
-#: assets/views/project-editor.php:6906
+#: assets/views/project-editor.php:7011
 msgid "Align item to center right"
 msgstr "Aligner l'élément au centre droit"
 
-#: assets/views/project-editor.php:6909
+#: assets/views/project-editor.php:7014
 msgid "Align item to bottom left"
 msgstr "Aligner l'élément en bas à gauche"
 
-#: assets/views/project-editor.php:6912
+#: assets/views/project-editor.php:7017
 msgid "Align item to bottom center"
 msgstr "Aligner l'élément en bas au centre"
 
-#: assets/views/project-editor.php:6915
+#: assets/views/project-editor.php:7020
 msgid "Align item to bottom right"
 msgstr "Aligner l'élément en bas à droite"
 
-#: assets/views/project-editor.php:6976
+#: assets/views/project-editor.php:7081
 msgid "Overlapping Layers"
 msgstr "Calques superposés"
 
-#: assets/views/project-editor.php:6984
+#: assets/views/project-editor.php:7089
 msgid "Align Layer"
 msgstr "Aligner le calque"
 
-#: assets/views/project-editor.php:6985
+#: assets/views/project-editor.php:7090
 msgid "Align Layers"
 msgstr "Aligner les calques"
 
-#: assets/views/project-editor.php:6991 assets/views/project-editor.php:7030
+#: assets/views/project-editor.php:7096 assets/views/project-editor.php:7135
 msgid "Left Edge"
 msgstr "Bord gauche"
 
-#: assets/views/project-editor.php:6995 assets/views/project-editor.php:7034
+#: assets/views/project-editor.php:7100 assets/views/project-editor.php:7139
 msgid "Horizontal Center"
 msgstr "Centre horizontal"
 
-#: assets/views/project-editor.php:6999 assets/views/project-editor.php:7038
+#: assets/views/project-editor.php:7104 assets/views/project-editor.php:7143
 msgid "Right Edge"
 msgstr "Bord droit"
 
-#: assets/views/project-editor.php:7004 assets/views/project-editor.php:7043
+#: assets/views/project-editor.php:7109 assets/views/project-editor.php:7148
 msgid "Top Edge"
 msgstr "Bord haut"
 
-#: assets/views/project-editor.php:7008 assets/views/project-editor.php:7047
+#: assets/views/project-editor.php:7113 assets/views/project-editor.php:7152
 msgid "Vertical Center"
 msgstr "Vertical centre"
 
-#: assets/views/project-editor.php:7012 assets/views/project-editor.php:7051
+#: assets/views/project-editor.php:7117 assets/views/project-editor.php:7156
 msgid "Bottom Edge"
 msgstr "Bord bas"
 
-#: assets/views/project-editor.php:7024
+#: assets/views/project-editor.php:7129
 msgid "Align Layers in Selection"
 msgstr "Aligner les calques dans la sélection"
 
-#: assets/views/project-editor.php:7057
+#: assets/views/project-editor.php:7162
 msgid "Duplicate Layer"
 msgstr "Dupliquer le Calque"
 
-#: assets/views/project-editor.php:7058
+#: assets/views/project-editor.php:7163
 msgid "Duplicate Layers"
 msgstr "Dupliquer les calques"
 
-#: assets/views/project-editor.php:7067
+#: assets/views/project-editor.php:7172
 msgid "Remove Layer"
 msgstr "Supprimer le calque"
 
-#: assets/views/project-editor.php:7068
+#: assets/views/project-editor.php:7173
 msgid "Remove Layers"
 msgstr "Supprimer les calques"
 
-#: assets/views/project-editor.php:7073
+#: assets/views/project-editor.php:7178
 msgid "Copy Layer"
 msgstr "Copier le calque"
 
-#: assets/views/project-editor.php:7074
+#: assets/views/project-editor.php:7179
 msgid "Copy Layers"
 msgstr "Copier les calques"
 
-#: assets/views/project-editor.php:7083
+#: assets/views/project-editor.php:7188
 msgid "Paste Layer"
 msgstr "Coller le calque"
 
-#: assets/views/project-editor.php:7084
+#: assets/views/project-editor.php:7189
 msgid "Paste Layers"
 msgstr "Coller les calques"
 
-#: assets/views/project-editor.php:7094
+#: assets/views/project-editor.php:7199
 msgid "Toggle Layer Visibility"
 msgstr "Modifier la visibilité des calques"
 
-#: assets/views/project-editor.php:7095
+#: assets/views/project-editor.php:7200
 msgid "Toggle Layers Visibility"
 msgstr "Modifier la visibilité des calques"
 
-#: assets/views/project-editor.php:7099
+#: assets/views/project-editor.php:7204
 msgid "Toggle Layer Locking"
 msgstr "Modifier le verrouillage des calques"
 
-#: assets/views/project-editor.php:7100
+#: assets/views/project-editor.php:7205
 msgid "Toggle Layers Locking"
 msgstr "Modifier le verrouillage des calques"
 
-#: assets/views/project-editor.php:7105
+#: assets/views/project-editor.php:7210
 msgid "Copy Layer Styles"
 msgstr "Copier les styles de calque"
 
-#: assets/views/project-editor.php:7109
+#: assets/views/project-editor.php:7214
 msgid "Paste Layer Styles"
 msgstr "Coller les styles de calque"
 
-#: assets/views/project-editor.php:7116
+#: assets/views/project-editor.php:7221
 msgid "Pick image"
 msgstr "Choisir l'image"
 
-#: assets/views/project-editor.php:7117
+#: assets/views/project-editor.php:7222
 msgid "Use post image"
 msgstr "Utiliser l'image de l'article"
 
-#: assets/views/project-editor.php:7118
+#: assets/views/project-editor.php:7223
 msgid "Enter from URL"
 msgstr "Entrer depuis l'URL"
 
-#: assets/views/project-editor.php:7120
+#: assets/views/project-editor.php:7225
 msgid "Image editor"
 msgstr "Éditeur d'images"
 
-#: assets/views/project-editor.php:7122
+#: assets/views/project-editor.php:7227
 msgid "Remove image"
 msgstr "Supprimer image"
 
-#: assets/views/project-editor.php:7130
+#: assets/views/project-editor.php:7235
 msgid "Duplicate Slide"
 msgstr "Dupliquer la diapo"
 
-#: assets/views/project-editor.php:7134
+#: assets/views/project-editor.php:7239
 msgid "Unpublish Slide"
 msgstr "Masquer la diapo"
 
-#: assets/views/project-editor.php:7138
+#: assets/views/project-editor.php:7243
 msgid "Publish Slide"
 msgstr "Publier la diapo"
 
-#: assets/views/project-editor.php:7142
+#: assets/views/project-editor.php:7247
 msgid "Remove Slide"
 msgstr "Retirer la diapo"
 
-#: assets/views/project-editor.php:7147
+#: assets/views/project-editor.php:7252
 msgid "Generate Thumbnail"
 msgstr "Générer une miniature"
 
-#: assets/views/project-editor.php:7154
+#: assets/views/project-editor.php:7259
 msgid "Sidebar Settings"
 msgstr "Réglages de la barre latérale"
 
-#: assets/views/project-editor.php:7161
+#: assets/views/project-editor.php:7266
 msgid "Section tabs"
 msgstr "Onglets de section"
 
-#: assets/views/project-editor.php:7165
+#: assets/views/project-editor.php:7270
 msgid "Expand all"
 msgstr "Étendre tout"
 
-#: assets/views/project-editor.php:7174
+#: assets/views/project-editor.php:7279
 msgid "Collapse all"
 msgstr "Tout réduire"
 
-#: assets/views/project-editor.php:7180
+#: assets/views/project-editor.php:7285
 msgid "Auto close"
 msgstr "Fermeture automatique"
 
-#: assets/views/project-editor.php:7189
+#: assets/views/project-editor.php:7294
 msgid "Layers List Pos."
 msgstr "Pos. Liste des calques."
 
-#: assets/views/project-editor.php:7194
+#: assets/views/project-editor.php:7299
 msgid "Left side"
 msgstr "Côté gauche"
 
-#: assets/views/project-editor.php:7195
+#: assets/views/project-editor.php:7300
 msgid "Right side"
 msgstr "Côté droit"
 
-#: assets/views/project-editor.php:7202
+#: assets/views/project-editor.php:7307
 msgid "Pin Layers List"
 msgstr "Epingler la liste des calques"
 
-#: assets/views/project-editor.php:7215
+#: assets/views/project-editor.php:7316
+msgid "Show Quick Tip when publishing"
+msgstr ""
+
+#: assets/views/project-editor.php:7329
 msgid "Workspace Settings"
 msgstr "Réglages de l’espace de travail"
 
-#: assets/views/project-editor.php:7221
+#: assets/views/project-editor.php:7335
 msgid "Show rulers"
 msgstr "Afficher les règles"
 
-#: assets/views/project-editor.php:7227
+#: assets/views/project-editor.php:7341
 msgid "Show guides"
 msgstr "Afficher les guides"
 
-#: assets/views/project-editor.php:7233
+#: assets/views/project-editor.php:7347
 msgid "Show info panel"
 msgstr "Afficher le panneau d'information"
 
-#: assets/views/project-editor.php:7242
+#: assets/views/project-editor.php:7356
 msgid "Workspace Padding"
 msgstr "Marge intérieure de l'espace de travail"
 
@@ -9754,11 +9985,6 @@ msgstr "Base de données de LayerSlider :"
 #: assets/views/system-status.php:135
 msgid "Error"
 msgstr "Erreur"
-
-#: assets/views/system-status.php:135 assets/views/system-status.php:172
-#: assets/views/system-status.php:197 assets/views/system-status.php:234
-msgid "OK"
-msgstr "OK"
 
 #: assets/views/system-status.php:139
 msgid ""
@@ -10202,13 +10428,13 @@ msgstr "Créateur de transition de diapos LayerSlider"
 
 #: assets/views/transition-builder.php:100
 #: assets/views/transition-builder.php:127
-#: assets/views/transition-builder.php:629 assets/wp/scripts_l10n.php:286
+#: assets/views/transition-builder.php:629 assets/wp/scripts_l10n.php:291
 msgid "Type transition name"
 msgstr "Nom du type de transition"
 
 #: assets/views/transition-builder.php:101
 #: assets/views/transition-builder.php:128
-#: assets/views/transition-builder.php:630 assets/wp/scripts_l10n.php:287
+#: assets/views/transition-builder.php:630 assets/wp/scripts_l10n.php:292
 msgid "Remove transition"
 msgstr "Supprimer la transition"
 
@@ -10233,20 +10459,20 @@ msgstr ""
 msgid "Untitled"
 msgstr "Sans titre"
 
-#: assets/wp/actions.php:292
+#: assets/wp/actions.php:314
 #, php-format
 msgid " %s ago"
 msgstr " %s depuis"
 
-#: assets/wp/actions.php:388
+#: assets/wp/actions.php:410
 msgid "Unnamed Project"
 msgstr "Projet non nommé"
 
-#: assets/wp/actions.php:1133 assets/wp/scripts_l10n.php:65
+#: assets/wp/actions.php:1175 assets/wp/scripts_l10n.php:65
 msgid "Import Error"
 msgstr "Erreur d'importation"
 
-#: assets/wp/actions.php:1134
+#: assets/wp/actions.php:1176
 msgid ""
 "LayerSlider couldn’t download your selected slider. Please check LayerSlider "
 "→ Options → System Status for potential issues. The WP Remote functions may "
@@ -10259,7 +10485,7 @@ msgstr ""
 "fournisseur d'hébergement Web doit autoriser des connexions externes à notre "
 "domaine."
 
-#: assets/wp/actions.php:1177
+#: assets/wp/actions.php:1219
 msgid ""
 "LayerSlider couldn’t save the downloaded slider on your server. Please check "
 "LayerSlider → Options → System Status for potential issues. The most common "
@@ -10271,11 +10497,11 @@ msgstr ""
 "problèmes potentiels. La raison la plus fréquente de ce problème est le "
 "manque d'autorisation d'écriture sur le répertoire /wp-content /uploads /."
 
-#: assets/wp/actions.php:1223
+#: assets/wp/actions.php:1265
 msgid "Imported Group"
 msgstr "Groupe importé"
 
-#: assets/wp/actions.php:1355 assets/wp/actions.php:1383
+#: assets/wp/actions.php:1397 assets/wp/actions.php:1425
 msgid ""
 "It looks like your files isn’t writable, so PHP couldn’t make any changes "
 "(CHMOD)."
@@ -10283,15 +10509,15 @@ msgstr ""
 "Il semble que vos fichiers ne soient pas accessibles en écriture, si bien "
 "que PHP ne peut pas apporter de modifications (CHMOD)."
 
-#: assets/wp/actions.php:1355 assets/wp/actions.php:1383
+#: assets/wp/actions.php:1397 assets/wp/actions.php:1425
 msgid "Cannot write to file"
 msgstr "Impossible d'écrire dans le fichier"
 
-#: assets/wp/actions.php:1369
+#: assets/wp/actions.php:1411
 msgid "It looks like you haven’t selected any skin to edit."
 msgstr "Il semble que vous n'ayez sélectionné aucun thème à éditer."
 
-#: assets/wp/actions.php:1369
+#: assets/wp/actions.php:1411
 msgid "No skin selected."
 msgstr "Pas de thème sélectionné."
 
@@ -10363,11 +10589,11 @@ msgstr "Récemment modifié"
 msgid "Sliders"
 msgstr "Diaporamas"
 
-#: assets/wp/notices.php:107
+#: assets/wp/notices.php:110
 msgid "Hide this banner"
 msgstr "Masquer cette bannière"
 
-#: assets/wp/notices.php:145
+#: assets/wp/notices.php:148
 #, php-format
 msgid ""
 "Register your LayerSlider license to receive live updates and premium "
@@ -10792,74 +11018,74 @@ msgstr "Fonctionnement intelligent"
 msgid "Video poster"
 msgstr "Aperçu de vidéo"
 
-#: assets/wp/scripts_l10n.php:209
+#: assets/wp/scripts_l10n.php:213
 msgid "Slide Options"
 msgstr "Options de la diapo"
 
-#: assets/wp/scripts_l10n.php:210
+#: assets/wp/scripts_l10n.php:214
 msgid "Layer Options"
 msgstr "Options du calque"
 
-#: assets/wp/scripts_l10n.php:211
+#: assets/wp/scripts_l10n.php:215
 #, php-format
 msgid "Slide #%d"
 msgstr "Diapositive #%d"
 
-#: assets/wp/scripts_l10n.php:212
+#: assets/wp/scripts_l10n.php:216
 #, php-format
 msgid "Slide #%d copy"
 msgstr "Slide #%d copie"
 
-#: assets/wp/scripts_l10n.php:214
+#: assets/wp/scripts_l10n.php:218
 #, php-format
 msgid "Layer #%d copy"
 msgstr "Calque #%d copie"
 
-#: assets/wp/scripts_l10n.php:220
+#: assets/wp/scripts_l10n.php:224
 msgid "Used Fonts"
 msgstr "Polices utilisées"
 
-#: assets/wp/scripts_l10n.php:221
+#: assets/wp/scripts_l10n.php:225
 msgid "Drag me :)"
 msgstr "Glissez moi :)"
 
-#: assets/wp/scripts_l10n.php:222
+#: assets/wp/scripts_l10n.php:226
 msgid "Double click to<br> set image"
 msgstr "Double-cliquez pour<br> régler l'image"
 
-#: assets/wp/scripts_l10n.php:223
+#: assets/wp/scripts_l10n.php:227
 msgid "Double click to<br> add media"
 msgstr "Double-cliquez pour<br> ajouter un média"
 
-#: assets/wp/scripts_l10n.php:224
+#: assets/wp/scripts_l10n.php:228
 msgid "Double click to<br> add icon"
 msgstr "Double-cliquer pour<br> ajouter un icône"
 
-#: assets/wp/scripts_l10n.php:225
+#: assets/wp/scripts_l10n.php:229
 msgid "Double click to<br> add shape"
 msgstr "Double-cliquez pour<br> ajouter une forme"
 
-#: assets/wp/scripts_l10n.php:226
+#: assets/wp/scripts_l10n.php:230
 msgid "Text Layer"
 msgstr "Calque de texte"
 
-#: assets/wp/scripts_l10n.php:227
+#: assets/wp/scripts_l10n.php:231
 msgid "HTML Layer"
 msgstr "Calque HTML"
 
-#: assets/wp/scripts_l10n.php:229
+#: assets/wp/scripts_l10n.php:233
 msgid "Howdy, [author]"
 msgstr "Salut, [author]"
 
-#: assets/wp/scripts_l10n.php:230
+#: assets/wp/scripts_l10n.php:234
 msgid "Preview Slide"
 msgstr "Prévisualiser la dispositive"
 
-#: assets/wp/scripts_l10n.php:231
+#: assets/wp/scripts_l10n.php:235
 msgid "Stop Preview"
 msgstr "Arrêter l'aperçu"
 
-#: assets/wp/scripts_l10n.php:232
+#: assets/wp/scripts_l10n.php:236
 msgid ""
 "Layer Preview is not available in Multiple Selection Mode. Select only one "
 "layer to use this feature. "
@@ -10867,7 +11093,7 @@ msgstr ""
 "L'aperçu du calque n'est pas disponible en mode Sélection multiple. "
 "Sélectionnez un seul calque pour utiliser cette fonction. "
 
-#: assets/wp/scripts_l10n.php:233
+#: assets/wp/scripts_l10n.php:237
 #, php-format
 msgid ""
 "Auto-generated URLs are not available in Preview. This layer will link to "
@@ -10876,53 +11102,53 @@ msgstr ""
 "Les URLs auto-générées ne sont pas disponibles dans Aperçu. Cette calque "
 "sera liée à \" %s\" sur vos pages front-end."
 
-#: assets/wp/scripts_l10n.php:234
+#: assets/wp/scripts_l10n.php:238
 #, php-format
 msgid "Until the end of Slide #%d"
 msgstr "Jusqu'à la fin de la diapo #%d"
 
-#: assets/wp/scripts_l10n.php:235
+#: assets/wp/scripts_l10n.php:239
 msgid "There’s nothing to paste. Copy a layer first!"
 msgstr "Il n'y a rien à coller. Copiez d'abord un calque !"
 
-#: assets/wp/scripts_l10n.php:236
+#: assets/wp/scripts_l10n.php:240
 msgid "There is nothing to paste!"
 msgstr "Il n'y a rien à coller !"
 
-#: assets/wp/scripts_l10n.php:237
+#: assets/wp/scripts_l10n.php:241
 msgid "Are you sure you want to remove this slide?"
 msgstr "Êtes-vous sûr de vouloir supprimer cette diapo ?"
 
-#: assets/wp/scripts_l10n.php:238
+#: assets/wp/scripts_l10n.php:242
 msgid "Are you sure you want to remove this layer?"
 msgstr "Êtes-vous sûr de vouloir supprimer ce calque ?"
 
-#: assets/wp/scripts_l10n.php:239
+#: assets/wp/scripts_l10n.php:243
 msgid "Pick an image to use it in LayerSlider"
 msgstr "Choisir une image pour l'utiliser dans LayerSlider"
 
-#: assets/wp/scripts_l10n.php:240
+#: assets/wp/scripts_l10n.php:244
 msgid "Choose video or audio files"
 msgstr "Choisir Vidéo ou Audio"
 
-#: assets/wp/scripts_l10n.php:241
+#: assets/wp/scripts_l10n.php:245
 msgid "Upload error"
 msgstr "Erreur de téléchargement"
 
-#: assets/wp/scripts_l10n.php:242
+#: assets/wp/scripts_l10n.php:246
 #, php-format
 msgid "Upload error: %s"
 msgstr "Erreur de téléchargement : %s"
 
-#: assets/wp/scripts_l10n.php:243
+#: assets/wp/scripts_l10n.php:247
 msgid "Invalid format"
 msgstr "Format invalide"
 
-#: assets/wp/scripts_l10n.php:244
+#: assets/wp/scripts_l10n.php:248
 msgid "Enter an image URL"
 msgstr "Entrer une URL d'image"
 
-#: assets/wp/scripts_l10n.php:245
+#: assets/wp/scripts_l10n.php:249
 msgid ""
 "Are you sure you want to apply the currently selected transitions and "
 "effects on the other slides?"
@@ -10930,11 +11156,11 @@ msgstr ""
 "Êtes-vous sûr de vouloir appliquer les transitions et les effets "
 "actuellement sélectionnés sur les autres slides?"
 
-#: assets/wp/scripts_l10n.php:246
+#: assets/wp/scripts_l10n.php:250
 msgid "No posts were found with the current filters."
 msgstr "Aucun message n'a été trouvé avec les filtres actuels."
 
-#: assets/wp/scripts_l10n.php:247
+#: assets/wp/scripts_l10n.php:251
 #, php-format
 msgid ""
 "It seems there is a server issue that prevented LayerSlider from saving your "
@@ -10954,7 +11180,7 @@ msgstr ""
 "\n"
 " %s"
 
-#: assets/wp/scripts_l10n.php:248
+#: assets/wp/scripts_l10n.php:252
 msgid ""
 "You have unsaved changes on this page. Do you want to leave and discard the "
 "changes made since your last save?"
@@ -10963,43 +11189,43 @@ msgstr ""
 "quitter et annuler les modifications apportées depuis votre dernière "
 "sauvegarde ?"
 
-#: assets/wp/scripts_l10n.php:249
+#: assets/wp/scripts_l10n.php:253
 #, php-format
 msgid "WP Page: %s"
 msgstr "Page WP : %s"
 
-#: assets/wp/scripts_l10n.php:250
+#: assets/wp/scripts_l10n.php:254
 #, php-format
 msgid "WP Post: %s"
 msgstr "Article WP : %s"
 
-#: assets/wp/scripts_l10n.php:251
+#: assets/wp/scripts_l10n.php:255
 #, php-format
 msgid "WP Attachment: %s"
 msgstr "Pièce jointe WP : %s"
 
-#: assets/wp/scripts_l10n.php:252
+#: assets/wp/scripts_l10n.php:256
 msgid "URL from Dynamic content"
 msgstr "URL du contenu dynamique"
 
-#: assets/wp/scripts_l10n.php:253
+#: assets/wp/scripts_l10n.php:257
 #, php-format
 msgid "LS Action: %s"
 msgstr "Action de LS : %s"
 
-#: assets/wp/scripts_l10n.php:254
+#: assets/wp/scripts_l10n.php:258
 msgid "No projects found."
 msgstr "Aucun projet trouvé."
 
-#: assets/wp/scripts_l10n.php:255
+#: assets/wp/scripts_l10n.php:259
 msgid "No slides found."
 msgstr "Aucune diapo trouvée."
 
-#: assets/wp/scripts_l10n.php:256
+#: assets/wp/scripts_l10n.php:260
 msgid "No layers found."
 msgstr "Aucun calque trouvé."
 
-#: assets/wp/scripts_l10n.php:258
+#: assets/wp/scripts_l10n.php:262
 #, fuzzy
 #| msgid ""
 #| "Are you sure you want to apply the currently selected transitions and "
@@ -11011,32 +11237,40 @@ msgstr ""
 "Êtes-vous sûr de vouloir appliquer les transitions et les effets "
 "actuellement sélectionnés sur les autres slides?"
 
-#: assets/wp/scripts_l10n.php:268
+#: assets/wp/scripts_l10n.php:272
 msgid "Dynamic"
 msgstr "Dynamique"
 
-#: assets/wp/scripts_l10n.php:272
+#: assets/wp/scripts_l10n.php:276
 msgid "The entered SVG code doesn’t seem to be valid."
 msgstr "Le code SVG saisi ne semble pas être valide."
 
-#: assets/wp/scripts_l10n.php:273
+#: assets/wp/scripts_l10n.php:277
 msgid "Insert Object"
 msgstr "Insérer un objet"
 
-#: assets/wp/scripts_l10n.php:279
+#: assets/wp/scripts_l10n.php:282
+#, fuzzy, php-format
+#| msgctxt "Possessive case: filter options, font options, etc."
+#| msgid "%s options"
+msgctxt "Shape Options (e.g. Wave Options, etc.)"
+msgid "%s Options"
+msgstr "Options %s"
+
+#: assets/wp/scripts_l10n.php:284
 msgid "Loading, please wait..."
 msgstr "Chargement, merci de patienter..."
 
-#: assets/wp/scripts_l10n.php:281
+#: assets/wp/scripts_l10n.php:286
 msgctxt "Input value is changed via smart operation"
 msgid "SET"
 msgstr "DEFINIR"
 
-#: assets/wp/scripts_l10n.php:288
+#: assets/wp/scripts_l10n.php:293
 msgid "Are you sure you want to remove this transition?"
 msgstr "Êtes-vous sûr de vouloir supprimer cette transition ?"
 
-#: assets/wp/scripts_l10n.php:293
+#: assets/wp/scripts_l10n.php:298
 msgid ""
 "Are you sure you want to clear all groups? All your projects will be moved "
 "and remain available on the main grid. Your groups, however, will "
@@ -11107,11 +11341,11 @@ msgstr ""
 "visiteurs. Si vous souhaitez réintroduire ce projet, supprimez simplement la "
 "planification dans %sRéglages du Projet -> Publier%s."
 
-#: assets/wp/shortcodes.php:392
+#: assets/wp/shortcodes.php:394
 msgid "Premium features is available for preview purposes only."
 msgstr "Les fonctions Premium sont disponibles uniquement à des fins d'aperçu."
 
-#: assets/wp/shortcodes.php:393
+#: assets/wp/shortcodes.php:395
 #, php-format
 msgid ""
 "We’ve detected that you’re using premium features in this project, but you "
@@ -11125,13 +11359,13 @@ msgstr ""
 "vos visiteurs sans enregistrement de licence. %sCliquez ici pour en savoir "
 "plus%s. Fonctions détectées : %s"
 
-#: assets/wp/shortcodes.php:427
+#: assets/wp/shortcodes.php:429
 msgid "LayerSlider encountered a problem while it tried to show your project."
 msgstr ""
 "LayerSlider a rencontré un problème alors qu'il essayait d'afficher votre "
 "projet."
 
-#: assets/wp/shortcodes.php:431
+#: assets/wp/shortcodes.php:433
 msgid ""
 "Please make sure that you’ve used the right shortcode or method to embed the "
 "project, and check if the corresponding project exists and it wasn’t deleted "
@@ -11141,7 +11375,7 @@ msgstr ""
 "pour intégrer le projet, et vérifiez si le projet correspondant existe et "
 "s'il n'a pas été supprimé précédemment."
 
-#: assets/wp/shortcodes.php:439
+#: assets/wp/shortcodes.php:441
 msgid ""
 "Only you and other administrators can see this to take appropriate actions "
 "if necessary."

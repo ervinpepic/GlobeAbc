@@ -923,7 +923,7 @@ $lsDefaults = [
 			'value' => true,
 			'name' => __('Show Close Button', 'LayerSlider'),
 			'keys' => 'popupShowCloseButton',
-			'desc' => __('Disable this option to hide the Popup close button. This option is also useful when you would like to use a custom close button. To do that, select the “Close the Popup” option from the layer linking field.', 'LayerSlider')
+			'desc' => __('Disable this option to hide the Popup close button. This option is also useful when you would like to use a custom close button with the “Close Popup” layer action.', 'LayerSlider')
 		],
 
 		'popupCloseButtonStyle' => [

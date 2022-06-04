@@ -678,7 +678,15 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 				}
 
 				if( ! empty( $layer['props']['actions'] ) ) {
-					$el->attr('data-ls-actions', json_encode( $layer['props']['actions']) );
+
+					$actionsString = json_encode( $layer['props']['actions']);
+
+					$el->attr('data-ls-actions', $actionsString );
+
+					if( strpos( $actionsString, 'openPopup' ) !== false ) {
+						$GLOBALS['lsInitAjaxURL'] = true;
+						$GLOBALS['lsLoadPlugins'][] = 'popup';
+					}
 				}
 
 				if( $svgIB ) {

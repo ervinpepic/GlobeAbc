@@ -5,10 +5,12 @@
 	<lse-smart-help-arrow></lse-smart-help-arrow>
 	<lse-smart-help-bg>
 		<lse-smart-help-inner>
-			<lse-smart-help-title></lse-smart-help-title>
-			<lse-smart-help-content></lse-smart-help-content>
-			<lse-grid class="lse-smart-help-cols">
-			</lse-grid>
+			<lse-smart-help-overflow>
+				<lse-smart-help-title></lse-smart-help-title>
+				<lse-smart-help-content></lse-smart-help-content>
+				<lse-grid class="lse-smart-help-cols">
+				</lse-grid>
+			</lse-smart-help-overflow>
 		</lse-smart-help-inner>
 		<lse-smart-help-outer></lse-smart-help-outer>
 	</lse-smart-help-bg>

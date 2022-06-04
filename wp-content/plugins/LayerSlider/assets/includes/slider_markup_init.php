@@ -3,6 +3,16 @@
 // Prevent direct file access
 defined( 'LS_ROOT_FILE' ) || exit;
 
+// Override popup triggers for layer action
+if( ! empty( $GLOBALS['lsAjaxOverridePopupSettings'] ) ) {
+	$slides['properties']['attrs']['popupShowOnTimeout'] = 0;
+	$slides['properties']['attrs']['popupShowOnce'] = false;
+
+	if( ! empty( $_GET['slide'] ) ) {
+		$slides['properties']['attrs']['firstSlide'] = (int) $_GET['slide'];
+	}
+}
+
 // Get init code
 foreach($slides['properties']['attrs'] as $key => $val) {
 
@@ -32,6 +42,11 @@ if( ! empty( $lsPlugins ) ) {
 
 if( get_option('ls_suppress_debug_info', false ) ) {
 	$init[] = 'hideWelcomeMessage: true';
+}
+
+
+if( ! empty( $GLOBALS['lsInitAjaxURL'] ) ) {
+	$init[] = "ajaxURL: '".admin_url( 'admin-ajax.php' )."'";
 }
 
 $callbacks = [];

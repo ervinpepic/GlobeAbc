@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: LayerSlider WP 7.1.2\n"
+"Project-Id-Version: LayerSlider WP 7.2.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-10 16:24+0100\n"
-"PO-Revision-Date: 2022-03-10 16:26+0100\n"
+"POT-Creation-Date: 2022-06-01 16:25+0200\n"
+"PO-Revision-Date: 2022-06-01 16:28+0200\n"
 "Last-Translator: \n"
 "Language-Team: Українська\n"
 "Language: uk\n"
@@ -65,8 +65,8 @@ msgstr ""
 "збережених до цих пір. Ви дійсно бажаєте продовжити?"
 
 #: assets/classes/class.ls.elementor.widget.php:42
-#: assets/views/project-editor.php:1916 assets/views/project-editor.php:1954
-#: assets/views/project-editor.php:2039
+#: assets/views/project-editor.php:1928 assets/views/project-editor.php:1967
+#: assets/views/project-editor.php:2052
 msgid "Content"
 msgstr "Контент"
 
@@ -111,7 +111,7 @@ msgstr "Макет"
 #: assets/classes/class.ls.elementor.widget.php:103
 #: assets/classes/class.ls.elementor.widget.php:118
 #: assets/classes/class.ls.elementor.widget.php:128
-#: assets/views/project-editor.php:6597 assets/wp/gutenberg_l10n.php:20
+#: assets/views/project-editor.php:6636 assets/wp/gutenberg_l10n.php:20
 #: assets/wp/gutenberg_l10n.php:23 assets/wp/gutenberg_l10n.php:26
 #: assets/wp/gutenberg_l10n.php:31
 msgid "No override"
@@ -292,8 +292,7 @@ msgstr ""
 msgid "An update is available for LayerSlider!"
 msgstr "Оновлення доступне для LayerSlider WP!"
 
-#: assets/classes/class.ls.notifications.php:190
-#: assets/views/dashboard.php:1112
+#: assets/classes/class.ls.notifications.php:190 assets/views/dashboard.php:769
 #, fuzzy
 #| msgid "Install now"
 msgid "Install Now"
@@ -351,7 +350,7 @@ msgstr ""
 msgid "What’s this?"
 msgstr "Що Нового"
 
-#: assets/classes/class.ls.notifications.php:236 assets/wp/notices.php:126
+#: assets/classes/class.ls.notifications.php:236 assets/wp/notices.php:129
 msgid "OK, I understand"
 msgstr "Добре, я розумію"
 
@@ -649,8 +648,8 @@ msgstr "Вісь Y"
 #: assets/config/defaults.php:273 assets/config/defaults.php:668
 #: assets/config/defaults.php:3795
 #: assets/templates/tmpl-project-settings.php:1001
-#: assets/views/project-editor.php:1257 assets/views/project-editor.php:3322
-#: assets/views/project-editor.php:3326
+#: assets/views/project-editor.php:1269 assets/views/project-editor.php:3336
+#: assets/views/project-editor.php:3340
 #, fuzzy
 #| msgid "Background size"
 msgid "Background Size"
@@ -667,7 +666,7 @@ msgstr ""
 #: assets/config/defaults.php:277 assets/config/defaults.php:1534
 #: assets/config/defaults.php:2108 assets/config/defaults.php:2119
 #: assets/config/defaults.php:2167 assets/config/defaults.php:2180
-#: assets/config/defaults.php:3799 assets/config/defaults.php:3952
+#: assets/config/defaults.php:3799 assets/config/defaults.php:3954
 msgid "Auto"
 msgstr "Авто"
 
@@ -687,8 +686,8 @@ msgid "Stretch"
 msgstr "Розтягнути"
 
 #: assets/config/defaults.php:286 assets/config/defaults.php:661
-#: assets/config/defaults.php:3808 assets/views/project-editor.php:1233
-#: assets/views/project-editor.php:3298
+#: assets/config/defaults.php:3808 assets/views/project-editor.php:1245
+#: assets/views/project-editor.php:3312
 #, fuzzy
 #| msgid "Background position"
 msgid "Background Position"
@@ -738,7 +737,7 @@ msgstr "зправа по центру"
 msgid "right bottom"
 msgstr "низ зправа"
 
-#: assets/config/defaults.php:304 assets/views/project-editor.php:1336
+#: assets/config/defaults.php:304 assets/views/project-editor.php:1348
 #, fuzzy
 #| msgid "Slide Transition"
 msgid "Slide Duration"
@@ -757,13 +756,13 @@ msgstr ""
 "Тривалість анімації. Це значення в мілісекунди, так що значення 1000 означає "
 "1 секунда."
 
-#: assets/config/defaults.php:312 assets/views/project-editor.php:1377
+#: assets/config/defaults.php:312 assets/views/project-editor.php:1389
 #, fuzzy
 #| msgid "Forced animation duration"
 msgid "Transition Duration"
 msgstr "Тривалість примусового анімації"
 
-#: assets/config/defaults.php:314 assets/templates/tmpl-smart-help.php:125
+#: assets/config/defaults.php:314 assets/templates/tmpl-smart-help.php:127
 msgid ""
 "You can speed up or slow down slide transitions by providing a custom "
 "animation duration. Leave this option empty to use the default speed. This "
@@ -776,7 +775,7 @@ msgstr ""
 msgid "TimeShift"
 msgstr "Зміна часу"
 
-#: assets/config/defaults.php:322 assets/templates/tmpl-smart-help.php:130
+#: assets/config/defaults.php:322 assets/templates/tmpl-smart-help.php:132
 #, fuzzy
 #| msgid ""
 #| "You can shift the starting point of the slide animation timeline, so "
@@ -1251,12 +1250,12 @@ msgstr ""
 "користувацького редактора стилів."
 
 #: assets/config/defaults.php:613 assets/config/defaults.php:1549
-#: assets/config/defaults.php:3786 assets/views/project-editor.php:1218
-#: assets/views/project-editor.php:1222 assets/views/project-editor.php:3280
-#: assets/views/project-editor.php:3284 assets/views/project-editor.php:4068
-#: assets/views/project-editor.php:4072 assets/views/project-editor.php:5565
-#: assets/views/project-editor.php:5569 assets/views/project-editor.php:5960
-#: assets/views/project-editor.php:5964
+#: assets/config/defaults.php:3786 assets/views/project-editor.php:1230
+#: assets/views/project-editor.php:1234 assets/views/project-editor.php:3294
+#: assets/views/project-editor.php:3298 assets/views/project-editor.php:4088
+#: assets/views/project-editor.php:4092 assets/views/project-editor.php:5593
+#: assets/views/project-editor.php:5597 assets/views/project-editor.php:5988
+#: assets/views/project-editor.php:5992
 #, fuzzy
 #| msgid "Background color"
 msgid "Background Color"
@@ -1279,8 +1278,8 @@ msgstr ""
 
 #: assets/config/defaults.php:620
 #: assets/templates/tmpl-project-settings.php:987
-#: assets/views/project-editor.php:1202 assets/views/project-editor.php:1207
-#: assets/views/project-editor.php:3264 assets/views/project-editor.php:3269
+#: assets/views/project-editor.php:1214 assets/views/project-editor.php:1219
+#: assets/views/project-editor.php:3278 assets/views/project-editor.php:3283
 #, fuzzy
 #| msgid "Background image"
 msgid "Background Image"
@@ -1299,7 +1298,7 @@ msgstr ""
 "його. Це зображення не буде масштабно реагувати на режим."
 
 #: assets/config/defaults.php:635 assets/config/defaults.php:3825
-#: assets/views/project-editor.php:3334
+#: assets/views/project-editor.php:3348
 #, fuzzy
 #| msgid "Background repeat"
 msgid "Background Repeat"
@@ -1314,7 +1313,7 @@ msgid "No-repeat"
 msgstr "Не повторювати"
 
 #: assets/config/defaults.php:640 assets/config/defaults.php:3092
-#: assets/config/defaults.php:3829 assets/views/project-editor.php:4790
+#: assets/config/defaults.php:3829 assets/views/project-editor.php:4814
 msgid "Repeat"
 msgstr "Повторити"
 
@@ -1337,7 +1336,7 @@ msgid "Choose between a scrollable or fixed global background image."
 msgstr "Виберіть між прокруscable або фіксований глобальний фонове зображення."
 
 #: assets/config/defaults.php:653 assets/config/defaults.php:1800
-#: assets/config/defaults.php:3335 assets/views/project-editor.php:6645
+#: assets/config/defaults.php:3335 assets/views/project-editor.php:6698
 msgid "Scroll"
 msgstr "Прокрутити"
 
@@ -1471,7 +1470,7 @@ msgstr "Мініатюра навігації"
 msgid "Use thumbnail navigation instead of slide bullet buttons."
 msgstr "Замість кнопок маркера використовуйте мініатюру."
 
-#: assets/config/defaults.php:748 assets/views/project-editor.php:1464
+#: assets/config/defaults.php:748 assets/views/project-editor.php:1476
 msgid "Hover"
 msgstr "Наведення"
 
@@ -1793,10 +1792,15 @@ msgid "Show Close Button"
 msgstr "Показати  \"Кнопказакриття\""
 
 #: assets/config/defaults.php:926
+#, fuzzy
+#| msgid ""
+#| "Disable this option to hide the Popup close button. This option is also "
+#| "useful when you would like to use a custom close button. To do that, "
+#| "select the “Close the Popup” option from the layer linking field."
 msgid ""
 "Disable this option to hide the Popup close button. This option is also "
-"useful when you would like to use a custom close button. To do that, select "
-"the “Close the Popup” option from the layer linking field."
+"useful when you would like to use a custom close button with the “Close "
+"Popup” layer action."
 msgstr ""
 "Вимкніть цей параметр, щоб приховати кнопку \"закрити меню\". Цей параметр "
 "також корисний, якщо ви бажаєте використовувати настроювану кнопку Закрити. "
@@ -1949,7 +1953,7 @@ msgstr ""
 "дорівнює 1000 мілісекундах."
 
 #: assets/config/defaults.php:1094 assets/config/defaults.php:1203
-#: assets/views/project-editor.php:3730 assets/views/project-editor.php:3746
+#: assets/views/project-editor.php:3744 assets/views/project-editor.php:3766
 #, fuzzy
 #| msgid "Opening transition"
 msgid "Opening Transition"
@@ -1964,8 +1968,8 @@ msgstr "Виберіть один із попередньо визначених
 #: assets/config/defaults.php:2259 assets/config/defaults.php:2450
 #: assets/config/defaults.php:2666 assets/config/defaults.php:2840
 #: assets/templates/tmpl-2d-transition.php:100
-#: assets/views/project-editor.php:4039 assets/views/project-editor.php:4496
-#: assets/views/project-editor.php:5203 assets/views/project-editor.php:5536
+#: assets/views/project-editor.php:4059 assets/views/project-editor.php:4518
+#: assets/views/project-editor.php:5229 assets/views/project-editor.php:5564
 #: assets/views/transition-builder.php:554
 msgid "Fade"
 msgstr "Зникання"
@@ -2021,17 +2025,17 @@ msgstr "Масштаб справа"
 #: assets/config/defaults.php:1111 assets/config/defaults.php:1138
 #: assets/config/defaults.php:1216 assets/config/defaults.php:1235
 #: assets/config/defaults.php:1772 assets/templates/tmpl-2d-transition.php:128
-#: assets/views/project-editor.php:1438 assets/views/project-editor.php:3372
-#: assets/views/project-editor.php:3376 assets/views/project-editor.php:3383
-#: assets/views/project-editor.php:3821 assets/views/project-editor.php:3825
-#: assets/views/project-editor.php:3832 assets/views/project-editor.php:4275
-#: assets/views/project-editor.php:4279 assets/views/project-editor.php:4286
-#: assets/views/project-editor.php:4589 assets/views/project-editor.php:4593
-#: assets/views/project-editor.php:4600 assets/views/project-editor.php:4983
-#: assets/views/project-editor.php:4987 assets/views/project-editor.php:4994
-#: assets/views/project-editor.php:5296 assets/views/project-editor.php:5300
-#: assets/views/project-editor.php:5307 assets/views/project-editor.php:5711
-#: assets/views/project-editor.php:5715 assets/views/project-editor.php:5722
+#: assets/views/project-editor.php:1450 assets/views/project-editor.php:3386
+#: assets/views/project-editor.php:3390 assets/views/project-editor.php:3397
+#: assets/views/project-editor.php:3841 assets/views/project-editor.php:3845
+#: assets/views/project-editor.php:3852 assets/views/project-editor.php:4295
+#: assets/views/project-editor.php:4299 assets/views/project-editor.php:4306
+#: assets/views/project-editor.php:4611 assets/views/project-editor.php:4615
+#: assets/views/project-editor.php:4622 assets/views/project-editor.php:5007
+#: assets/views/project-editor.php:5011 assets/views/project-editor.php:5018
+#: assets/views/project-editor.php:5322 assets/views/project-editor.php:5326
+#: assets/views/project-editor.php:5333 assets/views/project-editor.php:5739
+#: assets/views/project-editor.php:5743 assets/views/project-editor.php:5750
 #: assets/views/transition-builder.php:582
 msgid "Scale"
 msgstr "Змінити масштаб"
@@ -2445,8 +2449,8 @@ msgstr "За спаданням"
 msgid "Set A Slide Image"
 msgstr "Настроювання зображення слайда"
 
-#: assets/config/defaults.php:1530 assets/views/project-editor.php:2593
-#: assets/views/project-editor.php:3892 assets/views/project-editor.php:5367
+#: assets/config/defaults.php:1530 assets/views/project-editor.php:2606
+#: assets/views/project-editor.php:3912 assets/views/project-editor.php:5393
 msgid "Size"
 msgstr "Розмір"
 
@@ -2459,7 +2463,8 @@ msgstr "Розмір"
 msgid "Inherit"
 msgstr "Успадкувати"
 
-#: assets/config/defaults.php:1543 assets/views/project-editor.php:2618
+#: assets/config/defaults.php:1543 assets/templates/tmpl-shape-modal.php:474
+#: assets/views/project-editor.php:2631
 msgid "Position"
 msgstr "Позиція"
 
@@ -2476,15 +2481,15 @@ msgstr "Настроювання мініатюри слайда"
 #: assets/templates/tmpl-3d-transition.php:69
 #: assets/templates/tmpl-3d-transition.php:129
 #: assets/templates/tmpl-3d-transition.php:211
-#: assets/views/project-editor.php:1332 assets/views/project-editor.php:3990
-#: assets/views/project-editor.php:3994 assets/views/project-editor.php:4431
-#: assets/views/project-editor.php:4435 assets/views/project-editor.php:4760
-#: assets/views/project-editor.php:4764 assets/views/project-editor.php:5138
-#: assets/views/project-editor.php:5142 assets/views/project-editor.php:5486
-#: assets/views/project-editor.php:5490 assets/views/project-editor.php:5831
-#: assets/views/project-editor.php:5835 assets/views/project-editor.php:6320
-#: assets/views/project-editor.php:6358 assets/views/project-editor.php:6396
-#: assets/views/project-editor.php:6434 assets/views/transition-builder.php:217
+#: assets/views/project-editor.php:1344 assets/views/project-editor.php:4010
+#: assets/views/project-editor.php:4014 assets/views/project-editor.php:4453
+#: assets/views/project-editor.php:4457 assets/views/project-editor.php:4784
+#: assets/views/project-editor.php:4788 assets/views/project-editor.php:5164
+#: assets/views/project-editor.php:5168 assets/views/project-editor.php:5514
+#: assets/views/project-editor.php:5518 assets/views/project-editor.php:5859
+#: assets/views/project-editor.php:5863 assets/views/project-editor.php:6348
+#: assets/views/project-editor.php:6386 assets/views/project-editor.php:6424
+#: assets/views/project-editor.php:6462 assets/views/transition-builder.php:217
 #: assets/views/transition-builder.php:290
 #: assets/views/transition-builder.php:381
 #: assets/views/transition-builder.php:509
@@ -2492,8 +2497,8 @@ msgid "Duration"
 msgstr "Тривалість"
 
 #: assets/config/defaults.php:1574 assets/config/defaults.php:1621
-#: assets/config/defaults.php:2158 assets/config/defaults.php:3943
-#: assets/templates/tmpl-smart-help.php:904 assets/wp/gutenberg_l10n.php:37
+#: assets/config/defaults.php:2158 assets/config/defaults.php:3945
+#: assets/templates/tmpl-smart-help.php:914 assets/wp/gutenberg_l10n.php:37
 msgid "auto"
 msgstr "авто"
 
@@ -2507,7 +2512,7 @@ msgstr "Орігамі"
 msgid "Custom Transition Duration"
 msgstr "Настроювані 2D-переходи"
 
-#: assets/config/defaults.php:1627 assets/views/project-editor.php:1349
+#: assets/config/defaults.php:1627 assets/views/project-editor.php:1361
 msgid "Time Shift"
 msgstr "Зміна часу"
 
@@ -2566,14 +2571,14 @@ msgstr "Глобальний наведення вказівника"
 msgid "Hidden"
 msgstr "Прихований"
 
-#: assets/config/defaults.php:1744 assets/views/project-editor.php:1842
+#: assets/config/defaults.php:1744 assets/views/project-editor.php:1854
 #, fuzzy
 #| msgid "Overflow layers"
 msgid "Overflow Layers"
 msgstr "Переповнення шарів"
 
 #: assets/config/defaults.php:1750 assets/views/project-editor.php:371
-#: assets/views/project-editor.php:1426
+#: assets/views/project-editor.php:1438
 msgid "Zoom"
 msgstr "Збільшити"
 
@@ -2590,28 +2595,29 @@ msgstr "Зменшення"
 #: assets/config/defaults.php:2705 assets/config/defaults.php:2883
 #: assets/config/defaults.php:3031 assets/config/defaults.php:3214
 #: assets/config/defaults.php:3388 assets/config/defaults.php:3880
-#: assets/views/project-editor.php:1448 assets/views/project-editor.php:1564
-#: assets/views/project-editor.php:3395 assets/views/project-editor.php:3399
-#: assets/views/project-editor.php:3405 assets/views/project-editor.php:3411
-#: assets/views/project-editor.php:3844 assets/views/project-editor.php:3848
-#: assets/views/project-editor.php:3854 assets/views/project-editor.php:3860
-#: assets/views/project-editor.php:4298 assets/views/project-editor.php:4302
-#: assets/views/project-editor.php:4308 assets/views/project-editor.php:4314
-#: assets/views/project-editor.php:4612 assets/views/project-editor.php:4616
-#: assets/views/project-editor.php:4622 assets/views/project-editor.php:4628
-#: assets/views/project-editor.php:5006 assets/views/project-editor.php:5010
-#: assets/views/project-editor.php:5016 assets/views/project-editor.php:5022
-#: assets/views/project-editor.php:5319 assets/views/project-editor.php:5323
-#: assets/views/project-editor.php:5329 assets/views/project-editor.php:5335
-#: assets/views/project-editor.php:5734 assets/views/project-editor.php:5738
-#: assets/views/project-editor.php:5744 assets/views/project-editor.php:5750
-#: assets/views/project-editor.php:6140
+#: assets/views/project-editor.php:1460 assets/views/project-editor.php:1576
+#: assets/views/project-editor.php:3409 assets/views/project-editor.php:3413
+#: assets/views/project-editor.php:3419 assets/views/project-editor.php:3425
+#: assets/views/project-editor.php:3864 assets/views/project-editor.php:3868
+#: assets/views/project-editor.php:3874 assets/views/project-editor.php:3880
+#: assets/views/project-editor.php:4318 assets/views/project-editor.php:4322
+#: assets/views/project-editor.php:4328 assets/views/project-editor.php:4334
+#: assets/views/project-editor.php:4634 assets/views/project-editor.php:4638
+#: assets/views/project-editor.php:4644 assets/views/project-editor.php:4650
+#: assets/views/project-editor.php:5030 assets/views/project-editor.php:5034
+#: assets/views/project-editor.php:5040 assets/views/project-editor.php:5046
+#: assets/views/project-editor.php:5345 assets/views/project-editor.php:5349
+#: assets/views/project-editor.php:5355 assets/views/project-editor.php:5361
+#: assets/views/project-editor.php:5762 assets/views/project-editor.php:5766
+#: assets/views/project-editor.php:5772 assets/views/project-editor.php:5778
+#: assets/views/project-editor.php:6168
 msgid "Rotation"
 msgstr "Обертання"
 
 #: assets/config/defaults.php:1786 assets/config/defaults.php:3319
 #: assets/templates/tmpl-2d-transition.php:96
-#: assets/views/project-editor.php:1516 assets/views/project-editor.php:6084
+#: assets/templates/tmpl-shape-modal.php:450
+#: assets/views/project-editor.php:1528 assets/views/project-editor.php:6112
 #: assets/views/transition-builder.php:550
 msgid "Type"
 msgstr "Тип"
@@ -2627,7 +2633,7 @@ msgid "3D"
 msgstr "3d"
 
 #: assets/config/defaults.php:1796 assets/config/defaults.php:3330
-#: assets/views/project-editor.php:1528 assets/views/project-editor.php:6098
+#: assets/views/project-editor.php:1540 assets/views/project-editor.php:6126
 msgid "Event"
 msgstr "Подія"
 
@@ -2636,7 +2642,7 @@ msgid "Cursor or Tilt"
 msgstr "Курсор або нахил"
 
 #: assets/config/defaults.php:1806 assets/config/defaults.php:3341
-#: assets/views/project-editor.php:1540 assets/views/project-editor.php:6112
+#: assets/views/project-editor.php:1552 assets/views/project-editor.php:6140
 msgid "Axes"
 msgstr "Сокири"
 
@@ -2661,32 +2667,32 @@ msgstr "Лише вертикально"
 #: assets/config/defaults.php:2505 assets/config/defaults.php:2756
 #: assets/config/defaults.php:2934 assets/config/defaults.php:3080
 #: assets/config/defaults.php:3264 assets/config/defaults.php:3355
-#: assets/views/project-editor.php:1605 assets/views/project-editor.php:1609
-#: assets/views/project-editor.php:3449 assets/views/project-editor.php:3453
-#: assets/views/project-editor.php:3928 assets/views/project-editor.php:3932
-#: assets/views/project-editor.php:4347 assets/views/project-editor.php:4351
-#: assets/views/project-editor.php:4676 assets/views/project-editor.php:4680
-#: assets/views/project-editor.php:5055 assets/views/project-editor.php:5059
-#: assets/views/project-editor.php:5403 assets/views/project-editor.php:5407
-#: assets/views/project-editor.php:5784 assets/views/project-editor.php:5788
-#: assets/views/project-editor.php:6155 assets/views/project-editor.php:6159
+#: assets/views/project-editor.php:1617 assets/views/project-editor.php:1621
+#: assets/views/project-editor.php:3463 assets/views/project-editor.php:3467
+#: assets/views/project-editor.php:3948 assets/views/project-editor.php:3952
+#: assets/views/project-editor.php:4367 assets/views/project-editor.php:4371
+#: assets/views/project-editor.php:4698 assets/views/project-editor.php:4702
+#: assets/views/project-editor.php:5079 assets/views/project-editor.php:5083
+#: assets/views/project-editor.php:5429 assets/views/project-editor.php:5433
+#: assets/views/project-editor.php:5812 assets/views/project-editor.php:5816
+#: assets/views/project-editor.php:6183 assets/views/project-editor.php:6187
 msgid "Transform Origin"
 msgstr "Трансформувати походження"
 
 #: assets/config/defaults.php:1825 assets/config/defaults.php:3364
-#: assets/views/project-editor.php:1578 assets/views/project-editor.php:1582
-#: assets/views/project-editor.php:6203 assets/views/project-editor.php:6207
+#: assets/views/project-editor.php:1590 assets/views/project-editor.php:1594
+#: assets/views/project-editor.php:6231 assets/views/project-editor.php:6235
 msgid "Move Duration"
 msgstr "Тривалість переміщення"
 
 #: assets/config/defaults.php:1836 assets/config/defaults.php:3376
-#: assets/views/project-editor.php:1591 assets/views/project-editor.php:1595
-#: assets/views/project-editor.php:6218 assets/views/project-editor.php:6222
+#: assets/views/project-editor.php:1603 assets/views/project-editor.php:1607
+#: assets/views/project-editor.php:6246 assets/views/project-editor.php:6250
 msgid "Leave Duration"
 msgstr "Залишіть тривалість"
 
 #: assets/config/defaults.php:1847 assets/config/defaults.php:3399
-#: assets/views/project-editor.php:1552 assets/views/project-editor.php:6126
+#: assets/views/project-editor.php:1564 assets/views/project-editor.php:6154
 msgid "Distance"
 msgstr "Відстань"
 
@@ -2694,14 +2700,14 @@ msgstr "Відстань"
 #: assets/config/defaults.php:2523 assets/config/defaults.php:2762
 #: assets/config/defaults.php:2942 assets/config/defaults.php:3138
 #: assets/config/defaults.php:3288 assets/config/defaults.php:3410
-#: assets/views/project-editor.php:1617 assets/views/project-editor.php:1621
-#: assets/views/project-editor.php:3943 assets/views/project-editor.php:3947
-#: assets/views/project-editor.php:4361 assets/views/project-editor.php:4365
-#: assets/views/project-editor.php:4690 assets/views/project-editor.php:4694
-#: assets/views/project-editor.php:5069 assets/views/project-editor.php:5073
-#: assets/views/project-editor.php:5417 assets/views/project-editor.php:5421
-#: assets/views/project-editor.php:5798 assets/views/project-editor.php:5802
-#: assets/views/project-editor.php:6169 assets/views/project-editor.php:6173
+#: assets/views/project-editor.php:1629 assets/views/project-editor.php:1633
+#: assets/views/project-editor.php:3963 assets/views/project-editor.php:3967
+#: assets/views/project-editor.php:4381 assets/views/project-editor.php:4385
+#: assets/views/project-editor.php:4712 assets/views/project-editor.php:4716
+#: assets/views/project-editor.php:5093 assets/views/project-editor.php:5097
+#: assets/views/project-editor.php:5443 assets/views/project-editor.php:5447
+#: assets/views/project-editor.php:5826 assets/views/project-editor.php:5830
+#: assets/views/project-editor.php:6197 assets/views/project-editor.php:6201
 msgid "Perspective"
 msgstr "Перспектива"
 
@@ -2709,48 +2715,48 @@ msgstr "Перспектива"
 msgid "HTML Element"
 msgstr ""
 
-#: assets/config/defaults.php:2009 assets/views/project-editor.php:2226
-#: assets/views/project-editor.php:2229 assets/views/project-editor.php:2723
+#: assets/config/defaults.php:2009 assets/views/project-editor.php:2239
+#: assets/views/project-editor.php:2242 assets/views/project-editor.php:2736
 #, fuzzy
 #| msgid "Color"
 msgid "Icon Color"
 msgstr "Колір"
 
-#: assets/config/defaults.php:2018 assets/views/project-editor.php:2239
+#: assets/config/defaults.php:2018 assets/views/project-editor.php:2252
 msgid "Icon Placement"
 msgstr ""
 
 #: assets/config/defaults.php:2021 assets/config/defaults.php:3535
 #: assets/templates/tmpl-2d-transition.php:110
 #: assets/templates/tmpl-project-settings.php:439
-#: assets/templates/tmpl-smart-help.php:821
-#: assets/templates/tmpl-smart-help.php:963
+#: assets/templates/tmpl-smart-help.php:831
+#: assets/templates/tmpl-smart-help.php:973
 #: assets/views/transition-builder.php:564
 msgid "Left"
 msgstr "Зліва"
 
 #: assets/config/defaults.php:2022 assets/templates/tmpl-2d-transition.php:108
 #: assets/templates/tmpl-project-settings.php:457
-#: assets/templates/tmpl-smart-help.php:823
-#: assets/templates/tmpl-smart-help.php:965
+#: assets/templates/tmpl-smart-help.php:833
+#: assets/templates/tmpl-smart-help.php:975
 #: assets/views/transition-builder.php:562
 msgid "Right"
 msgstr "Зправа"
 
-#: assets/config/defaults.php:2031 assets/views/project-editor.php:2251
-#: assets/views/project-editor.php:2682 assets/views/project-editor.php:2695
+#: assets/config/defaults.php:2031 assets/views/project-editor.php:2264
+#: assets/views/project-editor.php:2695 assets/views/project-editor.php:2708
 #, fuzzy
 #| msgid "Size"
 msgid "Icon Size"
 msgstr "Розмір"
 
-#: assets/config/defaults.php:2045 assets/views/project-editor.php:2267
+#: assets/config/defaults.php:2045 assets/views/project-editor.php:2280
 #, fuzzy
 #| msgid "Icon"
 msgid "Icon Gap"
 msgstr "Іконка"
 
-#: assets/config/defaults.php:2059 assets/views/project-editor.php:2283
+#: assets/config/defaults.php:2059 assets/views/project-editor.php:2296
 #, fuzzy
 #| msgid "Vertical Center"
 msgid "Vertical Adjustment"
@@ -2867,16 +2873,16 @@ msgstr "StartAt"
 #: assets/templates/tmpl-3d-transition.php:71
 #: assets/templates/tmpl-3d-transition.php:131
 #: assets/templates/tmpl-3d-transition.php:213
-#: assets/views/project-editor.php:4004 assets/views/project-editor.php:4008
-#: assets/views/project-editor.php:4461 assets/views/project-editor.php:4465
-#: assets/views/project-editor.php:4775 assets/views/project-editor.php:4779
-#: assets/views/project-editor.php:5168 assets/views/project-editor.php:5172
-#: assets/views/project-editor.php:5501 assets/views/project-editor.php:5505
-#: assets/views/project-editor.php:5862 assets/views/project-editor.php:5866
-#: assets/views/project-editor.php:6329 assets/views/project-editor.php:6332
-#: assets/views/project-editor.php:6367 assets/views/project-editor.php:6370
-#: assets/views/project-editor.php:6405 assets/views/project-editor.php:6408
-#: assets/views/project-editor.php:6443 assets/views/project-editor.php:6446
+#: assets/views/project-editor.php:4024 assets/views/project-editor.php:4028
+#: assets/views/project-editor.php:4483 assets/views/project-editor.php:4487
+#: assets/views/project-editor.php:4799 assets/views/project-editor.php:4803
+#: assets/views/project-editor.php:5194 assets/views/project-editor.php:5198
+#: assets/views/project-editor.php:5529 assets/views/project-editor.php:5533
+#: assets/views/project-editor.php:5890 assets/views/project-editor.php:5894
+#: assets/views/project-editor.php:6357 assets/views/project-editor.php:6360
+#: assets/views/project-editor.php:6395 assets/views/project-editor.php:6398
+#: assets/views/project-editor.php:6433 assets/views/project-editor.php:6436
+#: assets/views/project-editor.php:6471 assets/views/project-editor.php:6474
 #: assets/views/transition-builder.php:219
 #: assets/views/transition-builder.php:292
 #: assets/views/transition-builder.php:383
@@ -2931,25 +2937,25 @@ msgid "ScaleY"
 msgstr "Скеля"
 
 #: assets/config/defaults.php:2320 assets/config/defaults.php:2511
-#: assets/config/defaults.php:3086 assets/views/project-editor.php:3913
-#: assets/views/project-editor.php:3917 assets/views/project-editor.php:4660
-#: assets/views/project-editor.php:4664 assets/views/project-editor.php:5388
-#: assets/views/project-editor.php:5392
+#: assets/config/defaults.php:3086 assets/views/project-editor.php:3933
+#: assets/views/project-editor.php:3937 assets/views/project-editor.php:4682
+#: assets/views/project-editor.php:4686 assets/views/project-editor.php:5414
+#: assets/views/project-editor.php:5418
 msgid "Mask"
 msgstr "Маска"
 
 #: assets/config/defaults.php:2326 assets/config/defaults.php:2540
-#: assets/config/defaults.php:3270 assets/views/project-editor.php:1141
-#: assets/views/project-editor.php:1183 assets/views/project-editor.php:3249
+#: assets/config/defaults.php:3270 assets/views/project-editor.php:1153
+#: assets/views/project-editor.php:1195 assets/views/project-editor.php:3263
 msgid "Background"
 msgstr "Фон"
 
 #: assets/config/defaults.php:2332 assets/config/defaults.php:2546
 #: assets/config/defaults.php:3276 assets/config/defaults.php:3765
-#: assets/templates/tmpl-shape-modal.php:267
-#: assets/views/project-editor.php:3032 assets/views/project-editor.php:3036
-#: assets/views/project-editor.php:3154 assets/views/project-editor.php:3502
-#: assets/views/project-editor.php:3506
+#: assets/templates/tmpl-shape-modal.php:300
+#: assets/views/project-editor.php:2746 assets/views/project-editor.php:3046
+#: assets/views/project-editor.php:3050 assets/views/project-editor.php:3168
+#: assets/views/project-editor.php:3516 assets/views/project-editor.php:3520
 msgid "Color"
 msgstr "Колір"
 
@@ -2959,22 +2965,22 @@ msgid "Rounded Corners"
 msgstr "Закругленими кутами"
 
 #: assets/config/defaults.php:2344 assets/config/defaults.php:2558
-#: assets/config/defaults.php:3508 assets/views/project-editor.php:2597
+#: assets/config/defaults.php:3508 assets/views/project-editor.php:2610
 msgid "Width"
 msgstr "Ширина"
 
 #: assets/config/defaults.php:2350 assets/config/defaults.php:2564
-#: assets/config/defaults.php:3517 assets/views/project-editor.php:2605
+#: assets/config/defaults.php:3517 assets/views/project-editor.php:2618
 msgid "Height"
 msgstr "Висота"
 
 #: assets/config/defaults.php:2356 assets/config/defaults.php:2517
-#: assets/config/defaults.php:3144 assets/config/defaults.php:3998
+#: assets/config/defaults.php:3144 assets/config/defaults.php:4000
 #: assets/templates/tmpl-import-templates.php:109
-#: assets/views/project-editor.php:3619 assets/views/project-editor.php:3623
-#: assets/views/project-editor.php:4085 assets/views/project-editor.php:4089
-#: assets/views/project-editor.php:4872 assets/views/project-editor.php:4876
-#: assets/views/project-editor.php:5582 assets/views/project-editor.php:5586
+#: assets/views/project-editor.php:3633 assets/views/project-editor.php:3637
+#: assets/views/project-editor.php:4105 assets/views/project-editor.php:4109
+#: assets/views/project-editor.php:4896 assets/views/project-editor.php:4900
+#: assets/views/project-editor.php:5610 assets/views/project-editor.php:5614
 msgid "Filter"
 msgstr "Фільтр"
 
@@ -3038,7 +3044,7 @@ msgid "Ending Text and Loop Transitions complete"
 msgstr "Закінчувати переходи між текстом і петлею"
 
 #: assets/config/defaults.php:2606 assets/config/defaults.php:2779
-#: assets/views/project-editor.php:4231 assets/views/project-editor.php:4939
+#: assets/views/project-editor.php:4251 assets/views/project-editor.php:4963
 msgid "Animate"
 msgstr "Анімація"
 
@@ -3102,7 +3108,7 @@ msgstr "за символами центру до краю"
 msgid "by chars edge to center"
 msgstr "за краєм символів до центру"
 
-#: assets/config/defaults.php:2632 assets/views/project-editor.php:4450
+#: assets/config/defaults.php:2632 assets/views/project-editor.php:4472
 msgid "Shift In"
 msgstr "Зрушення в"
 
@@ -3114,14 +3120,14 @@ msgstr "StartAt"
 msgid "Opening Transition starts"
 msgstr "Відкриття переходу починається"
 
-#: assets/config/defaults.php:2805 assets/views/project-editor.php:5157
+#: assets/config/defaults.php:2805 assets/views/project-editor.php:5183
 msgid "Shift Out"
 msgstr "Змістити"
 
 #: assets/config/defaults.php:3024 assets/config/defaults.php:3203
-#: assets/config/defaults.php:3729 assets/templates/tmpl-smart-help.php:1027
-#: assets/views/project-editor.php:3585 assets/views/project-editor.php:4851
-#: assets/views/project-editor.php:5911
+#: assets/config/defaults.php:3729 assets/templates/tmpl-smart-help.php:1037
+#: assets/views/project-editor.php:3599 assets/views/project-editor.php:4875
+#: assets/views/project-editor.php:5939
 msgid "Opacity"
 msgstr "Прозорість"
 
@@ -3215,11 +3221,11 @@ msgstr ""
 msgid "20x"
 msgstr ""
 
-#: assets/config/defaults.php:3125 assets/views/project-editor.php:4804
+#: assets/config/defaults.php:3125 assets/views/project-editor.php:4828
 msgid "Wait"
 msgstr "Зачекайте"
 
-#: assets/config/defaults.php:3132 assets/views/project-editor.php:4819
+#: assets/config/defaults.php:3132 assets/views/project-editor.php:4843
 msgid "Yoyo"
 msgstr "Йо"
 
@@ -3251,8 +3257,8 @@ msgstr "Успадкувати"
 msgid "Always On Top"
 msgstr "Завжди на вершині"
 
-#: assets/config/defaults.php:3310 assets/views/project-editor.php:6061
-#: assets/views/project-editor.php:6073
+#: assets/config/defaults.php:3310 assets/views/project-editor.php:6089
+#: assets/views/project-editor.php:6101
 msgid "Parallax Level"
 msgstr "Паралакса рівень"
 
@@ -3274,7 +3280,7 @@ msgstr "До кінця слайда (за промовчанням)"
 msgid "Forever (the layer will never animate out)"
 msgstr "Назавжди (шар ніколи не буде оживити)"
 
-#: assets/config/defaults.php:3433 assets/views/project-editor.php:4164
+#: assets/config/defaults.php:3433 assets/views/project-editor.php:4184
 msgid "Play By Scroll Keyframe"
 msgstr "Грати за ключовий кадр прокручування"
 
@@ -3283,7 +3289,7 @@ msgid "URL target"
 msgstr "Цільова URL-адреса"
 
 #: assets/config/defaults.php:3486 assets/config/defaults.php:3496
-#: assets/views/project-editor.php:6780
+#: assets/views/project-editor.php:6834
 msgid "Custom Attributes"
 msgstr "Настроювані атрибути"
 
@@ -3305,8 +3311,8 @@ msgstr ""
 
 #: assets/config/defaults.php:3526 assets/templates/tmpl-2d-transition.php:107
 #: assets/templates/tmpl-project-settings.php:421
-#: assets/templates/tmpl-smart-help.php:830
-#: assets/templates/tmpl-smart-help.php:982
+#: assets/templates/tmpl-smart-help.php:840
+#: assets/templates/tmpl-smart-help.php:992
 #: assets/views/transition-builder.php:561
 msgid "Top"
 msgstr "Верх"
@@ -3387,21 +3393,21 @@ msgstr ""
 msgid "Border Color"
 msgstr "Рамка"
 
-#: assets/config/defaults.php:3620 assets/views/project-editor.php:3468
+#: assets/config/defaults.php:3620 assets/views/project-editor.php:3482
 msgid "Box Shadow"
 msgstr ""
 
-#: assets/config/defaults.php:3629 assets/views/project-editor.php:3007
+#: assets/config/defaults.php:3629 assets/views/project-editor.php:3021
 msgid "Text Shadow"
 msgstr ""
 
-#: assets/config/defaults.php:3638 assets/views/project-editor.php:2766
+#: assets/config/defaults.php:3638 assets/views/project-editor.php:2780
 #, fuzzy
 #| msgid "Family"
 msgid "Font Family"
 msgstr "Сім'ї"
 
-#: assets/config/defaults.php:3644 assets/views/project-editor.php:2781
+#: assets/config/defaults.php:3644 assets/views/project-editor.php:2795
 #, fuzzy
 #| msgid "Font size"
 msgid "Font Size"
@@ -3435,7 +3441,7 @@ msgstr "Оформлення тексту"
 msgid "Text Transform"
 msgstr "Текст перехідного періоду"
 
-#: assets/config/defaults.php:3705 assets/views/project-editor.php:2940
+#: assets/config/defaults.php:3705 assets/views/project-editor.php:2954
 #, fuzzy
 #| msgid "Letter spacing"
 msgid "Letter Spacing"
@@ -3447,13 +3453,13 @@ msgstr "Міжбуквений інтервал"
 msgid "Text Align"
 msgstr "Вирівнювання тексту"
 
-#: assets/config/defaults.php:3743 assets/views/project-editor.php:2965
+#: assets/config/defaults.php:3743 assets/views/project-editor.php:2979
 #, fuzzy
 #| msgid "Min. font size"
 msgid "Min. Font Size"
 msgstr "Min. розмір шрифту"
 
-#: assets/config/defaults.php:3753 assets/views/project-editor.php:2984
+#: assets/config/defaults.php:3753 assets/views/project-editor.php:2998
 #, fuzzy
 #| msgid "Min. mobile font size"
 msgid "Min. Mobile Font Size"
@@ -3503,84 +3509,96 @@ msgstr "сторін екрана"
 msgid "Sides of the screen"
 msgstr "сторін екрана"
 
-#: assets/config/defaults.php:3938 assets/views/project-editor.php:3658
+#: assets/config/defaults.php:3933
+#, fuzzy
+#| msgid "sides of the screen"
+msgid "Sides of the screen horizontally"
+msgstr "сторін екрана"
+
+#: assets/config/defaults.php:3934
+#, fuzzy
+#| msgid "sides of the screen"
+msgid "Sides of the screen vertically"
+msgstr "сторін екрана"
+
+#: assets/config/defaults.php:3940 assets/views/project-editor.php:3672
 #, fuzzy
 #| msgid "Stacking order"
 msgid "Stacking Order"
 msgstr "Порядок стекування"
 
-#: assets/config/defaults.php:3949 assets/views/project-editor.php:3669
+#: assets/config/defaults.php:3951 assets/views/project-editor.php:3683
 msgid "Mouse Cursor"
 msgstr ""
 
-#: assets/config/defaults.php:3953 assets/config/defaults.php:3976
+#: assets/config/defaults.php:3955 assets/config/defaults.php:3978
 #, fuzzy
 #| msgid "Default quality"
 msgid "Default"
 msgstr "Якість за умовчанням"
 
-#: assets/config/defaults.php:3954
+#: assets/config/defaults.php:3956
 #, fuzzy
 #| msgid "Center"
 msgid "Pointer"
 msgstr "Центр"
 
-#: assets/config/defaults.php:3955 assets/views/about.php:247
+#: assets/config/defaults.php:3957 assets/views/about.php:247
 #: assets/views/dashboard.php:260
 msgid "Help"
 msgstr ""
 
-#: assets/config/defaults.php:3956 assets/templates/tmpl-add-layer.php:14
-#: assets/views/project-editor.php:1968 assets/views/project-editor.php:6937
-#: assets/wp/scripts_l10n.php:264
+#: assets/config/defaults.php:3958 assets/templates/tmpl-add-layer.php:14
+#: assets/views/project-editor.php:1981 assets/views/project-editor.php:7042
+#: assets/wp/scripts_l10n.php:268
 msgid "Text"
 msgstr "Текст"
 
-#: assets/config/defaults.php:3957
+#: assets/config/defaults.php:3959
 #, fuzzy
 #| msgid "Vertical Center"
 msgid "Vertical text"
 msgstr "Вертикальний центр"
 
-#: assets/config/defaults.php:3958
+#: assets/config/defaults.php:3960
 #, fuzzy
 #| msgid "Zoom In"
 msgid "Zoom in"
 msgstr "Приближувати"
 
-#: assets/config/defaults.php:3959
+#: assets/config/defaults.php:3961
 #, fuzzy
 #| msgid "Zoom Out"
 msgid "Zoom out"
 msgstr "Зменшення"
 
-#: assets/config/defaults.php:3966
+#: assets/config/defaults.php:3968
 #, fuzzy
 #| msgid "Popup Events"
 msgid "Prevent Mouse Events"
 msgstr "Спливаючі події"
 
-#: assets/config/defaults.php:3973 assets/views/project-editor.php:3605
+#: assets/config/defaults.php:3975 assets/views/project-editor.php:3619
 msgid "Blend Mode"
 msgstr "Режим накладання"
 
-#: assets/config/defaults.php:4008
+#: assets/config/defaults.php:4010
 msgid "ID"
 msgstr "ID"
 
-#: assets/config/defaults.php:4017
+#: assets/config/defaults.php:4019
 msgid "Classes"
 msgstr "Класи"
 
-#: assets/config/defaults.php:4026
+#: assets/config/defaults.php:4028
 msgid "Title"
 msgstr "Назва"
 
-#: assets/config/defaults.php:4035
+#: assets/config/defaults.php:4037
 msgid "Alt"
 msgstr "Alt"
 
-#: assets/config/defaults.php:4044
+#: assets/config/defaults.php:4046
 msgid "Rel"
 msgstr "Rel"
 
@@ -3673,7 +3691,7 @@ msgstr ""
 #: assets/templates/tmpl-3d-transition.php:114
 #: assets/templates/tmpl-3d-transition.php:193
 #: assets/templates/tmpl-3d-transition.php:256
-#: assets/views/project-editor.php:6713 assets/views/transition-builder.php:174
+#: assets/views/project-editor.php:6767 assets/views/transition-builder.php:174
 #: assets/views/transition-builder.php:275
 #: assets/views/transition-builder.php:359
 #: assets/views/transition-builder.php:439
@@ -3715,7 +3733,7 @@ msgstr "Előre"
 
 #: assets/templates/tmpl-2d-transition.php:36
 #: assets/templates/tmpl-3d-transition.php:36
-#: assets/views/project-editor.php:5846 assets/views/project-editor.php:5877
+#: assets/views/project-editor.php:5874 assets/views/project-editor.php:5905
 #: assets/views/transition-builder.php:180
 #: assets/views/transition-builder.php:490
 msgid "Reverse"
@@ -3736,7 +3754,7 @@ msgid "Col-reverse"
 msgstr "Col-зворотний"
 
 #: assets/templates/tmpl-2d-transition.php:50
-#: assets/views/project-editor.php:1926 assets/views/project-editor.php:3718
+#: assets/views/project-editor.php:1938 assets/views/project-editor.php:3732
 #: assets/views/transition-builder.php:504
 msgid "Transition"
 msgstr "Перехід"
@@ -3802,8 +3820,8 @@ msgstr ""
 
 #: assets/templates/tmpl-2d-transition.php:109
 #: assets/templates/tmpl-project-settings.php:475
-#: assets/templates/tmpl-smart-help.php:832
-#: assets/templates/tmpl-smart-help.php:984
+#: assets/templates/tmpl-smart-help.php:842
+#: assets/templates/tmpl-smart-help.php:994
 #: assets/views/transition-builder.php:563
 msgid "Bottom"
 msgstr "Знизу"
@@ -3960,13 +3978,13 @@ msgid "The direction of rotation."
 msgstr "Напрям обертання."
 
 #: assets/templates/tmpl-3d-transition.php:168
-#: assets/views/project-editor.php:3058 assets/views/project-editor.php:3528
+#: assets/views/project-editor.php:3072 assets/views/project-editor.php:3542
 #: assets/views/transition-builder.php:329
 msgid "Vertical"
 msgstr "Вертикально"
 
 #: assets/templates/tmpl-3d-transition.php:169
-#: assets/views/project-editor.php:3047 assets/views/project-editor.php:3517
+#: assets/views/project-editor.php:3061 assets/views/project-editor.php:3531
 #: assets/views/transition-builder.php:330
 msgid "Horizontal"
 msgstr "Горизонтальний"
@@ -4016,11 +4034,11 @@ msgstr ""
 msgid "Register your license to receive premium benefits like:"
 msgstr "Активуйте LayerSlider, щоб отримати такі переваги:"
 
-#: assets/templates/tmpl-activation.php:28 assets/views/dashboard.php:873
+#: assets/templates/tmpl-activation.php:28 assets/views/dashboard.php:883
 msgid "Automatic Updates"
 msgstr "Автоматичне оновлення"
 
-#: assets/templates/tmpl-activation.php:29 assets/views/dashboard.php:876
+#: assets/templates/tmpl-activation.php:29 assets/views/dashboard.php:886
 msgid "Always receive the latest LayerSlider version."
 msgstr "Завжди отримувати останні версії LayerSlider."
 
@@ -4030,11 +4048,11 @@ msgstr "Завжди отримувати останні версії LayerSlide
 msgid "Premium Project Templates"
 msgstr "Шаблони слайдера Premium"
 
-#: assets/templates/tmpl-activation.php:34 assets/views/dashboard.php:939
+#: assets/templates/tmpl-activation.php:34 assets/views/dashboard.php:949
 msgid "Access more templates to get started with projects."
 msgstr "Для початку роботи з проектами отримуйте доступ до інших шаблонів."
 
-#: assets/templates/tmpl-activation.php:38 assets/views/project-editor.php:6682
+#: assets/templates/tmpl-activation.php:38 assets/views/project-editor.php:6735
 msgid "Popups"
 msgstr "Popup-и"
 
@@ -4044,11 +4062,11 @@ msgid ""
 "visitors’ attention."
 msgstr ""
 
-#: assets/templates/tmpl-activation.php:43 assets/views/dashboard.php:915
+#: assets/templates/tmpl-activation.php:43 assets/views/dashboard.php:925
 msgid "Exclusive Features"
 msgstr "Ексклюзивні можливості"
 
-#: assets/templates/tmpl-activation.php:44 assets/views/dashboard.php:918
+#: assets/templates/tmpl-activation.php:44 assets/views/dashboard.php:928
 msgid "Unlock exclusive and early-access features."
 msgstr "Розблокувати ексклюзивних і ранніх функцій доступу."
 
@@ -4061,15 +4079,15 @@ msgid ""
 "Access to special effects, features, and additional ready-to-use content. "
 msgstr ""
 
-#: assets/templates/tmpl-activation.php:53 assets/views/dashboard.php:894
+#: assets/templates/tmpl-activation.php:53 assets/views/dashboard.php:904
 msgid "Product Support"
 msgstr "Технічної підтримки"
 
-#: assets/templates/tmpl-activation.php:54 assets/views/dashboard.php:897
+#: assets/templates/tmpl-activation.php:54 assets/views/dashboard.php:907
 msgid "Direct help from our Support Team."
 msgstr "Безпосередня допомога від нашої групи підтримки."
 
-#: assets/templates/tmpl-activation.php:64 assets/views/dashboard.php:968
+#: assets/templates/tmpl-activation.php:64 assets/views/dashboard.php:978
 #, fuzzy
 #| msgid "Regular License"
 msgid "Register License"
@@ -4100,57 +4118,59 @@ msgstr ""
 msgid "Add New Layer"
 msgstr "Додати шар"
 
-#: assets/templates/tmpl-add-layer.php:10 assets/views/project-editor.php:1967
-#: assets/views/project-editor.php:2025 assets/views/project-editor.php:6933
-#: assets/wp/scripts_l10n.php:262
+#: assets/templates/tmpl-add-layer.php:10 assets/views/project-editor.php:1980
+#: assets/views/project-editor.php:2038 assets/views/project-editor.php:7038
+#: assets/wp/scripts_l10n.php:266
 msgid "Image"
 msgstr "Зображення"
 
 #: assets/templates/tmpl-add-layer.php:18
 #: assets/templates/tmpl-project-settings.php:57
-#: assets/views/project-editor.php:1969 assets/views/project-editor.php:6941
-#: assets/wp/scripts_l10n.php:266
+#: assets/views/project-editor.php:1982 assets/views/project-editor.php:7046
+#: assets/wp/scripts_l10n.php:270
 msgid "Video / Audio"
 msgstr "Відео/аудіо"
 
-#: assets/templates/tmpl-add-layer.php:22 assets/views/project-editor.php:1970
-#: assets/views/project-editor.php:6945 assets/wp/scripts_l10n.php:228
-#: assets/wp/scripts_l10n.php:265
+#: assets/templates/tmpl-add-layer.php:22 assets/views/project-editor.php:1983
+#: assets/views/project-editor.php:7050 assets/wp/scripts_l10n.php:232
+#: assets/wp/scripts_l10n.php:269
 msgid "Button"
 msgstr "Кнопка"
 
-#: assets/templates/tmpl-add-layer.php:26 assets/views/project-editor.php:1971
-#: assets/views/project-editor.php:6949 assets/wp/scripts_l10n.php:269
+#: assets/templates/tmpl-add-layer.php:26 assets/views/project-editor.php:1984
+#: assets/views/project-editor.php:7054 assets/wp/scripts_l10n.php:273
 msgid "Shape"
 msgstr ""
 
-#: assets/templates/tmpl-add-layer.php:29 assets/views/dashboard.php:469
+#: assets/templates/tmpl-add-layer.php:28
+#: assets/templates/tmpl-shape-modal.php:33
+#: assets/templates/tmpl-shape-modal.php:41 assets/views/dashboard.php:469
 msgid "NEW"
 msgstr "НОВИЙ"
 
-#: assets/templates/tmpl-add-layer.php:37 assets/views/project-editor.php:1972
-#: assets/views/project-editor.php:2127 assets/views/project-editor.php:2211
-#: assets/views/project-editor.php:6953 assets/wp/scripts_l10n.php:263
+#: assets/templates/tmpl-add-layer.php:35 assets/views/project-editor.php:1985
+#: assets/views/project-editor.php:2140 assets/views/project-editor.php:2224
+#: assets/views/project-editor.php:7058 assets/wp/scripts_l10n.php:267
 msgid "Icon"
 msgstr "Іконка"
 
-#: assets/templates/tmpl-add-layer.php:41
+#: assets/templates/tmpl-add-layer.php:39
 msgid "Object / SVG"
 msgstr ""
 
-#: assets/templates/tmpl-add-layer.php:45 assets/views/project-editor.php:1974
-#: assets/views/project-editor.php:6961 assets/wp/scripts_l10n.php:267
+#: assets/templates/tmpl-add-layer.php:43 assets/views/project-editor.php:1987
+#: assets/views/project-editor.php:7066 assets/wp/scripts_l10n.php:271
 msgid "HTML"
 msgstr "HTML"
 
-#: assets/templates/tmpl-add-layer.php:49 assets/views/project-editor.php:1975
-#: assets/views/project-editor.php:6965
+#: assets/templates/tmpl-add-layer.php:47 assets/views/project-editor.php:1988
+#: assets/views/project-editor.php:7070
 msgid "Dynamic Layer"
 msgstr "Динамічний шар"
 
-#: assets/templates/tmpl-add-layer.php:53
+#: assets/templates/tmpl-add-layer.php:51
 #: assets/templates/tmpl-import-layer.php:6
-#: assets/views/project-editor.php:6969
+#: assets/views/project-editor.php:7074
 msgid "Import Layer"
 msgstr "Шар імпорту"
 
@@ -4191,7 +4211,7 @@ msgid "LayerSlider Add-Ons"
 msgstr "Додатки LayerSlider"
 
 #: assets/templates/tmpl-button-presets.php:3
-#: assets/views/project-editor.php:2047 assets/views/project-editor.php:2050
+#: assets/views/project-editor.php:2060 assets/views/project-editor.php:2063
 msgid "Choose Button Preset"
 msgstr "Вибрати задану кнопку"
 
@@ -4223,7 +4243,7 @@ msgstr "Анімація"
 
 #: assets/templates/tmpl-button-presets.php:290
 #: assets/templates/tmpl-project-settings.php:47
-#: assets/views/project-editor.php:6653 assets/wp/scripts_l10n.php:207
+#: assets/views/project-editor.php:6706 assets/wp/scripts_l10n.php:211
 #, fuzzy
 #| msgid "Navigation Area"
 msgid "Navigation"
@@ -4622,7 +4642,7 @@ msgstr ""
 "він також може бути використаний для вбудовування повзунків."
 
 #: assets/templates/tmpl-embed-slider.php:130
-#: assets/views/project-editor.php:6688
+#: assets/views/project-editor.php:6742
 msgid "Advanced"
 msgstr "Розширені"
 
@@ -4761,7 +4781,7 @@ msgstr "Loading ..."
 msgid "Select a project first."
 msgstr "Спочатку виберіть слайд."
 
-#: assets/templates/tmpl-import-layer.php:27 assets/wp/scripts_l10n.php:260
+#: assets/templates/tmpl-import-layer.php:27 assets/wp/scripts_l10n.php:264
 msgid "Select a slide first."
 msgstr "Спочатку виберіть слайд."
 
@@ -5264,7 +5284,7 @@ msgstr ""
 msgid "Disable layer snapping to freely move layers around."
 msgstr ""
 
-#: assets/templates/tmpl-layer-item.php:10 assets/wp/scripts_l10n.php:213
+#: assets/templates/tmpl-layer-item.php:10 assets/wp/scripts_l10n.php:217
 #, php-format
 msgid "Layer #%d"
 msgstr "Шар #% d"
@@ -5864,7 +5884,7 @@ msgid "Preview from currenty matched elements"
 msgstr "Попередній перегляд з currenty відповідних елементів"
 
 #: assets/templates/tmpl-project-settings.php:16
-#: assets/views/project-editor.php:322 assets/wp/scripts_l10n.php:208
+#: assets/views/project-editor.php:322 assets/wp/scripts_l10n.php:212
 #, fuzzy
 #| msgid "Layout Settings"
 msgid "Project Settings"
@@ -5872,7 +5892,7 @@ msgstr "Параметри макета"
 
 #: assets/templates/tmpl-project-settings.php:22
 #: assets/templates/tmpl-project-settings.php:103
-#: assets/views/project-editor.php:6820 assets/wp/scripts_l10n.php:15
+#: assets/views/project-editor.php:6925 assets/wp/scripts_l10n.php:15
 msgid "Publish"
 msgstr "Опублікувати"
 
@@ -5891,7 +5911,7 @@ msgstr "Мобільний телефон"
 
 #: assets/templates/tmpl-project-settings.php:37
 #: assets/templates/tmpl-project-settings.php:843
-#: assets/views/project-editor.php:6659
+#: assets/views/project-editor.php:6712
 msgid "Slideshow"
 msgstr "Слайдершоу"
 
@@ -5903,8 +5923,8 @@ msgstr "Зовнішній вигляд"
 
 #: assets/templates/tmpl-project-settings.php:62
 #: assets/templates/tmpl-project-settings.php:1112
-#: assets/views/project-editor.php:1156 assets/views/project-editor.php:1639
-#: assets/views/project-editor.php:1647
+#: assets/views/project-editor.php:1168 assets/views/project-editor.php:1651
+#: assets/views/project-editor.php:1659
 #, fuzzy
 #| msgid "Content"
 msgid "Content Sources"
@@ -5918,7 +5938,7 @@ msgid "Defaults"
 msgstr "Параметри за замовчуванням"
 
 #: assets/templates/tmpl-project-settings.php:86
-#: assets/views/project-editor.php:3637
+#: assets/views/project-editor.php:3651
 #, fuzzy
 #| msgid "Show advanced settings"
 msgid "Advanced Settings"
@@ -5956,7 +5976,7 @@ msgstr ""
 "буквено-цифрові символи. Цей параметр необов'язковий."
 
 #: assets/templates/tmpl-project-settings.php:136
-#: assets/views/project-editor.php:1166 assets/views/project-editor.php:1772
+#: assets/views/project-editor.php:1178 assets/views/project-editor.php:1784
 #, fuzzy
 #| msgid "Schedule From"
 msgid "Schedule"
@@ -5967,6 +5987,7 @@ msgid "Hero"
 msgstr ""
 
 #: assets/templates/tmpl-project-settings.php:288
+#: assets/views/project-editor.php:6621
 msgid "Popup"
 msgstr "Popup"
 
@@ -6058,7 +6079,7 @@ msgid "Top Right Corner"
 msgstr "Правий верхній кут"
 
 #: assets/templates/tmpl-project-settings.php:448
-#: assets/templates/tmpl-smart-help.php:831
+#: assets/templates/tmpl-smart-help.php:841
 msgid "Middle"
 msgstr "Середина"
 
@@ -6079,18 +6100,18 @@ msgid "Popup Canvas Size"
 msgstr ""
 
 #: assets/templates/tmpl-project-settings.php:525
-#: assets/views/project-editor.php:2593 assets/views/project-editor.php:2601
-#: assets/views/project-editor.php:3892 assets/views/project-editor.php:3899
-#: assets/views/project-editor.php:5367 assets/views/project-editor.php:5374
+#: assets/views/project-editor.php:2606 assets/views/project-editor.php:2614
+#: assets/views/project-editor.php:3912 assets/views/project-editor.php:3919
+#: assets/views/project-editor.php:5393 assets/views/project-editor.php:5400
 #, fuzzy
 #| msgid "Width"
 msgid "width"
 msgstr "Ширина"
 
 #: assets/templates/tmpl-project-settings.php:525
-#: assets/views/project-editor.php:2593 assets/views/project-editor.php:2609
-#: assets/views/project-editor.php:3892 assets/views/project-editor.php:3905
-#: assets/views/project-editor.php:5367 assets/views/project-editor.php:5380
+#: assets/views/project-editor.php:2606 assets/views/project-editor.php:2622
+#: assets/views/project-editor.php:3912 assets/views/project-editor.php:3925
+#: assets/views/project-editor.php:5393 assets/views/project-editor.php:5406
 #, fuzzy
 #| msgid "Height"
 msgid "height"
@@ -6103,27 +6124,27 @@ msgid "Distance from Sides"
 msgstr "Відстань праворуч"
 
 #: assets/templates/tmpl-project-settings.php:550
-#: assets/views/project-editor.php:2618 assets/views/project-editor.php:2634
-#: assets/views/project-editor.php:3116 assets/views/project-editor.php:3215
+#: assets/views/project-editor.php:2631 assets/views/project-editor.php:2647
+#: assets/views/project-editor.php:3130 assets/views/project-editor.php:3229
 #: assets/wp/gutenberg_l10n.php:38
 msgid "top"
 msgstr "топ"
 
 #: assets/templates/tmpl-project-settings.php:550
-#: assets/views/project-editor.php:3119 assets/views/project-editor.php:3222
+#: assets/views/project-editor.php:3133 assets/views/project-editor.php:3236
 #: assets/wp/gutenberg_l10n.php:39
 msgid "right"
 msgstr "правий"
 
 #: assets/templates/tmpl-project-settings.php:550
-#: assets/views/project-editor.php:3127 assets/views/project-editor.php:3229
+#: assets/views/project-editor.php:3141 assets/views/project-editor.php:3243
 #: assets/wp/gutenberg_l10n.php:40
 msgid "bottom"
 msgstr "нижній частині"
 
 #: assets/templates/tmpl-project-settings.php:550
-#: assets/views/project-editor.php:2618 assets/views/project-editor.php:2626
-#: assets/views/project-editor.php:3130 assets/views/project-editor.php:3236
+#: assets/views/project-editor.php:2631 assets/views/project-editor.php:2639
+#: assets/views/project-editor.php:3144 assets/views/project-editor.php:3250
 #: assets/wp/gutenberg_l10n.php:41
 msgid "left"
 msgstr "зліва"
@@ -6139,7 +6160,7 @@ msgid "seconds"
 msgstr ""
 
 #: assets/templates/tmpl-project-settings.php:603
-#: assets/views/project-editor.php:6684
+#: assets/views/project-editor.php:6737
 msgid "Close Popup"
 msgstr "Закрийте Popup"
 
@@ -6298,7 +6319,7 @@ msgstr "Паралакса за замовчуванням"
 
 #: assets/templates/tmpl-project-settings.php:1166
 #: assets/templates/tmpl-project-settings.php:1179
-#: assets/views/project-editor.php:1171 assets/views/project-editor.php:1819
+#: assets/views/project-editor.php:1183 assets/views/project-editor.php:1831
 msgid "Misc"
 msgstr "Різне"
 
@@ -6432,7 +6453,7 @@ msgid "Interface Settings"
 msgstr "Настройки сервера"
 
 #: assets/templates/tmpl-search-window.php:39
-#: assets/views/project-editor.php:546 assets/views/project-editor.php:646
+#: assets/views/project-editor.php:546 assets/views/project-editor.php:654
 #, fuzzy
 #| msgid "Interactive guides coming soon!"
 msgid "Interactive Guides"
@@ -6454,87 +6475,193 @@ msgstr "Отримання довідки"
 msgid "More"
 msgstr ""
 
-#: assets/templates/tmpl-shape-modal.php:28
+#: assets/templates/tmpl-shape-modal.php:9
+#: assets/templates/tmpl-shape-modal.php:11
+msgctxt "Shape Type"
+msgid "Line"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:14
+#: assets/templates/tmpl-shape-modal.php:16
+msgctxt "Shape Type"
+msgid "Rectangle"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:19
+#: assets/templates/tmpl-shape-modal.php:21
+msgctxt "Shape Type"
+msgid "Oval"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:24
+#: assets/templates/tmpl-shape-modal.php:26
+msgctxt "Shape Type"
+msgid "Polygon"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:29
+#: assets/templates/tmpl-shape-modal.php:31
+msgctxt "Shape Type"
+msgid "Blob"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:37
+#: assets/templates/tmpl-shape-modal.php:39
+msgctxt "Shape Type"
+msgid "Wave"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:52
+#, fuzzy
+#| msgid "Modal Options"
+msgctxt "Default Shape Type"
+msgid "Polygon Options"
+msgstr "Модальні варіанти"
+
+#: assets/templates/tmpl-shape-modal.php:61
 #, fuzzy
 #| msgid "Count"
 msgid "Side Count"
 msgstr "Кількість"
 
-#: assets/templates/tmpl-shape-modal.php:39
+#: assets/templates/tmpl-shape-modal.php:72
 #, fuzzy
 #| msgid "Slide Linking"
 msgid "Side Length"
 msgstr "Посунути зв'язок"
 
-#: assets/templates/tmpl-shape-modal.php:50
-#: assets/templates/tmpl-shape-modal.php:182
+#: assets/templates/tmpl-shape-modal.php:83
+#: assets/templates/tmpl-shape-modal.php:215
 msgid "Radius"
 msgstr ""
 
-#: assets/templates/tmpl-shape-modal.php:61
-#: assets/templates/tmpl-shape-modal.php:121
-#: assets/templates/tmpl-shape-modal.php:193
+#: assets/templates/tmpl-shape-modal.php:94
+#: assets/templates/tmpl-shape-modal.php:154
+#: assets/templates/tmpl-shape-modal.php:226
 #, fuzzy
 #| msgid "Font size"
 msgid "Stroke size"
 msgstr "Розмір шрифту"
 
-#: assets/templates/tmpl-shape-modal.php:72
-#: assets/templates/tmpl-shape-modal.php:76
-#: assets/templates/tmpl-shape-modal.php:132
-#: assets/templates/tmpl-shape-modal.php:204
+#: assets/templates/tmpl-shape-modal.php:105
+#: assets/templates/tmpl-shape-modal.php:109
+#: assets/templates/tmpl-shape-modal.php:165
+#: assets/templates/tmpl-shape-modal.php:237
 msgid "Stroke Color"
 msgstr ""
 
-#: assets/templates/tmpl-shape-modal.php:84
-#: assets/templates/tmpl-shape-modal.php:88
-#: assets/templates/tmpl-shape-modal.php:136
-#: assets/templates/tmpl-shape-modal.php:144
-#: assets/templates/tmpl-shape-modal.php:148
-#: assets/templates/tmpl-shape-modal.php:208
-#: assets/templates/tmpl-shape-modal.php:216
-#: assets/templates/tmpl-shape-modal.php:220
-#: assets/templates/tmpl-shape-modal.php:263
+#: assets/templates/tmpl-shape-modal.php:117
+#: assets/templates/tmpl-shape-modal.php:121
+#: assets/templates/tmpl-shape-modal.php:169
+#: assets/templates/tmpl-shape-modal.php:177
+#: assets/templates/tmpl-shape-modal.php:181
+#: assets/templates/tmpl-shape-modal.php:241
+#: assets/templates/tmpl-shape-modal.php:249
+#: assets/templates/tmpl-shape-modal.php:253
+#: assets/templates/tmpl-shape-modal.php:296
+#: assets/templates/tmpl-shape-modal.php:350
+#: assets/templates/tmpl-shape-modal.php:354
+#: assets/templates/tmpl-shape-modal.php:435
+#: assets/templates/tmpl-shape-modal.php:439
 #, fuzzy
 #| msgid "Color"
 msgid "Fill Color"
 msgstr "Колір"
 
-#: assets/templates/tmpl-shape-modal.php:99
-#: assets/templates/tmpl-shape-modal.php:160
+#: assets/templates/tmpl-shape-modal.php:132
+#: assets/templates/tmpl-shape-modal.php:193
 #, fuzzy
 #| msgid "Horizontal"
 msgid "Horizontal size"
 msgstr "Горизонтальний"
 
-#: assets/templates/tmpl-shape-modal.php:110
-#: assets/templates/tmpl-shape-modal.php:171
+#: assets/templates/tmpl-shape-modal.php:143
+#: assets/templates/tmpl-shape-modal.php:204
 #, fuzzy
 #| msgid "Vertical"
 msgid "Vertical size"
 msgstr "Вертикально"
 
-#: assets/templates/tmpl-shape-modal.php:231
+#: assets/templates/tmpl-shape-modal.php:264
 msgid "Length"
 msgstr ""
 
-#: assets/templates/tmpl-shape-modal.php:242
+#: assets/templates/tmpl-shape-modal.php:275
 msgid "Thickness"
 msgstr ""
 
-#: assets/templates/tmpl-shape-modal.php:253
+#: assets/templates/tmpl-shape-modal.php:286
 #, fuzzy
 #| msgid "Rounded Corners"
 msgid "Rounded Endings"
 msgstr "Закругленими кутами"
 
-#: assets/templates/tmpl-shape-modal.php:281 assets/wp/scripts_l10n.php:276
+#: assets/templates/tmpl-shape-modal.php:312
+#: assets/templates/tmpl-shape-modal.php:386
+msgid "Complexity"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:324
+#: assets/templates/tmpl-shape-modal.php:397
+#, fuzzy
+#| msgid "Navigation Area"
+msgid "Variation"
+msgstr "Навігаційна зона"
+
+#: assets/templates/tmpl-shape-modal.php:338
+#: assets/templates/tmpl-shape-modal.php:423
+#: assets/views/project-editor.php:755 assets/views/project-editor.php:1098
+#: assets/wp/scripts_l10n.php:222
+msgid "Layers"
+msgstr "Макет"
+
+#: assets/templates/tmpl-shape-modal.php:364
+#: assets/templates/tmpl-shape-modal.php:525
+#, fuzzy
+#| msgid "Random"
+msgid "Randomize"
+msgstr "Випадково"
+
+#: assets/templates/tmpl-shape-modal.php:410
+msgid "Balance"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:457
+msgid "Smooth"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:460
+msgid "Square"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:463
+#, fuzzy
+#| msgid "Center"
+msgid "Pointy"
+msgstr "Центр"
+
+#: assets/templates/tmpl-shape-modal.php:501
+#, fuzzy
+#| msgid "Tooltips"
+msgid "Tools"
+msgstr "Підказки"
+
+#: assets/templates/tmpl-shape-modal.php:508
+#: assets/templates/tmpl-smart-help.php:1036
+msgid "Invert"
+msgstr "Інвертувати"
+
+#: assets/templates/tmpl-shape-modal.php:511
+msgid "Perfect wave"
+msgstr ""
+
+#: assets/templates/tmpl-shape-modal.php:552 assets/wp/scripts_l10n.php:280
 #, fuzzy
 #| msgid "Insert Media"
 msgid "Insert Shape"
 msgstr "Вставити носій"
 
-#: assets/templates/tmpl-shape-modal.php:283
+#: assets/templates/tmpl-shape-modal.php:554
 msgid ""
 "You can resize, rotate, and do other things with your shape once it’s "
 "inserted into the editor"
@@ -6546,7 +6673,7 @@ msgstr ""
 #: assets/templates/tmpl-slider-library.php:30
 #: assets/templates/tmpl-slider-library.php:65
 #: assets/templates/tmpl-slider-library.php:99 assets/views/dashboard.php:631
-#: assets/wp/scripts_l10n.php:282 assets/wp/slider_library_l10n.php:13
+#: assets/wp/scripts_l10n.php:287 assets/wp/slider_library_l10n.php:13
 #: assets/wp/tinymce_l10n.php:15
 msgid "No Preview"
 msgstr "Без попереднього перегляду"
@@ -6573,8 +6700,8 @@ msgid ""
 "not be visible on front-end pages until you publish them."
 msgstr ""
 
-#: assets/templates/tmpl-slider-group-item.php:13 assets/wp/actions.php:303
-#: assets/wp/actions.php:461
+#: assets/templates/tmpl-slider-group-item.php:13 assets/wp/actions.php:325
+#: assets/wp/actions.php:483
 msgid "Unnamed Group"
 msgstr ""
 
@@ -6626,132 +6753,132 @@ msgstr "Відобразити"
 msgid "Delete"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:18
+#: assets/templates/tmpl-smart-help.php:20
 #, fuzzy
 #| msgid "Slideshow"
 msgid "show"
 msgstr "Слайдершоу"
 
-#: assets/templates/tmpl-smart-help.php:18
+#: assets/templates/tmpl-smart-help.php:20
 #, fuzzy
 #| msgid "Unhide"
 msgid "hide"
 msgstr "Відобразити"
 
-#: assets/templates/tmpl-smart-help.php:18
+#: assets/templates/tmpl-smart-help.php:20
 msgid "more"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:19
+#: assets/templates/tmpl-smart-help.php:21
 #, fuzzy, php-format
 #| msgid "options"
 msgctxt "Possessive case: filter options, font options, etc."
 msgid "%s options"
 msgstr "варіанти"
 
-#: assets/templates/tmpl-smart-help.php:20
+#: assets/templates/tmpl-smart-help.php:22
 #, php-format
 msgctxt "Possessive case: example of what value an input field can take, etc."
 msgid "%s examples"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:23
+#: assets/templates/tmpl-smart-help.php:25
 #, fuzzy
 #| msgid "Layer options"
 msgid "smart operations"
 msgstr "Параметри шару"
 
-#: assets/templates/tmpl-smart-help.php:24
+#: assets/templates/tmpl-smart-help.php:26
 msgid "on selected layers’ values"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:32
+#: assets/templates/tmpl-smart-help.php:34
 msgid ""
 "QUICK HELP: You can use numbers and math expressions with the following "
 "operators:"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:54
+#: assets/templates/tmpl-smart-help.php:56
 #, fuzzy
 #| msgid "Cycle between values"
 msgid "Apply new values"
 msgstr "Циклічний перехід між значеннями"
 
-#: assets/templates/tmpl-smart-help.php:67
+#: assets/templates/tmpl-smart-help.php:69
 #, fuzzy
 #| msgid "Color"
 msgid "Solid Color"
 msgstr "Колір"
 
-#: assets/templates/tmpl-smart-help.php:68
+#: assets/templates/tmpl-smart-help.php:70
 msgid "Linear Gradient"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:69
+#: assets/templates/tmpl-smart-help.php:71
 msgid "Radial Gradient"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:83
+#: assets/templates/tmpl-smart-help.php:85
 msgid "Ellipse"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:84
+#: assets/templates/tmpl-smart-help.php:86
 msgid "Circle"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:89 assets/views/project-editor.php:7017
+#: assets/templates/tmpl-smart-help.php:91 assets/views/project-editor.php:7122
 msgid "Center Center"
 msgstr "Центр Центр"
 
-#: assets/templates/tmpl-smart-help.php:90
+#: assets/templates/tmpl-smart-help.php:92
 #, fuzzy
 #| msgid "center left"
 msgid "Center Left"
 msgstr "центр ліворуч"
 
-#: assets/templates/tmpl-smart-help.php:91
+#: assets/templates/tmpl-smart-help.php:93
 #, fuzzy
 #| msgid "center right"
 msgid "Center Right"
 msgstr "центрувати праворуч"
 
-#: assets/templates/tmpl-smart-help.php:92
+#: assets/templates/tmpl-smart-help.php:94
 #, fuzzy
 #| msgid "top center"
 msgid "Top Center"
 msgstr "топ-центр"
 
-#: assets/templates/tmpl-smart-help.php:93
+#: assets/templates/tmpl-smart-help.php:95
 #, fuzzy
 #| msgid "Top left"
 msgid "Top Left"
 msgstr "Верхньому лівому"
 
-#: assets/templates/tmpl-smart-help.php:94
+#: assets/templates/tmpl-smart-help.php:96
 #, fuzzy
 #| msgid "Top right"
 msgid "Top Right"
 msgstr "Верхньому правому"
 
-#: assets/templates/tmpl-smart-help.php:95
+#: assets/templates/tmpl-smart-help.php:97
 #, fuzzy
 #| msgid "bottom center"
 msgid "Bottom Center"
 msgstr "нижньому центрі"
 
-#: assets/templates/tmpl-smart-help.php:96
+#: assets/templates/tmpl-smart-help.php:98
 #, fuzzy
 #| msgid "Bottom left"
 msgid "Bottom Left"
 msgstr "Внизу зліва"
 
-#: assets/templates/tmpl-smart-help.php:97
+#: assets/templates/tmpl-smart-help.php:99
 #, fuzzy
 #| msgid "Bottom right"
 msgid "Bottom Right"
 msgstr "Правому нижньому куті"
 
-#: assets/templates/tmpl-smart-help.php:120
+#: assets/templates/tmpl-smart-help.php:122
 msgid ""
 "The time that this slide remains visible before the slideshow attempts to "
 "change to the next slide. Leave this option empty to let LayerSlider manage "
@@ -6759,7 +6886,7 @@ msgid ""
 "second."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:135
+#: assets/templates/tmpl-smart-help.php:137
 #, fuzzy
 #| msgid ""
 #| "This option controls the vertical stacking order of layers that overlap. "
@@ -6794,7 +6921,7 @@ msgstr ""
 "всіх слайдах. Вказавши набагато більше число, наприклад 500, зробить шар "
 "поверх усього іншого."
 
-#: assets/templates/tmpl-smart-help.php:137
+#: assets/templates/tmpl-smart-help.php:139
 msgid ""
 "On each slide, the stacking order starts counting from 100. Providing a "
 "number less than 100 will put the layer behind every other layer on all "
@@ -6802,14 +6929,14 @@ msgid ""
 "on top of everything else."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:166
+#: assets/templates/tmpl-smart-help.php:168
 msgid ""
 "Shifts the layer position from its original with the given amount on the "
 "selected axis. Refer to the below options to see special values and "
 "supported units."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:189
+#: assets/templates/tmpl-smart-help.php:191
 msgid ""
 "Shifts the layer starting position with the given amount on the selected "
 "axis. Layers animate from the offset value toward their position set under "
@@ -6817,7 +6944,7 @@ msgid ""
 "supported units."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:212
+#: assets/templates/tmpl-smart-help.php:214
 msgid ""
 "Shifts each text fragment starting position with the given amount on the "
 "selected axis. Text fragments animate from the offset value toward the whole "
@@ -6825,14 +6952,14 @@ msgid ""
 "units."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:235
+#: assets/templates/tmpl-smart-help.php:237
 msgid ""
 "Shifts the layer position with the given amount while it’s animating out. "
 "Layers animate from their current state toward the value you set here. Refer "
 "to the below options to see special values and supported units."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:258
+#: assets/templates/tmpl-smart-help.php:260
 msgid ""
 "Shifts each text fragment position with the given amount on the selected "
 "axis while the layer animates out. Text fragments animate from the whole "
@@ -6840,7 +6967,7 @@ msgid ""
 "special values and supported units."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:284
+#: assets/templates/tmpl-smart-help.php:286
 #, fuzzy
 #| msgid ""
 #| "Scales the layer along the Y (vertical) axis by the specified vector. Use "
@@ -6856,7 +6983,7 @@ msgstr ""
 "Використовуйте значення 1 для початкового розміру. Значення 2 буде вдвічі, а "
 "0,5 зменшується шар у порівнянні з оригінальним розміром."
 
-#: assets/templates/tmpl-smart-help.php:308
+#: assets/templates/tmpl-smart-help.php:310
 msgid ""
 "Sets the initial layer scale on the selected axis before the layer starts "
 "animating in. Use the value 1 for the original size. The value 2 will "
@@ -6865,7 +6992,7 @@ msgid ""
 "value toward their appearance set under the <b>STYLE</b> menu."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:332
+#: assets/templates/tmpl-smart-help.php:334
 #, fuzzy
 #| msgid ""
 #| "Scales text fragments along the Y (vertical) axis by the specified "
@@ -6889,7 +7016,7 @@ msgstr ""
 "буде використовувати різні варіації переходу на кожному текстовому вузлі на "
 "велосипеді між наданими значеннями."
 
-#: assets/templates/tmpl-smart-help.php:356
+#: assets/templates/tmpl-smart-help.php:358
 #, fuzzy
 #| msgid ""
 #| "Scales text fragments along the Y (vertical) axis by the specified "
@@ -6912,7 +7039,7 @@ msgstr ""
 "буде використовувати різні варіації переходу на кожному текстовому вузлі на "
 "велосипеді між наданими значеннями."
 
-#: assets/templates/tmpl-smart-help.php:380
+#: assets/templates/tmpl-smart-help.php:382
 #, fuzzy
 #| msgid ""
 #| "Scales text fragments along the X (horizontal) axis by the specified "
@@ -6935,7 +7062,7 @@ msgstr ""
 "повзунок буде використовувати різні варіації переходу на кожному текстовому "
 "вузлі на велосипеді між наданими значеннями."
 
-#: assets/templates/tmpl-smart-help.php:403
+#: assets/templates/tmpl-smart-help.php:405
 #, fuzzy
 #| msgid ""
 #| "Rotates the layer by the given number of degrees. Negative values are "
@@ -6947,7 +7074,7 @@ msgstr ""
 "Обертає шар за заданим числом градусів. Для обертання проти годинникової "
 "стрілки дозволено від'ємні значення."
 
-#: assets/templates/tmpl-smart-help.php:424
+#: assets/templates/tmpl-smart-help.php:426
 msgid ""
 "Sets the initial layer rotation by the given number of degrees on the "
 "selected axis before the layer starts animating in. Negative values are "
@@ -6955,7 +7082,7 @@ msgid ""
 "their appearance set under the <b>STYLE</b> menu."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:445
+#: assets/templates/tmpl-smart-help.php:447
 msgid ""
 "Sets initial rotation of each text fragment by the given number of degrees "
 "on the selected axis before they start animating in. Negative values are "
@@ -6963,7 +7090,7 @@ msgid ""
 "value toward the whole joint text."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:466
+#: assets/templates/tmpl-smart-help.php:468
 #, fuzzy
 #| msgid ""
 #| "Rotates the layer by the given number of degrees. Negative values are "
@@ -6977,7 +7104,7 @@ msgstr ""
 "Обертає шар за заданим числом градусів. Для обертання проти годинникової "
 "стрілки дозволено від'ємні значення."
 
-#: assets/templates/tmpl-smart-help.php:487
+#: assets/templates/tmpl-smart-help.php:489
 msgid ""
 "Rotates each text fragment with the given number of degrees on the selected "
 "axis while they’re animating out. Negative values are allowed for "
@@ -6985,7 +7112,7 @@ msgid ""
 "toward the value you set here."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:509
+#: assets/templates/tmpl-smart-help.php:511
 #, fuzzy
 #| msgid ""
 #| "Skews the layer along the Y (vertical) by the given number of degrees. "
@@ -6997,7 +7124,7 @@ msgstr ""
 "Нахиляє шар вздовж Y (вертикальний) за заданим числом ступенів. Від'ємні "
 "значення дозволені для зворотної спрямованості."
 
-#: assets/templates/tmpl-smart-help.php:529
+#: assets/templates/tmpl-smart-help.php:531
 msgid ""
 "Sets the initial layer skew on the selected axis before the layer starts "
 "animating in. Negative values are allowed for the reverse direction. Layers "
@@ -7005,21 +7132,21 @@ msgid ""
 "menu."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:549
+#: assets/templates/tmpl-smart-help.php:551
 msgid ""
 "Sets the initial skew of each text fragment on the selected axis before they "
 "start animating in. Negative values are allowed for the reverse direction. "
 "Text fragments animate from this value toward the whole joint text."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:569
+#: assets/templates/tmpl-smart-help.php:571
 msgid ""
 "Skews the layer with the given amount of degrees on the selected axis while "
 "it’s animating out. Negative values are allowed for the reverse direction. "
 "Layers animate from their current state toward the value you set here."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:589
+#: assets/templates/tmpl-smart-help.php:591
 msgid ""
 "Skews each text fragment with the given amount of degrees on the selected "
 "axis while they’re animating out. Negative values are allowed for the "
@@ -7027,7 +7154,7 @@ msgid ""
 "the value you set here."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:614
+#: assets/templates/tmpl-smart-help.php:616
 msgid ""
 "The transform origin is the point around which transformations are applied. "
 "For example, a layer may rotate around its center point or an entirely "
@@ -7035,14 +7162,14 @@ msgid ""
 "values."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:631
+#: assets/templates/tmpl-smart-help.php:633
 msgid ""
 "Changes the perspective of animated objects in the 3D space. Large values of "
 "perspective cause milder transformations. Smaller values cause stronger and "
 "more noticeable transformations."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:657
+#: assets/templates/tmpl-smart-help.php:659
 #, fuzzy
 #| msgid ""
 #| "Clips (cuts off) the sides of the layer by the given amount specified in "
@@ -7058,7 +7185,7 @@ msgstr ""
 "або в процентне значення. 4 значення в порядку: верхнє, праве, нижнє і ліве "
 "бічні частини шару."
 
-#: assets/templates/tmpl-smart-help.php:683
+#: assets/templates/tmpl-smart-help.php:685
 #, fuzzy
 #| msgid ""
 #| "The timing function of the animation. With this function you can "
@@ -7076,7 +7203,7 @@ msgstr ""
 "Select, щоб відкрити easings.net для отримання додаткової інформації і в "
 "реальному часі прикладів."
 
-#: assets/templates/tmpl-smart-help.php:689
+#: assets/templates/tmpl-smart-help.php:691
 #, fuzzy
 #| msgid "The width of the thumbnail area relative to the slider size."
 msgid ""
@@ -7084,7 +7211,7 @@ msgid ""
 "to the project canvas size."
 msgstr "Ширина області мініатюр відносно розміру повзунка."
 
-#: assets/templates/tmpl-smart-help.php:694
+#: assets/templates/tmpl-smart-help.php:696
 #, fuzzy
 #| msgid "The width of the thumbnail area relative to the slider size."
 msgid ""
@@ -7092,7 +7219,7 @@ msgid ""
 "relative to the project canvas size."
 msgstr "Ширина області мініатюр відносно розміру повзунка."
 
-#: assets/templates/tmpl-smart-help.php:699
+#: assets/templates/tmpl-smart-help.php:701
 msgid ""
 "The layer’s position from the left edge of the project canvas. You can use "
 "pixels and percents. Percentage values align the layer’s center point to the "
@@ -7100,7 +7227,7 @@ msgid ""
 "100% special values align the layer to the left and right edges."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:704
+#: assets/templates/tmpl-smart-help.php:706
 msgid ""
 "The layer’s position from the top edge of the project canvas. You can use "
 "pixels and percents. Percentage values align the layer’s center point to the "
@@ -7108,7 +7235,7 @@ msgid ""
 "100% special values align the layer to the top and bottom edges."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:709
+#: assets/templates/tmpl-smart-help.php:711
 #, fuzzy
 #| msgid ""
 #| "The length of the transition in milliseconds. A second is equal to 1000 "
@@ -7118,7 +7245,7 @@ msgid ""
 "milliseconds."
 msgstr "Довжина переходу в мілісекундах. Секунду дорівнює 1000 мілісекундах."
 
-#: assets/templates/tmpl-smart-help.php:714
+#: assets/templates/tmpl-smart-help.php:716
 #, fuzzy
 #| msgid ""
 #| "Delays the transition of each text nodes relative to each other. A second "
@@ -7130,7 +7257,7 @@ msgstr ""
 "Затримки переходу між текстовими вузлами один відносно одного. Друга "
 "дорівнює 1000 мілісекундах."
 
-#: assets/templates/tmpl-smart-help.php:719
+#: assets/templates/tmpl-smart-help.php:721
 #, fuzzy
 #| msgid ""
 #| "Set the intensity of the parallax effect. Use negative values to shift "
@@ -7142,7 +7269,7 @@ msgstr ""
 "Встановити інтенсивність паралакса ефекту. Використовуйте від'ємні значення "
 "для зсуву шарів у зворотному напрямку."
 
-#: assets/templates/tmpl-smart-help.php:724
+#: assets/templates/tmpl-smart-help.php:726
 #, fuzzy
 #| msgid ""
 #| "Controls how quickly parallax layers revert to their original position "
@@ -7157,7 +7284,7 @@ msgstr ""
 "курсор миші знаходиться поза бігунця. Це значення в мілісекундах. Друга "
 "дорівнює 1000 мілісекундах."
 
-#: assets/templates/tmpl-smart-help.php:729
+#: assets/templates/tmpl-smart-help.php:731
 msgid ""
 "Controls how quickly parallax layers revert to their original position when "
 "you move your mouse cursor outside of the slider. This value is in "
@@ -7167,7 +7294,7 @@ msgstr ""
 "курсор миші знаходиться поза бігунця. Це значення в мілісекундах. Друга "
 "дорівнює 1000 мілісекундах."
 
-#: assets/templates/tmpl-smart-help.php:734
+#: assets/templates/tmpl-smart-help.php:736
 msgid ""
 "Increase or decrease the amount of layer movement when moving your mouse "
 "cursor or tilting on a mobile device."
@@ -7175,7 +7302,7 @@ msgstr ""
 "Збільшуйте або зменшуйте обсяг руху шарів під час переміщення курсору миші "
 "або нахилу на мобільному пристрої."
 
-#: assets/templates/tmpl-smart-help.php:739
+#: assets/templates/tmpl-smart-help.php:741
 msgid ""
 "Increase or decrease the amount of layer rotation in the 3D space when "
 "moving your mouse cursor or tilting on a mobile device."
@@ -7183,7 +7310,7 @@ msgstr ""
 "Збільшуйте або зменшуйте кількість обертання шару в 3D-просторі під час "
 "переміщення курсору миші або нахилу на мобільному пристрої."
 
-#: assets/templates/tmpl-smart-help.php:744
+#: assets/templates/tmpl-smart-help.php:746
 #, fuzzy
 #| msgid ""
 #| "The duration of the reverse transition in milliseconds. A second is equal "
@@ -7196,13 +7323,47 @@ msgstr ""
 "мілісекундах."
 
 #: assets/templates/tmpl-smart-help.php:750
+#, fuzzy
+#| msgid ""
+#| "You can set the starting time of this transition. Use one of the pre-"
+#| "defined options to use relative timing, which can be shifted with custom "
+#| "operations."
+msgid ""
+"The starting time of this transition. Choose from one of the pre-defined "
+"options to use relative timing, which then can also be shifted with custom "
+"operations below."
+msgstr ""
+"Ви можете встановити час початку цього переходу. Використовуйте один з "
+"попередньо визначених варіантів, щоб використовувати відносні терміни, які "
+"можуть бути зміщені з настроюваними операціями."
+
+#: assets/templates/tmpl-smart-help.php:753
+msgid ""
+"Shifts the above selected starting time by performing a custom operation."
+msgstr ""
+
+#: assets/templates/tmpl-smart-help.php:755
+#, fuzzy
+#| msgid ""
+#| "Shifts the above selected starting time by performing a custom operation. "
+#| "For example, &quot;- 1000&quot; will advance the animation by playing it "
+#| "1 second (1000 milliseconds) earlier."
+msgid ""
+"For example, \"- 1000\" will advance the animation by playing it 1 second "
+"(1000 milliseconds) earlier."
+msgstr ""
+"Переміщує виділений час початку, виконуючи настроювану операцію. Наприклад, "
+"\"-1000\" буде просуватися анімації, граючи його 1 секунду (1000 мілісекунд) "
+"раніше."
+
+#: assets/templates/tmpl-smart-help.php:760
 msgid ""
 "Filters provide effects like blurring, color shifting, or changing the "
 "brightness, contrast, saturation of your layers, among many others. Use the "
 "below options to easily apply multiple filters on your layers."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:755
+#: assets/templates/tmpl-smart-help.php:765
 msgid ""
 "Sets the initial layer filters before it starts animating in. Layers animate "
 "from this value toward their appearance set under the <b>STYLE</b> menu. "
@@ -7211,7 +7372,7 @@ msgid ""
 "below options to easily apply multiple filters on your layers."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:760
+#: assets/templates/tmpl-smart-help.php:770
 msgid ""
 "Applies filters on the layer while it’s animating out. Layers animate from "
 "their current state toward the value you set here. Filters provide effects "
@@ -7220,45 +7381,45 @@ msgid ""
 "easily apply multiple filters on your layers."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:765
+#: assets/templates/tmpl-smart-help.php:775
 msgid ""
 "Waiting time between repeats in milliseconds. A second is 1000 milliseconds."
 msgstr ""
 "Час очікування між повторюється в мілісекундах. Секунду становить 1000 "
 "мілісекунд."
 
-#: assets/templates/tmpl-smart-help.php:770
+#: assets/templates/tmpl-smart-help.php:780
 msgid ""
 "Layers can be kept at their place across multiple slides. Here you can "
 "select the slide on which this layer should animate out."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:778
+#: assets/templates/tmpl-smart-help.php:788
 msgid ""
 "It looks like you’ve disabled Google Fonts in LayerSlider plugin settings. "
 "We recommend enabling Google Fonts, so you can enhance your content with "
 "beautiful and unique typography."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:781
+#: assets/templates/tmpl-smart-help.php:791
 msgid ""
 "Enhance your content with beautiful and unique typography. Google Fonts "
 "provides over a thousand web-optimized fonts."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:783
+#: assets/templates/tmpl-smart-help.php:793
 #, fuzzy
 #| msgid "Google Fonts"
 msgid "Browse Google Fonts"
 msgstr "Google Fonts"
 
-#: assets/templates/tmpl-smart-help.php:806
+#: assets/templates/tmpl-smart-help.php:816
 msgid ""
 "Sets the size of the background image. The image can be left to its natural "
 "size, stretched, or constrained to fit the available space."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:811
+#: assets/templates/tmpl-smart-help.php:821
 #, fuzzy
 #| msgid ""
 #| "A slide alias name, which you can use in your URLs with a hash tag so "
@@ -7279,321 +7440,317 @@ msgstr ""
 "букви. Цю функцію також можна використовувати для здійснення навігації за "
 "допомогою посилань."
 
-#: assets/templates/tmpl-smart-help.php:822
-#: assets/templates/tmpl-smart-help.php:964
-#: assets/templates/tmpl-smart-help.php:983
+#: assets/templates/tmpl-smart-help.php:832
+#: assets/templates/tmpl-smart-help.php:974
+#: assets/templates/tmpl-smart-help.php:993
 msgid "Center"
 msgstr "Центр"
 
-#: assets/templates/tmpl-smart-help.php:839
+#: assets/templates/tmpl-smart-help.php:849
 msgid "100px"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:840
+#: assets/templates/tmpl-smart-help.php:850
 msgid "Enter the stage from left"
 msgstr "Введіть сцену зліва"
 
-#: assets/templates/tmpl-smart-help.php:841
+#: assets/templates/tmpl-smart-help.php:851
 msgid "Enter the stage from right"
 msgstr "Введіть стадію праворуч"
 
-#: assets/templates/tmpl-smart-help.php:842
+#: assets/templates/tmpl-smart-help.php:852
 msgid "Leave the stage on left"
 msgstr "Залишити сцену зліва"
 
-#: assets/templates/tmpl-smart-help.php:843
+#: assets/templates/tmpl-smart-help.php:853
 msgid "Leave the stage on right"
 msgstr "Залишити сцену праворуч"
 
-#: assets/templates/tmpl-smart-help.php:844
+#: assets/templates/tmpl-smart-help.php:854
 msgid "Enter the stage from top"
 msgstr "Входжу на сцену зверху"
 
-#: assets/templates/tmpl-smart-help.php:845
+#: assets/templates/tmpl-smart-help.php:855
 msgid "Enter the stage from bottom"
 msgstr "Введіть стадію знизу"
 
-#: assets/templates/tmpl-smart-help.php:846
+#: assets/templates/tmpl-smart-help.php:856
 msgid "Leave the stage on top"
 msgstr "Залиште сцену зверху"
 
-#: assets/templates/tmpl-smart-help.php:847
+#: assets/templates/tmpl-smart-help.php:857
 msgid "Leave the stage on bottom"
 msgstr "Залиште сцену на дні"
 
-#: assets/templates/tmpl-smart-help.php:848
+#: assets/templates/tmpl-smart-help.php:858
 msgid "Move out of stage on left"
 msgstr "Вийти зі сцени ліворуч"
 
-#: assets/templates/tmpl-smart-help.php:849
+#: assets/templates/tmpl-smart-help.php:859
 msgid "Move out of stage on right"
 msgstr "Вийти на сцену праворуч"
 
-#: assets/templates/tmpl-smart-help.php:850
+#: assets/templates/tmpl-smart-help.php:860
 msgid "Move out of stage on top"
 msgstr "Вийти зі сцени на вершині"
 
-#: assets/templates/tmpl-smart-help.php:851
+#: assets/templates/tmpl-smart-help.php:861
 msgid "Move out of stage on bottom"
 msgstr "Вийти з сцени внизу"
 
-#: assets/templates/tmpl-smart-help.php:852
+#: assets/templates/tmpl-smart-help.php:862
 msgid "100% layer width"
 msgstr "-100% ширини слою"
 
-#: assets/templates/tmpl-smart-help.php:853
+#: assets/templates/tmpl-smart-help.php:863
 msgid "-100% layer width"
 msgstr "-100% ширини слою"
 
-#: assets/templates/tmpl-smart-help.php:854
+#: assets/templates/tmpl-smart-help.php:864
 #, php-format
 msgid "50% slider width"
 msgstr "50% slider ширина"
 
-#: assets/templates/tmpl-smart-help.php:855
+#: assets/templates/tmpl-smart-help.php:865
 #, php-format
 msgid "-50% slider width"
 msgstr "-50% slider ширина"
 
-#: assets/templates/tmpl-smart-help.php:856
+#: assets/templates/tmpl-smart-help.php:866
 msgid "100% layer height"
 msgstr "-100% висота слою"
 
-#: assets/templates/tmpl-smart-help.php:857
+#: assets/templates/tmpl-smart-help.php:867
 msgid "-100% layer height"
 msgstr "-100% висота слою"
 
-#: assets/templates/tmpl-smart-help.php:858
+#: assets/templates/tmpl-smart-help.php:868
 #, php-format
 msgid "50% slider height"
 msgstr "50% slider висота"
 
-#: assets/templates/tmpl-smart-help.php:859
+#: assets/templates/tmpl-smart-help.php:869
 #, php-format
 msgid "-50% slider height"
 msgstr "-50% slider  висота"
 
-#: assets/templates/tmpl-smart-help.php:860
+#: assets/templates/tmpl-smart-help.php:870
 msgid "20% layer width"
 msgstr "-20% ширини слою"
 
-#: assets/templates/tmpl-smart-help.php:861
+#: assets/templates/tmpl-smart-help.php:871
 msgid "-20% layer width"
 msgstr "-20% ширини слою"
 
-#: assets/templates/tmpl-smart-help.php:862
+#: assets/templates/tmpl-smart-help.php:872
 msgid "20% layer height"
 msgstr "-20% висота слою"
 
-#: assets/templates/tmpl-smart-help.php:863
+#: assets/templates/tmpl-smart-help.php:873
 msgid "-20% layer height"
 msgstr "-20% висота слою"
 
-#: assets/templates/tmpl-smart-help.php:864
-#: assets/templates/tmpl-smart-help.php:873
-#: assets/templates/tmpl-smart-help.php:886
-#: assets/templates/tmpl-smart-help.php:895
+#: assets/templates/tmpl-smart-help.php:874
+#: assets/templates/tmpl-smart-help.php:883
+#: assets/templates/tmpl-smart-help.php:896
+#: assets/templates/tmpl-smart-help.php:905
 #, fuzzy
 #| msgid "Cycle between values"
 msgid "Random between two values"
 msgstr "Циклічний перехід між значеннями"
 
-#: assets/templates/tmpl-smart-help.php:865
-#: assets/templates/tmpl-smart-help.php:874
-#: assets/templates/tmpl-smart-help.php:887
-#: assets/templates/tmpl-smart-help.php:896
+#: assets/templates/tmpl-smart-help.php:875
+#: assets/templates/tmpl-smart-help.php:884
+#: assets/templates/tmpl-smart-help.php:897
+#: assets/templates/tmpl-smart-help.php:906
 #, fuzzy
 #| msgid "Cycle between values"
 msgid "Cycle through multiple values"
 msgstr "Циклічний перехід між значеннями"
 
-#: assets/templates/tmpl-smart-help.php:882
+#: assets/templates/tmpl-smart-help.php:892
 #, fuzzy
 #| msgid "Horizontal"
 msgid "Original size"
 msgstr "Горизонтальний"
 
-#: assets/templates/tmpl-smart-help.php:883
+#: assets/templates/tmpl-smart-help.php:893
 msgid "Enlarge layer to double size"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:884
+#: assets/templates/tmpl-smart-help.php:894
 msgid "Shrink layer to half size"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:885
+#: assets/templates/tmpl-smart-help.php:895
 #, fuzzy
 #| msgid "Hide layer"
 msgid "Flip layer"
 msgstr "Сховати шар"
 
-#: assets/templates/tmpl-smart-help.php:904
+#: assets/templates/tmpl-smart-help.php:914
 msgid "The background image is displayed in its original size"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:905
+#: assets/templates/tmpl-smart-help.php:915
 msgid "cover"
 msgstr "обкладинка"
 
-#: assets/templates/tmpl-smart-help.php:905
+#: assets/templates/tmpl-smart-help.php:915
 msgid ""
 "Resize the background image to cover the entire container, even if it has to "
 "stretch the image or cut a little bit off one of the edges"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:906
+#: assets/templates/tmpl-smart-help.php:916
 msgid "contain"
 msgstr "містить"
 
-#: assets/templates/tmpl-smart-help.php:906
+#: assets/templates/tmpl-smart-help.php:916
 msgid "Resize the background image to make sure the image is fully visible"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:907
+#: assets/templates/tmpl-smart-help.php:917
 msgid "stretch"
 msgstr "розтягнути"
 
-#: assets/templates/tmpl-smart-help.php:907
+#: assets/templates/tmpl-smart-help.php:917
 msgid ""
 "Stretches the background image to the same size as the layer. May result in "
 "distorted image."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:908
+#: assets/templates/tmpl-smart-help.php:918
 msgid "initial"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:908
-#: assets/templates/tmpl-smart-help.php:909
-#: assets/templates/tmpl-smart-help.php:910
+#: assets/templates/tmpl-smart-help.php:918
+#: assets/templates/tmpl-smart-help.php:919
+#: assets/templates/tmpl-smart-help.php:920
 msgid "Sets this property to its default value."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:909
+#: assets/templates/tmpl-smart-help.php:919
 msgid "300px (example)"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:910
+#: assets/templates/tmpl-smart-help.php:920
 msgid "80% (example)"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:919
+#: assets/templates/tmpl-smart-help.php:929
 msgid "Used in Project"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:927
+#: assets/templates/tmpl-smart-help.php:937
 #, fuzzy
 #| msgid "Google Fonts"
 msgid "Common Fonts"
 msgstr "Google Fonts"
 
-#: assets/templates/tmpl-smart-help.php:943
+#: assets/templates/tmpl-smart-help.php:953
 msgid "From top"
 msgstr "Зверху"
 
-#: assets/templates/tmpl-smart-help.php:944
+#: assets/templates/tmpl-smart-help.php:954
 msgid "From right"
 msgstr "З правого"
 
-#: assets/templates/tmpl-smart-help.php:945
+#: assets/templates/tmpl-smart-help.php:955
 msgid "From bottom"
 msgstr "Знизу"
 
-#: assets/templates/tmpl-smart-help.php:946
+#: assets/templates/tmpl-smart-help.php:956
 msgid "From left"
 msgstr "Зліва"
 
-#: assets/templates/tmpl-smart-help.php:957
+#: assets/templates/tmpl-smart-help.php:967
 msgid "X axis"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:966
+#: assets/templates/tmpl-smart-help.php:976
 #, fuzzy
 #| msgid "sides of the screen"
 msgid "Left side of the project canvas"
 msgstr "сторін екрана"
 
-#: assets/templates/tmpl-smart-help.php:967
+#: assets/templates/tmpl-smart-help.php:977
 #, fuzzy
 #| msgid "At center of the viewport"
 msgid "Center of the project canvas"
 msgstr "В центрі проекції"
 
-#: assets/templates/tmpl-smart-help.php:968
+#: assets/templates/tmpl-smart-help.php:978
 msgid "Right side of the project canvas"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:976
+#: assets/templates/tmpl-smart-help.php:986
 msgid "Y axis"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:985
+#: assets/templates/tmpl-smart-help.php:995
 msgid "Top of the project canvas"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:986
+#: assets/templates/tmpl-smart-help.php:996
 msgid "Middle of the project canvas"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:987
+#: assets/templates/tmpl-smart-help.php:997
 msgid "Bottom of the project canvas"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:995
+#: assets/templates/tmpl-smart-help.php:1005
 msgid "Z axis"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1005
-#: assets/templates/tmpl-smart-help.php:1038
+#: assets/templates/tmpl-smart-help.php:1015
+#: assets/templates/tmpl-smart-help.php:1048
 msgid "Apply selected values"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1019
+#: assets/templates/tmpl-smart-help.php:1029
 #, fuzzy
 #| msgid "Add new"
 msgid "Add new property"
 msgstr "Додати"
 
-#: assets/templates/tmpl-smart-help.php:1020
-#: assets/views/project-editor.php:3069 assets/views/project-editor.php:3539
+#: assets/templates/tmpl-smart-help.php:1030
+#: assets/views/project-editor.php:3083 assets/views/project-editor.php:3553
 msgid "Blur"
 msgstr "Розмиття"
 
-#: assets/templates/tmpl-smart-help.php:1021
+#: assets/templates/tmpl-smart-help.php:1031
 msgid "Brightness"
 msgstr "Яскравість"
 
-#: assets/templates/tmpl-smart-help.php:1022
+#: assets/templates/tmpl-smart-help.php:1032
 msgid "Contrast"
 msgstr "Контраст"
 
-#: assets/templates/tmpl-smart-help.php:1023
+#: assets/templates/tmpl-smart-help.php:1033
 msgid "Drop Shadow"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1024
+#: assets/templates/tmpl-smart-help.php:1034
 msgid "Grayscale"
 msgstr "Відтінки сірого"
 
-#: assets/templates/tmpl-smart-help.php:1025
+#: assets/templates/tmpl-smart-help.php:1035
 #, fuzzy
 #| msgid "Hue-rotate"
 msgid "Hue-Rotate"
 msgstr "Відтінок-поворот"
 
-#: assets/templates/tmpl-smart-help.php:1026
-msgid "Invert"
-msgstr "Інвертувати"
-
-#: assets/templates/tmpl-smart-help.php:1028
+#: assets/templates/tmpl-smart-help.php:1038
 msgid "Saturate"
 msgstr "Насичення"
 
-#: assets/templates/tmpl-smart-help.php:1029
+#: assets/templates/tmpl-smart-help.php:1039
 msgid "Sepia"
 msgstr "Сепія"
 
-#: assets/templates/tmpl-smart-help.php:1048
+#: assets/templates/tmpl-smart-help.php:1058
 #, fuzzy
 #| msgid "Apply to others"
 msgid "Apply Value To All Slides"
@@ -7882,7 +8039,7 @@ msgstr "Документація розробника"
 msgid "Frequently Asked Questions"
 msgstr "Поширені запитання та Інтернет-ресурси"
 
-#: assets/views/about.php:257 assets/views/dashboard.php:1047
+#: assets/views/about.php:257 assets/views/dashboard.php:1148
 msgid "Stay Updated"
 msgstr "Будьте в курсі"
 
@@ -8118,14 +8275,14 @@ msgid "Projects"
 msgstr ""
 
 #: assets/views/dashboard.php:250
+msgid "News"
+msgstr ""
+
+#: assets/views/dashboard.php:255
 #, fuzzy
 #| msgid "Licensing"
 msgid "License"
 msgstr "Ліцензування"
-
-#: assets/views/dashboard.php:255
-msgid "News"
-msgstr ""
 
 #: assets/views/dashboard.php:319
 #, fuzzy
@@ -8424,129 +8581,132 @@ msgstr "Перейдіть на наступну сторінку"
 msgid "Go to the last page"
 msgstr "Перейти на останню сторінку"
 
-#: assets/views/dashboard.php:727
+#: assets/views/dashboard.php:728
 #, fuzzy
-#| msgid "Support"
-msgid "Help & Support"
-msgstr "Підтримка"
+#| msgid "What’s New"
+msgid "Latest News"
+msgstr "Що Нового"
 
-#: assets/views/dashboard.php:732
-msgid "Read the documentation"
-msgstr "Прочитати документацію"
+#: assets/views/dashboard.php:742
+#, fuzzy
+#| msgid "Plugin updates"
+msgid "Plugin Updates"
+msgstr "Оновлення модулів"
 
-#: assets/views/dashboard.php:733
-msgid "Get started with using LayerSlider."
-msgstr "Початок роботи з використанням LayerSlider."
-
-#: assets/views/dashboard.php:737
-msgid "Browse the FAQs"
-msgstr "Перегляд поширених запитань"
-
-#: assets/views/dashboard.php:738
-msgid "Find answers for common questions."
-msgstr "Відповіді на поширені запитання."
-
-#: assets/views/dashboard.php:747
-msgid "Direct Support"
-msgstr "Пряма підтримка"
-
-#: assets/views/dashboard.php:749
-msgid "Unlock Now"
-msgstr "Відкрити зараз"
-
-#: assets/views/dashboard.php:752
-msgid "Get in touch with our Support Team."
-msgstr "Зв'яжіться з нашою командою підтримки."
+#: assets/views/dashboard.php:746
+msgid "Re-Check"
+msgstr ""
 
 #: assets/views/dashboard.php:756
 #, fuzzy
-#| msgid "Center Center"
-msgid "Open Help Center"
-msgstr "Центр Центр"
+#| msgid "Install Location"
+msgid "Installed Version:"
+msgstr "Розташування інсталяції"
 
-#: assets/views/dashboard.php:765
+#: assets/views/dashboard.php:763
 #, fuzzy
-#| msgid "Choose a Slide"
-msgid "Connect With LayerSlider"
-msgstr "Вибрати слайд"
+#| msgid "Available Updates"
+msgid "Available Version: "
+msgstr "Доступні оновлення"
 
-#: assets/views/dashboard.php:768
+#: assets/views/dashboard.php:784
+#, fuzzy
+#| msgid "Release channel:"
+msgid "Release Channel"
+msgstr "Реліз-канал:"
+
+#: assets/views/dashboard.php:790
+msgid "Stable"
+msgstr "Стабільний"
+
+#: assets/views/dashboard.php:791
+msgid "Beta"
+msgstr "Бета"
+
+#: assets/views/dashboard.php:804
+#, php-format
 msgid ""
-"Follow us on Social Media and get notified about the latest product updates, "
-"sales, deals, and participate in giveaways and other programs."
+"Couldn’t display the release log. Please check %sSystem Status%s for "
+"potential errors."
 msgstr ""
 
-#: assets/views/dashboard.php:835
+#: assets/views/dashboard.php:813
+#, fuzzy
+#| msgid "Show me"
+msgid "Show More"
+msgstr "Показати більше"
+
+#: assets/views/dashboard.php:845
 #, fuzzy
 #| msgid "Regular License"
 msgid "Register Your License"
 msgstr "Регулярна ліцензія"
 
-#: assets/views/dashboard.php:839
+#: assets/views/dashboard.php:849
 #, fuzzy
 #| msgid "Regular License"
 msgid "Registered License"
 msgstr "Регулярна ліцензія"
 
-#: assets/views/dashboard.php:847
+#: assets/views/dashboard.php:857
 #, fuzzy
 #| msgid "Enter your purchase code:"
 msgid "Please enter your license key below."
 msgstr "Введіть код покупки:"
 
-#: assets/views/dashboard.php:851
+#: assets/views/dashboard.php:861
 msgid "Thank you for your purchase!"
 msgstr ""
 
-#: assets/views/dashboard.php:858
+#: assets/views/dashboard.php:868
 msgid "Unlock all these benefits and get the full LayerSlider experience:"
 msgstr ""
 
-#: assets/views/dashboard.php:862
+#: assets/views/dashboard.php:872
 msgid "You can now access all these benefits:"
 msgstr ""
 
-#: assets/views/dashboard.php:936
+#: assets/views/dashboard.php:946
 #, fuzzy
 #| msgid "Premium Slider Templates"
 msgid "Premium Templates"
 msgstr "Шаблони слайдера Premium"
 
-#: assets/views/dashboard.php:960
+#: assets/views/dashboard.php:970
 #, fuzzy
 #| msgid "Enter your purchase code:"
 msgid "Enter your license key:"
 msgstr "Введіть код покупки:"
 
-#: assets/views/dashboard.php:962
+#: assets/views/dashboard.php:972
 #, fuzzy
 #| msgid "Where’s my purchase code?"
 msgid "Where’s my license key?"
 msgstr "Де мій код покупки?"
 
-#: assets/views/dashboard.php:965
+#: assets/views/dashboard.php:975
 #, fuzzy
 #| msgid "Enter your purchase code:"
 msgid "Enter your license key here"
 msgstr "Введіть код покупки:"
 
-#: assets/views/dashboard.php:969
+#: assets/views/dashboard.php:979
 #, fuzzy
 #| msgid "Update info"
 msgid "Update License"
 msgstr "Оновити інформацію"
 
-#: assets/views/dashboard.php:970
+#: assets/views/dashboard.php:980
 #, fuzzy
 #| msgid "Regular License"
 msgid "Deregister License"
 msgstr "Регулярна ліцензія"
 
-#: assets/views/dashboard.php:972
+#: assets/views/dashboard.php:982
 msgid "Purchase license"
 msgstr "Придбати ліцензію"
 
-#: assets/views/dashboard.php:977
+#: assets/views/dashboard.php:987
 #, php-format
 msgid ""
 "License registration requires a direct purchase of a LayerSlider license if "
@@ -8554,7 +8714,7 @@ msgid ""
 "please refer to %sthis article%s."
 msgstr ""
 
-#: assets/views/dashboard.php:979
+#: assets/views/dashboard.php:989
 #, fuzzy, php-format
 #| msgid ""
 #| "If you experience any issue or need further information, please read our "
@@ -8566,105 +8726,102 @@ msgstr ""
 "Якщо ви відчуваєте будь-які проблеми або потребують додаткової інформації, "
 "будь ласка, прочитайте наш %sактиваційний посібник %s."
 
-#: assets/views/dashboard.php:996
+#: assets/views/dashboard.php:1006
 #, fuzzy
 #| msgid "All Premium"
 msgid "Go Premium!"
 msgstr "Всі Преміум"
 
-#: assets/views/dashboard.php:1011
+#: assets/views/dashboard.php:1021
 msgid "Premium activated!"
 msgstr ""
 
-#: assets/views/dashboard.php:1029
+#: assets/views/dashboard.php:1037
+#, fuzzy
+#| msgid "Support"
+msgid "Help & Support"
+msgstr "Підтримка"
+
+#: assets/views/dashboard.php:1042
+msgid "Read the documentation"
+msgstr "Прочитати документацію"
+
+#: assets/views/dashboard.php:1043
+msgid "Get started with using LayerSlider."
+msgstr "Початок роботи з використанням LayerSlider."
+
+#: assets/views/dashboard.php:1047
+msgid "Browse the FAQs"
+msgstr "Перегляд поширених запитань"
+
+#: assets/views/dashboard.php:1048
+msgid "Find answers for common questions."
+msgstr "Відповіді на поширені запитання."
+
+#: assets/views/dashboard.php:1057
+msgid "Direct Support"
+msgstr "Пряма підтримка"
+
+#: assets/views/dashboard.php:1059
+msgid "Unlock Now"
+msgstr "Відкрити зараз"
+
+#: assets/views/dashboard.php:1062
+msgid "Get in touch with our Support Team."
+msgstr "Зв'яжіться з нашою командою підтримки."
+
+#: assets/views/dashboard.php:1066
+#, fuzzy
+#| msgid "Center Center"
+msgid "Open Help Center"
+msgstr "Центр Центр"
+
+#: assets/views/dashboard.php:1075
+#, fuzzy
+#| msgid "Choose a Slide"
+msgid "Connect With LayerSlider"
+msgstr "Вибрати слайд"
+
+#: assets/views/dashboard.php:1078
+msgid ""
+"Follow us on Social Media and get notified about the latest product updates, "
+"sales, deals, and participate in giveaways and other programs."
+msgstr ""
+
+#: assets/views/dashboard.php:1130
 #, fuzzy
 #| msgid "LayerSlider News"
 msgid "LayerSlider Newsletter"
 msgstr "Новини Лайерслайдера"
 
-#: assets/views/dashboard.php:1032
+#: assets/views/dashboard.php:1133
 msgid "Enter your email address"
 msgstr "E-mail"
 
-#: assets/views/dashboard.php:1037
+#: assets/views/dashboard.php:1138
 msgid "Subscribe"
 msgstr "Підписатися"
 
-#: assets/views/dashboard.php:1048
+#: assets/views/dashboard.php:1149
 msgid "News about the latest features and other product info."
 msgstr "Новини про новітні функції та інші відомості про продукт."
 
-#: assets/views/dashboard.php:1052
+#: assets/views/dashboard.php:1153
 msgid "Sneak Peek on Product Updates"
 msgstr "Швидкий погляд на оновлення продуктів"
 
-#: assets/views/dashboard.php:1053
+#: assets/views/dashboard.php:1154
 msgid "Access to all the cool new features before anyone else."
 msgstr "Доступ до всіх нових цікавих функцій, перш ніж хто-небудь ще."
 
-#: assets/views/dashboard.php:1057
+#: assets/views/dashboard.php:1158
 msgid "Provide Feedback"
 msgstr "Надати зворотній зв'язок"
 
-#: assets/views/dashboard.php:1058
+#: assets/views/dashboard.php:1159
 msgid "Participate in various programs and help us improving LayerSlider."
 msgstr ""
 "Беріть участь в різних програмах і допоможіть нам покращити LayerSlider."
-
-#: assets/views/dashboard.php:1071
-#, fuzzy
-#| msgid "What’s New"
-msgid "Latest News"
-msgstr "Що Нового"
-
-#: assets/views/dashboard.php:1085
-#, fuzzy
-#| msgid "Plugin updates"
-msgid "Plugin Updates"
-msgstr "Оновлення модулів"
-
-#: assets/views/dashboard.php:1089
-msgid "Re-Check"
-msgstr ""
-
-#: assets/views/dashboard.php:1099
-#, fuzzy
-#| msgid "Install Location"
-msgid "Installed Version:"
-msgstr "Розташування інсталяції"
-
-#: assets/views/dashboard.php:1106
-#, fuzzy
-#| msgid "Available Updates"
-msgid "Available Version: "
-msgstr "Доступні оновлення"
-
-#: assets/views/dashboard.php:1127
-#, fuzzy
-#| msgid "Release channel:"
-msgid "Release Channel"
-msgstr "Реліз-канал:"
-
-#: assets/views/dashboard.php:1133
-msgid "Stable"
-msgstr "Стабільний"
-
-#: assets/views/dashboard.php:1134
-msgid "Beta"
-msgstr "Бета"
-
-#: assets/views/dashboard.php:1147
-#, php-format
-msgid ""
-"Couldn’t display the release log. Please check %sSystem Status%s for "
-"potential errors."
-msgstr ""
-
-#: assets/views/dashboard.php:1156
-#, fuzzy
-#| msgid "Show me"
-msgid "Show More"
-msgstr "Показати більше"
 
 #: assets/views/project-editor.php:203
 msgid "Incompatible Browser Detected"
@@ -8714,8 +8871,8 @@ msgstr "Слайди"
 msgid "Slides List"
 msgstr "Слайди"
 
-#: assets/views/project-editor.php:340 assets/views/project-editor.php:737
-#: assets/views/project-editor.php:6481 assets/wp/scripts_l10n.php:217
+#: assets/views/project-editor.php:340 assets/views/project-editor.php:745
+#: assets/views/project-editor.php:6509 assets/wp/scripts_l10n.php:221
 #, fuzzy
 #| msgctxt "verb"
 #| msgid "Slide"
@@ -8848,197 +9005,208 @@ msgstr "Вставлення повзунка LayerSlider"
 msgid "Tooltips"
 msgstr "Підказки"
 
-#: assets/views/project-editor.php:655
+#: assets/views/project-editor.php:642
+msgid "Quick Tip when publishing"
+msgstr ""
+
+#: assets/views/project-editor.php:663
 #, fuzzy
 #| msgid "Line through"
 msgid "Interface Walkthrough"
 msgstr "Лінії через"
 
-#: assets/views/project-editor.php:661
+#: assets/views/project-editor.php:669
 #, fuzzy
 #| msgid "Interactive guides coming soon!"
 msgid "Interactive Guides are coming soon."
 msgstr "Інтерактивні гіди скоро!"
 
-#: assets/views/project-editor.php:682
+#: assets/views/project-editor.php:690
 #, fuzzy
 #| msgid "Basic Settings"
 msgid "Revisions Settings"
 msgstr "Базові налаштування"
 
-#: assets/views/project-editor.php:692
+#: assets/views/project-editor.php:700
 #, fuzzy
 #| msgid "Revisions Preferences"
 msgid "Revisions per project"
 msgstr "Параметри виправлення"
 
-#: assets/views/project-editor.php:702
+#: assets/views/project-editor.php:710
 #, fuzzy
 #| msgid "Update Revisions Preferences"
 msgid "Create revisions after"
 msgstr "Параметри оновлення параметрів виправлень"
 
-#: assets/views/project-editor.php:706
+#: assets/views/project-editor.php:714
 #, fuzzy
 #| msgid "Admin"
 msgid "min"
 msgstr "Адмін"
 
-#: assets/views/project-editor.php:717
+#: assets/views/project-editor.php:725
 #, fuzzy
 #| msgid "Slide Timeline Events"
 msgid "Exit Timeline View"
 msgstr "Події слайда-часової шкали"
 
-#: assets/views/project-editor.php:722
+#: assets/views/project-editor.php:730
 #, fuzzy
 #| msgid "Revisions"
 msgid "Exit Revisions"
 msgstr "Ревізії"
 
-#: assets/views/project-editor.php:727
+#: assets/views/project-editor.php:735
 msgid "Exit Project View"
 msgstr ""
 
-#: assets/views/project-editor.php:734 assets/views/project-editor.php:1127
+#: assets/views/project-editor.php:742 assets/views/project-editor.php:1139
 #, fuzzy
 #| msgid "Slider Settings"
 msgid "Slide Settings"
 msgstr "Налаштування слайдера"
 
-#: assets/views/project-editor.php:744 assets/views/project-editor.php:1892
+#: assets/views/project-editor.php:752 assets/views/project-editor.php:1904
 #, fuzzy
 #| msgid "Layer settings"
 msgid "Layer Settings"
 msgstr "Параметри шару"
 
-#: assets/views/project-editor.php:747 assets/views/project-editor.php:1086
-#: assets/wp/scripts_l10n.php:218
-msgid "Layers"
-msgstr "Макет"
-
-#: assets/views/project-editor.php:777 assets/views/project-editor.php:1911
+#: assets/views/project-editor.php:785 assets/views/project-editor.php:1923
 #, fuzzy
 #| msgid "Layers"
 msgid "Layers List"
 msgstr "Макет"
 
-#: assets/views/project-editor.php:809 assets/views/project-editor.php:6927
+#: assets/views/project-editor.php:817 assets/views/project-editor.php:7032
 msgid "Add Layer"
 msgstr "Додати шар"
 
-#: assets/views/project-editor.php:820
+#: assets/views/project-editor.php:828
 msgid "Layers on this slide"
 msgstr ""
 "Виберіть спосіб переходу шарів та тла слайда до одної. Blend режими є "
 "простим способом додати привабливим ефектів і є одним з найбільш часто "
 "використовуваних функцій в графічному і друкованому дизайні"
 
-#: assets/views/project-editor.php:825
+#: assets/views/project-editor.php:833
 #, fuzzy
 #| msgid "Toggle layer visibility."
 msgid "Toggle layer visibility"
 msgstr "Переключення видимості шару."
 
-#: assets/views/project-editor.php:828
+#: assets/views/project-editor.php:836
 #, fuzzy
 #| msgid "Lock layer"
 msgid "Lock / Unlock layer"
 msgstr "Заблокувати шар"
 
-#: assets/views/project-editor.php:831
+#: assets/views/project-editor.php:839
 #, fuzzy
 #| msgid "Duplicate Layer"
 msgid "Duplicate layer"
 msgstr "Дублювати шар"
 
-#: assets/views/project-editor.php:837
+#: assets/views/project-editor.php:845
 #, fuzzy
 #| msgid "Remove Layer"
 msgid "Remove layer"
 msgstr "Видалити шар"
 
 #: assets/views/project-editor.php:852
+#, fuzzy
+#| msgid ""
+#| "This feature requires product activation. Click on the padlock icon to "
+#| "learn more."
+msgid ""
+"This layer uses a premium feature, which requires license registration to "
+"use it on front-end pages."
+msgstr ""
+"Ця функція потребує активації продукту. Натисніть на іконку замка, щоб "
+"дізнатися більше."
+
+#: assets/views/project-editor.php:864
 msgid "This slide has no layers."
 msgstr ""
 
-#: assets/views/project-editor.php:853
+#: assets/views/project-editor.php:865
 #, fuzzy
 #| msgid "Click %sAdd New%s to add your first layer."
 msgid "Click ADD LAYER to add your first layer."
 msgstr "Натисніть кнопку %sДодати новий %s, щоб додати перший шар."
 
-#: assets/views/project-editor.php:862
+#: assets/views/project-editor.php:874
 msgid "Static layers from other slides"
 msgstr "Статичні шари з інших слайдів"
 
-#: assets/views/project-editor.php:889
+#: assets/views/project-editor.php:901
 msgid ""
 "Highlight layers: Hovering over layers in the layers list and workspace will "
 "be highlighted in the editor."
 msgstr ""
 
-#: assets/views/project-editor.php:897
+#: assets/views/project-editor.php:909
 msgid ""
 "Snapping: Easily align layer edges, anchor points, and centers to other "
 "editor objects such as layers, ruler guides, etc."
 msgstr ""
 
-#: assets/views/project-editor.php:905
+#: assets/views/project-editor.php:917
 msgid ""
 "Bring selection to front: Selected layer will always be on top of "
 "overlapping layers."
 msgstr ""
 
-#: assets/views/project-editor.php:913
+#: assets/views/project-editor.php:925
 msgid "Workspace overflow: Show objects outside of the project canvas."
 msgstr ""
 
-#: assets/views/project-editor.php:938 assets/views/transition-builder.php:90
+#: assets/views/project-editor.php:950 assets/views/transition-builder.php:90
 #: assets/views/transition-builder.php:117 assets/wp/menus.php:54
 msgid "Add New"
 msgstr "Додати новий"
 
-#: assets/views/project-editor.php:948 assets/views/transition-builder.php:86
+#: assets/views/project-editor.php:960 assets/views/transition-builder.php:86
 #: assets/views/transition-builder.php:113
 msgid "Import"
 msgstr "Імпорт"
 
-#: assets/views/project-editor.php:996
+#: assets/views/project-editor.php:1008
 #, fuzzy
 #| msgid "Rotation"
 msgid "rotation"
 msgstr "Обертання"
 
-#: assets/views/project-editor.php:996
+#: assets/views/project-editor.php:1008
 msgid "drag to rotate"
 msgstr ""
 
-#: assets/views/project-editor.php:1004
+#: assets/views/project-editor.php:1016
 msgid "Darg & Drop Images or SVGs"
 msgstr ""
 
-#: assets/views/project-editor.php:1006
+#: assets/views/project-editor.php:1018
 msgid "Processing..."
 msgstr ""
 
-#: assets/views/project-editor.php:1039
+#: assets/views/project-editor.php:1051
 msgid "Now"
 msgstr ""
 
-#: assets/views/project-editor.php:1047
+#: assets/views/project-editor.php:1059
 #, fuzzy
 #| msgid "Selected Revision by %s"
 msgid "Selected revision by"
 msgstr "Вибране перегляд за %s"
 
-#: assets/views/project-editor.php:1059
+#: assets/views/project-editor.php:1071
 #, fuzzy
 #| msgid "Selected Revision by %s"
 msgid "Apply selected revision"
 msgstr "Вибране перегляд за %s"
 
-#: assets/views/project-editor.php:1065
+#: assets/views/project-editor.php:1077
 #, fuzzy
 #| msgid ""
 #| "There are no revisions available for the selected slider yet. Revisions "
@@ -9052,326 +9220,326 @@ msgstr ""
 "коли ви робите нові зміни в повзунків. Перегляньте параметри %s-виправлень%s "
 "і переконайтеся, що ввімкнено виправлення."
 
-#: assets/views/project-editor.php:1067
+#: assets/views/project-editor.php:1079
 msgid ""
 "You can review Revisions Settings at the top to make sure that snapshots are "
 "made frequently."
 msgstr ""
 
-#: assets/views/project-editor.php:1075
+#: assets/views/project-editor.php:1087
 #, fuzzy
 #| msgid "Delay"
 msgid "delay"
 msgstr "Затримки"
 
-#: assets/views/project-editor.php:1076
+#: assets/views/project-editor.php:1088
 #, fuzzy
 #| msgid "Skin"
 msgid "in"
 msgstr "Скін"
 
-#: assets/views/project-editor.php:1077
+#: assets/views/project-editor.php:1089
 #, fuzzy
 #| msgid "Count"
 msgid "out"
 msgstr "Кількість"
 
-#: assets/views/project-editor.php:1078
+#: assets/views/project-editor.php:1090
 #, fuzzy
 #| msgid "Text align"
 msgid "text in"
 msgstr "Вирівнювання тексту"
 
-#: assets/views/project-editor.php:1079
+#: assets/views/project-editor.php:1091
 msgid "text out"
 msgstr ""
 
-#: assets/views/project-editor.php:1080
+#: assets/views/project-editor.php:1092
 msgid "loop / middle"
 msgstr ""
 
-#: assets/views/project-editor.php:1081
+#: assets/views/project-editor.php:1093
 msgid "static"
 msgstr ""
 
-#: assets/views/project-editor.php:1082
+#: assets/views/project-editor.php:1094
 #, fuzzy
 #| msgid "Move duration"
 msgid "over slide duration"
 msgstr "Тривалість переміщення"
 
-#: assets/views/project-editor.php:1128
+#: assets/views/project-editor.php:1140
 msgid "Select slide background, set slide transitions, effects and linking."
 msgstr ""
 
-#: assets/views/project-editor.php:1146 assets/views/project-editor.php:1313
+#: assets/views/project-editor.php:1158 assets/views/project-editor.php:1325
 #, fuzzy
 #| msgid "Timing &amp; Transform"
 msgid "Timing & Transition"
 msgstr "Час &amp; перетворення"
 
-#: assets/views/project-editor.php:1151 assets/views/project-editor.php:1407
-#: assets/views/project-editor.php:3570
+#: assets/views/project-editor.php:1163 assets/views/project-editor.php:1419
+#: assets/views/project-editor.php:3584
 #, fuzzy
 #| msgid "Special Effects"
 msgid "Effects"
 msgstr "Спецефекти"
 
-#: assets/views/project-editor.php:1161 assets/views/project-editor.php:1677
-#: assets/views/project-editor.php:1685
+#: assets/views/project-editor.php:1173 assets/views/project-editor.php:1689
+#: assets/views/project-editor.php:1697
 msgid "Slide Linking"
 msgstr "Посунути зв'язок"
 
-#: assets/views/project-editor.php:1191
+#: assets/views/project-editor.php:1203
 #, fuzzy
 #| msgid "Slide Background Image"
 msgid "Slide Background"
 msgstr "Фонове зображення слайда"
 
-#: assets/views/project-editor.php:1272
+#: assets/views/project-editor.php:1284
 msgid "Slide Thumbnail"
 msgstr "Мініатюра слайда"
 
-#: assets/views/project-editor.php:1283
+#: assets/views/project-editor.php:1295
 #, fuzzy
 #| msgid "Slide Thumbnail"
 msgid "Set Thumbnail"
 msgstr "Мініатюра слайда"
 
-#: assets/views/project-editor.php:1288
+#: assets/views/project-editor.php:1300
 #, fuzzy
 #| msgid "Thumbnail width"
 msgid "Thumbnail"
 msgstr "Ширина мініатюри"
 
-#: assets/views/project-editor.php:1298
+#: assets/views/project-editor.php:1310
 #, fuzzy
 #| msgid "capture slide"
 msgid "Capture Slide"
 msgstr "захоплення слайда"
 
-#: assets/views/project-editor.php:1321
+#: assets/views/project-editor.php:1333
 msgid "Slide Timing"
 msgstr "Час слайда"
 
-#: assets/views/project-editor.php:1345
+#: assets/views/project-editor.php:1357
 #, fuzzy
 #| msgid "Time Shift"
 msgid "Time shift"
 msgstr "Зміна часу"
 
-#: assets/views/project-editor.php:1362
+#: assets/views/project-editor.php:1374
 msgid "Slide Transition"
 msgstr "Посунути перехід"
 
-#: assets/views/project-editor.php:1373
+#: assets/views/project-editor.php:1385
 #, fuzzy
 #| msgid "Forced animation duration"
 msgid "Transition duration"
 msgstr "Тривалість примусового анімації"
 
-#: assets/views/project-editor.php:1385
+#: assets/views/project-editor.php:1397
 #, fuzzy
 #| msgid "Select transitions"
 msgid "Select Transitions"
 msgstr "Виберіть переходи"
 
-#: assets/views/project-editor.php:1391
+#: assets/views/project-editor.php:1403
 msgid ""
 "Slide transitions won’t be visible until you set a slide background image or "
 "color."
 msgstr ""
 
-#: assets/views/project-editor.php:1415
+#: assets/views/project-editor.php:1427
 msgid "Ken Burns"
 msgstr "Кен Бернс"
 
-#: assets/views/project-editor.php:1482
+#: assets/views/project-editor.php:1494
 #, fuzzy
 #| msgid "Global Hover"
 msgid "Global hover"
 msgstr "Глобальний наведення вказівника"
 
-#: assets/views/project-editor.php:1494
+#: assets/views/project-editor.php:1506
 #, fuzzy
 #| msgid "Select slide transitions"
 msgid "See it in action"
 msgstr "Вибір переходів на слайді"
 
-#: assets/views/project-editor.php:1504
+#: assets/views/project-editor.php:1516
 msgid "Parallax Defaults"
 msgstr "Паралакса за замовчуванням"
 
-#: assets/views/project-editor.php:1556 assets/views/project-editor.php:6130
+#: assets/views/project-editor.php:1568 assets/views/project-editor.php:6158
 #, fuzzy
 #| msgid "Parallax<br>Transition"
 msgid "Parallax Distance"
 msgstr "Паралакс<br>Перехід"
 
-#: assets/views/project-editor.php:1568 assets/views/project-editor.php:6144
+#: assets/views/project-editor.php:1580 assets/views/project-editor.php:6172
 #, fuzzy
 #| msgid "Parallax<br>Transition"
 msgid "Parallax Rotation"
 msgstr "Паралакс<br>Перехід"
 
-#: assets/views/project-editor.php:1657 assets/views/project-editor.php:1660
+#: assets/views/project-editor.php:1669 assets/views/project-editor.php:1672
 #, fuzzy
 #| msgid "Configure post options"
 msgid "Configure Post Options"
 msgstr "Настроювання параметрів публікації"
 
-#: assets/views/project-editor.php:1696 assets/views/project-editor.php:6256
+#: assets/views/project-editor.php:1708 assets/views/project-editor.php:6284
 #, fuzzy
 #| msgid "Deeplink"
 msgid "Set link"
 msgstr "Depplink"
 
-#: assets/views/project-editor.php:1715 assets/views/project-editor.php:6277
+#: assets/views/project-editor.php:1727 assets/views/project-editor.php:6305
 msgid "Choose Post or Page"
 msgstr "Вибрати поштамту або сторінку"
 
-#: assets/views/project-editor.php:1720 assets/views/project-editor.php:6282
+#: assets/views/project-editor.php:1732 assets/views/project-editor.php:6310
 #, fuzzy
 #| msgid "Use Dynamic post URL"
 msgid "Use dynamic post URL"
 msgstr "Використання динамічного поста URL"
 
-#: assets/views/project-editor.php:1745
+#: assets/views/project-editor.php:1757
 #, fuzzy
 #| msgid "Deeplink"
 msgid "Deep linking"
 msgstr "Depplink"
 
-#: assets/views/project-editor.php:1755
+#: assets/views/project-editor.php:1767
 #, fuzzy
 #| msgid "Deeplink"
 msgid "Deep Link"
 msgstr "Depplink"
 
-#: assets/views/project-editor.php:1780
+#: assets/views/project-editor.php:1792
 #, fuzzy
 #| msgid "Schedule Until"
 msgid "Schedule Slide"
 msgstr "Графіком, поки"
 
-#: assets/views/project-editor.php:1791
+#: assets/views/project-editor.php:1803
 #, fuzzy
 #| msgid "From top"
 msgid "From"
 msgstr "Зверху"
 
-#: assets/views/project-editor.php:1801
+#: assets/views/project-editor.php:1813
 #, fuzzy
 #| msgid "Top"
 msgid "To"
 msgstr "Верх"
 
-#: assets/views/project-editor.php:1827 assets/views/project-editor.php:4139
+#: assets/views/project-editor.php:1839 assets/views/project-editor.php:4159
 #, fuzzy
 #| msgid "Additional Slide Settings"
 msgid "Additional Settings"
 msgstr "Додаткові параметри слайду"
 
-#: assets/views/project-editor.php:1857
+#: assets/views/project-editor.php:1869
 msgid "Custom Slide Properties"
 msgstr "Настроювані властивості слайда"
 
-#: assets/views/project-editor.php:1893
+#: assets/views/project-editor.php:1905
 msgid "Set content, style, transitions and linking of selected layers."
 msgstr ""
 
-#: assets/views/project-editor.php:1904
+#: assets/views/project-editor.php:1916
 #, fuzzy
 #| msgid "Multiple Selection Mode"
 msgid "Multiple selection mode"
 msgstr "Режим \"Множинне виділення\""
 
-#: assets/views/project-editor.php:1921 assets/views/project-editor.php:2497
+#: assets/views/project-editor.php:1933 assets/views/project-editor.php:2510
 #, fuzzy
 #| msgid "Styles"
 msgid "Style"
 msgstr "Стилі"
 
-#: assets/views/project-editor.php:1931 assets/views/project-editor.php:6243
+#: assets/views/project-editor.php:1943 assets/views/project-editor.php:6271
 #, fuzzy
 #| msgid "Linking"
 msgid "Link"
 msgstr "Посилання"
 
-#: assets/views/project-editor.php:1938 assets/views/project-editor.php:6301
+#: assets/views/project-editor.php:1950 assets/views/project-editor.php:6329
 msgid "Actions"
 msgstr "Дії"
 
-#: assets/views/project-editor.php:1943 assets/views/project-editor.php:6732
+#: assets/views/project-editor.php:1955 assets/views/project-editor.php:6786
 #, fuzzy
 #| msgid "Attribute name"
 msgid "Attributes"
 msgstr "Ім'я атрибута"
 
-#: assets/views/project-editor.php:1973 assets/views/project-editor.php:6957
-#: assets/wp/scripts_l10n.php:270
+#: assets/views/project-editor.php:1986 assets/views/project-editor.php:7062
+#: assets/wp/scripts_l10n.php:274
 msgid "Object"
 msgstr ""
 
-#: assets/views/project-editor.php:1981
+#: assets/views/project-editor.php:1994
 #, fuzzy
 #| msgid "Click to change"
 msgid "Click to change layer type"
 msgstr "Клацніть, щоб змінити"
 
-#: assets/views/project-editor.php:1997
+#: assets/views/project-editor.php:2010
 #, fuzzy
 #| msgid "Toggle device visibility:"
 msgid "Toggle device visibility"
 msgstr "Переключити видимість пристрою:"
 
-#: assets/views/project-editor.php:2021
+#: assets/views/project-editor.php:2034
 #, fuzzy
 #| msgid "Slide image"
 msgid "Set image"
 msgstr "Слайд-зображення"
 
-#: assets/views/project-editor.php:2039
+#: assets/views/project-editor.php:2052
 #, fuzzy
 #| msgid "Enter layer content here"
 msgid "Type / add your layer content here"
 msgstr "Введіть вміст шару тут"
 
-#: assets/views/project-editor.php:2062
+#: assets/views/project-editor.php:2075
 #, fuzzy
 #| msgid "Change Media"
 msgid "Change media"
 msgstr "Змінити медіадані"
 
-#: assets/views/project-editor.php:2074
+#: assets/views/project-editor.php:2087
 #, fuzzy
 #| msgid "Skip Slide Breaks"
 msgid "line breaks"
 msgstr "Пропускати розриви слайдів"
 
-#: assets/views/project-editor.php:2086
+#: assets/views/project-editor.php:2099
 msgid "HTML element"
 msgstr ""
 
-#: assets/views/project-editor.php:2101 assets/views/project-editor.php:2104
-#: assets/wp/scripts_l10n.php:274
+#: assets/views/project-editor.php:2114 assets/views/project-editor.php:2117
+#: assets/wp/scripts_l10n.php:278
 msgid "Modify Object"
 msgstr ""
 
-#: assets/views/project-editor.php:2114 assets/views/project-editor.php:2117
-#: assets/wp/scripts_l10n.php:277
+#: assets/views/project-editor.php:2127 assets/views/project-editor.php:2130
+#: assets/wp/scripts_l10n.php:205 assets/wp/scripts_l10n.php:281
 #, fuzzy
 #| msgid "Modified"
 msgid "Modify Shape"
 msgstr "Змінений"
 
-#: assets/views/project-editor.php:2131 assets/views/project-editor.php:2215
+#: assets/views/project-editor.php:2144 assets/views/project-editor.php:2228
 #, fuzzy
 #| msgid "Choose a role"
 msgid "Choose Icon"
 msgstr "Виберіть роль"
 
-#: assets/views/project-editor.php:2169
+#: assets/views/project-editor.php:2182
 msgid ""
 "Click on one or more post placeholders to insert them into your layer’s "
 "content. Post placeholders act like shortcodes in WP, and they will be "
@@ -9381,45 +9549,45 @@ msgstr ""
 "вміст шару. Пост заповнювачі діяти як короткі коди в WP, і вони будуть "
 "заповнені з фактичним змістом з посад."
 
-#: assets/views/project-editor.php:2175
+#: assets/views/project-editor.php:2188
 msgid "Limit text length (if any)"
 msgstr "Обмежити довжину тексту (якщо є)"
 
-#: assets/views/project-editor.php:2189
+#: assets/views/project-editor.php:2202
 msgid "Configure post options"
 msgstr "Настроювання параметрів публікації"
 
-#: assets/views/project-editor.php:2202
+#: assets/views/project-editor.php:2215
 #, fuzzy
 #| msgid "Modal Options"
 msgid "Additional Options"
 msgstr "Модальні варіанти"
 
-#: assets/views/project-editor.php:2307
+#: assets/views/project-editor.php:2320
 #, fuzzy
 #| msgid "Modal Options"
 msgid "Media Options"
 msgstr "Модальні варіанти"
 
-#: assets/views/project-editor.php:2319
+#: assets/views/project-editor.php:2332
 #, fuzzy
 #| msgid "Layer image"
 msgid "Poster image"
 msgstr "Зображення шару"
 
-#: assets/views/project-editor.php:2323
+#: assets/views/project-editor.php:2336
 #, fuzzy
 #| msgid "Posts"
 msgid "Poster"
 msgstr "Записи"
 
-#: assets/views/project-editor.php:2333
+#: assets/views/project-editor.php:2346
 #, fuzzy
 #| msgid "Background size"
 msgid "background video"
 msgstr "Розмір фону"
 
-#: assets/views/project-editor.php:2349
+#: assets/views/project-editor.php:2362
 #, fuzzy
 #| msgid ""
 #| "Please note, the slide background image (if any) will cover the video."
@@ -9428,370 +9596,369 @@ msgid ""
 msgstr ""
 "Зверніть увагу, що зображення тла слайда (якщо є) буде охоплювати відео."
 
-#: assets/views/project-editor.php:2358
+#: assets/views/project-editor.php:2371
 msgid "Autoplay"
 msgstr "Автозапуск"
 
-#: assets/views/project-editor.php:2371
+#: assets/views/project-editor.php:2384
 msgid "Play muted"
 msgstr "Програвати приглушені"
 
-#: assets/views/project-editor.php:2384
+#: assets/views/project-editor.php:2397
 msgid "Volume"
 msgstr "Обсяг"
 
-#: assets/views/project-editor.php:2402
+#: assets/views/project-editor.php:2415
 msgid "Fill mode"
 msgstr "Режим заливки"
 
-#: assets/views/project-editor.php:2415
+#: assets/views/project-editor.php:2428
 msgid "Controls"
 msgstr "Керування"
 
-#: assets/views/project-editor.php:2428
+#: assets/views/project-editor.php:2441
 msgid "Show info"
 msgstr "Показати інформацію"
 
-#: assets/views/project-editor.php:2441
+#: assets/views/project-editor.php:2454
 msgid "Loop"
 msgstr "Петлі"
 
-#: assets/views/project-editor.php:2455
+#: assets/views/project-editor.php:2468
 msgid "Overlay image"
 msgstr "Накладення зображення"
 
-#: assets/views/project-editor.php:2462
+#: assets/views/project-editor.php:2475
 #, fuzzy
 #| msgid "Overlay image"
 msgid "No overlay image"
 msgstr "Накладення зображення"
 
-#: assets/views/project-editor.php:2517
+#: assets/views/project-editor.php:2530
 #, fuzzy
 #| msgid "sizing & position"
 msgid "Size & Position"
 msgstr "зміна розміру & позиції"
 
-#: assets/views/project-editor.php:2533
+#: assets/views/project-editor.php:2546
 msgid "Set layer to full size"
 msgstr ""
 
-#: assets/views/project-editor.php:2540
+#: assets/views/project-editor.php:2553
 #, fuzzy
 #| msgid "Static layers from other slides"
 msgid "Set layer to auto size"
 msgstr "Статичні шари з інших слайдів"
 
-#: assets/views/project-editor.php:2547
+#: assets/views/project-editor.php:2560
 msgid "Clear all size and position values"
 msgstr ""
 
-#: assets/views/project-editor.php:2554
+#: assets/views/project-editor.php:2567
 msgid "Convert left and top values to percentages"
 msgstr ""
 
-#: assets/views/project-editor.php:2561
+#: assets/views/project-editor.php:2574
 msgid "Convert left and top values to pixels"
 msgstr ""
 
-#: assets/views/project-editor.php:2569
+#: assets/views/project-editor.php:2582
 #, fuzzy
 #| msgid "Horizontal Center"
 msgid "Position to horizontal center"
 msgstr "Горизонтальний центр"
 
-#: assets/views/project-editor.php:2576
+#: assets/views/project-editor.php:2589
 msgid "Position to vertical middle"
 msgstr ""
 
-#: assets/views/project-editor.php:2579
+#: assets/views/project-editor.php:2592
 msgid "Position to absolute center"
 msgstr ""
 
-#: assets/views/project-editor.php:2622
+#: assets/views/project-editor.php:2635
 #, fuzzy
 #| msgid "Layer position"
 msgid "Left position"
 msgstr "Положення шару"
 
-#: assets/views/project-editor.php:2630
+#: assets/views/project-editor.php:2643
 #, fuzzy
 #| msgid "Position"
 msgid "Top position"
 msgstr "Позиція"
 
-#: assets/views/project-editor.php:2643
+#: assets/views/project-editor.php:2656
 #, fuzzy
 #| msgid "Calculate positions from"
-msgid "Align position from"
+msgid "Align positions from"
 msgstr "Обчислити позиції з"
 
-#: assets/views/project-editor.php:2661
+#: assets/views/project-editor.php:2674
 #, fuzzy
 #| msgid "Font style"
 msgid "Icon Style"
 msgstr "Стиль шрифту"
 
-#: assets/views/project-editor.php:2664
+#: assets/views/project-editor.php:2677
 msgid "Object Style"
 msgstr ""
 
-#: assets/views/project-editor.php:2667
+#: assets/views/project-editor.php:2680
 #, fuzzy
 #| msgid "Layer styles"
 msgid "Shape Style"
 msgstr "Стилі шару"
 
-#: assets/views/project-editor.php:2703 assets/views/project-editor.php:2801
+#: assets/views/project-editor.php:2716 assets/views/project-editor.php:2815
 #, fuzzy
 #| msgid "Line height"
 msgid "Line Height"
 msgstr "Висота рядка"
 
-#: assets/views/project-editor.php:2726
+#: assets/views/project-editor.php:2739
 msgid "Object Color"
 msgstr ""
 
-#: assets/views/project-editor.php:2729
+#: assets/views/project-editor.php:2742
 #, fuzzy
 #| msgid "Color"
 msgid "Shape Color"
 msgstr "Колір"
 
-#: assets/views/project-editor.php:2733 assets/views/project-editor.php:2821
-#: assets/views/project-editor.php:2825 assets/views/project-editor.php:4051
-#: assets/views/project-editor.php:4055 assets/views/project-editor.php:5548
-#: assets/views/project-editor.php:5552 assets/views/project-editor.php:5943
-#: assets/views/project-editor.php:5947
-#, fuzzy
-#| msgid "Color"
-msgid "Text Color"
-msgstr "Колір"
-
-#: assets/views/project-editor.php:2751
+#: assets/views/project-editor.php:2765
 msgid "Text & Typography"
 msgstr ""
 
-#: assets/views/project-editor.php:2770
+#: assets/views/project-editor.php:2784
 #, fuzzy
 #| msgid "Family"
 msgid "Font family"
 msgstr "Сім'ї"
 
-#: assets/views/project-editor.php:2839
+#: assets/views/project-editor.php:2835 assets/views/project-editor.php:2839
+#: assets/views/project-editor.php:4071 assets/views/project-editor.php:4075
+#: assets/views/project-editor.php:5576 assets/views/project-editor.php:5580
+#: assets/views/project-editor.php:5971 assets/views/project-editor.php:5975
+#, fuzzy
+#| msgid "Color"
+msgid "Text Color"
+msgstr "Колір"
+
+#: assets/views/project-editor.php:2853
 #, fuzzy
 #| msgid "Word-wrap"
 msgid "Word Wrap"
 msgstr "Перенос слів"
 
-#: assets/views/project-editor.php:2912
+#: assets/views/project-editor.php:2926
 msgid "sample text"
 msgstr ""
 
-#: assets/views/project-editor.php:2919
+#: assets/views/project-editor.php:2933
 msgid "Font weight"
 msgstr "Вага шрифту"
 
-#: assets/views/project-editor.php:3089
+#: assets/views/project-editor.php:3103
 msgid "Border, corners & padding"
 msgstr ""
 
-#: assets/views/project-editor.php:3108 assets/views/project-editor.php:3172
-#: assets/views/project-editor.php:3205 assets/views/project-editor.php:3369
-#: assets/views/project-editor.php:3818 assets/views/project-editor.php:4105
-#: assets/views/project-editor.php:4272 assets/views/project-editor.php:4586
-#: assets/views/project-editor.php:4980 assets/views/project-editor.php:5293
-#: assets/views/project-editor.php:5601 assets/views/project-editor.php:5708
-#: assets/views/project-editor.php:5981
+#: assets/views/project-editor.php:3122 assets/views/project-editor.php:3186
+#: assets/views/project-editor.php:3219 assets/views/project-editor.php:3383
+#: assets/views/project-editor.php:3838 assets/views/project-editor.php:4125
+#: assets/views/project-editor.php:4292 assets/views/project-editor.php:4608
+#: assets/views/project-editor.php:5004 assets/views/project-editor.php:5319
+#: assets/views/project-editor.php:5629 assets/views/project-editor.php:5736
+#: assets/views/project-editor.php:6009
 msgid "Link / Unlink fields"
 msgstr ""
 
-#: assets/views/project-editor.php:3111
+#: assets/views/project-editor.php:3125
 #, fuzzy
 #| msgid "Border"
 msgid "Border size"
 msgstr "Рамка"
 
-#: assets/views/project-editor.php:3137
+#: assets/views/project-editor.php:3151
 #, fuzzy
 #| msgid "Layer styles"
 msgid "Border style"
 msgstr "Стилі шару"
 
-#: assets/views/project-editor.php:3150
+#: assets/views/project-editor.php:3164
 #, fuzzy
 #| msgid "Border"
 msgid "Border color"
 msgstr "Рамка"
 
-#: assets/views/project-editor.php:3175 assets/views/project-editor.php:4108
-#: assets/views/project-editor.php:5604 assets/views/project-editor.php:5984
+#: assets/views/project-editor.php:3189 assets/views/project-editor.php:4128
+#: assets/views/project-editor.php:5632 assets/views/project-editor.php:6012
 msgid "Rounding"
 msgstr ""
 
-#: assets/views/project-editor.php:3180 assets/views/project-editor.php:4113
-#: assets/views/project-editor.php:5609 assets/views/project-editor.php:5989
+#: assets/views/project-editor.php:3194 assets/views/project-editor.php:4133
+#: assets/views/project-editor.php:5637 assets/views/project-editor.php:6017
 #, fuzzy
 #| msgid "top left"
 msgid "top-left"
 msgstr "верхньому лівому"
 
-#: assets/views/project-editor.php:3183 assets/views/project-editor.php:4116
-#: assets/views/project-editor.php:5612 assets/views/project-editor.php:5992
+#: assets/views/project-editor.php:3197 assets/views/project-editor.php:4136
+#: assets/views/project-editor.php:5640 assets/views/project-editor.php:6020
 #, fuzzy
 #| msgid "top right"
 msgid "top-right"
 msgstr "верхньому правому"
 
-#: assets/views/project-editor.php:3186 assets/views/project-editor.php:4119
-#: assets/views/project-editor.php:5615 assets/views/project-editor.php:5995
+#: assets/views/project-editor.php:3200 assets/views/project-editor.php:4139
+#: assets/views/project-editor.php:5643 assets/views/project-editor.php:6023
 #, fuzzy
 #| msgid "bottom right"
 msgid "btm-right"
 msgstr "правому нижньому куті"
 
-#: assets/views/project-editor.php:3189 assets/views/project-editor.php:4122
-#: assets/views/project-editor.php:5618 assets/views/project-editor.php:5998
+#: assets/views/project-editor.php:3203 assets/views/project-editor.php:4142
+#: assets/views/project-editor.php:5646 assets/views/project-editor.php:6026
 #, fuzzy
 #| msgid "bottom left"
 msgid "btm-left"
 msgstr "внизу зліва"
 
-#: assets/views/project-editor.php:3208
+#: assets/views/project-editor.php:3222
 msgid "Padding"
 msgstr "Відступ"
 
-#: assets/views/project-editor.php:3350 assets/views/project-editor.php:3776
-#: assets/views/project-editor.php:4216 assets/views/project-editor.php:4544
-#: assets/views/project-editor.php:4924 assets/views/project-editor.php:5251
-#: assets/views/project-editor.php:5666
+#: assets/views/project-editor.php:3364 assets/views/project-editor.php:3796
+#: assets/views/project-editor.php:4236 assets/views/project-editor.php:4566
+#: assets/views/project-editor.php:4948 assets/views/project-editor.php:5277
+#: assets/views/project-editor.php:5694
 #, fuzzy
 #| msgid "Transforms"
 msgid "Transformation"
 msgstr "Перетворює"
 
-#: assets/views/project-editor.php:3372 assets/views/project-editor.php:3821
-#: assets/views/project-editor.php:4275 assets/views/project-editor.php:4589
-#: assets/views/project-editor.php:4983 assets/views/project-editor.php:5296
-#: assets/views/project-editor.php:5711
+#: assets/views/project-editor.php:3386 assets/views/project-editor.php:3841
+#: assets/views/project-editor.php:4295 assets/views/project-editor.php:4611
+#: assets/views/project-editor.php:5007 assets/views/project-editor.php:5322
+#: assets/views/project-editor.php:5739
 msgid "number"
 msgstr ""
 
-#: assets/views/project-editor.php:3376 assets/views/project-editor.php:3825
-#: assets/views/project-editor.php:4279 assets/views/project-editor.php:4593
-#: assets/views/project-editor.php:4987 assets/views/project-editor.php:5300
-#: assets/views/project-editor.php:5715
+#: assets/views/project-editor.php:3390 assets/views/project-editor.php:3845
+#: assets/views/project-editor.php:4299 assets/views/project-editor.php:4615
+#: assets/views/project-editor.php:5011 assets/views/project-editor.php:5326
+#: assets/views/project-editor.php:5743
 #, fuzzy
 #| msgid "ScaleX"
 msgid "Scale | X axis"
 msgstr "ScaleX"
 
-#: assets/views/project-editor.php:3383 assets/views/project-editor.php:3832
-#: assets/views/project-editor.php:4286 assets/views/project-editor.php:4600
-#: assets/views/project-editor.php:4994 assets/views/project-editor.php:5307
-#: assets/views/project-editor.php:5722
+#: assets/views/project-editor.php:3397 assets/views/project-editor.php:3852
+#: assets/views/project-editor.php:4306 assets/views/project-editor.php:4622
+#: assets/views/project-editor.php:5018 assets/views/project-editor.php:5333
+#: assets/views/project-editor.php:5750
 #, fuzzy
 #| msgid "ScaleY"
 msgid "Scale | Y axis"
 msgstr "Скеля"
 
-#: assets/views/project-editor.php:3395 assets/views/project-editor.php:3422
-#: assets/views/project-editor.php:3844 assets/views/project-editor.php:3871
-#: assets/views/project-editor.php:4298 assets/views/project-editor.php:4325
-#: assets/views/project-editor.php:4612 assets/views/project-editor.php:4639
-#: assets/views/project-editor.php:5006 assets/views/project-editor.php:5033
-#: assets/views/project-editor.php:5319 assets/views/project-editor.php:5346
-#: assets/views/project-editor.php:5734 assets/views/project-editor.php:5761
+#: assets/views/project-editor.php:3409 assets/views/project-editor.php:3436
+#: assets/views/project-editor.php:3864 assets/views/project-editor.php:3891
+#: assets/views/project-editor.php:4318 assets/views/project-editor.php:4345
+#: assets/views/project-editor.php:4634 assets/views/project-editor.php:4661
+#: assets/views/project-editor.php:5030 assets/views/project-editor.php:5057
+#: assets/views/project-editor.php:5345 assets/views/project-editor.php:5372
+#: assets/views/project-editor.php:5762 assets/views/project-editor.php:5789
 msgctxt "measurement unit"
 msgid "degree"
 msgstr ""
 
-#: assets/views/project-editor.php:3402 assets/views/project-editor.php:3851
-#: assets/views/project-editor.php:4305 assets/views/project-editor.php:4619
-#: assets/views/project-editor.php:5013 assets/views/project-editor.php:5326
-#: assets/views/project-editor.php:5741
+#: assets/views/project-editor.php:3416 assets/views/project-editor.php:3871
+#: assets/views/project-editor.php:4325 assets/views/project-editor.php:4641
+#: assets/views/project-editor.php:5037 assets/views/project-editor.php:5352
+#: assets/views/project-editor.php:5769
 #, fuzzy
 #| msgid "Normal"
 msgid "Z (normal)"
 msgstr "Нормальний"
 
-#: assets/views/project-editor.php:3405 assets/views/project-editor.php:3854
-#: assets/views/project-editor.php:4308 assets/views/project-editor.php:4622
-#: assets/views/project-editor.php:5016 assets/views/project-editor.php:5329
-#: assets/views/project-editor.php:5744
+#: assets/views/project-editor.php:3419 assets/views/project-editor.php:3874
+#: assets/views/project-editor.php:4328 assets/views/project-editor.php:4644
+#: assets/views/project-editor.php:5040 assets/views/project-editor.php:5355
+#: assets/views/project-editor.php:5772
 #, fuzzy
 #| msgid "Rotation"
 msgid "Rotation | X axis"
 msgstr "Обертання"
 
-#: assets/views/project-editor.php:3411 assets/views/project-editor.php:3860
-#: assets/views/project-editor.php:4314 assets/views/project-editor.php:4628
-#: assets/views/project-editor.php:5022 assets/views/project-editor.php:5335
-#: assets/views/project-editor.php:5750
+#: assets/views/project-editor.php:3425 assets/views/project-editor.php:3880
+#: assets/views/project-editor.php:4334 assets/views/project-editor.php:4650
+#: assets/views/project-editor.php:5046 assets/views/project-editor.php:5361
+#: assets/views/project-editor.php:5778
 #, fuzzy
 #| msgid "Rotation"
 msgid "Rotation | Y axis"
 msgstr "Обертання"
 
-#: assets/views/project-editor.php:3422 assets/views/project-editor.php:3426
-#: assets/views/project-editor.php:3432 assets/views/project-editor.php:3871
-#: assets/views/project-editor.php:3875 assets/views/project-editor.php:3881
-#: assets/views/project-editor.php:4325 assets/views/project-editor.php:4329
-#: assets/views/project-editor.php:4335 assets/views/project-editor.php:4639
-#: assets/views/project-editor.php:4643 assets/views/project-editor.php:4649
-#: assets/views/project-editor.php:5033 assets/views/project-editor.php:5037
-#: assets/views/project-editor.php:5043 assets/views/project-editor.php:5346
-#: assets/views/project-editor.php:5350 assets/views/project-editor.php:5356
-#: assets/views/project-editor.php:5761 assets/views/project-editor.php:5765
-#: assets/views/project-editor.php:5771
+#: assets/views/project-editor.php:3436 assets/views/project-editor.php:3440
+#: assets/views/project-editor.php:3446 assets/views/project-editor.php:3891
+#: assets/views/project-editor.php:3895 assets/views/project-editor.php:3901
+#: assets/views/project-editor.php:4345 assets/views/project-editor.php:4349
+#: assets/views/project-editor.php:4355 assets/views/project-editor.php:4661
+#: assets/views/project-editor.php:4665 assets/views/project-editor.php:4671
+#: assets/views/project-editor.php:5057 assets/views/project-editor.php:5061
+#: assets/views/project-editor.php:5067 assets/views/project-editor.php:5372
+#: assets/views/project-editor.php:5376 assets/views/project-editor.php:5382
+#: assets/views/project-editor.php:5789 assets/views/project-editor.php:5793
+#: assets/views/project-editor.php:5799
 #, fuzzy
 #| msgid "SkewX"
 msgid "Skew"
 msgstr "Асик"
 
-#: assets/views/project-editor.php:3426 assets/views/project-editor.php:3875
-#: assets/views/project-editor.php:4329 assets/views/project-editor.php:4643
-#: assets/views/project-editor.php:5037 assets/views/project-editor.php:5350
-#: assets/views/project-editor.php:5765
+#: assets/views/project-editor.php:3440 assets/views/project-editor.php:3895
+#: assets/views/project-editor.php:4349 assets/views/project-editor.php:4665
+#: assets/views/project-editor.php:5061 assets/views/project-editor.php:5376
+#: assets/views/project-editor.php:5793
 msgid "Skew | X axis"
 msgstr ""
 
-#: assets/views/project-editor.php:3432 assets/views/project-editor.php:3881
-#: assets/views/project-editor.php:4335 assets/views/project-editor.php:4649
-#: assets/views/project-editor.php:5043 assets/views/project-editor.php:5356
-#: assets/views/project-editor.php:5771
+#: assets/views/project-editor.php:3446 assets/views/project-editor.php:3901
+#: assets/views/project-editor.php:4355 assets/views/project-editor.php:4671
+#: assets/views/project-editor.php:5067 assets/views/project-editor.php:5382
+#: assets/views/project-editor.php:5799
 msgid "Skew | Y axis"
 msgstr ""
 
-#: assets/views/project-editor.php:3494
+#: assets/views/project-editor.php:3508
 msgid "outside"
 msgstr ""
 
-#: assets/views/project-editor.php:3495
+#: assets/views/project-editor.php:3509
 msgid "inside"
 msgstr ""
 
-#: assets/views/project-editor.php:3550
+#: assets/views/project-editor.php:3564
 msgid "Spread"
 msgstr ""
 
-#: assets/views/project-editor.php:3654
+#: assets/views/project-editor.php:3668
 msgid "Stacking order"
 msgstr "Порядок стекування"
 
-#: assets/views/project-editor.php:3660
+#: assets/views/project-editor.php:3674
 msgid "default"
 msgstr ""
 
-#: assets/views/project-editor.php:3684
+#: assets/views/project-editor.php:3698
 msgid "Prevent mouse events"
 msgstr ""
 
-#: assets/views/project-editor.php:3696 assets/views/project-editor.php:3699
+#: assets/views/project-editor.php:3710 assets/views/project-editor.php:3713
 msgid "Custom CSS"
 msgstr "Користувацький CSS"
 
-#: assets/views/project-editor.php:3699
+#: assets/views/project-editor.php:3713
 msgid ""
 "You can enter CSS properties here for further customization. Example:\n"
 "\n"
@@ -9799,116 +9966,122 @@ msgid ""
 "overflow: hidden;"
 msgstr ""
 
-#: assets/views/project-editor.php:3731 assets/views/project-editor.php:4181
+#: assets/views/project-editor.php:3745 assets/views/project-editor.php:4201
 #, fuzzy
 #| msgid "Opening Text<br>Transition"
 msgid "Opening Text Transition"
 msgstr "Відкриття тексту<br>Перехід"
 
-#: assets/views/project-editor.php:3732 assets/views/project-editor.php:4514
+#: assets/views/project-editor.php:3746 assets/views/project-editor.php:4536
 #, fuzzy
 #| msgid "Loop or Middle<br>Transition"
 msgid "Loop or Middle Transition"
 msgstr "Петля або посередині<br>Перехід"
 
-#: assets/views/project-editor.php:3733 assets/views/project-editor.php:4891
+#: assets/views/project-editor.php:3747 assets/views/project-editor.php:4915
 #, fuzzy
 #| msgid "Ending Text<br>Transition"
 msgid "Ending Text Transition"
 msgstr "Кінцевий текст<br>Перехід"
 
-#: assets/views/project-editor.php:3734 assets/views/project-editor.php:5221
+#: assets/views/project-editor.php:3748 assets/views/project-editor.php:5247
 #, fuzzy
 #| msgid "Ending<br>Transition"
 msgid "Ending Transition"
 msgstr "Закінчення<br>Перехід"
 
-#: assets/views/project-editor.php:3735 assets/views/project-editor.php:5636
+#: assets/views/project-editor.php:3749 assets/views/project-editor.php:5664
 #, fuzzy
 #| msgid "Hover<br>Transition"
 msgid "Hover Transition"
 msgstr "Наведіть<br>Перехід"
 
-#: assets/views/project-editor.php:3736 assets/views/project-editor.php:6015
+#: assets/views/project-editor.php:3750 assets/views/project-editor.php:6043
 #, fuzzy
 #| msgid "Parallax<br>Transition"
 msgid "Parallax Transition"
 msgstr "Паралакс<br>Перехід"
 
-#: assets/views/project-editor.php:3741
+#: assets/views/project-editor.php:3752
+#, fuzzy
+#| msgid "Slide Transition"
+msgid "Scroll Transition"
+msgstr "Посунути перехід"
+
+#: assets/views/project-editor.php:3761
 #, fuzzy
 #| msgid "Click here to choose an other icon"
 msgid "Click to choose transition"
 msgstr "Натисніть тут, щоб вибрати іншу піктограму"
 
-#: assets/views/project-editor.php:3771
+#: assets/views/project-editor.php:3791
 msgid ""
 "Plays when layers enter the scene. <br><br> Layers animate from these "
 "options toward their appearance set under the <b>STYLE</b> menu."
 msgstr ""
 
-#: assets/views/project-editor.php:3791 assets/views/project-editor.php:3795
-#: assets/views/project-editor.php:3802 assets/views/project-editor.php:4245
-#: assets/views/project-editor.php:4249 assets/views/project-editor.php:4256
-#: assets/views/project-editor.php:4559 assets/views/project-editor.php:4563
-#: assets/views/project-editor.php:4570 assets/views/project-editor.php:4953
-#: assets/views/project-editor.php:4957 assets/views/project-editor.php:4964
-#: assets/views/project-editor.php:5266 assets/views/project-editor.php:5270
-#: assets/views/project-editor.php:5277 assets/views/project-editor.php:5681
-#: assets/views/project-editor.php:5685 assets/views/project-editor.php:5692
+#: assets/views/project-editor.php:3811 assets/views/project-editor.php:3815
+#: assets/views/project-editor.php:3822 assets/views/project-editor.php:4265
+#: assets/views/project-editor.php:4269 assets/views/project-editor.php:4276
+#: assets/views/project-editor.php:4581 assets/views/project-editor.php:4585
+#: assets/views/project-editor.php:4592 assets/views/project-editor.php:4977
+#: assets/views/project-editor.php:4981 assets/views/project-editor.php:4988
+#: assets/views/project-editor.php:5292 assets/views/project-editor.php:5296
+#: assets/views/project-editor.php:5303 assets/views/project-editor.php:5709
+#: assets/views/project-editor.php:5713 assets/views/project-editor.php:5720
 #, fuzzy
 #| msgid "OffsetX"
 msgid "Offset"
 msgstr "OffsetX"
 
-#: assets/views/project-editor.php:3795 assets/views/project-editor.php:4249
-#: assets/views/project-editor.php:4563 assets/views/project-editor.php:4957
-#: assets/views/project-editor.php:5270 assets/views/project-editor.php:5685
+#: assets/views/project-editor.php:3815 assets/views/project-editor.php:4269
+#: assets/views/project-editor.php:4585 assets/views/project-editor.php:4981
+#: assets/views/project-editor.php:5296 assets/views/project-editor.php:5713
 #, fuzzy
 #| msgid "OffsetX"
 msgid "Offset | X axis"
 msgstr "OffsetX"
 
-#: assets/views/project-editor.php:3802 assets/views/project-editor.php:4256
-#: assets/views/project-editor.php:4570 assets/views/project-editor.php:4964
-#: assets/views/project-editor.php:5277 assets/views/project-editor.php:5692
+#: assets/views/project-editor.php:3822 assets/views/project-editor.php:4276
+#: assets/views/project-editor.php:4592 assets/views/project-editor.php:4988
+#: assets/views/project-editor.php:5303 assets/views/project-editor.php:5720
 #, fuzzy
 #| msgid "OffsetY"
 msgid "Offset | Y axis"
 msgstr "OffsetY"
 
-#: assets/views/project-editor.php:3961 assets/views/project-editor.php:4379
-#: assets/views/project-editor.php:4708 assets/views/project-editor.php:5087
-#: assets/views/project-editor.php:5435 assets/views/project-editor.php:5816
-#: assets/views/project-editor.php:6188
+#: assets/views/project-editor.php:3981 assets/views/project-editor.php:4399
+#: assets/views/project-editor.php:4730 assets/views/project-editor.php:5111
+#: assets/views/project-editor.php:5461 assets/views/project-editor.php:5844
+#: assets/views/project-editor.php:6216
 #, fuzzy
 #| msgid "Hover Transition properties"
 msgid "Transition Properties"
 msgstr "Властивості переходу під час наведення"
 
-#: assets/views/project-editor.php:3976 assets/views/project-editor.php:3980
+#: assets/views/project-editor.php:3996 assets/views/project-editor.php:4000
 msgid "Start at"
 msgstr "Починаються від"
 
-#: assets/views/project-editor.php:4024 assets/views/project-editor.php:4481
-#: assets/views/project-editor.php:4836 assets/views/project-editor.php:5188
-#: assets/views/project-editor.php:5521 assets/views/project-editor.php:5896
+#: assets/views/project-editor.php:4044 assets/views/project-editor.php:4503
+#: assets/views/project-editor.php:4860 assets/views/project-editor.php:5214
+#: assets/views/project-editor.php:5549 assets/views/project-editor.php:5924
 #, fuzzy
 #| msgid "Style properties"
 msgid "Style Properties"
 msgstr "Властивості стилю"
 
-#: assets/views/project-editor.php:4150
+#: assets/views/project-editor.php:4170
 #, fuzzy
 #| msgid "Keep this layer visible:"
 msgid "Keep this layer visible"
 msgstr "Тримайте цей шар видимим:"
 
-#: assets/views/project-editor.php:4154
+#: assets/views/project-editor.php:4174
 msgid "Static Layers"
 msgstr "Статичні шари"
 
-#: assets/views/project-editor.php:4210
+#: assets/views/project-editor.php:4230
 #, fuzzy
 #| msgid ""
 #| "The following options specify the initial state of each text fragments "
@@ -9921,54 +10094,68 @@ msgstr ""
 "Наступні параметри визначають початковий стан кожного текстового фрагмента, "
 "перш ніж починати анімацію в напрямі спільного цілого слова."
 
-#: assets/views/project-editor.php:4394 assets/views/project-editor.php:4723
-#: assets/views/project-editor.php:5102 assets/views/project-editor.php:5450
+#: assets/views/project-editor.php:4414 assets/views/project-editor.php:4745
+#: assets/views/project-editor.php:5126 assets/views/project-editor.php:5476
 msgid "Start when"
 msgstr "Почати, коли"
 
-#: assets/views/project-editor.php:4412 assets/views/project-editor.php:4740
-#: assets/views/project-editor.php:5119 assets/views/project-editor.php:5467
+#: assets/views/project-editor.php:4422 assets/views/project-editor.php:4752
+#: assets/views/project-editor.php:5133 assets/views/project-editor.php:5483
+#, fuzzy
+#| msgid "Start when"
+msgid "Start When"
+msgstr "Почати, коли"
+
+#: assets/views/project-editor.php:4432 assets/views/project-editor.php:4762
+#: assets/views/project-editor.php:5143 assets/views/project-editor.php:5493
 msgid "with modifier"
 msgstr "з модифікатором"
 
-#: assets/views/project-editor.php:4446
+#: assets/views/project-editor.php:4441 assets/views/project-editor.php:4772
+#: assets/views/project-editor.php:5152 assets/views/project-editor.php:5502
+#, fuzzy
+#| msgid "Last Modified"
+msgid "Start When Modifier"
+msgstr "Останнє змінення"
+
+#: assets/views/project-editor.php:4468
 #, fuzzy
 #| msgid "Shift In"
 msgid "Shift in"
 msgstr "Зрушення в"
 
-#: assets/views/project-editor.php:4539
+#: assets/views/project-editor.php:4561
 msgid ""
 "Animates layers continuously with an optional Yo-yo effect. <br><br>Can also "
 "act as a middle animation step between Opening and Ending transitions."
 msgstr ""
 
-#: assets/views/project-editor.php:4808
+#: assets/views/project-editor.php:4832
 #, fuzzy
 #| msgid "Loop starts"
 msgid "Loop Wait"
 msgstr "Цикл починається"
 
-#: assets/views/project-editor.php:4919
+#: assets/views/project-editor.php:4943
 msgid ""
 "Animates characters, words, or lines of text as they leave the scene. "
 "<br><br> Each fragment animate from the whole joint text toward the options "
 "you set here."
 msgstr ""
 
-#: assets/views/project-editor.php:5153
+#: assets/views/project-editor.php:5179
 #, fuzzy
 #| msgid "Shift Out"
 msgid "Shift out"
 msgstr "Змістити"
 
-#: assets/views/project-editor.php:5246
+#: assets/views/project-editor.php:5272
 msgid ""
 "Plays when layers leave the scene. <br><br> Animates layers from their "
 "current state toward the options you set here."
 msgstr ""
 
-#: assets/views/project-editor.php:5660
+#: assets/views/project-editor.php:5688
 #, fuzzy
 #| msgid ""
 #| "Plays a transition based on the options below when the user moves the "
@@ -9978,411 +10165,464 @@ msgstr ""
 "Відтворює перехід на основі наведених нижче параметрів, коли користувач "
 "переміщує курсор миші на цей шар."
 
-#: assets/views/project-editor.php:5850
+#: assets/views/project-editor.php:5878
 #, fuzzy
 #| msgid "Duration"
 msgid "Duration | reverse"
 msgstr "Тривалість"
 
-#: assets/views/project-editor.php:5853 assets/views/project-editor.php:5884
+#: assets/views/project-editor.php:5881 assets/views/project-editor.php:5912
 msgid "Same"
 msgstr ""
 
-#: assets/views/project-editor.php:5881
+#: assets/views/project-editor.php:5909
 msgid "Easing | reverse"
 msgstr ""
 
-#: assets/views/project-editor.php:5931
+#: assets/views/project-editor.php:5959
 msgid "Always on top"
 msgstr "Завжди на вершині"
 
-#: assets/views/project-editor.php:6041
+#: assets/views/project-editor.php:6069
 msgid ""
 "Moves layers at a different pace when scrolling or moving the mouse cursor."
 msgstr ""
 
-#: assets/views/project-editor.php:6046
+#: assets/views/project-editor.php:6074
 #, fuzzy
 #| msgid "Parallax Defaults"
 msgid "Parallax Settings"
 msgstr "Паралакса за замовчуванням"
 
-#: assets/views/project-editor.php:6248
+#: assets/views/project-editor.php:6276
 #, fuzzy
 #| msgid "Linking"
 msgid "Layer linking"
 msgstr "Посилання"
 
-#: assets/views/project-editor.php:6306
+#: assets/views/project-editor.php:6334
 #, fuzzy
 #| msgid "Layer options"
 msgid "Layer Actions"
 msgstr "Параметри шару"
 
-#: assets/views/project-editor.php:6316
+#: assets/views/project-editor.php:6344
 msgid ""
 "Scrolls below the project, pushing it outside of the viewport to make room "
 "for any content that follows."
 msgstr ""
 
-#: assets/views/project-editor.php:6343 assets/views/project-editor.php:6381
-#: assets/views/project-editor.php:6419 assets/views/project-editor.php:6457
+#: assets/views/project-editor.php:6371 assets/views/project-editor.php:6409
+#: assets/views/project-editor.php:6447 assets/views/project-editor.php:6485
 #, fuzzy
 #| msgid "Scroll"
 msgid "Scroll Offset"
 msgstr "Прокрутити"
 
-#: assets/views/project-editor.php:6354
+#: assets/views/project-editor.php:6382
 msgid "Scrolls to the next LayerSlider project on page (if there’s any)."
 msgstr ""
 
-#: assets/views/project-editor.php:6392
+#: assets/views/project-editor.php:6420
 msgid "Scrolls to the previous LayerSlider project on page (if there’s any)."
 msgstr ""
 
-#: assets/views/project-editor.php:6430
+#: assets/views/project-editor.php:6458
 msgid ""
 "Scrolls to the specified element. You can enter a CSS/jQuery selector to "
 "target elements. To target LayerSlider projects, use custom class names "
 "instead of relying on their randomized ID."
 msgstr ""
 
-#: assets/views/project-editor.php:6466
+#: assets/views/project-editor.php:6494
 #, fuzzy
 #| msgid "Select"
 msgid "Selector"
 msgstr "Вибрати"
 
-#: assets/views/project-editor.php:6477
+#: assets/views/project-editor.php:6505
 msgid ""
 "Jumps to the specified slide. Project Settings like Shuffle mode does not "
 "affect the selected slide."
 msgstr ""
 
-#: assets/views/project-editor.php:6486
+#: assets/views/project-editor.php:6514
 #, fuzzy
 #| msgid "Select slider"
 msgid "Select Slide"
 msgstr "Виберіть слайдер"
 
-#: assets/views/project-editor.php:6495
+#: assets/views/project-editor.php:6523
 msgid ""
 "Jumps to the next slide. Options like Shuffle mode or Two way slideshow can "
 "affect the sequence."
 msgstr ""
 
-#: assets/views/project-editor.php:6501
+#: assets/views/project-editor.php:6529
 msgid ""
 "Jumps to the previous slide. Options like Shuffle mode or Two way slideshow "
 "can affect the sequence."
 msgstr ""
 
-#: assets/views/project-editor.php:6508
+#: assets/views/project-editor.php:6536
 msgid ""
 "Stops the slideshow. Depending on your settings, layer animations and "
 "progress timers may not be interrupted, but your project will not commence "
 "to the next slide automatically."
 msgstr ""
 
-#: assets/views/project-editor.php:6514
+#: assets/views/project-editor.php:6542
 #, fuzzy
 #| msgid "Fires when the slider has started a slide change."
 msgid "Resumes the slideshow and re-enables the automatic slide change."
 msgstr "Пожежі, коли повзунок розпочав зміну слайдів."
 
-#: assets/views/project-editor.php:6522
+#: assets/views/project-editor.php:6550
 msgid ""
 "Instantly restarts the slide replaying all layer transitions from the "
 "beginning."
 msgstr ""
 
-#: assets/views/project-editor.php:6528
+#: assets/views/project-editor.php:6556
 msgid ""
 "Plays all transitions backward from the moment it’s triggered, then pauses "
 "at the beginning of the slide. An option is provided to continue replaying "
 "the slide normally afterward."
 msgstr ""
 
-#: assets/views/project-editor.php:6532
+#: assets/views/project-editor.php:6560
 msgid "Replay"
 msgstr ""
 
-#: assets/views/project-editor.php:6542
+#: assets/views/project-editor.php:6570
 #, fuzzy
 #| msgid "A media element on the current slide has started playback."
 msgid ""
 "Immediately sets the current slide back to its starting state and pauses it."
 msgstr "Почато відтворення мультимедійного елемента на поточному слайді."
 
-#: assets/views/project-editor.php:6549
+#: assets/views/project-editor.php:6577
 msgid ""
 "Stops the project by freezing every animation taking place when triggered, "
 "including slide transitions when changing slides."
 msgstr ""
 
-#: assets/views/project-editor.php:6555
+#: assets/views/project-editor.php:6583
 msgid "Resumes the project and continues playing frozen animations."
 msgstr ""
 
-#: assets/views/project-editor.php:6561
+#: assets/views/project-editor.php:6589
 msgid ""
 "Toggles between Pause Project and Resume Project by respecting the current "
 "state."
 msgstr ""
 
-#: assets/views/project-editor.php:6569
+#: assets/views/project-editor.php:6597
 msgid "Starts playback of any active media element on the current slide."
 msgstr ""
 
-#: assets/views/project-editor.php:6575
+#: assets/views/project-editor.php:6603
 msgid "Pauses playback of any active media element on the current slide."
 msgstr ""
 
-#: assets/views/project-editor.php:6581
+#: assets/views/project-editor.php:6609
 msgid ""
 "Unmutes playback of any active media element on the current slide. Using "
 "this action may require a Click or Tap trigger due to browser restrictions."
 msgstr ""
 
-#: assets/views/project-editor.php:6589
+#: assets/views/project-editor.php:6617
 msgid ""
-"Opens Popups waiting in the background to be launched. Popups must be "
-"embedded on page."
+"Opens the selected Popup. Embedding it to the page is optional; the Popup "
+"will be loaded dynamically if needed. Manually embedding it in advance makes "
+"it open faster."
 msgstr ""
 
-#: assets/views/project-editor.php:6593
+#: assets/views/project-editor.php:6632
 #, fuzzy
 #| msgid "On this slide"
 msgid "Open With Slide"
 msgstr "На цьому слайді"
 
-#: assets/views/project-editor.php:6605
+#: assets/views/project-editor.php:6642
+msgid "Close if already open"
+msgstr ""
+
+#: assets/views/project-editor.php:6652
 msgid ""
 "Closes this Popup. Works only if the current project type is set to a Popup."
 msgstr ""
 
-#: assets/views/project-editor.php:6611
+#: assets/views/project-editor.php:6658
+msgid ""
+"Opens all Popups waiting in the background to be launched. Popups must be "
+"embedded on the page beforehand."
+msgstr ""
+
+#: assets/views/project-editor.php:6664
 msgid "Closes all opened Popups on page."
 msgstr ""
 
-#: assets/views/project-editor.php:6619
+#: assets/views/project-editor.php:6672
 msgid ""
 "Calls a JavaScript function by its name. This is intended for web "
 "developers. The function must be present on page prior triggering this "
 "action."
 msgstr ""
 
-#: assets/views/project-editor.php:6623
+#: assets/views/project-editor.php:6676
 msgid "Function Name"
 msgstr ""
 
-#: assets/views/project-editor.php:6626
+#: assets/views/project-editor.php:6679
 msgid "myFunction"
 msgstr ""
 
-#: assets/views/project-editor.php:6641
+#: assets/views/project-editor.php:6694
 #, fuzzy
 #| msgid "Layer options"
 msgid "Layer Action"
 msgstr "Параметри шару"
 
-#: assets/views/project-editor.php:6642
+#: assets/views/project-editor.php:6695
 msgid "ADD NEW LAYER ACTION..."
 msgstr ""
 
-#: assets/views/project-editor.php:6647
+#: assets/views/project-editor.php:6700
 msgid "Scroll Below Project"
 msgstr ""
 
-#: assets/views/project-editor.php:6648
+#: assets/views/project-editor.php:6701
 #, fuzzy
 #| msgid "Scroll to element (Enter selector)"
 msgid "Scroll to Next Project"
 msgstr "Прокрутити до елемента (введіть селектор)"
 
-#: assets/views/project-editor.php:6649
+#: assets/views/project-editor.php:6702
 msgid "Scroll to Previous Project"
 msgstr ""
 
-#: assets/views/project-editor.php:6650
+#: assets/views/project-editor.php:6703
 #, fuzzy
 #| msgid "Scale to left"
 msgid "Scroll to Element"
 msgstr "Масштабувати ліворуч"
 
-#: assets/views/project-editor.php:6654
+#: assets/views/project-editor.php:6707
 #, fuzzy
 #| msgid "Import Slide"
 msgid "Jump to Slide"
 msgstr "Імпортувати слайд"
 
-#: assets/views/project-editor.php:6655
+#: assets/views/project-editor.php:6708
 #, fuzzy
 #| msgid "Add New Slider"
 msgid "Next Slide"
 msgstr "Додати слайдер"
 
-#: assets/views/project-editor.php:6656
+#: assets/views/project-editor.php:6709
 #, fuzzy
 #| msgid "Preview Slide"
 msgid "Previous Slide"
 msgstr "Попередній перегляд слайда"
 
-#: assets/views/project-editor.php:6660
+#: assets/views/project-editor.php:6713
 #, fuzzy
 #| msgid "Stop the slideshow"
 msgid "Stop Slideshow"
 msgstr "Зупинити слайд-шоу"
 
-#: assets/views/project-editor.php:6661
+#: assets/views/project-editor.php:6714
 #, fuzzy
 #| msgid "Auto-Start Slideshow"
 msgid "Start Slideshow"
 msgstr "Автоматичний запуск слайдшоу"
 
-#: assets/views/project-editor.php:6664
+#: assets/views/project-editor.php:6717
 #, fuzzy
 #| msgid "Slide navigation on hover"
 msgid "Slide Animation Timeline"
 msgstr "Посунути навігацію на наведенні"
 
-#: assets/views/project-editor.php:6665
+#: assets/views/project-editor.php:6718
 #, fuzzy
 #| msgid "Choose a Slide"
 msgid "Replay Slide"
 msgstr "Вибрати слайд"
 
-#: assets/views/project-editor.php:6666
+#: assets/views/project-editor.php:6719
 #, fuzzy
 #| msgid "Reverse"
 msgid "Reverse Slide"
 msgstr "Зворотний"
 
-#: assets/views/project-editor.php:6667
+#: assets/views/project-editor.php:6720
 #, fuzzy
 #| msgid "Preview Slide"
 msgid "Reset Slide"
 msgstr "Попередній перегляд слайда"
 
-#: assets/views/project-editor.php:6670
+#: assets/views/project-editor.php:6723
 msgid "Project Animation Timeline"
 msgstr ""
 
-#: assets/views/project-editor.php:6671
+#: assets/views/project-editor.php:6724
 msgid "Pause Project"
 msgstr ""
 
-#: assets/views/project-editor.php:6672
+#: assets/views/project-editor.php:6725
 msgid "Resume Project"
 msgstr ""
 
-#: assets/views/project-editor.php:6673
+#: assets/views/project-editor.php:6726
 msgid "Toggle Pause/Resume"
 msgstr ""
 
-#: assets/views/project-editor.php:6676
+#: assets/views/project-editor.php:6729
 #, fuzzy
 #| msgid "Unmute media playback"
 msgid "Media Playback"
 msgstr "Увімкнути відтворення мультимедіа"
 
-#: assets/views/project-editor.php:6677
+#: assets/views/project-editor.php:6730
 #, fuzzy
 #| msgid "Play muted"
 msgid "Play Media"
 msgstr "Програвати приглушені"
 
-#: assets/views/project-editor.php:6678
+#: assets/views/project-editor.php:6731
 #, fuzzy
 #| msgid "Choose Media"
 msgid "Pause Media"
 msgstr "Виберіть медіа"
 
-#: assets/views/project-editor.php:6679
+#: assets/views/project-editor.php:6732
 #, fuzzy
 #| msgid "Unmute media playback"
 msgid "Unmute Media"
 msgstr "Увімкнути відтворення мультимедіа"
 
-#: assets/views/project-editor.php:6683
+#: assets/views/project-editor.php:6736
 #, fuzzy
 #| msgid "Repeat Popup"
 msgid "Open Popup"
 msgstr "Меню \"Повторення\""
 
-#: assets/views/project-editor.php:6685
+#: assets/views/project-editor.php:6738
+#, fuzzy
+#| msgid "Launch Popup"
+msgid "Launch Popups"
+msgstr "Меню \"запуск\""
+
+#: assets/views/project-editor.php:6739
 #, fuzzy
 #| msgid "Close Popup"
 msgid "Close All Popups"
 msgstr "Закрийте Popup"
 
-#: assets/views/project-editor.php:6689
+#: assets/views/project-editor.php:6743
 #, fuzzy
 #| msgid "Always load all JavaScript files"
 msgid "Call JavaScript function"
 msgstr "Завжди завантажуйте всі файли JavaScript"
 
-#: assets/views/project-editor.php:6699
+#: assets/views/project-editor.php:6753
 msgid "Trigger"
 msgstr ""
 
-#: assets/views/project-editor.php:6704
+#: assets/views/project-editor.php:6758
 #, fuzzy
 #| msgid "Click to import"
 msgid "Click or Tap"
 msgstr "Клацніть, щоб імпортувати"
 
-#: assets/views/project-editor.php:6705
+#: assets/views/project-editor.php:6759
 msgid "Mouse Enter"
 msgstr ""
 
-#: assets/views/project-editor.php:6706
+#: assets/views/project-editor.php:6760
 msgid "Mouse Leave"
 msgstr ""
 
-#: assets/views/project-editor.php:6737
+#: assets/views/project-editor.php:6791
 msgid "Common Attributes"
 msgstr "Загальні атрибути"
 
-#: assets/views/project-editor.php:6790
+#: assets/views/project-editor.php:6844
 #, fuzzy
 #| msgid "Key"
 msgctxt "HTML attribute key"
 msgid "key"
 msgstr "Ключ"
 
-#: assets/views/project-editor.php:6791
+#: assets/views/project-editor.php:6845
 #, fuzzy
 #| msgid "Value"
 msgctxt "HTML attribute value"
 msgid "value"
 msgstr "Значення"
 
-#: assets/views/project-editor.php:6814 assets/wp/scripts_l10n.php:11
+#: assets/views/project-editor.php:6866
+msgid "Quick Tip"
+msgstr ""
+
+#: assets/views/project-editor.php:6871
+msgid "Show QUICK TIP when publishing projects."
+msgstr ""
+
+#: assets/views/project-editor.php:6879
+#, fuzzy
+#| msgid "Paste embed or HTML code"
+msgid "Grab the embed code:"
+msgstr "Вставити вбудувати або HTML-код"
+
+#: assets/views/project-editor.php:6890
+msgid "copy"
+msgstr ""
+
+#: assets/views/project-editor.php:6893 assets/views/system-status.php:135
+#: assets/views/system-status.php:172 assets/views/system-status.php:197
+#: assets/views/system-status.php:234
+msgid "OK"
+msgstr "ДОБРЕ"
+
+#: assets/views/project-editor.php:6903
+#, fuzzy
+#| msgid "Show More Options"
+msgid "Show more embed options"
+msgstr "Показати додаткові параметри"
+
+#: assets/views/project-editor.php:6919 assets/wp/scripts_l10n.php:11
 #, fuzzy
 #| msgid "Saved"
 msgid "Save"
 msgstr "Збережено"
 
-#: assets/views/project-editor.php:6815
+#: assets/views/project-editor.php:6920
 #, fuzzy
 #| msgid "Saving ..."
 msgid "Saving"
 msgstr "Збереження..."
 
-#: assets/views/project-editor.php:6821
+#: assets/views/project-editor.php:6926
 #, fuzzy
 #| msgid "Publish"
 msgid "Publishing"
 msgstr "Опублікувати"
 
-#: assets/views/project-editor.php:6847
+#: assets/views/project-editor.php:6952
 #, fuzzy
 #| msgid "leave it empty to use default"
 msgid "Restore to defaults"
 msgstr "залиште пустим, щоб використовувати за промовчанням"
 
-#: assets/views/project-editor.php:6852 assets/views/project-editor.php:6855
+#: assets/views/project-editor.php:6957
+#, fuzzy
+#| msgid "Advanced option"
+msgid "Advanced Option"
+msgstr "Розширена опція"
+
+#: assets/views/project-editor.php:6960
 #, fuzzy
 #| msgid ""
 #| "This feature requires product activation. Click on the padlock icon to "
@@ -10394,7 +10634,7 @@ msgstr ""
 "Ця функція потребує активації продукту. Натисніть на іконку замка, щоб "
 "дізнатися більше."
 
-#: assets/views/project-editor.php:6858
+#: assets/views/project-editor.php:6963
 #, fuzzy
 #| msgid ""
 #| "Plays a transition based on the options below when the user moves the "
@@ -10406,7 +10646,7 @@ msgstr ""
 "Відтворює перехід на основі наведених нижче параметрів, коли користувач "
 "переміщує курсор миші на цей шар."
 
-#: assets/views/project-editor.php:6861
+#: assets/views/project-editor.php:6966
 msgid ""
 "In some cases your layers may be wrapped by another element. For example, an "
 "＜A＞ tag when you use layer linking. By default, new attributes will be "
@@ -10423,355 +10663,359 @@ msgstr ""
 "прапорець, якщо потрібно застосувати цей атрибут до елементу Layer у всіх "
 "випадках."
 
-#: assets/views/project-editor.php:6864
+#: assets/views/project-editor.php:6969
 #, fuzzy
 #| msgid "Layer position"
 msgid "Set layers list position"
 msgstr "Положення шару"
 
-#: assets/views/project-editor.php:6867
+#: assets/views/project-editor.php:6972
 #, fuzzy
 #| msgid "Lock layer"
 msgid "Dock layers list"
 msgstr "Заблокувати шар"
 
-#: assets/views/project-editor.php:6870
+#: assets/views/project-editor.php:6975
 #, fuzzy
 #| msgid "Align layer(s)"
 msgid "Pin layers list"
 msgstr "Вирівняти шар (и)"
 
-#: assets/views/project-editor.php:6873
+#: assets/views/project-editor.php:6978
 #, fuzzy
 #| msgid "Choose a layer type"
 msgid "Close layers list"
 msgstr "Вибір типу шару"
 
-#: assets/views/project-editor.php:6876
+#: assets/views/project-editor.php:6981
 #, fuzzy
 #| msgid "Style properties"
 msgid "Copy style properties"
 msgstr "Властивості стилю"
 
-#: assets/views/project-editor.php:6879
+#: assets/views/project-editor.php:6984
 #, fuzzy
 #| msgid "Style properties"
 msgid "Paste style properties"
 msgstr "Властивості стилю"
 
-#: assets/views/project-editor.php:6882
+#: assets/views/project-editor.php:6987
 msgid "Copy transition properties"
 msgstr "Копіювати властивості переходу"
 
-#: assets/views/project-editor.php:6885
+#: assets/views/project-editor.php:6990
 msgid "Paste transition properties"
 msgstr "Вставлення властивостей переходу"
 
-#: assets/views/project-editor.php:6888
+#: assets/views/project-editor.php:6993
 msgid "Expand / shrink sidebar"
 msgstr ""
 
-#: assets/views/project-editor.php:6891
+#: assets/views/project-editor.php:6996
 #, fuzzy
 #| msgid "Fade to top left"
 msgid "Align item to top left"
 msgstr "Fade до верхнього лівого"
 
-#: assets/views/project-editor.php:6894
+#: assets/views/project-editor.php:6999
 #, fuzzy
 #| msgid "by lines edge to center"
 msgid "Align item to top center"
 msgstr "за лініями EDGE до центру"
 
-#: assets/views/project-editor.php:6897
+#: assets/views/project-editor.php:7002
 #, fuzzy
 #| msgid "Fade to top right"
 msgid "Align item to top right"
 msgstr "Fade to верхньому правому"
 
-#: assets/views/project-editor.php:6900
+#: assets/views/project-editor.php:7005
 #, fuzzy
 #| msgid "by lines edge to center"
 msgid "Align item to center left"
 msgstr "за лініями EDGE до центру"
 
-#: assets/views/project-editor.php:6903
+#: assets/views/project-editor.php:7008
 #, fuzzy
 #| msgid "center center"
 msgid "Align item to center center"
 msgstr "по центру"
 
-#: assets/views/project-editor.php:6906
+#: assets/views/project-editor.php:7011
 #, fuzzy
 #| msgid "center right"
 msgid "Align item to center right"
 msgstr "центрувати праворуч"
 
-#: assets/views/project-editor.php:6909
+#: assets/views/project-editor.php:7014
 #, fuzzy
 #| msgid "Fade to bottom left"
 msgid "Align item to bottom left"
 msgstr "Плавно донизу ліворуч"
 
-#: assets/views/project-editor.php:6912
+#: assets/views/project-editor.php:7017
 #, fuzzy
 #| msgid "bottom center"
 msgid "Align item to bottom center"
 msgstr "нижньому центрі"
 
-#: assets/views/project-editor.php:6915
+#: assets/views/project-editor.php:7020
 #, fuzzy
 #| msgid "Fade to bottom right"
 msgid "Align item to bottom right"
 msgstr "Поступова поява в нижньому правому куті"
 
-#: assets/views/project-editor.php:6976
+#: assets/views/project-editor.php:7081
 msgid "Overlapping Layers"
 msgstr "Шари, що перекриваються"
 
-#: assets/views/project-editor.php:6984
+#: assets/views/project-editor.php:7089
 msgid "Align Layer"
 msgstr "Вирівняти шар"
 
-#: assets/views/project-editor.php:6985
+#: assets/views/project-editor.php:7090
 #, fuzzy
 #| msgid "Align Layer"
 msgid "Align Layers"
 msgstr "Вирівняти шар"
 
-#: assets/views/project-editor.php:6991 assets/views/project-editor.php:7030
+#: assets/views/project-editor.php:7096 assets/views/project-editor.php:7135
 msgid "Left Edge"
 msgstr "Лівому краю"
 
-#: assets/views/project-editor.php:6995 assets/views/project-editor.php:7034
+#: assets/views/project-editor.php:7100 assets/views/project-editor.php:7139
 msgid "Horizontal Center"
 msgstr "Горизонтальний центр"
 
-#: assets/views/project-editor.php:6999 assets/views/project-editor.php:7038
+#: assets/views/project-editor.php:7104 assets/views/project-editor.php:7143
 msgid "Right Edge"
 msgstr "Правого краю"
 
-#: assets/views/project-editor.php:7004 assets/views/project-editor.php:7043
+#: assets/views/project-editor.php:7109 assets/views/project-editor.php:7148
 msgid "Top Edge"
 msgstr "Верхній край"
 
-#: assets/views/project-editor.php:7008 assets/views/project-editor.php:7047
+#: assets/views/project-editor.php:7113 assets/views/project-editor.php:7152
 msgid "Vertical Center"
 msgstr "Вертикальний центр"
 
-#: assets/views/project-editor.php:7012 assets/views/project-editor.php:7051
+#: assets/views/project-editor.php:7117 assets/views/project-editor.php:7156
 msgid "Bottom Edge"
 msgstr "Нижній край"
 
-#: assets/views/project-editor.php:7024
+#: assets/views/project-editor.php:7129
 #, fuzzy
 #| msgid "View Selection"
 msgid "Align Layers in Selection"
 msgstr "Переглянути виділений фрагмент"
 
-#: assets/views/project-editor.php:7057
+#: assets/views/project-editor.php:7162
 msgid "Duplicate Layer"
 msgstr "Дублювати шар"
 
-#: assets/views/project-editor.php:7058
+#: assets/views/project-editor.php:7163
 #, fuzzy
 #| msgid "Duplicate Layer"
 msgid "Duplicate Layers"
 msgstr "Дублювати шар"
 
-#: assets/views/project-editor.php:7067
+#: assets/views/project-editor.php:7172
 msgid "Remove Layer"
 msgstr "Видалити шар"
 
-#: assets/views/project-editor.php:7068
+#: assets/views/project-editor.php:7173
 #, fuzzy
 #| msgid "Remove Layer"
 msgid "Remove Layers"
 msgstr "Видалити шар"
 
-#: assets/views/project-editor.php:7073
+#: assets/views/project-editor.php:7178
 msgid "Copy Layer"
 msgstr "Копіювати шар"
 
-#: assets/views/project-editor.php:7074
+#: assets/views/project-editor.php:7179
 #, fuzzy
 #| msgid "Copy Layer"
 msgid "Copy Layers"
 msgstr "Копіювати шар"
 
-#: assets/views/project-editor.php:7083
+#: assets/views/project-editor.php:7188
 msgid "Paste Layer"
 msgstr "Вставити шар"
 
-#: assets/views/project-editor.php:7084
+#: assets/views/project-editor.php:7189
 #, fuzzy
 #| msgid "Paste Layer"
 msgid "Paste Layers"
 msgstr "Вставити шар"
 
-#: assets/views/project-editor.php:7094
+#: assets/views/project-editor.php:7199
 msgid "Toggle Layer Visibility"
 msgstr "Переключити видимість шару"
 
-#: assets/views/project-editor.php:7095
+#: assets/views/project-editor.php:7200
 #, fuzzy
 #| msgid "Toggle Layer Visibility"
 msgid "Toggle Layers Visibility"
 msgstr "Переключити видимість шару"
 
-#: assets/views/project-editor.php:7099
+#: assets/views/project-editor.php:7204
 msgid "Toggle Layer Locking"
 msgstr "Переключити блокування шару"
 
-#: assets/views/project-editor.php:7100
+#: assets/views/project-editor.php:7205
 #, fuzzy
 #| msgid "Toggle Layer Locking"
 msgid "Toggle Layers Locking"
 msgstr "Переключити блокування шару"
 
-#: assets/views/project-editor.php:7105
+#: assets/views/project-editor.php:7210
 msgid "Copy Layer Styles"
 msgstr "Копіювання стилів шарів"
 
-#: assets/views/project-editor.php:7109
+#: assets/views/project-editor.php:7214
 msgid "Paste Layer Styles"
 msgstr "Вставити стилі шару"
 
-#: assets/views/project-editor.php:7116
+#: assets/views/project-editor.php:7221
 #, fuzzy
 #| msgid "Slide image"
 msgid "Pick image"
 msgstr "Слайд-зображення"
 
-#: assets/views/project-editor.php:7117
+#: assets/views/project-editor.php:7222
 #, fuzzy
 #| msgid "use post image"
 msgid "Use post image"
 msgstr "використовувати поштове зображення"
 
-#: assets/views/project-editor.php:7118
+#: assets/views/project-editor.php:7223
 #, fuzzy
 #| msgid "insert from URL"
 msgid "Enter from URL"
 msgstr "вставити з URL-адреси"
 
-#: assets/views/project-editor.php:7120
+#: assets/views/project-editor.php:7225
 #, fuzzy
 #| msgid "Image Editor"
 msgid "Image editor"
 msgstr "Редактор зображень"
 
-#: assets/views/project-editor.php:7122
+#: assets/views/project-editor.php:7227
 #, fuzzy
 #| msgid "Remove slide image"
 msgid "Remove image"
 msgstr "Видалення зображення слайду"
 
-#: assets/views/project-editor.php:7130
+#: assets/views/project-editor.php:7235
 #, fuzzy
 #| msgid "Duplicate"
 msgid "Duplicate Slide"
 msgstr "Дублювати"
 
-#: assets/views/project-editor.php:7134
+#: assets/views/project-editor.php:7239
 #, fuzzy
 #| msgid "Unpublished slider"
 msgid "Unpublish Slide"
 msgstr "Неопублікований повзунок"
 
-#: assets/views/project-editor.php:7138
+#: assets/views/project-editor.php:7243
 #, fuzzy
 #| msgid "Unpublished slider"
 msgid "Publish Slide"
 msgstr "Неопублікований повзунок"
 
-#: assets/views/project-editor.php:7142
+#: assets/views/project-editor.php:7247
 #, fuzzy
 #| msgid "Removed slider"
 msgid "Remove Slide"
 msgstr "Видалений повзунок"
 
-#: assets/views/project-editor.php:7147
+#: assets/views/project-editor.php:7252
 #, fuzzy
 #| msgid "Slide Thumbnail"
 msgid "Generate Thumbnail"
 msgstr "Мініатюра слайда"
 
-#: assets/views/project-editor.php:7154
+#: assets/views/project-editor.php:7259
 #, fuzzy
 #| msgid "Slider Settings"
 msgid "Sidebar Settings"
 msgstr "Налаштування слайдера"
 
-#: assets/views/project-editor.php:7161
+#: assets/views/project-editor.php:7266
 #, fuzzy
 #| msgid "Actions"
 msgid "Section tabs"
 msgstr "Дії"
 
-#: assets/views/project-editor.php:7165
+#: assets/views/project-editor.php:7270
 msgid "Expand all"
 msgstr ""
 
-#: assets/views/project-editor.php:7174
+#: assets/views/project-editor.php:7279
 msgid "Collapse all"
 msgstr ""
 
-#: assets/views/project-editor.php:7180
+#: assets/views/project-editor.php:7285
 #, fuzzy
 #| msgid "Reset on close"
 msgid "Auto close"
 msgstr "Скидання під час закриття"
 
-#: assets/views/project-editor.php:7189
+#: assets/views/project-editor.php:7294
 #, fuzzy
 #| msgid "Layer editor"
 msgid "Layers List Pos."
 msgstr "Редактор шарів"
 
-#: assets/views/project-editor.php:7194
+#: assets/views/project-editor.php:7299
 #, fuzzy
 #| msgid "Left Edge"
 msgid "Left side"
 msgstr "Лівому краю"
 
-#: assets/views/project-editor.php:7195
+#: assets/views/project-editor.php:7300
 #, fuzzy
 #| msgid "Right Edge"
 msgid "Right side"
 msgstr "Правого краю"
 
-#: assets/views/project-editor.php:7202
+#: assets/views/project-editor.php:7307
 #, fuzzy
 #| msgid "Align Layer"
 msgid "Pin Layers List"
 msgstr "Вирівняти шар"
 
-#: assets/views/project-editor.php:7215
+#: assets/views/project-editor.php:7316
+msgid "Show Quick Tip when publishing"
+msgstr ""
+
+#: assets/views/project-editor.php:7329
 #, fuzzy
 #| msgid "Basic Settings"
 msgid "Workspace Settings"
 msgstr "Базові налаштування"
 
-#: assets/views/project-editor.php:7221
+#: assets/views/project-editor.php:7335
 #, fuzzy
 #| msgid "Show me"
 msgid "Show rulers"
 msgstr "Показати більше"
 
-#: assets/views/project-editor.php:7227
+#: assets/views/project-editor.php:7341
 #, fuzzy
 #| msgid "Show me"
 msgid "Show guides"
 msgstr "Показати більше"
 
-#: assets/views/project-editor.php:7233
+#: assets/views/project-editor.php:7347
 #, fuzzy
 #| msgid "Show info"
 msgid "Show info panel"
 msgstr "Показати інформацію"
 
-#: assets/views/project-editor.php:7242
+#: assets/views/project-editor.php:7356
 msgid "Workspace Padding"
 msgstr ""
 
@@ -10910,11 +11154,6 @@ msgstr "База даних LayerSlider:"
 #: assets/views/system-status.php:135
 msgid "Error"
 msgstr "Помилка"
-
-#: assets/views/system-status.php:135 assets/views/system-status.php:172
-#: assets/views/system-status.php:197 assets/views/system-status.php:234
-msgid "OK"
-msgstr "ДОБРЕ"
 
 #: assets/views/system-status.php:139
 msgid ""
@@ -11392,13 +11631,13 @@ msgstr "Будівельник переходу LayerSlider"
 
 #: assets/views/transition-builder.php:100
 #: assets/views/transition-builder.php:127
-#: assets/views/transition-builder.php:629 assets/wp/scripts_l10n.php:286
+#: assets/views/transition-builder.php:629 assets/wp/scripts_l10n.php:291
 msgid "Type transition name"
 msgstr "Введіть ім'я переходу"
 
 #: assets/views/transition-builder.php:101
 #: assets/views/transition-builder.php:128
-#: assets/views/transition-builder.php:630 assets/wp/scripts_l10n.php:287
+#: assets/views/transition-builder.php:630 assets/wp/scripts_l10n.php:292
 msgid "Remove transition"
 msgstr "Видалити перехід"
 
@@ -11423,24 +11662,24 @@ msgstr ""
 msgid "Untitled"
 msgstr "Без назви"
 
-#: assets/wp/actions.php:292
+#: assets/wp/actions.php:314
 #, php-format
 msgid " %s ago"
 msgstr " %s тому"
 
-#: assets/wp/actions.php:388
+#: assets/wp/actions.php:410
 #, fuzzy
 #| msgid "name"
 msgid "Unnamed Project"
 msgstr "назва"
 
-#: assets/wp/actions.php:1133 assets/wp/scripts_l10n.php:65
+#: assets/wp/actions.php:1175 assets/wp/scripts_l10n.php:65
 #, fuzzy
 #| msgid "Import Layer"
 msgid "Import Error"
 msgstr "Шар імпорту"
 
-#: assets/wp/actions.php:1134
+#: assets/wp/actions.php:1176
 #, fuzzy
 #| msgid ""
 #| "LayerSlider couldn’t download your selected slider. Please check "
@@ -11458,7 +11697,7 @@ msgstr ""
 "віддалені функції можуть бути недоступні або веб-хостинг провайдер повинен "
 "дозволити зовнішні підключення до нашого домену."
 
-#: assets/wp/actions.php:1177
+#: assets/wp/actions.php:1219
 #, fuzzy
 #| msgid ""
 #| "LayerSlider couldn’t save the downloaded slider on your server. Please "
@@ -11476,28 +11715,28 @@ msgstr ""
 "проблем. Найпоширенішою причиною цього випуску є відсутність дозволу на "
 "записування в каталозі/wp-content/uploads/."
 
-#: assets/wp/actions.php:1223
+#: assets/wp/actions.php:1265
 #, fuzzy
 #| msgid "Import Layer"
 msgid "Imported Group"
 msgstr "Шар імпорту"
 
-#: assets/wp/actions.php:1355 assets/wp/actions.php:1383
+#: assets/wp/actions.php:1397 assets/wp/actions.php:1425
 msgid ""
 "It looks like your files isn’t writable, so PHP couldn’t make any changes "
 "(CHMOD)."
 msgstr ""
 "Схоже, що ваші файли не є записувані, тому PHP не може вносити зміни (CHMOD)."
 
-#: assets/wp/actions.php:1355 assets/wp/actions.php:1383
+#: assets/wp/actions.php:1397 assets/wp/actions.php:1425
 msgid "Cannot write to file"
 msgstr "Не вдалося записати на файл"
 
-#: assets/wp/actions.php:1369
+#: assets/wp/actions.php:1411
 msgid "It looks like you haven’t selected any skin to edit."
 msgstr "Схоже, ви не вибрали будь-яку шкіру для редагування."
 
-#: assets/wp/actions.php:1369
+#: assets/wp/actions.php:1411
 msgid "No skin selected."
 msgstr "Жодна шкіра не обрана."
 
@@ -11595,11 +11834,11 @@ msgstr "Останнє змінення"
 msgid "Sliders"
 msgstr "Слайдери"
 
-#: assets/wp/notices.php:107
+#: assets/wp/notices.php:110
 msgid "Hide this banner"
 msgstr "Сховати цей банер"
 
-#: assets/wp/notices.php:145
+#: assets/wp/notices.php:148
 #, fuzzy, php-format
 #| msgid ""
 #| "Slider Revisions is a premium feature. Activate your copy of LayerSlider "
@@ -12104,82 +12343,82 @@ msgstr "Параметри екрана"
 msgid "Video poster"
 msgstr "Відео плакат"
 
-#: assets/wp/scripts_l10n.php:209
+#: assets/wp/scripts_l10n.php:213
 msgid "Slide Options"
 msgstr "Параметри слайдів"
 
-#: assets/wp/scripts_l10n.php:210
+#: assets/wp/scripts_l10n.php:214
 #, fuzzy
 #| msgid "Layer options"
 msgid "Layer Options"
 msgstr "Параметри шару"
 
-#: assets/wp/scripts_l10n.php:211
+#: assets/wp/scripts_l10n.php:215
 #, php-format
 msgid "Slide #%d"
 msgstr "Слайд #% d"
 
-#: assets/wp/scripts_l10n.php:212
+#: assets/wp/scripts_l10n.php:216
 #, php-format
 msgid "Slide #%d copy"
 msgstr "Посунути копію #% d"
 
-#: assets/wp/scripts_l10n.php:214
+#: assets/wp/scripts_l10n.php:218
 #, php-format
 msgid "Layer #%d copy"
 msgstr "Шар #% d копія"
 
-#: assets/wp/scripts_l10n.php:220
+#: assets/wp/scripts_l10n.php:224
 #, fuzzy
 #| msgid "Google Fonts"
 msgid "Used Fonts"
 msgstr "Google Fonts"
 
-#: assets/wp/scripts_l10n.php:221
+#: assets/wp/scripts_l10n.php:225
 msgid "Drag me :)"
 msgstr "Drag Me:)"
 
-#: assets/wp/scripts_l10n.php:222
+#: assets/wp/scripts_l10n.php:226
 msgid "Double click to<br> set image"
 msgstr "Двічі клацніть, щоб<br>встановити зображення"
 
-#: assets/wp/scripts_l10n.php:223
+#: assets/wp/scripts_l10n.php:227
 msgid "Double click to<br> add media"
 msgstr "Двічі клацніть, щоб<br>додати медіафайл"
 
-#: assets/wp/scripts_l10n.php:224
+#: assets/wp/scripts_l10n.php:228
 msgid "Double click to<br> add icon"
 msgstr "Двічі клацніть, щоб<br>Додати піктограму"
 
-#: assets/wp/scripts_l10n.php:225
+#: assets/wp/scripts_l10n.php:229
 #, fuzzy
 #| msgid "Double click to<br> add media"
 msgid "Double click to<br> add shape"
 msgstr "Двічі клацніть, щоб<br>додати медіафайл"
 
-#: assets/wp/scripts_l10n.php:226
+#: assets/wp/scripts_l10n.php:230
 msgid "Text Layer"
 msgstr "Текстового шару"
 
-#: assets/wp/scripts_l10n.php:227
+#: assets/wp/scripts_l10n.php:231
 msgid "HTML Layer"
 msgstr "HTML-шар"
 
-#: assets/wp/scripts_l10n.php:229
+#: assets/wp/scripts_l10n.php:233
 msgid "Howdy, [author]"
 msgstr "Привіт, [Автор]"
 
-#: assets/wp/scripts_l10n.php:230
+#: assets/wp/scripts_l10n.php:234
 msgid "Preview Slide"
 msgstr "Попередній перегляд слайда"
 
-#: assets/wp/scripts_l10n.php:231
+#: assets/wp/scripts_l10n.php:235
 #, fuzzy
 #| msgid "No Preview"
 msgid "Stop Preview"
 msgstr "Без попереднього перегляду"
 
-#: assets/wp/scripts_l10n.php:232
+#: assets/wp/scripts_l10n.php:236
 msgid ""
 "Layer Preview is not available in Multiple Selection Mode. Select only one "
 "layer to use this feature. "
@@ -12187,7 +12426,7 @@ msgstr ""
 "Попередній перегляд шару недоступний у режимі виділення. Для використання "
 "цієї функції виберіть лише один шар. "
 
-#: assets/wp/scripts_l10n.php:233
+#: assets/wp/scripts_l10n.php:237
 #, php-format
 msgid ""
 "Auto-generated URLs are not available in Preview. This layer will link to "
@@ -12196,55 +12435,55 @@ msgstr ""
 "Автоматично згенеровані URL-адреси не доступні в попередньому перегляді. Цей "
 "шар буде посилатися на \" %s\" на сторінках переднього краю."
 
-#: assets/wp/scripts_l10n.php:234
+#: assets/wp/scripts_l10n.php:238
 #, php-format
 msgid "Until the end of Slide #%d"
 msgstr "До кінця слайда #% d"
 
-#: assets/wp/scripts_l10n.php:235
+#: assets/wp/scripts_l10n.php:239
 msgid "There’s nothing to paste. Copy a layer first!"
 msgstr "Немає нічого, щоб вставити. Скопіюйте шар першим!"
 
-#: assets/wp/scripts_l10n.php:236
+#: assets/wp/scripts_l10n.php:240
 msgid "There is nothing to paste!"
 msgstr "Немає нічого, щоб вставити!"
 
-#: assets/wp/scripts_l10n.php:237
+#: assets/wp/scripts_l10n.php:241
 msgid "Are you sure you want to remove this slide?"
 msgstr "Ви дійсно бажаєте видалити цей слайд?"
 
-#: assets/wp/scripts_l10n.php:238
+#: assets/wp/scripts_l10n.php:242
 msgid "Are you sure you want to remove this layer?"
 msgstr "Ви дійсно бажаєте видалити цей шар?"
 
-#: assets/wp/scripts_l10n.php:239
+#: assets/wp/scripts_l10n.php:243
 #, fuzzy
 #| msgid "Pick an image to use it in LayerSlider WP"
 msgid "Pick an image to use it in LayerSlider"
 msgstr "Виберіть зображення, щоб використовувати його в LayerSlider WP"
 
-#: assets/wp/scripts_l10n.php:240
+#: assets/wp/scripts_l10n.php:244
 msgid "Choose video or audio files"
 msgstr "Вибір відео-або аудіофайлів"
 
-#: assets/wp/scripts_l10n.php:241
+#: assets/wp/scripts_l10n.php:245
 msgid "Upload error"
 msgstr "Помилка завантаження"
 
-#: assets/wp/scripts_l10n.php:242
+#: assets/wp/scripts_l10n.php:246
 #, php-format
 msgid "Upload error: %s"
 msgstr "Помилка завантаження: %s"
 
-#: assets/wp/scripts_l10n.php:243
+#: assets/wp/scripts_l10n.php:247
 msgid "Invalid format"
 msgstr "Неприпустимий формат"
 
-#: assets/wp/scripts_l10n.php:244
+#: assets/wp/scripts_l10n.php:248
 msgid "Enter an image URL"
 msgstr "Введіть URL-адресу зображення"
 
-#: assets/wp/scripts_l10n.php:245
+#: assets/wp/scripts_l10n.php:249
 msgid ""
 "Are you sure you want to apply the currently selected transitions and "
 "effects on the other slides?"
@@ -12252,11 +12491,11 @@ msgstr ""
 "Ви дійсно бажаєте застосувати поточно виділені переходи та ефекти на інших "
 "слайдах?"
 
-#: assets/wp/scripts_l10n.php:246
+#: assets/wp/scripts_l10n.php:250
 msgid "No posts were found with the current filters."
 msgstr "Повідомлень не знайдено з поточними фільтрами."
 
-#: assets/wp/scripts_l10n.php:247
+#: assets/wp/scripts_l10n.php:251
 #, fuzzy, php-format
 #| msgid ""
 #| "It seems there is a server issue that prevented LayerSlider from saving "
@@ -12284,7 +12523,7 @@ msgstr ""
 "\n"
 " %s"
 
-#: assets/wp/scripts_l10n.php:248
+#: assets/wp/scripts_l10n.php:252
 msgid ""
 "You have unsaved changes on this page. Do you want to leave and discard the "
 "changes made since your last save?"
@@ -12292,51 +12531,51 @@ msgstr ""
 "На цій сторінці збережено незбережені зміни. Ви хочете залишити і скасувати "
 "зміни, внесені після останнього збереження?"
 
-#: assets/wp/scripts_l10n.php:249
+#: assets/wp/scripts_l10n.php:253
 #, fuzzy, php-format
 #| msgid "Linked to WP Page: %s"
 msgid "WP Page: %s"
 msgstr "Посилання на сторінку РГ: %s"
 
-#: assets/wp/scripts_l10n.php:250
+#: assets/wp/scripts_l10n.php:254
 #, fuzzy, php-format
 #| msgid "Linked to WP Post: %s"
 msgid "WP Post: %s"
 msgstr "Посилання на WP повідомлення: %s"
 
-#: assets/wp/scripts_l10n.php:251
+#: assets/wp/scripts_l10n.php:255
 #, fuzzy, php-format
 #| msgid "Attachments"
 msgid "WP Attachment: %s"
 msgstr "Вкладення"
 
-#: assets/wp/scripts_l10n.php:252
+#: assets/wp/scripts_l10n.php:256
 #, fuzzy
 #| msgid "Linked to: Post URL from Dynamic content"
 msgid "URL from Dynamic content"
 msgstr "Посилання на: Post URL з динамічного контенту"
 
-#: assets/wp/scripts_l10n.php:253
+#: assets/wp/scripts_l10n.php:257
 #, fuzzy, php-format
 #| msgid "LayerSlider Action: %s"
 msgid "LS Action: %s"
 msgstr "Дія повзунка LayerSlider: %s"
 
-#: assets/wp/scripts_l10n.php:254
+#: assets/wp/scripts_l10n.php:258
 #, fuzzy
 #| msgid "No slides found."
 msgid "No projects found."
 msgstr "Слайди не знайдено."
 
-#: assets/wp/scripts_l10n.php:255
+#: assets/wp/scripts_l10n.php:259
 msgid "No slides found."
 msgstr "Слайди не знайдено."
 
-#: assets/wp/scripts_l10n.php:256
+#: assets/wp/scripts_l10n.php:260
 msgid "No layers found."
 msgstr "Шари не знайдено."
 
-#: assets/wp/scripts_l10n.php:258
+#: assets/wp/scripts_l10n.php:262
 #, fuzzy
 #| msgid ""
 #| "Are you sure you want to apply the currently selected transitions and "
@@ -12348,36 +12587,43 @@ msgstr ""
 "Ви дійсно бажаєте застосувати поточно виділені переходи та ефекти на інших "
 "слайдах?"
 
-#: assets/wp/scripts_l10n.php:268
+#: assets/wp/scripts_l10n.php:272
 msgid "Dynamic"
 msgstr "Динамічний"
 
-#: assets/wp/scripts_l10n.php:272
+#: assets/wp/scripts_l10n.php:276
 msgid "The entered SVG code doesn’t seem to be valid."
 msgstr ""
 
-#: assets/wp/scripts_l10n.php:273
+#: assets/wp/scripts_l10n.php:277
 #, fuzzy
 #| msgid "Insert Icon"
 msgid "Insert Object"
 msgstr "Піктограма вставлення"
 
-#: assets/wp/scripts_l10n.php:279
+#: assets/wp/scripts_l10n.php:282
+#, fuzzy, php-format
+#| msgid "options"
+msgctxt "Shape Options (e.g. Wave Options, etc.)"
+msgid "%s Options"
+msgstr "варіанти"
+
+#: assets/wp/scripts_l10n.php:284
 #, fuzzy
 #| msgid "Uploading, please wait ..."
 msgid "Loading, please wait..."
 msgstr "Завантажую, будь ласка, почекайте..."
 
-#: assets/wp/scripts_l10n.php:281
+#: assets/wp/scripts_l10n.php:286
 msgctxt "Input value is changed via smart operation"
 msgid "SET"
 msgstr ""
 
-#: assets/wp/scripts_l10n.php:288
+#: assets/wp/scripts_l10n.php:293
 msgid "Are you sure you want to remove this transition?"
 msgstr "Ви дійсно бажаєте видалити цей перехід?"
 
-#: assets/wp/scripts_l10n.php:293
+#: assets/wp/scripts_l10n.php:298
 msgid ""
 "Are you sure you want to clear all groups? All your projects will be moved "
 "and remain available on the main grid. Your groups, however, will "
@@ -12455,11 +12701,11 @@ msgstr ""
 "бажаєте відновити цей повзунок, просто видаліть розклад у %sSlider Settings-"
 "> опублікувати %s."
 
-#: assets/wp/shortcodes.php:392
+#: assets/wp/shortcodes.php:394
 msgid "Premium features is available for preview purposes only."
 msgstr "Преміальні функції доступні лише для попереднього перегляду."
 
-#: assets/wp/shortcodes.php:393
+#: assets/wp/shortcodes.php:395
 #, fuzzy, php-format
 #| msgid ""
 #| "We’ve detected that you’re using premium features in this slider, but you "
@@ -12477,14 +12723,14 @@ msgstr ""
 "будуть доступні для відвідувачів без активації.  %sClick тут, щоб дізнатися "
 "більше %s. виявлені функції: %s"
 
-#: assets/wp/shortcodes.php:427
+#: assets/wp/shortcodes.php:429
 #, fuzzy
 #| msgid ""
 #| "LayerSlider encountered a problem while it tried to show your slider."
 msgid "LayerSlider encountered a problem while it tried to show your project."
 msgstr "Під час спроби відобразити повзунок у LayerSlider сталася помилка."
 
-#: assets/wp/shortcodes.php:431
+#: assets/wp/shortcodes.php:433
 #, fuzzy
 #| msgid ""
 #| "Please make sure that you’ve used the right shortcode or method to insert "
@@ -12499,7 +12745,7 @@ msgstr ""
 "щоб вставити повзунок, і перевірте, якщо відповідний повзунок існує, і він "
 "не був видалений раніше."
 
-#: assets/wp/shortcodes.php:439
+#: assets/wp/shortcodes.php:441
 msgid ""
 "Only you and other administrators can see this to take appropriate actions "
 "if necessary."
@@ -13359,15 +13605,6 @@ msgstr "https://kreaturamedia.com"
 #~ "1000 мілісекундах."
 
 #~ msgid ""
-#~ "You can set the starting time of this transition. Use one of the pre-"
-#~ "defined options to use relative timing, which can be shifted with custom "
-#~ "operations."
-#~ msgstr ""
-#~ "Ви можете встановити час початку цього переходу. Використовуйте один з "
-#~ "попередньо визначених варіантів, щоб використовувати відносні терміни, "
-#~ "які можуть бути зміщені з настроюваними операціями."
-
-#~ msgid ""
 #~ "Skews the layer along the X (horizontal) axis by the given number of "
 #~ "degrees. Negative values are allowed for reverse direction."
 #~ msgstr ""
@@ -14068,9 +14305,6 @@ msgstr "https://kreaturamedia.com"
 #~ "Плагіни та пошукові системи можуть використовувати цей атрибут для "
 #~ "отримання додаткової інформації про роль і поведінку посилання."
 
-#~ msgid "Advanced option"
-#~ msgstr "Розширена опція"
-
 #, fuzzy, php-format
 #~| msgid ""
 #~| "Product activation is optional. Add-Ons and other benefits can enhance "
@@ -14445,15 +14679,6 @@ msgstr "https://kreaturamedia.com"
 #~ "іншими типами переходів. Крім того, можна Зсунути час початку з "
 #~ "елементами керування модифікатором нижче."
 
-#~ msgid ""
-#~ "Shifts the above selected starting time by performing a custom operation. "
-#~ "For example, &quot;- 1000&quot; will advance the animation by playing it "
-#~ "1 second (1000 milliseconds) earlier."
-#~ msgstr ""
-#~ "Переміщує виділений час початку, виконуючи настроювану операцію. "
-#~ "Наприклад, \"-1000\" буде просуватися анімації, граючи його 1 секунду "
-#~ "(1000 мілісекунд) раніше."
-
 #~ msgid "Loop / Middle Transition properties"
 #~ msgstr "Властивості \"петля/середній перехід\""
 
@@ -14656,9 +14881,6 @@ msgstr "https://kreaturamedia.com"
 
 #~ msgid "Ken Burns Effect"
 #~ msgstr "Ефект Ken Burns"
-
-#~ msgid "Show More Options"
-#~ msgstr "Показати додаткові параметри"
 
 #~ msgid "Linking, Ken Burns, Parallax"
 #~ msgstr "Посилання, Кен Бернс, паралакса"

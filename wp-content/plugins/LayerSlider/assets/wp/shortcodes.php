@@ -369,6 +369,7 @@ class LS_Shortcode {
 				require_once LS_ROOT_PATH.'/classes/class.ls.dom.php';
 			}
 
+			$GLOBALS['lsInitAjaxURL'] = false;
 			$GLOBALS['lsPremiumNotice'] = [];
 			$GLOBALS['lsIsActivatedSite'] = LS_Config::isActivatedSite();
 

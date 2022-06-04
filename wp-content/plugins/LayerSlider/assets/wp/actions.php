@@ -249,6 +249,7 @@ add_action('init', function() {
 		add_action('wp_ajax_ls_get_slider_details', 'ls_get_slider_details');
 		add_action('wp_ajax_ls_get_mce_sliders', 'ls_get_mce_sliders');
 		add_action('wp_ajax_ls_get_mce_slides', 'ls_get_mce_slides');
+		add_action('wp_ajax_ls_layer_action_popups', 'ls_layer_action_popups');
 		add_action('wp_ajax_ls_get_post_details', 'ls_get_post_details');
 		add_action('wp_ajax_lse_get_search_posts', 'lse_get_search_posts');
 		add_action('wp_ajax_ls_get_taxonomies', 'ls_get_taxonomies');
@@ -262,8 +263,27 @@ add_action('init', function() {
 		add_action('wp_ajax_ls_download_module', 'ls_download_module');
 		add_action('wp_ajax_ls_get_revisions', 'ls_get_revisions');
 		add_action('wp_ajax_ls_save_revisions_options', 'ls_save_revisions_options');
+
+		add_action( 'wp_ajax_ls_get_popup_markup', 'ls_get_popup_markup' );
+		add_action( 'wp_ajax_nopriv_ls_get_popup_markup', 'ls_get_popup_markup' );
 	}
 });
+
+
+function ls_get_popup_markup() {
+
+	$id 	= (int) $_GET['id'];
+	$popup = LS_Sliders::find( $id );
+
+	if( $popup ) {
+		$GLOBALS['lsAjaxOverridePopupSettings'] = true;
+		$parts 	= LS_Shortcode::generateSliderMarkup( $popup );
+		die( $parts['container'].$parts['markup'].'<script>'.$parts['init'].'</script>' );
+	}
+
+	die();
+}
+
 
 function ls_force_update_check() {
 	LS_RemoteData::update();
@@ -271,6 +291,7 @@ function ls_force_update_check() {
 	wp_redirect( admin_url( 'update-core.php' ) );
 	exit;
 }
+
 
 function ls_download_module() {
 
@@ -750,6 +771,24 @@ function ls_get_mce_slides() {
 	}
 
 	die( json_encode( $slides ) );
+}
+
+
+function ls_layer_action_popups() {
+
+	$popups = LS_Sliders::find( [
+		'limit' => 200,
+		'where' => "flag_popup = '1'",
+		'data' => false
+	]);
+
+	foreach( $popups as $key => $item) {
+		$popups[ $key ]['name'] 	= apply_filters('ls_slider_title', stripslashes( $item['name'] ), 40);
+		$popups[ $key ]['slug'] 	= ! empty( $item['slug'] ) ? htmlentities( $item['slug'] ) : '';
+	}
+
+
+	return die( json_encode( $popups ) );
 }
 
 
