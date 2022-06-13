@@ -4178,6 +4178,20 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 																	</lse-fe-wrapper>
 																</lse-ib>
 															</lse-col>
+															<lse-col class="lse-full">
+																<lse-ib>
+																	<lse-text>
+																		<?= __('Skip "Start in Viewport"', 'LayerSlider') ?>
+																	</lse-text>
+																</lse-ib>
+																<lse-ib>
+																	<lse-fe-wrapper class="lse-smart-help lse-select" data-smart-help="skipviewport" data-smart-help-title='<?= __('Skip "Start in Viewport"', 'LayerSlider') ?>'>
+																		<?php lsGetSelect( $lsDefaults['layers']['transitionSkipViewport'], null, [
+																			'class' => 'lse-transition-prop'
+																		]) ?>
+																	</lse-fe-wrapper>
+																</lse-ib>
+															</lse-col>
 															<lse-col>
 																<lse-ib>
 																	<lse-text>

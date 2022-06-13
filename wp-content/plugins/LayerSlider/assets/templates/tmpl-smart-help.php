@@ -780,6 +780,15 @@
 		<?= __('Layers can be kept at their place across multiple slides. Here you can select the slide on which this layer should animate out.', 'LayerSlider') ?>
 	</div>
 
+	<div data-smart-help="skipviewport">
+		<?= __('By default, LayerSlider will start playing your project when it enters the viewport so that visitors will not miss the animation and effects you intended them to see, even if the project is below the fold. This behavior is controlled by the Project Settings → Slideshow → Start Only In Viewport option.<br><br>
+
+However, there are cases where you might want to display certain interface elements immediately, even if the project canvas is only partially visible and the playback of your project hasn’t started yet.<br><br>
+
+With this option, you can exclude layers from waiting for the playback to begin, and they will start the selected transitions immediately.', 'LayerSlider') ?>
+	</div>
+
+
 
 	<div data-smart-help="fontfamily">
 

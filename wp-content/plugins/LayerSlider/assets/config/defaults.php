@@ -3428,6 +3428,17 @@ $lsDefaults = [
 			]
 		],
 
+		'transitionSkipViewport' => [
+			'value' => 'disabled',
+			'name' => __('Skip "Start in Viewport"', 'LayerSlider'),
+			'keys' => 'skipViewport',
+			'options' => [
+				'disabled' => __('Disabled', 'LayerSlider'),
+				'opening' => __('Enabled for Opening transition', 'LayerSlider'),
+				'loop' => __('Enabled for Opening and Loop transitions', 'LayerSlider')
+			]
+		],
+
 		'transitionKeyframe' => [
 			'value' => false,
 			'name' => __('Play By Scroll Keyframe', 'LayerSlider'),
