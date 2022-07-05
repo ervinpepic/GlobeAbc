@@ -3,7 +3,7 @@
 Plugin Name: CMSMasters Content Composer
 Plugin URI: //cmsmasters.net/
 Description: CMSMasters Content Composer created by <a href="//cmsmasters.net/" title="CMSMasters">CMSMasters</a> team. Content Composer plugin create custom visual editor with shortcodes & settings integrated to WordPress default content editor for new <a href="//themeforest.net/user/cmsmasters/portfolio" title="cmsmasters">cmsmasters</a> WordPress themes.
-Version: 1.8.2
+Version: 1.8.3
 Author: cmsmasters
 Author URI: //cmsmasters.net/
 */
@@ -31,7 +31,7 @@ Author URI: //cmsmasters.net/
 
 class Cmsmasters_Content_Composer { 
 	function __construct() { 
-		define('CMSMASTERS_CONTENT_COMPOSER_VERSION', '1.8.2');
+		define('CMSMASTERS_CONTENT_COMPOSER_VERSION', '1.8.3');
 		
 		define('CMSMASTERS_CONTENT_COMPOSER_FILE', __FILE__);
 		
@@ -112,7 +112,7 @@ class Cmsmasters_Content_Composer {
 				$pagenow == 'post-new.php' || 
 				($pagenow == 'post.php' && isset($_GET['post']) && get_post_type($_GET['post']) != 'attachment') 
 			) {
-				add_action('admin_print_footer_scripts', array($this, 'cmsmasters_composer_init'));
+				add_action('admin_print_footer_scripts', array($this, 'cmsmasters_composer_init'), 11);
 				
 				
 				add_action('edit_form_after_title', array($this, 'add_composer_button'));

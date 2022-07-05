@@ -248,7 +248,7 @@ jQuery(function($) {
 	}).on('mouseleave', '.slider-actions-button, .slider-item-wrapper input', function() {
 		$( this ).closest('.slider-item').removeClass('ls-block-active-state');
 
-	}).on('input', '.slider-item-wrapper input', function() {
+	}).on('input', '.slider-item-wrapper .ls--project-name-input', function() {
 
 		var $this = $( this );
 

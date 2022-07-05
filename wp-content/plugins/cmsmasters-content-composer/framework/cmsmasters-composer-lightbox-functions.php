@@ -817,7 +817,16 @@ function cmsmasters_composer_timetable() {
 
 function cmsmasters_composer_timetable_events() {
 	$cmsmasters_timetable_events_settings = get_option('timetable_events_settings');
-	$cmsmasters_timetable_events_slug = ( ( isset( $cmsmasters_timetable_events_settings['slug'] ) && '' !== $cmsmasters_timetable_events_settings['slug'] ) ? $cmsmasters_timetable_events_settings['slug'] : 'events');
+	$cmsmasters_timetable_events_slug = (isset($cmsmasters_timetable_events_slug['slug']) && $cmsmasters_timetable_events_slug['slug'] != '' ? $cmsmasters_timetable_events_slug['slug'] : 'events');
+
+	if (
+		isset( $cmsmasters_timetable_events_settings['slug'] ) &&
+		'' !== $cmsmasters_timetable_events_settings['slug']
+	) {
+		$cmsmasters_timetable_events_slug = $cmsmasters_timetable_events_settings['slug'];
+	} else {
+		$cmsmasters_timetable_events_slug = 'events';
+	}
 
 	$timetable_events = get_posts( array(
 		'numberposts' => -1,

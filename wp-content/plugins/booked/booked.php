@@ -367,6 +367,8 @@ if(!class_exists('booked_plugin')) {
 			// Start a session if none is started yet.
 			if( !session_id() && apply_filters( 'booked_sessions_enabled', true ) ) {
 		        session_start();
+		        session_write_close();
+		        
 		    }
 
 		    // Check to see if the plugin was updated.

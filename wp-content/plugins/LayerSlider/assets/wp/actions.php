@@ -1353,9 +1353,9 @@ function ls_export_sliders( $sliderId = 0 ) {
 		$date = ls_date('Y-m-d').' at '.ls_date('H.i.s');
 
 		if( count( $sliders ) > 1 ) {
-			$fileName = 'LayerSlider – '.count( $sliders ).' sliders – '.$date.'.zip';
+			$fileName = 'LayerSlider - '.count( $sliders ).' sliders - '.$date.'.zip';
 		} else {
-			$fileName = 'LayerSlider – '.$name.' – '.$date.'.zip';
+			$fileName = 'LayerSlider - '.$name.' - '.$date.'.zip';
 		}
 
 		$zip->download( $fileName );

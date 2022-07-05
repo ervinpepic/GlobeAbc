@@ -75,4 +75,9 @@ function wpb_sender_name( $original_email_from ) {
 // Hooking up our functions to WordPress filters 
 add_filter( 'wp_mail_from', 'wpb_sender_email' );
 add_filter( 'wp_mail_from_name', 'wpb_sender_name' );
+// Disable plugins auto-update UI elements.
+add_filter( 'plugins_auto_update_enabled', '__return_false' );
+ 
+// Disable themes auto-update UI elements.
+add_filter( 'themes_auto_update_enabled', '__return_false' );
 ?>
