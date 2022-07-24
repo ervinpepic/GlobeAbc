@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Payssion
 Plugin URI: http://www.payssion.com
 Description: Integrates your Payssion payment getway into your WooCommerce installation.
-Version: 1.1.9
+Version: 1.2.0
 Author: Payssion
 Text Domain: payssion
 Author URI: http://www.payssion.com
@@ -14,7 +14,6 @@ function init_payssion_gateway() {
 	if( !class_exists('WC_Payment_Gateway') )  return;
 	
 	require_once('class-wc-gateway-payssion.php');
-	
 	require_once('class-wc-gateway-payssion-affinepgmy.php');
 	require_once('class-wc-gateway-payssion-alfamartid.php');
 	require_once('class-wc-gateway-payssion-alipay.php');
@@ -64,7 +63,7 @@ function init_payssion_gateway() {
 	require_once('class-wc-gateway-payssion-interbankpe.php');
 	require_once('class-wc-gateway-payssion-itaubr.php');
 	require_once('class-wc-gateway-payssion-kakaopaykr.php');
-	//require_once('class-wc-gateway-payssion-klarna.php');
+	require_once('class-wc-gateway-payssion-klarna.php');
 	require_once('class-wc-gateway-payssion-maybank2umy.php');
 	//require_once('class-wc-gateway-payssion-mercadopago.php');
 	require_once('class-wc-gateway-payssion-mercadopagomx.php');
@@ -80,6 +79,7 @@ function init_payssion_gateway() {
 	require_once('class-wc-gateway-payssion-pagoefectivope.php');
 	require_once('class-wc-gateway-payssion-pagofacilar.php');
 	require_once('class-wc-gateway-payssion-paybybankappgb.php');
+	require_once('class-wc-gateway-payssion-paycokr.php');
 	require_once('class-wc-gateway-payssion-paynowsg.php');
 	require_once('class-wc-gateway-payssion-paysafecard.php');
 	require_once('class-wc-gateway-payssion-paytmin.php');
@@ -105,6 +105,7 @@ function init_payssion_gateway() {
 	require_once('class-wc-gateway-payssion-unionpay.php');
 	require_once('class-wc-gateway-payssion-upiin.php');
 	require_once('class-wc-gateway-payssion-vtcpay.php');
+	require_once('class-wc-gateway-payssion-walletin.php');
 	require_once('class-wc-gateway-payssion-webmoney.php');
 	require_once('class-wc-gateway-payssion-webmoneyjp.php');
 	require_once('class-wc-gateway-payssion-webpaycl.php');
@@ -164,7 +165,7 @@ function init_payssion_gateway() {
 				    'WC_Gateway_Payssion_Interbankpe',
 				    'WC_Gateway_Payssion_Itaubr',
 				    'WC_Gateway_Payssion_Kakaopaykr',
-				    //'WC_Gateway_Payssion_Klarna',
+				    'WC_Gateway_Payssion_Klarna',
 				    'WC_Gateway_Payssion_Maybank2umy',
 				    //'WC_Gateway_Payssion_MercadoPago',
 				    'WC_Gateway_Payssion_MercadoPagomx',
@@ -180,6 +181,7 @@ function init_payssion_gateway() {
 				    'WC_Gateway_Payssion_Pagoefectivope',
 				    'WC_Gateway_Payssion_Pagofacilar',
 				    'WC_Gateway_Payssion_Paybybankappgb',
+				    'WC_Gateway_Payssion_Paycokr',
 				    'WC_Gateway_Payssion_Paynowsg',
 				    'WC_Gateway_Payssion_Paysafecard',
 				    'WC_Gateway_Payssion_Paytmin',
@@ -205,6 +207,7 @@ function init_payssion_gateway() {
 				    'WC_Gateway_Payssion_Unionpay',
 				    'WC_Gateway_Payssion_Upiin',
 				    'WC_Gateway_Payssion_VTCPay',
+				    'WC_Gateway_Payssion_Walletin',
 				    'WC_Gateway_Payssion_WebMoney',
 				    'WC_Gateway_Payssion_WebMoneyjp',
 				    'WC_Gateway_Payssion_Webpaycl',
@@ -240,4 +243,16 @@ function add_payssion_order_statuses( $order_statuses ) {
 	return $order_statuses;
 }
 add_filter( 'wc_order_statuses', 'add_payssion_order_statuses' );
+
+/**
+ * Change a currency symbol
+ */
+add_filter('woocommerce_currency_symbol', 'change_existing_currency_symbol', 10, 2);
+
+function change_existing_currency_symbol( $currency_symbol, $currency ) {
+    switch( $currency ) {
+        case 'HKD': $currency_symbol = 'HK$'; break;
+    }
+    return $currency_symbol;
+}
 ?>

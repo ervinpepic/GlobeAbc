@@ -85,6 +85,11 @@
 		height: 100% !important;
 	}
 
+	.ls-layer.ls-force-no-transform,
+	.ls-wrapper.ls-force-no-transform {
+		transform: none !important;
+	}
+
 	.ls-background-videos {
 		z-index: 1;
 	}
@@ -111,13 +116,20 @@
 		z-index: 35;
 	}
 
+	.ls-z,
 	.ls-parallax,
 	.ls-in-out,
-	.ls-z {
+	.ls-scroll,
+	.ls-scroll-transform,
+	.ls-loop,
+	.ls-clip {
 		position: absolute !important;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
 	}
 
-	.ls-parallax,
 	.ls-z {
 		width: 100% !important;
 		height: 100% !important;
@@ -130,18 +142,23 @@
 		pointer-events: none !important;
 	}
 
-	.ls-in-out {
-		display: none;
+	.ls-inner-wrapper,
+	.ls-inner-wrapper * {
 		pointer-events: auto;
 	}
 
+	.ls-in-out {
+		display: none;
+	}
+
 	.ls-loop, .ls-clip {
-		position: absolute !important;
 		display: block !important;
 	}
 
 	.ls-parallax,
 	.ls-in-out,
+	.ls-scroll,
+	.ls-scroll-transform,
 	.ls-loop,
 	.ls-z {
 		background: none !important;

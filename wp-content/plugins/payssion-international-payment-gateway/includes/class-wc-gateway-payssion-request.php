@@ -44,19 +44,21 @@ class WC_Gateway_Payssion_Request {
 	 * @param  boolean $sandbox
 	 * @return string
 	 */
-	public function get_request_url( $order, $sandbox = false ) {
+	public function get_request_url( $order, $sandbox = false, $with_args = true) {
 	    $url = null;
 	    if ($sandbox) {
 	        $url = 'http://sandbox.payssion.com/payment/create.html';
 	    } else {
-	        $url = 'https://www.payssion.cn/payment/create.html';
+	        $url = 'https://www.payssion.com/payment/create.html';
 	    }
 	    
-		$Payssion_args = http_build_query( $this->get_payssion_args( $order ), '', '&' );
-		if ($order) {
-		    $Payssion_args = http_build_query( $this->get_payssion_args( $order ), '', '&' );
-		    $url .= "?$Payssion_args";
-		}
+	    if ($with_args) {
+	        $Payssion_args = http_build_query( $this->get_payssion_args( $order ), '', '&' );
+	        if ($order) {
+	            $Payssion_args = http_build_query( $this->get_payssion_args( $order ), '', '&' );
+	            $url .= "?$Payssion_args";
+	        }
+	    }
 
 		return $url;
 	}
@@ -74,10 +76,11 @@ class WC_Gateway_Payssion_Request {
 		$order_total = number_format($order->order_total, 2, '.', '');
 		$payssion = new WC_Gateway_Payssion();
 		
+		$pm_id = $this->gateway->get_pmid();
 		$data = array(
 		    'source'        => 'woocommerce',
 		    'api_key'       => $this->gateway->get_apikey(),
-		    'pm_id'         => $this->gateway->get_pmid(),
+		    'pm_id'         => $pm_id,
 		    'amount'        => $order_total,
 		    'currency'      => get_woocommerce_currency(),
 		    'return_url'  => esc_url($this->gateway->get_return_url($order)),
@@ -93,7 +96,7 @@ class WC_Gateway_Payssion_Request {
 		if (array_key_exists('payer_ref', $_POST)) {
 		    $data['payer_ref'] = $_POST['payer_ref'];
 		} else {
-		    $payer_ref_key = 'payer_ref_' . $this->gateway->get_pmid();
+		    $payer_ref_key = 'payer_ref_' . $pm_id;
 		    if (array_key_exists($payer_ref_key, $_POST)) {
 		        $data['payer_ref'] = $_POST[$payer_ref_key];
 		    }
@@ -101,7 +104,7 @@ class WC_Gateway_Payssion_Request {
 		$data['api_sig'] = $this->generateSignature($data, $this->gateway->get_secretkey());
 		
 		
-		if (substr($this->gateway->get_pmid(), -2) === 'br' /*|| substr($pm_id, 0, strlen('klarna')) === 'klarna'*/) {
+		if (substr($pm_id, -2) === 'br' || substr($pm_id, 0, strlen('klarna')) === 'klarna') {
 		    $data['billing_address'] = base64_encode($order->get_billing_address());
 		    $data['order_items'] = base64_encode($order->get_order_lines());
 		}

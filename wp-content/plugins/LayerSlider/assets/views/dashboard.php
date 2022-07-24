@@ -268,6 +268,10 @@
 					<?= lsGetSVGIcon('bell') ?>
 				</ls-button>
 
+				<a class="ls-button" href="<?= admin_url('admin.php?page=layerslider&section=system-status') ?>">
+					<?= lsGetSVGIcon('heart-rate') ?>
+				</a>
+
 				<ls-button class="ls-open-plugin-settings-button">
 					<?= lsGetSVGIcon('cog') ?>
 				</ls-button>
@@ -393,7 +397,7 @@
 							<ls-menu-separator></ls-menu-separator>
 							<?php endif ?>
 							<ls-menu-item>
-								<ls-menu-icon><?= lsGetSVGIcon('shield-alt') ?></ls-menu-icon>
+								<ls-menu-icon><?= lsGetSVGIcon('heart-rate') ?></ls-menu-icon>
 								<ls-menu-title><?= __('System Status', 'LayerSlider') ?></ls-menu-title>
 								<ls-menu-text><?= __('Identify possible issues & display relevant debug information.', 'LayerSlider') ?> </ls-menu-text>
 								<a class="ls-menu-link" href="<?= admin_url('admin.php?page=layerslider&section=system-status') ?>"></a>
@@ -788,7 +792,7 @@
 														<ls-select-wrapper>
 															<select class="ls--small" name="channel">
 																<option value="stable"<?= ( $channel === 'stable' ) ? 'selected' : '' ?>><?= __('Stable', 'LayerSlider') ?></option>
-																<option value="beta"<?= ( $channel === 'beta' ) ? 'selected' : '' ?>><?= __('Beta', 'LayerSlider') ?></option>
+																<option value="beta"<?= ( $channel === 'beta' ) ? 'selected' : '' ?>><?= __('Beta + Stable', 'LayerSlider') ?></option>
 																</select>
 															<ls-select-arrow></ls-select-arrow>
 														</ls-select-wrapper>

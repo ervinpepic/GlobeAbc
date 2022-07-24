@@ -2,8 +2,8 @@
 Contributors: Payssion
 Tags: payment, paymentgateway, woocommerce, ecommerce, sofortbanking, paysafecard, iDeal, przelewy24, webmoney, qiwi, boleto, alipay, tenpay, eNETS
 Requires at least: 4.0
-Tested up to: 5.7.2
-Stable tag: 1.1.9
+Tested up to: 6.0
+Stable tag: 1.2.0
 License: The MIT License (MIT)
 
 Official Payssion module for WordPress WooCommerce.
@@ -21,7 +21,7 @@ Payssion is a global payment solution provider, that enables people to collect p
 * New Zealand: Polipayment
 * Philippines: Dragonpay, Globe Gcash, Grabpay
 * Singapore: eNETS
-* South Korea: Credit Card, Internet Banking
+* South Korea: Credit Card, Internet Banking, PAYCO
 * Thailand: Thailand online Banking
 * Vietnam: VTCPay
 
@@ -71,6 +71,8 @@ Payssion is a global payment solution provider, that enables people to collect p
 
 == Changelog ==
 
+= 1.2.0 =
+* add more payment options: Klarna, PAYCO, Indian Wallet
 
 = 1.1.9 =
 * add more payment options: BCP, Mexico Credit Card, Efecty, Interbank, Kakaopay, PagoEfectivo, PayNow, SPEI

@@ -1815,7 +1815,7 @@ $lsDefaults = [
 
 
 		'parallaxTransformOrigin' => [
-			'value' => '50% 50% 0',
+			'value' => 'slidercenter slidermiddle 0',
 			'name' => __('Transform Origin', 'LayerSlider'),
 			'keys' => 'parallaxtransformorigin'
 		],
@@ -4010,6 +4010,12 @@ $lsDefaults = [
 			'value' => '',
 			'name' => __('Filter', 'LayerSlider'),
 			'keys' => 'filter'
+		],
+
+		'backdropFilter' => [
+			'value' => '',
+			'name' => __('Backdrop Filter', 'LayerSlider'),
+			'keys' => 'backdrop-filter'
 		],
 
 

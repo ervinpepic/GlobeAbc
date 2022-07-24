@@ -40,9 +40,11 @@ class WC_Gateway_Payssion_Klarna extends WC_Gateway_Payssion {
 	 * @param mixed $order_id
 	 * @return string
 	 */
-	function generate_klarna_form( $order_id ) {
-	    $order = new WC_Order($order_id);
+	function generate_payssion_form( $order_id ) {
+	    include_once('includes/class-wc-gateway-payssion-request.php');
 	    $request = new WC_Gateway_Payssion_Request($this);
+	    
+	    $order = wc_get_order( $order_id );
 	    $request_data = $request->get_payssion_args($order, false);
 	    $payssion_args_array = [];
 	    foreach ($request_data as $key => $value) {
@@ -73,7 +75,7 @@ class WC_Gateway_Payssion_Klarna extends WC_Gateway_Payssion {
 				' );
 	    
 	    
-	    $url = $request->get_request_url(null, $this->testmode );
+	    $url = $request->get_request_url($order, $this->testmode, false);
 	    return '<form id="payssionsubmit" name="payssionsubmit" action="' . $url . '" method="post" target="_top">' . implode('', $payssion_args_array) . '
 		<!-- Button Fallback -->
 		<div class="payment_buttons">

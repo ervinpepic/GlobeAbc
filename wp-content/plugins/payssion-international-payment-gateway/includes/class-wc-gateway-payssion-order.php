@@ -75,7 +75,7 @@ class WC_Gateway_Payssion_Order {
 	 */
 	public function get_order_amount( $order_id ) {
 	    $order = wc_get_order( $order_id );
-	    return round( $order->get_total() * 100 );
+	    return $order->get_total();
 	}
 	
 	/**
@@ -84,7 +84,7 @@ class WC_Gateway_Payssion_Order {
 	 * @return int
 	 */
 	public function get_total_tax() {
-	    return round( $this->total_tax );
+	    return $this->total_tax;
 	}
 	
 	/**
@@ -96,14 +96,46 @@ class WC_Gateway_Payssion_Order {
 	public function get_order_line_items( $order_item ) {
 	    $order_id = $order_item->get_order_id();
 	    $order    = wc_get_order( $order_id );
+	    
 	    return array(
+	        'type'             => $this->get_item_type($order_item),
 	        'name'             => $order_item->get_name(),
 	        'quantity'         => $order_item->get_quantity(),
-	        'total_amount'     => $this->get_item_total_amount( $order, $order_item ),
+	        'amount'           => $this->get_item_total_amount( $order, $order_item ),
 	        'unit_price'       => $this->get_item_unit_price( $order, $order_item ),
-	        'total_tax_amount' => $this->get_item_total_tax_amount( $order, $order_item ),
+	        'tax_amount'       => $this->get_item_total_tax_amount( $order, $order_item ),
 	        'tax_rate'         => $this->get_order_line_tax_rate( $order, $order_item ),
 	    );
+	}
+	
+	public function get_item_type($order_item) {
+	    $product = null;
+	    if ($order_item['variation_id']) {
+	        $product = wc_get_product($order_item['variation_id']);
+	    } else {
+	        $product = wc_get_product($order_item['product_id']);
+	    }
+	    
+	    // Product type.
+	    $type = null;
+	    if ( $product->is_downloadable() || $product->is_virtual() ) {
+	        $type = 'digital';
+	    } else {
+	        $type = 'physical';
+	    }
+	    
+	    return $type;
+	}
+	
+	public function get_item_discount_amount($order_item)
+	{
+	    if ($order_item['line_subtotal'] > $order_item['line_total']) {
+	        $item_discount_amount = $order_item['line_subtotal'] + $order_item['line_subtotal_tax'] - $order_item['line_total'] - $order_item['line_tax'];
+	    } else {
+	        $item_discount_amount = 0;
+	    }
+	    
+	    return $item_discount_amount;
 	}
 	
 	/**
@@ -114,11 +146,12 @@ class WC_Gateway_Payssion_Order {
 	 */
 	public function get_order_line_shipping( $order ) {
 	    return array(
+	        'type'             => 'shipping',
 	        'name'             => $order->get_shipping_method(),
 	        'quantity'         => 1,
-	        'total_amount'     => $this->get_shipping_total_amount( $order ),
+	        'amount'           => $this->get_shipping_total_amount( $order ),
 	        'unit_price'       => $this->get_shipping_total_amount( $order ),
-	        'total_tax_amount' => $this->get_shipping_total_tax_amount( $order ),
+	        'tax_amount'       => $this->get_shipping_total_tax_amount( $order ),
 	        'tax_rate'         => ( '0' !== $order->get_shipping_tax() ) ? $this->get_order_line_tax_rate( $order, current( $order->get_items( 'shipping' ) ) ) : 0,
 	    );
 	}
@@ -133,11 +166,12 @@ class WC_Gateway_Payssion_Order {
 	    $order_id = $order_fee->get_order_id();
 	    $order    = wc_get_order( $order_id );
 	    return array(
+	        'type'             => 'surcharge',
 	        'name'             => substr( $order_fee->get_name(), 0, 254 ),
 	        'quantity'         => $order_fee->get_quantity(),
-	        'total_amount'     => $this->get_fee_total_amount( $order, $order_fee ),
+	        'amount'           => $this->get_fee_total_amount( $order, $order_fee ),
 	        'unit_price'       => $this->get_fee_unit_price( $order, $order_fee ),
-	        'total_tax_amount' => $this->get_fee_total_tax_amount( $order, $order_fee ),
+	        'tax_amount'       => $this->get_fee_total_tax_amount( $order, $order_fee ),
 	        'tax_rate'         => ( '0' !== $order->get_total_tax() ) ? $this->get_order_line_tax_rate( $order, current( $order->get_items( 'fee' ) ) ) : 0,
 	    );
 	}
@@ -156,7 +190,7 @@ class WC_Gateway_Payssion_Order {
 	        foreach ( $order_item->get_taxes()['total'] as $key => $value ) {
 	            if ( '' !== $value ) {
 	                if ( $rate_id === $key ) {
-	                    return round( WC_Tax::_get_tax_rate( $rate_id )['tax_rate'] * 100 );
+	                    return WC_Tax::_get_tax_rate( $rate_id )['tax_rate'];
 	                }
 	            }
 	        }
@@ -172,18 +206,18 @@ class WC_Gateway_Payssion_Order {
 	 */
 	public function get_item_total_amount( $order, $order_item = false ) {
 	    if ( $this->separate_sales_tax ) {
-	        $item_total_amount     = number_format( ( $order_item->get_total() ) * ( 1 + ( $this->get_order_line_tax_rate( $order, $order_item ) / 10000 ) ), wc_get_price_decimals(), '.', '' ) * 100;
-	        $max_order_line_amount = ( number_format( ( $order_item->get_total() + $order_item->get_total_tax() ) * 100, wc_get_price_decimals(), '.', '' ) * $order_item->get_quantity() ) * 100;
+	        $item_total_amount     = number_format( ( $order_item->get_total() ) * ( 1 + ( $this->get_order_line_tax_rate( $order, $order_item ) / 100 ) ), wc_get_price_decimals(), '.', '' );
+	        $max_order_line_amount = ( number_format( ( $order_item->get_total() + $order_item->get_total_tax() ) * 100, wc_get_price_decimals(), '.', '' ) * $order_item->get_quantity() );
 	    } else {
-	        $item_total_amount     = ( number_format( $order_item->get_total(), wc_get_price_decimals(), '.', '' ) + number_format( $order_item->get_total_tax(), wc_get_price_decimals(), '.', '' ) ) * 100;
-	        $max_order_line_amount = ( number_format( ( $order_item->get_total() + $order_item->get_total_tax() ) * 100, wc_get_price_decimals(), '.', '' ) * $order_item->get_quantity() ) * 100;
+	        $item_total_amount     = ( number_format( $order_item->get_total(), wc_get_price_decimals(), '.', '' ) + number_format( $order_item->get_total_tax(), wc_get_price_decimals(), '.', '' ) );
+	        $max_order_line_amount = ( number_format( ( $order_item->get_total() + $order_item->get_total_tax() ) * 100, wc_get_price_decimals(), '.', '' ) * $order_item->get_quantity() );
 	    }
 	    // Check so the line_total isn't greater than product price x quantity.
 	    // This can happen when having price display set to 0 decimals.
 	    if ( $item_total_amount > $max_order_line_amount ) {
 	        $item_total_amount = $max_order_line_amount;
 	    }
-	    return round( $item_total_amount );
+	    return $item_total_amount;
 	}
 	
 	/**
@@ -197,9 +231,9 @@ class WC_Gateway_Payssion_Order {
 	    if ( $this->separate_sales_tax ) {
 	        $item_subtotal = $order_item->get_total() / $order_item->get_quantity();
 	    } else {
-	        $item_subtotal = ( ( number_format( $order_item->get_total(), wc_get_price_decimals(), '.', '' ) + number_format( $order_item->get_total_tax(), wc_get_price_decimals(), '.', '' ) ) / $order_item->get_quantity() ) * 100;
+	        $item_subtotal = ( ( number_format( $order_item->get_total(), wc_get_price_decimals(), '.', '' ) + number_format( $order_item->get_total_tax(), wc_get_price_decimals(), '.', '' ) ) / $order_item->get_quantity() );
 	    }
-	    return round( $item_subtotal );
+	    return $item_subtotal;
 	}
 	
 	/**
@@ -214,11 +248,11 @@ class WC_Gateway_Payssion_Order {
 	        $item_tax_amount = 0;
 	    } else {
 	        $item_total_amount       = $this->get_item_total_amount( $order, $order_item );
-	        $item_total_exluding_tax = $item_total_amount / ( 1 + ( $this->get_order_line_tax_rate( $order, $order_item ) / 10000 ) );
+	        $item_total_exluding_tax = $item_total_amount / ( 1 + ( $this->get_order_line_tax_rate( $order, $order_item ) / 100 ) );
 	        $item_tax_amount         = $item_total_amount - $item_total_exluding_tax;
 	    }
-	    $this->total_tax += round( $item_tax_amount );
-	    return round( $item_tax_amount );
+	    $this->total_tax += $item_tax_amount;
+	    return $item_tax_amount;
 	}
 	
 	/**
@@ -229,9 +263,9 @@ class WC_Gateway_Payssion_Order {
 	 */
 	public function get_shipping_total_amount( $order ) {
 	    if ( $this->separate_sales_tax ) {
-	        $shipping_amount = (int) number_format( $order->get_shipping_total() * 100, 0, '', '' );
+	        $shipping_amount = $order->get_shipping_total();
 	    } else {
-	        $shipping_amount = number_format( $order->get_shipping_total() + $order->get_shipping_tax(), wc_get_price_decimals(), '.', '' ) * 100;
+	        $shipping_amount = number_format( $order->get_shipping_total() + $order->get_shipping_tax(), wc_get_price_decimals(), '.', '' );
 	    }
 	    return $shipping_amount;
 	}
@@ -248,11 +282,11 @@ class WC_Gateway_Payssion_Order {
 	    } else {
 	        $shiping_total_amount        = $this->get_shipping_total_amount( $order );
 	        $shipping_tax_rate           = ( '0' !== $order->get_shipping_tax() ) ? $this->get_order_line_tax_rate( $order, current( $order->get_items( 'shipping' ) ) ) : 0;
-	        $shipping_total_exluding_tax = $shiping_total_amount / ( 1 + ( $shipping_tax_rate / 10000 ) );
+	        $shipping_total_exluding_tax = $shiping_total_amount / ( 1 + ( $shipping_tax_rate / 100 ) );
 	        $shipping_tax_amount         = $shiping_total_amount - $shipping_total_exluding_tax;
 	    }
-	    $this->total_tax += round( $shipping_tax_amount );
-	    return round( $shipping_tax_amount );
+	    $this->total_tax += $shipping_tax_amount;
+	    return $shipping_tax_amount;
 	}
 	
 	/**
@@ -264,18 +298,18 @@ class WC_Gateway_Payssion_Order {
 	 */
 	public function get_fee_total_amount( $order, $order_fee ) {
 	    if ( $this->separate_sales_tax ) {
-	        $fee_total_amount      = number_format( ( $order_fee->get_total() ) * ( 1 + ( $this->get_order_line_tax_rate( $order, $order_fee ) / 10000 ) ), wc_get_price_decimals(), '.', '' ) * 100;
-	        $max_order_line_amount = ( number_format( ( $order_fee->get_total() + $order_fee->get_total_tax() ) * 100, wc_get_price_decimals(), '.', '' ) * $order_fee->get_quantity() ) * 100;
+	        $fee_total_amount      = number_format( ( $order_fee->get_total() ) * ( 1 + ( $this->get_order_line_tax_rate( $order, $order_fee ) / 100 ) ), wc_get_price_decimals(), '.', '' );
+	        $max_order_line_amount = ( number_format( ( $order_fee->get_total() + $order_fee->get_total_tax() ) * 100, wc_get_price_decimals(), '.', '' ) * $order_fee->get_quantity() );
 	    } else {
-	        $fee_total_amount      = number_format( ( $order_fee->get_total() ) * ( 1 + ( $this->get_order_line_tax_rate( $order, $order_fee ) / 10000 ) ), wc_get_price_decimals(), '.', '' ) * 100;
-	        $max_order_line_amount = ( number_format( ( $order_fee->get_total() + $order_fee->get_total_tax() ) * 100, wc_get_price_decimals(), '.', '' ) * $order_fee->get_quantity() ) * 100;
+	        $fee_total_amount      = number_format( ( $order_fee->get_total() ) * ( 1 + ( $this->get_order_line_tax_rate( $order, $order_fee ) / 100 ) ), wc_get_price_decimals(), '.', '' );
+	        $max_order_line_amount = ( number_format( ( $order_fee->get_total() + $order_fee->get_total_tax() ) * 100, wc_get_price_decimals(), '.', '' ) * $order_fee->get_quantity() );
 	    }
 	    // Check so the line_total isn't greater than product price x quantity.
 	    // This can happen when having price display set to 0 decimals.
 	    if ( $fee_total_amount > $max_order_line_amount ) {
 	        $fee_total_amount = $max_order_line_amount;
 	    }
-	    return round( $fee_total_amount );
+	    return $fee_total_amount;
 	}
 	
 	/**
@@ -291,8 +325,8 @@ class WC_Gateway_Payssion_Order {
 	    } else {
 	        $fee_subtotal = ( $order_fee->get_total() + $order_fee->get_total_tax() ) / $order_fee->get_quantity();
 	    }
-	    $fee_price = number_format( $fee_subtotal, wc_get_price_decimals(), '.', '' ) * 100;
-	    return round( $fee_price );
+	    $fee_price = number_format( $fee_subtotal, wc_get_price_decimals(), '.', '' );
+	    return $fee_price;
 	}
 	
 	/**
@@ -308,11 +342,11 @@ class WC_Gateway_Payssion_Order {
 	    } else {
 	        $fee_total_amount       = $this->get_fee_total_amount( $order, $order_fee );
 	        $fee_tax_rate           = ( '0' !== $order->get_total_tax() ) ? $this->get_order_line_tax_rate( $order, current( $order->get_items( 'fee' ) ) ) : 0;
-	        $fee_total_exluding_tax = $fee_total_amount / ( 1 + ( $fee_tax_rate / 10000 ) );
+	        $fee_total_exluding_tax = $fee_total_amount / ( 1 + ( $fee_tax_rate / 100 ) );
 	        $fee_tax_amount         = $fee_total_amount - $fee_total_exluding_tax;
 	    }
-	    $this->total_tax += round( $fee_tax_amount );
-	    return round( $fee_tax_amount );
+	    $this->total_tax += $fee_tax_amount;
+	    return $fee_tax_amount;
 	}
 	
 	public function getOrginOrder() {

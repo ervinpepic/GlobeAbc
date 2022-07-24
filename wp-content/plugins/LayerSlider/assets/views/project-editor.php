@@ -3641,6 +3641,20 @@
 																	</lse-fe-wrapper>
 																</lse-ib>
 															</lse-col>
+															<lse-col>
+																<lse-ib>
+																	<lse-text>
+																		<?= __('Backdrop Filter', 'LayerSlider') ?>
+																	</lse-text>
+																</lse-ib>
+																<lse-ib>
+																	<lse-fe-wrapper class="lse-smart-help" data-smart-help="filter" data-smart-help-title="<?= __('Backdrop Filter', 'LayerSlider') ?>" data-smart-options="filter" data-set-values>
+																		<?php lsGetInput( $lsDefaults['layers']['backdropFilter'], null, [
+																			'class' => 'lse-style-prop'
+																		]) ?>
+																	</lse-fe-wrapper>
+																</lse-ib>
+															</lse-col>
 															<lse-col-placeholder></lse-col-placeholder>
 														</lse-row>
 													</lse-grid>

@@ -117,6 +117,15 @@ add_action('init', function() {
 			}
 		}
 
+		// Use recommended settings
+		if( isset( $_GET['page']) && $_GET['page'] == 'layerslider' && isset($_GET['action']) && $_GET['action'] == 'use_recommended_settings') {
+			if( check_admin_referer('use_recommended_settings') ) {
+				ls_use_recommended_settings();
+				wp_redirect( admin_url('admin.php?page=layerslider&section=system-status&message=revertToRecommendedSettings') );
+				exit;
+			}
+		}
+
 
 		if( isset( $_GET['page']) && $_GET['page'] == 'layerslider' && isset($_GET['action']) && $_GET['action'] == 'check_updates') {
 			if( check_admin_referer('check_updates') ) {
@@ -282,6 +291,21 @@ function ls_get_popup_markup() {
 	}
 
 	die();
+}
+
+function ls_use_recommended_settings() {
+
+	$options = [
+		'use_cache',
+		'clear_3rd_party_caches',
+		'admin_no_conflict_mode',
+		'gsap_sandboxing',
+		'use_custom_jquery'
+	];
+
+	foreach( $options as $option ) {
+		delete_option( 'ls_' . $option );
+	}
 }
 
 

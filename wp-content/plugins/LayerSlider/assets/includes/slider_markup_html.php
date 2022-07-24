@@ -627,6 +627,11 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 				}
 
 
+				if( ! empty( $layer['props']['styles']['backdrop-filter'] ) ) {
+					$layer['props']['styles']['-webkit-backdrop-filter'] = $layer['props']['styles']['backdrop-filter'];
+				}
+
+
 				$innerAttributes['style'] .= ls_array_to_attr($layer['props']['styles'], 'css');
 
 				// Text / HTML layer
