@@ -4,12 +4,12 @@
  * Plugin URI: http://thimpress.com/learnpress
  * Description: Course you have to finish before you can enroll to this course.
  * Author: ThimPress
- * Version: 4.0.5
+ * Version: 4.0.6
  * Author URI: http://thimpress.com
  * Tags: learnpress, lms, add-on, prerequisites courses
  * Text Domain: learnpress-prerequisites-courses
  * Domain Path: /languages/
- * Require_LP_Version: 4.1.2
+ * Require_LP_Version: 4.1.6.9
  *
  * @package learnpress-prerequisites
  */
@@ -20,6 +20,7 @@
 defined( 'ABSPATH' ) || exit();
 
 const LP_ADDON_PREREQUISITES_COURSES_FILE = __FILE__;
+define( 'LP_ADDON_PREREQUISITES_COURSES_PATH', dirname( __FILE__ ) );
 
 /**
  * Class LP_Addon_Prerequisites_Courses_Preload
@@ -72,7 +73,11 @@ class LP_Addon_Prerequisites_Courses_Preload {
 	 * Load addon
 	 */
 	public function load() {
-		LP_Addon::load( 'LP_Addon_Prerequisites_Courses', 'inc/load.php', __FILE__ );
+		/**
+		 * @var LP_Addon_Prerequisites_Courses $lp_addon_prerequisites_courses
+		 */
+		global $lp_addon_prerequisites_courses;
+		$lp_addon_prerequisites_courses = LP_Addon::load( 'LP_Addon_Prerequisites_Courses', 'inc/load.php', __FILE__ );
 	}
 
 	/**

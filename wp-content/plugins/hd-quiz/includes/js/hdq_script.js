@@ -1,4 +1,4 @@
-console.log("HD Quiz 1.8.5 Loaded");
+console.log("HD Quiz 1.8.7 Loaded");
 const HDQ = {
 	EL: {
 		quizzes: document.getElementsByClassName("hdq_quiz"),
@@ -51,10 +51,10 @@ const HDQ = {
 				}
 			});
 		}
-		
+
 		// kb nav
 		const buttons = document.getElementsByClassName("hdq_button");
-		for(let i = 0; i < buttons.length; i++){
+		for (let i = 0; i < buttons.length; i++) {
 			buttons[i].addEventListener("keyup", HDQ.keyUp);
 		}
 
@@ -80,12 +80,12 @@ const HDQ = {
 			}
 		}
 	},
-	keyUp: function(ev, el){
-		console.log(ev)
-		if(typeof el === "undefined"){
+	keyUp: function (ev, el) {
+		console.log(ev);
+		if (typeof el === "undefined") {
 			el = this;
 		}
-		if(ev.keyCode === 32){
+		if (ev.keyCode === 32) {
 			el.click();
 		}
 	},
@@ -164,7 +164,7 @@ const HDQ = {
 				for (let i = 0; i < answers.length; i++) {
 					answers[i].disabled = false;
 				}
-				HDQ.timer.question.question();				
+				HDQ.timer.question.question();
 
 				// hide jPagination until answer has been made
 				for (let i = 0; i < HDQ.EL.jPaginate.length; i++) {
@@ -200,40 +200,40 @@ const HDQ = {
 				}
 			},
 			changed: async function (ev, sap = false) {
-				// reset timer				
+				// reset timer
 				let p = document.getElementsByClassName("hdq_active_question")[0];
-				if (!p.classList.contains("hdq_question")) {					
+				if (!p.classList.contains("hdq_question")) {
 					p = HDQ.getParent(p);
 				}
-				
+
 				// check question type
 				let qt = p.getAttribute("data-type");
-				if(qt == "select_all_apply_text" && sap === false){
+				if (qt == "select_all_apply_text" && sap === false) {
 					// does "next" button already exist?
 					let n = p.getElementsByClassName("hdq_button");
-					if(typeof n[0] == "undefined"){
+					if (typeof n[0] == "undefined") {
 						const html = `<div class="hdq_button" role="button" tabindex = "0" onkeyup="HDQ.keyUp(event, this)" onclick = "HDQ.timer.question.changed(this, true)" style = "display: flex; width: fit-content;">${HDQ.VARS.translations.next}</div>`;
-						p.insertAdjacentHTML("beforeend", html)
+						p.insertAdjacentHTML("beforeend", html);
 					}
 					return;
-				} else if(qt == "select_all_apply_text"){
+				} else if (qt == "select_all_apply_text") {
 					let n = p.getElementsByClassName("hdq_button")[0];
 					n.remove();
 				}
 
 				// reset timer
-				HDQ.VARS.timer.time = HDQ.VARS.timer.max;		
+				HDQ.VARS.timer.time = HDQ.VARS.timer.max;
 
-				// figure out what the next question is		
+				// figure out what the next question is
 				let next_question = p.nextSibling;
 				let active_question = document.getElementsByClassName("hdq_active_question");
 				if (active_question.length > 0) {
 					active_question[0].classList.remove("hdq_active_question");
-				}		
+				}
 
 				// check if question has custom time
 				let t = parseInt(next_question.getAttribute("data-timer"));
-				if(t > 0){
+				if (t > 0) {
 					HDQ.VARS.timer.time = t;
 				}
 				let status = await HDQ.timer.question.checkQuestion(next_question);
@@ -375,7 +375,6 @@ const HDQ = {
 			}
 		},
 		text: async function (el) {
-			let correct = false;
 			let value = el.value.toLocaleUpperCase().trim();
 			let answers = el.getAttribute("data-answers");
 			answers = decodeURIComponent(answers);
@@ -383,11 +382,12 @@ const HDQ = {
 			for (let i = 0; i < answers.length; i++) {
 				answers[i] = answers[i].toLocaleUpperCase();
 			}
-			if (answers.includes(value)) {
+
+			let correct = isCorrect(answers);
+			if (correct) {
 				if (HDQ.VARS.show_results == "yes") {
 					el.parentNode.classList.add("hdq_correct");
 				}
-				correct = true;
 			} else {
 				if (HDQ.VARS.show_results == "yes") {
 					el.parentNode.classList.add("hdq_wrong");
@@ -400,8 +400,26 @@ const HDQ = {
 					}
 				}
 			}
+
 			el.disabled = true;
 			return correct;
+
+			function isCorrect(answers) {
+				let correct = false;
+				// check for stemming
+				for (let i = 0; i < answers.length; i++) {
+					if (answers[i][answers[i].length - 1] == "*") {
+						const a = answers[i].slice(0, -1);
+						if (a === value || value.startsWith(a)) {
+							correct = true;
+						}
+					}
+				}
+				if (answers.includes(value)) {
+					correct = true;
+				}
+				return correct;
+			}
 		},
 		radio: async function (el) {
 			let correct = false;
@@ -643,12 +661,7 @@ const HDQ = {
 		if (jQuery(".hdq_results_inner .hdq_result .hdq_result_percent")[0]) {
 			let hdq_results_percent = (parseFloat(HDQ.VARS.hdq_score[0]) / parseFloat(HDQ.VARS.hdq_score[1])) * 100;
 			hdq_results_percent = Math.ceil(hdq_results_percent);
-			data =
-				'<span class = "hdq_result_fraction">' +
-				data +
-				'</span> - <span class = "hdq_result_percent">' +
-				hdq_results_percent +
-				"%</span>";
+			data = '<span class = "hdq_result_fraction">' + data + '</span> - <span class = "hdq_result_percent">' + hdq_results_percent + "%</span>";
 		}
 		jQuery(".hdq_results_inner .hdq_result").html(data);
 
@@ -711,10 +724,23 @@ const HDQ = {
 	},
 	share: function () {
 		function create_twitter_share() {
-			let baseURL = "https://twitter.com/intent/tweet?screen_name=";
-			let shareText = HDQ.VARS.hdq_score[0] + "/" + HDQ.VARS.hdq_score[1] + " on the " + HDQ.VARS.name + " quiz. Can you beat me? ";
-			shareText = encodeURI(shareText);
-			let shareLink = baseURL + HDQ.VARS.twitter + "&text=" + shareText + encodeURI(HDQ.VARS.permalink);
+			let baseURL = "https://twitter.com/intent/tweet";
+
+			let text = HDQ.VARS.share_text;
+			let score = HDQ.VARS.hdq_score[0] + "/" + HDQ.VARS.hdq_score[1];
+			text = text.replaceAll("%score%", score);
+			text = text.replaceAll("%quiz%", HDQ.VARS.name);
+
+			if (HDQ.VARS.twitter != "") {
+				baseURL += "?screen_name=" + HDQ.VARS.twitter;
+			} else {
+				baseURL += "?";
+			}
+			text = "&text=" + encodeURI(text);
+			let url = "&url=" + encodeURI(HDQ.VARS.permalink);
+			let hashtags = "&hashtags=hdquiz";
+
+			let shareLink = baseURL + text + url + hashtags;
 			jQuery(".hdq_twitter").attr("href", shareLink);
 		}
 		create_twitter_share();
@@ -803,11 +829,7 @@ const HDQ = {
 				console.log(hdq_quiz_container);
 
 				if (hdq_quiz_container[0].tagName === "DIV") {
-					hdq_top =
-						jQuery(hdq_quiz_container).scrollTop() +
-						jQuery(".hdq_results_wrapper").offset().top -
-						jQuery(".hdq_results_wrapper").height() / 2 -
-						100;
+					hdq_top = jQuery(hdq_quiz_container).scrollTop() + jQuery(".hdq_results_wrapper").offset().top - jQuery(".hdq_results_wrapper").height() / 2 - 100;
 					console.log("hdq_top: " + hdq_top);
 					jQuery(hdq_quiz_container).animate(
 						{
@@ -853,11 +875,7 @@ const HDQ = {
 				hdq_quiz_container = jQuery(await HDQ.get_quiz_parent_container(hdq_quiz_container));
 
 				if (hdq_quiz_container[0].tagName === "DIV") {
-					hdq_top =
-						jQuery(hdq_quiz_container).scrollTop() +
-						jQuery(".hdq_question:visible").offset().top -
-						jQuery(".hdq_question:visible").height() / 2 -
-						40;
+					hdq_top = jQuery(hdq_quiz_container).scrollTop() + jQuery(".hdq_question:visible").offset().top - jQuery(".hdq_question:visible").height() / 2 - 40;
 					jQuery(hdq_quiz_container).animate(
 						{
 							scrollTop: hdq_top,
@@ -938,7 +956,8 @@ if (typeof hdq_local_vars != "undefined") {
 				jPage: 0,
 				paginate: false,
 				legacy_scroll: hdq_locals.hdq_legacy_scroll,
-				translations: hdq_locals.hdq_translations
+				translations: hdq_locals.hdq_translations,
+				share_text: hdq_locals.hdq_share_text,
 			};
 		}
 		await hdqSetInitVars();
@@ -949,15 +968,20 @@ if (typeof hdq_local_vars != "undefined") {
 
 // TODO: check to see if this integration still works well
 /* FB APP - Only used if APP ID was provided */
-jQuery("#hdq_fb_sharer").click(function () {
+jQuery("#hdq_fb_sharer").on("click", function () {
 	let hdq_score = jQuery(".hdq_result").text();
+	let text = HDQ.VARS.share_text;
+	text = text.replaceAll("%score%", hdq_score);
+	text = text.replaceAll("%quiz%", HDQ.VARS.name);
 	FB.ui(
 		{
 			method: "share",
 			href: HDQ.VARS.permalink,
 			hashtag: "#hdquiz",
-			quote: "I scored " + hdq_score + " on the " + HDQ.VARS.name + " quiz. Can you beat me?",
+			quote: text, // Note: It looks like Meta depricated sending custom text altogether :(
 		},
-		function (res) {}
+		function (res) {
+			console.log(res);
+		}
 	);
 });

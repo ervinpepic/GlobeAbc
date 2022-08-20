@@ -81,7 +81,8 @@ class LP_Abstract_Template {
 				return;
 			}
 
-			if ( ! $callbacks = $wp_filter[ $tag ]->callbacks ) {
+			$callbacks = $wp_filter[ $tag ]->callbacks;
+			if ( ! $callbacks ) {
 				return;
 			}
 
@@ -258,7 +259,7 @@ class LP_Template_Callback {
 	}
 
 	public function text() {
-		echo $this->template;
+		learn_press_echo_vuejs_write_on_php( $this->template );
 	}
 
 	public function get_args() {

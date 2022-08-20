@@ -18,7 +18,7 @@ class Quiz extends Component {
 	}
 
 	componentDidMount() {
-		const { settings, setQuizData } = this.props;
+		const { settings, setQuizData, status, isReviewing } = this.props;
 
 		const { question_ids, questions_per_page } = settings;
 
@@ -35,6 +35,19 @@ class Quiz extends Component {
 		}
 
 		setQuizData( settings );
+	}
+
+	componentDidUpdate( prevProps, prevState ) {
+		const { status, isReviewing } = this.props;
+
+		const notStarted = -1 !== [ '', 'viewed', undefined ].indexOf( status ) || ! status;
+
+		if ( isReviewing || ! notStarted ) {
+			const elQuiz = document.querySelector( '.quiz-content' );
+			if ( elQuiz ) {
+				elQuiz.style.display = 'none';
+			}
+		}
 	}
 
 	startQuiz = ( event ) => {
@@ -59,7 +72,6 @@ class Quiz extends Component {
 						) }
 
 						{ ! isReviewing && notStarted && <Meta /> }
-						{ ! isReviewing && notStarted && <Content /> }
 
 						{ 'started' === status && <Status /> }
 

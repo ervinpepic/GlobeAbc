@@ -57,7 +57,9 @@ $user = $profile->get_user();
 		<li class="form-field form-field__bio form-field__clear">
 			<label for="description"><?php esc_html_e( 'Biographical Info', 'learnpress' ); ?></label>
 			<div class="form-field-input">
-				<textarea name="description" id="description" rows="5" cols="30"><?php esc_html_e( $user->get_data( 'description' ) ); ?></textarea>
+				<textarea name="description" id="description" rows="5" cols="30">
+					<?php echo esc_html( $user->get_data( 'description' ) ); ?>
+				</textarea>
 				<p class="description"><?php esc_html_e( 'Share a little biographical information to fill out your profile. This may be shown publicly.', 'learnpress' ); ?></p>
 			</div>
 		</li>
@@ -112,7 +114,7 @@ $user = $profile->get_user();
 				}
 				?>
 
-				<li class="form-field form-field__profile-social form-field__50 form-field__<?php echo $k; ?>">
+				<li class="form-field form-field__profile-social form-field__50 form-field__<?php echo esc_attr( $k ); ?>">
 					<label for="description"><?php echo learn_press_social_profile_name( $k ); ?></label>
 					<div class="form-field-input">
 						<input type="text" value="<?php echo esc_attr( $v ); ?>" name="user_profile_social[<?php echo esc_attr( $k ); ?>]" placeholder="https://">

@@ -32,6 +32,23 @@ if (!is_singular() && HDQ_REDIRECT) {
             $buildQuiz = false;
         }
     }
+
+    // is this an admin page? Elementor won't enqueue scripts,
+    // so do not print quiz
+    if (!function_exists('is_plugin_active')) {
+        include_once(ABSPATH . 'wp-admin/includes/plugin.php');
+    }
+
+    if (function_exists('is_plugin_active')) {
+        // wrapped in another check since people might have diff wp-admin paths
+        // depending on .htaccess mapping or firewalls before WP loads
+        if (is_plugin_active('elementor/elementor.php')) {
+            if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
+                echo '<div class = "hdq_elementor_block" style = "padding: 2em; border: 1px dashed #999; background-color: rgba(255,255,255,0.1)"><p><strong>HD Quiz</strong>: This section is only visible because you are in Elementor\'s live edit mode, and will be replaced with the correct quiz on the public page/post.</p></div>';
+                $buildQuiz = false;
+            }
+        }
+    }
 }
 
 
@@ -97,35 +114,32 @@ if ($buildQuiz === true) {
     }
 
     $hdq_twitter_handle = $hdq_settings["hd_qu_tw"]["value"];
-    if ($hdq_twitter_handle == "" || $hdq_twitter_handle == null) {
-        $hdq_twitter_handle = "harmonic_design";
+
+    $hide_questions = "";
+    if (isset($quiz_settings["hide_questions"]["value"][0])) {
+        $hide_questions = $quiz_settings["hide_questions"]["value"][0];
     }
-	
-	$hide_questions = "";
-	if(isset($quiz_settings["hide_questions"]["value"][0])){
-		$hide_questions = $quiz_settings["hide_questions"]["value"][0];
-	}
-	
-	$finish = "Finish";
-	if(!isset($hdq_settings["hd_qu_finish"]) || $hdq_settings["hd_qu_finish"]["value"] !== ""){
-		$finish = $hdq_settings["hd_qu_finish"]["value"];
-	}
-	
-	$next = "Next";
-	if(!isset($hdq_settings["hd_qu_next"]) || $hdq_settings["hd_qu_next"]["value"] !== ""){
-		$next = $hdq_settings["hd_qu_next"]["value"];
-	}
-		
-	$results = "Results";
-	if(!isset($hdq_settings["hd_results"]) || $hdq_settings["hd_results"]["value"] !== ""){
-		$results = $hdq_settings["hd_results"]["value"];
-	}	
-	
-	$translations = array(
-		"finish" => $finish,
-		"next" => $next,
-		"results" => $results,		
-	);
+
+    $finish = "Finish";
+    if (!isset($hdq_settings["hd_qu_finish"]) || $hdq_settings["hd_qu_finish"]["value"] !== "") {
+        $finish = $hdq_settings["hd_qu_finish"]["value"];
+    }
+
+    $next = "Next";
+    if (!isset($hdq_settings["hd_qu_next"]) || $hdq_settings["hd_qu_next"]["value"] !== "") {
+        $next = $hdq_settings["hd_qu_next"]["value"];
+    }
+
+    $results = "Results";
+    if (!isset($hdq_settings["hd_qu_results"]) || $hdq_settings["hd_qu_results"]["value"] !== "") {
+        $results = $hdq_settings["hd_qu_results"]["value"];
+    }
+
+    $translations = array(
+        "finish" => $finish,
+        "next" => $next,
+        "results" => $results,
+    );
 
     $jPaginate = false;
     // create object for localized script
@@ -140,7 +154,7 @@ if ($buildQuiz === true) {
     $hdq_local_vars->hdq_stop_answer_reselect = $quiz_settings["stop_answer_reselect"]["value"][0];
     $hdq_local_vars->hdq_pass_percent = $quiz_settings["quiz_pass_percentage"]["value"];
     $hdq_local_vars->hdq_share_results = $quiz_settings["share_results"]["value"][0];
-	$hdq_local_vars->hdq_hide_questions = $hide_questions;
+    $hdq_local_vars->hdq_hide_questions = $hide_questions;
     $hdq_local_vars->hdq_legacy_scroll = $legacy_scroll;
     $hdq_local_vars->hdq_quiz_permalink = get_the_permalink();
     $hdq_local_vars->hdq_twitter_handle = $hdq_twitter_handle;
@@ -150,7 +164,8 @@ if ($buildQuiz === true) {
     $hdq_local_vars->hdq_use_ads = $use_adcode;
     $hdq_local_vars->hdq_submit = array();
     $hdq_local_vars->hdq_init = array();
-	$hdq_local_vars->hdq_translations = $translations;
+    $hdq_local_vars->hdq_translations = $translations;
+    $hdq_local_vars->hdq_share_text = $hdq_settings["hd_qu_share_text"]["value"];
     do_action("hdq_submit", $hdq_local_vars); // add functions to quiz complete
     do_action("hdq_init", $hdq_local_vars); // add functions to quiz init
     $hdq_local_vars = json_encode($hdq_local_vars);
@@ -215,22 +230,21 @@ if ($buildQuiz === true) {
                         $jPaginate = true;
                         hdq_print_jPaginate($quiz_ID);
                     }
-					
-					// used to add custom data attributes to questions					
-					$extra = apply_filters('hdq_extra_question_data', array(), $question, $quiz_ID);
-					$extra_data = "";
-					foreach($extra as $k => $d){
-						$extra_data = "data-".$k.'="'.$d.'" ';
-					}
-					$extra_data = sanitize_text_field($extra_data);
-					
-                    echo '<div class = "hdq_question" '.$extra_data.' data-type = "' . $question["question_type"]["value"] . '" id = "hdq_question_' . $question_ID . '">';
+
+                    // used to add custom data attributes to questions					
+                    $extra = apply_filters('hdq_extra_question_data', array(), $question, $quiz_ID);
+                    $extra_data = "";
+                    foreach ($extra as $k => $d) {
+                        $extra_data = "data-" . $k . '="' . $d . '" ';
+                    }
+                    $extra_data = sanitize_text_field($extra_data);
+
+                    echo '<div class = "hdq_question" ' . $extra_data . ' data-type = "' . $question["question_type"]["value"] . '" id = "hdq_question_' . $question_ID . '" data-weight = "1">';
 
                     hdq_print_question_featured_image($question);
 
-					do_action("hdq_after_featured_image", $question);
-					
-					
+                    do_action("hdq_after_featured_image", $question);
+
                     // deal with randomized answer order here,
                     // so that you don't have to in your custom question type functions
                     $ans_cor = hdq_get_question_answers($question["answers"]["value"], $question["selected"]["value"], $quiz_settings["randomize_answers"]["value"][0]);
@@ -264,7 +278,6 @@ if ($buildQuiz === true) {
             }
 
             wp_reset_postdata();
-
 
             if ($query->max_num_pages > 1 || $per_page != "-1") {
                 if (isset($_GET['currentScore'])) {

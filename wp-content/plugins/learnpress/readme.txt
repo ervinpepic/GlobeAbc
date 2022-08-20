@@ -5,7 +5,7 @@ Tags: elearning, education, course, lms, learning management system
 Requires at least: 5.6
 Tested up to: 6.0
 Requires PHP: 7.0
-Stable tag: 4.1.6.7
+Stable tag: 4.1.6.9.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -203,12 +203,52 @@ https://www.transifex.com/projects/p/learnpress/
 
 == Changelog ==
 
+= 4.1.6.9.3 (2022-08-10) =
+~ Fixed: show wrong shortcode on course, item's course.
+
+= 4.1.6.9.2 (2022-08-09) =
+~ Fixed: show wrong special character (Ex: ü) on Section title, description.
+~ Fixed: error on duplicate course, item function not same content old course, item.
+~ Fixed: button sidebar toggle not show on default theme WP.
+~ Fixed: ESC make error with payment gateway.
+
+= 4.1.6.9.1 (2022-08-04) =
+~ Fixed: error ESC content of course, items' course make iframe, embed not working.
+~ Fixed: error complete lesson, do quiz on API for App mobile.
+
+= 4.1.6.9 (2022-08-03) =
+~ Modified: read items, read sections of course. (optimize read speed).
+~ Modified: 'set_viewing_item' method.
+~ Modified: set thumbnail image size on the 'Profile Page' by width setting on 'Avatar Dimensions'.
+~ Fixed: error search no courses but return all (Archive courses).
+~ Fixed: error LP_Shortcode_Course_Curriculum with Elementor.
+~ Sanitize, ESC.
+~ Deleted: folder attributes, files: 'class-lp-gdpr.php', 'class-lp-hard-cache.php', 'class-lp-repair-database.php', 'class-lp-utils.php'.
+~ Clear, optimize codes.
+~ Added: hook do_action 'lp/background/course/save'.
+~ Added: hooks for addon LP - WPML.
+~ Deprecated: methods 'load_curriculum'.
+~ Style: FAQs on single course, spacing items progress, space in single tab.
+~ Change: 'Course Item Per Page' set default is 10.
+
+= 4.1.6.8 (2022-07-05) =
+~ Fixed: click pagination when enable 2 option Load Courses Ajax.
+~ Added: loading, error message(if it has) when start quick.
+~ Fixed: error sort by popular with theme Eduma.
+~ Fixed: Wordfence denied param: "author", convert to "user" on API.
+~ Fixed: query popular courses for app.
+~ Added: return price format for app.
+~ Added: API delete account for app.
+~ Merged: addon Offline Payment.
+~ Fixed: styles with themes: Avada, Divi, Flastsome, Bridget, Astra, The 7.
+~ Fixed: security.
+
 = 4.1.6.7 (2022-06-20) =
 ~ Fixed: errors quiz when call API LP remove action 'wp_loaded'.
 ~ Fixed: some minor bugs.
 ~ Fixed: install tables for multiple sites.
 ~ Fixed: save settings always return tab General.
-~ Fixed: layout 'select items' popup when edit course.
+~ Fixed: layout 'select items' popup when edit course.=
 
 = 4.1.6.6 (2022-06-13) =
 ~ Fixed: security.

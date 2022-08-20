@@ -17,7 +17,7 @@ $is_exists = $checkout->checkout_email_exists();
 
 <input type="radio" id="checkout-account-switch-to-guest" name="checkout-account-switch-form" value="guest" checked="checked"/>
 
-<div id="checkout-account-guest" class="lp-checkout-block <?php echo $is_exists ? 'email-exists' : ''; ?>">
+<div id="checkout-account-guest" class="lp-checkout-block <?php echo esc_attr( $is_exists ? 'email-exists' : '' ); ?>">
 	<h4><?php esc_html_e( 'As Guest', 'learnpress' ); ?></h4>
 	<ul class="lp-form-fields">
 		<li class="form-field">
@@ -27,7 +27,9 @@ $is_exists = $checkout->checkout_email_exists();
 			</div>
 
 			<?php
-			$signin = $signup = $divider = '';
+			$signin  = '';
+			$signup  = '';
+			$divider = '';
 
 			if ( LP()->checkout()->is_enable_login() ) {
 				$signin = sprintf( '<a href="javascript:void(0)"><label for="checkout-account-switch-to-login">%s</label></a>', esc_html( _x( 'Sign in', 'checkout sign in link', 'learnpress' ) ) );

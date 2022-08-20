@@ -4,7 +4,7 @@
  * Plugin URI: http://thimpress.com/learnpress
  * Description: LearnPress is a WordPress complete solution for creating a Learning Management System (LMS). It can help you to create courses, lessons and quizzes.
  * Author: ThimPress
- * Version: 4.1.6.7
+ * Version: 4.1.6.9.3
  * Author URI: http://thimpress.com
  * Requires at least: 5.6
  * Tested up to: 6.0
@@ -105,11 +105,6 @@ if ( ! class_exists( 'LearnPress' ) ) {
 		 * @var LP_Template
 		 */
 		public $template = null;
-
-		/**
-		 * @var LP_Utils
-		 */
-		public $utils = null;
 
 		/**
 		 * @var LP_Core_API
@@ -344,7 +339,7 @@ if ( ! class_exists( 'LearnPress' ) ) {
 			require_once 'inc/course/lp-course-functions.php';
 			require_once 'inc/course/abstract-course.php';
 			require_once 'inc/course/class-lp-course.php';
-			require_once 'inc/course/class-lp-course-utils.php';
+			//require_once 'inc/course/class-lp-course-utils.php';
 			require_once 'inc/quiz/lp-quiz-functions.php';
 			require_once 'inc/quiz/class-lp-quiz.php';
 			require_once 'inc/lesson/lp-lesson-functions.php';
@@ -367,7 +362,7 @@ if ( ! class_exists( 'LearnPress' ) ) {
 			// include template functions .
 			require_once 'inc/lp-template-functions.php';
 			require_once 'inc/templates/abstract-template.php';
-			require_once 'inc/class-lp-template.php';
+			//require_once 'inc/class-lp-template.php';
 
 			// Cart
 			require_once 'inc/cart/class-lp-cart.php';
@@ -482,7 +477,7 @@ if ( ! class_exists( 'LearnPress' ) ) {
 		 */
 		public function plugin_links( array $links ): array {
 			$links[] = sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=learn-press-settings' ), __( 'Settings', 'learnpress' ) );
-			$links[] = sprintf( '<a href="%s" target="_blank">%s</a>', 'https://learnpress.io/docs/', __( 'Documentation', 'learnpress' ) );
+			$links[] = sprintf( '<a href="%s" target="_blank">%s</a>', 'https://docspress.thimpress.com/learnpress-4-0/', __( 'Documentation', 'learnpress' ) );
 			$links[] = sprintf( '<a href="%s" target="_blank">%s</a>', get_admin_url() . '/admin.php?page=learn-press-addons', __( 'Add-ons', 'learnpress' ) );
 
 			return $links;
@@ -712,7 +707,6 @@ if ( ! class_exists( 'LearnPress' ) ) {
 			$this->get_session();
 
 			$this->settings = $this->settings();
-			// $this->utils    = LP_Utils::instance();
 
 			if ( $this->is_request( 'frontend' ) ) {
 				$this->get_cart();
@@ -723,28 +717,6 @@ if ( ! class_exists( 'LearnPress' ) ) {
 			// Init emails
 			LP_Emails::instance();
 		}
-
-		/**
-		 * View log.
-		 *
-		 * @since 3.0.0
-		 * @deprecated 3.2.8
-		 * @editor tungnx
-		 */
-		/*
-		public function view_log() {
-			if ( ! empty( $_REQUEST['view-log'] ) ) {
-				$log = LP_Helper::sanitize_params_submitted( $_REQUEST['view-log'] );
-				echo '<pre>';
-				if ( is_multisite() ) {
-					$log = "{$log}-" . get_current_blog_id();
-				}
-				echo $log = learn_press_get_log_file_path( $log );
-				@readfile( $log );
-				echo '<pre>';
-				die();
-			}
-		}*/
 
 		/**
 		 * Get session object instance.
@@ -880,7 +852,7 @@ if ( ! class_exists( 'LearnPress' ) ) {
 				);
 				?>
 				<div class="notice notice-error">
-					<p><?php echo $message; ?></p>
+					<p><?php echo wp_kses_post( $message ); ?></p>
 				</div>
 				<?php
 				die;

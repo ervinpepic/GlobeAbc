@@ -1,9 +1,9 @@
 ﻿=== HD Quiz ===
 Contributors: HarmonicDesign
 Tags: quiz, quizzes, quizes, quiz, questionnaire, questionnaires, questionnairs, questionair, questionaires, hdquiz, hd quiz, test, question and answers, harmonic design
-Requires at least: 5
-Tested up to: 5.9
-Stable tag: 1.8.5
+Requires at least: 5.0
+Tested up to: 6.0
+Stable tag: 1.8.7
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -13,98 +13,99 @@ Create a Quiz. A very easy to use and feature rich plugin to create an unlimited
 
 == Description ==
 
-HD Quiz. The easiest way to create fun quizzes for you site
+HD Quiz. The easiest way to create fun quizzes for your site
 ======
 
-HD Quiz is a very easy to use plugin to create an unlimited amount of quizzes and embed them onto any page or post. HD Quiz is equally perfect for building strong professional based questionnaires or fun Buzzfeed style quizzes.
+# HD Quiz. The easiest way to create fun quizzes for your site 🙋
 
-[See a live demo](https://designbypixl.com/the-ultimate-friends-quiz/ "See a live demo")
+HD Quiz is an **easy and intuitive quiz builder** for WordPress. With HD Quiz, you can create an unlimited amount of quizzes and embed them anywhere on your site. We use both shortcodes as well as a custom Gutenberg block to make this as easy as possible for you.
 
-== View Video Tutorial ==
+The quizzes are fun, beautiful, highly customizable, accessible (visually impaired, screen readers etc), and automatically responsive. HD Quiz was designed so that **quizzes automatically inherit the fonts and styling of your theme** - but you can still customize the styles yourself or purchase the HD Quiz Styler addon to really make the quizzes your own.
+
+
+[VIEW LIVE DEMO](https://designbypixl.com/the-ultimate-friends-quiz/)
+
+
+## ▶️ VIEW VIDEO DEMO / TUTORIAL ▶️
 https://www.youtube.com/watch?v=IgDada_WqNw
 
-= NOTICE ⚠️ =
-The 1.8.x version is a major upgrade. Your quiz and question data will need to be upgraded if you are upgrading HD Quiz from an earlier version. If you have less than 60 questions this will be done automatically in the background. However, if you have more, you will need to use the manual upgrade tool (don't worry; it's just a click of a button).
+## ✨ Features ✨
+HD Quiz has *so many* cool features, settings, and options, that I cannot possibly list them all. So here are some of the highlights of what I think are some of the coolest and most important features of HD Quiz. **Everything you see listed here is included by default and 100% FREE!**
 
-If you have any issues with upgrading to this version, please contact me on my support forum so I can help you. [view the HD Quiz plugin page](https://harmonicdesign.ca/hd-quiz/ "view the HD Quiz plugin page")
+ - Unlimited amount of quizzes and questions
+ - Each quiz has its own options/settings
+ - Social sharing - share quiz results on Twitter or Facebook
+ - Mobile and touch friendly
+ - Quizzes are accessible (screen readers)
+ - Each question can have a featured image and or tooltip
+ - Each question can have "extra" text, that by default will appear if the user gets the question wrong
+ - Multiple question types
+	 - text based multiple choice
+	 - image based multiple choice
+	 - select all that apply
+	 - text input (type the answer)
+	 - heading (not a question; is used to separate questions into "categories")
+- Pagination
+- Timer
+	- Timer per quiz (example: 60 seconds to complete the quiz)
+	- Timer per question (example: you have 10 seconds to answer each question)
+- Animated GIF support
+- Translation options - you can translate words like "question", "next", "finish" etc into your own language
+- Randomization options
+	- Randomize question order
+	- Randomize answer order
+- Pool of Questions - randomly grab `n` questions from the quiz to make a unique quiz on each page load
+- Result position (results shown above or below quiz)
+- Marking options
+	- Show the correct and incorrect questions
+	- If user got the question wrong, show what the correct answer was
+	- immediately mark the question on selection
+- custom pass percent
+- custom result text (based on if the user passed or failed the quiz)
+- automatically hide the questions on quiz completion
+- allow "authors" to create quizzes
+- **free addon to save results of quizzes**
+- and i'm sure a ton of other things that I can;t even remember
 
-Upgrading does not modify or delete your old quiz data in any way, so you can also always revert back to a previous version of HD Quiz [here](https://wordpress.org/plugins/hd-quiz/advanced/ "download older version of HD Quiz") (download link is at the bottom of the page).
-
-= Features include 👍 =
-
-* Unlimited amount of quizzes
-* Each quiz has individual options
-* Mobile-friendly (responsive design)
-* Touch friendly (each option is coded and designed to make it easy to select on touch devices)
-* Each question can have its own featured image
-* Each question can have its own tooltip
-* Share quizzes across Facebook and Twitter
-* Image based answers
-* Animated gifs as question featured image, or for any answer
-* Quiz Timer - set a time limit to complete the quiz
-* - [NEW] Timer per question
-* Multiple question types, including user input
-* - [NEW] New question type: Select All That Apply
-* Pagination
-* Question as title / heading
-* Basic translation features (found in the HD Quiz About / Options page)
-* Add links or images to quiz results
-* Ability to add a small write-up for each question that would be displayed underneath the question on quiz completion.
-* Grab from a pool of questions
-* So, so much more!
-
-= Individual Quiz Options are: =
-
-* Results position (above quiz/below quiz)
-* Ability to share quiz results
-* Results checking (highlights right and wrong answers on quiz completion)
- * Option to highlight what the correct answer was
-* Pass percentage
-* Quiz Pass text
-* Quiz Fail text
-* Quiz Timer
-* Pagination
-* Random question order
-* Random answer order
-* So, so much more!
-
-[view the HD Quiz plugin page](https://harmonicdesign.ca/hd-quiz/ "view the HD Quiz plugin page")
+Have any questions or want additional information? [view the Harmonic Design HD Quiz plugin page here](https://harmonicdesign.ca/hd-quiz/ "view the HD Quiz plugin page here").
 
 
->== HOW TO USE | TUTORIAL ==
+## 🤓 HOW TO USE | TUTORIAL 🤓
+#### ADDING A NEW QUIZ
 
-= Adding A New Quiz =
-* Select **Quizzes** in the left menu.
-* Enter the name of the quiz, then click on Add A New Quiz. This will add it to the list on the right.
-* Click the name of the newly added quiz to set the quiz options such as the needed pass percentage.
+-   Select  **Quizzes**  under HD Quiz on the left menu
+-   Enter the name of the quiz, then ENTER on your keyboard to create the quiz
+-   Click the name of the newly added quiz to set the quiz options such as the needed pass percentage
 
-= Adding New Questions =
+#### ADDING NEW QUESTIONS
 
-* Select **Add New Question** in the left menu.
-* Enter the question as the title.
-* You can have up to ten (10) answers per question. Make sure to select which answer is the correct one.
-* In the right sidebar, you will see a metabox called **Quizzes** with a list of all quizzes you have created. Select the quiz that this question belongs to.
+-   Once a quiz has been created, select the quiz open it up, then  **Add New Question**
+-   Enter in the question
+-   You can have up to ten (10) answers per question. Make sure to select which answer is the correct one!
+-   You can also select the "extra" tab to see more advanced features such as adding in custom text, enabling pagination, or setting a featured image
+- Select **Save Question** once done
 
-= Using A Quiz =
+#### USING A QUIZ
 
-* HD Quiz uses shortcodes to render a quiz, so you can place a quiz almost anywhere on your site!
-* To find the shortcode for a quiz, select **Quizzes** in the left menu.
-* You will now see a list of all of your quizzes in a table, with the shortcode listed.
-* Copy and paste the shortcode into any page or post you want to render that quiz!
+-   HD Quiz uses shortcodes to render a quiz, so you can place a quiz almost anywhere on your site!
+-   To find the shortcode for a quiz, select  **Quizzes**  in the left menu.
+-   You will now see a list of all of your quizzes in a table, with the shortcode listed.
+-   Copy and paste the shortcode into any page or post you want to render that quiz!
+- **If using Gutenberg**, then you can add the HD Quiz block instead.
 
+### 🗓️ UPCOMING FEATURES 🗓️
+I have already taken this plugin farther than I intended, but I’m overwhelmed with joy at how much you are all using and loving HD Quiz!  Because of this, I have no intentions of stopping or slowing down development!
 
->== UPCOMING FEATURES ⏳ ==
+If you have any feature requests, then please let me know via the support tab or by leaving a comment on the  [HD Quiz plugin page](https://harmonicdesign.ca/hd-quiz/ "HD Quiz plugin page").
 
-I have already taken this plugin farther than I intended, but I'm overwhelmed with joy at how much you are all using and loving HD Quiz!
-Because of this, I have no intentions of stopping or slowing down development!
+**TODO List** - please note that there are no timelines for completion of any of the following features and this list is not in any particular order.
 
-If you have any feature requests, then please let me know via the support tab or by leaving a comment on the [HD Quiz plugin page](https://harmonicdesign.ca/hd-quiz/ "HD Quiz plugin page").
-
-= LIST =
-
-* Quiz styler
-* Global / default quiz options
-* Translation ready (including the admin area)
+ - Fully translation ready (not just the quizzes, but the entire admin area)
+ - Featured image / media upgrade. Ability to use embedded media (youtube video, vimeo etc)
+ - Dynamic results - instead of just pass/fail results, we can create as many results as needed. Example, a 0% result and a 100% perfect score result.
+ - "hookable" question types - ability for any developer to add custom question types
+ - better author mode integration
+ - Gamify compatibility? (let me know if this is something you are interested in) 
 
 == Installation ==
 
@@ -148,6 +149,17 @@ Quiz, quizzes, create a quiz, add a quiz, quiz plugin, hdq, harmonic design
 4. Questions Page
 
 == Changelog ==
+= 1.8.7 =
+* Hotfix: Translate Result Text
+
+= 1.8.6 =
+* New Twitter Share Text customization (about/options page)
+* new Settings class to make adding new global settings easier
+* minor tweaks to question templates to allow for weighted question calculation
+* Text based answers basic stemming
+* minor improvements throughout
+* new hook to add custom content after question featured image
+
 = 1.8.5 =
 * Better accessability (keyboard navigation)
 * Better support for timer per-question and select all that apply question type
@@ -272,9 +284,6 @@ Massive rewrite of almost the entire plugin. Please do not hesitate to ask for s
 * These options are global options and can be found under HD Quiz -> About / Options
 
 == Upgrade Notice ==
-= 1.8.5 =
-* Better accessability (keyboard navigation)
-* Better support for timer per-question and select all that apply question type
-* New hook to better add custom data attributes to questions
-* Minor bug fixes
-* New Trivia Company page
+* New Twitter Share Text customization (about/options page)
+* Text based answers basic stemming
+* Hotfix: Translate Result Text

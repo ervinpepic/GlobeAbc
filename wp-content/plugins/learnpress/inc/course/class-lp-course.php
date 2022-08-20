@@ -40,31 +40,6 @@ if ( ! class_exists( 'LP_Course' ) ) {
 		}*/
 
 		/**
-		 * Set item is viewing in single course.
-		 *
-		 * @param LP_Course_Item $item
-		 *
-		 * @return int|LP_Course_Item
-		 */
-		public function set_viewing_item( $item ) {
-			if ( $this->_viewing_item && $this->_viewing_item->get_id() == $item->get_id() ) {
-				return 0;
-			}
-
-			$user = learn_press_get_current_user();
-			if ( $user instanceof LP_User_Guest ) {
-				return 0;
-			}
-
-			$this->_viewing_item = $item;
-			$item->set_course( $this );
-
-			$user->maybe_update_item( $item->get_id(), $this->get_id() );
-
-			return $item;
-		}
-
-		/**
 		 * Get default course meta.
 		 *
 		 * @return mixed
@@ -297,6 +272,8 @@ if ( ! class_exists( 'LP_Course' ) ) {
 					} else {
 						$first_item_id = $extra_info->first_item_id;
 					}
+
+					$lp_course_cache->set_cache( $key_cache, $first_item_id );
 				}
 			} catch ( Throwable $e ) {
 				$first_item_id = 0;
@@ -360,7 +337,7 @@ if ( ! class_exists( 'LP_Course' ) ) {
 		 */
 		public function set_info_extra_for_fast_query( LP_Course_Extra_Info_Fast_Query_Model $data_object ) {
 			try {
-				$extra_info_json = json_encode( $data_object );
+				$extra_info_json = json_encode( $data_object, JSON_UNESCAPED_UNICODE );
 
 				if ( JSON_ERROR_NONE !== json_last_error() ) {
 					throw new Exception( 'Error encode on ' . __METHOD__ );
@@ -383,9 +360,11 @@ if ( ! class_exists( 'LP_Course' ) ) {
 		 * @return int
 		 */
 		public function count_items( string $type = '', bool $include_preview = true ): int {
+			$course_id = $this->get_id();
+
 			// Get cache
 			$lp_course_cache = LP_Course_Cache::instance();
-			$key_cache       = $this->get_id() . '/total_items';
+			$key_cache       = "$course_id/total_items";
 			$total_items     = $lp_course_cache->get_cache( $key_cache );
 			$count_items     = 0;
 
@@ -393,7 +372,7 @@ if ( ! class_exists( 'LP_Course' ) ) {
 				$extra_info = $this->get_info_extra_for_fast_query();
 
 				if ( ! $extra_info->total_items ) {
-					$total_items             = LP_Course_DB::getInstance()->get_total_items( $this->get_id() );
+					$total_items             = LP_Course_DB::getInstance()->get_total_items( $course_id );
 					$extra_info->total_items = $total_items;
 
 					// Save post meta
@@ -401,17 +380,21 @@ if ( ! class_exists( 'LP_Course' ) ) {
 				} else {
 					$total_items = $extra_info->total_items;
 				}
+
+				$lp_course_cache->set_cache( $key_cache, $total_items );
 			}
 
 			if ( ! empty( $total_items ) ) {
 				if ( ! empty( $type ) ) {
-					$count_items = $total_items->{$type};
+					if ( isset( $total_items->{$type} ) ) {
+						$count_items = $total_items->{$type};
+					}
 				} else {
 					$count_items = $total_items->count_items;
 				}
 			}
 
-			return apply_filters( 'learn-press/course/count-items', intval( $count_items ), $this->get_id() );
+			return apply_filters( 'learn-press/course/count-items', intval( $count_items ), $course_id );
 		}
 
 		/**
@@ -435,7 +418,7 @@ if ( ! class_exists( 'LP_Course' ) ) {
 
 				$filter                   = new LP_Section_Filter();
 				$filter->section_ids      = $section_ids;
-				$filter->author_id_course = $this->get_id();
+				$filter->author_id_course = $this->get_author( 'id' );
 
 				// Delete section
 				$lp_section_db->delete_section( $filter );
@@ -568,7 +551,7 @@ if ( ! class_exists( 'LP_Course' ) ) {
 
 				/**
 				 * Save key cache to array to clear
-				 * @see LP_Background_Single_Course::save_post()
+				 * @see LP_Background_Single_Course::save_post() - clear cache when save post
 				 */
 				LP_Courses_Cache::instance()->save_cache_keys( $key_cache );
 				LP_Courses_Cache::instance()->save_cache_keys( $key_cache_total_rows );
@@ -581,20 +564,278 @@ if ( ! class_exists( 'LP_Course' ) ) {
 		}
 
 		/**
-		 * Get course_ids
-		 *
-		 * @param array $courses Array object [{ ID: 1, post_title = '' }]
-		 * @param string $key
+		 * Get full sections, items of course via Cache, extra info (if it has)
 		 *
 		 * @return array
+		 * @since 4.1.6.9
+		 * @version 1.0.0
+		 * @author tungnx
 		 */
-		public static function get_course_ids( array $courses, string $key = 'ID' ): array {
-			$course_ids = array();
-			foreach ( $courses as $course ) {
-				$course_ids[] = $course->{$key};
+		public function get_full_sections_and_items_course(): array {
+			$sections_items = [];
+			$course_id      = $this->get_id();
+
+			try {
+				// Get cache
+				$lp_course_cache = LP_Course_Cache::instance();
+				$key_cache       = "$course_id/sections_items";
+				$sections_items  = $lp_course_cache->get_cache( $key_cache );
+
+				if ( ! $sections_items ) {
+					$extra_info = $this->get_info_extra_for_fast_query();
+
+					if ( empty( $extra_info->sections_items ) ) {
+						$sections_items             = $this->get_sections_and_items_course_from_db_and_sort();
+						$extra_info->sections_items = $sections_items;
+
+						// Save post meta
+						$this->set_info_extra_for_fast_query( $extra_info );
+					} else {
+						$sections_items = $extra_info->sections_items;
+					}
+
+					$lp_course_cache->set_cache( $key_cache, $sections_items );
+				}
+			} catch ( Throwable $e ) {
+				if ( LP_Debug::is_debug() ) {
+					error_log( $e->getMessage() );
+				}
 			}
 
-			return $course_ids;
+			return $sections_items;
+		}
+
+		/**
+		 * Get all sections and items from database, then handle sort
+		 * Only call when data change or not set
+		 *
+		 * @return array
+		 * @since 4.1.6.9
+		 * @version 1.0.0
+		 * @author tungnx
+		 */
+		public function get_sections_and_items_course_from_db_and_sort(): array {
+			$sections_items  = [];
+			$course_id       = $this->get_id();
+			$lp_course_db    = LP_Course_DB::getInstance();
+			$lp_course_cache = LP_Course_Cache::instance();
+			$key_cache       = "$course_id/sections_items";
+
+			try {
+				$sections_results       = $lp_course_db->get_sections( $course_id );
+				$sections_items_results = $lp_course_db->get_full_sections_and_items_course( $course_id );
+				$count_items            = count( $sections_items_results );
+				$index_items_last       = $count_items - 1;
+				$section_current        = 0;
+
+				foreach ( $sections_items_results as $index => $sections_item ) {
+					$section_new   = $sections_item->section_id;
+					$section_order = $sections_item->section_order;
+					$item          = new stdClass();
+					$item->id      = $sections_item->item_id;
+					$item->order   = $sections_item->item_order;
+					$item->type    = $sections_item->item_type;
+
+					if ( $section_new != $section_current ) {
+						$sections_items[ $section_new ]              = new stdClass();
+						$sections_items[ $section_new ]->id          = $section_new;
+						$sections_items[ $section_new ]->order       = $section_order;
+						$sections_items[ $section_new ]->title       = html_entity_decode( $sections_item->section_name );
+						$sections_items[ $section_new ]->description = html_entity_decode( $sections_item->section_description );
+						$sections_items[ $section_new ]->items       = [];
+
+						// Sort item by item_order
+						if ( $section_current != 0 ) {
+							usort(
+								$sections_items[ $section_current ]->items,
+								function ( $item1, $item2 ) {
+									return $item1->order - $item2->order;
+								}
+							);
+						}
+
+						$section_current = $section_new;
+					}
+
+					$sections_items[ $section_new ]->items[ $item->id ] = $item;
+
+					if ( $index_items_last === $index ) {
+						usort(
+							$sections_items[ $section_current ]->items,
+							function ( $item1, $item2 ) {
+								return $item1->order - $item2->order;
+							}
+						);
+					}
+				}
+
+				// Check case if section empty items
+				foreach ( $sections_results as $section ) {
+					$section_id = $section->section_id;
+					if ( isset( $sections_items[ $section_id ] ) ) {
+						continue;
+					}
+
+					$section_obj                   = new stdClass();
+					$section_obj->id               = $section_id;
+					$section_obj->order            = $section->section_order;
+					$section_obj->title            = html_entity_decode( $section->section_name );
+					$section_obj->description      = html_entity_decode( $section->section_description );
+					$section_obj->items            = [];
+					$sections_items[ $section_id ] = $section_obj;
+				}
+
+				// Sort section by section_order
+				usort(
+					$sections_items,
+					function ( $section1, $section2 ) {
+						return $section1->order - $section2->order;
+					}
+				);
+
+				$lp_course_cache->set_cache( $key_cache, $sections_items );
+			} catch ( Throwable $e ) {
+				if ( LP_Debug::is_debug() ) {
+					error_log( $e->getMessage() );
+				}
+			}
+
+			return $sections_items;
+		}
+
+		/**
+		 * Get sections of course.
+		 *
+		 * @param string $return - Optional.
+		 * @param int    $section_id - Optional.
+		 *
+		 * @return array|bool|LP_Course_Section[]|LP_Course_Section
+		 * @version 4.0.0
+		 */
+		public function get_sections( $return = 'object', $section_id = 0 ) {
+			// $this->load_curriculum();
+			// $sections = LP_Course_Utils::get_cached_db_sections( $this->get_id() );
+
+			$sections_items = $this->get_full_sections_and_items_course();
+
+			/*if ( false === $sections ) {
+				return false;
+			}*/
+
+			//$position        = 0;
+			$sections = array();
+			foreach ( $sections_items as $k => $section_items ) {
+				$position          = $k + 1;
+				$section_items_tmp = [
+					'section_id'          => $section_items->id,
+					'section_name'        => $section_items->title,
+					'section_course_id'   => $this->get_id(),
+					'section_order'       => $section_items->order,
+					'section_description' => $section_items->description,
+					'items'               => $section_items->items,
+				];
+				$sid               = $section_items->id;
+				$section           = new LP_Course_Section( $section_items_tmp );
+				$section->set_position( $position );
+				$sections[ $sid ] = $section;
+			}
+
+			if ( $section_id ) {
+				$sections = $sections[ $section_id ] ?? [];
+			}
+
+			return apply_filters( 'learn-press/course-sections', $sections, $this->get_id(), $return, $section_id );
+		}
+
+		/**
+		 * Get raw data curriculum.
+		 *
+		 * @return array
+		 * @since 3.0.0
+		 * @editor tungnx
+		 * @version 1.0.1
+		 */
+		public function get_curriculum_raw(): array {
+			$sections_data = array();
+
+			$sections_items = $this->get_full_sections_and_items_course();
+			foreach ( $sections_items as $section_items ) {
+				$section_items_arr              = (array) $section_items;
+				$section_items_arr['course_id'] = $this->get_id();
+				$section_items_arr['items']     = [];
+
+				foreach ( $section_items->items as $item ) {
+					$itemObject = $this->get_item( $item->id );
+
+					if ( ! $itemObject instanceof LP_Course_Item ) {
+						continue;
+					}
+
+					$item_arr                     = (array) $item;
+					$item_arr['title']            = html_entity_decode( $itemObject->get_title() );
+					$item_arr['preview']          = $itemObject->is_preview();
+					$section_items_arr['items'][] = $item_arr;
+				}
+
+				$sections_data[] = $section_items_arr;
+			}
+
+			return $sections_data;
+		}
+
+		/**
+		 * Get all curriculum of this course.
+		 *
+		 * @param int  $section_id
+		 * @param bool $force
+		 *
+		 * @return bool|LP_Course_Section[]
+		 */
+		public function get_curriculum( $section_id = 0, $force = false ) {
+			return $this->get_sections( 'object', $section_id );
+		}
+
+		/**
+		 * Return list of item's ids in course's curriculum.
+		 *
+		 * @param string|array $type
+		 *
+		 * @return array
+		 * @since 3.0.0
+		 * @version 3.0.2
+		 */
+		public function get_items( $type = '' ) {
+			//$this->load();
+
+			$sections_items = $this->get_full_sections_and_items_course();
+
+			$items = array();
+
+			foreach ( $sections_items as $section_items ) {
+				foreach ( $section_items->items as $item ) {
+					if ( ! empty( $type ) ) {
+						if ( $type === $item->type ) {
+							$items[] = $item->id;
+						}
+					} else {
+						$items[] = $item->id;
+					}
+				}
+			}
+
+			return $items;
+		}
+
+		/**
+		 * Get all items in a course.
+		 *
+		 * @param string $type . Type of items, eg: lp_lesson, lp_quiz...
+		 *
+		 * @return array
+		 * @deprecated
+		 */
+		public function get_curriculum_items( $type = '' ) {
+			return $this->get_items( $type );
 		}
 	}
 }

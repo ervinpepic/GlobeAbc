@@ -329,6 +329,7 @@ class Buttons extends _wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Component 
       event && event.preventDefault();
       const btn = document.querySelector('.lp-button.start');
       btn && btn.setAttribute('disabled', 'disabled');
+      btn.classList.add('loading');
       const {
         startQuiz,
         status
@@ -585,7 +586,7 @@ class Buttons extends _wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Component 
     }, (status === 'completed' && canRetry || -1 !== ['', 'viewed'].indexOf(status)) && !isReviewing && !requiredPassword && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("button", {
       className: "lp-button start",
       onClick: this.startQuiz
-    }, status === 'completed' ? `${(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Retake', 'learnpress')} ${!allowRetake ? ` ${retakeNumber ? ` (${retakeNumber})` : ''}` : ''} ` : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Start', 'learnpress')), ('started' === status || isReviewing) && numPages > 1 && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
+    }, status === 'completed' ? `${(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Retake', 'learnpress')} ${!allowRetake ? ` ${retakeNumber ? ` (${retakeNumber})` : ''}` : ''} ` : ' ' + (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Start', 'learnpress')), ('started' === status || isReviewing) && numPages > 1 && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
       className: "questions-pagination"
     }, this.pageNumbers()))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
       className: "button-right"
@@ -2049,7 +2050,9 @@ class Quiz extends _wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Component {
   componentDidMount() {
     const {
       settings,
-      setQuizData
+      setQuizData,
+      status,
+      isReviewing
     } = this.props;
     const {
       question_ids,
@@ -2068,6 +2071,22 @@ class Quiz extends _wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Component {
     setQuizData(settings);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const {
+      status,
+      isReviewing
+    } = this.props;
+    const notStarted = -1 !== ['', 'viewed', undefined].indexOf(status) || !status;
+
+    if (isReviewing || !notStarted) {
+      const elQuiz = document.querySelector('.quiz-content');
+
+      if (elQuiz) {
+        elQuiz.style.display = 'none';
+      }
+    }
+  }
+
   render() {
     const {
       status,
@@ -2076,7 +2095,7 @@ class Quiz extends _wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Component {
     const isA = -1 !== ['', 'completed', 'viewed'].indexOf(status) || !status;
     const notStarted = -1 !== ['', 'viewed', undefined].indexOf(status) || !status; // Just render content if status !== undefined (meant all data loaded)
 
-    return undefined !== status && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", null, !isReviewing && 'completed' === status && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_components__WEBPACK_IMPORTED_MODULE_4__.Result, null), !isReviewing && notStarted && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_components__WEBPACK_IMPORTED_MODULE_4__.Meta, null), !isReviewing && notStarted && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_components__WEBPACK_IMPORTED_MODULE_4__.Content, null), 'started' === status && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_components__WEBPACK_IMPORTED_MODULE_4__.Status, null), (-1 !== ['completed', 'started'].indexOf(status) || isReviewing) && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_components__WEBPACK_IMPORTED_MODULE_4__.Questions, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_components__WEBPACK_IMPORTED_MODULE_4__.Buttons, null), isA && !isReviewing && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_components__WEBPACK_IMPORTED_MODULE_4__.Attempts, null)));
+    return undefined !== status && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", null, !isReviewing && 'completed' === status && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_components__WEBPACK_IMPORTED_MODULE_4__.Result, null), !isReviewing && notStarted && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_components__WEBPACK_IMPORTED_MODULE_4__.Meta, null), 'started' === status && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_components__WEBPACK_IMPORTED_MODULE_4__.Status, null), (-1 !== ['completed', 'started'].indexOf(status) || isReviewing) && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_components__WEBPACK_IMPORTED_MODULE_4__.Questions, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_components__WEBPACK_IMPORTED_MODULE_4__.Buttons, null), isA && !isReviewing && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_components__WEBPACK_IMPORTED_MODULE_4__.Attempts, null)));
   }
 
 }
@@ -2158,8 +2177,8 @@ const {
 /**
  * Set user data for app.
  *
- * @param key
- * @param data
+ * @param  key
+ * @param  data
  * @return {{type: string, data: *}}
  */
 
@@ -2185,7 +2204,7 @@ function setQuizData(key, data) {
 /**
  * Set question will display.
  *
- * @param questionId
+ * @param  questionId
  * @return {{type: string, data: *}}
  */
 
@@ -2239,6 +2258,7 @@ const startQuiz = function* () {
       course_id: courseId
     }
   });
+  const btnStart = document.querySelector('.lp-button.start');
 
   if (response.status !== 'error') {
     response = Hook.applyFilters('request-start-quiz-response', response, itemId, courseId); // No require enroll
@@ -2265,6 +2285,11 @@ const startQuiz = function* () {
     }
 
     yield _dispatch('learnpress/quiz', '__requestStartQuizSuccess', camelCaseDashObjectKeys(response), itemId, courseId);
+  } else {
+    const elButtons = document.querySelector('.quiz-buttons');
+    const message = `<div class="learn-press-message error">${response.message}</div>`;
+    elButtons.insertAdjacentHTML('afterend', message);
+    btnStart.classList.remove('loading');
   }
 };
 
@@ -3110,7 +3135,6 @@ function getUserMark(state) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/lp-modal-overlay */ "./assets/src/apps/js/utils/lp-modal-overlay.js");
-const $ = jQuery;
 
 const lpModalOverlayCompleteItem = {
   elBtnFinishCourse: null,

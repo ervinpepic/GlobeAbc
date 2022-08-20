@@ -196,7 +196,7 @@ function learn_press_admin_view( $name, $args = array(), $include_once = false, 
 		$output = ob_get_clean();
 
 		if ( ! $return ) {
-			echo $output;
+			learn_press_echo_vuejs_write_on_php( $output );
 		}
 
 		return $return ? $output : true;
@@ -290,12 +290,12 @@ function learn_press_pages_dropdown( $name, $selected = false, $args = array() )
 
 		<?php echo esc_html( _x( 'or', 'drop down pages', 'learnpress' ) ); ?>
 
-		<button class="button button-quick-add-page" data-id="<?php echo $id; ?>" type="button">
+		<button class="button button-quick-add-page" data-id="<?php echo esc_attr( $id ); ?>" type="button">
 			<?php esc_html_e( 'Create new', 'learnpress' ); ?>
 		</button>
 		<?php echo '</div>'; ?>
 
-		<p class="quick-add-page-inline <?php echo $id; ?> hide-if-js">
+		<p class="quick-add-page-inline <?php echo esc_attr( $id ); ?> hide-if-js">
 			<input type="text" placeholder="<?php esc_attr_e( 'New page title', 'learnpress' ); ?>"/>
 			<button class="button" type="button">
 				<?php esc_html_e( 'Ok [Enter]', 'learnpress' ); ?>
@@ -303,12 +303,12 @@ function learn_press_pages_dropdown( $name, $selected = false, $args = array() )
 			<a href=""><?php esc_html_e( 'Cancel [ESC]', 'learnpress' ); ?></a>
 		</p>
 
-		<p class="quick-add-page-actions <?php echo $id; ?><?php echo $selected ? '' : ' hide-if-js'; ?>">
+		<p class="quick-add-page-actions <?php echo esc_attr( $id ); ?><?php echo esc_attr( $selected ? '' : ' hide-if-js' ); ?>">
 			<a class="edit-page" href="<?php echo get_edit_post_link( $selected ); ?>"
-			   target="_blank"><?php esc_html_e( 'Edit page', 'learnpress' ); ?></a>
+				target="_blank"><?php esc_html_e( 'Edit page', 'learnpress' ); ?></a>
 			&#124;
 			<a class="view-page" href="<?php echo get_permalink( $selected ); ?>"
-			   target="_blank"><?php esc_html_e( 'View page', 'learnpress' ); ?></a>
+				target="_blank"><?php esc_html_e( 'View page', 'learnpress' ); ?></a>
 		</p>
 
 		<?php
@@ -320,7 +320,21 @@ function learn_press_pages_dropdown( $name, $selected = false, $args = array() )
 	$output = sprintf( '<div class="learn-press-dropdown-pages">%s</div>', $output );
 
 	if ( $echo ) {
-		echo $output;
+		$allowed_html           = wp_kses_allowed_html( 'post' );
+		$allowed_html['select'] = [
+			'name' => [],
+		];
+		$allowed_html['option'] = [
+			'value'    => [],
+			'selected' => [],
+			'class'    => [],
+		];
+		$allowed_html['input']  = [
+			'type'        => [],
+			'placeholder' => [],
+		];
+
+		echo wp_kses( $output, $allowed_html );
 	}
 
 	return $output;
@@ -371,7 +385,7 @@ function learn_press_dropdown_question_types( $args = array() ) {
 	$output .= '</select>';
 
 	if ( $args['echo'] ) {
-		echo $output;
+		echo wp_kses_post( $output );
 	}
 
 	return $output;
@@ -485,7 +499,7 @@ function learn_press_email_formats_dropdown( $args = array() ) {
 	$output .= '</select>';
 
 	if ( $args['echo'] ) {
-		echo $output;
+		echo wp_kses_post( $output );
 	}
 
 	return $output;
@@ -1524,7 +1538,7 @@ function learn_press_process_chart( $chart = array() ) {
 			'datasets' => $chart['datasets'],
 		)
 	);
-	echo $data;
+	echo wp_kses_post( $data );
 }
 
 /**
@@ -1563,7 +1577,7 @@ function set_post_order_in_admin( $wp_query ) {
 	global $pagenow;
 
 	if ( isset( $_GET['post_type'] ) ) {
-		$post_type = $_GET['post_type'];
+		$post_type = LP_Helper::sanitize_params_submitted( $_GET['post_type'] );
 	} else {
 		$post_type = '';
 	}
@@ -1874,53 +1888,35 @@ if ( ! function_exists( 'learn_press_duplicate_post' ) ) {
 }
 
 /**
+ * Duplicate post meta.
+ *
  * @editor tungnx
- * @modify 4.1.4 - fix sanitize query
+ * @sicne 3.0.0
+ * @version 4.0.1
  */
 if ( ! function_exists( 'learn_press_duplicate_post_meta' ) ) {
 	function learn_press_duplicate_post_meta( $old_post_id, $new_post_id, $excerpt = array() ) {
-		global $wpdb;
+		$lp_db = LP_Database::getInstance();
 
-		$post_meta_infos = $wpdb->get_results(
-			$wpdb->prepare(
-				"SELECT meta_key, meta_value FROM $wpdb->postmeta
-				WHERE post_id = %d",
+		try {
+			$excerpt           = array_merge( array( '_edit_lock', '_edit_last' ), $excerpt );
+			$excerpt_name_keys = implode( "','", $excerpt );
+			$sql_query         = $lp_db->wpdb->prepare(
+				"INSERT INTO $lp_db->tb_postmeta (post_id, meta_key, meta_value)
+				SELECT %d, pmc.meta_key, pmc.meta_value
+				FROM $lp_db->tb_postmeta AS pmc
+				WHERE post_id = %d
+				AND meta_key not in ('{$excerpt_name_keys}')
+				",
+				$new_post_id,
 				$old_post_id
-			)
-		);
-
-		if ( count( $post_meta_infos ) != 0 ) {
-			$excerpt       = array_merge( array( '_edit_lock', '_edit_last' ), $excerpt );
-			$excerpt       = apply_filters(
-				'learn_press_excerpt_duplicate_post_meta',
-				$excerpt,
-				$old_post_id,
-				$new_post_id
 			);
-			$sql_query     = "INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value) ";
-			$sql_query_sel = array();
 
-			foreach ( $post_meta_infos as $meta ) {
-				if ( in_array( $meta->meta_key, $excerpt ) ) {
-					continue;
-				}
+			$lp_db->check_execute_has_error();
 
-				if ( $meta->meta_key === '_lp_course_author' ) {
-					$meta->meta_value = get_current_user_id();
-				}
-
-				$meta_key        = $meta->meta_key;
-				$meta_value      = addslashes( $meta->meta_value );
-				$sql_query_sel[] = $wpdb->prepare(
-					'SELECT %d, %s, %s',
-					$new_post_id,
-					$meta_key,
-					$meta_value
-				);
-			}
-
-			$sql_query .= implode( ' UNION ALL ', $sql_query_sel );
-			$wpdb->query( $sql_query );
+			$lp_db->wpdb->query( $sql_query );
+		} catch ( Throwable $e ) {
+			error_log( $e->getMessage() );
 		}
 	}
 }

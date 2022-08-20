@@ -6,6 +6,7 @@ let skeletonClone;
 let isLoading = false;
 let firstLoad = 1;
 let elNoLoadAjaxFirst = null;
+let elArchive = null;
 
 if ( lpGlobalSettings.is_course_archive ) {
 	const queryString = window.location.search;
@@ -37,10 +38,8 @@ const lpArchiveCourse = () => {
 		lpArchiveRequestCourse( filterCourses );
 	}
 
-	if ( elNoLoadAjaxFirst ) {
-		lpArchivePaginationCourse();
-		lpArchiveSearchCourse();
-	}
+	lpArchivePaginationCourse();
+	lpArchiveSearchCourse();
 };
 
 window.lpArchiveRequestCourse = ( args, callBackSuccess ) => {
@@ -54,8 +53,7 @@ window.lpArchiveRequestCourse = ( args, callBackSuccess ) => {
 		return;
 	}
 
-	const archive = document.querySelector( '.lp-archive-courses' );
-	const archiveCourse = archive && archive.querySelector( 'div.lp-archive-courses .lp-content-area' );
+	const archiveCourse = elArchive && elArchive.querySelector( 'div.lp-archive-courses .lp-content-area' );
 	const listCourse = archiveCourse && archiveCourse.querySelector( 'ul.learn-press-courses' );
 
 	if ( ! listCourse ) {
@@ -87,7 +85,7 @@ window.lpArchiveRequestCourse = ( args, callBackSuccess ) => {
 
 		const pagination = response.data.pagination;
 
-		lpArchiveSearchCourse();
+		// lpArchiveSearchCourse();
 
 		const paginationEle = document.querySelector( '.learn-press-pagination' );
 		if ( paginationEle ) {
@@ -112,6 +110,7 @@ window.lpArchiveRequestCourse = ( args, callBackSuccess ) => {
 		}
 	} ).catch( ( error ) => {
 		listCourse.innerHTML += `<div class="lp-ajax-message error" style="display:block">${ error.message || 'Error: Query lp/v1/courses/archive-course' }</div>`;
+		console.log( error );
 	} ).finally( () => {
 		isLoading = false;
 		// skeleton && skeleton.remove();
@@ -121,7 +120,7 @@ window.lpArchiveRequestCourse = ( args, callBackSuccess ) => {
 		if ( ! firstLoad ) {
 			// Scroll to archive element
 			const optionScroll = { behavior: 'smooth' };
-			archive.scrollIntoView( optionScroll );
+			elArchive.scrollIntoView( optionScroll );
 		} else {
 			firstLoad = 0;
 		}
@@ -183,9 +182,16 @@ const lpArchivePaginationCourse = () => {
 		event.preventDefault();
 		event.stopPropagation();
 
+		if ( ! elArchive ) {
+			return;
+		}
+
 		if ( skeleton ) {
 			skeleton.style.display = 'block';
 		}
+
+		// Scroll to archive element
+		elArchive.scrollIntoView( { behavior: 'smooth' } );
 
 		let filterCourses = {};
 		filterCourses = JSON.parse( window.localStorage.getItem( 'lp_filter_courses' ) ) || {};
@@ -228,6 +234,7 @@ const lpArchiveGridListCourseHandle = () => {
 };
 
 function LPArchiveCourseInit() {
+	elArchive = document.querySelector( '.lp-archive-courses' );
 	lpArchiveCourse();
 	lpArchiveGridListCourseHandle();
 	lpArchiveGridListCourse();

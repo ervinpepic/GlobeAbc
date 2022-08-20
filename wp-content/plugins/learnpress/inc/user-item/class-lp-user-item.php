@@ -416,7 +416,7 @@ class LP_User_Item extends LP_Abstract_Object_Data implements ArrayAccess {
 		try {
 			// User is Guest
 			if ( (int) $this->get_user_id() === 0 ) {
-				throw new Exception( __( 'User is guest', 'learnpress' ) );
+				return $got_status;
 			}
 
 			$lp_user_item = LP_User_Items_DB::getInstance();
@@ -466,12 +466,7 @@ class LP_User_Item extends LP_Abstract_Object_Data implements ArrayAccess {
 	 * @return LP_User|int
 	 */
 	public function get_user( $return = '' ) {
-		$uid = $this->get_data( 'user_id' );
-		if ( $return == '' ) {
-			return $uid ? learn_press_get_user( $uid ) : new LP_User();
-		}
-
-		return $uid;
+		return $this->get_data( 'user_id', 0 );
 	}
 
 	public function get_course( $return = '' ) {
@@ -535,7 +530,8 @@ class LP_User_Item extends LP_Abstract_Object_Data implements ArrayAccess {
 			$this->get_user_item_id()
 		);
 
-		if ( $results = $wpdb->get_results( $query ) ) {
+		$results = $wpdb->get_results( $query );
+		if ( $results ) {
 			foreach ( $results as $result ) {
 				$result->meta_value = LP_Helper::maybe_unserialize( $result->meta_value );
 				$this->_meta_data[] = $result;
@@ -725,6 +721,8 @@ class LP_User_Item extends LP_Abstract_Object_Data implements ArrayAccess {
 			case LP_QUIZ_CPT:
 				$item = new LP_User_Item_Quiz( $data );
 				break;
+			default:
+				break;
 		}
 
 		return apply_filters( 'learn-press/user-item-object', $item, $data, $item_type );
@@ -807,14 +805,11 @@ class LP_User_Item extends LP_Abstract_Object_Data implements ArrayAccess {
 
 	public function get_status_label( $status = '' ) {
 		$statuses = array(
-			'enrolled'    => esc_html__( 'In Progress', 'learnpress' ),
-			'started'     => esc_html__( 'In Progress', 'learnpress' ),
-			'in-progress' => esc_html__( 'In Progress', 'learnpress' ),
-			'purchased'   => esc_html__( 'Not Enrolled', 'learnpress' ),
-			'completed'   => esc_html__( 'Completed', 'learnpress' ),
-			'finished'    => esc_html__( 'Finished', 'learnpress' ),
-			'passed'      => esc_html__( 'Passed', 'learnpress' ),
-			'failed'      => esc_html__( 'Failed', 'learnpress' ),
+			LP_COURSE_ENROLLED  => esc_html__( 'Enrolled', 'learnpress' ),
+			LP_COURSE_PURCHASED => esc_html__( 'Purchased', 'learnpress' ),
+			LP_ITEM_COMPLETED   => esc_html__( 'Completed', 'learnpress' ),
+			LP_ITEM_STARTED     => esc_html__( 'Started', 'learnpress' ),
+			LP_COURSE_FINISHED  => esc_html__( 'Finished', 'learnpress' ),
 		);
 
 		if ( ! $status ) {

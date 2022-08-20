@@ -595,11 +595,20 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 				case 'price':
 					$data['price'] = floatval( $course->get_price() );
 					break;
+				case 'price_rendered':
+					$data['price_rendered'] = html_entity_decode( $course->get_price_html() );
+					break;
 				case 'origin_price':
 					$data['origin_price'] = floatval( $course->get_origin_price() );
 					break;
+				case 'origin_price_rendered':
+					$data['origin_price_rendered'] = html_entity_decode( $course->get_origin_price_html() );
+					break;
 				case 'sale_price':
 					$data['sale_price'] = floatval( $course->get_sale_price() );
+					break;
+				case 'sale_price_rendered':
+					$data['sale_price_rendered'] = html_entity_decode( learn_press_format_price( $course->get_sale_price(), true ) );
 					break;
 			}
 		}
@@ -952,7 +961,7 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 
 			$filter      = LP_Course_DB::getInstance()->get_courses_sort_by_sale( $filter );
 			$on_sale_ids = LP_Course_DB::getInstance()->get_courses( $filter );
-			$on_sale_ids = LP_course::get_course_ids( $on_sale_ids );
+			$on_sale_ids = LP_Database::get_values_by_key( $on_sale_ids );
 			$on_sale_ids = empty( $on_sale_ids ) ? array( 0 ) : $on_sale_ids;
 
 			$args[ $on_sale_key ] += $on_sale_ids;
@@ -966,11 +975,13 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 
 			$filter         = LP_Course_DB::getInstance()->get_courses_order_by_popular( $filter );
 			$on_popular_ids = LP_Course_DB::getInstance()->get_courses( $filter );
-			$on_popular_ids = LP_course::get_course_ids( $on_popular_ids );
+			$on_popular_ids = LP_Database::get_values_by_key( $on_popular_ids );
 
 			$on_popular_ids = empty( $on_popular_ids ) ? array( 0 ) : $on_popular_ids;
 
 			$args[ $on_popular_key ] += $on_popular_ids;
+
+			$args['orderby'] = 'post__in';
 		}
 
 		return $args;
@@ -982,146 +993,164 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 			'title'      => $this->post_type,
 			'type'       => 'object',
 			'properties' => array(
-				'id'                => array(
+				'id'                    => array(
 					'description' => __( 'Unique identifier for the resource.', 'learnpress' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
-				'name'              => array(
+				'name'                  => array(
 					'description' => __( 'Course name.', 'learnpress' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
-				'slug'              => array(
+				'slug'                  => array(
 					'description' => __( 'Course slug.', 'learnpress' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
-				'permalink'         => array(
+				'permalink'             => array(
 					'description' => __( 'Course URL.', 'learnpress' ),
 					'type'        => 'string',
 					'format'      => 'uri',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
-				'image'             => array(
+				'image'                 => array(
 					'description' => __( 'Course Image URL.', 'learnpress' ),
 					'type'        => 'string',
 					'format'      => 'uri',
 					'context'     => array( 'view', 'edit' ),
 				),
-				'date_created'      => array(
+				'date_created'          => array(
 					'description' => __( "The date the Course was created, in the site's timezone.", 'learnpress' ),
 					'type'        => array( 'string', 'null' ),
 					'format'      => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
-				'date_created_gmt'  => array(
+				'date_created_gmt'      => array(
 					'description' => __( 'The date the Course was created, as GMT.', 'learnpress' ),
 					'type'        => array( 'string', 'null' ),
 					'format'      => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
-				'date_modified'     => array(
+				'date_modified'         => array(
 					'description' => __( "The date the Course was last modified, in the site's timezone.", 'learnpress' ),
 					'type'        => array( 'string', 'null' ),
 					'format'      => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
-				'date_modified_gmt' => array(
+				'date_modified_gmt'     => array(
 					'description' => __( 'The date the Course was last modified, as GMT.', 'learnpress' ),
 					'type'        => array( 'string', 'null' ),
 					'format'      => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
-				'on_sale'           => array(
+				'on_sale'               => array(
 					'description' => __( 'Shows if the course is on sale.', 'learnpress' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
-				'status'            => array(
+				'status'                => array(
 					'description' => __( 'Course status (post status).', 'learnpress' ),
 					'type'        => 'string',
 					'default'     => 'publish',
 					'enum'        => array_merge( array_keys( get_post_statuses() ), array( 'future' ) ),
 					'context'     => array( 'view', 'edit' ),
 				),
-				'content'           => array(
+				'content'               => array(
 					'description' => __( 'Content course.', 'learnpress' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
-				'excerpt'           => array(
+				'excerpt'               => array(
 					'description' => __( 'Retrieves the course excerpt..', 'learnpress' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
-				'duration'          => array(
+				'duration'              => array(
 					'description' => __( 'Duration', 'learnpress' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 				),
-				'count_students'    => array(
+				'count_students'        => array(
 					'description' => __( 'Count student enrolled', 'learnpress' ),
 					'type'        => 'integer',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'can_finish'        => array(
+				'can_finish'            => array(
 					'description' => __( 'Can finish course', 'learnpress' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'can_retake'        => array(
+				'can_retake'            => array(
 					'description' => __( 'Can retake course', 'learnpress' ),
 					'type'        => 'boolean',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'ratake_count'      => array(
+				'ratake_count'          => array(
 					'description' => __( 'Total retake', 'learnpress' ),
 					'type'        => 'integer',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'rataken'           => array(
+				'rataken'               => array(
 					'description' => __( 'Retaken', 'learnpress' ),
 					'type'        => 'integer',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'rating'            => array(
+				'rating'                => array(
 					'description' => __( 'Course Review add-on', 'learnpress' ),
 					'type'        => array( 'boolean', 'integer' ),
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'price'             => array(
+				'price'                 => array(
 					'description' => __( 'Course Price', 'learnpress' ),
 					'type'        => 'integer',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'origin_price'      => array(
+				'price_rendered'        => array(
+					'description' => __( 'Course Price Rendered', 'learnpress' ),
+					'type'        => 'string',
+					'context'     => array( 'view' ),
+					'readonly'    => true,
+				),
+				'origin_price'          => array(
 					'description' => __( 'Course Origin Price', 'learnpress' ),
 					'type'        => 'integer',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'sale_price'        => array(
+				'origin_price_rendered' => array(
+					'description' => __( 'Course Origin Price Rendered', 'learnpress' ),
+					'type'        => 'string',
+					'context'     => array( 'view' ),
+					'readonly'    => true,
+				),
+				'sale_price'            => array(
 					'description' => __( 'Course Sale Price', 'learnpress' ),
 					'type'        => 'integer',
 					'context'     => array( 'view' ),
 					'readonly'    => true,
 				),
-				'categories'        => array(
+				'sale_price_rendered'   => array(
+					'description' => __( 'Course Sale Price Rendered', 'learnpress' ),
+					'type'        => 'string',
+					'context'     => array( 'view' ),
+					'readonly'    => true,
+				),
+				'categories'            => array(
 					'description' => __( 'List of categories.', 'learnpress' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
@@ -1148,7 +1177,7 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 						),
 					),
 				),
-				'tags'              => array(
+				'tags'                  => array(
 					'description' => __( 'List of tags.', 'learnpress' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
@@ -1175,7 +1204,7 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 						),
 					),
 				),
-				'instructor'        => array(
+				'instructor'            => array(
 					'description' => __( 'Retrieves the course sections and items..', 'learnpress' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
@@ -1208,7 +1237,7 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 						),
 					),
 				),
-				'sections'          => array(
+				'sections'              => array(
 					'description' => __( 'Retrieves the course sections and items..', 'learnpress' ),
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
@@ -1290,7 +1319,7 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 						),
 					),
 				),
-				'course_data'       => array(
+				'course_data'           => array(
 					'description' => __( 'List of course user data.', 'learnpress' ),
 					'type'        => 'array',
 					'context'     => array( 'view' ),

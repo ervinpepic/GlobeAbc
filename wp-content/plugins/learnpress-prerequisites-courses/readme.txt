@@ -3,9 +3,9 @@ Contributors: thimpress, tunnhn, kendy73,leehld
 Donate link:
 Tags: lms, elearning, e-learning, learning management system, education, course, courses, quiz, quizzes, questions, training, guru, sell courses
 Requires at least: 5.6
-Requires PHP: 7.0
-Tested up to: 5.8
-Stable tag: 4.0.5
+Requires PHP: 7.4
+Tested up to: 6.0
+Stable tag: 4.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,11 +55,16 @@ Yes, you can. Please find the documentation for writing an add-on for LearnPress
 
 == Changelog ==
 
+= 4.0.6 =
+~ Fixed: can't save value prerequisite when editing course.
+~ Modified: styles.
+~ Optimized: code.
+
 = 4.0.5 =
-~ Fixed some minor bugs
+~ Fixed some minor bugs.
 
 = 4.0.4 =
-~ Change hook 'learn-press/user/can-enroll-course' to compatible with LP 4.1.2 or higher
+~ Change hook 'learn-press/user/can-enroll-course' to compatible with LP 4.1.2 or higher.
 
 = 4.0.3 =
 ~ Change metabox like LP4.

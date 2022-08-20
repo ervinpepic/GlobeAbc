@@ -570,7 +570,7 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 			}
 
 			if ( ! empty( $_REQUEST['redirect'] ) ) {
-				$redirect = $_REQUEST['redirect'];
+				$redirect = esc_url_raw( $_REQUEST['redirect'] );
 			} else {
 				$redirect = learn_press_get_current_url();
 			}
@@ -768,7 +768,7 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 					$filter         = apply_filters( 'lp/api/profile/courses/purchased/filter', $filter, $args );
 					$result_courses = LP_User_Item_Course::get_user_courses( $filter, $total_rows );
 
-					$course_ids = LP_Course::get_course_ids( $result_courses, 'item_id' );
+					$course_ids = LP_Database::get_values_by_key( $result_courses, 'item_id' );
 
 					$courses = array(
 						'total' => $total_rows,
@@ -789,7 +789,7 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 					$filter              = apply_filters( 'lp/api/profile/courses/own/filter', $filter, $args );
 					$result_courses      = LP_Course::get_courses( $filter, $total_rows );
 
-					$course_ids = LP_Course::get_course_ids( $result_courses );
+					$course_ids = LP_Database::get_values_by_key( $result_courses );
 
 					$courses = array(
 						'total' => $total_rows,
@@ -982,7 +982,7 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 			$class = ' class="' . implode( ' ', apply_filters( 'learn-press/profile/class', $classes ) ) . '"';
 
 			if ( $echo ) {
-				echo $class;
+				echo wp_kses_post( $class );
 			}
 
 			return $class;
@@ -1102,13 +1102,13 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 				remove_filter( 'pre_get_avatar', 'learn_press_pre_get_avatar_callback', 1 );
 			}
 
-			$profile_picture_src = $this->get_upload_profile_src( $size );
+			$profile_picture_src = $this->get_upload_profile_src();
 
 			if ( $profile_picture_src ) {
 				$user->set_data( 'profile_picture_src', $profile_picture_src );
 			}
 
-			$avatar = get_avatar( $user->get_id(), $size, '', esc_attr__( 'User Avatar', 'learnpress' ), $args );
+			$avatar = get_avatar( $user->get_id(), $args['width'], '', esc_attr__( 'User Avatar', 'learnpress' ), $args );
 
 			if ( $type == 'gravatar' ) {
 				add_filter( 'pre_get_avatar', 'learn_press_pre_get_avatar_callback', 1, 5 );

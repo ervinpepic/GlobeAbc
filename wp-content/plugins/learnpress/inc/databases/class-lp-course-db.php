@@ -31,21 +31,103 @@ class LP_Course_DB extends LP_Database {
 	 * @param int $item_id
 	 *
 	 * @return int
+	 * @throws Exception
 	 */
-	public function learn_press_get_item_course( $item_id = 0 ) {
+	public function get_course_by_item_id( $item_id = 0 ): int {
+		// Get cache
+		$lp_course_cache = LP_Course_Cache::instance();
+		$key_cache       = "$item_id/course_id_of_item_id";
+		$course_id       = $lp_course_cache->get_cache( $key_cache );
+
+		if ( ! $course_id ) {
+			$query = $this->wpdb->prepare(
+				"
+				SELECT section_course_id
+				FROM {$this->tb_lp_sections} AS s
+				INNER JOIN {$this->tb_lp_section_items} AS si
+				ON si.section_id = s.section_id
+				WHERE si.item_id = %d",
+				$item_id
+			);
+
+			$course_id = (int) $this->wpdb->get_var( $query );
+
+			$this->check_execute_has_error();
+
+			// Set cache
+			$lp_course_cache->set_cache( $key_cache, $course_id );
+		}
+
+		return $course_id;
+	}
+
+	/**
+	 * Get all item ids' course
+	 *
+	 * @param int $course_id
+	 *
+	 * @return array|object|stdClass[]|null
+	 * @throws Exception
+	 * @since 4.1.6.9
+	 * @version 1.0.0
+	 */
+	public function get_full_sections_and_items_course( int $course_id = 0 ) {
+		$method_called_to = debug_backtrace()[1]['function'];
+
+		// Check accept call from function 'get_sections_and_items_course_from_db_and_sort'
+		if ( 'get_sections_and_items_course_from_db_and_sort' !== $method_called_to ) {
+			error_log( 'You can not call direct this function' );
+			return [];
+		}
 
 		$query = $this->wpdb->prepare(
-			"
-			SELECT section_course_id
-			FROM {$this->tb_lp_sections} AS s
-			INNER JOIN {$this->tb_lp_section_items} AS si
+			"SELECT *
+			FROM {$this->tb_lp_section_items} AS si
+			INNER JOIN {$this->tb_lp_sections} AS s
 			ON si.section_id = s.section_id
-			WHERE si.item_id = %d
-			ORDER BY section_course_id DESC",
-			$item_id
+			WHERE section_course_id = %d
+			ORDER BY s.section_order",
+			$course_id
 		);
 
-		return (int) $this->wpdb->get_var( $query );
+		$sections_items = $this->wpdb->get_results( $query );
+
+		$this->check_execute_has_error();
+
+		return $sections_items;
+	}
+
+	/**
+	 * Get all sections' course
+	 *
+	 * @param int $course_id
+	 *
+	 * @return array|object|stdClass[]|null
+	 * @throws Exception
+	 * @since 4.1.6.9
+	 * @version 1.0.0
+	 */
+	public function get_sections( int $course_id = 0 ) {
+		$method_called_to = debug_backtrace()[1]['function'];
+
+		// Check accept call from function 'get_sections_and_items_course_from_db_and_sort'
+		if ( 'get_sections_and_items_course_from_db_and_sort' !== $method_called_to ) {
+			error_log( 'You can not call direct this function' );
+			return [];
+		}
+
+		$query = $this->wpdb->prepare(
+			"SELECT * FROM {$this->tb_lp_sections}
+			WHERE section_course_id = %d
+			ORDER BY section_order",
+			$course_id
+		);
+
+		$sections_items = $this->wpdb->get_results( $query, OBJECT_K );
+
+		$this->check_execute_has_error();
+
+		return $sections_items;
 	}
 
 	/**
@@ -542,9 +624,8 @@ class LP_Course_DB extends LP_Database {
 		$filter_course_not_attend = clone $filter;
 
 		// Query get users total attend courses
-		// $filter_user_course->fields[]            = 'ID';
-		$filter_user_course->fields[] = 'COUNT(DISTINCT (ID)) AS total';
-		//$filter_user_course->fields              = array_merge( $filter->fields, $filter_user_course->fields );
+		$filter_user_course->fields              = array( 'ID', 'COUNT(ID) AS total' );
+		$filter_user_course->only_fields         = [];
 		$filter_user_course->join[]              = "INNER JOIN {$this->tb_lp_user_items} AS ui ON p.ID = ui.item_id";
 		$filter_user_course->where[]             = $this->wpdb->prepare( 'AND ui.item_type = %s', LP_COURSE_CPT );
 		$filter_user_course->where[]             = $this->wpdb->prepare(
@@ -562,17 +643,17 @@ class LP_Course_DB extends LP_Database {
 		$filter_user_course_cl->only_fields = array( 'ID' );
 		$query_user_course_for_not_in       = LP_Course_DB::getInstance()->get_courses( $filter_user_course_cl );
 
-		//$filter_course_not_attend->fields[]            = 'ID';
-		$filter_course_not_attend->fields[] = '0 AS total';
-		//$filter_course_not_attend->fields              = array_merge( $filter->fields, $filter_course_not_attend->fields );
-		$filter_course_not_attend->where[]             = 'AND p.ID NOT IN(' . $query_user_course_for_not_in . ')';
-		$filter_course_not_attend->order_by            = 'total';
-		$filter_course_not_attend->order               = 'DESC';
+		$filter_course_not_attend->fields      = [ 'ID', '0 AS total' ];
+		$filter_course_not_attend->only_fields = [];
+		$filter_course_not_attend->where[]     = 'AND p.ID NOT IN(' . $query_user_course_for_not_in . ')';
+
 		$filter_course_not_attend->return_string_query = true;
 		$query_course_not_attend                       = LP_Course_DB::getInstance()->get_courses( $filter_course_not_attend );
 
-		$filter->union[] = $query_user_course;
-		$filter->union[] = $query_course_not_attend;
+		$filter->union[]  = $query_user_course;
+		$filter->union[]  = $query_course_not_attend;
+		$filter->order_by = 'total';
+		$filter->order    = 'DESC';
 
 		return $filter;
 	}

@@ -100,12 +100,12 @@ class LP_Widget extends WP_Widget {
 	 * @param array $instance Instance.
 	 */
 	public function widget_start( $args, $instance ) {
-		echo $args['before_widget'];
+		echo wp_kses_post( $args['before_widget'] );
 
 		$title = apply_filters( 'widget_title', $this->get_instance_title( $instance ), $instance, $this->id_base );
 
 		if ( $title ) {
-			echo $args['before_title'] . $title . $args['after_title'];
+			echo wp_kses_post( $args['before_title'] . $title . $args['after_title'] );
 		}
 	}
 
@@ -115,7 +115,7 @@ class LP_Widget extends WP_Widget {
 	 * @param  array $args Arguments.
 	 */
 	public function widget_end( $args ) {
-		echo $args['after_widget'];
+		echo wp_kses_post( $args['after_widget'] );
 	}
 
 	/**
@@ -141,7 +141,7 @@ class LP_Widget extends WP_Widget {
 			)
 		);
 
-		echo $this->lp_widget_content( $data, $args, $instance );
+		echo wp_kses_post( $this->lp_widget_content( $data, $args, $instance ) );
 	}
 
 	/**
@@ -170,9 +170,9 @@ class LP_Widget extends WP_Widget {
 			echo '<div class="learnpress-widget-wrapper">';
 
 			if ( is_wp_error( $content ) ) {
-				echo $content->get_error_message();
+				echo wp_kses_post( $content->get_error_message() );
 			} else {
-				echo $content;
+				echo wp_kses_post( $content );
 			}
 
 			echo '</div>';
@@ -270,7 +270,7 @@ class LP_Widget extends WP_Widget {
 				case 'number':
 					?>
 					<p>
-						<label for="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>"><?php echo $setting['label']; ?></label>
+						<label for="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>"><?php echo wp_kses_post( $setting['label'] ); ?></label>
 						<input class="widefat <?php echo esc_attr( $class ); ?>" id="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>" type="number" step="<?php echo isset( $setting['step'] ) ? esc_attr( $setting['step'] ) : '1'; ?>" min="<?php echo isset( $setting['min'] ) ? esc_attr( $setting['min'] ) : ''; ?>" max="<?php echo isset( $setting['max'] ) ? esc_attr( $setting['max'] ) : ''; ?>" value="<?php echo esc_attr( $value ); ?>" />
 					</p>
 					<?php
@@ -279,7 +279,7 @@ class LP_Widget extends WP_Widget {
 				case 'select':
 					?>
 					<p>
-						<label for="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>"><?php echo $setting['label']; /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?></label>
+						<label for="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>"><?php echo wp_kses_post( $setting['label'] ); ?></label>
 						<select class="widefat <?php echo esc_attr( $class ); ?>" id="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>">
 							<?php foreach ( $setting['options'] as $option_key => $option_value ) : ?>
 								<option value="<?php echo esc_attr( $option_key ); ?>" <?php selected( $option_key, $value ); ?>><?php echo esc_html( $option_value ); ?></option>
@@ -292,7 +292,7 @@ class LP_Widget extends WP_Widget {
 				case 'textarea':
 					?>
 					<p>
-						<label for="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>"><?php echo $setting['label']; /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?></label>
+						<label for="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>"><?php echo wp_kses_post( $setting['label'] ); ?></label>
 						<textarea class="widefat <?php echo esc_attr( $class ); ?>" id="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>" cols="20" rows="3"><?php echo esc_textarea( $value ); ?></textarea>
 						<?php if ( isset( $setting['desc'] ) ) : ?>
 							<small><?php echo esc_html( $setting['desc'] ); ?></small>
@@ -305,7 +305,7 @@ class LP_Widget extends WP_Widget {
 					?>
 					<p>
 						<input class="checkbox <?php echo esc_attr( $class ); ?>" id="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>" type="checkbox" value="1" <?php checked( $value, 1 ); ?> />
-						<label for="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>"><?php echo $setting['label']; /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?></label>
+						<label for="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>"><?php echo wp_kses_post( $setting['label'] ); ?></label>
 					</p>
 					<?php
 					break;
@@ -313,7 +313,7 @@ class LP_Widget extends WP_Widget {
 				case 'autocomplete':
 					?>
 					<p>
-						<label for="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>"><?php echo wp_kses_post( $setting['label'] ); ?></label><?php // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped ?>
+						<label for="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>"><?php echo wp_kses_post( $setting['label'] ); ?></label>
 						<select class="widefat lp-widget_select_course" id="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>" data-rest-url="<?php echo get_rest_url(); ?>" data-post-type="<?php echo esc_attr( $setting['post_type'] ?? LP_COURSE_CPT ); ?>" style="width: 300px;">
 							<?php if ( ! empty( $value ) ) : ?>
 								<option value="<?php echo esc_attr( $value ); ?>" selected="selected"><?php echo esc_html( get_the_title( $value ) ); ?></option>

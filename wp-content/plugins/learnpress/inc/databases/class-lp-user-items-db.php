@@ -29,6 +29,35 @@ class LP_User_Items_DB extends LP_Database {
 	}
 
 	/**
+	 * Get users items
+	 *
+	 * @return array|null|int|string
+	 * @throws Exception
+	 * @since 4.1.6.9
+	 * @version 1.0.0
+	 */
+	public function get_user_items( LP_User_Items_Filter $filter, int &$total_rows = 0 ) {
+		$default_fields = $this->get_cols_of_table( $this->tb_lp_user_items );
+		$filter->fields = array_merge( $default_fields, $filter->fields );
+
+		if ( empty( $filter->collection ) ) {
+			$filter->collection = $this->tb_lp_user_items;
+		}
+
+		if ( empty( $filter->collection_alias ) ) {
+			$filter->collection_alias = 'ui';
+		}
+
+		if ( $filter->ref_id ) {
+			$filter->where[] = $this->wpdb->prepare( 'AND ui.ref_id = %d', $filter->ref_id );
+		}
+
+		$filter = apply_filters( 'lp/user_items/query/filter', $filter );
+
+		return $this->execute( $filter, $total_rows );
+	}
+
+	/**
 	 * Get items by user_item_id | this is id where item_id = course_id
 	 *
 	 * @param LP_User_Items_Filter $filter
@@ -679,7 +708,7 @@ class LP_User_Items_DB extends LP_Database {
 	 * @throws Exception
 	 */
 	public function get_user_quizzes( LP_User_Items_Filter $filter ) {
-		$this->wpdb->query( "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))" );
+		@$this->wpdb->query( "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))" );
 		$offset = ( absint( $filter->page ) - 1 ) * $filter->limit;
 
 		$WHERE = '';
@@ -799,6 +828,51 @@ class LP_User_Items_DB extends LP_Database {
 		$filter->query_count = true;
 
 		return apply_filters( 'lp/user/course/query/filter/count-users-attend-courses-of-author', $filter );
+	}
+
+	/**
+	 * Get list students attend
+	 *
+	 * @param LP_User_Items_Filter $filter
+	 * @param int $total_rows
+	 *
+	 * @return array|int|string|null
+	 * @since 4.1.6.9
+	 * @throws Exception
+	 */
+	public function get_students( LP_User_Items_Filter $filter, int &$total_rows = 0 ) {
+		$default_fields         = $this->get_cols_of_table( $this->tb_users );
+		$filter->fields         = array_merge( $default_fields, $filter->fields );
+		$filter->exclude_fields = [ 'user_pass', 'user_login', 'user_status', 'user_activation_key' ];
+		$filter->field_count    = 'ID';
+
+		if ( empty( $filter->collection ) ) {
+			$filter->collection = $this->tb_users;
+		}
+
+		if ( empty( $filter->collection_alias ) ) {
+			$filter->collection_alias = 'u';
+		}
+
+		// Filter
+		$filter->join[]  = "INNER JOIN $this->tb_lp_user_items AS ui ON u.ID = ui.user_id";
+		$filter->where[] = $this->wpdb->prepare( 'AND item_type =%s', LP_COURSE_CPT );
+
+		// Filter by user ids
+		if ( ! empty( $filter->user_ids ) ) {
+			$term_ids_format = LP_Helper::db_format_array( $filter->user_ids, '%d' );
+			$filter->where[] = $this->wpdb->prepare( 'AND r_term.term_taxonomy_id IN (' . $term_ids_format . ')', $filter->user_ids );
+		}
+
+		// Filter
+
+		$filter->group_by = 'ID';
+
+		// End filter
+
+		$filter = apply_filters( 'lp/course/query/students', $filter );
+
+		return $this->execute( $filter, $total_rows );
 	}
 }
 

@@ -118,6 +118,24 @@
 	margin: 2rem 0;
 }
 
+#hdq_footer_highlight_wrapper {
+    font-size: 22px;   
+    margin: -4rem auto 0 auto;
+    max-width: 1200px;
+    padding: 0 4rem;
+    color: #4a4a4a;
+    font-family: sans-serif;
+    border: none;
+}
+#hdq_footer_highlight_wrapper p {
+	font-size: 22px;
+}
+
+#hd_patreon_icon > img {
+	max-width: 100%;
+	display: block;
+}
+
 .hdq_highlight {
 	background-color: #f9f8e0;
 	padding: 2rem;
@@ -130,7 +148,7 @@
 
 #hd_patreon {
 	display: grid;
-	grid-template-columns: 1fr 6fr;
+	grid-template-columns: minmax(10px, 1fr) minmax(10px, 3fr);
 	grid-column-gap: 4rem;
 	place-items: center;
 	margin-top: 4rem;

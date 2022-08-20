@@ -57,6 +57,19 @@
 		</div>
     </div>
     <div id="hdq_quizzes_page" class="content">
+		<?php
+			// if there are warnings or notices based on installation
+			if ( function_exists( 'aioseo' ) ) {
+				$aioseo = get_option('aioseo_options', true);
+				$aioseo = json_decode($aioseo, true);
+				if(isset($aioseo["searchAppearance"]) && isset($aioseo["searchAppearance"]["advanced"]) && isset($aioseo["searchAppearance"]["advanced"]["runShortcodes"])){
+					if($aioseo["searchAppearance"]["advanced"]["runShortcodes"] === true){
+						echo '<div class = "notice notice-warning"><p><strong>Warning</strong>: you have <code>Run Shortcodes</code> enabled within the All In One SEO plugin. This has been known to cause issues on some sites.</p><p>If you are experiencing issues showing quizzes on your site, please disable this feature by going to <strong>Search Appearance</strong> -> <strong>Advanced</strong> -> <strong>Run Shortcodes</strong> and toggle it to <strong>Off</strong> within the All In One SEO plugin settings.</p></div>';
+					}
+				}
+			}
+		
+		?>
 		<div id = "hdq_quiz_create_wrapper">
 			<input type = "text" id = "hdq_new_quiz_name" class="input_enter" title = "add new quiz" placeholder = "add new quiz"/>
 			<p>Add a new quiz, or select a quiz below to add / edit questions, or change quiz settings.</p>		
@@ -98,17 +111,20 @@
         <span>The upgrade should have been automatic if you have less than 80 questions on your site</span>
     </span>
 </span> or <a href = "http://harmonicdesign.ca/hd-quiz/" target = "_blank">contact me here</a>.</p>
-	
-<div class="hdq_highlight" id = "hd_patreon">
-				<div id = "hd_patreon_icon">
-					<img src = "<?php echo plugin_dir_url(__FILE__); ?>../images/hd_patreon.png" alt = "Donate"/>
-				</div>
-				<p>
-					HD Quiz is a 100% free plugin developed in my spare time, and as such, I get paid in nothing but good will and positive reviews. If you are enjoying HD Quiz and would like to show your support, please consider contributing to my <a href="https://www.patreon.com/harmonic_design" target="_blank">patreon page</a> to help continued development. Every little bit helps, and I am fuelled by ☕.
-				</p>
-			</div>	
-	
+		
 </div>
+
+<div id = "hdq_footer_highlight_wrapper">
+	<div class="hdq_highlight" id = "hd_patreon">
+		<div id = "hd_patreon_icon">
+			<img src = "<?php echo plugin_dir_url(__FILE__); ?>../images/hd_patreon.png" alt = "Donate"/>
+		</div>
+		<p>
+			HD Quiz is a 100% free plugin developed in my spare time, and as such, I get paid in nothing but good will and positive reviews. If you are enjoying HD Quiz and would like to show your support, please consider contributing to my <a href="https://www.patreon.com/harmonic_design" target="_blank">patreon page</a> to help continued development, or consider <a href = "https://wordpress.org/support/plugin/hd-quiz/reviews/" target = "_blank">leaving a positive review for HD Quiz</a> on the offical WordPress plugin page so that others can find HD Quiz too.
+		</p>
+	</div>
+</div>
+
 
 <div style = "display:none;">
 <?php

@@ -168,7 +168,7 @@
 .learnpress.widget_course_progress .course-results-progress .items-progress,
 .elementor-widget-wp-widget-learnpress_widget_course_progress .course-results-progress .items-progress {
   display: flex;
-  margin-bottom: 5px;
+  margin-bottom: 7px;
   justify-content: space-between;
   align-items: center;
 }
@@ -176,16 +176,16 @@
 .elementor-widget-wp-widget-learnpress_widget_course_progress .course-results-progress .items-progress__heading {
   font-weight: 400;
 }
-.learnpress.widget_course_progress .course-results-progress .lp-course-progress,
-.elementor-widget-wp-widget-learnpress_widget_course_progress .course-results-progress .lp-course-progress {
+.learnpress.widget_course_progress .lp-course-progress,
+.elementor-widget-wp-widget-learnpress_widget_course_progress .lp-course-progress {
   width: 100%;
 }
-.learnpress.widget_course_progress .course-results-progress .lp-course-progress.learn-press-progress,
-.elementor-widget-wp-widget-learnpress_widget_course_progress .course-results-progress .lp-course-progress.learn-press-progress {
+.learnpress.widget_course_progress .lp-course-progress.learn-press-progress,
+.elementor-widget-wp-widget-learnpress_widget_course_progress .lp-course-progress.learn-press-progress {
   position: relative;
 }
-.learnpress.widget_course_progress .course-results-progress .lp-course-progress.learn-press-progress .progress-bg,
-.elementor-widget-wp-widget-learnpress_widget_course_progress .course-results-progress .lp-course-progress.learn-press-progress .progress-bg {
+.learnpress.widget_course_progress .lp-course-progress.learn-press-progress .progress-bg,
+.elementor-widget-wp-widget-learnpress_widget_course_progress .lp-course-progress.learn-press-progress .progress-bg {
   overflow: hidden;
   position: relative;
   height: 6px;
@@ -194,8 +194,8 @@
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
-.learnpress.widget_course_progress .course-results-progress .lp-course-progress.learn-press-progress .progress-bg .progress-active,
-.elementor-widget-wp-widget-learnpress_widget_course_progress .course-results-progress .lp-course-progress.learn-press-progress .progress-bg .progress-active {
+.learnpress.widget_course_progress .lp-course-progress.learn-press-progress .progress-bg .progress-active,
+.elementor-widget-wp-widget-learnpress_widget_course_progress .lp-course-progress.learn-press-progress .progress-bg .progress-active {
   position: absolute;
   left: 50%;
   width: 100%;
@@ -206,8 +206,8 @@
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
-.learnpress.widget_course_progress .course-results-progress .lp-course-progress.learn-press-progress .lp-passing-conditional,
-.elementor-widget-wp-widget-learnpress_widget_course_progress .course-results-progress .lp-course-progress.learn-press-progress .lp-passing-conditional {
+.learnpress.widget_course_progress .lp-course-progress.learn-press-progress .lp-passing-conditional,
+.elementor-widget-wp-widget-learnpress_widget_course_progress .lp-course-progress.learn-press-progress .lp-passing-conditional {
   position: absolute;
   top: 0;
   width: 3px;

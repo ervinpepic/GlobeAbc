@@ -17,6 +17,10 @@ class LP_Course_Extra_Info_Fast_Query_Model {
 	 * {"count_items":"3","lp_lesson":"2","lp_quiz":"1", "{item_type}":"0"}
 	 */
 	public $total_items;
+	/**
+	 * @var object list sections, items of course
+	 */
+	public $sections_items;
 
 	/**
 	 * Mapper stdclass to model
@@ -28,7 +32,7 @@ class LP_Course_Extra_Info_Fast_Query_Model {
 		$extra_info = new self();
 
 		foreach ( $object as $key => $value ) {
-			if ( isset( $extra_info->{$key} ) ) {
+			if ( property_exists( $extra_info, $key ) ) {
 				$extra_info->{$key} = $value;
 			}
 		}

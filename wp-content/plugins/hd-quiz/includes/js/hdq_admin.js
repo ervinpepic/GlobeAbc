@@ -700,7 +700,7 @@ const HDQ = {
 			},
 			text_based: function () {
 				let question_type_tip = document.getElementById("question_type_tip");
-				let data = `<p>Instead of multiple choice answers, the quiz taker will have to type their answers. The below answers are NOT cAsE sEnSiTive. Each answer will correspond with an accepted correct answer, so it's best to include common spelling mistakes.</p>`;
+				let data = `<p>Instead of multiple choice answers, the quiz taker will have to type their answers. The below answers are NOT cAsE sEnSiTive. Each answer will correspond with an accepted correct answer, so it's best to include common spelling mistakes.</p><p>NEW: You can add an asterisks <code>*</code> to the end of a word to allow all extentions of that word. Example: <code>hop*</code> would allow "hop, hope, hopping" etc to be accepted.</p>`;
 				question_type_tip.innerHTML = data;
 
 				let answer_selected = document.getElementsByClassName("hdq_answer_selected");
@@ -816,9 +816,7 @@ const HDQ = {
 					let id = attachments[i].id;
 					let title = attachments[i].title;
 					gallery.push(id);
-					let data = `<img data-id = "${id}" data-parent = "${el.getAttribute(
-						"id"
-					)}" class = "gallery_field_image" title = "click to remove, or drag to reorder" src = "${url}" alt = "${title}" />`;
+					let data = `<img data-id = "${id}" data-parent = "${el.getAttribute("id")}" class = "gallery_field_image" title = "click to remove, or drag to reorder" src = "${url}" alt = "${title}" />`;
 					container.insertAdjacentHTML("beforeend", data);
 				}
 			}
@@ -945,8 +943,7 @@ const HDQ = {
 					"Distraction-free writing mode": "accessW",
 					"Keyboard Shortcuts": "accessH",
 				},
-				plugins:
-					"charmap,colorpicker,hr,lists,media,paste,tabfocus,textcolor,wordpress,wpautoresize,wpeditimage,wpemoji,wpgallery,wplink,wpdialogs,wptextpattern,wpview",
+				plugins: "charmap,colorpicker,hr,lists,media,paste,tabfocus,textcolor,wordpress,wpautoresize,wpeditimage,wpemoji,wpgallery,wplink,wpdialogs,wptextpattern,wpview",
 				wpautop: true,
 				indent: false,
 				toolbar1: "formatselect,bold,italic,bullist,numlist,blockquote,alignleft,aligncenter,alignright,link,dfw,wp_adv",
@@ -1248,6 +1245,6 @@ if (jQuery("body").hasClass("hd-quiz_page_hdq_options")) {
 
 // Accordion
 // ______________________________________________
-jQuery(".hdq_accordion h3").click(function () {
+jQuery(".hdq_accordion h3").on("click", function () {
 	jQuery(this).next("div").toggle(600);
 });

@@ -63,6 +63,7 @@ function learn_press_delete_user_data( $user_id, $course_id = 0 ) {
  * @return bool
  * @editor tungnx
  * @reason this function only get cache, not handle get user_item_id
+ * @depecated 4.1.6.9
  */
 function learn_press_get_user_item_id( $user_id, $item_id, $course_id = 0 /* added 3.0.0 */ ) {
 	return false;
@@ -108,7 +109,7 @@ if ( ! function_exists( 'learn_press_get_user' ) ) {
 	 * @param int  $user_id
 	 * @param bool $current
 	 *
-	 * @return LP_User|mixed
+	 * @return LP_User|LP_User_Guest|mixed
 	 * Todo: check this function - tungnx
 	 */
 	function learn_press_get_user( $user_id, $current = false, $force_new = false ) {
@@ -675,26 +676,12 @@ function learn_press_delete_user_item_meta( $object_id, $meta_key, $meta_value =
 }
 
 /**
- * Exclude the temp users from query.
- *
- * @param WP_User_Query $q
- */
-function learn_press_filter_temp_users( $q ) {
-	// if ( $temp_users = learn_press_get_temp_users() ) {
-	// $exclude = (array) $q->get( 'exclude' );
-	// $exclude = array_merge( $exclude, $temp_users );
-	// $q->set( 'exclude', $exclude );
-	// }
-}
-
-// add_action( 'pre_get_users', 'learn_press_filter_temp_users' );
-
-/**
  * Get temp users.
  *
  * @return array
+ * @depecated 4.1.6.9
  */
-function learn_press_get_temp_users() {
+/*function learn_press_get_temp_users() {
 	return false;
 	if ( false === ( $temp_users = LP_Object_Cache::get( 'learn-press/temp-users' ) ) ) {
 		global $wpdb;
@@ -716,7 +703,7 @@ function learn_press_get_temp_users() {
 	}
 
 	return $temp_users;
-}
+}*/
 
 /**
  * Update field created_time after added user item meta
@@ -806,15 +793,17 @@ if ( ! function_exists( 'learn_press_pre_get_avatar_callback' ) ) {
 		 * Get the ID of user from $id_or_email
 		 */
 		if ( ! is_numeric( $id_or_email ) && is_string( $id_or_email ) ) {
-			if ( $user = get_user_by( 'email', $id_or_email ) ) {
+			$user = get_user_by( 'email', $id_or_email );
+			if ( $user ) {
 				$user_id = $user->ID;
 			}
 		} elseif ( is_numeric( $id_or_email ) ) {
 			$user_id = $id_or_email;
 		} elseif ( is_object( $id_or_email ) && isset( $id_or_email->user_id ) && $id_or_email->user_id ) {
 			$user_id = $id_or_email->user_id;
-		} elseif ( is_object( $id_or_email ) && $id_or_email instanceof WP_Comment ) {
-			if ( $user = get_user_by( 'email', $id_or_email->comment_author_email ) ) {
+		} elseif ( $id_or_email instanceof WP_Comment ) {
+			$user = get_user_by( 'email', $id_or_email->comment_author_email );
+			if ( $user ) {
 				$user_id = $user->ID;
 			}
 		}
@@ -1894,24 +1883,6 @@ function learn_press_rest_prepare_user_questions( array $question_ids = array(),
 }
 
 /**
- * Output html to show extra info of user in backend profile.
- *
- * @param WP_User $user
- *
- * @since 4.0.0
- */
-/*function learn_press_append_user_profile_fields( $user ) {
-	if ( ! is_admin() ) {
-		return;
-	}
-
-	learn_press_admin_view( 'backend-user-profile', array( 'user' => $user ) );
-}*/
-
-//add_action( 'show_user_profile', 'learn_press_append_user_profile_fields' );
-//add_action( 'edit_user_profile', 'learn_press_append_user_profile_fields' );
-
-/**
  * Update extra profile data upon update user.
  *
  * @param int $user_id
@@ -2047,24 +2018,28 @@ function lp_custom_register_fields_display() {
 							?>
 							<label for="description"><?php echo esc_html( $custom_field['name'] ); ?></label>
 							<?php
+							break;
 						case 'tel':
 							?>
-							<input name="_lp_custom_register_form[<?php echo $value; ?>]"
-								   type="<?php echo $custom_field['type']; ?>" class="regular-text"
-								   value="">
+							<label for="">
+								<input name="_lp_custom_register_form[<?php echo esc_attr( $value ); ?>]"
+									type="<?php echo esc_attr( $custom_field['type'] ); ?>" class="regular-text"
+									value="" />
+							</label>
 							<?php
 							break;
 						case 'textarea':
 							?>
-							<label for="description"><?php echo esc_html( $custom_field['name'] ); ?></label>
-							<textarea name="_lp_custom_register_form[<?php echo $value; ?>]"></textarea>
+							<label for="description"><?php echo esc_html( $custom_field['name'] ); ?>
+								<textarea name="_lp_custom_register_form[<?php echo esc_attr( $value ); ?>]"></textarea>
+							</label>
 							<?php
 							break;
 						case 'checkbox':
 							?>
 							<label>
-								<input name="_lp_custom_register_form[<?php echo $value; ?>]"
-									   type="<?php echo $custom_field['type']; ?>" value="1">
+								<input name="_lp_custom_register_form[<?php echo esc_attr( $value ); ?>]"
+									type="<?php echo esc_attr( $custom_field['type'] ); ?>" value="1">
 								<?php echo esc_html( $custom_field['name'] ); ?>
 							</label>
 							<?php
@@ -2196,7 +2171,6 @@ function learn_press_user_profile_data( $user ) {
 	learn_press_admin_view( 'backend-user-profile', array( 'user' => $user ) );
 	learn_press_admin_view( 'user/courses.php', array( 'user_id' => $user->ID ) );
 }
-//add_action( 'show_user_profile', 'learn_press_user_profile_data', 1000 );
 add_action( 'edit_user_profile', 'learn_press_user_profile_data', 1000 );
 
 function learnpress_get_count_by_user( $user_id = '', $post_type = 'lp_course' ) {

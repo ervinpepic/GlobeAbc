@@ -382,10 +382,10 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 		public static function search_course_category() {
 			global $wpdb;
 			$sql   = 'SELECT `t`.`term_id` as `id`, '
-					 . ' `t`.`name` `text` '
-					 . " FROM {$wpdb->terms} t "
-					 . "		INNER JOIN {$wpdb->term_taxonomy} tt ON t.term_id = tt.term_id AND taxonomy='course_category' "
-					 . ' WHERE `t`.`name` LIKE %s';
+					. ' `t`.`name` `text` '
+					. " FROM {$wpdb->terms} t "
+					. "		INNER JOIN {$wpdb->term_taxonomy} tt ON t.term_id = tt.term_id AND taxonomy='course_category' "
+					. ' WHERE `t`.`name` LIKE %s';
 			$s     = '%' . filter_input( INPUT_GET, 'q' ) . '%';
 			$query = $wpdb->prepare( $sql, $s );
 			$items = $wpdb->get_results( $query );
@@ -516,8 +516,9 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 		 * @param mixed $params (Optional) List of keys want to get from payload.
 		 *
 		 * @return array|bool|mixed|object
+		 * @depecated 4.1.6.9
 		 */
-		public static function get_php_input( $params = '' ) {
+		/*public static function get_php_input( $params = '' ) {
 			static $data = false;
 			if ( false === $data ) {
 				try {
@@ -539,15 +540,16 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 			}
 
 			return $data;
-		}
+		}*/
 
 		/**
 		 * Parse request content into var.
 		 * Normally, parse and assign to $_POST or $_GET.
 		 *
 		 * @param $var
+		 * @depecated 4.1.6.9
 		 */
-		public static function parsePhpInput( &$var ) {
+		/*public static function parsePhpInput( &$var ) {
 			$data = self::get_php_input();
 
 			if ( $data ) {
@@ -555,7 +557,7 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 					$var[ $k ] = $v;
 				}
 			}
-		}
+		}*/
 
 		public static function load_chart() {
 			if ( ! class_exists( 'LP_Submenu_Statistics' ) ) {
@@ -573,7 +575,7 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 			if ( method_exists( $wpdb, 'esc_like' ) ) {
 				$term = $wpdb->esc_like( $term );
 			} else {
-				$term = like_escape( $term );
+				$term = $wpdb->esc_like( $term );
 			}
 
 			$query->query_from  .= " INNER JOIN {$wpdb->usermeta} AS user_name ON {$wpdb->users}.ID = user_name.user_id AND ( user_name.meta_key = 'first_name' OR user_name.meta_key = 'last_name' ) ";
@@ -666,7 +668,7 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 		 * @author hungkv
 		 */
 		public static function update_order_exports() {
-			$order_id = absint( $_POST['order_id'] );
+			$order_id        = absint( $_POST['order_id'] );
 			$order           = learn_press_get_order( $order_id );
 			$currency_symbol = learn_press_get_currency_symbol( $order->get_currency() );
 
@@ -679,7 +681,7 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 				)
 			);
 			$html = ob_get_clean();
-			echo $html;
+			echo wp_kses_post( $html );
 			die();
 		}
 	}

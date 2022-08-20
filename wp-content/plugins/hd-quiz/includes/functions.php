@@ -77,191 +77,9 @@ function hdq_get_attachment_id($url)
 
 function hdq_get_settings()
 {
-    $settings = get_option("hdq_settings");
-    if ($settings != "" && $settings != null) {
-        $fields = hdq_sanitize_fields($settings);
-    } else {
-        // check to see if legacy settings exist
-        $hd_qu_fb = sanitize_text_field(get_option("hd_qu_fb"));
-        $hd_qu_tw = sanitize_text_field(get_option("hd_qu_tw"));
-        $hd_qu_next = sanitize_text_field(get_option("hd_qu_next"));
-        $hd_qu_finish = sanitize_text_field(get_option("hd_qu_finish"));
-        $hd_qu_start = sanitize_text_field(get_option("hd_qu_start"));
-        $hd_qu_results = sanitize_text_field(get_option("hd_results"));
-        $hd_qu_authors = sanitize_text_field(get_option("hd_qu_authors"));
-        $hd_qu_percent = sanitize_text_field(get_option("hd_qu_percent"));
-        $hd_qu_adcode = stripcslashes(urldecode(get_option("hd_qu_adcode")));
-
-
-        $ar = array();
-        $ar["name"] = "hd_qu_heart";
-        $ar["type"] = "checkbox";
-        $ar["value"] = array("");
-        $ar["tab"] = "general";
-        $fields["hd_qu_heart"] = $ar;
-
-        $ar = array();
-        $ar["name"] = "hd_qu_legacy_scroll";
-        $ar["type"] = "checkbox";
-        $ar["value"] = array("");
-        $ar["tab"] = "general";
-        $fields["hd_qu_legacy_scroll"] = $ar;
-
-        if ($hd_qu_fb != "" || $hd_qu_fb != null) {
-            $ar = array();
-            $ar["name"] = "hd_qu_fb";
-            $ar["type"] = "text";
-            $ar["value"] = $hd_qu_fb;
-            $ar["tab"] = "general";
-            $fields["hd_qu_fb"] = $ar;
-        } else {
-            $ar = array();
-            $ar["name"] = "hd_qu_fb";
-            $ar["type"] = "text";
-            $ar["value"] = "";
-            $ar["tab"] = "general";
-            $fields["hd_qu_fb"] = $ar;
-        }
-
-
-        if ($hd_qu_tw != "" || $hd_qu_tw != null) {
-            $ar = array();
-            $ar["name"] = "hd_qu_tw";
-            $ar["type"] = "text";
-            $ar["value"] = $hd_qu_tw;
-            $ar["tab"] = "general";
-            $fields["hd_qu_tw"] = $ar;
-        } else {
-            $ar = array();
-            $ar["name"] = "hd_qu_tw";
-            $ar["type"] = "text";
-            $ar["value"] = "";
-            $ar["tab"] = "general";
-            $fields["hd_qu_tw"] = $ar;
-        }
-
-        if ($hd_qu_authors != "" || $hd_qu_authors != null) {
-            $ar = array();
-            $ar["name"] = "hd_qu_authors";
-            $ar["type"] = "checkbox";
-            $ar["value"] = array($hd_qu_authors);
-            $ar["tab"] = "general";
-            $fields["hd_qu_authors"] = $ar;
-        } else {
-            $ar = array();
-            $ar["name"] = "hd_qu_authors";
-            $ar["type"] = "checkbox";
-            $ar["value"] = array("");
-            $ar["tab"] = "general";
-            $fields["hd_qu_authors"] = $ar;
-        }
-
-
-        if ($hd_qu_percent != "" || $hd_qu_percent != null) {
-            $ar = array();
-            $ar["name"] = "hd_qu_percent";
-            $ar["type"] = "text";
-            $ar["value"] = array($hd_qu_percent);
-            $ar["tab"] = "general";
-            $fields["hd_qu_percent"] = $ar;
-        } else {
-            $ar = array();
-            $ar["name"] = "hd_qu_percent";
-            $ar["type"] = "text";
-            $ar["value"] = array("");
-            $ar["tab"] = "general";
-            $fields["hd_qu_percent"] = $ar;
-        }
-
-
-        if ($hd_qu_adcode != "" || $hd_qu_adcode != null) {
-            $hd_qu_adcode = stripcslashes(urldecode($hd_qu_adcode)); // decode adset code
-            $ar = array();
-            $ar["name"] = "hd_qu_adcode";
-            $ar["type"] = "textarea";
-            $ar["value"] = hdq_encode($hd_qu_adcode); // reencode
-            $ar["tab"] = "general";
-            $fields["hd_qu_adcode"] = $ar;
-        } else {
-            $hd_qu_adcode = stripcslashes(urldecode($hd_qu_adcode)); // decode adset code
-            $ar = array();
-            $ar["name"] = "hd_qu_adcode";
-            $ar["type"] = "textarea";
-            $ar["value"] = ""; // reencode
-            $ar["tab"] = "general";
-            $fields["hd_qu_adcode"] = $ar;
-        }
-
-        if ($hd_qu_results != "" || $hd_qu_results != null) {
-            $ar = array();
-            $ar["name"] = "hd_qu_results";
-            $ar["type"] = "text";
-            $ar["value"] = $hd_qu_results;
-            $ar["tab"] = "general";
-            $fields["hd_results"] = $ar;
-        } else {
-            $ar = array();
-            $ar["name"] = "hd_qu_results";
-            $ar["type"] = "text";
-            $ar["value"] = "";
-            $ar["tab"] = "general";
-            $fields["hd_results"] = $ar;
-        }
-
-        if ($hd_qu_finish != "" || $hd_qu_finish != null) {
-            $ar = array();
-            $ar["name"] = "hd_qu_finish";
-            $ar["type"] = "text";
-            $ar["value"] = $hd_qu_finish;
-            $ar["tab"] = "translate";
-            $fields["hd_qu_finish"] = $ar;
-        } else {
-            $ar = array();
-            $ar["name"] = "hd_qu_finish";
-            $ar["type"] = "text";
-            $ar["value"] = "";
-            $ar["tab"] = "translate";
-            $fields["hd_qu_finish"] = $ar;
-        }
-
-
-        if ($hd_qu_next != "" || $hd_qu_next != null) {
-            $ar = array();
-            $ar["name"] = "hd_qu_next";
-            $ar["type"] = "text";
-            $ar["value"] = $hd_qu_next;
-            $ar["tab"] = "translate";
-            $fields["hd_qu_next"] = $ar;
-        } else {
-            $ar = array();
-            $ar["name"] = "hd_qu_next";
-            $ar["type"] = "text";
-            $ar["value"] = "";
-            $ar["tab"] = "translate";
-            $fields["hd_qu_next"] = $ar;
-        }
-
-
-        if ($hd_qu_start != "" || $hd_qu_start != null) {
-            $ar = array();
-            $ar["name"] = "hd_qu_start";
-            $ar["type"] = "text";
-            $ar["value"] = $hd_qu_start;
-            $ar["tab"] = "translate";
-            $fields["hd_qu_start"] = $ar;
-        } else {
-            $ar = array();
-            $ar["name"] = "hd_qu_start";
-            $ar["type"] = "text";
-            $ar["value"] = "";
-            $ar["tab"] = "translate";
-            $fields["hd_qu_start"] = $ar;
-        }
-
-        // save so we don't need to lookup each time
-        update_option("hdq_settings", $fields);
-    }
-    return $fields;
+    $settings = new hdq_settings();
+    $settings = $settings->get();
+    return $settings;
 }
 
 function hdq_save_settings()
@@ -691,8 +509,8 @@ function hdq_get_results($quiz_settings)
     $share_results = $quiz_settings["share_results"]["value"][0];
 
     $settings = hdq_get_settings();
-    if (isset($settings["hd_results"]["value"])) {
-        $result_text = $settings["hd_results"]["value"];
+    if (isset($settings["hd_qu_results"]["value"])) {
+        $result_text = $settings["hd_qu_results"]["value"];
     } else {
         $result_text = "";
     }
@@ -951,18 +769,22 @@ function hdq_multiple_choice_text($question_ID, $question_number, $question, $qu
 {
     require(dirname(__FILE__) . '/templates/default.php');
 }
+
 function hdq_multiple_choice_image($question_ID, $question_number, $question, $quiz)
 {
     require(dirname(__FILE__) . '/templates/image.php');
 }
+
 function hdq_text_based($question_ID, $question_number, $question, $quiz)
 {
     require(dirname(__FILE__) . '/templates/text.php');
 }
+
 function hdq_title($question_ID, $question_number, $question, $quiz)
 {
     require(dirname(__FILE__) . '/templates/title.php');
 }
+
 function hdq_select_all_apply_text($question_ID, $question_number, $question, $quiz)
 {
     require(dirname(__FILE__) . '/templates/select-all-text.php');

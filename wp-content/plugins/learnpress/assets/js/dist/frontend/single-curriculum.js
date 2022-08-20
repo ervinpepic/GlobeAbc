@@ -10,7 +10,6 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/lp-modal-overlay */ "./assets/src/apps/js/utils/lp-modal-overlay.js");
-const $ = jQuery;
 
 const lpModalOverlayCompleteItem = {
   elBtnFinishCourse: null,
@@ -1126,7 +1125,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _show_lp_overlay_complete_item__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./show-lp-overlay-complete-item */ "./assets/src/apps/js/frontend/show-lp-overlay-complete-item.js");
 /* harmony import */ var _single_curriculum_skeleton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./single-curriculum/skeleton */ "./assets/src/apps/js/frontend/single-curriculum/skeleton.js");
 
-const $ = jQuery;
 
 
 

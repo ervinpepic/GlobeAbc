@@ -70,7 +70,7 @@ class LP_Template_Course extends LP_Abstract_Template {
 		$can_retake_times = $user->can_retry_course( $course->get_id() );
 
 		// Course has no items
-		if ( empty( $course->get_item_ids() ) ) {
+		if ( empty( $course->count_items() ) ) {
 			return;
 		}
 
@@ -85,7 +85,7 @@ class LP_Template_Course extends LP_Abstract_Template {
 	public function course_media_preview() {
 		$course = learn_press_get_course();
 
-		echo $course->get_image();
+		echo wp_kses_post( $course->get_image() );
 	}
 
 	/**
@@ -407,7 +407,7 @@ class LP_Template_Course extends LP_Abstract_Template {
 			}
 
 			// Course has no items
-			if ( empty( $course->get_item_ids() ) ) {
+			if ( empty( $course->count_items() ) ) {
 				throw new Exception( 'Course no any item' );
 			}
 
@@ -506,7 +506,7 @@ class LP_Template_Course extends LP_Abstract_Template {
 		}
 
 		// Course has no items
-		if ( empty( $course->get_item_ids() ) ) {
+		if ( empty( $course->count_items() ) ) {
 			return;
 		}
 
@@ -600,19 +600,24 @@ class LP_Template_Course extends LP_Abstract_Template {
 			return;
 		}
 
-		$next_item = $prev_item = false;
+		$next_item = false;
+		$prev_item = false;
 
 		$next_id = $course->get_next_item();
 		$prev_id = $course->get_prev_item();
 
 		if ( $next_id ) {
 			$next_item = $course->get_item( $next_id );
-			$next_item->set_course( $course->get_id() );
+			if ( $next_item instanceof LP_Course_Item ) {
+				$next_item->set_course( $course->get_id() );
+			}
 		}
 
 		if ( $prev_id ) {
 			$prev_item = $course->get_item( $prev_id );
-			$prev_item->set_course( $course->get_id() );
+			if ( $prev_item instanceof LP_Course_Item ) {
+				$prev_item->set_course( $course->get_id() );
+			}
 		}
 
 		if ( ! $prev_item && ! $next_item ) {
@@ -637,7 +642,7 @@ class LP_Template_Course extends LP_Abstract_Template {
 				$section_id = LP_Section_DB::getInstance()->get_section_id_by_item_id( absint( $item_id ) );
 			}
 			?>
-			<div class="learnpress-course-curriculum" data-section="<?php echo $section_id ?? ''; ?>" data-id="<?php echo $item_id ?? ''; ?>">
+			<div class="learnpress-course-curriculum" data-section="<?php echo esc_attr( $section_id ?? '' ); ?>" data-id="<?php echo esc_attr( $item_id ?? '' ); ?>">
 				<ul class="lp-skeleton-animation">
 					<li style="width: 100%; height: 50px"></li>
 					<li style="width: 100%; height: 20px"></li>
@@ -715,7 +720,7 @@ class LP_Template_Course extends LP_Abstract_Template {
 		if ( ! empty( $shortcodes_custom_css ) ) {
 			$shortcodes_custom_css = strip_tags( $shortcodes_custom_css );
 			echo '<style type="text/css" data-type="vc_shortcodes-custom-css">';
-			echo $shortcodes_custom_css;
+			echo wp_kses_post( $shortcodes_custom_css );
 			echo '</style>';
 		}
 		// End
@@ -837,18 +842,19 @@ class LP_Template_Course extends LP_Abstract_Template {
 		);
 	}
 
-	public function lesson_comment_form() {
-		global $post;
-
-		if ( ! $course = learn_press_get_course() ) {
+	/**
+	 * @depecated 4.1.6.9
+	 */
+	/*public function lesson_comment_form() {
+		$course = learn_press_get_course();
+		if ( ! $course ) {
 			return;
 		}
 
-		if ( ! $lesson = LP_Global::course_item() ) {
+		$lesson = LP_Global::course_item();
+		if ( ! $lesson ) {
 			return;
 		}
-
-		$user = learn_press_get_current_user();
 
 		if ( $lesson->setup_postdata() ) {
 
@@ -859,8 +865,7 @@ class LP_Template_Course extends LP_Abstract_Template {
 			}
 			$lesson->reset_postdata();
 		}
-
-	}
+	}*/
 
 	/**
 	 * Template show count items
@@ -949,8 +954,8 @@ class LP_Template_Course extends LP_Abstract_Template {
 
 	public function faqs() {
 		$course = LP_Course::get_course( get_the_ID() );
-
-		if ( ! $faqs = $course->get_faqs() ) {
+		$faqs   = $course->get_faqs();
+		if ( ! $faqs ) {
 			return;
 		}
 
@@ -993,7 +998,7 @@ class LP_Template_Course extends LP_Abstract_Template {
 		$socials    = $instructor->get_profile_socials( $instructor->get_id() );
 
 		foreach ( $socials as $social ) {
-			echo $social;
+			echo wp_kses_post( $social );
 		}
 	}
 
@@ -1024,12 +1029,13 @@ class LP_Template_Course extends LP_Abstract_Template {
 
 	public function course_item_comments() {
 		global $post;
-
-		if ( ! $course = learn_press_get_course() ) {
+		$course = learn_press_get_course();
+		if ( ! $course ) {
 			return;
 		}
 
-		if ( ! $item = LP_Global::course_item() ) {
+		$item = LP_Global::course_item();
+		if ( ! $item ) {
 			return;
 		}
 

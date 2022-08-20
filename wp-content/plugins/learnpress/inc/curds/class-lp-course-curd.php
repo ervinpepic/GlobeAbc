@@ -127,7 +127,7 @@ if ( ! class_exists( 'LP_Course_CURD' ) ) {
 		 * @return mixed|WP_Error
 		 * @since 3.0.0
 		 */
-		public function duplicate( &$course_id, $args = array() ) {
+		public function duplicate_bk( &$course_id, $args = array() ) {
 
 			if ( ! $course_id ) {
 				return new WP_Error( __( '<p>Op! ID not found</p>', 'learnpress' ) );
@@ -214,11 +214,118 @@ if ( ! class_exists( 'LP_Course_CURD' ) ) {
 						}
 					}
 
+					do_action( 'learn-press/after-duplicate', $course_id, $new_course_id, $args );
+
 					return $new_course_id;
 				}
 			}
 
 			return false;
+		}
+
+		/**
+		 * Duplicate course.
+		 *
+		 * @param int $course_id
+		 * @param array $args
+		 *
+		 * @return int|WP_Error
+		 * @since 3.0.0
+		 * @version 1.0.2
+		 */
+		public function duplicate( &$course_id, $args = array() ) {
+			$course_id_new = 0;
+
+			try {
+				if ( ! current_user_can( 'edit_posts' ) ) {
+					throw new Exception( 'Sorry! You don\'t have permission to duplicate this course' );
+				}
+
+				$course_origin = learn_press_get_course( $course_id );
+				if ( ! $course_origin ) {
+					throw new Exception( 'Course is invalid' );
+				}
+
+				$course_id_new = learn_press_duplicate_post( $course_id, $args );
+
+				if ( is_wp_error( $course_id_new ) ) {
+					return $course_id_new;
+				}
+
+				$this->duplicate_sections_and_items( $course_id_new, $course_origin );
+
+				// Call save course duplicate
+				//$course_post = get_post( $course_id_new );
+				LP_Course_Post_Type::instance()->save( $course_id_new );
+
+				do_action( 'learn-press/after-duplicate', $course_id, $course_id_new, $args );
+			} catch ( Throwable $e ) {
+				$course_id_new = new WP_Error( $e->getMessage() );
+			}
+
+			return $course_id_new;
+		}
+
+		/**
+		 * Duplicate sections and items of course
+		 * @param int $course_id_new
+		 * @param LP_Course $course_origin
+		 */
+		public function duplicate_sections_and_items( $course_id_new, $course_origin ) {
+			// curriculum course
+			$curriculum = $course_origin->get_curriculum_raw();
+
+			// quiz curd
+			$quiz_curd = new LP_Quiz_CURD();
+
+			if ( is_array( $curriculum ) ) {
+				// new course section curd
+				$new_course_section_curd = new LP_Section_CURD( $course_id_new );
+				foreach ( $curriculum as $section ) {
+					$data = array(
+						'section_name'        => $section['title'],
+						'section_course_id'   => $course_id_new,
+						'section_order'       => $section['order'],
+						'section_description' => $section['description'],
+					);
+
+					// clone sections to new course
+					$new_section = $new_course_section_curd->create( $data );
+
+					// get section items of original course
+					$items = $section['items'];
+
+					$new_items = array();
+
+					// duplicate items
+					if ( ! empty( $items ) ) {
+						foreach ( $items as $key => $item ) {
+							// duplicate quiz
+							if ( $item['type'] == LP_QUIZ_CPT ) {
+								$new_item_id = $quiz_curd->duplicate(
+									$item['id'],
+									array( 'post_status' => 'publish' )
+								);
+							} else {
+								// clone lesson
+								$new_item_id = learn_press_duplicate_post(
+									$item['id'],
+									array( 'post_status' => 'publish' )
+								);
+							}
+
+							// get new items data to add to section
+							$new_items[ $key ] = array(
+								'id'   => $new_item_id,
+								'type' => $item['type'],
+							);
+						}
+
+						// add new clone items to section
+						$new_course_section_curd->add_items_section( $new_section['section_id'], $new_items );
+					}
+				}
+			}
 		}
 
 		/**
@@ -229,7 +336,7 @@ if ( ! class_exists( 'LP_Course_CURD' ) ) {
 		 * @return mixed
 		 */
 		public function load( &$course ) {
-			$this->read_course_curriculum( $course->get_id() );
+			// $this->read_course_curriculum( $course->get_id() );
 
 			return $course;
 		}
@@ -242,15 +349,9 @@ if ( ! class_exists( 'LP_Course_CURD' ) ) {
 		 * @param bool $publish_only
 		 *
 		 * @return array
+		 * @depecated 4.1.6.9
 		 */
-		public function read_course_items( $course_id, $publish_only = true, $section_ids = array() ) {
-			// Tungnx: Comment because make not work with WPML.
-			/*static $results = null;
-
-			if ( ! is_null( $results ) ) {
-				return $results;
-			}*/
-
+		/*public function read_course_items( $course_id, $publish_only = true, $section_ids = array() ) {
 			global $wpdb;
 			$where = '';
 
@@ -298,7 +399,28 @@ if ( ! class_exists( 'LP_Course_CURD' ) ) {
 			$results = $wpdb->get_results( $query );
 
 			return $results;
-		}
+
+			//////////////////////////////////////////// Code new - tungnx
+
+			$items = [];
+
+			$course = learn_press_get_course( $course_id );
+			if ( ! $course ) {
+				return $items;
+			}
+
+			$sections_items = $course->get_full_sections_and_items_course();
+			foreach ( $sections_items as $section_items ) {
+				$section_id = $section_items->id;
+
+				foreach ( $section_items->items as $item ) {
+					$item->section_id = $section_id;
+					$items[]          = $item;
+				}
+			}
+
+			return $items;
+		}*/
 
 		/**
 		 * Get all courses that contains an item by item id.
@@ -331,7 +453,10 @@ if ( ! class_exists( 'LP_Course_CURD' ) ) {
 			return $wpdb->get_col( $query );
 		}
 
-		public static function update_items_format( $item ) {
+		/**
+		 * @depecated 4.1.6.9
+		 */
+		/*public static function update_items_format( $item ) {
 
 			if ( empty( $item['args']['course_id'] ) ) {
 				return false;
@@ -386,7 +511,7 @@ if ( ! class_exists( 'LP_Course_CURD' ) ) {
 			}
 
 			return false;
-		}
+		}*/
 
 		/**
 		 * Read curriculum of a course from db into cache.
@@ -395,7 +520,7 @@ if ( ! class_exists( 'LP_Course_CURD' ) ) {
 		 *
 		 * @return array|mixed
 		 */
-		public function read_course_curriculum( $course_id ) {
+		/*public function read_course_curriculum( $course_id ) {
 
 			if ( learn_press_get_post_type( $course_id ) != LP_COURSE_CPT ) {
 				return false;
@@ -405,12 +530,12 @@ if ( ! class_exists( 'LP_Course_CURD' ) ) {
 				return false;
 			}
 
-			if ( $section_ids = $this->get_course_sections( $course_id, 'ids' ) ) {
+			if ( $this->get_course_sections( $course_id, 'ids' ) ) {
 				return $this->read_course_items( $course_id );
 			}
 
 			return false;
-		}
+		}*/
 
 		/**
 		 * Get sections of course
@@ -422,14 +547,14 @@ if ( ! class_exists( 'LP_Course_CURD' ) ) {
 		 * @version 4.0.0
 		 *
 		 */
-		public function get_course_sections( $course_id, $return = '' ) {
+		/*public function get_course_sections( $course_id, $return = '' ) {
 			// if ( false === ( $sections = LP_Object_Cache::get( $course_id, 'learn-press/course-sections' ) ) ) {
 			$sections = $this->read_course_sections( $course_id );
 			// }
 
 			// return $return === 'ids' ? LP_Object_Cache::get( $course_id, 'learn-press/course-sections-ids' ) : $sections;
 			return $return === 'ids' ? LP_Course_Utils::get_cached_db_sections( $course_id, 'ids' ) : $sections;
-		}
+		}*/
 
 		/**
 		 * Retrieve total sections of a course.
@@ -499,8 +624,9 @@ if ( ! class_exists( 'LP_Course_CURD' ) ) {
 		 *
 		 * @return mixed|array
 		 * @version 4.0.0
+		 * @depecated 4.1.6.9
 		 */
-		public function read_course_sections( $course_id ) {
+		/*public function read_course_sections( $course_id ) {
 			global $wpdb;
 
 			settype( $course_id, 'array' );
@@ -536,7 +662,7 @@ if ( ! class_exists( 'LP_Course_CURD' ) ) {
 			}
 
 			return $first_course_sections;
-		}
+		}*/
 
 		/**
 		 * Remove lesson, quiz from course's curriculum.
@@ -791,231 +917,5 @@ if ( ! class_exists( 'LP_Course_CURD' ) ) {
 
 			return $wpdb->get_col( $query );
 		}
-
-		/**
-		 * Get popular courses.
-		 *
-		 * @param array $args
-		 *
-		 * @return array
-		 * @author tungnx
-		 * @version 1.0.0
-		 * @depecated 4.1.6.4
-		 */
-		/*public function get_popular_courses( array $args = array() ): array {
-			$lp_db = LP_Course_DB::getInstance();
-
-			$filter        = new LP_Course_Filter();
-			$filter->limit = $args['limit'];
-
-			return $lp_db->get_popular_courses( $filter );
-		}*/
-
-		/**
-		 * Get popular courses.
-		 *
-		 * @param array $args
-		 *
-		 * @return array
-		 * @editor tungnx
-		 * @modify 4.1.4 - comment - not use
-		 */
-		/*public function get_popular_courses_bk( $args = array() ) {
-			global $wpdb;
-
-			$limit = ! empty( $args['limit'] ) ? $args['limit'] : - 1;
-			$order = ! empty( $args['order'] ) ? $args['order'] : 'DESC';
-
-			if ( $limit <= 0 ) {
-				$limit = 0;
-			}
-
-			$query = apply_filters(
-				'learn-press/course-curd/query-popular-courses',
-				$wpdb->prepare(
-					"
-					SELECT DISTINCT p.ID, COUNT(*) AS number_enrolled
-					FROM {$wpdb->prefix}learnpress_user_items ui
-					INNER JOIN {$wpdb->posts} p ON p.ID = ui.item_id
-					WHERE ui.item_type = %s
-						AND ( ui.status = %s OR ui.status = %s )
-						AND p.post_status = %s
-					ORDER BY number_enrolled {$order}
-					LIMIT %d
-				",
-					LP_COURSE_CPT,
-					'enrolled',
-					'finished',
-					'publish',
-					$limit
-				)
-			);
-
-			return $wpdb->get_col( $query );
-		}*/
-
-		/**
-		 * @param int|array    $course_id
-		 * @param string|array $statuses
-		 *
-		 * @return int
-		 * @editor tungnx
-		 * @modify 4.1.4 - comment - not use
-		 */
-		/*public function count_by_orders( $course_id, $statuses = 'completed' ) {
-			return $this->count_by_orders2( $course_id, $statuses );
-			global $wpdb;
-
-			settype( $statuses, 'array' );
-			$statuses_with_prefix = array();
-
-			foreach ( $statuses as $k => $v ) {
-				if ( ! preg_match( '/^lp-/', $v ) ) {
-					$statuses_with_prefix[ $k ] = 'lp-' . $v;
-				}
-			}
-			$course_ids = $course_id;
-			settype( $course_ids, 'array' );
-			$fetch_ids = array();
-
-			foreach ( $course_ids as $course_id ) {
-
-				if ( LP_COURSE_CPT !== get_post_type( $course_id ) ) {
-					continue;
-				}
-
-				if ( false !== ( $count = LP_Object_Cache::get(
-					'course-' . $course_id,
-					'learn-press/course-orders'
-				) ) ) {
-					continue;
-				} else {
-					LP_Object_Cache::set( 'course-' . $course_id, 0, 'learn-press/course-orders' );
-				}
-
-				$fetch_ids[] = $course_id;
-			}
-
-			if ( $fetch_ids ) {
-				$in_clause         = join( ',', array_fill( 0, sizeof( $statuses_with_prefix ), '%s' ) );
-				$in_courses_clause = join( ',', array_fill( 0, sizeof( $fetch_ids ), '%d' ) );
-				$query_args        = array_merge(
-					array(
-						'_course_id',
-						LP_ORDER_CPT,
-					),
-					$statuses_with_prefix,
-					$fetch_ids
-				);
-
-				$query = $wpdb->prepare(
-					"
-					SELECT oim.meta_value cid, COUNT(oim.meta_id) `count`
-					FROM {$wpdb->learnpress_order_itemmeta} oim
-					INNER JOIN {$wpdb->learnpress_order_items} oi ON oi.order_item_id = oim.learnpress_order_item_id
-						AND oim.meta_key = %s
-					INNER JOIN {$wpdb->posts} o ON o.ID = oi.order_id
-					WHERE o.post_type = %s
-					AND o.post_status IN ($in_clause)
-					AND oim.meta_value IN ($in_courses_clause)
-					GROUP BY oim.meta_value
-				",
-					$query_args
-				);
-
-				if ( $rows = $wpdb->get_results( $query ) ) {
-					foreach ( $rows as $row ) {
-						if ( empty( $row->cid ) ) {
-							continue;
-						}
-						LP_Object_Cache::set(
-							'course-' . $row->cid,
-							intval( $row->count ),
-							'learn-press/course-orders'
-						);
-					}
-				}
-			}
-
-			$course_id = reset( $course_ids );
-
-			return LP_Object_Cache::get( 'course-' . $course_id, 'learn-press/course-orders' );
-		}*/
-
-		/**
-		 * @param int|array    $course_id
-		 * @param string|array $statuses
-		 *
-		 * @return int
-		 * @editor tungnx
-		 * @modify 4.1.4 - comment - not use
-		 */
-		/*public function count_by_orders2( $course_id, $statuses = 'completed' ) {
-			global $wpdb;
-
-			settype( $statuses, 'array' );
-			$statuses_with_prefix = array();
-
-			foreach ( $statuses as $k => $v ) {
-				if ( ! preg_match( '/^lp-/', $v ) ) {
-					$statuses_with_prefix[ $k ] = 'lp-' . $v;
-				}
-			}
-			$course_ids = $course_id;
-			settype( $course_ids, 'array' );
-			$fetch_ids    = array();
-			$all_statuses = learn_press_get_order_statuses( false, true );
-
-			foreach ( $course_ids as $course_id ) {
-
-				if ( LP_COURSE_CPT !== get_post_type( $course_id ) ) {
-					continue;
-				}
-
-				if ( ! metadata_exists( 'post', $course_id, 'order-' . $all_statuses[0] ) ) {
-					$fetch_ids[] = $course_id;
-				}
-			}
-
-			if ( $fetch_ids ) {
-				$this->update_course_orders( $fetch_ids );
-			}
-
-			$course_id = reset( $course_ids );
-			$count     = 0;
-			foreach ( $statuses as $status ) {
-				$orders = get_post_meta( $course_id, 'order-' . $status, true );
-				if ( $orders ) {
-					$count += sizeof( $orders );
-				}
-			}
-
-			return $count;
-		}*/
-
-		/**
-		 * @param int|array $course_id
-		 *
-		 * @return int
-		 * @deprecated
-		 * @editor tungnx
-		 * @modify 4.1.4 - comment - not use
-		 */
-		/*public function count_enrolled_users_by_orders( $course_id ) {
-			_deprecated_function( __FUNCTION__, '4.1.4' );
-			$completed  = get_post_meta( $course_id, 'order-completed', true );
-			$processing = get_post_meta( $course_id, 'order-processing', true );
-
-			return absint( $completed ) + absint( $processing );
-
-			$statuses = array( 'completed', 'processing' );
-			$count    = $this->count_by_orders( $course_id, $statuses );
-
-			return $count;
-		}*/
-
-		/*public function update_course_orders( $courses ) {
-			LP_Repair_Database::instance()->sync_course_orders();
-		}*/
 	}
 }

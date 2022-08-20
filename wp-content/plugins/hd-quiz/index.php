@@ -5,7 +5,7 @@
     * Plugin URI: https://harmonicdesign.ca/hd-quiz/
     * Author: Harmonic Design
     * Author URI: https://harmonicdesign.ca
-    * Version: 1.8.5
+    * Version: 1.8.7
 */
 
 // Want to change the new admin question pagination per-page?
@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) {
 }
 
 if (!defined('HDQ_PLUGIN_VERSION')) {
-    define('HDQ_PLUGIN_VERSION', '1.8.5');
+    define('HDQ_PLUGIN_VERSION', '1.8.7');
 }
 
 // custom quiz image sizes
@@ -24,6 +24,7 @@ add_image_size('hd_qu_size2', 400, 400, true); // image-as-answer
 
 /* Include the basic required files
 ------------------------------------------------------- */
+require dirname(__FILE__) . '/includes/settings.php'; // global settings class
 require dirname(__FILE__) . '/includes/post-type.php'; // custom post types
 require dirname(__FILE__) . '/includes/meta.php'; // custom meta
 require dirname(__FILE__) . '/includes/functions.php'; // general functions
@@ -131,13 +132,11 @@ function hdq_create_settings_page()
 
             add_menu_page('HD Quiz Tools - CSV Importer', 'HDQ Tools CSV', 'edit_posts', 'hdq_tools_csv_importer', 'hdq_register_tools_csv_importer_page_callback', '', 99);
             add_menu_page('HD Quiz Tools - Data Upgrade', 'HDQ Tools DATA', 'edit_posts', 'hdq_tools_data_upgrade', 'hdq_register_tools__data_upgrade_page_callback', '', 99);
-            add_menu_page('Trivia Packs', 'Trivia Packs', 'edit_posts', 'hdq_triviadb', 'hdq_register_triviadb_page_callback', '', 99);
 
             remove_menu_page('hdq_addons');
             remove_menu_page('hdq_tools');
             remove_menu_page('hdq_tools_csv_importer');
             remove_menu_page('hdq_tools_data_upgrade');
-            remove_menu_page('hdq_triviadb');
         }
         add_action('admin_menu', 'hdq_register_quizzes_page');
 
@@ -155,7 +154,6 @@ function hdq_create_settings_page()
             add_submenu_page('hdq_quizzes', 'HD Quiz About', 'About / Options', 'publish_posts', 'hdq_options', 'hdq_register_settings_page_callback');
             add_submenu_page('hdq_quizzes', 'Addons', 'Addons' . $addon_text, 'manage_options', 'admin.php?page=hdq_addons');
             add_submenu_page('hdq_quizzes', 'Tools', 'Tools', 'manage_options', 'admin.php?page=hdq_tools');
-            add_submenu_page('hdq_quizzes', 'Trivia Packs', '<span title = "Purchase trivia packs" style = "border-top: 1px dashed #999; padding-top: 0.6em; display: grid; grid-template-columns: max-content 1fr; column-gap: 1em; align-items: center;"><span class="dashicons dashicons-cart"></span> Trivia Packs</span>', 'manage_options', 'admin.php?page=hdq_triviadb');
         }
         add_action('admin_menu', 'hdq_register_settings_page', 11);
     }
@@ -175,18 +173,6 @@ function hdq_create_settings_page()
 
         // start new addon cron. Runs once a day
         wp_schedule_event(time() + 30, "daily", "hdq_check_for_updates");
-
-        function hdq_show_upgrade_message()
-        {
-?>
-            <div class='notice notice-success is-dismissible'>
-                <p><strong>Announcing a new partnership with the Trivia Company</strong>.</p>
-                <p>HD Quiz has partnered with the Trivia Company to provide question packs that can be purchased and imported into HD Quiz.</p>
-                <a href="<?php echo get_admin_url(null, "?page=hdq_triviadb"); ?>" title="Learn More" class="hdq_button2" style="background-color: #66cbff; color: #000; font-weight: bold; cursor: pointer; padding: 1rem; display: inline-block; line-height: 1; border: 1px solid #222;">Learn more</a>
-            </div>
-<?php
-        }
-        add_action('admin_notices', 'hdq_show_upgrade_message');
     }
 }
 add_action('init', 'hdq_create_settings_page');
@@ -194,7 +180,6 @@ add_action('init', 'hdq_create_settings_page');
 
 function hdq_check_for_updates()
 {
-    $today = date("Ymd");
     $data = get_option("hdq_new_addon");
     if ($data != null && $data != "" && is_array($data)) {
         $data = array_map("sanitize_text_field", $data);
