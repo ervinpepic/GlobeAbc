@@ -890,13 +890,13 @@ return array(
 		'version' => '1.37.3.0',
 		'path'    => $vendorDir . '/automattic/jetpack-connection/src/class-tokens.php'
 	),
-	'Automattic\\Jetpack\\Admin_UI\\Admin_Menu' => array(
-		'version' => '0.2.5.0',
-		'path'    => $vendorDir . '/automattic/jetpack-admin-ui/src/class-admin-menu.php'
-	),
 	'Automattic\\Jetpack\\Redirect' => array(
 		'version' => '1.7.12.0',
 		'path'    => $vendorDir . '/automattic/jetpack-redirect/src/class-redirect.php'
+	),
+	'Automattic\\Jetpack\\Admin_UI\\Admin_Menu' => array(
+		'version' => '0.2.5.0',
+		'path'    => $vendorDir . '/automattic/jetpack-admin-ui/src/class-admin-menu.php'
 	),
 	'Automattic\\Jetpack\\Heartbeat' => array(
 		'version' => '1.4.0.0',
