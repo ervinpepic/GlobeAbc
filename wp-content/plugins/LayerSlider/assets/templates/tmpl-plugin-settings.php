@@ -233,7 +233,7 @@ $googleFonts = get_option( 'ls-google-fonts', [] );
 						</tr>
 
 						<tr>
-							<td><?= __('Use "loading" attribute', 'LayerSlider') ?></td>
+							<td><?= __('Use “loading” attribute', 'LayerSlider') ?></td>
 							<td><?= lsGetSwitchOptionField('use_loading_attribute', false) ?></td>
 							<td><?= __('Enables the use of the HTML native lazy loading feature. LayerSlider has its own lazy loading mechanism more suitable for general use and we recommend leaving this option off.', 'LayerSlider') ?></td>
 						</tr>
@@ -276,7 +276,7 @@ $googleFonts = get_option( 'ls-google-fonts', [] );
 
 						<tr>
 							<td><?= __('Use Google CDN version of jQuery', 'LayerSlider') ?></td>
-							<td><?= lsGetSwitchOptionField('use_custom_jquery', false, [ 'data-warning-enable' => __('Do not enable this option unless you’re  experiencing issues with jQuery on your site. This option can easily cause unexpected issues when used incorrectly. Do you want to proceed?', 'LayerSlider') ]) ?></td>
+							<td><?= lsGetSwitchOptionField('use_custom_jquery', false, [ 'data-warning-enable' => __('Do not enable this option unless you’re experiencing issues with jQuery on your site. This option can easily cause unexpected issues when used incorrectly. Do you want to proceed?', 'LayerSlider') ]) ?></td>
 							<td><?= __('This option will likely solve “Old jQuery” issues, but can easily have other side effects. Use it only when it is necessary.', 'LayerSlider') ?></td>
 						</tr>
 
@@ -310,6 +310,12 @@ $googleFonts = get_option( 'ls-google-fonts', [] );
 				<!-- Miscellaneous -->
 				<div>
 					<table class="ls-settings-table">
+
+						<tr>
+							<td><?= __('Enable “Play By Scroll”', 'LayerSlider') ?></td>
+							<td><?= lsGetSwitchOptionField('enable_play_by_scroll', false) ?></td>
+							<td><?= __('“Play By Scroll” is a discontinued feature replaced by Scroll Transition. Sliders using “Play By Scroll” remain working as expected, but we’re hiding this feature by default due to its deprecation and eventual removal from LayerSlider.', 'LayerSlider') ?></td>
+						</tr>
 
 						<tr>
 							<td><?= __('Enable TinyMCE helper', 'LayerSlider') ?></td>

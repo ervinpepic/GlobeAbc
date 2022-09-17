@@ -248,6 +248,7 @@ function ls_normalize_slider_data( $slider ) {
 	$preVersion700 	= version_compare( $sliderVersion, '7.0.0', '<' );
 	$preVersion725 	= version_compare( $sliderVersion, '7.2.5', '<' );
 
+
 	if( ! isset($slider['properties']['status']) ) {
 		$slider['properties']['status'] = true;
 	}
@@ -421,7 +422,6 @@ function ls_normalize_slider_data( $slider ) {
 
 			$slideVal['properties']['parallaxtransformorigin'] = implode(' ', $toParams);
 		}
-
 
 		$slider['layers'][$slideKey] = $slideVal;
 

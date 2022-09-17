@@ -782,10 +782,28 @@ $sProps =& $slider['properties'];
 										lsOptionRow('input', $sDefs['responsiveUnder'], $sProps, [], 'lse-only-fullwidth-layout' );
 										lsOptionRow('select', $sDefs['fullSizeMode'], $sProps, [], 'lse-only-fullsize-layout' );
 										lsOptionRow('checkbox', $sDefs['fitScreenWidth'], $sProps, [], 'lse-only-full-layout' );
-										lsOptionRow('checkbox', $sDefs['allowFullscreen'], $sProps, [] )
+										lsOptionRow('checkbox', $sDefs['allowFullscreen'], $sProps, [] );
+										lsOptionRow('input', $sDefs['maxRatio'], $sProps, [], 'lse-any-but-fixed-layout' );
 										?>
 
-										<?php lsOptionRow('input', $sDefs['maxRatio'], $sProps, [], 'lse-any-but-fixed-layout' ); ?>
+										<tr class="lse-project-spacing-row">
+											<td>
+												<lse-b>
+													<?= __('Vertical Spacing', 'LayerSlider') ?>
+												</lse-b>
+											</td>
+											<td>
+												<lse-fe-wrapper class="lse-smart-help" data-smart-help="projectverticalspacing" data-smart-options="projectverticalspacing" data-smart-help-title="<?= __('Vertical Spacing', 'LayerSlider') ?>" >
+													<?php lsGetInput($sDefs['marginTop'], $sProps ); ?>
+												</lse-fe-wrapper>
+												<lse-fe-wrapper class="lse-smart-help lse-mt-10" data-smart-help="projectverticalspacing" data-smart-options="projectverticalspacing" data-smart-help-title="<?= __('Vertical Spacing', 'LayerSlider') ?>" >
+													<?php lsGetInput($sDefs['marginBottom'], $sProps ); ?>
+												</lse-fe-wrapper>
+											</td>
+											<td class="lse-desc">
+												<?= __('Creates the given amount of space above and below your slider. <br>Supported units: px, vh (percentage of viewport height), sh (percentage of slider height).', 'LayerSlider') ?>
+											</td>
+										</tr>
 										<tr class="lse-advanced">
 											<td>
 												<lse-b>
@@ -873,6 +891,7 @@ $sProps =& $slider['properties'];
 						</table>
 					</lse-table-wrapper>
 
+					<?php if( $lseProjectUsesPlayByScroll || $lsePlayByScrollEnabled ) : ?>
 					<lse-h2><?= __('Play By Scroll', 'LayerSlider') ?></lse-h2>
 					<lse-table-wrapper>
 						<table>
@@ -886,6 +905,7 @@ $sProps =& $slider['properties'];
 							</tbody>
 						</table>
 					</lse-table-wrapper>
+					<?php endif ?>
 
 					<lse-h2><?= __('Cycles', 'LayerSlider') ?></lse-h2>
 					<lse-table-wrapper>
@@ -946,7 +966,7 @@ $sProps =& $slider['properties'];
 								?>
 								<tr>
 									<td><?= __('Custom Project CSS', 'LayerSlider') ?></td>
-									<td colspan="2"><textarea data-search-name="<?= __('Custom Project CSS', 'LayerSlider') ?>" name="sliderstyle" cols="30" rows="10"><?= !empty($sProps['sliderstyle']) ? $sProps['sliderstyle'] : $sDefs['sliderStyle']['value'] ?></textarea></td>
+									<td colspan="2"><textarea data-search-name="<?= __('Custom Project CSS', 'LayerSlider') ?>" name="sliderstyle" cols="30" rows="10" placeholder="<?= __('List of CSS properties, e.g. border-radius: 5px;') ?>"><?= !empty($sProps['sliderstyle']) ? $sProps['sliderstyle'] : $sDefs['sliderStyle']['value'] ?></textarea></td>
 								</tr>
 							</tbody>
 						</table>
@@ -998,7 +1018,7 @@ $sProps =& $slider['properties'];
 								<tr>
 									<td><?= $sDefs['globalBGSize']['name'] ?></td>
 									<td>
-										<lse-fe-wrapper class="lse-smart-help" data-smart-help="backgroundSize" data-smart-help-title="<?= __('Background Size', 'LayerSlider') ?>" data-smart-options="backgroundSize">
+										<lse-fe-wrapper class="lse-smart-help" data-smart-help="backgroundsize" data-smart-help-title="<?= __('Background Size', 'LayerSlider') ?>" data-smart-options="backgroundsize">
 											<?php lsGetInput($sDefs['globalBGSize'], $sProps, ['class' => 'input'] ) ?>
 										</lse-fe-wrapper>
 									</td>
@@ -1149,7 +1169,7 @@ $sProps =& $slider['properties'];
 						</table>
 					</lse-table-wrapper>
 
-					<lse-h2><?= __('Parallax defaults', 'LayerSlider') ?></lse-h2>
+					<lse-h2><?= __('Parallax Transition defaults', 'LayerSlider') ?></lse-h2>
 					<lse-table-wrapper>
 						<table>
 							<tbody>
@@ -1158,6 +1178,17 @@ $sProps =& $slider['properties'];
 								lsOptionRow('select', $sDefs['parallaxCenterLayers'], $sProps );
 								lsOptionRow('input', $sDefs['parallaxCenterDegree'], $sProps );
 								lsOptionRow('checkbox', $sDefs['parallaxScrollReverse'], $sProps );
+								?>
+							</tbody>
+						</table>
+					</lse-table-wrapper>
+
+					<lse-h2><?= __('Scroll Transition defaults', 'LayerSlider') ?></lse-h2>
+					<lse-table-wrapper>
+						<table>
+							<tbody>
+								<?php
+								lsOptionRow('select', $sDefs['scrollCenterLayers'], $sProps );
 								?>
 							</tbody>
 						</table>

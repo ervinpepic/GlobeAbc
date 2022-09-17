@@ -117,7 +117,6 @@ if(isset($slides['layers']) && is_array($slides['layers'])) {
 					$layer = array_merge($layer, json_decode(stripslashes($layer['transition']), true));
 				}
 
-
 				if( ! empty( $layer['styles'] ) ) {
 					$layerStyles = json_decode($layer['styles'], true);
 

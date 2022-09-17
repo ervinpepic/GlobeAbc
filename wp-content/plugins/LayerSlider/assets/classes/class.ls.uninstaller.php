@@ -62,6 +62,7 @@ class LS_Uninstaller {
 			'ls_ls_scripts_priority',
 			'ls_use_srcset',
 			'ls_enhanced_lazy_load',
+			'ls_enable_play_by_scroll',
 
 			// Updates & Services
 			'ls-share-displayed',

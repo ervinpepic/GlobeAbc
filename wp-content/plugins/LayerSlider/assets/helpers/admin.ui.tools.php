@@ -286,8 +286,11 @@ function lsGetCheckbox($default, $current = null, $attrs = [], $return = false, 
 	$label->attr( $labelAttrs );
 	$label->addClass( $labelClassList );
 
+	// Premium exclude list
+	$premiumExclude = ['scroll'];
+
 	// License registration check
-	if( ! empty( $default['premium'] ) ) {
+	if( ! empty( $default['premium'] ) && ! in_array( $name, $premiumExclude ) ) {
 		if( ! LS_Config::isActivatedSite() ) {
 			$input->addClass('locked');
 			$input->attr('disabled', 'disabled');

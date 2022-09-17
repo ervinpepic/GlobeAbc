@@ -191,7 +191,6 @@
 		<?= __('Shifts the layer starting position with the given amount on the selected axis. Layers animate from the offset value toward their position set under the <b>STYLE</b> menu. Refer to the below options to see special values and supported units.', 'LayerSlider') ?>
 	</div>
 
-
 	<div data-smart-help="offsettextin">
 
 		<lse-b class="lse-anim lse-jcsa">
@@ -258,6 +257,34 @@
 		</lse-b>
 
 		<?= __('Shifts each text fragment position with the given amount on the selected axis while the layer animates out. Text fragments animate from the whole joint text toward the value you set here. Refer to the below options to see special values and supported units.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="offsetxscroll">
+
+		<lse-b class="lse-anim lse-jcsa">
+			<lse-ib class="lse-anim-box-30 lse-anim-box lse-axis-x">
+				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
+				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
+			</lse-ib>
+		</lse-b>
+
+		<?= __('Shifts the layer position with the given amount of intensity on the X axis by scrolling up or down on your site.', 'LayerSlider') ?>
+		<br><br>
+		<?= __('You can use decimal values and go over the pre-defined ranges to fine-tune the animation intensity.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="offsetyscroll">
+
+		<lse-b class="lse-anim lse-jcsa">
+			<lse-ib class="lse-anim-box-31 lse-anim-box lse-axis-y">
+				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
+				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
+			</lse-ib>
+		</lse-b>
+
+		<?= __('Shifts the layer position with the given amount of intensity on the Y axis by scrolling up or down on your site.', 'LayerSlider') ?>
+		<br><br>
+		<?= __('You can use decimal values and go over the pre-defined ranges to fine-tune the animation intensity.', 'LayerSlider') ?>
 	</div>
 
 
@@ -383,6 +410,35 @@
 	</div>
 
 
+	<div data-smart-help="scalexscroll">
+
+		<lse-b class="lse-anim lse-jcsa">
+			<lse-ib class="lse-anim-box-32 lse-anim-box lse-axis-x">
+				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
+				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
+			</lse-ib>
+		</lse-b>
+
+		<?= __('Scales the layer with the given amount of intensity on the X axis by scrolling up or down on your site.', 'LayerSlider') ?>
+		<br><br>
+		<?= __('You can use decimal values and go over the pre-defined ranges to fine-tune the animation intensity.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="scaleyscroll">
+
+		<lse-b class="lse-anim lse-jcsa">
+			<lse-ib class="lse-anim-box-33 lse-anim-box lse-axis-y">
+				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
+				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
+			</lse-ib>
+		</lse-b>
+
+		<?= __('Scales the layer position with the given amount of intensity on the Y axis by scrolling up or down on your site.', 'LayerSlider') ?>
+		<br><br>
+		<?= __('You can use decimal values and go over the pre-defined ranges to fine-tune the animation intensity.', 'LayerSlider') ?>
+	</div>
+
+
 
 	<!-- ROTATE -->
 	<div data-smart-help="rotate">
@@ -490,6 +546,51 @@
 	</div>
 
 
+	<div data-smart-help="rotatescroll">
+
+		<lse-b class="lse-anim lse-jcsa">
+			<lse-ib class="lse-anim-box-34 lse-anim-box lse-axis-x lse-axis-y">
+				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
+				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
+			</lse-ib>
+		</lse-b>
+
+		<?= __('Rotates the layer with the given amount of intensity by scrolling up or down on your site.', 'LayerSlider') ?>
+		<br><br>
+		<?= __('You can use decimal values and go over the pre-defined ranges to fine-tune the animation intensity.', 'LayerSlider') ?>
+	</div>
+
+
+	<div data-smart-help="rotatexscroll">
+
+		<lse-b class="lse-anim lse-jcsa">
+			<lse-ib class="lse-anim-box-35 lse-anim-box lse-axis-x">
+				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
+				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
+			</lse-ib>
+		</lse-b>
+
+		<?= __('Rotates the layer with the given amount of intensity on the X axis by scrolling up or down on your site.', 'LayerSlider') ?>
+		<br><br>
+		<?= __('You can use decimal values and go over the pre-defined ranges to fine-tune the animation intensity.', 'LayerSlider') ?>
+	</div>
+
+
+	<div data-smart-help="rotateyscroll">
+
+		<lse-b class="lse-anim lse-jcsa">
+			<lse-ib class="lse-anim-box-36 lse-anim-box lse-axis-y">
+				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
+				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
+			</lse-ib>
+		</lse-b>
+
+		<?= __('Rotates the layer with the given amount of intensity on the Y axis by scrolling up or down on your site.', 'LayerSlider') ?>
+		<br><br>
+		<?= __('You can use decimal values and go over the pre-defined ranges to fine-tune the animation intensity.', 'LayerSlider') ?>
+	</div>
+
+
 
 	<!-- SKEW -->
 	<div data-smart-help="skew">
@@ -592,9 +693,60 @@
 	</div>
 
 
+	<div data-smart-help="skewxscroll">
+
+		<lse-b class="lse-anim lse-jcsa">
+			<lse-ib class="lse-anim-box-37 lse-anim-box lse-axis-x">
+				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
+				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
+			</lse-ib>
+		</lse-b>
+
+		<?= __('Skews the layer with the given amount of intensity on the X axis by scrolling up or down on your site.', 'LayerSlider') ?>
+		<br><br>
+		<?= __('You can use decimal values and go over the pre-defined ranges to fine-tune the animation intensity.', 'LayerSlider') ?>
+	</div>
+
+
+	<div data-smart-help="skewyscroll">
+
+		<lse-b class="lse-anim lse-jcsa">
+			<lse-ib class="lse-anim-box-38 lse-anim-box lse-axis-y">
+				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
+				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
+			</lse-ib>
+		</lse-b>
+
+		<?= __('Skews the layer with the given amount of intensity on the Y axis by scrolling up or down on your site.', 'LayerSlider') ?>
+		<br><br>
+		<?= __('You can use decimal values and go over the pre-defined ranges to fine-tune the animation intensity.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="opacityscroll">
+
+		<lse-b class="lse-anim lse-jcsa">
+			<lse-ib class="lse-anim-box-39 lse-anim-box">
+				<lse-anim-block class="lse-anim-rect lse-anim-orig lse-anim-moved"></lse-anim-block>
+			</lse-ib>
+		</lse-b>
+
+		<?= __('Changes the transparency of the layer with the given amount of intensity by scrolling up or down on your site.', 'LayerSlider') ?>
+		<br><br>
+		<?= __('You can use decimal values and go over the pre-defined ranges to fine-tune the animation intensity.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="durationscroll">
+		<?= __('The length of the scroll transition in milliseconds. A second equals to 1000 milliseconds. <br><br> Using smaller values will result in quick and fast animations, while larger values will result in slower and delayed animations.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="centerpointscroll">
+		<?= __('Choose a center point for scroll transition layers where they will be aligned perfectly according to their original position. <br><br> <b>Inherit</b>: Uses the global value set in Project Settings → Defaults. <br><br> <b>Top</b>: When the top edge of the slider is at the top of the viewport. <br><br> <b>Center</b>: When the center of the slider is at the center of the viewport. <br><br> <b>Bottom</b>: When the bottom edge of the slider is at the bottom of the viewport.', 'LayerSlider') ?>
+	</div>
+
+
 
 	<!-- TRANSFORM -->
-	<div data-smart-help="transformOrigin">
+	<div data-smart-help="transformorigin">
 		<lse-b class="lse-anim lse-jcsa">
 			<lse-ib class="lse-anim-box-13 lse-anim-box">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
@@ -752,7 +904,7 @@
 	<div data-smart-help="startwhenmodifier">
 		<?= __('Shifts the above selected starting time by performing a custom operation.', 'LayerSlider') ?>
 		<br><br>
-		<?= __('For example, "- 1000" will advance the animation by playing it 1 second (1000 milliseconds) earlier.', 'LayerSlider') ?>
+		<?= __('For example, “- 1000” will advance the animation by playing it 1 second (1000 milliseconds) earlier.', 'LayerSlider') ?>
 	</div>
 
 
@@ -809,25 +961,29 @@ With this option, you can exclude layers from waiting for the playback to begin,
 	</div>
 
 
-	<div data-smart-help="textColor">
+	<div data-smart-help="textcolor">
 	</div>
 
 
-	<div data-smart-help="iconColor">
+	<div data-smart-help="iconcolor">
 	</div>
 
 
-	<div data-smart-help="backgroundColor">
+	<div data-smart-help="backgroundcolor">
 	</div>
 
 
-	<div data-smart-help="backgroundSize">
+	<div data-smart-help="backgroundsize">
 		<?= __('Sets the size of the background image. The image can be left to its natural size, stretched, or constrained to fit the available space.', 'LayerSlider') ?>
 	</div>
 
 
 	<div data-smart-help="deeplink">
 		<?= __('A slide alias name, which you can use in your URLs with a hash tag so LayerSlider will start with the corresponding slide when visitors arrive to the page. <br><br> Example: domain.com/page/#welcome<br><br>Use only lowercase alphanumeric values. You can also use this feature to implement slide navigation with links.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="projectverticalspacing">
+		<?= __('Creates empty space above and below your projects (i.e. margins). Supported units: <br><br> <b>px:</b> A fixed value specified in pixels. <br><br> <b>vh:</b> Percentage of the viewport (browser window) height. 1vh equals to 1% of the viewport height. This value scales dinamically when the browser window is resized. <br><br> <b>sh:</b> Percentage of the slider height. 1sh equals to 1% of the slider height. This value scales dinamically when the slider’s size changes.', 'LayerSlider') ?>
 	</div>
 
 </lse-smart-help-contents>
@@ -917,7 +1073,7 @@ With this option, you can exclude layers from waiting for the playback to begin,
 
 	</div>
 
-	<div data-smart-options="backgroundSize">
+	<div data-smart-options="backgroundsize">
 
 		<lse-ul class="lse-smart-inject">
 			<lse-li data-smart-inject="auto" data-tt><?= __('auto', 'LayerSlider') ?></lse-li><lse-tt><?= __('The background image is displayed in its original size', 'LayerSlider') ?></lse-tt>
@@ -967,7 +1123,7 @@ With this option, you can exclude layers from waiting for the playback to begin,
 
 	</div>
 
-	<div data-smart-options="transformOrigin">
+	<div data-smart-options="transformorigin">
 		<lse-grid class="lse-transform-origin-smart-select lse-form-elements lse-smart-help-theme lse-collect-values">
 			<lse-row>
 				<lse-col class="lse-full">
@@ -1070,5 +1226,13 @@ With this option, you can exclude layers from waiting for the playback to begin,
 		</lse-grid>
 	</div>
 
+	<div data-smart-options="projectverticalspacing">
+
+		<lse-ul class="lse-smart-inject">
+			<lse-li data-smart-inject="200px"><?= __('200px', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="90vh"><?= __('90vh (90% of viewport height)', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="60sh"><?= __('60sh (60% of slider height)', 'LayerSlider') ?></lse-li>
+		</lse-ul>
+	</div>
 
 </lse-smart-options-contents>

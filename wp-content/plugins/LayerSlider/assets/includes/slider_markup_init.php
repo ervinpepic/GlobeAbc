@@ -64,7 +64,7 @@ $eventsObj = ! empty( $callbacks ) ? ', {'.implode( $separator, $callbacks ).'}'
 if( ! empty( $slides['properties']['props']['loadOrder'] ) ) {
 	$loadOrder = $slides['properties']['props']['loadOrder'];
 
-	$lsInit[] = 'window._layerSlidersOrder = window._layerSlidersOrder || [];';
+	$lsInit[] = 'window._layerSlidersOrder = window._layerSlidersOrder || [];';
 	$lsInit[] = 'window._layerSlidersOrder['.$loadOrder.'] = window._layerSlidersOrder['.$loadOrder.'] || [];';
 	$lsInit[] = 'window._layerSlidersOrder['.$loadOrder.'].push( \'#'.$sliderID.'\' );';
 }

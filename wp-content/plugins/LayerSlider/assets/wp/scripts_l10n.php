@@ -32,7 +32,7 @@ $l10n_ls = [
 	'notifyCaptureSlide' 	=> __('Capturing slide. This might take a moment ...', 'LayerSlider'),
 	'notifyPixieSave'		=> __('Saving image. This might take a moment ...'),
 	'notifySettingsSaved' 	=> __('Settings saved'),
-	'notifyGoogleFontsMissing' => __('Some fonts couldn’t be loaded since you disabled Google Fonts.', 'LayerSlider'),
+	'notifyGoogleFontsMissing' => __('Some fonts might be missing since you disabled Google Fonts.', 'LayerSlider'),
 	'notifyMissingPopup' 	=> __('This is a Popup template, which requires license registration.', 'LayerSlider'),
 
 	// Modules
@@ -69,6 +69,7 @@ $l10n_ls = [
 	'SLRemoveGroupButton' => __('Clear & Remove Group', 'LayerSlider'),
 	'SLRemoveGroupTooltip' => __('Moves all projects out of this group, then deletes it. All of your projects will remain available on the main grid.', 'LayerSlider'),
 	'SLRemoveGroupConfirm' => __("You’re about to remove this group. All your projects will be moved and remain available on the main grid. \n\nContinue?", 'LayerSlider'),
+	'SLScrollTransitionPreviewWarning' => __('Use Project Preview to see scroll transitions in action', 'LayerSlider'),
 
 	// Google Fonts
 

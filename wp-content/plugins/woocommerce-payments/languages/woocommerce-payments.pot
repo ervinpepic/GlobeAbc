@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the WooCommerce Payments package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Payments 4.7.0\n"
+"Project-Id-Version: WooCommerce Payments 4.7.2\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-payments\n"
-"POT-Creation-Date: 2022-09-07 15:48:13+00:00\n"
+"POT-Creation-Date: 2022-09-15 11:24:24+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -210,7 +210,7 @@ msgid "Payment capture failed to complete with the following message: %s"
 msgstr ""
 
 #: includes/admin/class-wc-rest-payments-orders-controller.php:180
-#: includes/class-wc-payment-gateway-wcpay.php:2924
+#: includes/class-wc-payment-gateway-wcpay.php:2909
 msgid "Unknown error"
 msgstr ""
 
@@ -642,78 +642,52 @@ msgstr ""
 msgid "Large"
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:603
+#: includes/class-wc-payment-gateway-wcpay.php:601
 msgid "Test mode active: "
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:604
+#: includes/class-wc-payment-gateway-wcpay.php:602
 msgid ""
 "All transactions are simulated. Customers can't make real purchases through "
 "WooCommerce Payments."
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:628
-#: includes/multi-currency/MultiCurrency.php:823
-msgid "Dismiss"
-msgstr ""
-
-#: includes/class-wc-payment-gateway-wcpay.php:630
-#: includes/class-wc-payment-gateway-wcpay.php:647
-msgid "Apple Pay: "
-msgstr ""
-
-#: includes/class-wc-payment-gateway-wcpay.php:634
-#. translators: 1: supported country list
-msgid ""
-"Apple Pay isn’t currently supported in your country. <a "
-"href=\"%1$s\">Countries and regions that support Apple Pay (Apple "
-"Support)</a>"
-msgstr ""
-
-#: includes/class-wc-payment-gateway-wcpay.php:651
-#. translators: 1: apple pay support
-msgid ""
-"We were not able to verify your domain. <a href=\"%1$s\">This help "
-"documentation</a> will walk you through the process to verify with Apple "
-"that you control your domain."
-msgstr ""
-
-#: includes/class-wc-payment-gateway-wcpay.php:674
+#: includes/class-wc-payment-gateway-wcpay.php:622
 msgid "Unsupported currency:"
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:677
+#: includes/class-wc-payment-gateway-wcpay.php:625
 msgid ""
 "The selected currency is not available for the country set in your "
 "WooCommerce Payments account."
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:736
+#: includes/class-wc-payment-gateway-wcpay.php:683
 msgid ""
 "There was a problem processing the payment. Please check your email inbox "
 "and refresh the page to try again."
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:801
+#: includes/class-wc-payment-gateway-wcpay.php:748
 msgid "Save payment information to my account for future purchases."
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:911
+#: includes/class-wc-payment-gateway-wcpay.php:858
 #. translators: link to Stripe testing page
 msgid ""
 "<strong>Test mode:</strong> use the test VISA card 4242424242424242 with "
 "any expiry date and CVC, or any test card numbers listed <a>here</a>."
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:956
+#: includes/class-wc-payment-gateway-wcpay.php:903
 #: includes/payment-methods/class-upe-payment-gateway.php:910
 msgid ""
 "An error was encountered when preparing the payment form. Please try again "
 "later."
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:988
-#: includes/class-wc-payment-gateway-wcpay.php:2650
+#: includes/class-wc-payment-gateway-wcpay.php:935
+#: includes/class-wc-payment-gateway-wcpay.php:2635
 #: includes/payment-methods/class-upe-payment-gateway.php:165
 #: includes/payment-methods/class-upe-payment-gateway.php:240
 #: includes/payment-methods/class-upe-payment-gateway.php:431
@@ -722,12 +696,12 @@ msgid ""
 "again."
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:995
+#: includes/class-wc-payment-gateway-wcpay.php:942
 #: includes/payment-methods/class-upe-payment-gateway.php:439
 msgid "Your payment was not processed."
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:1020
+#: includes/class-wc-payment-gateway-wcpay.php:967
 #: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:280
 #. translators: %1: the failed payment amount, %2: error message
 msgid ""
@@ -735,18 +709,18 @@ msgid ""
 "message: <code>%2$s</code>."
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:1029
+#: includes/class-wc-payment-gateway-wcpay.php:976
 #. translators: %1: the failed payment amount, %2: error message
 msgid "A payment of %1$s <strong>failed</strong>. %2$s"
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:1034
+#: includes/class-wc-payment-gateway-wcpay.php:981
 msgid ""
 "We couldn’t verify the postal code in the billing address. If the issue "
 "persists, suggest the customer to reach out to the card issuing bank."
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:1059
+#: includes/class-wc-payment-gateway-wcpay.php:1006
 #. translators: %1: the failed payment amount
 msgid ""
 "A payment of %1$s <strong>failed</strong> to complete because of too many "
@@ -754,25 +728,25 @@ msgid ""
 "more attempts temporarily."
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:1234
+#: includes/class-wc-payment-gateway-wcpay.php:1219
 #. translators: %1: the last 4 digit of the credit card
 msgid "Payment method is changed to: <strong>Credit card ending in %1$s</strong>."
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:1246
+#: includes/class-wc-payment-gateway-wcpay.php:1231
 msgid "Credit / Debit Card"
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:1303
-#: includes/class-wc-payment-gateway-wcpay.php:1360
-#: includes/class-wc-payment-gateway-wcpay.php:2659
-#: includes/class-wc-payment-gateway-wcpay.php:2672
-#: includes/class-wc-payment-gateway-wcpay.php:2689
+#: includes/class-wc-payment-gateway-wcpay.php:1288
+#: includes/class-wc-payment-gateway-wcpay.php:1345
+#: includes/class-wc-payment-gateway-wcpay.php:2644
+#: includes/class-wc-payment-gateway-wcpay.php:2657
+#: includes/class-wc-payment-gateway-wcpay.php:2674
 #: includes/payment-methods/class-upe-payment-gateway.php:628
 msgid "We're not able to process this payment. Please try again later."
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:1714
+#: includes/class-wc-payment-gateway-wcpay.php:1699
 #. translators: an error message which will appear if a user tries to refund an
 #. order which is has been authorized but not yet charged.
 msgid ""
@@ -782,36 +756,36 @@ msgid ""
 "trigger a refund via the 'Refund' button."
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:1722
+#: includes/class-wc-payment-gateway-wcpay.php:1707
 msgid "The refund amount is not valid."
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:1743
+#: includes/class-wc-payment-gateway-wcpay.php:1728
 msgid ""
 "You shall refund this payment in the same application where the payment was "
 "made."
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:1762
+#: includes/class-wc-payment-gateway-wcpay.php:1747
 #. translators: %1: the successfully charged amount, %2: error message
 msgid "A refund of %1$s failed to complete: %2$s"
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:1780
+#: includes/class-wc-payment-gateway-wcpay.php:1765
 #. translators: %1: the successfully charged amount, %2: refund id
 msgid ""
 "A refund of %1$s was successfully processed using WooCommerce Payments "
 "(<code>%2$s</code>)."
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:1792
+#: includes/class-wc-payment-gateway-wcpay.php:1777
 #. translators: %1: the successfully charged amount, %2: refund id, %3: reason
 msgid ""
 "A refund of %1$s was successfully processed using WooCommerce Payments. "
 "Reason: %2$s. (<code>%3$s</code>)"
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:1864
+#: includes/class-wc-payment-gateway-wcpay.php:1849
 #: dist/settings.js:1
 #: client/settings/general-settings/index.js:42
 msgid ""
@@ -819,43 +793,43 @@ msgid ""
 "is only available to live accounts."
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:1869
+#: includes/class-wc-payment-gateway-wcpay.php:1854
 #: dist/settings.js:1
 #: client/settings/advanced-settings/debug-mode.js:32
 msgid "Dev mode is active so logging is on by default."
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:2336
+#: includes/class-wc-payment-gateway-wcpay.php:2321
 msgid "Failed to update Stripe account. "
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:2364
+#: includes/class-wc-payment-gateway-wcpay.php:2349
 msgid ""
 "Customer bank statement is invalid. Statement should be between 5 and 22 "
 "characters long, contain at least single Latin character and does not "
 "contain special characters: ' \" * &lt; &gt;"
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:2391
+#: includes/class-wc-payment-gateway-wcpay.php:2376
 msgid "Capture charge"
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:2392
+#: includes/class-wc-payment-gateway-wcpay.php:2377
 msgid "Cancel authorization"
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:2525
+#: includes/class-wc-payment-gateway-wcpay.php:2510
 #. translators: %1: error message
 msgid ""
 "Canceling authorization <strong>failed</strong> to complete with the "
 "following message: <code>%1$s</code>."
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:2540
+#: includes/class-wc-payment-gateway-wcpay.php:2525
 msgid "Canceling authorization <strong>failed</strong> to complete."
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:2668
+#: includes/class-wc-payment-gateway-wcpay.php:2653
 #: includes/payment-methods/class-cc-payment-method.php:49
 #. translators: This will be used to indicate an unknown value for an ID.
 #: dist/index.js:1
@@ -864,7 +838,7 @@ msgstr ""
 msgid "unknown"
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:2756
+#: includes/class-wc-payment-gateway-wcpay.php:2741
 #. translators: %1: transaction ID of the payment or a translated string
 #. indicating an unknown ID.
 msgid ""
@@ -873,31 +847,31 @@ msgid ""
 "so it was ignored and the order was not updated."
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:2800
+#: includes/class-wc-payment-gateway-wcpay.php:2785
 msgid "A WooCommerce Payments payment method was not provided"
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:2812
+#: includes/class-wc-payment-gateway-wcpay.php:2797
 msgid "We're not able to add this payment method. Please try again later"
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:2821
+#: includes/class-wc-payment-gateway-wcpay.php:2806
 msgid "Failed to add the provided payment method. Please try again later"
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:2923
+#: includes/class-wc-payment-gateway-wcpay.php:2908
 #. translators: %s: the error message.
 msgid "Intent creation failed with the following message: %s"
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:2970
+#: includes/class-wc-payment-gateway-wcpay.php:2955
 #: includes/payment-methods/class-upe-payment-gateway.php:344
 msgid ""
 "We're not able to add this payment method. Please refresh the page and try "
 "again."
 msgstr ""
 
-#: includes/class-wc-payment-gateway-wcpay.php:3146
+#: includes/class-wc-payment-gateway-wcpay.php:3131
 msgid ""
 "Next we’ll ask you to share a few details about your business to create "
 "your account."
@@ -960,36 +934,36 @@ msgstr ""
 msgid "Domain association file updated."
 msgstr ""
 
-#: includes/class-wc-payments-apple-pay-registration.php:276
+#: includes/class-wc-payments-apple-pay-registration.php:272
 msgid "Your domain has been verified with Apple Pay!"
 msgstr ""
 
-#: includes/class-wc-payments-apple-pay-registration.php:366
+#: includes/class-wc-payments-apple-pay-registration.php:362
 msgid ""
 "Express checkouts are enabled. To use Apple Pay, please use a live "
 "WooCommerce Payments account."
 msgstr ""
 
-#: includes/class-wc-payments-apple-pay-registration.php:399
+#: includes/class-wc-payments-apple-pay-registration.php:395
 msgid "Express checkouts:"
 msgstr ""
 
-#: includes/class-wc-payments-apple-pay-registration.php:400
+#: includes/class-wc-payments-apple-pay-registration.php:396
 msgid "Apple Pay domain verification failed."
 msgstr ""
 
-#: includes/class-wc-payments-apple-pay-registration.php:401
+#: includes/class-wc-payments-apple-pay-registration.php:397
 msgid "Apple Pay domain verification failed with the following error:"
 msgstr ""
 
-#: includes/class-wc-payments-apple-pay-registration.php:404
+#: includes/class-wc-payments-apple-pay-registration.php:400
 #. translators: a: Link to the logs page
 msgid ""
 "Please check the <a>logs</a> for more details on this issue. Debug log must "
 "be enabled under <strong>Advanced settings</strong> to see recorded logs."
 msgstr ""
 
-#: includes/class-wc-payments-apple-pay-registration.php:411
+#: includes/class-wc-payments-apple-pay-registration.php:407
 msgid "<a>Learn more</a>."
 msgstr ""
 
@@ -1188,15 +1162,15 @@ msgid ""
 "repository</a2>."
 msgstr ""
 
-#: includes/class-wc-payments-order-service.php:287
+#: includes/class-wc-payments-order-service.php:288
 msgid "Dispute lost."
 msgstr ""
 
-#: includes/class-wc-payments-order-service.php:363
+#: includes/class-wc-payments-order-service.php:373
 msgid "<strong>Fee details:</strong>"
 msgstr ""
 
-#: includes/class-wc-payments-order-service.php:393
+#: includes/class-wc-payments-order-service.php:403
 #. translators: %1: the successfully charged amount, %2: transaction ID of the
 #. payment
 msgid ""
@@ -1204,28 +1178,28 @@ msgid ""
 "WooCommerce Payments (<a>%2$s</a>)."
 msgstr ""
 
-#: includes/class-wc-payments-order-service.php:419
+#: includes/class-wc-payments-order-service.php:429
 #. translators: %1: the authorized amount, %2: transaction ID of the payment
 msgid ""
 "A payment of %1$s <strong>failed</strong> using WooCommerce Payments "
 "(<a>%2$s</a>)."
 msgstr ""
 
-#: includes/class-wc-payments-order-service.php:450
+#: includes/class-wc-payments-order-service.php:460
 #. translators: %1: the authorized amount, %2: transaction ID of the payment
 msgid ""
 "A payment of %1$s was <strong>authorized</strong> using WooCommerce "
 "Payments (<a>%2$s</a>)."
 msgstr ""
 
-#: includes/class-wc-payments-order-service.php:475
+#: includes/class-wc-payments-order-service.php:485
 #. translators: %1: the authorized amount, %2: transaction ID of the payment
 msgid ""
 "A payment of %1$s was <strong>started</strong> using WooCommerce Payments "
 "(<code>%2$s</code>)."
 msgstr ""
 
-#: includes/class-wc-payments-order-service.php:502
+#: includes/class-wc-payments-order-service.php:512
 #. translators: %1: the successfully charged amount, %2: transaction ID of the
 #. payment
 msgid ""
@@ -1233,37 +1207,37 @@ msgid ""
 "WooCommerce Payments (<a>%2$s</a>)."
 msgstr ""
 
-#: includes/class-wc-payments-order-service.php:530
+#: includes/class-wc-payments-order-service.php:540
 #. translators: %1: the authorized amount, %2: transaction ID of the payment
 msgid ""
 "A capture of %1$s <strong>failed</strong> to complete using WooCommerce "
 "Payments (<a>%2$s</a>)."
 msgstr ""
 
-#: includes/class-wc-payments-order-service.php:561
+#: includes/class-wc-payments-order-service.php:571
 #. translators: %1: the authorized amount, %2: transaction ID of the payment
 msgid "Payment authorization has <strong>expired</strong> (<a>%1$s</a>)."
 msgstr ""
 
-#: includes/class-wc-payments-order-service.php:581
+#: includes/class-wc-payments-order-service.php:591
 msgid "Payment authorization was successfully <strong>cancelled</strong>."
 msgstr ""
 
-#: includes/class-wc-payments-order-service.php:602
+#: includes/class-wc-payments-order-service.php:612
 #. translators: %1: the dispute reason
 msgid ""
 "Payment has been disputed as %1$s. See <a>dispute overview</a> for more "
 "details."
 msgstr ""
 
-#: includes/class-wc-payments-order-service.php:624
+#: includes/class-wc-payments-order-service.php:634
 #. translators: %1: the dispute status
 msgid ""
 "Payment dispute has been closed with status %1$s. See <a>dispute "
 "overview</a> for more details."
 msgstr ""
 
-#: includes/class-wc-payments-order-service.php:796
+#: includes/class-wc-payments-order-service.php:806
 msgid "Intent id was not included for payment complete status change."
 msgstr ""
 
@@ -1477,7 +1451,7 @@ msgstr ""
 msgid "United States (US)"
 msgstr ""
 
-#: includes/class-wc-payments-utils.php:309
+#: includes/class-wc-payments-utils.php:262
 #: includes/wc-payment-api/class-wc-payments-api-client.php:769
 #: dist/index.js:1
 #: client/disputes/index.tsx:135
@@ -1485,32 +1459,32 @@ msgstr ""
 msgid "Order #"
 msgstr ""
 
-#: includes/class-wc-payments-utils.php:319
+#: includes/class-wc-payments-utils.php:272
 #: includes/wc-payment-api/class-wc-payments-api-client.php:767
 #: dist/index.js:1
 #: client/transactions/list/index.tsx:167
 msgid "Subscription #"
 msgstr ""
 
-#: includes/class-wc-payments-utils.php:558
+#: includes/class-wc-payments-utils.php:511
 msgid ""
 "There was an error while processing this request. If you continue to see "
 "this notice, please contact the admin."
 msgstr ""
 
-#: includes/class-wc-payments-utils.php:570
+#: includes/class-wc-payments-utils.php:523
 #. translators: %s a formatted price.
 msgid "The selected payment method requires a total amount of at least %s."
 msgstr ""
 
-#: includes/class-wc-payments-utils.php:577
-#: includes/class-wc-payments-utils.php:579
+#: includes/class-wc-payments-utils.php:530
+#: includes/class-wc-payments-utils.php:532
 msgid ""
 "We're not able to process this request. Please refresh the page and try "
 "again."
 msgstr ""
 
-#: includes/class-wc-payments-utils.php:581
+#: includes/class-wc-payments-utils.php:534
 msgid ""
 "We couldn’t verify the postal code in your billing address. Make sure the "
 "information is current with your card issuing bank and try again."
@@ -1817,6 +1791,10 @@ msgstr ""
 msgid ""
 "We noticed you're visiting from %1$s. We've updated our prices to %2$s for "
 "your shopping convenience. <a>Use %3$s instead.</a>"
+msgstr ""
+
+#: includes/multi-currency/MultiCurrency.php:823
+msgid "Dismiss"
 msgstr ""
 
 #: includes/multi-currency/Notes/NoteMultiCurrencyAvailable.php:46

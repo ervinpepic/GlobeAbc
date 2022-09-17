@@ -274,8 +274,11 @@ add_action('init', function() {
 		add_action('wp_ajax_ls_save_revisions_options', 'ls_save_revisions_options');
 
 		add_action( 'wp_ajax_ls_get_popup_markup', 'ls_get_popup_markup' );
-		add_action( 'wp_ajax_nopriv_ls_get_popup_markup', 'ls_get_popup_markup' );
 	}
+
+
+	// FRONT-END AJAX FUNCTIONS
+	add_action( 'wp_ajax_nopriv_ls_get_popup_markup', 'ls_get_popup_markup' );
 });
 
 
@@ -586,6 +589,7 @@ function ls_save_plugin_settings() {
 		'gutenberg_block',
 		'elementor_widget',
 		'suppress_debug_info',
+		'enable_play_by_scroll',
 
 		// Project Defaults
 		'use_srcset',

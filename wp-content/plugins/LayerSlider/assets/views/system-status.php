@@ -74,11 +74,10 @@ include LS_ROOT_PATH . '/includes/ls_global.php';
 		<ls-box>
 
 			<ls-p>
-				<?= __('This page is intended to help you identifying possible issues and to display relevant debug information about your site.', 'LayerSlider') ?>
-				<?= __('Whenever a potential issues is detected, it will be marked with red or orange text describing the nature of that issue.', 'LayerSlider') ?>
+				<?= __('This page is intended to help you identify possible issues and to display relevant debug information about your site. Whenever a potential issue is detected, it will be marked with red or orange text describing the nature of that issue.', 'LayerSlider') ?>
 			</ls-p>
 			<ls-p class="ls--strong">
-				<?= __('Please keep in mind that in most cases only your web hosting company can change server settings, thus you should contact them with the messages provided (if any).', 'LayerSlider') ?>
+				<?= __('Please keep in mind that in most cases, only your web hosting company can change server settings; thus, you should contact them with the messages provided (if any).', 'LayerSlider') ?>
 
 			</ls-p>
 		</ls-box>

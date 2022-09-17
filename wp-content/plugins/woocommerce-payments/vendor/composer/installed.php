@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '7a8272753f9f2905e7acb1137dbfbe6e47a176c0',
+    'reference' => '9621b920555073429b39084e08173a1d4f561c7a',
     'name' => 'woocommerce/payments',
   ),
   'versions' => 
@@ -203,7 +203,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '7a8272753f9f2905e7acb1137dbfbe6e47a176c0',
+      'reference' => '9621b920555073429b39084e08173a1d4f561c7a',
     ),
     'woocommerce/subscriptions-core' => 
     array (

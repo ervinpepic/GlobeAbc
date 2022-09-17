@@ -847,7 +847,7 @@
 		position: absolute;
 	}
 
-	.ls-3d-box div {
+	.ls-3d-box > div {
 		overflow: hidden;
 		margin: 0;
 		padding: 0;
