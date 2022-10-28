@@ -83,7 +83,7 @@ LS_Popups::init();
 
 // Set up auto-updates
 $GLOBALS['LS_AutoUpdate'] = new KM_PluginUpdatesV3([
-	'name' 			=> 'LayerSlider WP',
+	'name' 			=> 'LayerSlider',
 	'repoUrl' 		=> LS_REPO_BASE_URL,
 	'root' 			=> LS_ROOT_FILE,
 	'version' 		=> LS_PLUGIN_VERSION,

@@ -1494,7 +1494,7 @@ const Result = () => {
 
     if (results.graduation) {
       graduation = results.graduation;
-    } else if (results.result >= passingGradeValue.replace(/[^0-9\.]+/g, '')) {
+    } else if (results.result >= passingGradeValue) {
       graduation = 'passed';
     } else {
       graduation = 'failed';
@@ -1601,12 +1601,12 @@ const Result = () => {
     strokeDasharray: `${circumference} ${circumference}`,
     strokeDashoffset: offset
   };
-  const passingGradeValue = results.passingGrade || passingGrade;
+  const passingGradeValue = parseFloat(results.passingGrade || passingGrade);
   let graduation = '';
 
   if (results.graduation) {
     graduation = results.graduation;
-  } else if (percentResult >= passingGradeValue.replace(/[^0-9\.]+/g, '')) {
+  } else if (percentResult >= passingGradeValue) {
     graduation = 'passed';
   } else {
     graduation = 'failed';
@@ -1622,16 +1622,7 @@ const Result = () => {
     message = (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Failed', 'learnpress');
   }
 
-  const classNames = ['quiz-result', graduation]; //Re-write value to results.timeSpend
-
-  /*if ( lpQuizSettings.checkNorequizenroll === 1 ) {
-  	const timespendStart = window.localStorage.getItem( 'quiz_start_' + QuizID ),
-  		timespendEnd = window.localStorage.getItem( 'quiz_end_' + QuizID );
-  	if ( timespendStart && timespendEnd ) {
-  		results.timeSpend = timeDifference( timespendStart, timespendEnd ).duration;
-  	}
-  }*/
-
+  const classNames = ['quiz-result', graduation];
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: classNames.join(' ')
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", {
@@ -1656,7 +1647,7 @@ const Result = () => {
     className: "result-achieved"
   }, `${percentResult}%`), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "result-require"
-  }, passingGradeValue || '-')), done && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+  }, passingGradeValue + '%' || 0)), done && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
     className: "result-message"
   }, message), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
     className: "result-statistic"
@@ -1916,18 +1907,12 @@ const Timer = () => {
   } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.dispatch)('learnpress/quiz');
   const totalTime = getData('totalTime');
   const durationTime = getData('duration');
-  /*	const endTime = getData( 'endTime' );
-  	const d1 = new Date( endTime.replace( /-/g, '/' ) );
-  const d2 = new Date();
-  const tz = new Date().getTimezoneOffset();
-  const t = parseInt( ( d1.getTime() / 1000 ) - ( ( d2.getTime() / 1000 ) + ( tz * 60 ) ) );*/
-
   const [seconds, setSeconds] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(totalTime);
-  let [timeSpend, setTimeSpend] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
-  const limitTime = totalTime > 0;
+  let [timeSpend, setTimeSpend] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(0); //const limitTime = totalTime > 0;
+
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     const myInterval = setInterval(() => {
-      if (limitTime) {
+      if (durationTime > 0) {
         let remainSeconds = seconds;
         remainSeconds -= 1;
 
@@ -2050,9 +2035,7 @@ class Quiz extends _wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Component {
   componentDidMount() {
     const {
       settings,
-      setQuizData,
-      status,
-      isReviewing
+      setQuizData
     } = this.props;
     const {
       question_ids,
@@ -2071,19 +2054,14 @@ class Quiz extends _wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Component {
     setQuizData(settings);
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     const {
-      status,
-      isReviewing
-    } = this.props;
-    const notStarted = -1 !== ['', 'viewed', undefined].indexOf(status) || !status;
+      status
+    } = prevProps;
+    const elQuizContent = document.querySelector('.quiz-content');
 
-    if (isReviewing || !notStarted) {
-      const elQuiz = document.querySelector('.quiz-content');
-
-      if (elQuiz) {
-        elQuiz.style.display = 'none';
-      }
+    if (status !== undefined && elQuizContent) {
+      elQuizContent.style.display = 'none';
     }
   }
 

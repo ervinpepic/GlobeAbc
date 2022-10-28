@@ -324,7 +324,7 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 * @param string $new_status
 		 * @param string $note - Optional. Note for changing status.
 		 */
-		public function set_status( string $new_status, string $note = '' ) {
+		public function set_status( string $new_status = '', string $note = '' ) {
 			$new_status     = 'lp-' === substr( $new_status, 0, 3 ) ? substr( $new_status, 3 ) : $new_status;
 			$valid_statuses = learn_press_get_order_statuses( false, true );
 
@@ -366,8 +366,8 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		public function payment_complete( $transaction_id = '' ): bool {
 			do_action( 'learn-press/payment-pre-complete', $this->get_id() );
 
-			//TODO: tungnx - check to change code below - use LP()->session->set()
-			LP()->session->order_awaiting_payment = null;
+			//TODO: tungnx - check to change code below - use LearnPress::instance()->session->set()
+			LearnPress::instance()->session->order_awaiting_payment = null;
 
 			$valid_order_statuses = apply_filters(
 				'learn-press/valid-order-statuses-for-payment-complete',

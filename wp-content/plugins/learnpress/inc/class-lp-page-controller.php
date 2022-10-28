@@ -11,12 +11,12 @@ class LP_Page_Controller {
 	 *
 	 * @var int
 	 */
-	protected $_queried_object = 0;
+	//protected $_queried_object = 0;
 
 	/**
 	 * @var int
 	 */
-	protected $_filter_content_priority = 10000;
+	//protected $_filter_content_priority = 10000;
 
 	/**
 	 * Flag for 404 content.
@@ -29,7 +29,8 @@ class LP_Page_Controller {
 	 * LP_Page_Controller constructor.
 	 */
 	protected function __construct() {
-		add_action( 'pre_get_posts', array( $this, 'pre_get_posts' ), 10 );
+		add_filter( 'post_type_archive_link', [ $this, 'link_archive_course' ], 10, 2 );
+		add_action( 'pre_get_posts', array( $this, 'pre_get_posts' ), -1 );
 		add_filter( 'template_include', array( $this, 'template_loader' ), 10 );
 		add_filter( 'template_include', array( $this, 'check_pages' ), 30 );
 		add_filter( 'template_include', array( $this, 'auto_shortcode' ), 50 );
@@ -49,23 +50,27 @@ class LP_Page_Controller {
 
 		// Set link profile to admin menu
 		add_action( 'admin_bar_menu', array( $this, 'learn_press_edit_admin_bar' ) );
-		add_action( 'plugins_loaded', array( $this, 'lp_rest_api_called' ) );
+
+		// Web hook detected PayPal request.
+		add_action( 'init', [ $this, 'check_webhook_paypal_ipn' ] );
+		// Set again x-wp-nonce on header when has cache with not login.
+		add_filter( 'rest_send_nocache_headers', array( $this, 'check_x_wp_nonce_cache' ) );
 	}
 
 	/**
-	 * Optimize when Rest API LP called
+	 * Set link archive course.
 	 *
-	 * @return void
+	 * @param string $link
+	 * @param string $post_type
+	 *
+	 * @return string
 	 */
-	public function lp_rest_api_called() {
-		if ( LP_Helper::isRestApiLP() ) {
-			if ( ! defined( 'SHORTINIT' ) ) {
-				define( 'SHORTINIT', true );
-			}
-
-			// Remove hook wp_loaded because query default WP run on it (it hooks 'pre_get_posts',...)
-			remove_all_actions( 'wp_loaded' );
+	public function link_archive_course( string $link, string $post_type ): string {
+		if ( $post_type == LP_COURSE_CPT && learn_press_get_page_id( 'courses' ) ) {
+			$link = learn_press_get_page_link( 'courses' );
 		}
+
+		return $link;
 	}
 
 	/**
@@ -92,9 +97,12 @@ class LP_Page_Controller {
 				return $post_link;
 			}
 
-			$course    = learn_press_get_course( $course_id );
-			$post_link = $course->get_item_link( $item_id );
+			$course = learn_press_get_course( $course_id );
+			if ( ! $course ) {
+				return $post_link;
+			}
 
+			$post_link = $course->get_item_link( $item_id );
 		} elseif ( LP_COURSE_CPT === $post->post_type ) {
 			// Abort early if the placeholder rewrite tag isn't in the generated URL
 			if ( false === strpos( $post_link, '%' ) ) {
@@ -214,7 +222,7 @@ class LP_Page_Controller {
 	 * @author tungnx
 	 * @since  3.2.7.7
 	 */
-	public function set_title_pages( $title = '' ) {
+	public function set_title_pages( $title = '' ): string {
 		global $wp_query;
 		$flag_title_course = false;
 
@@ -222,7 +230,7 @@ class LP_Page_Controller {
 
 		// Set title course archive page
 		if ( ! empty( $course_archive_page_id ) && $wp_query->post &&
-			 $course_archive_page_id == $wp_query->post->ID ) {
+			$course_archive_page_id == $wp_query->post->ID ) {
 			$title             = get_the_title( $course_archive_page_id );
 			$flag_title_course = true;
 		} elseif ( learn_press_is_course() ) {
@@ -244,8 +252,9 @@ class LP_Page_Controller {
 			$profile  = LP_Profile::instance();
 			$tab_slug = $profile->get_current_tab();
 			$tab      = $profile->get_tab_at( $tab_slug );
+			$page_id  = learn_press_get_page_id( 'profile' );
 
-			if ( $page_id = learn_press_get_page_id( 'profile' ) ) {
+			if ( $page_id ) {
 				$page_title = get_the_title( $page_id );
 			} else {
 				$page_title = '';
@@ -379,11 +388,11 @@ class LP_Page_Controller {
 		}
 
 		/**
-		 * @deprecated v4.1.6.1 LP()->global['course'], $GLOBALS['course']
-		 * Some theme still use: global $course; LP()->global['course']
+		 * @deprecated v4.1.6.1 LearnPress::instance()->global['course'], $GLOBALS['course']
+		 * Some theme still use: global $course; LearnPress::instance()->global['course']
 		 */
-		//LP()->global['course'] = $GLOBALS['course'] = $GLOBALS['lp_course'] = $course;
-		LP()->global['course'] = $GLOBALS['course'] = $course;
+		//LearnPress::instance()->global['course'] = $GLOBALS['course'] = $GLOBALS['lp_course'] = $course;
+		LearnPress::instance()->global['course'] = $GLOBALS['course'] = $course;
 
 		if ( wp_verify_nonce( LP_Request::get( 'preview' ), 'preview-' . $post->ID ) ) {
 			$GLOBALS['preview_course'] = $post->ID;
@@ -584,10 +593,10 @@ class LP_Page_Controller {
 			$name_decoded = urldecode( $object->post_name );
 
 			if ( $name_decoded !== $object->post_name ) {
-				$templates[] = "single-course-{$name_decoded}.php";
+				$templates[] = "single-course-$name_decoded.php";
 			}
 
-			$templates[] = "single-product-{$object->post_name}.php";
+			$templates[] = "single-product-$object->post_name.php";
 		}
 
 		if ( learn_press_is_course_taxonomy() ) {
@@ -653,7 +662,8 @@ class LP_Page_Controller {
 	 *
 	 * @return WP_Query
 	 * @editor tungnx
-	 * @modify 4.1.2
+	 * @since 3.0.0
+	 * @version 4.1.3
 	 * @throws Exception
 	 */
 	public function pre_get_posts( WP_Query $q ): WP_Query {
@@ -662,192 +672,159 @@ class LP_Page_Controller {
 			return $q;
 		}
 
-		// Exclude item not assign
-		if ( $q->is_search() ) {
-			// Exclude item not assign any course
-			$course_item_types = learn_press_get_course_item_types();
-			$list_ids_exclude  = array();
+		try {
+			if ( LP_Page_Controller::page_current() === LP_PAGE_COURSES ) {
+				if ( ( LP_Settings_Courses::is_ajax_load_courses() && ! LP_Settings_Courses::is_no_load_ajax_first_courses() ) ) {
+					LearnPress::instance()->template( 'course' )->remove_callback( 'learn-press/after-courses-loop', 'loop/course/pagination.php', 10 );
+					/**
+					 * If page is archive course - query set posts_per_page = 1
+					 * For fastest - because when page loaded - call API to load list courses
+					 *
+					 * Current, apply only for LP, not apply for theme Thimpress, because theme override
+					 */
+					$q->set( 'posts_per_page', 1 );
+					$q->set( 'posts_per_archive_page', 1 );
+					$q->set( 'nopaging', true );
+				} else {
+					$filter               = new LP_Course_Filter();
+					$filter->only_fields  = [ 'ID' ];
+					$filter->limit        = -1;
+					$is_need_check_in_arr = false;
+					$limit                = LP_Settings::get_option( 'archive_course_limit', 6 );
 
-			foreach ( $course_item_types as $item_type ) {
-				$filter            = new LP_Post_Type_Filter();
-				$filter->post_type = $item_type;
-				$exclude_item      = LP_Course_DB::getInstance()->get_item_ids_unassigned( $filter );
-				$exclude_item      = LP_Course_DB::get_values_by_key( $exclude_item );
+					$q->set( 'posts_per_page', $limit );
+					// $q->set( 'cache_results', true ); // it default true
 
-				$list_ids_exclude = array_merge( $list_ids_exclude, $exclude_item );
-			}
+					// Search courses by keyword
+					// $q->set( 's', $_REQUEST['c_search'] ?? '' );
+					if ( ! empty( $_REQUEST['c_search'] ) ) {
+						$filter->post_title   = LP_Helper::sanitize_params_submitted( $_REQUEST['c_search'] );
+						$is_need_check_in_arr = true;
+					}
 
-			// Exclude question not assign any quiz
-			$question_ids     = LP_Question_DB::getInstance()->get_questions_not_assign_quiz();
-			$question_ids     = LP_Course_DB::get_values_by_key( $question_ids );
-			$list_ids_exclude = array_merge( $list_ids_exclude, $question_ids );
+					$author_ids_str = LP_Helper::sanitize_params_submitted( $_REQUEST['c_authors'] ?? 0 );
+					if ( ! empty( $author_ids_str ) ) {
+						$q->set( 'author', $author_ids_str );
+					}
 
-			if ( ! empty( $list_ids_exclude ) ) {
-				$q->set( 'post__not_in', $list_ids_exclude );
-			}
-		}
+					// Meta query
+					$meta_query = [];
+					if ( isset( $_REQUEST['sort_by'] ) ) {
+						$sort_by = LP_Helper::sanitize_params_submitted( $_REQUEST['sort_by'] );
+						if ( 'on_paid' === $sort_by ) {
+							$meta_query[] = array(
+								'key'     => '_lp_price',
+								'value'   => 0,
+								'compare' => '>',
+							);
+						}
 
-		$is_archive_course = false;
+						if ( 'on_free' === $sort_by ) {
+							$meta_query[] = array(
+								'key'     => '_lp_price',
+								'value'   => 0,
+								'compare' => '=',
+							);
+						}
+					}
+					$q->set( 'meta_query', $meta_query );
+					// End Meta query
 
-		// Handle 404 if user are viewing course item directly.
-		$this->set_link_item_course_default_wp_to_page_404( $q );
+					// Tax query
+					$tax_query    = [];
+					$term_ids_str = LP_Helper::sanitize_params_submitted( urldecode( $_REQUEST['term_id'] ?? '' ) );
+					if ( ! empty( $term_ids_str ) ) {
+						$term_ids = explode( ',', $term_ids_str );
 
-		$this->_queried_object = ! empty( $q->queried_object_id ) ? $q->queried_object : false;
-
-		/**
-		 * If current page is used for courses page
-		 * Set on both: "Homepage" and "Posts page" on Reading Settings
-		 */
-		$page_courses_id = learn_press_get_page_id( 'courses' );
-
-		if ( $q->is_home() && 'page' == get_option( 'show_on_front' ) && get_option( 'page_on_front' ) == $page_courses_id ) {
-			$is_archive_course = 1;
-			// $q->is_home = false;
-			// $q->set( 'page_id', get_option( 'page_on_front' ) );
-		}
-
-		/**
-		 * If current page is used for courses page and set as "Homepage"
-		 */
-		if ( $q->is_page() && 'page' == get_option( 'show_on_front' ) && $page_courses_id && $q->get( 'page_id' ) == $page_courses_id ) {
-			$is_archive_course = 1;
-
-			/*
-			global $wp_post_types;
-
-			$course_page                                = get_post( $page_courses_id );
-			$this->_queried_object                      = $course_page;
-			$wp_post_types[ LP_COURSE_CPT ]->ID         = $course_page->ID;
-			$wp_post_types[ LP_COURSE_CPT ]->post_title = $course_page->post_title;
-			$wp_post_types[ LP_COURSE_CPT ]->post_name  = $course_page->post_name;
-			$wp_post_types[ LP_COURSE_CPT ]->post_type  = $course_page->post_type;
-			$wp_post_types[ LP_COURSE_CPT ]->ancestors  = get_ancestors( $course_page->ID, $course_page->post_type );*/
-		}
-
-		// Set custom posts per page
-		if ( $this->_is_archive() ) {
-			$is_archive_course = 1;
-		}
-
-		$apply_lazy_load_for_theme = apply_filters( 'lp/page/courses/query/lazy_load', false );
-
-		if ( $is_archive_course ) {
-			if ( ( LP_Settings_Courses::is_ajax_load_courses() && ! LP_Settings_Courses::is_no_load_ajax_first_courses() ) ) {
-				LP()->template( 'course' )->remove_callback( 'learn-press/after-courses-loop', 'loop/course/pagination.php', 10 );
-				/**
-				 * If page is archive course - query set posts_per_page = 1
-				 * For fastest - because when page loaded - call API to load list courses
-				 *
-				 * Current, apply only for LP, not apply for theme Thimpress, because theme override
-				 */
-				$q->set( 'posts_per_page', 1 );
-				$q->set( 'posts_per_archive_page', 1 );
-				$q->set( 'nopaging', true );
-			} else {
-				$filter               = new LP_Course_Filter();
-				$filter->only_fields  = [ 'ID' ];
-				$filter->max_limit    = $filter->limit = 1000;
-				$is_need_check_in_arr = false;
-				$limit                = LP_Settings::get_option( 'archive_course_limit', 6 );
-
-				$q->set( 'posts_per_page', $limit );
-				// $q->set( 'cache_results', true ); // it default true
-
-				// Search courses by keyword
-				// $q->set( 's', $_REQUEST['c_search'] ?? '' );
-				if ( ! empty( $_REQUEST['c_search'] ) ) {
-					$filter->post_title   = LP_Helper::sanitize_params_submitted( $_REQUEST['c_search'] );
-					$is_need_check_in_arr = true;
-				}
-
-				$author_ids_str = LP_Helper::sanitize_params_submitted( $_REQUEST['c_authors'] ?? 0 );
-				if ( ! empty( $author_ids_str ) ) {
-					$q->set( 'author', $author_ids_str );
-				}
-
-				// Meta query
-				$meta_query = [];
-				if ( isset( $_REQUEST['sort_by'] ) ) {
-					$sort_by = LP_Helper::sanitize_params_submitted( $_REQUEST['sort_by'] );
-					if ( 'on_paid' === $sort_by ) {
-						$meta_query[] = array(
-							'key'     => '_lp_price',
-							'value'   => 0,
-							'compare' => '>',
+						$tax_query[] = array(
+							'taxonomy' => 'course_category',
+							'field'    => 'term_id',
+							'terms'    => $term_ids,
+							'operator' => 'IN',
 						);
 					}
 
-					if ( 'on_free' === $sort_by ) {
-						$meta_query[] = array(
-							'key'     => '_lp_price',
-							'value'   => 0,
-							'compare' => '=',
-						);
+					$q->set( 'tax_query', $tax_query );
+					// End Tax query
+
+					// Author query
+					if ( isset( $_REQUEST['c_author'] ) ) {
+						$author_ids = LP_Helper::sanitize_params_submitted( $_REQUEST['c_author'] );
+						$q->set( 'author__in', $author_ids );
 					}
-				}
-				$q->set( 'meta_query', $meta_query );
-				// End Meta query
+					// End Author query
 
-				// Tax query
-				$tax_query    = [];
-				$term_ids_str = LP_Helper::sanitize_params_submitted( urldecode( $_REQUEST['term_id'] ?? '' ) );
-				if ( ! empty( $term_ids_str ) ) {
-					$term_ids = explode( ',', $term_ids_str );
+					// Order query
+					if ( isset( $_REQUEST['order_by'] ) ) {
+						$order_by = LP_Helper::sanitize_params_submitted( $_REQUEST['order_by'] );
+						$order    = 'DESC';
 
-					$tax_query[] = array(
-						'taxonomy' => 'course_category',
-						'field'    => 'term_id',
-						'terms'    => $term_ids,
-						'operator' => 'IN',
-					);
-				}
+						switch ( $order_by ) {
+							case 'post_title':
+								$order_by = 'title';
+								$order    = 'ASC';
+								break;
+							case 'popular':
+								$filter->order_by     = 'popular';
+								$order_by             = 'post__in';
+								$is_need_check_in_arr = true;
+								break;
+							default:
+								$order_by = 'date';
+								break;
+						}
 
-				$q->set( 'tax_query', $tax_query );
-				// End Tax query
-
-				// Author query
-				if ( isset( $_REQUEST['c_author'] ) ) {
-					$author_ids = LP_Helper::sanitize_params_submitted( $_REQUEST['c_author'] );
-					$q->set( 'author__in', $author_ids );
-				}
-				// End Author query
-
-				// Order query
-				if ( isset( $_REQUEST['order_by'] ) ) {
-					$order_by = LP_Helper::sanitize_params_submitted( $_REQUEST['order_by'] );
-					$order    = 'DESC';
-
-					switch ( $order_by ) {
-						case 'post_title':
-							$order_by = 'title';
-							$order    = 'ASC';
-							break;
-						case 'popular':
-							$filter->order_by     = 'popular';
-							$order_by             = 'post__in';
-							$is_need_check_in_arr = true;
-							break;
-						default:
-							$order_by = 'date';
-							break;
+						$q->set( 'orderby', $order_by );
+						$q->set( 'order', $order );
 					}
 
-					$q->set( 'orderby', $order_by );
-					$q->set( 'order', $order );
-				}
-
-				if ( $is_need_check_in_arr ) {
-					$posts_in = LP_Course::get_courses( $filter );
-					if ( ! empty( $posts_in ) ) {
-						$posts_in = LP_Database::get_values_by_key( $posts_in );
-						$q->set( 'post__in', $posts_in );
-					} else {
-						$q->set( 'post__in', 0 );
+					if ( $is_need_check_in_arr ) {
+						$posts_in = LP_Course::get_courses( $filter );
+						if ( ! empty( $posts_in ) ) {
+							$posts_in = LP_Database::get_values_by_key( $posts_in );
+							$q->set( 'post__in', $posts_in );
+						} else {
+							$q->set( 'post__in', 0 );
+						}
 					}
+
+					$q = apply_filters( 'lp/page-courses/query/legacy', $q );
 				}
 
-				$q = apply_filters( 'lp/page-courses/query/legacy', $q );
+				return $q;
 			}
+
+			// Exclude item not assign
+			if ( $q->is_search() ) {
+				// Exclude item not assign any course
+				$course_item_types = learn_press_get_course_item_types();
+				$list_ids_exclude  = array();
+
+				foreach ( $course_item_types as $item_type ) {
+					$filter            = new LP_Post_Type_Filter();
+					$filter->post_type = $item_type;
+					$exclude_item      = LP_Course_DB::getInstance()->get_item_ids_unassigned( $filter );
+					$exclude_item      = LP_Course_DB::get_values_by_key( $exclude_item );
+
+					$list_ids_exclude = array_merge( $list_ids_exclude, $exclude_item );
+				}
+
+				// Exclude question not assign any quiz
+				$question_ids     = LP_Question_DB::getInstance()->get_questions_not_assign_quiz();
+				$question_ids     = LP_Course_DB::get_values_by_key( $question_ids );
+				$list_ids_exclude = array_merge( $list_ids_exclude, $question_ids );
+
+				if ( ! empty( $list_ids_exclude ) ) {
+					$q->set( 'post__not_in', $list_ids_exclude );
+				}
+
+				return $q;
+			}
+
+			// Handle 404 if user are viewing course item directly.
+			$this->set_link_item_course_default_wp_to_page_404( $q );
+		} catch ( Throwable $e ) {
+			error_log( $e->getMessage() );
 		}
 
 		return $q;
@@ -859,26 +836,22 @@ class LP_Page_Controller {
 	 * Apply for user not admin, instructor, co-instructor
 	 *
 	 * @param WP_Query $q
-	 *
-	 * @return mixed
 	 * @editor tungnx
 	 * @since  3.2.7.5
 	 */
 	public function set_link_item_course_default_wp_to_page_404( $q ) {
-		if ( ! $q->is_main_query() || is_admin() ) {
+		$post_type_apply_404 = apply_filters( 'lp/page-controller/', array( LP_LESSON_CPT, LP_QUIZ_CPT, LP_QUESTION_CPT, 'lp_assignment' ) );
+
+		if ( ! isset( $q->query_vars['post_type'] ) || ! in_array( $q->query_vars['post_type'], $post_type_apply_404 ) ) {
 			return $q;
 		}
 
-		$post_type_apply_404 = array( LP_LESSON_CPT, LP_QUIZ_CPT, LP_QUESTION_CPT, 'lp_assignment' );
-
-		if ( isset( $q->query_vars['post_type'] ) && in_array( $q->query_vars['post_type'], $post_type_apply_404 ) ) {
+		try {
 			$flag_load_404 = true;
 			$user          = wp_get_current_user();
 			$post_author   = 0;
 
 			if ( $user ) {
-				$post = null;
-
 				if ( isset( $_GET['preview_id'] ) ) {
 					$post_id     = absint( $_GET['preview_id'] );
 					$post        = get_post( $post_id );
@@ -888,7 +861,7 @@ class LP_Page_Controller {
 					$post        = get_post( $post_id );
 					$post_author = $post->post_author;
 				} else {
-					$post_author = LP_Database::getInstance()->getPostAuthorByTypeAndSlug( $q->query_vars['post_type'], $q->query_vars[ $q->query_vars['post_type'] ] );
+					$post_author = LP_Database::getInstance()->getPostAuthorByTypeAndSlug( $q->query_vars['post_type'] ?? '', $q->query_vars['name'] ?? '' );
 				}
 
 				if ( $user->has_cap( 'administrator' ) ) {
@@ -902,11 +875,10 @@ class LP_Page_Controller {
 
 			if ( $flag_load_404 ) {
 				learn_press_404_page();
-				$q->set( 'post_type', '' );
 			}
+		} catch ( Throwable $e ) {
+			error_log( $e->getMessage() );
 		}
-
-		return $q;
 	}
 
 	/**
@@ -952,11 +924,20 @@ class LP_Page_Controller {
 	 * @author tungnx
 	 */
 	public static function page_current(): string {
+		/**
+		 * @var WP_Query $wp_query
+		 */
+		global $wp_query;
+
+		if ( ! is_object( $wp_query ) || ! $wp_query->get_queried_object() ) {
+			return '';
+		}
+
 		if ( learn_press_is_checkout() ) {
 			return LP_PAGE_CHECKOUT;
 		} elseif ( LP_Global::course_item_quiz() ) {
 			return LP_PAGE_QUIZ;
-		} elseif ( learn_press_is_course() && is_single() && LP_Global::course_item() ) {
+		} elseif ( learn_press_is_course() && LP_Global::course_item() ) {
 			return LP_PAGE_SINGLE_COURSE_CURRICULUM;
 		} elseif ( learn_press_is_courses() ) {
 			return LP_PAGE_COURSES;
@@ -1013,6 +994,63 @@ class LP_Page_Controller {
 				)
 			);
 		}
+	}
+
+	/**
+	 * Check notify papal call when done.
+	 *
+	 * Set in param notify_url on @see LP_Gateway_Paypal::get_paypal_args()
+	 */
+	public function check_webhook_paypal_ipn() {
+		//error_log( 'xxx:' . json_encode( $_POST, JSON_UNESCAPED_UNICODE ) );
+
+		// Paypal payment done
+		if ( ! isset( $_GET['paypal_notify'] ) ) {
+			return;
+		}
+
+		if ( ! isset( $_POST['ipn_track_id'] ) ) {
+			return;
+		}
+
+		try {
+			$paypal = new LP_Gateway_Paypal();
+			$verify = $paypal->validate_ipn();
+
+			if ( $verify ) {
+				if ( isset( $_POST['custom'] ) ) {
+					$data_order = json_decode( LP_Helper::sanitize_params_submitted( $_POST['custom'] ) );
+
+					if ( json_last_error() === JSON_ERROR_NONE ) {
+						$order_id = $data_order->order_id;
+
+						$lp_order = learn_press_get_order( $order_id );
+						$lp_order->set_status( 'completed' );
+						$lp_order->save();
+					}
+				}
+			}
+		} catch ( Throwable $e ) {
+			error_log( $e->getMessage() );
+		}
+	}
+
+	/**
+	 * Set again HTTP_X_WP_NONCE when cache make 403 error.
+	 *
+	 * @param $send_no_cache_headers
+	 *
+	 * @return mixed
+	 * @since 4.1.7
+	 * @version 1.0.0
+	 */
+	public function check_x_wp_nonce_cache( $send_no_cache_headers ) {
+		if ( ! $send_no_cache_headers && ! is_admin() && $_SERVER['REQUEST_METHOD'] == 'GET' && LP_Helper::isRestApiLP() ) {
+			$nonce                      = wp_create_nonce( 'wp_rest' );
+			$_SERVER['HTTP_X_WP_NONCE'] = $nonce;
+		}
+
+		return $send_no_cache_headers;
 	}
 }
 

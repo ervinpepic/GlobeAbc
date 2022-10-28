@@ -156,19 +156,6 @@ class LP_User_Item_Quiz extends LP_User_Item {
 	}
 
 	/**
-	 * Get current question ID (quiz).
-	 *
-	 * @param string $return - Optional.
-	 *
-	 * @return int|LP_Question
-	 */
-	public function get_current_question( $return = '' ) {
-		_deprecated_function( sprintf( '%s::%s', __CLASS__, __FUNCTION__ ), '4.0.0' );
-
-		learn_press_error_log( sprintf( 'Deprecated %s::%s', __CLASS__, __FUNCTION__ ) );
-	}
-
-	/**
 	 * Get ID of the course that this item assigned to.
 	 *
 	 * @return array|mixed
@@ -240,17 +227,6 @@ class LP_User_Item_Quiz extends LP_User_Item {
 		$result['graduationText'] = $this->get_graduation_text();
 
 		return $prop ? $result[ $prop ] : new LP_Quiz_Results( $result );
-	}
-
-	/**
-	 * Get user quiz graduation. [passed, failed, null]
-	 *
-	 * @since 4.0.0
-	 *
-	 * @return string
-	 */
-	public function get_graduation() {
-		return apply_filters( 'learn-press/user-quiz-graduation', $this->get_data( 'graduation' ), $this->get_item_id(), $this->get_course_id(), $this->get_user() );
 	}
 
 	/**
@@ -596,10 +572,6 @@ class LP_User_Item_Quiz extends LP_User_Item {
 
 	protected function _get_results() {
 		return LP_User_Items_Result_DB::instance()->get_result( $this->get_user_item_id() );
-	}
-
-	public function is_passed() {
-		return $this->get_graduation();
 	}
 
 	public function get_percent_result( $decimal = 2 ) {

@@ -1,7 +1,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.2.0
+ * @version 	1.2.6
  * 
  * Theme CSS Rules
  * Created by CMSMasters
@@ -1034,6 +1034,15 @@ img {
 			
 			> div {
 				width:100%;
+				
+				&.cmsmasters_posts_slider {
+					width: ~"calc(100% + 15px * 2)";
+				}
+
+				&.cmsmasters_pricing_table,
+				&.gallery {
+					width: calc(100% + @col_mar * 2);
+				}
 			}
 		}
 	}

@@ -112,6 +112,7 @@ function learn_press_get_item_types_can_purchase() {
  * @param $item
  *
  * @return mixed
+ * @Todo - tungnx need review code to rewrite.
  */
 function learn_press_get_item_courses( $item ) {
 	global $wpdb;
@@ -984,7 +985,7 @@ function learn_press_course_grade_html( string $grade = '', bool $echo = true ) 
 	$html = apply_filters( 'learn-press/course/grade-html', $html, $grade );
 
 	if ( $echo ) {
-		echo esc_html( $html );
+		echo wp_kses_post( $html );
 	}
 
 	return $html;
@@ -1036,7 +1037,7 @@ add_filter( 'learn-press/enroll-course-redirect', 'learn_press_remove_query_var_
  * @since 3.0.0
  */
 function learn_press_mark_user_just_logged_in() {
-	LP()->session->set( 'user_just_logged_in', 'yes' );
+	LearnPress::instance()->session->set( 'user_just_logged_in', 'yes' );
 }
 
 add_action( 'wp_login', 'learn_press_mark_user_just_logged_in' );

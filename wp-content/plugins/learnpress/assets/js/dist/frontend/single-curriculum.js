@@ -607,6 +607,8 @@ __webpack_require__.r(__webpack_exports__);
 
 function courseCurriculumSkeleton() {
   let courseID = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  let isLoadingItems = false;
+  let isLoadingSections = false;
 
   const Sekeleton = () => {
     const elementCurriculum = document.querySelector('.learnpress-course-curriculum');
@@ -788,6 +790,7 @@ function courseCurriculumSkeleton() {
       }
     }
 
+    isLoadingItems = false;
     return {
       data3: returnData,
       pages3: pages || data.pages,
@@ -831,6 +834,7 @@ function courseCurriculumSkeleton() {
       }
     }
 
+    isLoadingSections = false;
     return {
       data2: returnData,
       pages2: pages || data.pages,
@@ -844,7 +848,8 @@ function courseCurriculumSkeleton() {
   document.addEventListener('click', e => {
     const sectionBtns = document.querySelectorAll('.section-item__loadmore');
     [...sectionBtns].map(async sectionBtn => {
-      if (sectionBtn.contains(e.target)) {
+      if (sectionBtn.contains(e.target) && !isLoadingItems) {
+        isLoadingItems = true;
         const sectionItem = sectionBtn.parentNode;
         const sectionId = sectionItem.getAttribute('data-section-id');
         const sectionContent = sectionItem.querySelector('.section-content');
@@ -882,7 +887,8 @@ function courseCurriculumSkeleton() {
 
     const moreSections = document.querySelectorAll('.curriculum-more__button');
     [...moreSections].map(async moreSection => {
-      if (moreSection.contains(e.target)) {
+      if (moreSection.contains(e.target) && !isLoadingSections) {
+        isLoadingSections = true;
         const paged = parseInt(moreSection.dataset.page);
         const sections = moreSection.parentNode.parentNode.querySelector('.curriculum-sections');
 
@@ -1134,10 +1140,17 @@ const init = () => {
 };
 document.addEventListener('DOMContentLoaded', function (event) {
   LP.Hook.doAction('course-ready');
-  _show_lp_overlay_complete_item__WEBPACK_IMPORTED_MODULE_2__["default"].init();
-  (0,_single_curriculum_skeleton__WEBPACK_IMPORTED_MODULE_3__["default"])(); // scrollToItemCurrent.init();
+  _show_lp_overlay_complete_item__WEBPACK_IMPORTED_MODULE_2__["default"].init(); //courseCurriculumSkeleton();
   //init();
 });
+const detectedElCurriculum = setInterval(function () {
+  const elementCurriculum = document.querySelector('.learnpress-course-curriculum');
+
+  if (elementCurriculum) {
+    (0,_single_curriculum_skeleton__WEBPACK_IMPORTED_MODULE_3__["default"])();
+    clearInterval(detectedElCurriculum);
+  }
+}, 1);
 }();
 /******/ })()
 ;

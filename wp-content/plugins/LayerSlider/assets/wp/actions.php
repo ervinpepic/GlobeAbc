@@ -272,6 +272,7 @@ add_action('init', function() {
 		add_action('wp_ajax_ls_download_module', 'ls_download_module');
 		add_action('wp_ajax_ls_get_revisions', 'ls_get_revisions');
 		add_action('wp_ajax_ls_save_revisions_options', 'ls_save_revisions_options');
+		add_action('wp_ajax_ls_save_transition_presets', 'ls_save_transition_presets');
 
 		add_action( 'wp_ajax_ls_get_popup_markup', 'ls_get_popup_markup' );
 	}
@@ -281,6 +282,17 @@ add_action('init', function() {
 	add_action( 'wp_ajax_nopriv_ls_get_popup_markup', 'ls_get_popup_markup' );
 });
 
+function ls_save_transition_presets() {
+
+	wp_verify_nonce( $_POST['nonce'], 'ls-editor-nonce');
+
+	include LS_ROOT_PATH . '/classes/class.ls.transitionpresets.php';
+
+	$data 	= stripslashes( $_POST['data'] );
+	$result = LS_TransitionPresets::save( $data );
+
+	die( json_encode( ['success' => $result ] ) );
+}
 
 function ls_get_popup_markup() {
 
@@ -646,7 +658,7 @@ function ls_save_pagination_limit() {
 
 function ls_save_editor_settings() {
 
-	wp_verify_nonce( $_POST['nonce'], 'ls-save-editor-settings');
+	wp_verify_nonce( $_POST['nonce'], 'ls-editor-nonce');
 	update_user_meta( get_current_user_id(), 'ls-editor-settings', $_POST['data'] );
 	exit;
 }
@@ -696,6 +708,7 @@ function ls_get_mce_sliders() {
 		$sliders[ $key ]['preview'] = apply_filters('ls_preview_for_slider', $item );
 		$sliders[ $key ]['name'] 	= apply_filters('ls_slider_title', stripslashes( $item['name'] ), 40);
 		$sliders[ $key ]['slug'] 	= ! empty( $item['slug'] ) ? htmlentities( $item['slug'] ) : '';
+		$sliders[ $key ]['pt'] 		= ! empty( $item['data']['properties']['pt'] );
 
 
 		// Prevent outputting the unnecessarily large slider data object that
@@ -1293,6 +1306,16 @@ function ls_import_sliders() {
 		__('Imported Group', 'LayerSlider')
 	);
 
+	if( ! empty( $import->lastErrorCode) ) {
+		if( $import->lastErrorCode === 'LR_PARTIAL_IMPORT' ) {
+			wp_redirect( admin_url('admin.php?page=layerslider&message=importLRPartial&error') );
+			exit;
+
+		} elseif( $import->lastErrorCode === 'LR_EMPTY_IMPORT' ) {
+			wp_redirect( admin_url('admin.php?page=layerslider&message=importLSEmpty&error') );
+			exit;
+		}
+	}
 
 	// One slider, redirect to editor
 	if( ! empty( $import->lastImportId ) ) {

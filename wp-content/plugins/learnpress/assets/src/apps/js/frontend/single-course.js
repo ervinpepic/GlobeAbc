@@ -332,9 +332,9 @@ const accordionExtraTab = () => {
 };
 
 const courseContinue = () => {
-	const formContinue = document.querySelector( 'form.continue-course' );
+	const formContinue = document.querySelectorAll( 'form.continue-course' );
 
-	if ( formContinue != null ) {
+	if ( formContinue != null && lpGlobalSettings.user_id > 0 ) {
 		const getResponse = async ( ele ) => {
 			const response = await wp.apiFetch( {
 				path: 'lp/v1/courses/continue-course',
@@ -347,10 +347,13 @@ const courseContinue = () => {
 
 			return response;
 		};
+
 		getResponse( formContinue ).then( function( result ) {
 			if ( result.status === 'success' ) {
-				formContinue.style.display = 'block';
-				formContinue.action = result.data;
+				formContinue.forEach( ( form ) => {
+					form.style.display = 'block';
+					form.action = result.data;
+				} );
 			}
 		} );
 	}
@@ -375,8 +378,16 @@ $( window ).on( 'load', () => {
 	courseProgress();
 	courseContinue();
 	lpModalOverlayCompleteItem.init();
-	courseCurriculumSkeleton();
+	//courseCurriculumSkeleton();
 } );
+
+const detectedElCurriculum = setInterval( function() {
+	const elementCurriculum = document.querySelector( '.learnpress-course-curriculum' );
+	if ( elementCurriculum ) {
+		courseCurriculumSkeleton();
+		clearInterval( detectedElCurriculum );
+	}
+}, 1 );
 
 // Add callback for Thimkits
 LP.Hook.addAction( 'lp_course_curriculum_skeleton', function( id ) {

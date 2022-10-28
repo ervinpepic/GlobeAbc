@@ -611,7 +611,7 @@ function ls_meta_generator() {
 	}
 
 
-	$str = '<meta name="generator" content="Powered by LayerSlider '.LS_PLUGIN_VERSION.' - Multi-Purpose, Responsive, Parallax, Mobile-Friendly Slider Plugin for WordPress." />' . NL;
+	$str = '<meta name="generator" content="Powered by LayerSlider '.LS_PLUGIN_VERSION.' - Build Heros, Sliders, and Popups. Create Animations and Beautiful, Rich Web Content as Easy as Never Before on WordPress." />' . NL;
 	$str.= '<!-- LayerSlider updates and docs at: https://layerslider.com -->' . NL;
 
 	echo apply_filters('ls_meta_generator', $str);

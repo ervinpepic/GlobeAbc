@@ -63,7 +63,6 @@ class LP_Meta_Box_Quiz extends LP_Meta_Box {
 						'custom_attributes' => array(
 							'min'  => '-1',
 							'step' => '1',
-							'max'  => '100',
 						),
 						'style'             => 'width: 60px;',
 					)
@@ -92,7 +91,8 @@ class LP_Meta_Box_Quiz extends LP_Meta_Box {
 					esc_html__( 'Allow students view correct answer question in review this quiz.', 'learnpress' ),
 					'yes'
 				),
-			)
+			),
+			$post_id
 		);
 	}
 

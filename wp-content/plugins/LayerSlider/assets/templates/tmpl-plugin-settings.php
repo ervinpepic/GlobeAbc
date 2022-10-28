@@ -243,6 +243,11 @@ $googleFonts = get_option( 'ls-google-fonts', [] );
 
 				<!-- Troubleshooting -->
 				<div>
+					<div class="ls-notification-info solid">
+						<?= lsGetSVGIcon('info-circle') ?>
+						<?= sprintf( __('Visiting %sSystem Status%s is recommended if you’re experiencing issues on your site or with LayerSlider.', 'LayerSlider'), '<a href="'.admin_url( 'admin.php?page=layerslider&section=system-status' ).'" target="_blank">', '</a>') ?>
+					</div>
+
 					<table class="ls-settings-table">
 						<tr>
 							<td><?= __('Clear 3rd party caches', 'LayerSlider') ?></td>
@@ -287,6 +292,7 @@ $googleFonts = get_option( 'ls-google-fonts', [] );
 						</tr>
 
 					</table>
+
 				</div>
 
 				<!-- Project Defaults -->

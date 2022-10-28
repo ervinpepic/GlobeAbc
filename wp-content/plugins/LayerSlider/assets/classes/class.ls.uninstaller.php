@@ -103,6 +103,9 @@ class LS_Uninstaller {
 			// Popup Index
 			'ls-popup-index',
 
+			// Other
+			'ls-transition-presets',
+
 			// Legacy
 			'ls-collapsed-boxes',
 			'layerslider-validated',

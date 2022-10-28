@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.0.3
+ * @version 	1.2.6
  * 
  * Admin Panel Element Options
  * Created by CMSMasters
@@ -540,39 +540,15 @@ function language_school_options_element_fields($set_tab = false) {
 		
 		$options[] = array( 
 			'section' => 'code_section', 
-			'id' => 'language-school' . '_api_key', 
-			'title' => esc_html__('Twitter API key', 'language-school'), 
-			'desc' => '', 
-			'type' => 'text', 
-			'std' => '', 
-			'class' => '' 
-		);
-		
-		$options[] = array( 
-			'section' => 'code_section', 
-			'id' => 'language-school' . '_api_secret', 
-			'title' => esc_html__('Twitter API secret', 'language-school'), 
-			'desc' => '', 
-			'type' => 'text', 
-			'std' => '', 
-			'class' => '' 
-		);
-		
-		$options[] = array( 
-			'section' => 'code_section', 
-			'id' => 'language-school' . '_access_token', 
-			'title' => esc_html__('Twitter Access token', 'language-school'), 
-			'desc' => '', 
-			'type' => 'text', 
-			'std' => '', 
-			'class' => '' 
-		);
-		
-		$options[] = array( 
-			'section' => 'code_section', 
-			'id' => 'language-school' . '_access_token_secret', 
-			'title' => esc_html__('Twitter Access token secret', 'language-school'), 
-			'desc' => '', 
+			'id' => 'language-school' . '_twitter_access_token', 
+			'title' => esc_html__('Twitter Access Token', 'language-school'), 
+			'desc' => sprintf(
+				/* translators: Twitter access token. %s: Link to twitter access token generator */
+				esc_html__( 'Generate %s and paste Access Token to this field.', 'language-school' ),
+				'<a href="' . esc_url( 'https://api.cmsmasters.net/wp-json/cmsmasters-api/v1/twitter-request-token' ) . '" target="_blank">' .
+					esc_html__( 'twitter access token', 'language-school' ) .
+				'</a>'
+			), 
 			'type' => 'text', 
 			'std' => '', 
 			'class' => '' 

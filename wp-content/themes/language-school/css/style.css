@@ -1,7 +1,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.2.2
+ * @version 	1.2.6
  * 
  * Theme CSS Rules
  * Created by CMSMasters
@@ -998,6 +998,13 @@ img.alignnone {
 }
 .cmsmasters_row_margin.cmsmasters_row_columns_behavior .cmsmasters_column > div {
   width: 100%;
+}
+.cmsmasters_row_margin.cmsmasters_row_columns_behavior .cmsmasters_column > div.cmsmasters_posts_slider {
+  width: calc(100% + 15px * 2);
+}
+.cmsmasters_row_margin.cmsmasters_row_columns_behavior .cmsmasters_column > div.cmsmasters_pricing_table,
+.cmsmasters_row_margin.cmsmasters_row_columns_behavior .cmsmasters_column > div.gallery {
+  width: calc(104%);
 }
 [data-animation] {
   opacity: 0;
@@ -3514,14 +3521,14 @@ body .headline {
 .blog.columns {
   margin: 0 -20px;
 }
-.blog.columns.cmsmasters_4 .post {
-	width:25%;
+.cmsmasters_4.blog.columns .post {
+  width: 25%;
 }
-.blog.columns.cmsmasters_3 .post {
-	width:33.33%;
+.cmsmasters_3.blog.columns .post {
+  width: 33.33%;
 }
-.blog.columns.cmsmasters_2 .post {
-	width:50%;
+.cmsmasters_2.blog.columns .post {
+  width: 50%;
 }
 .blog.timeline:before {
   content: '';
@@ -6703,14 +6710,14 @@ hr,
 .cmsmasters_gallery .cmsmasters_gallery_item:before {
   display: none;
 }
-.cmsmasters_gallery.cmsmasters_4 .cmsmasters_gallery_item {
-  width:25%;
+.cmsmasters_4.cmsmasters_gallery .cmsmasters_gallery_item {
+  width: 25%;
 }
-.cmsmasters_gallery.cmsmasters_3 .cmsmasters_gallery_item {
-  width:33.33%;
+.cmsmasters_3.cmsmasters_gallery .cmsmasters_gallery_item {
+  width: 33.33%;
 }
-.cmsmasters_gallery.cmsmasters_2 .cmsmasters_gallery_item {
-  width:50%;
+.cmsmasters_2.cmsmasters_gallery .cmsmasters_gallery_item {
+  width: 50%;
 }
 .cmsmasters_gallery .cmsmasters_gallery_item img {
   display: block;

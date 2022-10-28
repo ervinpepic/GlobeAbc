@@ -254,7 +254,6 @@ $demoSliders = LS_Sources::getDemoSliders();
 
 					<!-- Slide 1-->
 					<div class="ls-slide" data-ls="globalhover:true; overflow:true; kenburnsscale:1.2; parallaxevent:scroll; parallaxdurationmove:300; parallaxdistance:5;">
-						<img width="900" height="500" src="<?= LS_ROOT_URL ?>/static/admin/img/ls-slider-296-slide-1.jpg" class="ls-tn" alt="" />
 						<div style="box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.08); border-radius: 1rem !important;top:100%; left:0px; background-size:inherit; background-position:inherit; font-size:18px; width:100%; height:70%; background-color:#ffffff;" class="ls-l"></div>
 						<img width="447" height="297" src="<?= LS_ROOT_URL ?>/static/admin/img/surprise-box.png" class="ls-l" alt="" style="top:239px; left:611px; background-size:inherit; background-position:inherit; width:288px; height:191px;" data-ls="offsetyin:50; durationin:2000; easingin:easeOutQuint; loopstartat:transitioninstart ;">
 						<img width="731" height="365" src="<?= LS_ROOT_URL ?>/static/admin/img/papers-far.png" class="ls-l" alt="" style="top:52px; left:539px; background-size:inherit; background-position:inherit; width:471px; height:235px;" data-ls="offsetyin:75; durationin:2000; easingin:easeOutQuint; scalexin:.5; scaleyin:.5; loop:true; loopoffsety:-10; loopduration:10000; loopstartat:transitioninstart ; loopeasing:easeInOutSine; looprotate:5; loopscalex:1.05; loopscaley:1.05; loopcount:-1; loopyoyo:true;">

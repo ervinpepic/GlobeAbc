@@ -737,6 +737,9 @@
   font-size: 16px;
   font-weight: 400;
 }
+.lp-checkout-form .lp-guest-switch-login a {
+  display: inline-block;
+}
 .lp-checkout-form input[name=checkout-account-switch-form] {
   display: none;
 }
@@ -3504,10 +3507,6 @@ input[name=course-faqs-box-ratio]:checked + .course-faqs-box .course-faqs-box__t
   body.course-item-popupx #content-item-nav {
     right: 300px;
   }
-  body.course-item-popupx #learn-press-content-item .content-item-nav-wrap,
-body.course-item-popupx #learn-press-content-item .content-item-wrap {
-    width: 90%;
-  }
 }
 @media screen and (max-width: 768px) {
   body.course-item-popup .course-curriculum {
@@ -3515,10 +3514,6 @@ body.course-item-popupx #learn-press-content-item .content-item-wrap {
   }
   body.course-item-popup #content-item-nav {
     right: 200px;
-  }
-  body.course-item-popup #learn-press-content-item .content-item-nav-wrap,
-body.course-item-popup #learn-press-content-item .content-item-wrap {
-    width: 90%;
   }
   body.course-item-popup.wpadminbar #learn-press-content-item,
 body.course-item-popup.wpadminbar #learn-press-course-curriculum {
@@ -6638,11 +6633,6 @@ input[type=radio]:nth-child(19):checked ~ .switch-btn:nth-child(20)::before {
 #popup-course #popup-content.fixed-quiz-status .quiz-status > div {
   padding: 0;
 }
-@media (max-width: 767px) {
-  #popup-course #popup-content {
-    margin-top: 113px;
-  }
-}
 #popup-course #popup-footer {
   position: fixed;
   z-index: 999;
@@ -6934,9 +6924,6 @@ body.lp-sidebar-toggle__close #popup-course #popup-header, body.lp-sidebar-toggl
   }
   #popup-course #sidebar-toggle {
     right: 249px;
-  }
-  #popup-course #sidebar-toggle:checked ~ #popup-sidebar {
-    flex-basis: 0;
   }
   #popup-course .course-item-meta .item-meta.count-questions, #popup-course .course-item-meta .item-meta.duration {
     display: none;

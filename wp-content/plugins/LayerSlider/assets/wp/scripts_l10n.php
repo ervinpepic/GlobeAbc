@@ -26,14 +26,22 @@ $l10n_ls = [
 	'selectAll' 	=> __('Select all', 'LayerSlider'),
 	'deselectAll' 	=> __('Deselect all', 'LayerSlider'),
 
-	// Notify OSD
+	'ok' 			=> _x('OK', 'Button label', 'LayerSlider'),
+	'okUnderstand' 	=> _x('Okay, I understand', 'Button label', 'LayerSlider'),
+	'cancel' 		=> _x('CANCEL', 'Button label', 'LayerSlider'),
+
+	// Notifications
 	'notifyProjectSaved' 	=> __('Project saved as draft', 'LayerSlider'),
 	'notifyProjectPublished' => __('Published & changes are now live', 'LayerSlider'),
+	'notifyPresetSaved' 	=> __('Transition preset saved', 'LayerSlider'),
 	'notifyCaptureSlide' 	=> __('Capturing slide. This might take a moment ...', 'LayerSlider'),
 	'notifyPixieSave'		=> __('Saving image. This might take a moment ...'),
 	'notifySettingsSaved' 	=> __('Settings saved'),
 	'notifyGoogleFontsMissing' => __('Some fonts might be missing since you disabled Google Fonts.', 'LayerSlider'),
-	'notifyMissingPopup' 	=> __('This is a Popup template, which requires license registration.', 'LayerSlider'),
+	'notifyMissingPopup' 	=> __('This is a Popup project, which requires license registration to use.', 'LayerSlider'),
+	'notifyMissingPopupMT' 	=> __('Register your LayerSlider license to use Popups.', 'LayerSlider'),
+	'notifyPremiumTemplate' => __('This is a premium template or a project based on it, which requires license registration to use on front-end pages.', 'LayerSlider'),
+	'notifyPremiumTemplateMT' => __('Register your LayerSlider license to use premium templates.', 'LayerSlider'),
 
 	// Modules
 	'moduleDLErrorTitle' 	=> __('Download Error', 'LayerSlider'),
@@ -205,7 +213,14 @@ $l10n_ls = [
 		'MODIFY_SHAPE' 	=> [
 			'title' => __('Modify Shape', 'LayerSlider'),
 			'icon' 	=> lsGetSVGIcon('shapes')
-		]
+		],
+
+		'LAYER_APPLY_TRANSITION' 	=> [
+			'title' => __('Apply transition', 'LayerSlider'),
+			'icon' 	=> lsGetSVGIcon('stars')
+		],
+
+
 	],
 
 	// Slider Builder
@@ -234,7 +249,6 @@ $l10n_ls = [
 	'SBPreviewPostPlaceholder' 	=> __('Howdy, [author]', 'LayerSlider'),
 	'SBPreviewSlide' 			=> __('Preview Slide', 'LayerSlider'),
 	'SBPreviewSlideExit' 		=> __('Stop Preview', 'LayerSlider'),
-	'SBLayerPreviewMultiSelect' => __('Layer Preview is not available in Multiple Selection Mode. Select only one layer to use this feature. ', 'LayerSlider'),
 	'SBPreviewLinkNotAvailable' => __('Auto-generated URLs are not available in Preview. This layer will link to “%s” on your front-end pages.', 'LayerSlider'),
 	'SBStaticUntil' 			=> __('Until the end of Slide #%d', 'LayerSlider'),
 	'SBPasteLayerError'			=> __('There’s nothing to paste. Copy a layer first!', 'LayerSlider'),
@@ -259,10 +273,11 @@ $l10n_ls = [
 	'SBImportLayerNoProject' 	=> __('No projects found.', 'LayerSlider'),
 	'SBImportLayerNoSlide' 		=> __('No slides found.', 'LayerSlider'),
 	'SBImportLayerNoLayer' 		=> __('No layers found.', 'LayerSlider'),
+	'SBImportLayerSelectSlide' 	=> __('Select a slide first.', 'LayerSlider'),
+	'SBImportLayerPTMT' 	=> __('License registration is required to import layers from premium templates.', 'LayerSlider'),
+	'SBImportSlidePTMT' 	=> __('License registration is required to import slides from premium templates.', 'LayerSlider'),
 
 	'SBConfirmApplyToAllSlides' => __('Are you sure you want to apply this setting on all slides? You won’t be able to undo this.', 'LayerSlider'),
-
-	'SBImportLayerSelectSlide' 	=> __('Select a slide first.', 'LayerSlider'),
 
 	'SBLayerTypeImg' 			=> __('Image', 'LayerSlider'),
 	'SBLayerTypeIcon' 			=> __('Icon', 'LayerSlider'),
@@ -287,6 +302,18 @@ $l10n_ls = [
 	'SBSOPlaceholder'			=> _x('SET', 'Input value is changed via smart operation', 'LayerSlider'),
 	'SBNoPreview'				=> __('No Preview'),
 
+	'SBRemoveTransitionPresetConfirmation' 	=> __('Are you sure you want to remove this transition preset? This action cannot be undone.'),
+	'SBApplyTransitionPresetTitle' 			=> _x('Disable %s?', '%s will be replaced with a transition name like "Hover Transition"', 'LayerSlider'),
+	'SBApplyTransitionPresetText' 			=> __('This preset wants to disable %s in order to work optimally in most cases. The displayed preview showed this recommendation applied. However, this is not a requirement, and you can choose to apply the preset without disabling other transitions.', 'LayerSlider'),
+	'SBApplyTransitionPresetOK' 			=> __('Apply Recommendation', 'LayerSlider'),
+	'SBApplyTransitionPresetBoth' 			=> __('Keep Transitions', 'LayerSlider'),
+
+	'SBMediaAutoplayNoticeTitle' => __('Audio prevents autoplay', 'LayerSlider'),
+	'SBMediaAutoplayNoticeText' => __('Modern web browsers don’t allow autoplay with sound in most cases since it was deemed undesirable. Some exceptions exist. For example, if a user frequently visits a website or interacts with it first by clicking on an element before attempting to autoplay with sound.
+<br><br>
+There’s no way to circumvent this restriction. You should either autoplay videos muted and offer an unmute button, or wait for visitors to start playback with sound on their own.
+<br><br>
+LayerSlider will attempt to start playback with sound if you select “Auto” for “Play Muted”. If that’s not possible, it’ll autoplay without sound, and visitors are prompted with an unmute button.', 'LayerSlider'),
 
 	// Transition Builder
 	'TBTransitionName' 			=> __('Type transition name', 'LayerSlider'),
@@ -296,5 +323,6 @@ $l10n_ls = [
 
 
 	// System Status
-	'SSClearGroupsConfirmation'	=> __("Are you sure you want to clear all groups? All your projects will be moved and remain available on the main grid. Your groups, however, will irreversibly be removed.\n\n Do you wish to continue?", 'LayerSlider')
+	'SSClearGroupsConfirmation'	=> __("Are you sure you want to clear all groups? All your projects will be moved and remain available on the main grid. Your groups, however, will irreversibly be removed.\n\n Do you wish to continue?", 'LayerSlider'),
+	'SSClearLocalStorageConfirmation' => __('Clearing LocalStorage might affect some editor interface settings, but everything important, like your projects and plugin settings, are safely stored in your site’s database, and they won’t be touched.', 'LayerSlider')
 ];

@@ -517,11 +517,11 @@ const lpMetaboxConditionType = ( field, conditions, typeCondition = 'show' ) => 
 			}
 
 			if ( logic == '!=' && val !== Boolean( target ? target.checked : ele.checked ) ) {
-				field.style.display = typeCondition === 'show' ? 'flex' : 'none';
+				field.style.display = typeCondition === 'show' ? '' : 'none';
 			} else if ( logic == '=' && val == Boolean( target ? target.checked : ele.checked ) ) {
-				field.style.display = typeCondition === 'show' ? 'flex' : 'none';
+				field.style.display = typeCondition === 'show' ? '' : 'none';
 			} else {
-				field.style.display = typeCondition === 'show' ? 'none' : 'flex';
+				field.style.display = typeCondition === 'show' ? 'none' : '';
 			}
 			break;
 		}
@@ -552,7 +552,63 @@ const initTooltips = function initTooltips() {
 
 const initSelect2 = function initSelect2() {
 	if ( $.fn.select2 ) {
-		$( '.lp-select-2 select' ).select2();
+		const elSelect2 = $( '.lp-select-2 select' );
+		elSelect2.select2( {
+			placeholder: 'Select a value',
+		} );
+		elSelect2.on( 'change.select2', function( e ) {
+			const el = $( e.target );
+			const val = el.val();
+
+			if ( ! val.length ) {
+				el.val( null );
+			}
+		} );
+
+		$( '.lp_autocomplete_metabox_field' ).each( function() {
+			const dataAtts = $( this ).data( 'atts' );
+			let action = dataAtts.action;
+
+			if ( ! action ) {
+				switch ( dataAtts.data ) {
+				case 'users':
+					action = dataAtts.rest_url + 'wp/v2/users';
+					break;
+				default:
+					action = dataAtts.rest_url + 'wp/v2/' + dataAtts.data;
+					break;
+				}
+			}
+
+			$( this ).find( 'select' ).select2( {
+				placeholder: dataAtts.placeholder ? dataAtts.placeholder : 'Select',
+				ajax: {
+					url: action,
+					dataType: 'json',
+					delay: 250,
+					beforeSend( xhr ) {
+						xhr.setRequestHeader( 'X-WP-Nonce', dataAtts.nonce );
+					},
+					data( params ) {
+						return {
+							search: params.term,
+						};
+					},
+					processResults( data ) {
+						return {
+							results: data.map( ( item ) => {
+								return {
+									id: item.id,
+									text: item.title && item.title.rendered ? item.title.rendered : item.name,
+								};
+							} ),
+						};
+					},
+					cache: true,
+				},
+				minimumInputLength: 2,
+			} );
+		} );
 	}
 };
 

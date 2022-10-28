@@ -77,6 +77,7 @@
 
 	// Find sliders
 	$sliders = LS_Sliders::find( $filters );
+	//$sliders = false;
 
 	// Pager
 	$maxItem = LS_Sliders::$count;
@@ -149,6 +150,8 @@
 		'importSelectError' => __('Choose a file to import', 'LayerSlider'),
 		'importFailed' => __('The import file seems to be invalid or corrupted', 'LayerSlider'),
 		'importSuccess' => sprintf( _n( '%d item has been imported', '%d items have been imported', $notificationsItemCount, 'LayerSlider' ), $notificationsItemCount ),
+		'importLRPartial' => sprintf( __('Some projects couldn’t be imported. Please %sregister your license%s to import premium templates.', 'LayerSlider'), '<a href="#" class="ls-show-activation-box">', '</a>'),
+		'importLSEmpty' => sprintf( __('Please %sregister your license%s to import premium templates.', 'LayerSlider'), '<a href="#" class="ls-show-activation-box">', '</a>'),
 
 		'generalUpdated' => __('Settings saved', 'LayerSlider'),
 		'cacheEmpty' => __('LayerSlider caches has been emptied', 'LayerSlider'),
@@ -209,7 +212,7 @@
 
 <div class="wrap ls-wrap" id="ls-list-page">
 
-	<ls-section id="ls--projects-list">
+	<ls-section id="ls--projects-list" class="<?= $validity ? 'ls--registered' : 'ls--not-registered' ?>">
 		<ls-h2 class="ls--mv-2 ls--gray"><?= sprintf( __('Howdy, %s! Welcome to LayerSlider!', 'LayerSlider'), $currentUser->nickname ) ?></ls-h2>
 
 		<?php
@@ -225,6 +228,7 @@
 			include LS_ROOT_PATH . '/templates/tmpl-quick-import.php';
 			include LS_ROOT_PATH . '/templates/tmpl-activation.php';
 			include LS_ROOT_PATH . '/templates/tmpl-activation-unavailable.php';
+			include LS_ROOT_PATH . '/templates/tmpl-deregister-license-modal.php';
 			include LS_ROOT_PATH . '/templates/tmpl-purchase-ww-popups.php';
 			include LS_ROOT_PATH . '/templates/tmpl-embed-slider.php';
 			include LS_ROOT_PATH . '/templates/tmpl-sliders-list-context-menu.php';
@@ -495,6 +499,26 @@
 				</div>
 				<?php //endif ?>
 			</div>
+
+			<!-- show hidden projects if any -->
+			<?php
+				if( empty( $sliders ) && ! $userFilters ) {
+					$filters['exclude'] = [];
+					$hiddenItems = LS_Sliders::find( $filters );
+					if( ! empty( $hiddenItems ) ) {
+			?>
+			<div class="ls-center ls--mt-3" id="ls-show-hidden-projects">
+				<div class="ls-text">
+					<?= __('We detected that you have some hidden projects.', 'LayerSlider') ?>
+				</div>
+
+				<a class="ls-button ls-button-large ls--mt-3" href="<?= admin_url('admin.php?page=layerslider&filter=all') ?>">
+					<?= lsGetSVGIcon('layer-group') ?>
+					<?= __('Show my hidden projects', 'LayerSlider') ?>
+				</a>
+			</div>
+			<?php } } ?>
+
 		</ls-section>
 
 		<?php if( ! empty( $sliders ) || $userFilters ) : ?>
@@ -591,11 +615,11 @@
 
 			<!-- Empty results notification -->
 			<?php if( empty( $sliders ) && $userFilters ) : ?>
-			<div id="ls-empty-search" class="ls--form-control">
+			<div id="ls-empty-search">
 				<h4><?= __('No Projects Found', 'LayerSlider') ?></h4>
 				<div class="ls-text"><?= sprintf(__('Your search did not match any projects. Make sure that your words are spelled correctly and you used the correct filters.', 'LayerSlider'), '<a href="'.admin_url('admin.php?page=layerslider').'">', '</a>') ?></div>
 				<ls-p>
-					<a class="ls--button ls--large ls--bg-lightgray ls--white" href="<?= admin_url('admin.php?page=layerslider') ?>"><?= __('Reset Search', 'LayerSlider') ?></a>
+					<a class="ls-button ls-button-large" href="<?= admin_url('admin.php?page=layerslider') ?>"><?= __('Reset Search', 'LayerSlider') ?></a>
 				</ls-p>
 			</div>
 			<?php endif ?>
@@ -734,7 +758,7 @@
 							</ls-h2>
 							<ls-wrapper>
 								<ls-div>
-									<a class="twitter-timeline" data-chrome="nofooter noborders transparent" href="https://twitter.com/kreaturamedia?ref_src=twsrc%5Etfw">Tweets by kreaturamedia</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+									<a class="twitter-timeline" data-chrome="noheader noborders transparent" href="https://twitter.com/kreaturamedia?ref_src=twsrc%5Etfw">Tweets by kreaturamedia</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 								</ls-div>
 							</ls-wrapper>
 						</ls-box-inner>
@@ -1101,7 +1125,7 @@
 										</a>
 									</ls-col>
 									<ls-col class="ls--col1-2">
-										<a class="ls--social-youtube" href="https://www.youtube.com/user/kreaturamedia/" target="_blank">
+										<a class="ls--social-youtube" href="https://www.youtube.com/channel/UCduItJ7Cr84lrts7I8Usygw" target="_blank">
 											<?= lsGetSVGIcon('youtube', 'brands') ?>
 											<ls-strong>
 												YouTube

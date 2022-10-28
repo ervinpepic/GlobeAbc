@@ -1,7 +1,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.2.5
+ * @version 	1.2.6
  * 
  * Theme Information
  * Created by CMSMasters
@@ -17,6 +17,25 @@ Theme Settings - Colors and click "Save" in any tab here.
 -----------------------------------------------------------------------
 				FILE LOGS
 -----------------------------------------------------------------------
+Version 1.2.6: files operations:
+
+	Theme Files edited:
+		language-school\css\less\style.less
+		language-school\css\style.css
+		language-school\framework\admin\inc\plugin-activator.php
+		language-school\framework\admin\inc\plugins\cmsmasters-content-composer.zip
+		language-school\framework\admin\inc\plugins\LayerSlider.zip
+		language-school\framework\admin\inc\plugins\revslider.zip
+		language-school\framework\admin\inc\plugins\timetable.zip
+		language-school\framework\admin\settings\cmsmasters-theme-settings-element.php
+		language-school\framework\function\theme-functions.php
+		language-school\framework\languages\language-school.pot
+		language-school\js\jqueryLibraries.min.js
+		language-school\readme.txt
+		language-school\style.css
+
+
+--------------------------------------
 Version 1.2.5: files operations:
 
 	Theme Files edited:

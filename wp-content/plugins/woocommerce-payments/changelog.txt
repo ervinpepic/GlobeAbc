@@ -1,5 +1,58 @@
 *** WooCommerce Payments Changelog ***
 
+= 4.9.0 - 2022-10-20 =
+* Add - Adds new notice and modal informing users about verifying their account during onboarding.
+* Add - Declare WooCommerce Payments incompatible with COT
+* Add - New Multi-Currency filter to display Analytics > Orders in customer currency.
+* Fix - Fix dropdown menu appearance in UPE payment methods when Gutenberg is active.
+* Fix - Fixed issue with Stripe rate limit during the checkout
+* Fix - Fix fatal error with call to MultiCurrency/Compatibility::convert_order_prices method.
+* Fix - Fix platform checkout store logo preview.
+* Fix - Move One Time Shipping metabox fields to use the woocommerce_product_options_shipping_product_data hook introduced in WC 6.0.
+* Fix - Prevent OTP modal from showing up when auto redirection is in progress.
+* Fix - Prevent WooPay OTP after click Place Order button
+* Fix - Save Link payment method tokens for subscription renewal
+* Fix - The ellipsis menu is now readable and we can dismiss the task in the "Things to do" task list from Payments > Overview page
+* Fix - Update default platform checkout host to pay.woo.com
+* Update - Improve handling of subscription bulk action execution.
+* Update - Update formatCurrency to decode HTML entities for rendering currency symbols.
+* Update - Update webhook processing to override existing meta data.
+* Dev - Add authorizations endpoints
+* Dev - Added Apple Pay and Google Pay to tags for the plugin.
+* Dev - Bump minimum required version of WooCommerce to 6.8 to support L2 policy
+* Dev - changed WooPay otp url
+* Dev - Split webpack configuration and enable HMR
+* Dev - Update E2E docker image and change image user
+* Dev - Update subscriptions-core to 2.3.0.
+
+= 4.8.1 - 2022-10-04 =
+* Fix - Fix fatal error thrown during the renewal order payment flow when the store doesn't have the WCPay Subscriptions feature enabled
+
+= 4.8.0 - 2022-09-29 =
+* Add - Add bundle size check for PR's.
+* Add - Allow subscription processing via WooPay.
+* Add - Auto redirect logged in platform checkout users.
+* Add - Remove deprecated beta headers from Stripe requests.
+* Add - Send a few extra pieces of data when checking if a WooPay user exists.
+* Add - StripeLink - prefill first and last names on checkout.
+* Add - Timezone formatting for transaction filters.
+* Fix - Ask for login when guest mode is disabled while checking out with WooPay.
+* Fix - Change 'zero-cost-fee' to 'empty-order', for product_code while sending level 3 data for shipping-only orders, without products.
+* Fix - Correct empty email error when StripeLink is active on checkout page.
+* Fix - Fix off by one error.
+* Fix - Fix the rate calculation when using Table Rate Shipping and per item or per line item calculation type.
+* Fix - Fix trial subscription checkout without WooPay signing up.
+* Fix - Hide button below email field at checkout, when StripeLink is disabled.
+* Fix - Hide Link payment method for non-us accounts.
+* Fix - Limit level 3 product code within 12 digits.
+* Fix - Prevent circumstance where WCPay Subscriptions customers could be double charged when the WC Subscriptions extension is active.
+* Fix - The feature flag for the task list in Payments > Overview page was not passed correctly. We now see the business details and reconnect wpcom user task when appropriate.
+* Update - Add timezone formatting only in case client provides user timezone.
+* Dev - Bump minimum required version of WooCommerce from 6.4 to 6.6.
+* Dev - Removes gutenberg plugin installation from E2E environment setup.
+* Dev - Update node to v16 and npm to v8.
+* Dev - Update to add E2E tests for the Multi-Currency functionality.
+
 = 4.7.2 - 2022-09-15 =
 * Fix - Fixes Order ID appearing as N/A in Payments > Transactions
 

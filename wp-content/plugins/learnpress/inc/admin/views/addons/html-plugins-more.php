@@ -9,15 +9,6 @@
 
 defined( 'ABSPATH' ) || exit();
 
-$last_checked = LP_Background_Query_Items::instance()->get_last_checked( 'plugins_tp' );
-$check_url    = wp_nonce_url( add_query_arg( 'force-check-update', 'yes' ), 'lp-check-updates' );
-?>
-
-<p><?php printf( __( 'Last checked %1$s. <a href="%2$s">Check again</a>', 'learnpress' ), human_time_diff( $last_checked ), $check_url ); ?></p>
-
-<?php
-
-
 // get all free Learnpress plugins
 $wp_plugins = LP_Plugins_Helper::get_plugins( 'free' );
 // get all premium Learnpress plugins
@@ -46,7 +37,7 @@ foreach ( $all_plugins as $plugins ) {
 	if ( $plugins['items'] ) {
 		?>
 		<h2>
-			<?php echo $plugins['title'] . ' (<span>' . sizeof( $plugins['items'] ) . '</span>)'; ?>
+			<?php echo sprintf( '%s (<span>%s</span>)', esc_html( $plugins['title'] ), sizeof( $plugins['items'] ) ); ?>
 		</h2>
 		<ul class="addons-browse widefat">
 			<?php

@@ -18,7 +18,7 @@ class Quiz extends Component {
 	}
 
 	componentDidMount() {
-		const { settings, setQuizData, status, isReviewing } = this.props;
+		const { settings, setQuizData } = this.props;
 
 		const { question_ids, questions_per_page } = settings;
 
@@ -37,16 +37,12 @@ class Quiz extends Component {
 		setQuizData( settings );
 	}
 
-	componentDidUpdate( prevProps, prevState ) {
-		const { status, isReviewing } = this.props;
+	componentDidUpdate( prevProps, prevState, snapshot ) {
+		const { status } = prevProps;
+		const elQuizContent = document.querySelector( '.quiz-content' );
 
-		const notStarted = -1 !== [ '', 'viewed', undefined ].indexOf( status ) || ! status;
-
-		if ( isReviewing || ! notStarted ) {
-			const elQuiz = document.querySelector( '.quiz-content' );
-			if ( elQuiz ) {
-				elQuiz.style.display = 'none';
-			}
+		if ( status !== undefined && elQuizContent ) {
+			elQuizContent.style.display = 'none';
 		}
 	}
 

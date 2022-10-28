@@ -299,9 +299,9 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 
 			if ( ! $url ) {
 				if ( 'course_thumbnail' == $size ) {
-					$url = LP()->image( 'no-image.png' );
+					$url = LearnPress::instance()->image( 'no-image.png' );
 				} else {
-					$url = LP()->image( 'placeholder-500x300' );
+					$url = LearnPress::instance()->image( 'placeholder-500x300' );
 				}
 			}
 
@@ -340,22 +340,12 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 		 * @depecated 4.0.0
 		 */
 		public function is_required_enroll() {
-
-			// $return = $this->get_data( 'required_enroll' ) == 'yes';
-			// @deprecated
-			// $return = apply_filters( 'learn_press_course_required_enroll', $return, $this );
-
-			/**
-			 * Since version 4.0.0 feature 'no require enroll' has deprecated
-			 */
-			$return = true;
-
-			return apply_filters( 'learn-press/course-require-enrollment', $return, $this->get_id() );
+			//_deprecated_function( __FUNCTION__, '4.1.7.2', 'is_no_required_enroll' );
+			return ! $this->is_no_required_enroll();
 		}
 		/**
 		 * Check if this course is required enroll or not.
 		 *
-		 * @param mixed
 		 * @author hungkv
 		 * @since 4.0.5
 		 * @return bool
@@ -374,7 +364,7 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 		 * @deprecated
 		 */
 		public function is_require_enrollment() {
-			return $this->is_required_enroll();
+			return ! $this->is_no_required_enroll();
 		}
 
 		/**
@@ -487,54 +477,6 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 
 			return apply_filters( 'learn-press/course/users-enrolled', $enrolled, $this );
 		}
-
-		/**
-		 * Output html for students enrolled counter
-		 *
-		 * @return string
-		 * @editor tungnx
-		 * @modify 4.1.3
-		 */
-		/*public function get_students_html() {
-			$output = '';
-			$count  = $this->get_users_enrolled();
-
-			if ( $count ) {
-				$user = learn_press_get_current_user();
-
-				if ( $user->has_enrolled_course( $this->get_id() ) ) {
-					if ( $count == 1 ) {
-						$output .= esc_html__( 'You enrolled', 'learnpress' );
-					} else {
-						$output .= sprintf(
-							_nx(
-								'You and one student enrolled',
-								'You and <span class="course-students-number">%1$s</span> students enrolled',
-								intval( $count - 1 ),
-								'students-html',
-								'learnpress'
-							),
-							$count - 1
-						);
-					}
-				} else {
-					$output = sprintf(
-						_nx(
-							'One student enrolled',
-							'<span class="course-students-number">%1$s</span> students enrolled',
-							$count,
-							'students-html',
-							'learnpress'
-						),
-						$count
-					);
-				}
-			} else {
-				$output = esc_html__( 'No student enrolled', 'learnpress' );
-			}
-
-			return apply_filters( 'learn-press/students-enrolled-html', $output, $this->get_id() );
-		}*/
 
 		/**
 		 * @param string $field
@@ -859,10 +801,7 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 		 * @return mixed
 		 */
 		public function is_purchasable() {
-			$is_purchasable = $this->exists() && $this->is_required_enroll() && get_post_status( $this->get_id() ) == 'publish';
-
-			// @deprecated
-			$is_purchasable = apply_filters( 'learn_press_item_is_purchasable', $is_purchasable, $this->get_id() );
+			$is_purchasable = $this->exists() && ! $this->is_no_required_enroll() && get_post_status( $this->get_id() ) == 'publish';
 
 			return apply_filters( 'learn-press/is-purchasable', $is_purchasable, $this->get_id() );
 		}

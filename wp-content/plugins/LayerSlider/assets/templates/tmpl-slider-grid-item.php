@@ -17,6 +17,14 @@
 
 		<div class="info">
 			<div class="name">
+				<?php if( ! empty( $item['data']['properties']['pt'] ) ) : ?>
+				<?= lsGetSVGIcon('lock', false, [
+					'class' => 'ls-premium-lock-templates',
+					'data-help-delay' => '100',
+					'data-help' => __('Register your LayerSlider license to use premium templates. Click to learn more.', 'LayerSlider')
+				]) ?>
+				<?php endif ?>
+
 				<?php if( $item['flag_dirty'] == 1 ) : ?>
 				<?= lsGetSVGIcon('save', false, [
 					'data-help-delay' => '100',

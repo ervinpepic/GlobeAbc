@@ -5,7 +5,7 @@
 	<lse-smart-help-arrow></lse-smart-help-arrow>
 	<lse-smart-help-bg>
 		<lse-smart-help-inner>
-			<lse-smart-help-overflow>
+			<lse-smart-help-overflow class="lse-scrollbar lse-scrollbar-light">
 				<lse-smart-help-title></lse-smart-help-title>
 				<lse-smart-help-content></lse-smart-help-content>
 				<lse-grid class="lse-smart-help-cols">
@@ -140,10 +140,20 @@
 	</div>
 
 
+	<div data-smart-help="minresponsiveratio">
+		<?= __('The minimum responsive ratio specifies the smallest size your layers can shrink to when viewed on smaller screens. By default, this value is zero, and there’s no size limitation. The value 1 corresponds to the layer’s original size, making it impossible to become smaller.', 'LayerSlider') ?>
+	</div>
+
+
+	<div data-smart-help="maxresponsiveratio">
+		<?= __('The maximum responsive ratio specifies the largest size your layers can enlarge to when viewed on bigger screens. There’s no size limitation by default. The value 1 corresponds to the layer’s original size, making it impossible to become larger. The value 2 means the layer can double in its size.', 'LayerSlider') ?>
+	</div>
+
+
 	<!-- OFFSETS -->
 	<div data-smart-help="offset">
 
-		<lse-b class="lse-anim lse-jcsb">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-25 lse-anim-box lse-axis-x">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -171,7 +181,7 @@
 
 	<div data-smart-help="offsetin">
 
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-25 lse-anim-box lse-axis-x">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -193,7 +203,7 @@
 
 	<div data-smart-help="offsettextin">
 
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-25 lse-anim-box lse-axis-x">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -216,7 +226,7 @@
 
 	<div data-smart-help="offsetout">
 
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-28 lse-anim-box lse-axis-x">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -239,7 +249,7 @@
 
 	<div data-smart-help="offsettextout">
 
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-28 lse-anim-box lse-axis-x">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -261,7 +271,7 @@
 
 	<div data-smart-help="offsetxscroll">
 
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-30 lse-anim-box lse-axis-x">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -275,7 +285,7 @@
 
 	<div data-smart-help="offsetyscroll">
 
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-31 lse-anim-box lse-axis-y">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -291,7 +301,7 @@
 
 	<!-- SCALES -->
 	<div data-smart-help="scale">
-		<lse-b class="lse-anim lse-jcsb">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-3 lse-anim-box lse-axis-x">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -315,7 +325,7 @@
 
 
 	<div data-smart-help="scalein">
-		<lse-b class="lse-anim lse-jcsb">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-3 lse-anim-box lse-axis-x">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -339,7 +349,7 @@
 
 
 	<div data-smart-help="scaletextin">
-		<lse-b class="lse-anim lse-jcsb">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-3 lse-anim-box lse-axis-x">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -363,7 +373,7 @@
 
 
 	<div data-smart-help="scaleout">
-		<lse-b class="lse-anim lse-jcsb">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-3 lse-anim-box lse-axis-x">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -387,7 +397,7 @@
 
 
 	<div data-smart-help="scaletextout">
-		<lse-b class="lse-anim lse-jcsb">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-3 lse-anim-box lse-axis-x">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -412,7 +422,7 @@
 
 	<div data-smart-help="scalexscroll">
 
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-32 lse-anim-box lse-axis-x">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -426,7 +436,7 @@
 
 	<div data-smart-help="scaleyscroll">
 
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-33 lse-anim-box lse-axis-y">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -442,7 +452,7 @@
 
 	<!-- ROTATE -->
 	<div data-smart-help="rotate">
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-7 lse-anim-box">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -463,7 +473,7 @@
 
 
 	<div data-smart-help="rotatein">
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-7 lse-anim-box">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -484,7 +494,7 @@
 
 
 	<div data-smart-help="rotatetextin">
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-7 lse-anim-box">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -505,7 +515,7 @@
 
 
 	<div data-smart-help="rotateout">
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-7 lse-anim-box">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -526,7 +536,7 @@
 
 
 	<div data-smart-help="rotatetextout">
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-7 lse-anim-box">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -548,7 +558,7 @@
 
 	<div data-smart-help="rotatescroll">
 
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-34 lse-anim-box lse-axis-x lse-axis-y">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -563,7 +573,7 @@
 
 	<div data-smart-help="rotatexscroll">
 
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-35 lse-anim-box lse-axis-x">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -578,7 +588,7 @@
 
 	<div data-smart-help="rotateyscroll">
 
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-36 lse-anim-box lse-axis-y">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -594,7 +604,7 @@
 
 	<!-- SKEW -->
 	<div data-smart-help="skew">
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-8 lse-anim-box lse-axis-x">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -614,7 +624,7 @@
 
 
 	<div data-smart-help="skewin">
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-8 lse-anim-box lse-axis-x">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -634,7 +644,7 @@
 
 
 	<div data-smart-help="skewtextin">
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-8 lse-anim-box lse-axis-x">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -654,7 +664,7 @@
 
 
 	<div data-smart-help="skewout">
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-8 lse-anim-box lse-axis-x">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -674,7 +684,7 @@
 
 
 	<div data-smart-help="skewtextout">
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-8 lse-anim-box lse-axis-x">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -695,7 +705,7 @@
 
 	<div data-smart-help="skewxscroll">
 
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-37 lse-anim-box lse-axis-x">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -710,7 +720,7 @@
 
 	<div data-smart-help="skewyscroll">
 
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-38 lse-anim-box lse-axis-y">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -724,7 +734,7 @@
 
 	<div data-smart-help="opacityscroll">
 
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-39 lse-anim-box">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig lse-anim-moved"></lse-anim-block>
 			</lse-ib>
@@ -747,7 +757,7 @@
 
 	<!-- TRANSFORM -->
 	<div data-smart-help="transformorigin">
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-13 lse-anim-box">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -771,7 +781,7 @@
 
 
 	<div data-smart-help="perspective">
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-14 lse-anim-box lse-axis-y">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -786,10 +796,14 @@
 
 	</div>
 
+	<div data-smart-help="mirrortransition">
+		<?= __('Mirrors the selected transition properties on slide change based on whether you navigate forward or backward in the slider. For example, if a layer normally animates from left to right, it’ll go the opposite direction from the right to the left when you navigate backward.', 'LayerSlider') ?>
+	</div>
+
 
 	<div data-smart-help="mask">
 
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-21 lse-anim-box">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -815,7 +829,7 @@
 
 	<div data-smart-help="easing">
 
-		<lse-b class="lse-anim lse-jcsa">
+		<lse-b class="lse-anim lse-jcse">
 			<lse-ib class="lse-anim-box-16 lse-anim-box">
 				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
 				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
@@ -935,9 +949,9 @@
 	<div data-smart-help="skipviewport">
 		<?= __('By default, LayerSlider will start playing your project when it enters the viewport so that visitors will not miss the animation and effects you intended them to see, even if the project is below the fold. This behavior is controlled by the Project Settings → Slideshow → Start Only In Viewport option.<br><br>
 
-However, there are cases where you might want to display certain interface elements immediately, even if the project canvas is only partially visible and the playback of your project hasn’t started yet.<br><br>
+		However, there are cases where you might want to display certain interface elements immediately, even if the project canvas is only partially visible and the playback of your project hasn’t started yet.<br><br>
 
-With this option, you can exclude layers from waiting for the playback to begin, and they will start the selected transitions immediately.', 'LayerSlider') ?>
+		With this option, you can exclude layers from waiting for the playback to begin, and they will start the selected transitions immediately.', 'LayerSlider') ?>
 	</div>
 
 
@@ -1047,6 +1061,9 @@ With this option, you can exclude layers from waiting for the playback to begin,
 		<lse-ul class="lse-smart-inject">
 			<lse-li data-smart-inject="random(120,-120)"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
 			<lse-li class="_text" data-smart-inject="30|60|90|120"><?= __('Cycle through multiple values', 'LayerSlider') ?></lse-li>
+			<lse-li class="_in _out" data-smart-inject="="><?= __('Inherit value from style settings', 'LayerSlider') ?></lse-li>
+			<lse-li class="_in _out" data-smart-inject="+=60"><?= __('Add 60 to style settings value', 'LayerSlider') ?></lse-li>
+			<lse-li class="_in _out" data-smart-inject="/=2"><?= __('Divide style settings value by 2', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 
 	</div>
@@ -1060,6 +1077,9 @@ With this option, you can exclude layers from waiting for the playback to begin,
 			<lse-li data-smart-inject="-1"><?= __('Flip layer', 'LayerSlider') ?></lse-li>
 			<lse-li class="_transition" data-smart-inject="random(1,2)"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
 			<lse-li class="_text" data-smart-inject="3|2|1.5"><?= __('Cycle through multiple values', 'LayerSlider') ?></lse-li>
+			<lse-li class="_in _out" data-smart-inject="="><?= __('Inherit value from style settings', 'LayerSlider') ?></lse-li>
+			<lse-li class="_in _out" data-smart-inject="*=1.5"><?= __('Multiply style settings value by 1.5', 'LayerSlider') ?></lse-li>
+			<lse-li class="_in _out" data-smart-inject="/=2"><?= __('Divide style settings value by 2', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 
 	</div>
@@ -1069,6 +1089,8 @@ With this option, you can exclude layers from waiting for the playback to begin,
 		<lse-ul class="lse-smart-inject">
 			<lse-li data-smart-inject="random(20,-20)"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
 			<lse-li class="_text" data-smart-inject="10|20|30"><?= __('Cycle through multiple values', 'LayerSlider') ?></lse-li>
+			<lse-li class="_in _out" data-smart-inject="="><?= __('Inherit value from style settings', 'LayerSlider') ?></lse-li>
+			<lse-li class="_in _out" data-smart-inject="+=30"><?= __('Add 30 to style settings value', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 
 	</div>
@@ -1216,6 +1238,50 @@ With this option, you can exclude layers from waiting for the playback to begin,
 		</lse-grid>
 	</div>
 
+	<div data-smart-options="minresponsiveratio">
+		<lse-ul class="lse-smart-inject">
+			<lse-li data-smart-inject="0"><?= __('No limitation', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="0.5"><?= __('Half the layer’s original size', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="1"><?= __('Don’t allow shrinking', 'LayerSlider') ?></lse-li>
+		</lse-ul>
+	</div>
+
+	<div data-smart-options="maxresponsiveratio">
+		<lse-ul class="lse-smart-inject">
+			<lse-li data-smart-inject=""><?= __('No limitation', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="2"><?= __('Double the layer’s original size', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="1"><?= __('Don’t allow enlarging', 'LayerSlider') ?></lse-li>
+		</lse-ul>
+	</div>
+
+	<div data-smart-options="mirrortransition">
+		<lse-grid class="lse-form-elements lse-smart-help-theme lse-form-rows lse-collect-values">
+			<?= lsGetSVGIcon('times-circle',false,['class' => 'lse-form-rows-close']) ?>
+			<lse-row>
+				<lse-col class="lse-placeholder">
+					<lse-ib>
+						<lse-fe-wrapper class="lse-select">
+							<select class="lse-value">
+								<option value=""><?= __('Select properties to mirror', 'LayerSlider') ?></option>
+								<option value="x"><?= __('Offset X', 'LayerSlider') ?></option>
+								<option value="y"><?= __('Offset Y', 'LayerSlider') ?></option>
+								<option value="scalex"><?= __('Scale X', 'LayerSlider') ?></option>
+								<option value="scaley"><?= __('Scale Y', 'LayerSlider') ?></option>
+								<option value="rotation"><?= __('Rotation', 'LayerSlider') ?></option>
+								<option value="rotationx"><?= __('Rotation X', 'LayerSlider') ?></option>
+								<option value="rotationy"><?= __('Rotation Y', 'LayerSlider') ?></option>
+								<option value="skewx"><?= __('Skew X', 'LayerSlider') ?></option>
+								<option value="skewy"><?= __('Skew Y', 'LayerSlider') ?></option>
+							</select>
+						</lse-fe-wrapper>
+					</lse-ib>
+				</lse-col>
+				<lse-col>
+					<lse-button><?= __('Apply selected values', 'LayerSlider') ?></lse-button>
+				</lse-col>
+			</lse-row>
+		</lse-grid>
+	</div>
 	<div data-smart-options="applytoallslides">
 		<lse-grid class="lse-form-elements lse-smart-help-theme lse-form-rows">
 			<lse-row>

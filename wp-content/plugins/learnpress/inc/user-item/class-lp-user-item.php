@@ -368,18 +368,20 @@ class LP_User_Item extends LP_Abstract_Object_Data implements ArrayAccess {
 	 *
 	 * @return string|LP_Datetime $time
 	 * @since 3.3.0
+	 * @version 3.3.1
 	 */
-	public function get_expiration_time( $format = '' ) {
+	public function get_expiration_time( string $format = '' ) {
 		$duration   = get_post_meta( $this->get_item_id(), '_lp_duration', true );
 		$start_time = $this->get_start_time( '', false );
 
 		if ( ! absint( $duration ) || ! $start_time ) {
-			return null;
+			$expire = null;
+		} else {
+			$date   = new LP_Datetime( $start_time->getPeriod( $duration, true ) );
+			$expire = $this->format_time( $date, $format );
 		}
 
-		$date = new LP_Datetime( $start_time->getPeriod( $duration, true ) );
-
-		return $this->format_time( $date, $format );
+		return apply_filters( 'learn-press/user-item/expiration-time', $expire, $format, $this );
 	}
 
 	/**
@@ -407,10 +409,6 @@ class LP_User_Item extends LP_Abstract_Object_Data implements ArrayAccess {
 	 * @modify 4.1.3
 	 */
 	public function get_status( string $field = 'status', bool $force_cache = false ): string {
-		/*if ( ! is_null( $this->get_data( $field, null ) && ! $force_cache ) ) {
-			return $this->get_data( $field );
-		}*/
-
 		$got_status = '';
 
 		try {
@@ -446,21 +444,6 @@ class LP_User_Item extends LP_Abstract_Object_Data implements ArrayAccess {
 	}
 
 	/**
-	 * @editor tungnx
-	 * @reason comment - not use
-	 */
-	/*
-	public function is_available() {
-		if ( null === $this->_is_available ) {
-			$user                = $this->get_user();
-			$order               = $user->get_course_order( $this->get_item_id() );
-			$this->_is_available = $order && ( $order->get_status() === 'completed' ) && $this->is_exists();
-		}
-
-		return $this->_is_available;
-	}*/
-
-	/**
 	 * @param string $return
 	 *
 	 * @return LP_User|int
@@ -469,13 +452,20 @@ class LP_User_Item extends LP_Abstract_Object_Data implements ArrayAccess {
 		return $this->get_data( 'user_id', 0 );
 	}
 
-	public function get_course( $return = '' ) {
-		$cid = $this->get_data( 'ref_id' );
+	/**
+	 * Get course.
+	 *
+	 * @param string $return
+	 *
+	 * @return bool|LP_Course|int|mixed
+	 */
+	public function get_course( string $return = '' ) {
+		$course_id = $this->get_data( 'ref_id', 0 );
 		if ( $return == '' ) {
-			return $cid ? learn_press_get_course( $cid ) : false;
+			return $course_id ? learn_press_get_course( $course_id ) : false;
 		}
 
-		return $cid;
+		return $course_id;
 	}
 
 	/**
@@ -744,10 +734,16 @@ class LP_User_Item extends LP_Abstract_Object_Data implements ArrayAccess {
 	/**
 	 * Get graduation
 	 *
-	 * @return string|null
+	 * @param string $context
+	 *
+	 * @return string
 	 */
-	public function get_graduation() {
-		return $this->get_data( 'graduation', '' );
+	public function get_graduation( string $context = '' ): string {
+		$grade = $this->get_data( 'graduation', '' );
+		if ( ! $grade ) {
+			return '';
+		}
+		return $context == 'display' ? learn_press_course_grade_html( $grade, false ) : $grade;
 	}
 
 	/**
@@ -784,11 +780,6 @@ class LP_User_Item extends LP_Abstract_Object_Data implements ArrayAccess {
 			}
 			$this->_changes = array();
 		}
-
-		/*$data_course = $this->get_parent();
-		if ( $data_course ) {
-			$data_course->calculate_course_results();
-		}*/
 
 		return $return;
 	}
@@ -841,47 +832,6 @@ class LP_User_Item extends LP_Abstract_Object_Data implements ArrayAccess {
 
 		return $interval;
 	}
-
-	public function get_history() {
-		return LP_Object_Cache::get(
-			sprintf(
-				'course-item-%s-%s-%s',
-				$this->get_user_id(),
-				$this->get_course( 'id' ),
-				$this->get_id()
-			),
-			'learn-press/user-course-items'
-		);
-	}
-
-	/**
-	 * @editor tungnx
-	 * @modify 4.1.2
-	 * @reason comment - not use
-	 */
-	/*
-	public function count_history() {
-		if ( $items = $this->get_history() ) {
-			return sizeof( $items );
-		}
-
-		return 0;
-	}*/
-
-	/**
-	 * @editor tungnx
-	 * @modify 4.1.2
-	 * @reason comment - not use
-	 */
-	/*
-	public function remove_user_items_history( $keep = 10 ) {
-		learn_press_remove_user_items_history(
-			$this->get_item_id(),
-			$this->get_course( 'id' ),
-			$this->get_user_id(),
-			$keep
-		);
-	}*/
 
 	/**
 	 * Return number of seconds has exceeded from the expiration time to now.
@@ -1009,43 +959,6 @@ class LP_User_Item extends LP_Abstract_Object_Data implements ArrayAccess {
 	}
 
 	/**
-	 * @editor tungnx
-	 * @modify 4.1.2
-	 * @reason comment - not use
-	 */
-	/*
-	public function delete_meta_data( $include = '', $exclude = '' ) {
-		global $wpdb;
-
-		$where = '';
-		if ( $include ) {
-			settype( $include, 'array' );
-			$format = array_fill( 0, sizeof( $include ), '%s' );
-			$where .= $wpdb->prepare( ' AND meta_key IN(' . join( ',', $format ) . ')', $include );
-		}
-
-		if ( $exclude ) {
-			settype( $exclude, 'array' );
-			$format = array_fill( 0, sizeof( $exclude ), '%s' );
-			$where .= $wpdb->prepare( ' AND meta_key IN(' . join( ',', $format ) . ')', $exclude );
-		}
-
-		$query = $wpdb->prepare(
-			"
-			DELETE FROM {$wpdb->learnpress_user_itemmeta}
-			WHERE learnpress_user_item_id = %d
-			{$where}
-		",
-			$this->get_user_item_id()
-		);
-
-		$wpdb->query( $query );
-
-		$this->_meta_data = array();
-		update_meta_cache( 'learnpress_user_item', $this->get_user_item_id() );
-	}*/
-
-	/**
 	 * Get post type of item.
 	 *
 	 * @return string
@@ -1080,8 +993,9 @@ class LP_User_Item extends LP_Abstract_Object_Data implements ArrayAccess {
 	 *
 	 * @return LP_Datetime
 	 * @since 3.3.0
+	 * @depecated 4.1.7
 	 */
-	public function set_duration( $duration ) {
+	/*public function set_duration( $duration ) {
 		if ( $duration instanceof LP_Datetime ) {
 			$period = $duration->toSql();
 		} else {
@@ -1089,15 +1003,18 @@ class LP_User_Item extends LP_Abstract_Object_Data implements ArrayAccess {
 		}
 
 		return $this->get_expiration_time();
-	}
+	}*/
 
-	public function is_change() {
+	/**
+	 * @depecated 4.1.7
+	 */
+	/*public function is_change() {
 
 		$new_data = $this->get_mysql_data();
 		ksort( $new_data );
 
 		return $this->_data_key !== md5( serialize( $new_data ) );
-	}
+	}*/
 
 	protected function _set_data_date( $key, $value, $extra = false ) {
 		if ( $value instanceof LP_Datetime ) {
@@ -1115,8 +1032,9 @@ class LP_User_Item extends LP_Abstract_Object_Data implements ArrayAccess {
 	 * @param $arguments
 	 *
 	 * @return mixed
+	 * @depecated 4.1.7
 	 */
-	public function __call( $name, $arguments ) {
+	/*public function __call( $name, $arguments ) {
 		if ( ! method_exists( $this, $name ) ) {
 			$course = $this->get_course();
 
@@ -1130,7 +1048,7 @@ class LP_User_Item extends LP_Abstract_Object_Data implements ArrayAccess {
 		}
 
 		return false;
-	}
+	}*/
 
 	public function offsetSet( $offset, $value ) {
 		// TODO: Implement offsetSet() method.

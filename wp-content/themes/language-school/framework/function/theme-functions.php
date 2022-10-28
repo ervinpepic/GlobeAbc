@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.2.4
+ * @version 	1.2.6
  * 
  * Theme Functions
  * Created by CMSMasters
@@ -1419,82 +1419,69 @@ function language_school_create_file($file, $content = '', $verifycontent = true
 
 
 /* Twitter Shortcode Function */
-function cmsmasters_get_tweets($username, $count) {
-	$cmsmasters_option = language_school_get_global_options();
-	
-	
-	language_school_locate_template(CMSMASTERS_CONTENT_COMPOSER_PATH . 'inc/twitter/OAuth.php', true);
-	
-	
-	$excludeReplies = 1;
-	$name = $username;
-	$numTweets = $count;
-	$cacheTime = 1;
-	$backupName = 'cmsmasters_' . 'language-school' . '_tweets_list_backup';
-	
-	
-	$connection = new TwitterOAuth( 
-		(($cmsmasters_option['language-school' . '_api_key'] != '') ? $cmsmasters_option['language-school' . '_api_key'] : ''), 
-		(($cmsmasters_option['language-school' . '_api_secret'] != '') ? $cmsmasters_option['language-school' . '_api_secret'] : ''), 
-		(($cmsmasters_option['language-school' . '_access_token'] != '') ? $cmsmasters_option['language-school' . '_access_token'] : ''), 
-		(($cmsmasters_option['language-school' . '_access_token_secret'] != '') ? $cmsmasters_option['language-school' . '_access_token_secret'] : '')
-	);
-	
-	
-	$totalToFetch = ($excludeReplies) ? max(50, $numTweets * 3) : $numTweets;
-	
-	
-	$fetchedTweets = $connection->get( 
-		'https://api.twitter.com/1.1/statuses/user_timeline.json', 
-		array( 
-			'screen_name' => $name, 
-			'count' => $totalToFetch,
-			'exclude_replies' => true 
-		) 
-	);
-	
-	
-	if ($connection->http_code != 200) {
-		$tweets = get_option($backupName);
-	} else {
-		$limitToDisplay = min($numTweets, count($fetchedTweets));
-		
-		
-		for ($i = 0; $i < $limitToDisplay; $i++) {
-			$tweet = $fetchedTweets[$i];
-			
-			$name = $tweet->user->name;
-			
-			$permalink = 'http://twitter.com/' . $name . '/status/' . $tweet->id_str;
-			
-			$image = $tweet->user->profile_image_url;
-			
-			$pattern = '/(http|https):(\S)+/';
-			
-			$replace = '<a href="${0}" target="_blank" rel="nofollow">${0}</a>';
-			
-			$text = preg_replace($pattern, $replace, $tweet->text);
-			
-			$time = $tweet->created_at;
-			$time = date_parse($time);
-			
-			$uTime = mktime($time['hour'], $time['minute'], $time['second'], $time['month'], $time['day'], $time['year']);
-			
-			
-			$tweets[] = array( 
-				'text' => $text, 
-				'name' => $name, 
-				'permalink' => $permalink, 
-				'image' => $image, 
-				'time' => $uTime 
-			);
-		}
-		
-		
-		update_option($backupName, $tweets);
+function cmsmasters_get_tweets( $username, $count ) {
+	$backup_name = 'cmsmasters_' . 'language-school' . '_tweets_list_backup';
+
+	$backup_tweets = get_option( $backup_name );
+
+	if ( 'done' === get_transient( 'cmsmasters_' . 'language-school' . '_tweets_list_regeneration' ) && ! empty( $backup_tweets ) ) {
+		return $backup_tweets;
 	}
-	
-	
+
+	$cmsmasters_option = language_school_get_global_options();
+
+	if ( empty( $cmsmasters_option['language-school' . '_twitter_access_token'] ) ) {
+		return $backup_tweets;
+	}
+
+	$response = wp_remote_get(
+		'https://api.twitter.com/1.1/statuses/user_timeline.json',
+		array(
+			'headers' => array(
+				'Authorization' => 'Bearer ' . esc_html( $cmsmasters_option['language-school' . '_twitter_access_token'] ),
+			),
+			'body' => array(
+				'screen_name' => $username,
+				'count' => max( 50, $count * 3 ),
+				'exclude_replies' => true,
+				'include_rts' => true,
+			),
+		)
+	);
+
+	if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
+		return $backup_tweets;
+	}
+
+	$fetchedTweets = json_decode( wp_remote_retrieve_body( $response ) );
+	$limitToDisplay = min( $count, count( $fetchedTweets ) );
+	$tweets = array();
+
+	for ( $i = 0; $i < $limitToDisplay; $i++ ) {
+		$tweet = $fetchedTweets[$i];
+		$name = $tweet->user->name;
+		$permalink = '//twitter.com/' . $name . '/status/' . $tweet->id_str;
+		$image = $tweet->user->profile_image_url;
+		$pattern = '/(http|https):(\S)+/';
+		$replace = '<a href="${0}" target="_blank" rel="nofollow">${0}</a>';
+		$text = preg_replace($pattern, $replace, $tweet->text);
+		$time = $tweet->created_at;
+		$time = date_parse($time);
+		$uTime = mktime($time['hour'], $time['minute'], $time['second'], $time['month'], $time['day'], $time['year']);
+
+		$tweets[] = array(
+			'text' => $text,
+			'name' => $name,
+			'permalink' => $permalink,
+			'image' => $image,
+			'time' => $uTime,
+		);
+	}
+
+	update_option( $backup_name, $tweets );
+
+	set_transient( 'cmsmasters_' . 'language-school' . '_tweets_list_regeneration', 'done', HOUR_IN_SECONDS * 6 );
+
 	return $tweets;
 }
 

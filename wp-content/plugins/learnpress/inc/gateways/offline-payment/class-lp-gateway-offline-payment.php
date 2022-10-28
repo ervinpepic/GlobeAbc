@@ -70,7 +70,7 @@ if ( ! function_exists( 'LP_Gateway_Offline_Payment' ) ) {
 		 * @return bool
 		 */
 		public function offline_payment_available(): bool {
-			return LP_Settings::instance()->get( "{$this->id}.enable" ) === 'yes';
+			return LP_Settings::instance()->get( "{$this->id}.enable", 'no' ) === 'yes';
 		}
 
 		/**
@@ -166,7 +166,7 @@ if ( ! function_exists( 'LP_Gateway_Offline_Payment' ) ) {
 			$order->update_status( $default_status, __( 'Payment to be made upon delivery.', 'learnpress' ) );
 
 			// Remove cart
-			LP()->cart->empty_cart();
+			LearnPress::instance()->cart->empty_cart();
 
 			// Return thank you redirect
 			return array(

@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit();
 
 class LP_Filter {
 	/**
-	 * @var int
+	 * @var int set -1 for no limit
 	 */
 	public $limit = 10;
 	/**
@@ -34,7 +34,7 @@ class LP_Filter {
 	 */
 	public $order_by = '';
 	/**
-	 * @var string
+	 * @var string DESC|ASC
 	 */
 	public $order = '';
 	/**
@@ -78,6 +78,10 @@ class LP_Filter {
 	 */
 	public $exclude_fields = array();
 	/**
+	 * @var array for purpose run query update.
+	 */
+	public $set = array();
+	/**
 	 * @var array
 	 */
 	public $where = array();
@@ -101,6 +105,10 @@ class LP_Filter {
 	 * @var bool set true to return string query
 	 */
 	public $return_string_query = false;
+	/**
+	 * @var false set true to return string query to debug
+	 */
+	public $debug_string_query = false;
 	/**
 	 * @var string
 	 */

@@ -52,7 +52,7 @@
 	<script src="<?= $uploads['baseurl'].'/layerslider.custom.transitions.js?ver='.LS_PLUGIN_VERSION ?>"></script>
 	<?php endif ?>
 </head>
-<body>
+<body class="lse-scrollbar lse-scrollbar-dark">
 	<div id="lse-project-scroll-wrapper">
 		<div id="lse-project-wrapper"></div>
 	</div>

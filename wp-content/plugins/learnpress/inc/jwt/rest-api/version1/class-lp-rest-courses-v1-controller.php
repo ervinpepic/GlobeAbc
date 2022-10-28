@@ -332,13 +332,13 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 			}
 			$user = learn_press_get_current_user();
 
-			$cart     = LP()->cart;
+			$cart     = LearnPress::instance()->cart;
 			$checkout = LP_Checkout::instance();
 
 			if ( ! learn_press_enable_cart() ) {
-				$order_awaiting_payment = LP()->session->order_awaiting_payment;
+				$order_awaiting_payment = LearnPress::instance()->session->order_awaiting_payment;
 				$cart->empty_cart();
-				LP()->session->order_awaiting_payment = $order_awaiting_payment;
+				LearnPress::instance()->session->order_awaiting_payment = $order_awaiting_payment;
 			}
 
 			$cart_id = $cart->add_to_cart( $course_id, 1, array() );
@@ -832,11 +832,6 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 
 							$user_item = $user_course ? $user_course->get_item( $item->get_id() ) : false;
 
-							if ( $user_item ) {
-								$graduation = $user_item->get_graduation();
-								$status     = $user_item->get_status();
-							}
-
 							if ( $user ) {
 								$can_view_content_course = $user->can_view_content_course( absint( $section->get_course_id() ) );
 								$can_view_item           = $user->can_view_item( $item->get_id(), $can_view_content_course );
@@ -848,8 +843,8 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 								'title'      => $post->post_title,
 								'preview'    => $item->is_preview(),
 								'duration'   => $item->get_duration()->to_timer( $format, true ),
-								'graduation' => ! empty( $graduation ) ? $graduation : '',
-								'status'     => ! empty( $status ) ? $status : '',
+								'graduation' => $user_item ? $user_item->get_graduation() : '',
+								'status'     => $user_item ? $user_item->get_status() : '',
 								'locked'     => isset( $can_view_item->flag ) ? ! $can_view_item->flag : true,
 							);
 						}
@@ -1370,37 +1365,37 @@ class LP_Jwt_Courses_V1_Controller extends LP_REST_Jwt_Posts_Controller {
 		$params['orderby']['enum'] = array_merge( $params['orderby']['enum'], array( 'menu_order', 'price' ) );
 
 		$params['category']      = array(
-			'description'       => __( 'Limit result set to courses assigned a specific category ID.', 'learnpress' ),
+			'description'       => 'Limit result set to courses assigned a specific category ID.',
 			'type'              => 'string',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['tag']           = array(
-			'description'       => __( 'Limit result set to courses assigned a specific tag ID.', 'learnpress' ),
+			'description'       => 'Limit result set to courses assigned a specific tag ID.',
 			'type'              => 'string',
 			'sanitize_callback' => 'wp_parse_id_list',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['course_filter'] = array(
-			'description'       => __( 'Filter by course to in-progress, passed, failed.', 'learnpress' ),
+			'description'       => 'Filter by course to in-progress, passed, failed.',
 			'type'              => 'string',
 			'sanitize_callback' => 'sanitize_text_field',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 
 		$params['on_sale'] = array(
-			'description'       => __( 'Get item learned by user.', 'learnpress' ),
+			'description'       => 'Get item learned by user.',
 			'type'              => 'boolean',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 
 		$params['popular']  = array(
-			'description'       => __( 'Get item popularity.', 'learnpress' ),
+			'description'       => 'Get item popularity.',
 			'type'              => 'boolean',
 			'validate_callback' => 'rest_validate_request_arg',
 		);
 		$params['optimize'] = array(
-			'description'       => __( 'Disable some fields schema.', 'learnpress' ),
+			'description'       => 'Disable some fields schema.',
 			'type'              => array( 'boolean', 'string' ),
 			'validate_callback' => 'wp_parse_id_list',
 		);

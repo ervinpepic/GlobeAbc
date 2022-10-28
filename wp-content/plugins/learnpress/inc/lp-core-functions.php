@@ -46,8 +46,9 @@ add_filter( 'use_block_editor_for_post_type', 'learnpress_gutenberg_disable_cpt'
  * @param string $type
  *
  * @return bool|LP_Course_CURD|LP_User_CURD|LP_Quiz_CURD|LP_Question_CURD
+ * @depecated 4.1.7.2
  */
-function learn_press_get_curd( $type ) {
+/*function learn_press_get_curd( $type ) {
 	$curds = array(
 		'user'     => 'LP_User_CURD',
 		'course'   => 'LP_Course_CURD',
@@ -62,7 +63,7 @@ function learn_press_get_curd( $type ) {
 	}
 
 	return apply_filters( 'learn-press/curd', $curd, $type, $curds );
-}
+}*/
 
 if ( ! function_exists( 'lp_add_body_class' ) ) {
 	function lp_add_body_class( $classes ) {
@@ -137,18 +138,6 @@ function learn_press_quick_tip( $tip, $echo = true, $options = array() ) {
 }
 
 /**
- * Return TRUE if defined WP_DEBUG and is true or 1.
- *
- * @return bool
- * @editor tungnx
- * @depecated 4.1.6.4
- */
-function learn_press_is_debug() {
-	_deprecated_function( __FUNCTION__, '4.1.6.4' );
-	return LP_Debug::is_debug();
-}
-
-/**
  * Get current post ID.
  *
  * @return int
@@ -176,7 +165,7 @@ function learn_press_get_post() {
  * @return string
  */
 function learn_press_plugin_url( $sub_dir = '' ) {
-	return LP()->plugin_url( $sub_dir );
+	return LearnPress::instance()->plugin_url( $sub_dir );
 }
 
 /**
@@ -187,7 +176,7 @@ function learn_press_plugin_url( $sub_dir = '' ) {
  * @return string
  */
 function learn_press_plugin_path( $sub_dir = '' ) {
-	return LP()->plugin_path( $sub_dir );
+	return LearnPress::instance()->plugin_path( $sub_dir );
 }
 
 /**
@@ -405,45 +394,6 @@ function learn_press_question_name_from_slug( $slug ) {
 }
 
 /**
- * Get the post types which supported to insert into course's section
- *
- * @return array
- */
-function learn_press_section_item_types() {
-	$types = array(
-		'lp_lesson' => esc_html__( 'Lesson', 'learnpress' ),
-		'lp_quiz'   => esc_html__( 'Quiz', 'learnpress' ),
-	);
-
-	return apply_filters( 'learn-press/section/support-item-type', $types );
-}
-
-/**
- * Enqueue js code to print out
- *
- * @param string $code
- * @param bool   $script_tag - wrap code between <script> tag
- * @depecated 4.1.6.8
- */
-function learn_press_enqueue_script( $code, $script_tag = false ) {
-	_deprecated_function( __FUNCTION__, '4.1.6.8' );
-	global $learn_press_queued_js, $learn_press_queued_js_tag;
-
-	if ( $script_tag ) {
-		if ( empty( $learn_press_queued_js_tag ) ) {
-			$learn_press_queued_js_tag = '';
-		}
-		$learn_press_queued_js_tag .= "\n" . $code . "\n";
-	} else {
-		if ( empty( $learn_press_queued_js ) ) {
-			$learn_press_queued_js = '';
-		}
-
-		$learn_press_queued_js .= "\n" . $code . "\n";
-	}
-}
-
-/**
  * Get terms of a course by taxonomy.
  * E.g: course_tag, course_category
  *
@@ -584,113 +534,6 @@ function learn_press_get_post_by_name( $name, $type, $single = true ) {
 
 	return $id ? get_post( $id ) : false;
 }
-
-/**
- * Cache static pages
- *
- * @deprecated 4.1.6.8
- */
-/*function learn_press_setup_pages() {
-	global $wpdb;
-
-	$page_ids = LP_Object_Cache::get( 'static-page-ids', 'learn-press' );
-
-	if ( false === $page_ids ) {
-		$pages    = learn_press_static_pages( true );
-		$page_ids = array();
-
-		foreach ( $pages as $page ) {
-			$id = get_option( 'learn_press_' . $page . '_page_id' );
-
-			if ( absint( $id ) > 0 ) {
-				$page_ids[] = $id;
-			}
-		}
-
-		if ( ! $page_ids ) {
-			return;
-		}
-
-		$query = $wpdb->prepare(
-			"
-			SELECT ID, post_title, post_name, post_date, post_date_gmt, post_modified, post_modified_gmt, post_content, post_parent, post_type
-			FROM {$wpdb->posts}
-			WHERE %d AND ID IN(" . join( ',', $page_ids ) . ')
-			AND post_status <> %s
-		',
-			1,
-			'trash'
-		);
-
-		if ( ! $rows = $wpdb->get_results( $query ) ) {
-			return;
-		}
-
-		foreach ( $rows as $page ) {
-			$page = sanitize_post( $page, 'raw' );
-			wp_cache_add( $page->ID, $page, 'posts' );
-		}
-	}
-}*/
-
-function learn_press_get_course_item_object( $post_type ) {
-	switch ( $post_type ) {
-		case 'lp_quiz':
-			$class = 'LP_Quiz';
-			break;
-		case 'lp_lesson':
-			$class = 'LP_Lesson';
-			break;
-		case 'lp_question':
-			$class = 'LP_Question';
-	}
-}
-
-/**
- * Print out js code in the queue
- *
- * @depecated 4.1.6.8
- */
-function learn_press_print_script() {
-	_deprecated_function( __FUNCTION__, '4.1.6.8' );
-	global $learn_press_queued_js, $learn_press_queued_js_tag;
-
-	if ( ! empty( $learn_press_queued_js ) ) {
-		?>
-		<!-- LearnPress JavaScript -->
-		<script type="text/javascript">
-			jQuery(function ($) {
-				<?php
-				$learn_press_queued_js = wp_check_invalid_utf8( $learn_press_queued_js );
-				$learn_press_queued_js = preg_replace( '/&#(x)?0*(?(1)27|39);?/i', "'", $learn_press_queued_js );
-				$learn_press_queued_js = str_replace( "\r", '', $learn_press_queued_js );
-
-				// echo $learn_press_queued_js;
-				?>
-			})
-		</script>
-
-		<?php
-		unset( $learn_press_queued_js );
-	}
-
-	if ( ! empty( $learn_press_queued_js_tag ) ) {
-		// echo $learn_press_queued_js_tag;
-	}
-}
-
-// add_action( 'wp_footer', 'learn_press_print_script' );
-// add_action( 'admin_footer', 'learn_press_print_script' );
-
-
-/**
- * @param string $str
- * @param int    $lines
- * @depecated 4.1.6.8
- */
-/*function learn_press_email_new_line( $lines = 1, $str = "\r\n" ) {
-	echo str_repeat( $str, $lines );
-}*/
 
 if ( ! function_exists( 'learn_press_is_ajax' ) ) {
 	function learn_press_is_ajax() {
@@ -950,8 +793,9 @@ function learn_press_human_time_to_seconds( $time, $default = '' ) {
  * @param array  $vars .
  *
  * @return bool
+ * @depecated 4.1.7.2
  */
-function learn_press_send_mail( $to = '', $action = '', $vars = array() ) {
+/*function learn_press_send_mail( $to = '', $action = '', $vars = array() ) {
 	$email_settings = LP_Settings::instance();
 
 	if ( ! $email_settings->get( $action . '.enable' ) ) {
@@ -969,12 +813,13 @@ function learn_press_send_mail( $to = '', $action = '', $vars = array() ) {
 	$email->add_recipient( $to );
 
 	return $email->send();
-}
+}*/
 
 /*
  * Send email notification when a course be published
+ * @deprecated 4.1.7.2
  */
-function learn_press_publish_course( $new_status, $old_status, $post ) {
+/*function learn_press_publish_course( $new_status, $old_status, $post ) {
 	if ( $old_status == 'pending' && $new_status == 'publish' && $post->post_type == 'lp_course' ) {
 		$instructor = get_userdata( $post->post_author );
 		$mail_to    = $instructor->user_email;
@@ -994,19 +839,9 @@ function learn_press_publish_course( $new_status, $old_status, $post ) {
 			)
 		);
 	}
-}
+}*/
 
-add_action( 'transition_post_status', 'learn_press_publish_course', 10, 3 );
-
-/**
- * @param $user_id
- *
- * @return WP_Query
- * @depecated 4.1.6.4
- */
-function learn_press_get_enrolled_courses( $user_id ) {
-	return LP()->get_user( $user_id )->get( 'enrolled-courses' );
-}
+//add_action( 'transition_post_status', 'learn_press_publish_course', 10, 3 );
 
 /**
  * @param $user_id
@@ -1587,22 +1422,6 @@ function learn_press_seconds_to_weeks( int $secs = 0 ) {
 	return $result;
 }
 
-/**
- * @depecated since version 4.1.6.6
- */
-/*function learn_press_get_query_var( $var ) {
-	global $wp_query;
-
-	$return = null;
-	if ( ! empty( $wp_query->query_vars[ $var ] ) ) {
-		$return = $wp_query->query_vars[ $var ];
-	} elseif ( ! empty( $_REQUEST[ $var ] ) ) {
-		$return = $_REQUEST[ $var ];
-	}
-
-	return apply_filters( 'learn_press_query_var', $return, $var );
-}*/
-
 function learn_press_course_lesson_permalink_friendly( $permalink, $lesson_id, $course_id ) {
 	if ( '' != get_option( 'permalink_structure' ) ) {
 		if ( preg_match( '!\?lesson=([^\?\&]*)!', $permalink, $matches ) ) {
@@ -1678,51 +1497,52 @@ add_filter( 'gettext_with_context', '_learn_press_translate_user_roles', 10, 4 )
  * @param string
  *
  * @return string
+ * @deprecated 4.1.7.2
  */
-function learn_press_posts_where_statement_search( $where ) {
-	// gets the global query var object
-	global $wp_query, $wpdb;
-
-	/**
-	 * Need to wrap this block into () in order to make it works correctly when filter by specific post type => maybe a bug :)
-	 * from => ( wp_2_posts.post_status = 'publish' OR wp_2_posts.post_status = 'private') OR wp_2_terms.name LIKE '%s%'
-	 * to => ( ( wp_2_posts.post_status = 'publish' OR wp_2_posts.post_status = 'private') OR wp_2_terms.name LIKE '%s%' )
-	 */
-	$a = preg_match( '!(' . $wpdb->posts . '.post_status)!', $where );
-	$b = preg_match( '!(OR\s+' . $wpdb->terms . '.name LIKE \'%' . $wp_query->get( 's' ) . '%\')!', $where );
-
-	if ( $a && $b ) {
-		// append ( to the start of the block
-		$where = preg_replace( '!(' . $wpdb->posts . '.post_status)!', '( $1', $where, 1 );
-
-		// append ) to the end of the block
-		$where = preg_replace(
-			'!(OR\s+' . $wpdb->terms . '.name LIKE \'%' . $wp_query->get( 's' ) . '%\')!',
-			'$1 )',
-			$where
-		);
-	}
-	remove_filter( 'posts_where', 'learn_press_posts_where_statement_search', 99 );
-
-	return $where;
-}
+//function learn_press_posts_where_statement_search( $where ) {
+//	// gets the global query var object
+//	global $wp_query, $wpdb;
+//
+//	/**
+//	 * Need to wrap this block into () in order to make it works correctly when filter by specific post type => maybe a bug :)
+//	 * from => ( wp_2_posts.post_status = 'publish' OR wp_2_posts.post_status = 'private') OR wp_2_terms.name LIKE '%s%'
+//	 * to => ( ( wp_2_posts.post_status = 'publish' OR wp_2_posts.post_status = 'private') OR wp_2_terms.name LIKE '%s%' )
+//	 */
+//	$a = preg_match( '!(' . $wpdb->posts . '.post_status)!', $where );
+//	$b = preg_match( '!(OR\s+' . $wpdb->terms . '.name LIKE \'%' . $wp_query->get( 's' ) . '%\')!', $where );
+//
+//	if ( $a && $b ) {
+//		// append ( to the start of the block
+//		$where = preg_replace( '!(' . $wpdb->posts . '.post_status)!', '( $1', $where, 1 );
+//
+//		// append ) to the end of the block
+//		$where = preg_replace(
+//			'!(OR\s+' . $wpdb->terms . '.name LIKE \'%' . $wp_query->get( 's' ) . '%\')!',
+//			'$1 )',
+//			$where
+//		);
+//	}
+//	remove_filter( 'posts_where', 'learn_press_posts_where_statement_search', 99 );
+//
+//	return $where;
+//}
 
 /**
  * Filter post type for search function
  * Only search lpr_course if see the param ref=course in request
  *
  * @param WP_Query $q
+ * @deprecated 4.1.7.2
  */
-function learn_press_filter_search( $q ) {
+/*function learn_press_filter_search( $q ) {
 	if ( $q->is_main_query() && $q->is_search() && ( ! empty( $_REQUEST['ref'] ) && sanitize_text_field( $_REQUEST['ref'] ) == 'course' ) ) {
 		$q->set( 'post_type', 'lp_course' );
 
 		add_filter( 'posts_where', 'learn_press_posts_where_statement_search', 99 );
 		remove_filter( 'pre_get_posts', 'learn_press_filter_search', 99 );
 	}
-}
-
-add_filter( 'pre_get_posts', 'learn_press_filter_search', 99 );
+}*/
+//add_filter( 'pre_get_posts', 'learn_press_filter_search', 99 );
 
 if ( ! function_exists( 'learn_press_send_json' ) ) {
 	function learn_press_send_json( $data ) {
@@ -1792,7 +1612,8 @@ function learn_press_send_json_success( $data = '' ) {
 function learn_press_maybe_send_json( $data, $callback = null ) {
 	if ( learn_press_is_ajax() ) {
 		is_callable( $callback ) && call_user_func( $callback );
-		if ( empty( $data['message'] ) && ( $message = learn_press_get_messages( true ) ) ) {
+		$message = learn_press_get_messages( true );
+		if ( empty( $data['message'] ) && $message ) {
 			$data['message'] = $message;
 		}
 		learn_press_send_json( $data );
@@ -1811,11 +1632,11 @@ function learn_press_maybe_send_json( $data, $callback = null ) {
  * @return mixed
  */
 function learn_press_get_request( $key, $default = null, $hash = null ) {
-	$return = LP_Helper::sanitize_params_submitted( $default );
+	$return = $default;
 
 	if ( $hash ) {
 		if ( ! empty( $hash[ $key ] ) ) {
-			$return = LP_Helper::sanitize_params_submitted( $hash[ $key ] );
+			$return = $hash[ $key ];
 		}
 	} else {
 		if ( ! empty( $_POST[ $key ] ) ) {
@@ -1895,7 +1716,16 @@ if ( ! function_exists( 'learn_press_is_course_tag' ) ) {
 
 if ( ! function_exists( 'learn_press_is_course' ) ) {
 	function learn_press_is_course() {
-		return is_singular( array( LP_COURSE_CPT ) );
+		/**
+		 * @var WP_Query $wp_query
+		 */
+		global $wp_query;
+
+		if ( $wp_query->get_queried_object() ) {
+			return is_singular( array( LP_COURSE_CPT ) );
+		} else {
+			return false;
+		}
 	}
 }
 
@@ -2032,7 +1862,7 @@ function learn_press_get_endpoint_url( $name, $value, $url ) {
 	}
 
 	// Map endpoint to options
-	$name = isset( LP()->query_vars[ $name ] ) ? LP()->query_vars[ $name ] : $name;
+	$name = isset( LearnPress::instance()->query_vars[ $name ] ) ? LearnPress::instance()->query_vars[ $name ] : $name;
 
 	if ( get_option( 'permalink_structure' ) ) {
 		if ( strstr( $url, '?' ) ) {
@@ -2059,7 +1889,7 @@ function learn_press_add_endpoints() {
 	$endpoints = $settings->get_checkout_endpoints();
 	if ( $endpoints ) {
 		foreach ( $endpoints as $endpoint => $value ) {
-			LP()->query_vars[ $endpoint ] = $value;
+			LearnPress::instance()->query_vars[ $endpoint ] = $value;
 			add_rewrite_endpoint( $value, EP_PAGES );
 		}
 	}
@@ -2067,7 +1897,7 @@ function learn_press_add_endpoints() {
 	$endpoints = $settings->get_profile_endpoints();
 	if ( $endpoints ) {
 		foreach ( $endpoints as $endpoint => $value ) {
-			LP()->query_vars[ $endpoint ] = $value;
+			LearnPress::instance()->query_vars[ $endpoint ] = $value;
 			add_rewrite_endpoint( $value, EP_PAGES );
 		}
 	}
@@ -2076,7 +1906,7 @@ function learn_press_add_endpoints() {
 	if ( $endpoints ) {
 		foreach ( $endpoints as $endpoint => $value ) {
 			$endpoint                     = preg_replace( '!_!', '-', $endpoint );
-			LP()->query_vars[ $endpoint ] = $value;
+			LearnPress::instance()->query_vars[ $endpoint ] = $value;
 			add_rewrite_endpoint(
 				$value, /*EP_ROOT | */
 				EP_PAGES
@@ -2114,7 +1944,7 @@ function learn_press_parse_request() {
 	global $wp;
 
 	// Map query vars to their keys, or get them if endpoints are not supported
-	foreach ( LP()->query_vars as $key => $var ) {
+	foreach ( LearnPress::instance()->query_vars as $key => $var ) {
 		if ( isset( $_GET[ $var ] ) ) {
 			$wp->query_vars[ $key ] = LP_Helper::sanitize_params_submitted( $_GET[ $var ] ?? '' );
 		} elseif ( isset( $wp->query_vars[ $var ] ) ) {
@@ -2142,14 +1972,15 @@ if ( ! function_exists( 'learn_press_reset_auto_increment' ) ) {
  * @param bool   $hash
  *
  * @return string
+ * @depecated 4.1.7.2
  */
-function learn_press_get_log_file_path( $handle, $hash = false ) {
+/*function learn_press_get_log_file_path( $handle, $hash = false ) {
 	if ( $hash ) {
 		$hash = '-' . sanitize_file_name( wp_hash( $handle ) );
 	}
 
 	return trailingslashit( LP_LOG_PATH ) . $handle . $hash . '.log';
-}
+}*/
 
 /**
  * Get the cart object in checkout page
@@ -2157,7 +1988,7 @@ function learn_press_get_log_file_path( $handle, $hash = false ) {
  * @return LP_Cart
  */
 function learn_press_get_checkout_cart() {
-	return apply_filters( 'learn_press_checkout_cart', LP()->cart );
+	return apply_filters( 'learn_press_checkout_cart', LearnPress::instance()->cart );
 }
 
 /*function learn_press_front_scripts() {
@@ -2166,7 +1997,7 @@ function learn_press_get_checkout_cart() {
 	}
 	$js = array(
 		'ajax'        => admin_url( 'admin-ajax.php' ),
-		'plugin_url'  => LP()->plugin_url(),
+		'plugin_url'  => LearnPress::instance()->plugin_url(),
 		'siteurl'     => home_url(),
 		'current_url' => learn_press_get_current_url(),
 		'localize'    => array(
@@ -2255,10 +2086,11 @@ function learn_press_profile_tab_exists( $tab ) {
  * @param string $string
  *
  * @return string
+ * @depecated 4.1.7.2
  */
-function _learn_press_urlencode( $string ) {
+/*function _learn_press_urlencode( $string ) {
 	return preg_replace( '/\s/', '+', $string );
-}
+}*/
 
 /**
  * Point the archive post type link to course page if current
@@ -2269,16 +2101,16 @@ function _learn_press_urlencode( $string ) {
  * @param string $post_type
  *
  * @return string
+ * @depecated 4.1.7.2
  */
-function learn_press_post_type_archive_link( $link, $post_type ) {
+/*function learn_press_post_type_archive_link( $link, $post_type ) {
 	if ( $post_type == LP_COURSE_CPT && learn_press_get_page_id( 'courses' ) ) {
 		$link = learn_press_get_page_link( 'courses' );
 	}
 
 	return $link;
-}
-
-add_filter( 'post_type_archive_link', 'learn_press_post_type_archive_link', 10, 2 );
+}*/
+//add_filter( 'post_type_archive_link', 'learn_press_post_type_archive_link', 10, 2 );
 
 function learn_press_single_term_title( $prefix = '', $display = true ) {
 	$term = get_queried_object();
@@ -2302,7 +2134,7 @@ function learn_press_single_term_title( $prefix = '', $display = true ) {
 	}
 
 	if ( $display ) {
-		echo $prefix . $term_name;
+		echo wp_kses_post( $prefix . $term_name );
 	}
 
 	return $prefix . $term_name;
@@ -2448,7 +2280,7 @@ function learn_press_get_checkout_url() {
  * @return string
  */
 function learn_press_checkout_needs_payment() {
-	return LP()->cart->needs_payment();
+	return LearnPress::instance()->cart->needs_payment();
 }
 
 /**
@@ -2532,8 +2364,9 @@ function learn_press_debug() {
  * Get current time to user for calculate remaining time of quiz.
  *
  * @return int
+ * @depecated 4.1.7.2
  */
-function learn_press_get_current_time() {
+/*function learn_press_get_current_time() {
 	$current_time = apply_filters( 'learn_press_get_current_time', 0 );
 
 	if ( $current_time > 0 ) {
@@ -2550,7 +2383,7 @@ function learn_press_get_current_time() {
 	} else {
 		return $b;
 	}
-}
+}*/
 
 function learn_press_get_requested_post_type() {
 	global $pagenow;
@@ -2588,22 +2421,6 @@ function learn_press_get_graduation_text( $slug ) {
 
 	return apply_filters( 'learn-press/get-graduation-text', $text, $slug );
 }
-
-/*function learn_press_execute_time( $n = 1 ) {
-	static $time;
-	if ( empty( $time ) ) {
-		$time = microtime( true );
-
-		return $time;
-	} else {
-		$execute_time = microtime( true ) - $time;
-
-		echo 'Execute time ' . $n * $execute_time . "\n";
-		$time = 0;
-
-		return $execute_time;
-	}
-}*/
 
 if ( ! function_exists( 'learn_press_is_negative_value' ) ) {
 	function learn_press_is_negative_value( $value ) {
@@ -2670,13 +2487,6 @@ function learn_press_comment_reply_link( $link, $args = array(), $comment = null
 
 add_filter( 'comment_reply_link', 'learn_press_comment_reply_link', 10, 4 );
 
-function learn_press_deprecated_function( $function, $version, $replacement = null ) {
-	if ( LP_Debug::is_debug() ) {
-		_deprecated_function( $function, $version, $replacement );
-	}
-}
-
-
 /**
  * Sanitize content of tooltip
  *
@@ -2720,8 +2530,9 @@ function learn_press_tooltip( $tooltip, $html = false ) {
  *
  * @return float|int
  * @since 3.0.0
+ * @depecated 4.1.7.2
  */
-function learn_press_timezone_offset() {
+/*function learn_press_timezone_offset() {
 	if ( $tz = get_option( 'timezone_string' ) ) {
 		$timezone = new DateTimeZone( $tz );
 
@@ -2729,7 +2540,7 @@ function learn_press_timezone_offset() {
 	} else {
 		return floatval( get_option( 'gmt_offset', 0 ) ) * HOUR_IN_SECONDS;
 	}
-}
+}*/
 
 /**
  * Get default static pages of LP.
@@ -2786,208 +2597,6 @@ function learn_press_static_pages( $name = false ) {
 	}
 
 	return $pages;
-}
-
-/*function learn_press_cache_path( $group, $key = '' ) {
-	$path = LP_PLUGIN_PATH . 'cache';
-	if ( ! file_exists( $path ) ) {
-		@mkdir( $path );
-	}
-	$path = $path . '/' . $group;
-
-	if ( ! file_exists( $path ) ) {
-		@mkdir( $path );
-	}
-	if ( $key ) {
-		$path = $path . '/' . $key . '.ch';
-	}
-
-	return $path;
-}*/
-
-function learn_press_cache_get( $key, $group, $found = null ) {
-	//$file = learn_press_cache_path( $group, $key );
-	$data = wp_cache_get( $key, $group, $found );
-
-	/*if ( ! file_exists( $file ) ) {
-		return false;
-	}*/
-
-	/*if ( false === $data ) {
-		$content = file_get_contents( $file );
-
-		if ( file_exists( $file ) && $content ) {
-			try {
-				$data = unserialize( $content );
-			} catch ( Exception $ex ) {
-				print_r( $content );
-				die();
-			}
-			wp_cache_set( $key, $data, $group, $found );
-		}
-	}*/
-
-	return $data;
-}
-
-function learn_press_cache_set( $key, $data, $group = '', $expire = 0 ) {
-	//$file = learn_press_cache_path( $group, $key );
-	wp_cache_set( $key, $data, $group, $expire );
-
-	/*if ( ! is_string( $data ) ) {
-		$data = serialize( $data );
-	}
-	file_put_contents( $file, $data );*/
-}
-
-function learn_press_cache_replace( $key, $data, $group = '', $expire = 0 ) {
-	wp_cache_replace( $key, $data, $group, $expire );
-}
-
-function learn_press_cache_add( $key, $data, $group = '', $expire = 0 ) {
-	wp_cache_add( $key, $data, $group, $expire );
-}
-
-if ( ! function_exists( 'learn_press_get_widget_course_object' ) ) {
-	/**
-	 * Get course object for widget query.
-	 *
-	 * @param $query
-	 *
-	 * @return array
-	 * @deprecated v4.1.6.1 - we will remove on the version 4.1.7
-	 */
-	function learn_press_get_widget_course_object( $query ) {
-
-		_deprecated_function( __FUNCTION__, '4.1.6.1' );
-
-		global $wpdb;
-
-		$posts = $wpdb->get_results( $query );
-		if ( $posts ) {
-			// get lp courses object from WordPress post
-			$courses = array_map( 'learn_press_get_lp_course', $posts );
-			$courses = array_filter( $courses );
-
-		} else {
-			$courses = array();
-		}
-
-		return $courses;
-	}
-}
-
-if ( ! function_exists( 'learn_press_get_lp_course' ) ) {
-	/**
-	 * Get learn press course from WordPress post object
-	 *
-	 * @param object - reference $post WordPress post object
-	 *
-	 * @return LP_Course course
-	 * @deprecated v4.1.6.1 - we will remove on the version 4.1.7
-	 */
-	function learn_press_get_lp_course( $post ) {
-		_deprecated_function( __FUNCTION__, '4.1.6.1' );
-
-		$id     = $post->ID;
-		$course = null;
-		if ( ! empty( $id ) ) {
-			// $course = new LP_Course( $id );
-			$course = learn_press_get_course( $id );
-		}
-
-		return $course;
-	}
-}
-
-/**
- * Get all items are unassigned to any course.
- *
- * @param string|array $type - Optional. Types of items to get, default is all.
- *
- * @return array
- * @since 3.0.0
- * @deprecated 4.1.4.1 - Will remove on version 4.1.7
- */
-function learn_press_get_unassigned_items( $type = '' ) {
-	_deprecated_function( __FUNCTION__, '4.1.6.1' );
-
-	global $wpdb;
-
-	if ( ! $type ) {
-		$type = learn_press_course_get_support_item_types();
-		$type = array_keys( $type );
-	}
-
-	settype( $type, 'array' );
-	$key = 'items-' . md5( serialize( $type ) );
-
-	if ( false === ( $items = LP_Object_Cache::get( $key, 'learn-press/unassigned' ) ) ) {
-		$format = array_fill( 0, sizeof( $type ), '%s' );
-
-		$query = $wpdb->prepare(
-			"
-            SELECT p.ID
-            FROM {$wpdb->posts} p
-            WHERE p.post_type IN(" . join( ',', $format ) . ")
-            AND p.ID NOT IN(
-                SELECT si.item_id
-                FROM {$wpdb->learnpress_section_items} si
-                INNER JOIN {$wpdb->posts} p ON p.ID = si.item_id
-                WHERE p.post_type IN(" . join( ',', $format ) . ')
-            )
-            AND p.post_status NOT IN(%s, %s)
-        ',
-			array_merge( $type, $type, array( 'auto-draft', 'trash' ) )
-		);
-
-		$items = $wpdb->get_col( $query );
-
-		//LP_Debug::var_dump($query, __FILE__, __LINE__);
-
-		LP_Object_Cache::set( $key, $items, 'learn-press/unassigned' );
-	}
-
-	return $items;
-}
-
-/**
- * Get all questions are unassigned to any quiz.
- *
- * @return array
- * @since 3.0.0
- * @deprecated 4.1.6.1 - Will remove on version 4.1.7
- */
-function learn_press_get_unassigned_questions() {
-	_deprecated_function( __FUNCTION__, '4.1.6.1' );
-
-	global $wpdb;
-
-	if ( false === ( $questions = LP_Object_Cache::get( 'questions', 'learn-press/unassigned' ) ) ) {
-		$query = $wpdb->prepare(
-			"
-            SELECT p.ID
-            FROM {$wpdb->posts} p
-            WHERE p.post_type = %s
-            AND p.ID NOT IN(
-                SELECT qq.question_id
-                FROM {$wpdb->learnpress_quiz_questions} qq
-                INNER JOIN {$wpdb->posts} p ON p.ID = qq.question_id
-                WHERE p.post_type = %s
-            )
-            AND p.post_status NOT IN(%s, %s)
-        ",
-			LP_QUESTION_CPT,
-			LP_QUESTION_CPT,
-			'auto-draft',
-			'trash'
-		);
-
-		$questions = $wpdb->get_col( $query );
-		LP_Object_Cache::set( 'questions', $questions, 'learn-press/unassigned' );
-	}
-
-	return $questions;
 }
 
 /**
@@ -3048,52 +2657,6 @@ function learn_press_date_i18n( $timestamp = '', $format = '', $gmt = false ) {
 	return date_i18n( $format, $timestamp, $gmt );
 }
 
-function learn_press_date() {
-
-}
-
-/**
- * Remove user items.
- *
- * @param int $item_id
- * @param int $course_id
- * @param int $user_id
- * @param int $keep
- *
- * @since 3.0.8
- * @deprecated 4.1.6.1 - Will remove on version 4.1.7
- */
-function learn_press_remove_user_items_history( $item_id, $course_id, $user_id, $keep = 10 ) {
-	_deprecated_function( __FUNCTION__, '4.1.6.1' );
-
-	$user = learn_press_get_user( $user_id );
-	if ( $rows = $user->get_item_archive( $item_id, $course_id ) ) {
-
-		global $wpdb;
-
-		$args  = array( $user_id, $item_id, $course_id );
-		$query = $wpdb->prepare(
-			"
-            DELETE
-            FROM {$wpdb->learnpress_user_items}
-            WHERE user_id = %d AND item_id = %d
-            AND ref_id = %d
-        ",
-			$args
-		);
-
-		if ( $keep ) {
-			$user_item_ids = array_keys( $rows );
-			$user_item_ids = array_splice( $user_item_ids, 0, $keep );
-			$format        = array_fill( 0, sizeof( $user_item_ids ), '%d' );
-
-			$query .= $wpdb->prepare( ' AND user_item_id NOT IN(' . join( ',', $format ) . ')', $user_item_ids );
-		}
-
-		$wpdb->query( $query );
-	}
-}
-
 /**
  * Get item types of course support for blocking. Default is lp_lesson
  *
@@ -3145,8 +2708,9 @@ function learn_press_get_post_type( $post ) {
  * @param string    $type
  *
  * @since 3.1.0
+ * @depecated 4.1.7.2
  */
-function learn_press_cache_add_post_type( $id, $type = '' ) {
+/*function learn_press_cache_add_post_type( $id, $type = '' ) {
 	if ( false === ( $post_types = LP_Object_Cache::get( 'post-types', 'learn-press' ) ) ) {
 		$post_types = array();
 	}
@@ -3158,15 +2722,18 @@ function learn_press_cache_add_post_type( $id, $type = '' ) {
 	}
 
 	LP_Object_Cache::set( 'post-types', $post_types, 'learn-press' );
-}
+}*/
 
-function learn_press_has_option( $name ) {
+/**
+ * @depecated 4.1.7.2
+ */
+/*function learn_press_has_option( $name ) {
 	global $wpdb;
 
 	$query = $wpdb->prepare( "SELECT option_id FROM {$wpdb->options} WHERE option_name = %s", $name );
 
 	return $wpdb->get_var( $query ) > 0;
-}
+}*/
 
 /**
  * Update option to enable shuffle themes for ad.
@@ -3179,11 +2746,14 @@ function _learn_press_schedule_enable_shuffle_themes() {
 
 add_action( 'learn-press/schedule-enable-shuffle-themes', '_learn_press_schedule_enable_shuffle_themes' );
 
-function learn_press_show_log() {
+/**
+ * @depecated 4.1.7.2
+ */
+/*function learn_press_show_log() {
 	if ( trim( LP_Request::get( 'show_log' ) ) === md5( AUTH_KEY ) ) {
 		call_user_func_array( 'learn_press_debug', func_get_args() );
 	}
-}
+}*/
 
 /**
  * @return array
@@ -3192,7 +2762,7 @@ function learn_press_show_log() {
 function learn_press_global_script_params() {
 	$js = array(
 		'ajax'        => admin_url( 'admin-ajax.php' ),
-		'plugin_url'  => LP()->plugin_url(),
+		'plugin_url'  => LearnPress::instance()->plugin_url(),
 		'siteurl'     => home_url(),
 		'current_url' => learn_press_get_current_url(),
 		'theme'       => get_stylesheet(),
@@ -3214,8 +2784,9 @@ function learn_press_global_script_params() {
  *
  * @return string
  * @since 3.3.0
+ * @depecated 4.1.7.2
  */
-function learn_press_get_cron_url() {
+/*function learn_press_get_cron_url() {
 	$nonce = get_option( 'learnpress_cron_url_nonce' );
 
 	if ( ! $nonce ) {
@@ -3231,15 +2802,16 @@ function learn_press_get_cron_url() {
 	);
 
 	return $url;
-}
+}*/
 
 /**
  * Get courses expired.
  *
  * @return array
  * @since 3.3.0
+ * @depecated 4.1.7.2
  */
-function learn_press_get_expired_courses() {
+/*function learn_press_get_expired_courses() {
 	global $wpdb;
 
 	$query = $wpdb->prepare(
@@ -3266,47 +2838,6 @@ function learn_press_get_expired_courses() {
 		'enrolled'
 	);
 
-}
-
-/**
- * Add new error log. Support message as an array|object.
- * Convert message to string if it is not a string.
- *
- * @param mixed $value
- *
- * @since 4.0.0
- */
-function learn_press_error_log( $value ) {
-	if ( is_array( $value ) || is_object( $value ) ) {
-		ob_start();
-		print_r( $value );
-		$value = ob_get_clean();
-	}
-
-	error_log( $value );
-}
-
-/**
- * Get status of global course for current user.
- *
- * @param int $user_id
- * @param int $course_id
- *
- * @return bool|string
- * @since 3.3.0
- * @editor tungnx
- * @modify 4.1.3 - comment - not use
- */
-/*function learn_press_user_course_status( $user_id = 0, $course_id = 0 ) {
-	if ( ! $user = learn_press_get_user( $user_id ? $user_id : get_current_user_id() ) ) {
-		return false;
-	}
-
-	if ( ! $userCourse = $user->get_course_data( $course_id ) ) {
-		return false;
-	}
-
-	return $userCourse->get_status();
 }*/
 
 /**
@@ -3353,8 +2884,9 @@ function learn_press_get_question_support_feature( $feature ) {
  * @param string $color
  *
  * @since 3.3.0
+ * @depecated 4.1.7.2
  */
-function learn_press_circle_progress_html( $percent = 0, $width = 32, $border = 4, $color = '' ) {
+/*function learn_press_circle_progress_html( $percent = 0, $width = 32, $border = 4, $color = '' ) {
 	$radius        = $width / 2;
 	$r             = ( $width - $border ) / 2;
 	$circumference = $r * 2 * pi();
@@ -3380,13 +2912,16 @@ function learn_press_circle_progress_html( $percent = 0, $width = 32, $border = 
 		$radius,
 		$radius
 	);
-}
+}*/
 
-function learn_press_is_page( $page_name ) {
+/**
+ * @depecated 4.1.7.2
+ */
+/*function learn_press_is_page( $page_name ) {
 	$page_id = learn_press_get_page_id( $page_name );
 
 	return $page_id && is_page( $page_id );
-}
+}*/
 
 /**
  * Get end-date from start date with a duration.
@@ -3396,8 +2931,9 @@ function learn_press_is_page( $page_name ) {
  *
  * @return false|string
  * @since 3.x.x
+ * @depecated 4.1.7.2
  */
-function learn_press_date_end_from( $duration, $start = '' ) {
+/*function learn_press_date_end_from( $duration, $start = '' ) {
 	$format = 'Y-m-d H:i:s';
 
 	if ( ! $start ) {
@@ -3415,11 +2951,7 @@ function learn_press_date_end_from( $duration, $start = '' ) {
 	}
 
 	return date( $format, $start + $duration );
-}
-
-function learn_press_date_diff( $from, $to ) {
-
-}
+}*/
 
 function learn_press_cookie_get( $name, $namespace = 'LP' ) {
 	if ( $namespace ) {
@@ -3430,26 +2962,6 @@ function learn_press_cookie_get( $name, $namespace = 'LP' ) {
 
 	return $cookie[ $name ] ?? null;
 }
-
-/**
- * Get list of levels support in course.
- *
- * @return array
- * @since 3.x.x
- * @editor tungnx
- * @reason comment - not use
- */
-/*
-function learn_press_default_course_levels() {
-	$levels = array(
-		'beginner'     => __( 'Beginner', 'learnpress' ),
-		'intermediate' => __( 'Intermediate', 'learnpress' ),
-		'expert'       => __( 'Expert', 'learnpress' ),
-		''             => __( 'All levels', 'learnpress' ),
-	);
-
-	return apply_filters( 'learn-press/default-course-levels', $levels );
-}*/
 
 /**
  * Get default methods to evaluate course results.
@@ -3529,32 +3041,6 @@ function learn_press_course_evaluation_methods( $postid, $return = '', $final_qu
 }
 
 /**
- * Wrap WP Core function current_time with mysql format.
- *
- * @param bool $gmt
- *
- * @return int|string
- * @since 4.0.0
- * @editor tungnx
- * @modify 4.1.4.1 - comment - not use
- */
-/*function learn_press_mysql_time( $gmt = true ) {
-	return current_time( 'mysql', $gmt );
-}*/
-
-/**
- * Wrap WP Core function current_time with timestamp format.
- *
- * @param bool $gmt
- *
- * @return int|string
- * @since 4.0.0
- */
-function learn_press_timestamp( $gmt = true ) {
-	return current_time( 'timestamp', $gmt );
-}
-
-/**
  * Convert time from GMT to local.
  *
  * @param string|int|LP_Datetime $gmt_time
@@ -3562,8 +3048,9 @@ function learn_press_timestamp( $gmt = true ) {
  *
  * @return false|int|string
  * @since 4.0.0
+ * @depecated 4.1.7.2
  */
-function learn_press_time_from_gmt( $gmt_time, $format = 'Y-m-d H:i:s' ) {
+/*function learn_press_time_from_gmt( $gmt_time, $format = 'Y-m-d H:i:s' ) {
 	if ( is_string( $gmt_time ) ) {
 		$gmt_time = strtotime( $gmt_time );
 	} elseif ( $gmt_time instanceof LP_Datetime ) {
@@ -3577,91 +3064,7 @@ function learn_press_time_from_gmt( $gmt_time, $format = 'Y-m-d H:i:s' ) {
 	}
 
 	return $current_time;
-}
-
-/**
- * Count all users has enrolled courses of an instructor.
- *
- * @param int $instructor_id . Author of course
- *
-	SELECT COUNT(DISTINCT (user_id)) AS total
-	FROM wp_learnpress_user_items
-	WHERE 1 = 1
-	AND item_type = 'lp_course'
-	AND item_id IN (
-		SELECT ID
-		FROM wp_posts
-		WHERE post_author = 1
-		AND post_type = 'lp_course'
-		AND post_status = 'publish'
-	);
- *
- * @return int
- * @since 4.0.0
- * @editor tungnx
- * @version 1.0.1
- * @deprecated 4.1.6 replace to "get_statistic_info" function
- */
-//function learn_press_count_instructor_users( int $instructor_id = 0 ): int {
-//	try {
-//		$filter_course                      = new LP_Course_Filter();
-//		$filter_course->only_fields         = array( 'ID' );
-//		$filter_course->post_author         = $instructor_id;
-//		$filter_course->post_status         = 'publish';
-//		$filter_course->return_string_query = true;
-//		$query_courses_str                  = LP_Course_DB::getInstance()->get_courses( $filter_course );
-//
-//		$filter              = new LP_User_Items_Filter();
-//		$filter->only_fields = array( 'DISTINCT (ui.user_id)' );
-//		$filter->field_count = 'DISTINCT (ui.user_id)';
-//		$filter->where[]     = "AND item_id IN ({$query_courses_str})";
-//		$filter->query_count = true;
-//
-//		return LP_User_Item_Course::get_user_courses( $filter );
-//		//return LP_User_Items_DB::getInstance()->get_user_courses( $filter );
-//	} catch ( Throwable $e ) {
-//		error_log( __FUNCTION__ . ': ' . $e->getMessage() );
-//
-//		return 0;
-//	}
-//
-//	/*$curd        = new LP_User_CURD();
-//	$own_courses = $curd->query_own_courses( $instructor_id );
-//	$course_ids  = $own_courses->get_items();*/
-//
-//	/*
-//	global $wpdb;
-//	$filter              = new LP_Course_Filter();
-//	$filter->post_author = $instructor_id;
-//	$filter->limit       = -1;
-//	$courses             = LP_Course::get_courses( $filter );
-//	$course_ids          = LP_Course::get_course_ids( $courses );
-//
-//	if ( ! empty( $course_ids ) ) {
-//		$query = $wpdb->prepare(
-//			"
-//			SELECT COUNT(user_id)
-//			FROM (
-//				SELECT item_id, user_id
-//				FROM {$wpdb->learnpress_user_items}
-//				WHERE item_type = %s
-//				GROUP BY item_id, user_id
-//				HAVING item_id IN(" . join( ',', $course_ids ) . ')
-//			) X
-//			GROUP BY item_id
-//		',
-//			LP_COURSE_CPT
-//		);
-//
-//		$rows = $wpdb->get_col( $query );
-//
-//		if ( $rows ) {
-//			return array_sum( $rows );
-//		}
-//	}
-//
-//	return 0;*/
-//}
+}*/
 
 /**
  * Get max retrying quiz allowed.
@@ -3683,36 +3086,11 @@ function learn_press_get_quiz_max_retrying( $quiz_id = 0, $course_id = 0 ) {
  *
  * @return int
  * @since 4.0.0
+ * @depecated 4.1.7.2
  */
-function learn_press_get_course_max_retrying( $course_id ) {
+/*function learn_press_get_course_max_retrying( $course_id ) {
 	return apply_filters( 'learn-press/max-retry-course-allowed', 1, $course_id );
-}
-
-/**
- * Get slug for status of course/lesson/quiz if user
- * completed/finished and graduation is failed.
- *
- * @param string $type
- *
- * @return string
- * @since 4.0.0
- */
-function learn_press_user_item_failed_slug( $type = '' ) {
-	return apply_filters( 'learn-press/user-item-failed-slug', 'failed', $type );
-}
-
-/**
- * Get slug for status of course/lesson/quiz if user
- * completed/finished and graduation is passed.
- *
- * @param string $type
- *
- * @return string
- * @since 4.0.0
- */
-function learn_press_user_item_passed_slug( $type = '' ) {
-	return apply_filters( 'learn-press/user-item-passed-slug', 'passed', $type );
-}
+}*/
 
 /**
  * Get slug for status of course/lesson/quiz if user
@@ -3746,26 +3124,6 @@ function learn_press_is_enrolled_slug( $slug ) {
 		array(
 			'in-progress',
 			'enrolled',
-		)
-	);
-}
-
-/**
- * @return array
- * @since 4.0.0
- * @editor tungnx
- * @modify 4.1.3 - comment - not use
- */
-function learn_press_course_enrolled_slugs(): array {
-	_deprecated_function( __FUNCTION__, '4.1.3' );
-	return apply_filters(
-		'learn-press/course-enrolled-slugs',
-		array(
-			learn_press_user_item_passed_slug(),
-			learn_press_user_item_failed_slug(),
-			'in-progress',
-			'enrolled',
-			'finished', // deprecated
 		)
 	);
 }

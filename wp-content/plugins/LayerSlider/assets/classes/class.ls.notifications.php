@@ -226,7 +226,7 @@ class LS_Notifications {
 		self::prependInlineNotification([
 			'icon' 		=> 'key',
 			'title' 	=> __('Re-register your license key on this site', 'LayerSlider'),
-			'message' 	=> __('You’ve previously used your license key on this site to receive live plugin updates, add-ons, exclusive features, premium templates, and more. However, it seems that your license is now registered to a different site or is no longer valid. These benefits are unavailable until you re-enter a valid license key.', 'LayerSlider'),
+			'message' 	=> __('You’ve previously used your license key on this site to receive plugin updates, add-ons, exclusive features, premium templates, and more. However, it seems that your license is now registered to a different site or is no longer valid. These benefits are no longer available, and projects built using premium templates will not display on front-end pages until you re-enter a valid license key. This might affect the appearance and functionality of your site and projects. Register a LayerSlider license key to restore them and continue to receive premium benefits.', 'LayerSlider'),
 			'fixed'		=> true,
 			'buttons' 	=> [
 				[

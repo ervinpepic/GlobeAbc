@@ -11,8 +11,7 @@ if ( ! class_exists( 'LP_Background_Single_Email' ) ) {
 	 * @since 4.1.1
 	 * @author tungnx
 	 */
-	class LP_Background_Single_Email extends WP_Async_Request {
-		protected $prefix = 'lp';
+	class LP_Background_Single_Email extends LP_Async_Request {
 		protected $action = 'background_single_email';
 		protected static $instance;
 
@@ -20,8 +19,8 @@ if ( ! class_exists( 'LP_Background_Single_Email' ) ) {
 		 * Method async handle
 		 */
 		protected function handle() {
-			$params     = $_POST['params'] ?? false;
-			$class_name = $_POST['class_name'] ?? false;
+			$params     = LP_Helper::sanitize_params_submitted( $_POST['params'] ?? false );
+			$class_name = LP_Helper::sanitize_params_submitted( $_POST['class_name'] ?? false );
 
 			if ( ! $class_name || ! $params ) {
 				error_log( 'Params send email on background is invalid' );

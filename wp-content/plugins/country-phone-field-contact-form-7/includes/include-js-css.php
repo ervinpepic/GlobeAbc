@@ -110,6 +110,29 @@ function nb_cpf_embedCssJs() {
 							var hiddenInput = $(this).attr("name");
 							$("input[name="+hiddenInput+"-country-code]").val(this.value);
 							
+						});';
+
+						if(! isset($nb_cpf_settings_options['phone_nationalMode']) || isset($nb_cpf_settings_options['phone_nationalMode']) && $nb_cpf_settings_options['phone_nationalMode'] != 1){
+
+							$custom_inline_js .= '$(".wpcf7-phonetext").on("keyup", function() {
+								var dial_code = $(this).siblings(".flag-container").find(".country-list li.active span.dial-code").text();
+								if(dial_code == "")
+								var dial_code = $(this).siblings(".flag-container").find(".country-list li.highlight span.dial-code").text();
+								var value   = $(this).val();
+								console.log(dial_code, value);
+								$(this).val(dial_code + value.substring(dial_code.length));
+							 });';
+
+						}
+		
+						$custom_inline_js .= '$(".wpcf7-countrytext").on("keyup", function() {
+							var country_name = $(this).siblings(".flag-dropdown").find(".country-list li.active span.country-name").text();
+							if(country_name == "")
+							var country_name = $(this).siblings(".flag-dropdown").find(".country-list li.highlight span.country-name").text();
+							
+							var value   = $(this).val();
+							//console.log(country_name, value);
+							$(this).val(country_name + value.substring(country_name.length));
 						});
 
 					}
@@ -144,6 +167,29 @@ function nb_cpf_embedCssJs() {
 					var hiddenInput = $(this).attr("name");
 					$("input[name="+hiddenInput+"-country-code]").val(this.value);
 					
+				});';
+
+				if(! isset($nb_cpf_settings_options['phone_nationalMode']) || isset($nb_cpf_settings_options['phone_nationalMode']) && $nb_cpf_settings_options['phone_nationalMode'] != 1){
+
+					$custom_inline_js .= '$(".wpcf7-phonetext").on("keyup", function() {
+						var dial_code = $(this).siblings(".flag-container").find(".country-list li.active span.dial-code").text();
+						if(dial_code == "")
+						var dial_code = $(this).siblings(".flag-container").find(".country-list li.highlight span.dial-code").text();
+						var value   = $(this).val();
+						console.log(dial_code, value);
+						$(this).val(dial_code + value.substring(dial_code.length));
+					 });';
+
+				}
+
+				$custom_inline_js .= '$(".wpcf7-countrytext").on("keyup", function() {
+					var country_name = $(this).siblings(".flag-dropdown").find(".country-list li.active span.country-name").text();
+					if(country_name == "")
+					var country_name = $(this).siblings(".flag-dropdown").find(".country-list li.highlight span.country-name").text();
+					
+					var value   = $(this).val();
+					//console.log(country_name, value);
+					$(this).val(country_name + value.substring(country_name.length));
 				});
 				
 			});

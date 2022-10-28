@@ -808,7 +808,7 @@ jQuery(function($) {
 	$('#ls--box-license a.ls-deauthorize').click(function(event) {
 		event.preventDefault();
 
-		if( confirm(LS_l10n.SLDeactivate) ) {
+		// if( confirm(LS_l10n.SLDeactivate) ) {
 
 			var $form = $(this).closest('form');
 
@@ -827,6 +827,13 @@ jQuery(function($) {
 					// Update GUI to reflect the "registered" state
 					$( '#ls--license-slider' ).layerSlider( 1 );
 					LS__setRegistered( false );
+
+					// Display notification modal window
+					kmw.modal.open({
+						content: '#tmpl-deregister-license',
+						maxWidth: 560,
+						minWidth: 560
+					});
 				}
 
 				// Alert message (if any)
@@ -834,7 +841,7 @@ jQuery(function($) {
 					alert(data.message);
 				}
 			});
-		}
+		// }
 	});
 
 	var lsShowActivationBox = function( activateBox ) {
@@ -861,6 +868,11 @@ jQuery(function($) {
 	$( document ).on('click', '.ls-show-activation-box', function(e) {
 		e.preventDefault();
 		lsShowActivationBox();
+	}).on('click', '.ls-premium-lock-templates', function( e ) {
+		e.preventDefault();
+		lsDisplayActivationWindow({
+			title: LS_l10n.notifyPremiumTemplateMT
+		});
 	});
 
 	$( document ).on('click', '#lse-activation-modal-window .lse-button-activation', function( e ) {
@@ -1607,9 +1619,9 @@ jQuery(function($) {
 
 	var LS__setRegistered = function( registered){
 		if( registered ){
-			$('#ls--admin-boxes').removeClass('ls--not-registered').addClass('ls--registered');
+			$('#ls--admin-boxes, #ls--projects-list').removeClass('ls--not-registered').addClass('ls--registered');
 		}else{
-			$('#ls--admin-boxes').removeClass('ls--registered').addClass('ls--not-registered');
+			$('#ls--admin-boxes, #ls--projects-list').removeClass('ls--registered').addClass('ls--not-registered');
 		}
 
 	};

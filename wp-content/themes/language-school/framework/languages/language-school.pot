@@ -1,22 +1,22 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Language School 1.2.4\n"
+"Project-Id-Version: Language School 1.2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-22 12:49+0200\n"
-"PO-Revision-Date: 2021-11-22 12:49+0200\n"
+"POT-Creation-Date: 2022-10-24 09:43+0300\n"
+"PO-Revision-Date: 2022-10-24 09:43+0300\n"
 "Last-Translator: \n"
 "Language-Team: cmsmasters <cmsmstrs@gmail.com>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-KeywordsList: __;_e;_x;_ex;esc_attr__;esc_attr_e;esc_attr_x;"
 "esc_html__;esc_html_e;esc_html_x;translate_nooped_plural;_n:1,2;_n_noop:1,2;"
 "_nx:1,2\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.1.1\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: 404.php:35
@@ -1092,7 +1092,7 @@ msgstr ""
 
 #: framework/admin/options/cmsmasters-theme-options-project.php:43
 #: framework/admin/settings/cmsmasters-theme-settings-single.php:20
-#: framework/function/theme-functions.php:1886 functions.php:276
+#: framework/function/theme-functions.php:1873 functions.php:276
 msgid "Project"
 msgstr ""
 
@@ -1143,7 +1143,7 @@ msgid "Project Link Text"
 msgstr ""
 
 #: framework/admin/options/cmsmasters-theme-options-project.php:266
-#: framework/function/theme-functions.php:1893
+#: framework/function/theme-functions.php:1880
 msgid "View Project"
 msgstr ""
 
@@ -1408,8 +1408,8 @@ msgid "Pages"
 msgstr ""
 
 #: framework/admin/options/cmsmasters-theme-options.php:749
-#: framework/function/theme-functions.php:1885
-#: framework/function/theme-functions.php:1887
+#: framework/function/theme-functions.php:1872
+#: framework/function/theme-functions.php:1874
 msgid "Projects"
 msgstr ""
 
@@ -2093,26 +2093,23 @@ msgid "Google Maps API key"
 msgstr ""
 
 #: framework/admin/settings/cmsmasters-theme-settings-element.php:544
-msgid "Twitter API key"
+msgid "Twitter Access Token"
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings-element.php:554
-msgid "Twitter API secret"
+#: framework/admin/settings/cmsmasters-theme-settings-element.php:547
+#, php-format
+msgid "Generate %s and paste Access Token to this field."
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings-element.php:564
-msgid "Twitter Access token"
+#: framework/admin/settings/cmsmasters-theme-settings-element.php:549
+msgid "twitter access token"
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings-element.php:574
-msgid "Twitter Access token secret"
-msgstr ""
-
-#: framework/admin/settings/cmsmasters-theme-settings-element.php:586
+#: framework/admin/settings/cmsmasters-theme-settings-element.php:562
 msgid "reCAPTCHA Public Key"
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings-element.php:596
+#: framework/admin/settings/cmsmasters-theme-settings-element.php:572
 msgid "reCAPTCHA Private Key"
 msgstr ""
 
@@ -2698,7 +2695,7 @@ msgid "Project Date"
 msgstr ""
 
 #: framework/admin/settings/cmsmasters-theme-settings-single.php:275
-#: framework/function/theme-functions.php:1905
+#: framework/function/theme-functions.php:1892
 msgid "Project Categories"
 msgstr ""
 
@@ -2711,7 +2708,7 @@ msgid "Project Comments"
 msgstr ""
 
 #: framework/admin/settings/cmsmasters-theme-settings-single.php:302
-#: framework/function/theme-functions.php:1915
+#: framework/function/theme-functions.php:1902
 msgid "Project Tags"
 msgstr ""
 
@@ -2789,7 +2786,7 @@ msgid "Enter a profile details block title"
 msgstr ""
 
 #: framework/admin/settings/cmsmasters-theme-settings-single.php:454
-#: framework/function/theme-functions.php:1947
+#: framework/function/theme-functions.php:1934
 msgid "Profile Categories"
 msgstr ""
 
@@ -3758,7 +3755,7 @@ msgid "More projects"
 msgstr ""
 
 #: framework/function/template-functions.php:1627
-#: framework/function/theme-functions.php:1895
+#: framework/function/theme-functions.php:1882
 msgid "No projects found"
 msgstr ""
 
@@ -3865,87 +3862,87 @@ msgstr ""
 msgid "Top Line Navigation"
 msgstr ""
 
-#: framework/function/theme-functions.php:1888
+#: framework/function/theme-functions.php:1875
 msgid "All Projects"
 msgstr ""
 
-#: framework/function/theme-functions.php:1889
-#: framework/function/theme-functions.php:1931
+#: framework/function/theme-functions.php:1876
+#: framework/function/theme-functions.php:1918
 msgid "Add New"
 msgstr ""
 
-#: framework/function/theme-functions.php:1890
+#: framework/function/theme-functions.php:1877
 msgid "Add New Project"
 msgstr ""
 
-#: framework/function/theme-functions.php:1891
+#: framework/function/theme-functions.php:1878
 msgid "Edit Project"
 msgstr ""
 
-#: framework/function/theme-functions.php:1892
+#: framework/function/theme-functions.php:1879
 msgid "New Project"
 msgstr ""
 
-#: framework/function/theme-functions.php:1894
+#: framework/function/theme-functions.php:1881
 msgid "Search Projects"
 msgstr ""
 
-#: framework/function/theme-functions.php:1896
+#: framework/function/theme-functions.php:1883
 msgid "No projects found in Trash"
 msgstr ""
 
-#: framework/function/theme-functions.php:1906
+#: framework/function/theme-functions.php:1893
 msgid "Project Category"
 msgstr ""
 
-#: framework/function/theme-functions.php:1916
+#: framework/function/theme-functions.php:1903
 msgid "Project Tag"
 msgstr ""
 
-#: framework/function/theme-functions.php:1927
-#: framework/function/theme-functions.php:1928
-#: framework/function/theme-functions.php:1929
+#: framework/function/theme-functions.php:1914
+#: framework/function/theme-functions.php:1915
+#: framework/function/theme-functions.php:1916
 msgid "Profiles"
 msgstr ""
 
-#: framework/function/theme-functions.php:1930
+#: framework/function/theme-functions.php:1917
 msgid "All Profiles"
 msgstr ""
 
-#: framework/function/theme-functions.php:1932
+#: framework/function/theme-functions.php:1919
 msgid "Add New Profile"
 msgstr ""
 
-#: framework/function/theme-functions.php:1933
+#: framework/function/theme-functions.php:1920
 msgid "Edit Profile"
 msgstr ""
 
-#: framework/function/theme-functions.php:1934
+#: framework/function/theme-functions.php:1921
 msgid "New Profile"
 msgstr ""
 
-#: framework/function/theme-functions.php:1935
+#: framework/function/theme-functions.php:1922
 msgid "View Profile"
 msgstr ""
 
-#: framework/function/theme-functions.php:1936
+#: framework/function/theme-functions.php:1923
 msgid "Search Profiles"
 msgstr ""
 
-#: framework/function/theme-functions.php:1937
+#: framework/function/theme-functions.php:1924
 msgid "No Profiles found"
 msgstr ""
 
-#: framework/function/theme-functions.php:1938
+#: framework/function/theme-functions.php:1925
 msgid "No Profiles found in Trash"
 msgstr ""
 
-#: framework/function/theme-functions.php:1948
+#: framework/function/theme-functions.php:1935
 msgid "Profile Category"
 msgstr ""
 
-#: framework/function/theme-functions.php:2171
-#: framework/function/theme-functions.php:2174
+#: framework/function/theme-functions.php:2158
+#: framework/function/theme-functions.php:2161
 #, php-format
 msgid "Default: %s"
 msgstr ""

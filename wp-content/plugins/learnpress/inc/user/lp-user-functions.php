@@ -74,8 +74,12 @@ function learn_press_get_user_item_id( $user_id, $item_id, $course_id = 0 /* add
  *
  * @return int
  */
-function learn_press_get_current_user_id() {
+function learn_press_get_current_user_id(): int {
 	$user = learn_press_get_current_user();
+
+	if ( ! $user ) {
+		return 0;
+	}
 
 	return $user->get_id();
 }
@@ -114,19 +118,19 @@ if ( ! function_exists( 'learn_press_get_user' ) ) {
 	 */
 	function learn_press_get_user( $user_id, $current = false, $force_new = false ) {
 		$is_guest = false;
-		if ( ! is_null( LP()->session ) && $user_id != LP()->session->guest_user_id ) {
+		if ( ! is_null( LearnPress::instance()->session ) && $user_id != LearnPress::instance()->session->guest_user_id ) {
 			if ( $current && ! get_user_by( 'id', $user_id ) ) {
 				$user_id = get_current_user_id();
 			}
 		}
 
-		if ( ! $user_id && isset( LP()->session ) ) {
-			if ( ! LP()->session->guest_user_id ) {
-				LP()->session->set_customer_session_cookie( 1 );
-				LP()->session->guest_user_id = time();
+		if ( ! $user_id && isset( LearnPress::instance()->session ) ) {
+			if ( ! LearnPress::instance()->session->guest_user_id ) {
+				LearnPress::instance()->session->set_customer_session_cookie( 1 );
+				LearnPress::instance()->session->guest_user_id = time();
 			}
 
-			$user_id  = LP()->session->guest_user_id;
+			$user_id  = LearnPress::instance()->session->guest_user_id;
 			$is_guest = true;
 		}
 
@@ -1014,114 +1018,6 @@ function learn_press_get_user_option( $name, $id = 0 ) {
 }
 
 /**
- * Check and update user information from request in user profile page
- */
-function learn_press_update_user_profile() {
-
-	if ( ! LP()->is_request( 'post' ) ) {
-		return;
-	}
-	$nonce = learn_press_get_request( 'profile-nonce' );
-
-	if ( ! wp_verify_nonce( $nonce, 'learn-press-update-user-profile-' . get_current_user_id() ) ) {
-		return;
-	}
-	$section = learn_press_get_request( 'lp-profile-section' );
-
-	do_action( 'learn_press_update_user_profile_' . $section );
-	do_action( 'learn_press_update_user_profile', $section );
-}
-
-// add_action( 'init', 'learn_press_update_user_profile' );
-
-// /**
-//  * Update user avatar
-//  */
-// function learn_press_update_user_profile_avatar() {
-// 	$user_id = get_current_user_id();
-// 	$data    = learn_press_get_request( 'lp-user-avatar-crop' );
-
-// 	if ( ! $user_id ) {
-// 		return new WP_Error( 2, 'User is invalid!' );
-// 	}
-
-// 	$upload_dir = learn_press_user_profile_picture_upload_dir();
-
-// 	if ( learn_press_get_request( 'lp-user-avatar-custom' ) != 'yes' ) {
-// 		delete_user_meta( get_current_user_id(), '_lp_profile_picture' );
-
-// 		return false;
-// 	}
-
-// 	$path_img = get_user_meta( $user_id, '_lp_profile_picture', true );
-
-// 	$path = $upload_dir['basedir'] . $path_img;
-
-// 	if ( ! file_exists( $path ) ) {
-// 		return false;
-// 	}
-
-// 	$filetype = wp_check_filetype( $path );
-
-// 	if ( 'jpeg' == $filetype['ext'] ) {
-// 		$im = imagecreatefromjpeg( $path );
-// 	} elseif ( 'png' == $filetype['ext'] ) {
-// 		$im = imagecreatefrompng( $path );
-// 	}
-
-// 	if ( ! isset( $im ) ) {
-// 		return false;
-// 	}
-
-// 	$points  = explode( ',', $data['points'] );
-// 	$im_crop = imagecreatetruecolor( $data['width'], $data['height'] );
-
-// 	if ( ! $im ) {
-// 		return false;
-// 	}
-
-// 	$dst_x = 0;
-// 	$dst_y = 0;
-// 	$dst_w = $data['width'];
-// 	$dst_h = $data['height'];
-// 	$src_x = $points[0];
-// 	$src_y = $points[1];
-// 	$src_w = $points[2] - $points[0];
-// 	$src_h = $points[3] - $points[1];
-
-// 	imagecopyresampled( $im_crop, $im, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h );
-
-// 	$newname = md5( $user_id . microtime( true ) );
-// 	$output  = dirname( $path );
-
-// 	if ( 'jpeg' == $filetype['ext'] ) {
-// 		$newname .= '.jpeg';
-// 		$output  .= '/' . $newname;
-// 		imagejpeg( $im_crop, $output );
-// 	} elseif ( 'png' == $filetype['ext'] ) {
-// 		$newname .= '.png';
-// 		$output  .= '/' . $newname;
-// 		imagepng( $im_crop, $output );
-// 	}
-
-// 	$new_avatar = false;
-
-// 	if ( file_exists( $output ) ) {
-// 		$new_avatar = preg_replace( '!^/!', '', $upload_dir['subdir'] ) . '/' . $newname;
-// 		update_user_meta( $user_id, '_lp_profile_picture', '/' . $new_avatar );
-// 		update_user_meta( $user_id, '_lp_profile_picture_changed', 'yes' );
-
-// 		$new_avatar = $upload_dir['baseurl'] . '/' . $new_avatar;
-// 	}
-
-// 	@unlink( $path );
-
-// 	return $new_avatar;
-// }
-
-// add_action( 'learn_press_update_user_profile_avatar', 'learn_press_update_user_profile_avatar' );
-
-/**
  * Update user basic information.
  *
  * @param bool $wp_error - Optional. Return WP_Error object in case updating failed.
@@ -1145,7 +1041,7 @@ function learn_press_update_user_profile_basic_information( $wp_error = false ) 
 	);
 
 	$update_data = apply_filters( 'learn-press/update-profile-basic-information-data', $update_data );
-	$update_meta = isset( $_POST['_lp_custom_register'] ) ? LP_Helper::sanitize_params_submitted( $_POST['_lp_custom_register'] ) : '';
+	$update_meta = LP_Helper::sanitize_params_submitted( $_POST['_lp_custom_register'] ?? '' );
 
 	$return = LP_Forms_Handler::update_user_data( $update_data, $update_meta );
 
@@ -1389,7 +1285,13 @@ function learn_press_user_profile_link( $user_id = 0, $tab = null ) {
 			unset( $args['user'] );
 		}
 	}
-	$args         = array_map( '_learn_press_urlencode', $args );
+
+	/*$args         = array_map(
+		function ( $string ) {
+			return preg_replace( '/\s/', '+', $string );
+		},
+		$args
+	);*/
 	$profile_link = trailingslashit( learn_press_get_page_link( 'profile' ) );
 	if ( $profile_link ) {
 		if ( get_option( 'permalink_structure' ) /*&& learn_press_get_page_id( 'profile' )*/ ) {
@@ -1444,7 +1346,7 @@ function learn_press_get_user_distraction() {
 	if ( is_user_logged_in() ) {
 		return get_user_option( 'distraction_mode', get_current_user_id() );
 	} else {
-		return LP()->session->distraction_mode;
+		return LearnPress::instance()->session->distraction_mode;
 	}
 }
 
@@ -1895,10 +1797,9 @@ function learn_press_update_extra_user_profile_fields( $user_id ) {
 	}
 
 	if ( isset( $_POST['_lp_extra_info'] ) ) {
-		update_user_meta( $user_id, '_lp_extra_info', $_POST['_lp_extra_info'] );
+		update_user_meta( $user_id, '_lp_extra_info', LP_Helper::sanitize_params_submitted( $_POST['_lp_extra_info'] ) );
 	}
 }
-
 add_action( 'personal_options_update', 'learn_press_update_extra_user_profile_fields' );
 add_action( 'edit_user_profile_update', 'learn_press_update_extra_user_profile_fields' );
 
@@ -1939,15 +1840,15 @@ function learn_press_social_profiles() {
 }
 
 function lp_add_default_fields( $fields ) {
-	$first_name = LP_Settings::instance()->get( 'enable_register_first_name' );
+	$first_name = LP_Settings::get_option( 'enable_register_first_name', 'no' );
 
 	if ( $first_name === 'yes' ) {
 		?>
 		<li class="form-field">
 			<label for="reg_first_name"><?php esc_html_e( 'First name', 'learnpress' ); ?></label>
 			<input id="reg_first_name" name="reg_first_name" type="text"
-				   placeholder="<?php esc_attr_e( 'First name', 'learnpress' ); ?>"
-				   value="<?php echo ( ! empty( $_POST['reg_first_name'] ) ) ? esc_attr( wp_unslash( $_POST['reg_first_name'] ) ) : ''; ?>">
+				placeholder="<?php esc_attr_e( 'First name', 'learnpress' ); ?>"
+				value="<?php echo esc_attr( wp_unslash( $_POST['reg_first_name'] ?? '' ) ); ?>">
 		</li>
 		<?php
 	}
@@ -1959,8 +1860,8 @@ function lp_add_default_fields( $fields ) {
 		<li class="form-field">
 			<label for="reg_last_name"><?php esc_html_e( 'Last name', 'learnpress' ); ?></label>
 			<input id="reg_last_name" name="reg_last_name" type="text"
-				   placeholder="<?php esc_attr_e( 'Last name', 'learnpress' ); ?>"
-				   value="<?php echo ( ! empty( $_POST['reg_last_name'] ) ) ? esc_attr( wp_unslash( $_POST['reg_last_name'] ) ) : ''; ?>">
+				placeholder="<?php esc_attr_e( 'Last name', 'learnpress' ); ?>"
+				value="<?php echo esc_attr( wp_unslash( $_POST['reg_last_name'] ?? '' ) ); ?>">
 		</li>
 		<?php
 	}
@@ -1972,8 +1873,8 @@ function lp_add_default_fields( $fields ) {
 		<li class="form-field">
 			<label for="reg_display_name"><?php esc_html_e( 'Display name', 'learnpress' ); ?></label>
 			<input id="reg_display_name" name="reg_display_name" type="text"
-				   placeholder="<?php esc_attr_e( 'Display name', 'learnpress' ); ?>"
-				   value="<?php echo ( ! empty( $_POST['reg_display_name'] ) ) ? esc_attr( wp_unslash( $_POST['reg_display_name'] ) ) : ''; ?>">
+				placeholder="<?php esc_attr_e( 'Display name', 'learnpress' ); ?>"
+				value="<?php echo esc_attr( wp_unslash( $_POST['reg_display_name'] ?? '' ) ); ?>">
 		</li>
 		<?php
 	}
@@ -2015,24 +1916,18 @@ function lp_custom_register_fields_display() {
 						case 'number':
 						case 'email':
 						case 'url':
-							?>
-							<label for="description"><?php echo esc_html( $custom_field['name'] ); ?></label>
-							<?php
-							break;
 						case 'tel':
 							?>
-							<label for="">
-								<input name="_lp_custom_register_form[<?php echo esc_attr( $value ); ?>]"
-									type="<?php echo esc_attr( $custom_field['type'] ); ?>" class="regular-text"
-									value="" />
-							</label>
+							<label for="description"><?php echo esc_html( $custom_field['name'] ); ?></label>
+							<input name="_lp_custom_register_form[<?php echo esc_attr( $value ); ?>]"
+								type="<?php echo esc_attr( $custom_field['type'] ); ?>" class="regular-text"
+								value="" />
 							<?php
 							break;
 						case 'textarea':
 							?>
-							<label for="description"><?php echo esc_html( $custom_field['name'] ); ?>
-								<textarea name="_lp_custom_register_form[<?php echo esc_attr( $value ); ?>]"></textarea>
-							</label>
+							<label for="description"><?php echo esc_html( $custom_field['name'] ); ?></label>
+							<textarea name="_lp_custom_register_form[<?php echo esc_attr( $value ); ?>]"></textarea>
 							<?php
 							break;
 						case 'checkbox':

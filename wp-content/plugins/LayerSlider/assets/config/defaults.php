@@ -180,7 +180,7 @@ $lsDefaults = [
 		],
 
 		'allowFullscreen' => [
-			'value' => true,
+			'value' => false,
 			'name' => __('Allow Fullscreen Mode', 'LayerSlider'),
 			'keys' => 'allowFullscreen',
 			'desc' => __('Visitors can enter OS native full-screen mode when double clicking on the slider.', 'LayerSlider')
@@ -604,7 +604,7 @@ $lsDefaults = [
 
 
 		'sliderFadeInDuration' => [
-			'value' => 350,
+			'value' => 0,
 			'name' => __('Initial Fade Duration', 'LayerSlider'),
 			'keys' => ['sliderfadeinduration', 'sliderFadeInDuration'],
 			'advanced' => true,
@@ -2391,6 +2391,12 @@ $lsDefaults = [
 			'keys' => 'transformperspectivein'
 		],
 
+		'transitionInMirror' => [
+			'value' => '',
+			'name' => __('Mirror Transition', 'LayerSlider'),
+			'keys' => 'transformmirrorin'
+		],
+
 		// ======
 
 		'transitionOut' => [
@@ -2552,6 +2558,12 @@ $lsDefaults = [
 			'keys' => 'transformperspectiveout'
 		],
 
+		'transitionOutMirror' => [
+			'value' => '',
+			'name' => __('Mirror Transition', 'LayerSlider'),
+			'keys' => 'transformmirrorout'
+		],
+
 		// -----
 
 		'skipLayer' => [
@@ -2695,6 +2707,18 @@ $lsDefaults = [
 			'keys'  => 'textfadein'
 		],
 
+		'textOverflowIn' => [
+			'value' => 'inherit',
+			'name' => __('Overflow', 'LayerSlider'),
+			'keys' => 'textoverflowin',
+			'options' => [
+				'inherit' => __('Inherit', 'LayerSlider'),
+				'visible' => __('Visible', 'LayerSlider'),
+				'hidden' => __('Hidden', 'LayerSlider')
+			]
+		],
+
+
 		'textStartAtIn' => [
 			'value' => 'transitioninend',
 			'name' => __('StartAt', 'LayerSlider'),
@@ -2791,6 +2815,18 @@ $lsDefaults = [
 			'keys' => 'texttransformperspectivein',
 		],
 
+		'textMirrorIn' => [
+			'value' => '',
+			'name' => __('Mirror Transition', 'LayerSlider'),
+			'keys' => 'texttransformmirrorin'
+		],
+
+		'textColorIn' => [
+			'value' => '',
+			'name' => __('Color', 'LayerSlider'),
+			'keys' => 'textcolorin'
+		],
+
 
 
 
@@ -2829,7 +2865,7 @@ $lsDefaults = [
 		],
 
 		'textShiftOut' => [
-			'value' => '',
+			'value' => 50,
 			'name' => __('Shift Out', 'LayerSlider'),
 			'keys'  => 'textshiftout',
 			'attrs' => ['type' => 'number']
@@ -2869,6 +2905,17 @@ $lsDefaults = [
 			'keys'  => 'textfadeout'
 		],
 
+		'textOverflowOut' => [
+			'value' => 'inherit',
+			'name' => __('Overflow', 'LayerSlider'),
+			'keys' => 'textoverflowout',
+			'options' => [
+				'inherit' => __('Inherit', 'LayerSlider'),
+				'visible' => __('Visible', 'LayerSlider'),
+				'hidden' => __('Hidden', 'LayerSlider')
+			]
+		],
+
 		'textStartAtOut' => [
 			'value' => 'allinandloopend',
 			'name' => __('StartAt', 'LayerSlider'),
@@ -2881,6 +2928,7 @@ $lsDefaults = [
 			'keys'  => 'textstartatouttiming',
 			'props' => [ 'meta' => true ],
 			'options' => [
+				'slidechangeonly' => __('Slide change starts (ignoring modifier)', 'LayerSlider'),
 				'transitioninend' => __('Opening Transition completes', 'LayerSlider'),
 				'textinstart' => __('Opening Text Transition starts', 'LayerSlider'),
 				'textinend' => __('Opening Text Transition completes', 'LayerSlider'),
@@ -2969,6 +3017,18 @@ $lsDefaults = [
 			'value' => '500',
 			'name' => __('Perspective', 'LayerSlider'),
 			'keys' => 'texttransformperspectiveout',
+		],
+
+		'textMirrorOut' => [
+			'value' => '',
+			'name' => __('Mirror Transition', 'LayerSlider'),
+			'keys' => 'texttransformmirrorout'
+		],
+
+		'textColorOut' => [
+			'value' => '',
+			'name' => __('Color', 'LayerSlider'),
+			'keys' => 'textcolorout'
 		],
 
 
@@ -3512,6 +3572,11 @@ $lsDefaults = [
 			'keys' => 'scrolloffsetxyoyo'
 		],
 
+		'scrollOffsetXResponsive' => [
+			'value' => true,
+			'keys' => 'scrolloffsetxresponsive'
+		],
+
 
 		'scrollOffsetY' => [
 			'value' => 0,
@@ -3538,6 +3603,11 @@ $lsDefaults = [
 		'scrollOffsetYYoyo' => [
 			'value' => false,
 			'keys' => 'scrolloffsetyyoyo'
+		],
+
+		'scrollOffsetYResponsive' => [
+			'value' => true,
+			'keys' => 'scrolloffsetyresponsive'
 		],
 
 
@@ -4204,6 +4274,20 @@ $lsDefaults = [
 			]
 		],
 
+		'backgroundClip' => [
+			'value' => 'border-box',
+			'name' => __('Background Clip', 'LayerSlider'),
+			'keys' => 'background-clip',
+			'premium' => true,
+			'options' => [
+				'border-box' => __('No clip', 'LayerSlider'),
+				'text' => __('Text', 'LayerSlider'),
+				'ui-separator' => '–',
+				'padding-box' => __('Padding area', 'LayerSlider'),
+				'content-box' => __('Content area', 'LayerSlider')
+			]
+		],
+
 		'borderRadius' => [
 			'value' => '',
 			'name' => __('Rounded Corners', 'LayerSlider'),
@@ -4305,6 +4389,29 @@ $lsDefaults = [
 			]
 		],
 
+		'minResponsiveRatio' => [
+			'value' => 0,
+			'name' => __('Minimum responsive ratio', 'LayerSlider'),
+			'keys' => 'minresponsiveratio',
+			'attrs' => [
+				'type' => 'number',
+				'step' => 0.1,
+				'min' => 0
+			]
+		],
+
+		'maxResponsiveRatio' => [
+			'value' => '',
+			'name' => __('Maximum responsive ratio', 'LayerSlider'),
+			'keys' => 'maxresponsiveratio',
+			'attrs' => [
+				'placeholder' => __('auto', 'LayerSlider'),
+				'type' => 'number',
+				'step' => 0.1,
+				'min' => 0
+			]
+		],
+
 		'zIndex' => [
 			'value' => '',
 			'name' => __('Stacking Order', 'LayerSlider'),
@@ -4313,6 +4420,16 @@ $lsDefaults = [
 				'type' => 'number',
 				'min' => 1,
 				'placeholder' => __('auto', 'LayerSlider')
+			]
+		],
+
+		'overflow' => [
+			'value' => 'visible',
+			'name' => __('Overflow', 'LayerSlider'),
+			'keys' => 'overflow',
+			'options' => [
+				'visible' => __('Visible', 'LayerSlider'),
+				'hidden' => __('Hidden', 'LayerSlider')
 			]
 		],
 

@@ -288,7 +288,7 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 					$layer['props']['styles'] = [];
 				}
 
-				$layer['props']['html'] = ! empty( $layer['props']['html'] ) ? trim( $layer['props']['html'] ) : '';
+				$layer['props']['html'] = ( ! empty( $layer['props']['html'] ) || $layer['props']['html'] === '0' ) ? trim( $layer['props']['html'] ) : '';
 				$layer['props']['type'] = !empty($layer['props']['type']) ? $layer['props']['type'] : '';
 				$layer['props']['media'] = !empty($layer['props']['media']) ? $layer['props']['media'] : '';
 
@@ -618,7 +618,7 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 				if( ! empty( $layer['props']['styles']['background-color'] ) && strstr( $layer['props']['styles']['background-color'], 'gradient' ) ) {
 
 					if( empty( $layer['props']['styles']['background-image'] ) ) {
-						$layer['props']['styles']['background'] = $layer['props']['styles']['background-color'];
+						$layer['props']['styles']['background-image'] = $layer['props']['styles']['background-color'];
 					} else {
 						$layer['props']['styles']['background-image'] .= ', ' . $layer['props']['styles']['background-color'];
 					}
@@ -629,6 +629,23 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 
 				if( ! empty( $layer['props']['styles']['backdrop-filter'] ) ) {
 					$layer['props']['styles']['-webkit-backdrop-filter'] = $layer['props']['styles']['backdrop-filter'];
+				}
+
+				// v7.5.0: Browser support for background-clip
+				if( ! empty( $layer['props']['styles']['background-clip'] ) ) {
+
+					if( ! $GLOBALS['lsIsActivatedSite'] ) {
+						unset( $layer['props']['styles']['background-clip'] );
+
+					} else {
+
+						$layer['props']['styles']['-webkit-background-clip'] = $layer['props']['styles']['background-clip'];
+
+						if( $layer['props']['styles']['background-clip'] === 'text' ) {
+							$layer['props']['styles']['text-fill-color'] = 'transparent';
+							$layer['props']['styles']['-webkit-text-fill-color'] = 'transparent';
+						}
+					}
 				}
 
 
