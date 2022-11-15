@@ -2,12 +2,89 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version		1.0.0
+ * @version		1.2.7
  * 
  * Theme and Plugin functions
  * Created by CMSMasters
  * 
  */
+
+
+// Theme Settings Google Fonts List
+if (!function_exists('cmsmasters_fonts_list')) {
+	function cmsmasters_fonts_list() {
+		$cmsmasters_option = language_school_get_global_options();
+		
+		
+		$google_web_fonts = array();
+		
+		if (isset($cmsmasters_option['language-school' . '_google_web_fonts']) && is_array($cmsmasters_option['language-school' . '_google_web_fonts'])) {
+			$google_web_fonts_array = $cmsmasters_option['language-school' . '_google_web_fonts'];
+			
+			
+			foreach ($google_web_fonts_array as $google_web_font) {
+				$google_web_font = explode('|', $google_web_font);
+				
+				$google_web_fonts[$google_web_font[0]] = $google_web_font[1];
+			}
+		}
+		
+		
+		$local_fonts = array();
+		
+		if (class_exists('Cmsmasters_Custom_Fonts') && CMSMASTERS_CUSTOM_FONTS) {
+			$local_fonts_query = new WP_Query(array(
+				'post_type' => 'cmsmasters_font', 
+				'orderby' => 'title', 
+				'order' => 'ASC', 
+				'posts_per_page' => -1 
+			));
+			
+			
+			if (count($local_fonts_query->posts) > 0) {
+				foreach ($local_fonts_query->posts as $local_font) {
+					$value = $local_font->ID . ':' . $local_font->post_title;
+					
+					$local_fonts[$value] = $local_font->post_title;
+				}
+			}
+			
+			wp_reset_postdata();
+		}
+		
+		
+		ksort($google_web_fonts);
+		
+		
+		$fonts = array( 
+			'' => esc_html__('None', 'language-school'), 
+			'local' => $local_fonts, 
+			'web' => $google_web_fonts 
+		);
+		
+		
+		return apply_filters('language_school_google_fonts_list_filter', $fonts);
+	}
+}
+
+
+// Add google web fonts if empty
+function language_school_add_google_web_fonts_first() {
+	$font_google = get_option( 'cmsmasters_options_' . 'language-school' . '_font_google', array() );
+
+	if ( ! empty( $font_google ) ) {
+		return;
+	}
+
+	$fonts = array(
+		'language-school' . '_google_web_fonts' => cmsmasters_google_fonts_list(),
+		'language-school' . '_google_web_fonts_subset' => '',
+	);
+
+	update_option( 'cmsmasters_options_' . 'language-school' . '_font_google', $fonts );
+}
+
+add_action('init', 'language_school_add_google_web_fonts_first');
 
 
 // Theme Settings Google Fonts List

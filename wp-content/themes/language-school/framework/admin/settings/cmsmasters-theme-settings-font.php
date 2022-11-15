@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version		1.0.3
+ * @version		1.2.7
  * 
  * Admin Panel Fonts Options
  * Created by CMSMasters
@@ -18,6 +18,7 @@ function language_school_options_font_tabs() {
 	$tabs['nav'] = esc_attr__('Navigation', 'language-school');
 	$tabs['heading'] = esc_attr__('Heading', 'language-school');
 	$tabs['other'] = esc_attr__('Other', 'language-school');
+	$tabs['google'] = esc_attr__('Google Fonts', 'language-school');
 	
 	return $tabs;
 }
@@ -55,6 +56,12 @@ function language_school_options_font_sections() {
 		$sections = array();
 		
 		$sections['other_section'] = esc_html__('Other Fonts Options', 'language-school');
+		
+		break;
+	case 'google':
+		$sections = array();
+		
+		$sections['google_section'] = esc_html__('Serving Google Fonts from CDN', 'language-school');
 		
 		break;
 	default:
@@ -470,6 +477,51 @@ function language_school_options_font_fields($set_tab = false) {
 				'line_height', 
 				'font_weight', 
 				'font_style' 
+			) 
+		);
+		
+		break;
+	case 'google':
+		$options[] = array( 
+			'section' => 'google_section', 
+			'id' => 'language-school' . '_google_web_fonts', 
+			'title' => esc_html__('Google Fonts', 'language-school'), 
+			'desc' => '', 
+			'type' => 'google_web_fonts', 
+			'std' => cmsmasters_google_fonts_list()
+		);
+		
+		$options[] = array( 
+			'section' => 'google_section', 
+			'id' => 'language-school' . '_google_web_fonts_subset', 
+			'title' => esc_html__('Google Fonts Subset', 'language-school'), 
+			'desc' => '', 
+			'type' => 'select_multiple', 
+			'std' => '', 
+			'choices' => array( 
+				esc_html__('Latin Extended', 'language-school') . '|' . 'latin-ext', 
+				esc_html__('Arabic', 'language-school') . '|' . 'arabic', 
+				esc_html__('Cyrillic', 'language-school') . '|' . 'cyrillic', 
+				esc_html__('Cyrillic Extended', 'language-school') . '|' . 'cyrillic-ext', 
+				esc_html__('Greek', 'language-school') . '|' . 'greek', 
+				esc_html__('Greek Extended', 'language-school') . '|' . 'greek-ext', 
+				esc_html__('Vietnamese', 'language-school') . '|' . 'vietnamese', 
+				esc_html__('Japanese', 'language-school') . '|' . 'japanese', 
+				esc_html__('Korean', 'language-school') . '|' . 'korean', 
+				esc_html__('Thai', 'language-school') . '|' . 'thai', 
+				esc_html__('Bengali', 'language-school') . '|' . 'bengali', 
+				esc_html__('Devanagari', 'language-school') . '|' . 'devanagari', 
+				esc_html__('Gujarati', 'language-school') . '|' . 'gujarati', 
+				esc_html__('Gurmukhi', 'language-school') . '|' . 'gurmukhi', 
+				esc_html__('Hebrew', 'language-school') . '|' . 'hebrew', 
+				esc_html__('Kannada', 'language-school') . '|' . 'kannada', 
+				esc_html__('Khmer', 'language-school') . '|' . 'khmer', 
+				esc_html__('Malayalam', 'language-school') . '|' . 'malayalam', 
+				esc_html__('Myanmar', 'language-school') . '|' . 'myanmar', 
+				esc_html__('Oriya', 'language-school') . '|' . 'oriya', 
+				esc_html__('Sinhala', 'language-school') . '|' . 'sinhala', 
+				esc_html__('Tamil', 'language-school') . '|' . 'tamil', 
+				esc_html__('Telugu', 'language-school') . '|' . 'telugu' 
 			) 
 		);
 		

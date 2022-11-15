@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.1.7
+ * @version 	1.2.7
  * 
  * Admin Panel Main Functions
  * Created by CMSMasters
@@ -90,6 +90,10 @@ function language_school_get_settings() {
 			break;
 		case 'other':
 			$cmsmasters_option_name = $cmsmasters_option_name . '_other';
+			
+			break;
+		case 'google':
+			$cmsmasters_option_name = $cmsmasters_option_name . '_google';
 			
 			break;
 		}
@@ -272,8 +276,6 @@ function language_school_register_settings() {
 	
 	$current_page = (isset($_GET['page'])) ? trim($_GET['page']) : '';
 	
-	$page_updated = (isset($_GET['settings-updated'])) ? trim($_GET['settings-updated']) : '';
-	
 	
 	register_setting($cmsmasters_option_name, $cmsmasters_option_name, 'language_school_validate_options');
 	
@@ -292,7 +294,7 @@ function language_school_register_settings() {
 	}
 	
 	
-	if (($current_page === 'cmsmasters-settings-color' || $current_page === 'cmsmasters-settings-font') && $page_updated) {
+	if (($current_page === 'cmsmasters-settings-color' || $current_page === 'cmsmasters-settings-font') && isset($_GET['settings-updated'])) {
 		language_school_regenerate_styles();
 	}
 }
@@ -319,6 +321,7 @@ function language_school_settings_scripts() {
 		'palettes' => 						implode(',', cmsmasters_color_picker_palettes()), 
 		'remove' => 						esc_attr__('Remove', 'language-school'), 
 		'remove_sidebar' => 				esc_html__('Do you really want to remove this sidebar?', 'language-school'), 
+		'remove_google_web_font' => 		esc_html__('Do you really want to remove this google web font?', 'language-school'), 
 		'find' => 							esc_attr__('Find icons', 'language-school'), 
 		'remove_icon' => 					esc_html__('Do you really want to remove this social icon?', 'language-school'), 
 		'theme_uri' => 						get_template_directory_uri(), 
@@ -446,6 +449,12 @@ function language_school_section_fn($desc) {
 		echo '';
 		
 		break;
+	case 'google':
+		echo '<div class="cmsmasters_google_web_fonts_instruction">' . 
+			sprintf(wp_kses(__('<p>To add new Google Font proceed to <a href="%1$s" target="_blank">fonts.google.com</a>, find needed Google Font and click on the + to select it: <a href="%2$s" target="_blank">screenshot</a>.<br />Choose the font style in the Customize tab: <a href="%3$s" target="_blank">screenshot</a>.<br />Copy the highlighted code and the font family: <a href="%4$s" target="_blank">screenshot</a>, click on the Add Font button: <a href="%5$s" target="_blank">screenshot</a>, and past Font Family and Font Style to the appropriate fields: <a href="%6$s" target="_blank">screenshot</a>.<br />To add a specific subset choose the needed one from the Google Fonts Subset list.  To select multiple subsets hold down the Ctrl key and click on the subsets you need to add: <a href="%7$s" target="_blank">screenshot</a>.<br /><strong>Don\'t forget to Save Changes.</strong><br />Then new Google Font will appear in the Google Fonts list: <a href="%8$s" target="_blank">screenshot</a></p>', 'language-school'), array('a' => array('href' => array(), 'target' => array()), 'br' => array(), 'p' => array(), 'h4' => array(), 'strong' => array())), esc_url('https://fonts.google.com/'), esc_url('https://www.screencast.com/t/hxfumLXyU'), esc_url('https://www.screencast.com/t/FGrrt7UpEP'), esc_url('https://www.screencast.com/t/10smv1xX8Zd3'), esc_url('https://www.screencast.com/t/Fikm4IipwXpt'), esc_url('https://www.screencast.com/t/QEoz8sRx'), esc_url('https://www.screencast.com/t/9OO9lbtB'), esc_url('https://www.screencast.com/t/j9CX3ZEF6Tt')) . 
+		'</div>';
+		
+		break;
 	default:
 		break;
 	}
@@ -549,6 +558,22 @@ function language_school_form_field_fn($args = array()) {
 			$item[0] = esc_html($item[0]);
 			
 			$selected = ($options[$id] == $item[1]) ? ' selected="selected"' : '';
+			
+			echo '<option value="' . $item[1] . '"' . $selected . '>' . $item[0] . '</option>';
+		}
+		
+		echo '</select>' . 
+		(($desc != '') ? '<br />' . '<span class="description">' . $desc . '</span>' : '');
+		
+		break;
+	case 'select_multiple':
+		echo '<select id="' . $id . '" class="select' . $field_class . '" name="' . $cmsmasters_option_name . '[' . $id . '][]" multiple="multiple" size="5">';
+		
+		foreach ($choices as $item) {
+			$item = explode('|', $item);
+			$item[0] = esc_html($item[0]);
+			
+			$selected = (is_array($options[$id]) && in_array($item[1], $options[$id]) ? ' selected="selected"' : '');
 			
 			echo '<option value="' . $item[1] . '"' . $selected . '>' . $item[0] . '</option>';
 		}
@@ -724,10 +749,33 @@ function language_school_form_field_fn($args = array()) {
 		if ($google_font) {
 			echo '<div class="cmsmasters_admin_block">' . 
 				'<select class="select" id="' . $id . '_google_font" name="' . $cmsmasters_option_name . '[' . $id . '_google_font]">';
-				
-				foreach (cmsmasters_google_fonts_list() as $key => $value) {
-					echo '<option value="' . esc_attr($key) . '"' . (($options[$id . '_google_font'] == $key) ? ' selected="selected"' : '') . '>' . esc_html($value) .'</option>';
-				}
+					$cmsmasters_fonts_list = cmsmasters_fonts_list();
+
+					$font_none = array_shift($cmsmasters_fonts_list);
+					
+					echo '<option value=""' . (($options[$id . '_google_font'] == '') ? ' selected="selected"' : '') . '>' . esc_html($font_none) .'</option>';
+					
+					
+					if (!empty($cmsmasters_fonts_list['local'])) {
+						echo '<optgroup label="' . esc_attr__('Local Fonts', 'language-school') . '">';
+							
+							foreach ($cmsmasters_fonts_list['local'] as $key => $value) {
+								echo '<option value="' . esc_attr($key) . '"' . (($options[$id . '_google_font'] == $key) ? ' selected="selected"' : '') . '>' . esc_html($value) .'</option>';
+							}
+							
+						echo '</optgroup>';
+					}
+					
+					
+					if (!empty($cmsmasters_fonts_list['web'])) {
+						echo '<optgroup label="' . esc_attr__('Google Web Fonts', 'language-school') . '">';
+							
+							foreach ($cmsmasters_fonts_list['web'] as $key => $value) {
+								echo '<option value="' . esc_attr($key) . '"' . (($options[$id . '_google_font'] == $key) ? ' selected="selected"' : '') . '>' . esc_html($value) .'</option>';
+							}
+							
+						echo '</optgroup>';
+					}
 				
 				echo '</select>' . 
 				' &nbsp; ' . 
@@ -836,6 +884,35 @@ function language_school_form_field_fn($args = array()) {
 			
 			echo '</ul>' . 
 			'<input id="custom_sidebars_number" type="hidden" name="' . $cmsmasters_option_name . '[' . $id . '_number]" value="' . ((isset($options[$id]) && is_array($options[$id])) ? $i : 0) . '" />' . 
+		'</div>';
+		
+		break;
+	case 'google_web_fonts':
+		echo (($desc != '') ? '<span class="description">' . $desc . '</span>' . '<br />' . '<br />': '') . 
+		'<div class="google_web_fonts_manager">' . 
+			'<div class="google_web_fonts_manager_items">';
+				
+				
+				if (isset($options[$id]) && is_array($options[$id])) {
+					$i = 0;
+					
+					foreach($options[$id] as $font) {
+						$i += 1;
+						
+						$font = explode('|', $font);
+						
+						echo '<div class="google_web_fonts_manager_item">' . 
+							'<input class="all-options" type="text" id="google_web_font_family" placeholder="' . esc_attr__('Font Family (for example: Roboto Slab)', 'language-school') . '" name="' . $cmsmasters_option_name . '[' . $id . '_-_' . $i . '_family]" value="' . esc_attr($font[1]) . '" />' . 
+							'<input class="regular-text" type="text" id="google_web_font_style" placeholder="' . esc_attr__('Font Style (for example: Roboto+Slab:100,300,400,700)', 'language-school') . '" name="' . $cmsmasters_option_name . '[' . $id . '_-_' . $i . '_style]" value="' . esc_attr($font[0]) . '" />' . 
+							'<span class="remove_google_web_font dashicons-trash"></span>' . 
+						'</div>';
+					}
+				}
+				
+				
+			echo '</div>' . 
+			'<input id="google_web_fonts_number" type="hidden" name="' . $cmsmasters_option_name . '[' . $id . '_number]" value="' . ((isset($options[$id]) && is_array($options[$id])) ? $i : 0) . '" />' . 
+			'<input class="button" type="button" id="add_google_web_font" value="' . esc_attr__('Add Font', 'language-school') . '" data-font-family-label="' . esc_attr__('Font Family (for example: Roboto Slab)', 'language-school') . '" data-font-style-label="' . esc_attr__('Font Style (for example: Roboto+Slab:100,300,400,700)', 'language-school') . '" data-option-name="' . $cmsmasters_option_name . '[' . $id . '_-_" />' . 
 		'</div>';
 		
 		break;
@@ -1170,6 +1247,29 @@ function language_school_validate_options($input) {
 			$valid_input[$option['id']] = (in_array($input[$option['id']], $select_values) ? $input[$option['id']] : '');
 			
 			break;
+		case 'select_multiple':
+			$select_values = array();
+			$select_array = array();
+			
+			
+			foreach ($option['choices'] as $k => $v) {
+				$pieces = explode('|', $v);
+				
+				$select_values[] = $pieces[1];
+			}
+			
+			if (isset($input[$option['id']]) && is_array($input[$option['id']])) {
+				foreach ($select_values as $v) {
+					if (in_array($v, $input[$option['id']])) {
+						$select_array[] = $v;
+					}
+				}
+			}
+			
+			
+			$valid_input[$option['id']] = $select_array;
+			
+			break;
 		case 'select_scheme':
 			$select_values = array();
 			
@@ -1272,6 +1372,22 @@ function language_school_validate_options($input) {
 			if (!empty($valid_vals)) {
 				$valid_input[$option['id']] = $valid_vals;
 			}
+			
+			break;
+		case 'google_web_fonts':
+			$valid_vals = array();
+			
+			for ($n = 1, $i = $input[$option['id'] . '_number']; $n <= $i; $n++) {
+				$font_family = (isset($input[$option['id'] . '_-_' . $n . '_family']) ? $input[$option['id'] . '_-_' . $n . '_family'] : '');
+				$font_style = (isset($input[$option['id'] . '_-_' . $n . '_style']) ? $input[$option['id'] . '_-_' . $n . '_style'] : '');
+				
+				
+				if ($font_style != '' && $font_family != '') {
+					$valid_vals[] = $font_style . '|' . $font_family;
+				}
+			}
+			
+			$valid_input[$option['id']] = $valid_vals;
 			
 			break;
 		case 'heading':
@@ -1428,6 +1544,10 @@ function language_school_add_global_options() {
 			language_school_options_font_fields('other') 
 		), 
 		array( 
+			'cmsmasters_options_' . 'language-school' . '_font_google', 
+			language_school_options_font_fields('google') 
+		), 
+		array( 
 			'cmsmasters_options_' . 'language-school' . '_element_sidebar', 
 			language_school_options_element_fields('sidebar') 
 		), 
@@ -1496,7 +1616,8 @@ function language_school_add_global_options() {
 			foreach ($cmsmasters_option_name[1] as $selected_option) {
 				if ( 
 					is_array($selected_option['std']) && 
-					$selected_option['id'] !== 'language-school' . '_social_icons' 
+					$selected_option['id'] !== 'language-school' . '_social_icons' && 
+					$selected_option['id'] !== 'language-school' . '_google_web_fonts' 
 				) {
 					foreach ($selected_option['std'] as $key => $value) {
 						$start_options[$selected_option['id'] . '_' . $key] = $value;
@@ -1542,6 +1663,7 @@ function language_school_get_global_options() {
 		'cmsmasters_options_' . 'language-school' . '_font_nav', 
 		'cmsmasters_options_' . 'language-school' . '_font_heading', 
 		'cmsmasters_options_' . 'language-school' . '_font_other', 
+		'cmsmasters_options_' . 'language-school' . '_font_google', 
 		'cmsmasters_options_' . 'language-school' . '_element_sidebar', 
 		'cmsmasters_options_' . 'language-school' . '_element_icon', 
 		'cmsmasters_options_' . 'language-school' . '_element_lightbox', 

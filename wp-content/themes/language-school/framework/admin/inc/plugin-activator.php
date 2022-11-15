@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.2.6
+ * @version 	1.2.7
  * 
  * TGM-Plugin-Activation 2.6.1
  * Created by CMSMasters
@@ -22,9 +22,18 @@ function language_school_register_theme_plugins() {
 			'slug'					=> 'cmsmasters-content-composer', 
 			'source'				=> get_template_directory() . '/framework/admin/inc/plugins/cmsmasters-content-composer.zip', 
 			'required'				=> true, 
-			'version'				=> '1.8.4', 
+			'version'				=> '1.8.5', 
 			'force_activation'		=> false, 
 			'force_deactivation' 	=> true 
+		), 
+		array( 
+			'name'					=> esc_html__('CMSMasters Custom Fonts', 'language-school'), 
+			'slug'					=> 'cmsmasters-custom-fonts', 
+			'source'				=> get_template_directory_uri() . '/framework/admin/inc/plugins/cmsmasters-custom-fonts.zip', 
+			'required'				=> true, 
+			'version'				=> '1.0.1', 
+			'force_activation'		=> false, 
+			'force_deactivation' 	=> false 
 		), 
 		array( 
 			'name'					=> esc_html__('CMSMasters Mega Menu', 'language-school'), 
@@ -100,11 +109,6 @@ function language_school_register_theme_plugins() {
 		array( 
 			'name' 					=> esc_html__('Contact Form 7', 'language-school'), 
 			'slug' 					=> 'contact-form-7', 
-			'required' 				=> false 
-		), 
-		array( 
-			'name' 					=> esc_html__('WordPress SEO by Yoast', 'language-school'), 
-			'slug' 					=> 'wordpress-seo', 
 			'required' 				=> false 
 		), 
 		array( 

@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version		1.1.7
+ * @version		1.2.7
  * 
  * Admin Panel Helper Functions
  * Created by CMSMasters
@@ -104,6 +104,12 @@ function language_school_settings_page_header() {
 			
 			$links[] = '<a class="' . $class . '" href="?page=' . esc_attr($page) . '&tab=' . esc_attr($tab) . '"' . (($tab == 'recaptcha') ? ' style="background-color:#fdffc6;' . (($class == 'nav-tab nav-tab-active') ? ' border-bottom-color:#fdffc6;' : '') . '"' : '') . '>' . esc_html($name) . '</a>';
 		}
+		
+		
+		if (class_exists('Cmsmasters_Custom_Fonts') && $page == 'cmsmasters-settings-font') {
+			$links[] = '<a class="' . $class . '" href="edit.php?post_type=cmsmasters_font">' . esc_html__('Custom Fonts', 'language-school') . '</a>';
+		}
+		
 		
 		echo '<h2 class="nav-tab-wrapper">';
 		

@@ -3,9 +3,9 @@ Contributors: webtoffee, cookieyesdev
 Donate link: https://www.cookieyes.com/ 
 Tags: GDPR, CCPA, cookie notice, DSGVO, RGPD, LGPD, PIPEDA, POPIA, cookies , cookie law, cookie consent, Opt-in, cookie policy, privacy, compliance
 Requires at least: 5.0.0
-Tested up to: 6.0
+Tested up to: 6.1
 Requires PHP: 5.6
-Stable tag: 3.0.4
+Stable tag: 3.0.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -160,6 +160,10 @@ For every update of the plugin, you will be notified of the installed plugins pa
 9. Privacy policy generator and cookie policy generator
 
 == Changelog ==
+
+= 3.0.5 = 
+
+[Enhancement] - Reduced revisit consent button size
 
 = 3.0.4 = 
 
@@ -565,8 +569,6 @@ For every update of the plugin, you will be notified of the installed plugins pa
 
 == Upgrade Notice ==
 
-= 3.0.4 = 
+= 3.0.5 = 
 
-[Fix] - Table existing check failure on the IIS web server
-[Enhancement] - Added option to reset the plugin settings & switch to the new plugin UI
-[Enhancement] - Added width and height attribute to all the img tags on the cookie banner
+[Enhancement] - Reduced revisit consent button size

@@ -1,7 +1,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.0.4
+ * @version 	1.2.7
  * 
  * Admin Panel Scripts
  * Created by CMSMasters
@@ -76,6 +76,35 @@
 			
 			
 			return false;
+		} );
+		
+		
+		/* Custom Google Font Field Type Script */
+		$('#add_google_web_font').on('click', function () {
+			var font_family_label = $(this).data('fontFamilyLabel'),
+				font_style_label = $(this).data('fontStyleLabel'),
+				option_name = $(this).data('optionName'),
+				number = Number($('#google_web_fonts_number').val()) + 1,
+				container = $('.google_web_fonts_manager_items');
+			
+			
+			container.append(
+				'<div class="google_web_fonts_manager_item">' +
+					'<input class="all-options" type="text" id="google_web_font_family" placeholder="' + font_family_label + '" name="' + option_name + number + '_family]" value="" />' + 
+					'<input class="regular-text" type="text" id="google_web_font_style" placeholder="' + font_style_label + '" name="' + option_name + number + '_style]" value="" />' + 
+					'<span class="remove_google_web_font dashicons-trash"></span>' + 
+				'</div>'
+			);
+			
+			
+			$('#google_web_fonts_number').val(number);
+			
+			
+			return false;
+		} );
+		
+		$('.google_web_fonts_manager').on('click', '.remove_google_web_font', function () { 
+			$(this).closest('.google_web_fonts_manager_item').remove();
 		} );
 		
 		

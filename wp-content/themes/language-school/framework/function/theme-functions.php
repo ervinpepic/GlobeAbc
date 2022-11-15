@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.2.6
+ * @version 	1.2.7
  * 
  * Theme Functions
  * Created by CMSMasters
@@ -351,54 +351,70 @@ if (!function_exists('language_school_theme_google_fonts_generate')) {
 function language_school_theme_google_fonts_generate() {
 	$cmsmasters_option = language_school_get_global_options();
 	
+	global $cmsmasters_font_keys;
 	
-	global $cmsmasters_google_font_keys;
+	$cmsmasters_font_keys = array();
+	
+	$fonts = array();
+	
+	$font_fields = array(
+		'content',
+		'link',
+		'nav_title',
+		'nav_dropdown',
+		'h1',
+		'h2',
+		'h3',
+		'h4',
+		'h5',
+		'h6',
+		'button',
+		'small',
+		'input',
+		'quote'
+	);
+	
+	$fonts_list = cmsmasters_fonts_list();
 	
 	
-	$cmsmasters_google_font_keys = array();
-	
-	$keys = array();
-	
-	$fonts = '';
-	
-	
-	foreach (cmsmasters_google_fonts_list() as $key => $value) {
-		if ( 
-			(isset($cmsmasters_option['language-school' . '_content_font_google_font']) && $key == $cmsmasters_option['language-school' . '_content_font_google_font'] && $key != '') || 
-			(isset($cmsmasters_option['language-school' . '_link_font_google_font']) && $key == $cmsmasters_option['language-school' . '_link_font_google_font'] && $key != '') || 
-			(isset($cmsmasters_option['language-school' . '_nav_title_font_google_font']) && $key == $cmsmasters_option['language-school' . '_nav_title_font_google_font'] && $key != '') || 
-			(isset($cmsmasters_option['language-school' . '_nav_dropdown_font_google_font']) && $key == $cmsmasters_option['language-school' . '_nav_dropdown_font_google_font'] && $key != '') || 
-			(isset($cmsmasters_option['language-school' . '_h1_font_google_font']) && $key == $cmsmasters_option['language-school' . '_h1_font_google_font'] && $key != '') || 
-			(isset($cmsmasters_option['language-school' . '_h2_font_google_font']) && $key == $cmsmasters_option['language-school' . '_h2_font_google_font'] && $key != '') || 
-			(isset($cmsmasters_option['language-school' . '_h3_font_google_font']) && $key == $cmsmasters_option['language-school' . '_h3_font_google_font'] && $key != '') || 
-			(isset($cmsmasters_option['language-school' . '_h4_font_google_font']) && $key == $cmsmasters_option['language-school' . '_h4_font_google_font'] && $key != '') || 
-			(isset($cmsmasters_option['language-school' . '_h5_font_google_font']) && $key == $cmsmasters_option['language-school' . '_h5_font_google_font'] && $key != '') || 
-			(isset($cmsmasters_option['language-school' . '_h6_font_google_font']) && $key == $cmsmasters_option['language-school' . '_h6_font_google_font'] && $key != '') || 
-			(isset($cmsmasters_option['language-school' . '_button_font_google_font']) && $key == $cmsmasters_option['language-school' . '_button_font_google_font'] && $key != '') || 
-			(isset($cmsmasters_option['language-school' . '_small_font_google_font']) && $key == $cmsmasters_option['language-school' . '_small_font_google_font'] && $key != '') || 
-			(isset($cmsmasters_option['language-school' . '_input_font_google_font']) && $key == $cmsmasters_option['language-school' . '_input_font_google_font'] && $key != '') || 
-			(isset($cmsmasters_option['language-school' . '_quote_font_google_font']) && $key == $cmsmasters_option['language-school' . '_quote_font_google_font'] && $key != '') 
+	foreach ($font_fields as $font_field) {
+		$font_option = 'language-school' . '_' . $font_field . '_font_google_font';
+		
+		
+		if (
+			isset($cmsmasters_option[$font_option]) && 
+			$cmsmasters_option[$font_option] != ''
 		) {
-			$keys[] = $key;
+			if (
+				array_key_exists($cmsmasters_option[$font_option], $fonts_list['web']) || 
+				array_key_exists($cmsmasters_option[$font_option], $fonts_list['local'])
+			) {
+				$fonts[] = $cmsmasters_option[$font_option];
+			}
 		}
 	}
 	
 	
-	foreach ($keys as $key) {
-		$fonts .= $key . '|';
+	$local_fonts = get_post_meta(get_the_ID(), 'cmsmasters_shortcodes_local_fonts', true);
+	
+	if ($local_fonts != '') {
+		$local_fonts = explode('|', substr($local_fonts, 0, -1));
 		
-		
-		$font_array = explode(':', $key);
-		
-		
-		$cmsmasters_google_font_keys[] = str_replace('+', ' ', $font_array[0]);
+		$fonts = array_merge($fonts, $local_fonts);
 	}
 	
 	
-	$fonts = str_replace('+', ' ', substr($fonts, 0, -1));
-	
-	
-	cmsmasters_theme_google_font($fonts);
+	if (!empty($fonts)) {
+		$fonts = array_unique($fonts);
+		
+		
+		foreach ($fonts as $font) {
+			$cmsmasters_font_keys[] = $font;
+		}
+		
+		
+		cmsmasters_theme_google_font($fonts);
+	}
 }
 
 }
@@ -412,19 +428,94 @@ add_action('enqueue_block_editor_assets', 'language_school_theme_google_fonts_ge
 if (!function_exists('cmsmasters_theme_google_font')) {
 
 function cmsmasters_theme_google_font($fonts, $font_name = '') {
-	global $cmsmasters_google_font_keys;
+	global $cmsmasters_font_keys;
+	
+	
+	if (!isset($cmsmasters_font_keys)) {
+		return;
+	}
 	
 	
 	if ( 
 		$font_name == '' || 
-		($font_name != '' && is_array($cmsmasters_google_font_keys) && !in_array($font_name, $cmsmasters_google_font_keys))
+		($font_name != '' && is_array($cmsmasters_font_keys) && !in_array($font_name, $cmsmasters_font_keys)) 
 	) {
-		$font_id = ($font_name != '') ? '-' . str_replace(' ', '-', strtolower($font_name)) : '';
+		$local_fonts = '';
 		
-		$font_url = add_query_arg('family', urlencode($fonts), '//fonts.googleapis.com/css');
+		$web_fonts = '';
 		
 		
-		wp_enqueue_style("cmsmasters-google-fonts{$font_id}", $font_url);
+		if (is_array($fonts)) {
+			foreach($fonts as $font) {
+				$check_font = explode(':', $font);
+				
+				
+				if (is_numeric($check_font[0])) {
+					$local_fonts .= get_post_meta($check_font[0], 'cmsmasters_font_face', true);
+				} else {
+					$web_fonts .= $font . '|';
+				}
+			}
+		} else {
+			$check_font = explode(':', $fonts);
+			
+			
+			if (is_numeric($check_font[0])) {
+				$local_fonts .= get_post_meta($check_font[0], 'cmsmasters_font_face', true);
+			} else {
+				$web_fonts .= $fonts . '|';
+			}
+		}
+		
+		
+		if ($local_fonts != '' && $font_name == '') {
+			wp_add_inline_style('theme-design-style', $local_fonts);
+		}
+		
+		
+		if ($web_fonts != '') {
+			$web_fonts = str_replace('+', ' ', substr($web_fonts, 0, -1));
+			
+			
+			if ($font_name != '') {
+				$font_name = explode(':', $font_name);
+				
+				$web_font_id = '-' . str_replace('+', '-', strtolower($font_name[0]));
+			} else {
+				$web_font_id = '';
+			}
+			
+			
+			$web_font_url = add_query_arg('family', urlencode($web_fonts), '//fonts.googleapis.com/css');
+			
+			
+			$cmsmasters_option = language_school_get_global_options();
+			
+			
+			if (
+				isset($cmsmasters_option['language-school' . '_google_web_fonts_subset']) && 
+				is_array($cmsmasters_option['language-school' . '_google_web_fonts_subset'])
+			) {
+				$web_fonts_subset_array = $cmsmasters_option['language-school' . '_google_web_fonts_subset'];
+			} else {
+				$web_fonts_subset_array = array();
+			}
+			
+			
+			$web_fonts_subset = '';
+			
+			foreach ($web_fonts_subset_array as $subset) {
+				$web_fonts_subset .= $subset . ',';
+			}
+			
+			
+			if ($web_fonts_subset != '') {
+				$web_font_url = $web_font_url . '&amp;subset=' . substr($web_fonts_subset, 0, -1);
+			}
+			
+			
+			wp_enqueue_style("google-fonts{$web_font_id}", $web_font_url);
+		}
 	}
 }
 
@@ -436,24 +527,28 @@ function cmsmasters_theme_google_font($fonts, $font_name = '') {
 function language_school_get_google_font($font) {
 	if ($font != '') {
 		if (strpos($font, ':')) {
-			$google_font_array = explode(':', $font);
+			$font_array = explode(':', $font);
 			
 			
-			$google_font = "'" . str_replace('+', ' ', $google_font_array[0]) . "', ";
+			if (is_numeric($font_array[0])) {
+				$font_out = "'" . str_replace('+', ' ', $font_array[1]) . "', ";
+			} else {
+				$font_out = "'" . str_replace('+', ' ', $font_array[0]) . "', ";
+			}
 		} elseif (strpos($font, '&')) {
-			$google_font_array = explode('&', $font);
+			$font_array = explode('&', $font);
 			
 			
-			$google_font = "'" . str_replace('+', ' ', $google_font_array[0]) . "', ";
+			$font_out = "'" . str_replace('+', ' ', $font_array[0]) . "', ";
 		} else {
-			$google_font = "'" . str_replace('+', ' ', $font) . "', ";
+			$font_out = "'" . str_replace('+', ' ', $font) . "', ";
 		}
 	} else {
-		$google_font = '';
+		$font_out = '';
 	}
 	
 	
-	return $google_font;
+	return $font_out;
 }
 
 

@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.1.7
+ * @version 	1.2.7
  * 
  * Content Composer Pricing Table Item Shortcode
  * Created by CMSMasters
@@ -13,19 +13,27 @@
 extract(shortcode_atts($new_atts, $atts));
 
 
-$unique_id = uniqid('', true);
-$unique_id = strtr($unique_id, '.', '_');
+	$unique_id = uniqid('', true);
+	$unique_id = strtr($unique_id, '.', '_');
+	
+	
+	$local_fonts = '';
 
-
-if ($button_font_family != '') {
+	if ($button_font_family != '') {
 		$font_family_array = str_replace('+', ' ', explode(':', $button_font_family));
 		
-		$font_family_name = "'" . $font_family_array[0] . "'";
 		
-		$font_family_url = str_replace('+', ' ', $button_font_family);
-		
-		
-		cmsmasters_theme_google_font($font_family_url, $font_family_array[0]);
+		if (is_numeric($font_family_array[0])) {
+			$font_family_name = "'" . $font_family_array[1] . "'";
+			
+			if (is_admin()) {
+				$local_fonts .= 'cmsmasters_local_font_start=' . $button_font_family . '=cmsmasters_local_font_end';
+			}
+		} else {
+			$font_family_name = "'" . $font_family_array[0] . "'";
+			
+			cmsmasters_theme_google_font($button_font_family, $button_font_family);
+		}
 	}
 
 
@@ -239,7 +247,10 @@ if ($button_show == 'true') {
 }
 
 
-$price_out = '<div id="cmsmasters_pricing_item_' . $unique_id . '" class="cmsmasters_pricing_item' . 
+$price_out = $local_fonts;
+
+
+$price_out .= '<div id="cmsmasters_pricing_item_' . $unique_id . '" class="cmsmasters_pricing_item' . 
 (($best == 'true') ? ' pricing_best' : '') . 
 (($classes != '') ? ' ' . $classes : '') . 
 '"' . 

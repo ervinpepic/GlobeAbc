@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version		1.2.2
+ * @version		1.2.7
  * 
  * Main Theme Functions File
  * Created by CMSMasters
@@ -39,36 +39,35 @@ if (!function_exists('language_school_system_fonts_list')) {
 if (!function_exists('language_school_get_google_fonts_list')) {
 	function language_school_get_google_fonts_list() {
 		$fonts = array( 
-			'' => esc_html__('None', 'language-school'), 
-			'Titillium+Web:300,300italic,400,400italic,600,600italic,700,700italic' => 'Titillium Web', 
-			'Roboto:300,300italic,400,400italic,500,500italic,700,700italic' => 'Roboto', 
-			'Roboto+Condensed:400,400italic,700,700italic' => 'Roboto Condensed', 
-			'Open+Sans:300,300italic,400,400italic,700,700italic' => 'Open Sans', 
-			'Open+Sans+Condensed:300,300italic,700' => 'Open Sans Condensed', 
-			'Droid+Sans:400,700' => 'Droid Sans', 
-			'Droid+Serif:400,400italic,700,700italic' => 'Droid Serif', 
-			'Poppins:300,400,500,600,700' => 'Poppins', 
-			'PT+Sans:400,400italic,700,700italic' => 'PT Sans', 
-			'PT+Sans+Caption:400,700' => 'PT Sans Caption', 
-			'PT+Sans+Narrow:400,700' => 'PT Sans Narrow', 
-			'PT+Serif:400,400italic,700,700italic' => 'PT Serif', 
-			'Ubuntu:400,400italic,700,700italic' => 'Ubuntu', 
-			'Ubuntu+Condensed' => 'Ubuntu Condensed', 
-			'Headland+One' => 'Headland One', 
-			'Source+Sans+Pro:300,300italic,400,400italic,700,700italic' => 'Source Sans Pro', 
-			'Lato:400,400italic,700,700italic' => 'Lato', 
-			'Cuprum:400,400italic,700,700italic' => 'Cuprum', 
-			'Oswald:300,400,700' => 'Oswald', 
-			'Yanone+Kaffeesatz:300,400,700' => 'Yanone Kaffeesatz', 
-			'Lobster' => 'Lobster', 
-			'Lobster+Two:400,400italic,700,700italic' => 'Lobster Two', 
-			'Questrial' => 'Questrial', 
-			'Raleway:300,400,500,600,700' => 'Raleway', 
-			'Dosis:300,400,500,700' => 'Dosis', 
-			'Cutive+Mono' => 'Cutive Mono', 
-			'Quicksand:300,400,700' => 'Quicksand', 
-			'Montserrat:400,700' => 'Montserrat', 
-			'Cookie' => 'Cookie', 
+			'Titillium+Web:300,300italic,400,400italic,600,600italic,700,700italic|Titillium Web', 
+			'Roboto:300,300italic,400,400italic,500,500italic,700,700italic|Roboto', 
+			'Roboto+Condensed:400,400italic,700,700italic|Roboto Condensed', 
+			'Open+Sans:300,300italic,400,400italic,700,700italic|Open Sans', 
+			'Open+Sans+Condensed:300,300italic,700|Open Sans Condensed', 
+			'Droid+Sans:400,700|Droid Sans', 
+			'Droid+Serif:400,400italic,700,700italic|Droid Serif', 
+			'Poppins:300,400,500,600,700|Poppins', 
+			'PT+Sans:400,400italic,700,700italic|PT Sans', 
+			'PT+Sans+Caption:400,700|PT Sans Caption', 
+			'PT+Sans+Narrow:400,700|PT Sans Narrow', 
+			'PT+Serif:400,400italic,700,700italic|PT Serif', 
+			'Ubuntu:400,400italic,700,700italic|Ubuntu', 
+			'Ubuntu+Condensed|Ubuntu Condensed', 
+			'Headland+One|Headland One', 
+			'Source+Sans+Pro:300,300italic,400,400italic,700,700italic|Source Sans Pro', 
+			'Lato:400,400italic,700,700italic|Lato', 
+			'Cuprum:400,400italic,700,700italic|Cuprum', 
+			'Oswald:300,400,700|Oswald', 
+			'Yanone+Kaffeesatz:300,400,700|Yanone Kaffeesatz', 
+			'Lobster|Lobster', 
+			'Lobster+Two:400,400italic,700,700italic|Lobster Two', 
+			'Questrial|Questrial', 
+			'Raleway:300,400,500,600,700|Raleway', 
+			'Dosis:300,400,500,700|Dosis', 
+			'Cutive+Mono|Cutive Mono', 
+			'Quicksand:300,400,700|Quicksand', 
+			'Montserrat:400,700|Montserrat', 
+			'Cookie|Cookie', 
 		);
 		
 		
@@ -229,6 +228,9 @@ if (class_exists('Cmsmasters_Events_Schedule')) {
 
 // CMSMasters Importer Compatibility
 define('CMSMASTERS_IMPORTER', true);
+
+// CMSMasters Custom Fonts Compatibility
+define('CMSMASTERS_CUSTOM_FONTS', true);
 
 // Theme Colored Categories Constant
 define('CMSMASTERS_COLORED_CATEGORIES', false);

@@ -84,8 +84,8 @@ ref._ckyGetCookie = function (name) {
 ref._ckySetCookie = function (name, value, days = 0, domain = _ckyStore._rootDomain) {
     const date = new Date();
     if (!!domain) {
-		domain = `domain=${domain}`;
-	}
+        domain = `domain=${domain}`;
+    }
     const toSetTime =
         days === 0 ? 0 : date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
     document.cookie = `${name}=${value}; expires=${new Date(
@@ -118,6 +118,10 @@ _revisitCkyConsent = function () {
 function _ckyGetElementByTag(tag) {
     const item = document.querySelector('[data-cky-tag=' + tag + ']');
     return item ? item : false;
+}
+
+function _ckyEscapeRegex(literal) {
+    return literal.replace(/[.*+?^${}()[\]\\]/g, "\\$&");
 }
 
 /**
@@ -273,6 +277,7 @@ function _ckyAddPositionClass() {
 async function _ckyInit() {
     try {
         _ckyInitOperations();
+        _ckyRemoveAllDeadCookies();
         _ckyWatchBannerElement();
     } catch (err) {
         console.error(err);
@@ -516,7 +521,10 @@ function _ckySetFooterShadow($doc) {
 function _ckyRemoveDeadCookies({ cookies }) {
     const currentCookieMap = ref._ckyGetCookieMap();
     for (const { cookieID, domain } of cookies)
-        if (currentCookieMap[cookieID]) ref._ckySetCookie(cookieID, "", 0, domain);
+        if (currentCookieMap[cookieID])
+            [domain, ""].map((cookieDomain) =>
+                ref._ckySetCookie(cookieID, "", 0, cookieDomain)
+            );
 }
 function _ckySetPreferenceCheckBoxStates(revisit = false) {
     for (const category of _ckyStore._categories) {
@@ -593,7 +601,7 @@ function _ckySetCategoryPreferenceToggle(element, category) {
         toggleSwitch && toggleSwitch.remove();
     } else {
         necessaryText && necessaryText.remove();
-        if ( _ckyGetType() === 'classic' && _ckyStore._bannerConfig.config.categoryPreview.status || (category.cookies && category.cookies.length === 0)) {
+        if (_ckyGetType() === 'classic' && _ckyStore._bannerConfig.config.categoryPreview.status || (category.cookies && category.cookies.length === 0)) {
             toggleSwitch && toggleSwitch.remove();
         }
     }
@@ -852,18 +860,30 @@ function _ckyMutationObserver(mutations) {
                 const uniqueID = ref._ckyRandomString(8, false);
                 if (node.nodeName.toLowerCase() === "iframe")
                     _ckyAddPlaceholder(node, uniqueID);
-                else node.type = "javascript/blocked";
+                else {
+                    node.type = "javascript/blocked";
+                    const scriptEventListener = function (event) {
+                        event.preventDefault();
+                        node.removeEventListener(
+                            "beforescriptexecute",
+                            scriptEventListener
+                        );
+                    };
+                    node.addEventListener("beforescriptexecute", scriptEventListener);
+                }
+                const position =
+                    document.head.compareDocumentPosition(node) &
+                        Node.DOCUMENT_POSITION_CONTAINED_BY
+                        ? "head"
+                        : "body";
                 node.remove();
                 _ckyStore._backupNodes.push({
-                    position:
-                        document.head.compareDocumentPosition(node) &
-                            Node.DOCUMENT_POSITION_CONTAINED_BY
-                            ? "head"
-                            : "body",
+                    position: position,
                     node: node.cloneNode(),
                     uniqueID,
                 });
-            } catch (error) { }
+            } catch (error) {
+            }
         }
     }
 }
@@ -876,7 +896,6 @@ function _ckyUnblock() {
         (!ckyconsent || ckyconsent !== "yes")
     )
         return;
-
     _ckyStore._backupNodes = _ckyStore._backupNodes.filter(
         ({ position, node, uniqueID }) => {
             try {
@@ -917,11 +936,11 @@ function _ckyAddProviderToList(node, cleanedHostname) {
     for (const category of _ckyStore._categories)
         if (category.isNecessary && category.slug === categoryName) return;
     const provider = _ckyStore._providersToBlock.find(
-        ({ url }) => url === cleanedHostname
+        ({ re }) => re === cleanedHostname
     );
     if (!provider)
         _ckyStore._providersToBlock.push({
-            url: cleanedHostname,
+            re: cleanedHostname,
             categories: [categoryName],
             fullPath: false,
         });
@@ -953,8 +972,8 @@ function _ckyIsCategoryToBeBlocked(category) {
 }
 
 function _ckyShouldBlockProvider(formattedRE) {
-    const provider = _ckyStore._providersToBlock.find((prov) =>
-        new RegExp(prov.re).test(formattedRE)
+    const provider = _ckyStore._providersToBlock.find(({ re }) =>
+        new RegExp(_ckyEscapeRegex(re)).test(formattedRE)
     );
     return (
         provider &&
@@ -1123,14 +1142,20 @@ function _ckySetPoweredBy() {
 }
 function _ckyWatchBannerElement() {
     document.querySelector("body").addEventListener("click", (event) => {
-      const selector = ".cky-banner-element, .cky-banner-element *";
-      if (
-        event.target.matches
-          ? event.target.matches(selector)
-          : event.target.msMatchesSelector(selector)
-      )
-      _revisitCkyConsent();
+        const selector = ".cky-banner-element, .cky-banner-element *";
+        if (
+            event.target.matches
+                ? event.target.matches(selector)
+                : event.target.msMatchesSelector(selector)
+        )
+            _revisitCkyConsent();
     });
-  }
-  
+}
+
+function _ckyRemoveAllDeadCookies() {
+    for (const category of _ckyStore._categories) {
+        if (ref._ckyGetFromStore(category.slug) !== "yes")
+            _ckyRemoveDeadCookies(category);
+    }
+}
 window.revisitCkyConsent = () => _revisitCkyConsent();

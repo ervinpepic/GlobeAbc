@@ -1,7 +1,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.0.0
+ * @version 	1.2.7
  * 
  * Admin Panel Styles
  * Created by CMSMasters
@@ -65,6 +65,10 @@ p.cmsmasters_message {
 	max-width:500px;
 }
 
+#wpwrap .cmsmasters_settings_page_header {
+	padding-top:12px;
+}
+
 .cmsmasters_admin_page h3 {z-index:10;}
 
 .cmsmasters_admin_page .submit-top {
@@ -85,6 +89,12 @@ p.cmsmasters_message {
 }
 
 .cmsmasters_admin_page table td {padding:25px 10px;}
+
+.cmsmasters_admin_page .descr_note {
+	display:block;
+	margin-top:10px;
+	color:#cc0000;
+}
 
 .cmsmasters_admin_page input[type="radio"], 
 .cmsmasters_admin_page input[type="checkbox"] {margin:0;}
@@ -221,6 +231,76 @@ p.cmsmasters_message {
 .sidebar_management ul li a {float:right;}
 
 .sidebar_management input[type=button] {margin-left: 5px;}
+
+.cmsmasters_google_web_fonts_instruction {
+	padding:20px 0 10px;
+	overflow:hidden;
+}
+
+.cmsmasters_google_web_fonts_instruction h4 {
+	margin:0 0 10px;
+}
+
+.cmsmasters_google_web_fonts_instruction p {
+	margin:0;
+	padding:0;
+}
+
+.cmsmasters_google_web_fonts_instruction p + p {
+	margin-top:10px;
+}
+
+.google_web_fonts_manager {
+	overflow:hidden;
+	position:relative;
+}
+
+.google_web_fonts_manager_items {
+	margin-bottom:20px;
+	overflow:hidden;
+	position:relative;
+}
+
+.google_web_fonts_manager_items:empty {
+	margin:0;
+}
+
+.google_web_fonts_manager_item {
+	overflow:hidden;
+	position:relative;
+}
+
+.google_web_fonts_manager_item + .google_web_fonts_manager_item {
+	margin-top:5px;
+}
+
+.google_web_fonts_manager_item > * {
+	vertical-align:middle;
+}
+
+.google_web_fonts_manager_item .remove_google_web_font {
+	color:#82878c;
+	font-size:20px;
+	line-height:1em;
+	display:inline-block;
+	margin-left:5px;
+	position:relative;
+	cursor:pointer;
+	-webkit-transition:color .3s ease-in-out;
+	-moz-transition:color .3s ease-in-out;
+	-ms-transition:color .3s ease-in-out;
+	-o-transition:color .3s ease-in-out;
+	transition:color .3s ease-in-out;
+}
+
+.google_web_fonts_manager_item .remove_google_web_font:hover {
+	color:#dc3232;
+}
+
+.google_web_fonts_manager_item .remove_google_web_font:before {
+	font-family:dashicons;
+	
+}
 
 .icon_management ul {
 	border-top: 1px solid #dddddd;
