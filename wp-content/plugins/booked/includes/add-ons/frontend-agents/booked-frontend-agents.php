@@ -93,24 +93,24 @@ class Booked_FEA_Plugin
                     'Upcoming Appointments',
                     'booked'
                 ),
-                'booked-icon' => 'booked-icon-calendar',
+                'fa-icon' => 'calendar-days',
                 'class' => false,
             ],
             'fea_pending' => [
                 'title' =>
                     __('Pending Appointments', 'booked') .
                     '<div class="counter"></div>',
-                'booked-icon' => 'booked-icon-clock',
+                'fa-icon' => 'clock',
                 'class' => false,
             ],
             'fea_history' => [
                 'title' => __('Appointment History', 'booked'),
-                'booked-icon' => 'booked-icon-calendar',
+                'fa-icon' => 'calendar-days',
                 'class' => false,
             ],
             'edit' => [
                 'title' => __('Edit Profile', 'booked'),
-                'booked-icon' => 'booked-icon-pencil',
+                'fa-icon' => 'pencil',
                 'class' => 'edit-button',
             ],
         ];

@@ -17,9 +17,9 @@ class LS_RemoteData {
 		self::$sources = [
 
 			'general' 	=> [
-				'url' 		=> LS_REPO_BASE_URL.'data/ls-wp/',
-				'dataKey' 	=> 'ls-remote-data',
-				'updateKey' => 'ls-remote-data-updated',
+				'url' 		=> LS_REPO_BASE_URL.'data/ls-wp/v2/',
+				'dataKey' 	=> 'ls-remote-data-v2',
+				'updateKey' => 'ls-remote-data-v2-updated',
 				'interval' 	=> HOUR_IN_SECONDS * 6
 			],
 

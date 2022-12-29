@@ -31,8 +31,8 @@ class Booked_WC_Meta_Box_Product_Data {
 		$options['booked_appointment'] = array(
 			'id' => '_booked_appointment',
 			'wrapper_class' => 'show_if_simple show_if_variable',
-			'label' => __('Booked Appointment Service', 'booked'),
-			'description' => __('Booked Appointment products are used for Booked Payments.', 'booked'),
+			'label' => __('Booked Product', 'booked'),
+			'description' => __('Booked Products are hidden from view and only used in booking services.', 'booked'),
 			'default' => 'no'
 		);
 

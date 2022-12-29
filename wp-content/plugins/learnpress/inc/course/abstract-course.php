@@ -200,7 +200,7 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 		/**
 		 * Load course curriculum.
 		 *
-		 * @depecated 4.1.6.9
+		 * @deprecated 4.1.6.9
 		 */
 		public function load_curriculum() {
 			_deprecated_function( __FUNCTION__, '4.1.6.9' );
@@ -332,17 +332,22 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 		}
 
 		/**
-		 * Check if this course is required enroll or not.
-		 *
-		 * @param mixed
+		 * Check this course is required enroll.
 		 *
 		 * @return bool
-		 * @depecated 4.0.0
 		 */
-		public function is_required_enroll() {
-			//_deprecated_function( __FUNCTION__, '4.1.7.2', 'is_no_required_enroll' );
+		public function is_required_enroll(): bool {
 			return ! $this->is_no_required_enroll();
 		}
+
+		/**
+		 * @deprecated 4.2.0
+		 */
+		public function is_require_enrollment() {
+			_deprecated_function( __METHOD__, '4.2.0' );
+			return ! $this->is_no_required_enroll();
+		}
+
 		/**
 		 * Check if this course is required enroll or not.
 		 *
@@ -360,15 +365,7 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 		}
 
 		/**
-		 * @return mixed
-		 * @deprecated
-		 */
-		public function is_require_enrollment() {
-			return ! $this->is_no_required_enroll();
-		}
-
-		/**
-		 * @depecated 4.1.6.9
+		 * @deprecated 4.1.6.9
 		 */
 		/*public function get_item_types( $group = false ) {
 			$cache_key = $group ? 'course-item-group-types' : 'course-item-types';
@@ -443,7 +440,7 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 		 * Get item is viewing in single course.
 		 *
 		 * @return LP_Course_Item
-		 * @depecated 4.1.6.9
+		 * @deprecated 4.1.6.9
 		 */
 		public function get_viewing_item() {
 			_deprecated_function( __FUNCTION__, '4.1.6.9' );
@@ -1006,8 +1003,8 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 			$slug_prefixes = apply_filters(
 				'learn-press/course/custom-item-prefixes',
 				array(
-					LP_QUIZ_CPT   => sanitize_title_with_dashes( LP_Settings::instance()->get( 'quiz_slug', 'quizzes' ) ),
-					LP_LESSON_CPT => sanitize_title_with_dashes( LP_Settings::instance()->get( 'lesson_slug', 'lessons' ) ),
+					LP_QUIZ_CPT   => sanitize_title_with_dashes( LP_Settings::get_option( 'quiz_slug', 'quizzes' ) ),
+					LP_LESSON_CPT => sanitize_title_with_dashes( LP_Settings::get_option( 'lesson_slug', 'lessons' ) ),
 				),
 				$this->get_id()
 			);
@@ -1044,7 +1041,7 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 		 * @param LP_Course_Item|LP_User_Item|int $item
 		 *
 		 * @return mixed
-		 * @depecated 4.1.6.9
+		 * @deprecated 4.1.6.9
 		 */
 		/*public function get_item_position( $item ) {
 			$items = $this->get_items();
@@ -1254,7 +1251,7 @@ if ( ! function_exists( 'LP_Abstract_Course' ) ) {
 				if ( $start_time + $duration > $now ) {
 					$remain = $start_time + $duration - $now;
 					$remain = learn_press_seconds_to_weeks( $remain );
-					$html   = sprintf( __( 'This course will end within next %s', 'learnpress' ), $remain );
+					$html   = sprintf( __( 'This course will end within the next %s', 'learnpress' ), $remain );
 				}
 			}
 

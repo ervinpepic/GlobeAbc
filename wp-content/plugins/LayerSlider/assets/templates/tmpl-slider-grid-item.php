@@ -6,7 +6,7 @@
 		<?= lsGetSVGIcon('ellipsis-v', null, [
 			'class' => 'ls-hover slider-actions-button'
 		]) ?>
-		<a class="preview" style="background-image: url(<?=  ! empty( $preview ) ? $preview : LS_ROOT_URL . '/static/admin/img/blank.gif' ?>);" href="<?= admin_url('admin.php?page=layerslider&action=edit&id='.$item['id']) ?>">
+		<a class="ls-preview" style="background-image: url(<?=  ! empty( $preview ) ? $preview : LS_ROOT_URL . '/static/admin/img/blank.gif' ?>);" href="<?= admin_url('admin.php?page=layerslider&action=edit&id='.$item['id']) ?>">
 			<?php if( empty( $preview ) ) : ?>
 			<div class="no-preview">
 				<h5><?= __('No Preview', 'LayerSlider') ?></h5>
@@ -15,8 +15,8 @@
 			<?php endif ?>
 		</a>
 
-		<div class="info">
-			<div class="name">
+		<div class="ls-info">
+			<div class="ls-name">
 				<?php if( ! empty( $item['data']['properties']['pt'] ) ) : ?>
 				<?= lsGetSVGIcon('lock', false, [
 					'class' => 'ls-premium-lock-templates',

@@ -7,7 +7,7 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 	/**
 	 * Class LP_Profile
 	 *
-	 * Main class to controls the profile of a user
+	 * Main class to control the profile of a user
 	 */
 	class LP_Profile {
 		/**
@@ -76,10 +76,10 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 			$this->_default_actions = apply_filters(
 				'learn-press/profile-default-actions',
 				array(
-					'basic-information' => esc_html__( 'Account information updated successful.', 'learnpress' ),
-					'avatar'            => esc_html__( 'Account avatar updated successful.', 'learnpress' ),
-					'password'          => esc_html__( 'Password updated successful.', 'learnpress' ),
-					'privacy'           => esc_html__( 'Account privacy updated successful.', 'learnpress' ),
+					'basic-information' => esc_html__( 'Account information updated successfully.', 'learnpress' ),
+					'avatar'            => esc_html__( 'Account avatar updated successfully.', 'learnpress' ),
+					'password'          => esc_html__( 'Password updated successfully.', 'learnpress' ),
+					'privacy'           => esc_html__( 'Account privacy updated successfully.', 'learnpress' ),
 				)
 			);
 
@@ -103,9 +103,11 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 
 		/**
 		 * Prevent access view owned course in non admin, instructor profile page.
+		 * @deprecated 4.1.7.3
 		 */
 		public function init() {
-			$profile = self::instance();
+			_deprecated_function( __FUNCTION__, '4.1.7.3' );
+			/*$profile = self::instance();
 			$user    = $profile->get_user();
 			$role    = $user->get_role();
 
@@ -114,7 +116,7 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 
 				$data_tabs   = apply_filters( 'learn-press/profile-tabs', $this->_default_settings );
 				$this->_tabs = new LP_Profile_Tabs( $data_tabs, self::instance() );
-			}
+			}*/
 		}
 
 		public function is_guest() {
@@ -228,7 +230,7 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 		}
 
 		public function get_login_url( $redirect = false ) {
-			return learn_press_get_login_url( $redirect !== false ? $redirect : $this->get_current_url() );
+			return learn_press_get_login_url( $redirect !== false ? $redirect : LP_Helper::getUrlCurrent() );
 		}
 
 		/**
@@ -237,7 +239,7 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 		 * @return LP_Profile_Tabs
 		 */
 		public function get_tabs() {
-			if ( $this->_tabs === null ) {
+			//if ( $this->_tabs === null ) {
 				$settings        = LP_Settings::instance();
 				$course_sections = array();
 
@@ -320,11 +322,12 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 						'icon'     => '<i class="fas fa-user-secret"></i>',
 					);
 				}
-			}
+				//}
 
-			$tabs = apply_filters( 'learn-press/profile-tabs', $this->_default_settings );
+				$tabs = $this->_default_settings;
+				$tabs = apply_filters( 'learn-press/profile-tabs', $tabs );
 
-			return $this->_tabs = new LP_Profile_Tabs( $tabs, $this );
+				return $this->_tabs = new LP_Profile_Tabs( $tabs, $this );
 		}
 
 		public function get_slug( $data, $default = '' ) {
@@ -521,7 +524,7 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 		public function save( $nonce ) {
 			$user_id = get_current_user_id();
 			if ( ! $user_id ) {
-				return new WP_Error( 2, 'User is invalid!' );
+				return new WP_Error( 2, 'The user is invalid' );
 			}
 
 			$message = '';
@@ -832,8 +835,10 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 		 * @param string $current_filter
 		 *
 		 * @return array
+		 * @deprecated 4.2.0
 		 */
 		public function get_own_courses_filters( $current_filter = '' ) {
+			_deprecated_function( __METHOD__, '4.2.0' );
 			$url = $this->get_current_url();
 
 			$defaults = array(
@@ -865,8 +870,10 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 		 * @param string $current_filter
 		 *
 		 * @return array
+		 * @deprecated 4.2.0
 		 */
 		public function get_purchased_courses_filters( $current_filter = '' ) {
+			_deprecated_function( __METHOD__, '4.2.0' );
 			$url      = $this->get_current_url( false );
 			$defaults = array(
 				'all'          => sprintf( '<a href="%s">%s</a>', esc_url_raw( $url ), __( 'All', 'learnpress' ) ),
@@ -901,7 +908,7 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 		 * @return array
 		 */
 		public function get_quizzes_filters( $current_filter = '' ) {
-			$url      = $this->get_current_url( false );
+			$url      = $this->get_tab_link( 'quizzes' );
 			$defaults = array(
 				'all'       => sprintf( '<a href="%s">%s</a>', esc_url_raw( $url ), __( 'All', 'learnpress' ) ),
 				'completed' => sprintf( '<a href="%s">%s</a>', esc_url_raw( add_query_arg( 'filter-status', 'completed', $url ) ), __( 'Finished', 'learnpress' ) ),
@@ -930,9 +937,11 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 		 * @param bool $redirect
 		 *
 		 * @return string
+		 * @deprecated 4.1.7.3
 		 */
 		public function logout_url( $redirect = false ) {
-			if ( $this->enable_login() ) {
+			_deprecated_function( __FUNCTION__, '4.1.7.3' );
+			/*if ( $this->enable_login() ) {
 				$profile_url = learn_press_get_page_link( 'profile' );
 				$url         = esc_url_raw(
 					add_query_arg(
@@ -951,7 +960,7 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 				$url = wp_logout_url( $redirect !== false ? $redirect : $this->get_current_url() );
 			}
 
-			return apply_filters( 'learn-press/logout-url', $url );
+			return apply_filters( 'learn-press/logout-url', $url );*/
 		}
 
 		/**
@@ -1145,7 +1154,7 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 
 			try {
 				if ( ! $user ) {
-					throw new Exception( 'User is invalid!' );
+					throw new Exception( 'The user is invalid' );
 				}
 
 				$user_id          = $user->get_id();
@@ -1205,28 +1214,3 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 		}
 	}
 }
-
-/*function learn_press_profile_init() {
-	$current_page = LP_Page_Controller::page_current();
-
-	if ( LP_PAGE_PROFILE !== $current_page ) {
-		return;
-	}
-
-	$profile = LP_Profile::instance();
-	$user    = $profile->get_user();
-
-	if ( ! $profile->get_tabs()->current_user_can_view() ) {
-		global $wp_query;
-
-		if ( $user->is_guest() ) {
-			wp_redirect( $profile->get_login_url() );
-			exit;
-		}
-
-		add_filter( 'redirect_canonical', '__return_false' );
-		$wp_query->set_404();
-	}
-}*/
-
-//add_filter( 'wp', 'learn_press_profile_init' );

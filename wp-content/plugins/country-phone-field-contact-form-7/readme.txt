@@ -2,9 +2,9 @@
 Contributors: narinderbisht,webgrex
 Donate link: https://www.paypal.me/webgrex
 Tags: country dropdown, flags, phone extension, form, contact form, contact form 7, country dropdown plugin, international telephone input, Country & Phone Field, WordPress plugin
-Requires at least: 5.0
-Tested up to: 6.0.3
-Requires PHP: 7.0
+Requires at least: 6.0
+Tested up to: 6.1.1
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,10 @@ While adding the field, enable number only validation checkbox. If you already a
 = How maxlength and minlength validation apply on phone field? =
 
 Please use contact form 7 standard featured minlength and maxlength option. It will work for you.
+
+= freegeoip.live/json API is not working anymore.
+
+This was a free API. But now it is not working anymore. So we discontinue it and remove from plugin. Pleae update the plugin. Plugin have new API integration.
 
 == Screenshots ==
 
@@ -152,3 +156,32 @@ Please use contact form 7 standard featured minlength and maxlength option. It w
 * Now affiliation banner will not distrub any plugin subscriber. It can be disable from admin easy.
 2.3.1
 * Country and phone field validation imporved.
+2.3.2
+* freegeoip.live/json API URL is not working anymore. So we discontinue this feature form the plugin.
+* We remove auto country selection feature based on IP address track.
+* Due API not working anymore so we remove this feature.
+
+2.3.3
+* new IP detection API added.
+* Auto country selection feature recovered now.
+* New API working for IP tracking and detection the user IP based country.
+2.3.4
+* new IP detection API for https urls
+* Auto country selection settings re-enable
+
+2.3.5
+* A new IP API key feature added.
+* Plugin settings has updated and added IP API key manage feature.
+
+2.3.6
+* Added new FAQs
+
+2.3.7
+* Update IP tracking API. 
+* API now use without API key.
+
+2.3.8
+* Update phone field validation functionality
+* Update Country field validation functionality
+2.3.9
+* Fixed phone field validation issue.

@@ -34,7 +34,7 @@ function booked_add_to_calendar_button($dates,$cf_meta_value){
 		    <span class="start"><?php echo $dates['atc_date_startend']; ?> <?php echo $dates['atc_time_start']; ?></span>
 		    <span class="end"><?php echo $dates['atc_date_startend_end']; ?> <?php echo $dates['atc_time_end']; ?></span>
 		    <span class="timezone"><?php echo booked_get_timezone_string(); ?></span>
-		    <span class="title"><?php echo sprintf(esc_html__('Session with %s','booked'),get_bloginfo('name')); ?></span>
+		    <span class="title"><?php echo sprintf(esc_html__('Appointment with %s','booked'),get_bloginfo('name')); ?></span>
 		    <span class="description"><?php echo strip_tags(str_replace('<br>','
 ',$cf_meta_value)); ?></span>
 		    <span class="location"><?php echo get_bloginfo('name'); ?></span>

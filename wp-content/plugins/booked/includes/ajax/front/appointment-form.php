@@ -28,7 +28,7 @@ foreach ( $bookings as $calendar_id => $appointments ) {
 }
 
 $has_appts = ! empty( $bookings );
-$availability_error = esc_html__( "Sorry, someone just booked this session before you could. Please choose a different booking time.", "booked" );
+$availability_error = esc_html__( "Sorry, someone just booked this appointment before you could. Please choose a different booking time.", "booked" );
 ?>
 <div class="booked-form booked-scrollable">
 
@@ -51,6 +51,6 @@ $availability_error = esc_html__( "Sorry, someone just booked this session befor
 
 <?php $new_appointment_default = get_option('booked_new_appointment_default','draft'); ?>
 
-<p class="booked-title-bar"><small><?php echo ( $new_appointment_default == 'draft' ? esc_html__('Request an Session','booked') : esc_html__('Book an Session','booked') ); ?></small></p>
+<p class="booked-title-bar"><small><?php echo ( $new_appointment_default == 'draft' ? esc_html__('Request an Appointment','booked') : esc_html__('Book an Appointment','booked') ); ?></small></p>
 
-<?php echo '<a href="#" class="close"><i class="booked-icon booked-icon-close"></i></a>';
+<?php echo '<a href="#" class="close"><i class="fa-solid fa-xmark"></i></a>';

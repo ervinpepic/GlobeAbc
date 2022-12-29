@@ -106,27 +106,6 @@ if ( ! function_exists( 'learn_press_add_row_action_link' ) ) {
 	add_filter( 'page_row_actions', 'learn_press_add_row_action_link' );
 }
 
-if ( ! function_exists( 'learn_press_settings_tabs_array' ) ) {
-	/**
-	 * Default admin settings pages
-	 *
-	 * @return mixed
-	 * @depecated 4.1.6.4
-	 */
-	/*function learn_press_settings_tabs_array() {
-		$tabs = array(
-			'general'  => include_once LP_PLUGIN_PATH . 'inc/admin/settings/class-lp-settings-general.php',
-			'courses'  => include_once LP_PLUGIN_PATH . 'inc/admin/settings/class-lp-settings-courses.php',
-			'profile'  => include_once LP_PLUGIN_PATH . 'inc/admin/settings/class-lp-settings-profile.php',
-			'payments' => include_once LP_PLUGIN_PATH . 'inc/admin/settings/class-lp-settings-payments.php',
-			'emails'   => include_once LP_PLUGIN_PATH . 'inc/admin/settings/class-lp-settings-emails.php',
-			'advanced' => include_once LP_PLUGIN_PATH . 'inc/admin/settings/class-lp-settings-advanced.php',
-		);
-
-		return apply_filters( 'learn-press/admin/settings-tabs-array', $tabs );
-	}*/
-}
-
 function learn_press_is_hidden_post_box( $id, $user_id = 0 ) {
 	if ( ! $user_id ) {
 		$user_id = get_current_user_id();
@@ -138,71 +117,6 @@ function learn_press_is_hidden_post_box( $id, $user_id = 0 ) {
 	}
 
 	return false !== array_search( $id, $data );
-}
-
-/**
- * Get html view path for admin to display
- *
- * @param $name
- * @param $plugin_file
- *
- * @return mixed
- */
-function learn_press_get_admin_view( $name, $plugin_file = null ) {
-	if ( ! preg_match( '/\.(html|php)$/', $name ) ) {
-		$name .= '.php';
-	}
-	if ( $plugin_file ) {
-		$view = dirname( $plugin_file ) . '/inc/admin/views/' . $name;
-	} else {
-		$view = LearnPress::instance()->plugin_path( 'inc/admin/views/' . $name );
-	}
-
-	return apply_filters( 'learn_press_admin_view', $view, $name );
-}
-
-function learn_press_admin_view_content( $name, $args = array() ) {
-	return learn_press_admin_view( $name, $args, false, true );
-}
-
-/**
- * Find a full path of a view and display the content in admin
- *
- * @param            $name
- * @param array      $args
- * @param bool|false $include_once
- * @param bool
- *
- * @return bool
- */
-function learn_press_admin_view( $name, $args = array(), $include_once = false, $return = false ) {
-	$view = learn_press_get_admin_view( $name, ! empty( $args['plugin_file'] ) ? $args['plugin_file'] : null );
-
-	if ( file_exists( $view ) ) {
-
-		ob_start();
-
-		is_array( $args ) && extract( $args );
-
-		do_action( 'learn_press_before_display_admin_view', $name, $args );
-
-		if ( $include_once ) {
-			include_once $view;
-		} else {
-			include $view;
-		}
-
-		do_action( 'learn_press_after_display_admin_view', $name, $args );
-		$output = ob_get_clean();
-
-		if ( ! $return ) {
-			learn_press_echo_vuejs_write_on_php( $output );
-		}
-
-		return $return ? $output : true;
-	}
-
-	return false;
 }
 
 /**
@@ -288,7 +202,7 @@ function learn_press_pages_dropdown( $name, $selected = false, $args = array() )
 	if ( $allow_create ) {
 		ob_start(); ?>
 
-		<?php echo esc_html( _x( 'or', 'drop down pages', 'learnpress' ) ); ?>
+		<?php echo esc_html( _x( 'or', 'dropdown pages', 'learnpress' ) ); ?>
 
 		<button class="button button-quick-add-page" data-id="<?php echo esc_attr( $id ); ?>" type="button">
 			<?php esc_html_e( 'Create new', 'learnpress' ); ?>
@@ -600,7 +514,7 @@ if ( ! function_exists( 'learn_press_get_item_referral' ) ) {
 			21680592 => 'https://1.envato.market/qqO6y',
 		);
 
-		return isset( $affiliate_links[ $item_id ] ) ? $affiliate_links[ $item_id ] : 'https://themeforest.net/user/thimpress/portfolio/';
+		return $affiliate_links[ $item_id ] ?? 'https://themeforest.net/user/thimpress/portfolio/';
 	}
 }
 
@@ -868,7 +782,7 @@ function learn_press_get_chart_students( $from = null, $by = null, $time_ago = 0
 	$datasets = array();
 
 	if ( is_null( $from ) ) {
-		$from = current_time( 'mysql' );
+		$from = current_time( 'mysql', 1 );
 	}
 
 	if ( is_null( $by ) ) {
@@ -922,7 +836,7 @@ function learn_press_get_chart_users( $from = null, $by = null, $time_ago = 0 ) 
 	$datasets = array();
 
 	if ( is_null( $from ) ) {
-		$from = current_time( 'mysql' );
+		$from = current_time( 'mysql', 1 );
 	}
 
 	if ( is_null( $by ) ) {
@@ -1074,7 +988,7 @@ function learn_press_get_chart_courses( $from = null, $by = null, $time_ago = 0 
 	$datasets = array();
 
 	if ( is_null( $from ) ) {
-		$from = current_time( 'mysql' );
+		$from = current_time( 'mysql', 1 );
 	}
 
 	if ( is_null( $by ) ) {
@@ -1273,8 +1187,8 @@ function learn_press_get_chart_courses( $from = null, $by = null, $time_ago = 0 
  */
 function learn_press_get_chart_orders( $from = null, $by = null, $time_ago = 0 ) {
 	global $wpdb;
-	// var_dump( current_user_can(LP_TEACHER_ROLE) );
-	// exit();
+	$sql_join = '';
+
 	$report_sales_by = learn_press_get_request( 'report_sales_by' );
 	$course_id       = learn_press_get_request( 'course_id' );
 	$cat_id          = learn_press_get_request( 'cat_id' );
@@ -1282,7 +1196,7 @@ function learn_press_get_chart_orders( $from = null, $by = null, $time_ago = 0 )
 	$labels   = array();
 	$datasets = array();
 	if ( is_null( $from ) ) {
-		$from = current_time( 'mysql' );
+		$from = current_time( 'mysql', 1 );
 	}
 	if ( is_null( $by ) ) {
 		$by = 'days';
@@ -1326,6 +1240,7 @@ function learn_press_get_chart_orders( $from = null, $by = null, $time_ago = 0 )
 
 	$query_join  = '';
 	$query_where = '';
+	$sql_join    = '';
 	if ( 'course' === $report_sales_by ) {
 		$sql_join .= " INNER JOIN `{$wpdb->prefix}learnpress_order_items` `lpoi` "
 					 . ' ON o.ID=lpoi.order_id '
@@ -1474,8 +1389,8 @@ function learn_press_get_chart_orders( $from = null, $by = null, $time_ago = 0 )
  */
 function learn_press_get_chart_courses2() {
 	$labels = array(
-		__( 'Pending Courses / Publish Courses', 'learnpress' ),
-		__( 'Free Courses / Priced Courses', 'learnpress' ),
+		__( 'Pending Courses/Publish Courses', 'learnpress' ),
+		__( 'Free Courses/Paid Courses', 'learnpress' ),
 	);
 
 	$datasets            = array();
@@ -1645,8 +1560,12 @@ function learn_press_plugin_basename_from_slug( $slug ) {
 	return $slug;
 }
 
+/**
+ * @deprecated 4.2.0
+ */
 function learn_press_request_query( $vars = array() ) {
-	global $typenow, $wp_query, $wp_post_statuses;
+	_deprecated_function( __FUNCTION__, '4.2.0' );
+	/*global $typenow, $wp_query, $wp_post_statuses;
 
 	if ( LP_ORDER_CPT === $typenow ) {
 		if ( ! isset( $vars['post_status'] ) ) {
@@ -1661,12 +1580,12 @@ function learn_press_request_query( $vars = array() ) {
 			$vars['post_status'] = array_keys( $post_statuses );
 
 		}
-	}
+	}*/
 
 	return $vars;
 }
 
-add_filter( 'request', 'learn_press_request_query', 0 );
+//add_filter( 'request', 'learn_press_request_query', 0 );
 
 function _learn_press_reset_course_data() {
 	if ( empty( $_REQUEST['reset-course-data'] ) ) {
@@ -1855,7 +1774,7 @@ if ( ! function_exists( 'learn_press_duplicate_post' ) ) {
 			'post_parent'    => $post->post_parent,
 			'post_password'  => $post->post_password,
 			'post_status'    => 'draft',
-			'post_title'     => $post->post_title . __( ' Copy', 'learnpress' ),
+			'post_title'     => $post->post_title . __( 'Copy', 'learnpress' ),
 			'post_type'      => $post->post_type,
 			'to_ping'        => $post->to_ping,
 			'menu_order'     => $post->menu_order,
@@ -2049,10 +1968,13 @@ if ( ! function_exists( 'learn_press_duplicate_quiz' ) ) {
 
 		$new_quiz_id = learn_press_duplicate_post( $quiz_id, $args, true );
 		$quiz        = LP_Quiz::get_quiz( $quiz_id );
-		$questions   = $quiz->get_questions();
+		if ( ! $quiz ) {
+			return 0;
+		}
+
+		$questions = $quiz->get_question_ids();
 
 		if ( $questions ) {
-			$questions = array_keys( $questions );
 			foreach ( $questions as $question_id ) {
 				$new_question_id = learn_press_duplicate_post( $question_id );
 
@@ -2134,7 +2056,7 @@ function learn_press_get_chart_general( $from = null, $by = null, $time_ago = 0 
 	$datasets = array();
 
 	if ( is_null( $from ) ) {
-		$from = current_time( 'mysql' );
+		$from = current_time( 'mysql', 1 );
 	}
 
 	if ( is_null( $by ) ) {
@@ -2503,8 +2425,12 @@ function learn_press_is_admin_page() {
 	return apply_filters( 'learn-press/is-admin-page', $is_learnpress, $screen_id );
 }*/
 
+/**
+ * @deprecated 4.2.0
+ */
 function learn_press_get_orders_status_chart_data() {
-	$data = array(
+	_deprecated_function( __FUNCTION__, '4.2.0' );
+	/*$data = array(
 		'type'    => 'pie',
 		'data'    => array(
 			'labels'   => array(),
@@ -2558,9 +2484,10 @@ function learn_press_get_orders_status_chart_data() {
 	foreach ( $counts as $k => $v ) {
 		$data['data']['labels'][]              = isset( $labels[ $k ] ) ? $labels[ $k ] : 'Untitled';
 		$data['data']['datasets'][0]['data'][] = $v;
-	}
+	}*/
 
-	return $data;
+	//return $data;
+	return [];
 }
 
 require_once 'class-lp-post-type-actions.php';

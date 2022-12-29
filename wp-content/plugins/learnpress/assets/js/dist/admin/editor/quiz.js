@@ -1,14 +1,17 @@
-/******/ (function() { // webpackBootstrap
+/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./assets/src/apps/js/admin/editor/actions/modal-quiz-items.js":
 /*!*********************************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/actions/modal-quiz-items.js ***!
   \*********************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 const ModalQuizItems = {
   toggle: function (context) {
     context.commit('TOGGLE');
@@ -29,11 +32,9 @@ const ModalQuizItems = {
       exclude: JSON.stringify([])
     }).then(function (response) {
       var result = response.body;
-
       if (!result.success) {
         return;
       }
-
       var data = result.data;
       context.commit('SET_LIST_ITEMS', data.items);
       context.commit('UPDATE_PAGINATION', data.pagination);
@@ -53,7 +54,6 @@ const ModalQuizItems = {
   },
   addQuestionsToQuiz: function (context, quiz) {
     var items = context.getters.addedItems;
-
     if (items.length > 0) {
       LP.Request({
         type: 'add-questions-to-quiz',
@@ -61,10 +61,10 @@ const ModalQuizItems = {
         draft_quiz: JSON.stringify(quiz)
       }).then(function (response) {
         var result = response.body;
-
         if (result.success) {
-          var questions = result.data; // update quiz list questions
+          var questions = result.data;
 
+          // update quiz list questions
           context.commit('lqs/SET_QUESTIONS', questions, {
             root: true
           });
@@ -76,7 +76,7 @@ const ModalQuizItems = {
     }
   }
 };
-/* harmony default export */ __webpack_exports__["default"] = (ModalQuizItems);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ModalQuizItems);
 
 /***/ }),
 
@@ -84,21 +84,22 @@ const ModalQuizItems = {
 /*!******************************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/actions/question-list.js ***!
   \******************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 const $ = window.jQuery;
 const QuestionList = {
   toggleAll: function (context) {
     var hidden = context.getters.isHiddenListQuestions;
-
     if (hidden) {
       context.commit('OPEN_LIST_QUESTIONS');
     } else {
       context.commit('CLOSE_LIST_QUESTIONS');
     }
-
     LP.Request({
       type: 'hidden-questions',
       hidden: context.getters.hiddenQuestions
@@ -119,7 +120,6 @@ const QuestionList = {
       draft_quiz: JSON.stringify(payload.quiz)
     }).then(function (response) {
       var result = response.body;
-
       if (result.success) {
         context.commit('UPDATE_NEW_QUESTION_TYPE', payload.question.type, {
           root: true
@@ -161,7 +161,6 @@ const QuestionList = {
       question_type: payload.type
     }).then(function (response) {
       var result = response.body;
-
       if (result.success) {
         var question = result.data;
         context.commit('CHANGE_QUESTION_TYPE', question);
@@ -181,7 +180,6 @@ const QuestionList = {
       question: JSON.stringify(question)
     }).then(function (response) {
       var result = response.body;
-
       if (result.success) {
         var question = result.data;
         context.commit('ADD_NEW_QUESTION', result.data);
@@ -202,7 +200,6 @@ const QuestionList = {
       question_id: question_id
     }).then(function (response) {
       var result = response.body;
-
       if (result.success) {
         question.id = question.temp_id;
         question.temp_id = 0;
@@ -234,7 +231,6 @@ const QuestionList = {
     } else {
       context.commit('OPEN_QUESTION', question);
     }
-
     LP.Request({
       type: 'hidden-questions',
       hidden: context.getters.hiddenQuestions
@@ -248,7 +244,7 @@ const QuestionList = {
       order: JSON.stringify(payload.order)
     }).then(function (response) {
       var result = response.body,
-          order = result.data;
+        order = result.data;
       context.commit('SORT_QUESTION_ANSWERS', order);
       context.commit('UPDATE_QUESTION_SUCCESS', payload.question_id);
     }, function (error) {
@@ -278,7 +274,6 @@ const QuestionList = {
       correct: JSON.stringify(payload.correct)
     }).then(function (response) {
       var result = response.body;
-
       if (result.success) {
         context.commit('CHANGE_QUESTION_CORRECT_ANSWERS', result.data);
         context.commit('UPDATE_QUESTION_SUCCESS', payload.question_id);
@@ -298,13 +293,13 @@ const QuestionList = {
       answer_id: payload.answer_id
     }).then(function (response) {
       var result = response.body;
-
       if (result.success) {
         context.commit('DELETE_QUESTION_ANSWER', {
           question_id: payload.question_id,
-          answer_id: payload.temp_id //answer_id: payload.answer_id
-
+          answer_id: payload.temp_id
+          //answer_id: payload.answer_id
         });
+
         context.commit('UPDATE_QUESTION_SUCCESS', payload.question_id);
       }
     }, function (error) {
@@ -314,7 +309,7 @@ const QuestionList = {
   },
   newQuestionAnswer: function (context, data) {
     var temp_id = LP.uniqueId(),
-        question_id = data.question_id;
+      question_id = data.question_id;
     context.commit('UPDATE_QUESTION_REQUEST', question_id);
     context.commit('ADD_QUESTION_ANSWER', {
       question_id: question_id,
@@ -329,7 +324,6 @@ const QuestionList = {
       question_answer_id: temp_id
     }).then(function (response) {
       var result = response.body;
-
       if (result.success) {
         var answer = result.data;
         context.commit('ADD_QUESTION_ANSWER', {
@@ -370,7 +364,7 @@ const QuestionList = {
     });
   }
 };
-/* harmony default export */ __webpack_exports__["default"] = (QuestionList);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (QuestionList);
 
 /***/ }),
 
@@ -378,10 +372,13 @@ const QuestionList = {
 /*!*********************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/actions/quiz.js ***!
   \*********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 const Quiz = {
   heartbeat: function (context) {
     LP.Request({
@@ -396,21 +393,19 @@ const Quiz = {
   newRequest: function (context) {
     context.commit('INCREASE_NUMBER_REQUEST');
     context.commit('UPDATE_STATUS', 'loading');
-
     window.onbeforeunload = function () {
       return '';
     };
   },
   requestCompleted: function (context, status) {
     context.commit('DECREASE_NUMBER_REQUEST');
-
     if (context.getters.currentRequest === 0) {
       context.commit('UPDATE_STATUS', status);
       window.onbeforeunload = null;
     }
   }
 };
-/* harmony default export */ __webpack_exports__["default"] = (Quiz);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Quiz);
 
 /***/ }),
 
@@ -418,23 +413,19 @@ const Quiz = {
 /*!***********************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/fill-in-blanks.js ***!
   \***********************************************************/
-/***/ (function() {
+/***/ (() => {
 
 (function ($) {
   window.FIB = {
     getSelectedText: function getSelectedText() {
       let html = '';
-
       if (typeof window.getSelection !== 'undefined') {
         const sel = window.getSelection();
-
         if (sel.rangeCount) {
           const container = document.createElement('div');
-
           for (let i = 0, len = sel.rangeCount; i < len; ++i) {
             container.appendChild(sel.getRangeAt(i).cloneContents());
           }
-
           html = container.innerHTML;
         }
       } else if (typeof document.selection !== 'undefined') {
@@ -442,22 +433,18 @@ const Quiz = {
           html = document.selection.createRange().htmlText;
         }
       }
-
       return html;
     },
-
     createTextNode(content) {
       return document.createTextNode(content);
     },
-
     isContainHtml: function isContainHtml(content) {
       const $el = $(content),
-            sel = 'b.fib-blank';
+        sel = 'b.fib-blank';
       return $el.is(sel) || $el.find(sel).length || $el.parent().is(sel);
     },
     getSelectionRange: function getSelectionRange() {
       let t = '';
-
       if (window.getSelection) {
         t = window.getSelection();
       } else if (document.getSelection) {
@@ -465,29 +452,23 @@ const Quiz = {
       } else if (document.selection) {
         t = document.selection.createRange().text;
       }
-
       return t;
     },
-
     outerHTML($dom) {
       return $('<div>').append($($dom).clone()).html();
     },
-
     doUpgrade(callback) {
       $.ajax({
         url: '',
         data: {
           'lp-ajax': 'fib-upgrade'
         },
-
         success(res) {
           console.log(res);
           callback && callback.call(res);
         }
-
       });
     }
-
   };
   $(document).ready(function () {
     $('#do-upgrade-fib').on('click', function () {
@@ -505,10 +486,13 @@ const Quiz = {
 /*!*********************************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/getters/modal-quiz-items.js ***!
   \*********************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 const ModalQuizItems = {
   status: function (state) {
     return state.status;
@@ -521,7 +505,6 @@ const ModalQuizItems = {
       var find = _getters.addedItems.find(function (_item) {
         return item.id === _item.id;
       });
-
       item.added = !!find;
       return item;
     });
@@ -539,7 +522,7 @@ const ModalQuizItems = {
     return state.quizId;
   }
 };
-/* harmony default export */ __webpack_exports__["default"] = (ModalQuizItems);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ModalQuizItems);
 
 /***/ }),
 
@@ -547,10 +530,13 @@ const ModalQuizItems = {
 /*!******************************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/getters/question-list.js ***!
   \******************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 const QuestionList = {
   listQuestions: function (state) {
     return state.questions || [];
@@ -592,7 +578,7 @@ const QuestionList = {
     return state.statusUpdateQuestionAnswer;
   }
 };
-/* harmony default export */ __webpack_exports__["default"] = (QuestionList);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (QuestionList);
 
 /***/ }),
 
@@ -600,10 +586,13 @@ const QuestionList = {
 /*!*********************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/getters/quiz.js ***!
   \*********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 const Quiz = {
   heartbeat: function (state) {
     return state.heartbeat;
@@ -630,7 +619,7 @@ const Quiz = {
     return state.nonce;
   }
 };
-/* harmony default export */ __webpack_exports__["default"] = (Quiz);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Quiz);
 
 /***/ }),
 
@@ -638,12 +627,12 @@ const Quiz = {
 /*!*************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/http.js ***!
   \*************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ HTTP; }
+/* harmony export */   "default": () => (/* binding */ HTTP)
 /* harmony export */ });
 function HTTP(options) {
   const $ = window.jQuery || jQuery;
@@ -653,7 +642,6 @@ function HTTP(options) {
     store: false
   }, options || {});
   let $publishingAction = null;
-
   LP.Request = function (payload) {
     $publishingAction = $('#publishing-action');
     payload.id = options.store.getters.id;
@@ -671,30 +659,24 @@ function HTTP(options) {
       }
     });
   };
-
   $VueHTTP.interceptors.push(function (request, next) {
     if (request.params.namespace !== options.ns) {
       next();
       return;
     }
-
     options.store.dispatch('newRequest');
     next(function (response) {
       if (!jQuery.isPlainObject(response.body)) {
         response.body = LP.parseJSON(response.body);
       }
-
       const body = response.body;
       const result = body.success || false;
-
       if (result) {
         options.store.dispatch('requestCompleted', 'successful');
       } else {
         options.store.dispatch('requestCompleted', 'failed');
       }
-
       $publishingAction.removeClass('code-' + request.params.code);
-
       if (!$publishingAction.attr('class')) {
         $publishingAction.find('#publish').removeClass('disabled');
         $publishingAction.find('.spinner').removeClass('is-active');
@@ -709,10 +691,13 @@ function HTTP(options) {
 /*!***********************************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/mutations/modal-quiz-items.js ***!
   \***********************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 const ModalQuizItems = {
   TOGGLE: function (state) {
     state.open = !state.open;
@@ -750,7 +735,7 @@ const ModalQuizItems = {
     state.status = 'fail';
   }
 };
-/* harmony default export */ __webpack_exports__["default"] = (ModalQuizItems);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ModalQuizItems);
 
 /***/ }),
 
@@ -758,10 +743,13 @@ const ModalQuizItems = {
 /*!********************************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/mutations/question-list.js ***!
   \********************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 var $ = window.jQuery;
 const QuestionList = {
   SORT_QUESTIONS: function (state, orders) {
@@ -780,7 +768,6 @@ const QuestionList = {
     state.questions = state.questions.map(function (question) {
       if (question.id === payload.question_id) {
         var found = false;
-
         if (payload.answer.temp_id) {
           for (var i = 0, n = question.answers.length; i < n; i++) {
             if (question.answers[i].question_answer_id == payload.answer.temp_id) {
@@ -789,11 +776,9 @@ const QuestionList = {
             }
           }
         }
-
         !found && question.answers.push(payload.answer);
         return question;
       }
-
       return question;
     });
   },
@@ -802,7 +787,6 @@ const QuestionList = {
       if (parseInt(question.id) === data.id) {
         question.answers = data.answers;
       }
-
       return question;
     });
   },
@@ -811,7 +795,6 @@ const QuestionList = {
   },
   ADD_NEW_QUESTION: function (state, question) {
     var found = false;
-
     if (question.temp_id) {
       for (var i = 0, n = state.questions.length; i < n; i++) {
         if (state.questions[i].id === question.temp_id) {
@@ -821,18 +804,14 @@ const QuestionList = {
         }
       }
     }
-
     if (!found) {
       var _last_child = $('.lp-list-questions .main > div:last-child');
-
       if (_last_child.length) {
         var _offset = _last_child.offset().top;
-
         $('html,body').animate({
           scrollTop: _offset
         });
       }
-
       state.questions.push(question);
     }
   },
@@ -843,14 +822,12 @@ const QuestionList = {
         question.type = data.type;
         question.open = true;
       }
-
       return question;
     });
   },
   REMOVE_QUESTION: function (state, item) {
     var questions = state.questions,
-        index = questions.indexOf(item);
-
+      index = questions.indexOf(item);
     if (item.temp_id) {
       state.questions[index].id = item.temp_id;
     } else {
@@ -859,7 +836,7 @@ const QuestionList = {
   },
   DELETE_QUESTION_ANSWER: function (state, payload) {
     var question_id = payload.question_id,
-        answer_id = payload.answer_id;
+      answer_id = payload.answer_id;
     state.questions = state.questions.map(function (question) {
       if (question.id === question_id) {
         var answers = question.answers;
@@ -870,11 +847,11 @@ const QuestionList = {
           }
         });
       }
-
       return question;
     });
   },
-  REMOVE_QUESTIONS: function () {// code
+  REMOVE_QUESTIONS: function () {
+    // code
   },
   CLOSE_QUESTION: function (state, question) {
     state.questions.forEach(function (_question, index) {
@@ -925,18 +902,17 @@ const QuestionList = {
       if (question.id == data.question_id) {
         for (var i = 0, n = question.answers.length; i < n; i++) {
           if (question.answers[i].question_answer_id == data.answer_id) {
-            question.answers[i].question_answer_id = data.temp_id; //state.questions[index].answers.splice(i, 1);
-
+            question.answers[i].question_answer_id = data.temp_id;
+            //state.questions[index].answers.splice(i, 1);
             break;
           }
         }
-
         return false;
       }
     });
   }
 };
-/* harmony default export */ __webpack_exports__["default"] = (QuestionList);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (QuestionList);
 
 /***/ }),
 
@@ -944,10 +920,13 @@ const QuestionList = {
 /*!***********************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/mutations/quiz.js ***!
   \***********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 const Quiz = {
   UPDATE_HEART_BEAT: function (state, status) {
     state.heartbeat = !!status;
@@ -965,7 +944,7 @@ const Quiz = {
     state.countCurrentRequest--;
   }
 };
-/* harmony default export */ __webpack_exports__["default"] = (Quiz);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Quiz);
 
 /***/ }),
 
@@ -973,12 +952,14 @@ const Quiz = {
 /*!*******************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/store/i18n.js ***!
   \*******************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 const $ = window.jQuery || jQuery;
-
 const i18n = function i18n(i18n) {
   const state = $.extend({}, i18n);
   const getters = {
@@ -992,8 +973,7 @@ const i18n = function i18n(i18n) {
     getters: getters
   };
 };
-
-/* harmony default export */ __webpack_exports__["default"] = (i18n);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (i18n);
 
 /***/ }),
 
@@ -1001,10 +981,13 @@ const i18n = function i18n(i18n) {
 /*!*******************************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/store/modal-quiz-items.js ***!
   \*******************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 /* harmony import */ var _getters_modal_quiz_items__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../getters/modal-quiz-items */ "./assets/src/apps/js/admin/editor/getters/modal-quiz-items.js");
 /* harmony import */ var _mutations_modal_quiz_items__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../mutations/modal-quiz-items */ "./assets/src/apps/js/admin/editor/mutations/modal-quiz-items.js");
 /* harmony import */ var _actions_modal_quiz_items__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/modal-quiz-items */ "./assets/src/apps/js/admin/editor/actions/modal-quiz-items.js");
@@ -1012,7 +995,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const $ = window.jQuery || jQuery;
-
 const Quiz = function (data) {
   var state = $.extend({
     quizId: false,
@@ -1027,8 +1009,7 @@ const Quiz = function (data) {
     actions: _actions_modal_quiz_items__WEBPACK_IMPORTED_MODULE_2__["default"]
   };
 };
-
-/* harmony default export */ __webpack_exports__["default"] = (Quiz);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Quiz);
 
 /***/ }),
 
@@ -1036,10 +1017,13 @@ const Quiz = function (data) {
 /*!****************************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/store/question-list.js ***!
   \****************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 /* harmony import */ var _getters_question_list__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../getters/question-list */ "./assets/src/apps/js/admin/editor/getters/question-list.js");
 /* harmony import */ var _mutations_question_list__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../mutations/question-list */ "./assets/src/apps/js/admin/editor/mutations/question-list.js");
 /* harmony import */ var _actions_question_list__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/question-list */ "./assets/src/apps/js/admin/editor/actions/question-list.js");
@@ -1047,7 +1031,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const $ = window.jQuery || jQuery;
-
 const QuestionList = function QuestionList(data) {
   const listQuestions = data.listQuestions;
   var state = $.extend({
@@ -1071,8 +1054,7 @@ const QuestionList = function QuestionList(data) {
     actions: _actions_question_list__WEBPACK_IMPORTED_MODULE_2__["default"]
   };
 };
-
-/* harmony default export */ __webpack_exports__["default"] = (QuestionList);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (QuestionList);
 
 /***/ }),
 
@@ -1080,10 +1062,13 @@ const QuestionList = function QuestionList(data) {
 /*!*******************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/store/quiz.js ***!
   \*******************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 /* harmony import */ var _getters_quiz__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../getters/quiz */ "./assets/src/apps/js/admin/editor/getters/quiz.js");
 /* harmony import */ var _mutations_quiz__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../mutations/quiz */ "./assets/src/apps/js/admin/editor/mutations/quiz.js");
 /* harmony import */ var _actions_quiz__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/quiz */ "./assets/src/apps/js/admin/editor/actions/quiz.js");
@@ -1097,7 +1082,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const $ = window.jQuery || jQuery;
-
 const Quiz = function Quiz(data) {
   const state = $.extend({
     status: 'success',
@@ -1116,8 +1100,7 @@ const Quiz = function Quiz(data) {
     }
   };
 };
-
-/* harmony default export */ __webpack_exports__["default"] = (Quiz);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Quiz);
 
 /***/ })
 
@@ -1149,49 +1132,49 @@ const Quiz = function Quiz(data) {
 /******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat get default export */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = function(module) {
+/******/ 		__webpack_require__.n = (module) => {
 /******/ 			var getter = module && module.__esModule ?
-/******/ 				function() { return module['default']; } :
-/******/ 				function() { return module; };
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
 /******/ 			__webpack_require__.d(getter, { a: getter });
 /******/ 			return getter;
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/define property getters */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 		__webpack_require__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
 /******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	!function() {
-/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
-/******/ 	}();
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = function(exports) {
+/******/ 		__webpack_require__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
-!function() {
+(() => {
 "use strict";
 /*!*************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/quiz.js ***!
@@ -1206,6 +1189,7 @@ __webpack_require__.r(__webpack_exports__);
 
 window.$Vue = window.$Vue || Vue;
 window.$Vuex = window.$Vuex || Vuex;
+
 /**
  * Init app.
  *
@@ -1225,7 +1209,8 @@ window.jQuery(document).ready(function () {
     });
   }, 100);
 });
-}();
+})();
+
 /******/ })()
 ;
 //# sourceMappingURL=quiz.js.map

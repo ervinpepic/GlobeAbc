@@ -753,6 +753,13 @@
 		<?= __('Choose a center point for scroll transition layers where they will be aligned perfectly according to their original position. <br><br> <b>Inherit</b>: Uses the global value set in Project Settings → Defaults. <br><br> <b>Top</b>: When the top edge of the slider is at the top of the viewport. <br><br> <b>Center</b>: When the center of the slider is at the center of the viewport. <br><br> <b>Bottom</b>: When the bottom edge of the slider is at the bottom of the viewport.', 'LayerSlider') ?>
 	</div>
 
+	<div data-smart-help="scrollgetposition">
+		<?= __('Choose whether Scroll Transition should watch for the project position or the scene progression. By default, Scroll Transition won’t animate while the project is pinned when using a Sticky or Scroll Scene. Choose the “Scene” option if you’d like to use them in combination.', 'LayerSlider') ?>
+	</div>
+
+
+
+
 
 
 	<!-- TRANSFORM -->
@@ -996,8 +1003,20 @@
 		<?= __('A slide alias name, which you can use in your URLs with a hash tag so LayerSlider will start with the corresponding slide when visitors arrive to the page. <br><br> Example: domain.com/page/#welcome<br><br>Use only lowercase alphanumeric values. You can also use this feature to implement slide navigation with links.', 'LayerSlider') ?>
 	</div>
 
+	<div data-smart-help="sceneheight">
+		<?= __('The length of the scrollable area. Use larger values to keep the slider visible for longer, and play animations slower in case of a Scroll Scene. Supported units: <br><br> <b>px:</b> A fixed value specified in pixels. <br><br> <b>%</b> or <b>sh:</b> Percentage of the slider height. 1sh equals to 1% of the slider height. This value scales dinamically when the slider’s size changes. <b> <br><br> vh:</b> Percentage of the viewport (browser window) height. 1vh equals to 1% of the viewport height. This value scales dinamically when the browser window is resized.', 'LayerSlider') ?>
+	</div>
+
 	<div data-smart-help="projectverticalspacing">
-		<?= __('Creates empty space above and below your projects (i.e. margins). Supported units: <br><br> <b>px:</b> A fixed value specified in pixels. <br><br> <b>vh:</b> Percentage of the viewport (browser window) height. 1vh equals to 1% of the viewport height. This value scales dinamically when the browser window is resized. <br><br> <b>sh:</b> Percentage of the slider height. 1sh equals to 1% of the slider height. This value scales dinamically when the slider’s size changes.', 'LayerSlider') ?>
+		<?= __('Creates empty space above and below your projects (i.e. margins). Supported units: <br><br> <b>px:</b> A fixed value specified in pixels. <br><br> <b>%</b> or <b>sh:</b> Percentage of the slider height. 1sh equals to 1% of the slider height. This value scales dinamically when the slider’s size changes. <b> <br><br> vh:</b> Percentage of the viewport (browser window) height. 1vh equals to 1% of the viewport height. This value scales dinamically when the browser window is resized.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="firstslide">
+		<?= __('Enter the slide number you want your project to start with, or choose from the below options.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="performancemodethreshold">
+		<?= __('The minimum distance between the slider and viewport edges when Performance Mode should activate as described on the right. Supported units: <br><br> <b>px:</b> A fixed value specified in pixels. <br><br> <b>%</b> or <b>sh:</b> Percentage of the slider height. 1sh equals to 1% of the slider height. This value scales dinamically when the slider’s size changes. <b> <br><br> vh:</b> Percentage of the viewport (browser window) height. 1vh equals to 1% of the viewport height. This value scales dinamically when the browser window is resized.', 'LayerSlider') ?>
 	</div>
 
 </lse-smart-help-contents>
@@ -1114,10 +1133,7 @@
 		<?php if( $googleFontsEnabled ) : ?>
 		<lse-b class="lse-smart-help-fonts-in-projects lse-dn">
 			<lse-smart-options-subtitle><?= __('Used in Project', 'LayerSlider') ?></lse-smart-options-subtitle>
-			<lse-ul class="lse-smart-inject">
-				<lse-li data-smart-inject="Lato">Lato</lse-li>
-				<lse-li data-smart-inject="'Open Sans'">Open Sans</lse-li>
-			</lse-ul>
+			<lse-ul class="lse-smart-inject"></lse-ul>
 		</lse-b>
 		<?php endif ?>
 
@@ -1131,6 +1147,12 @@
 			<lse-li data-smart-inject="Tahoma">Tahoma</lse-li>
 			<lse-li data-smart-inject="Verdana">Verdana</lse-li>
 		</lse-ul>
+
+		<lse-b class="lse-smart-help-external-fonts lse-dn">
+			<lse-smart-options-subtitle><?= __('External Fonts', 'LayerSlider') ?></lse-smart-options-subtitle>
+			<lse-ib class="lse-mt-10"><?= __('Fonts loaded by third parties might not be present on every page and might only support some font weights and styles.', 'LayerSlider') ?></lse-ib>
+			<lse-ul class="lse-smart-inject"></lse-ul>
+		</lse-b>
 
 	</div>
 
@@ -1292,12 +1314,39 @@
 		</lse-grid>
 	</div>
 
+	<div data-smart-options="sceneheight">
+
+		<lse-ul class="lse-smart-inject">
+			<lse-li data-smart-inject=""><?= __('auto (Calculated automatically based on slide duration and slider height)', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="2000px"><?= __('2000px', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="250sh"><?= __('250sh (250% of slider height)', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="150vh"><?= __('150vh (150% of viewport height)', 'LayerSlider') ?></lse-li>
+		</lse-ul>
+	</div>
+
 	<div data-smart-options="projectverticalspacing">
 
 		<lse-ul class="lse-smart-inject">
 			<lse-li data-smart-inject="200px"><?= __('200px', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="90vh"><?= __('90vh (90% of viewport height)', 'LayerSlider') ?></lse-li>
 			<lse-li data-smart-inject="60sh"><?= __('60sh (60% of slider height)', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="90vh"><?= __('90vh (90% of viewport height)', 'LayerSlider') ?></lse-li>
+		</lse-ul>
+	</div>
+
+	<div data-smart-options="firstslide">
+
+		<lse-ul class="lse-smart-inject">
+			<lse-li data-smart-inject=""><?= __('Normal sequence', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="random"><?= __('Random', 'LayerSlider') ?></lse-li>
+		</lse-ul>
+	</div>
+
+	<div data-smart-options="performancemodethreshold">
+
+		<lse-ul class="lse-smart-inject">
+			<lse-li data-smart-inject=""><?= __('Default', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="0"><?= __('Activate immediately once the slider leaves the viewport', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="100vh"><?= __('Activate once the slider moves by a screen distance away from the viewport', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 	</div>
 

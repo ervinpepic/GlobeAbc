@@ -94,7 +94,7 @@ class LP_Helper {
 	 *
 	 * @param array|int $ids
 	 * @Todo: tungnx - need to review code
-	 * @depecated 4.1.6.9
+	 * @deprecated 4.1.6.9
 	 */
 	public static function cache_posts( $ids ) {
 		//_deprecated_function( __FUNCTION__, '4.1.6.9' );
@@ -403,10 +403,11 @@ class LP_Helper {
 	 * @author tungnx
 	 */
 	public static function getUrlCurrent(): string {
-		$schema    = is_ssl() ? 'https://' : 'http://';
-		$http_host = $_SERVER['HTTP_HOST'] ?? '';
+		$schema      = is_ssl() ? 'https://' : 'http://';
+		$http_host   = LP_Helper::sanitize_params_submitted( filter_input( INPUT_SERVER, 'HTTP_HOST' ) ?? '' );
+		$request_uri = LP_Helper::sanitize_params_submitted( filter_input( INPUT_SERVER, 'REQUEST_URI' ) ?? '' );
 
-		return $schema . $http_host . untrailingslashit( esc_url_raw( $_SERVER['REQUEST_URI'] ?? '' ) );
+		return $schema . untrailingslashit( $http_host . $request_uri );
 	}
 
 	/**

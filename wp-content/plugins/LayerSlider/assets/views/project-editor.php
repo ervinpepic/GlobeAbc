@@ -86,6 +86,7 @@
 	// Editor Modules
 	wp_localize_script('ls-project-editor', 'LS_editorModules', $modules);
 
+
 	// Editor Meta
 	wp_localize_script('ls-project-editor', 'LS_editorMeta', [
 		'isActivatedSite' 		=> $lsActivated,
@@ -93,6 +94,13 @@
 		'editorNonce' 			=> wp_create_nonce('ls-editor-nonce'),
 		'exportURL' 			=> wp_nonce_url( admin_url('admin.php?page=layerslider&action=export&id='.$id.''), 'export-sliders' )
 	]);
+
+
+	// Global options
+	wp_localize_script('ls-project-editor', 'LS_pluginSettings', [
+		'performanceMode' => (bool) get_option('ls_performance_mode', true )
+	]);
+
 
 	// Layer type icons
 	wp_localize_script('ls-project-editor', 'LS_InterfaceIcons', [
@@ -1026,7 +1034,7 @@
 											</lse-preview-wrapper>
 											<lse-dropzone-highlight>
 												<?= lsGetSVGIcon('file-upload') ?>
-												<lse-text><?= __('Darg & Drop Images or SVGs', 'LayerSlider') ?></lse-text>
+												<lse-text><?= __('Drag & Drop Images or SVGs', 'LayerSlider') ?></lse-text>
 												<?= lsGetSVGIcon('spinner-third', 'duotone', [ 'class' => 'lse-dropzone-p' ]) ?>
 												<lse-text class="lse-dropzone-p"><?= __('Processing...', 'LayerSlider') ?></lse-text>
 											</lse-dropzone-highlight>
@@ -2169,7 +2177,7 @@
 																</lse-ib>
 																<lse-ib>
 																	<lse-fe-wrapper class="lse-icon-input">
-																		<lse-icon-picker data-prop="html" data-search-name="<?= __('Choose Icon', 'LayerSlider') ?>">
+																		<lse-icon-picker data-prop="html" data-search-name="<?= __('Choose Icon', 'LayerSlider') ?>" class="lse-replace-icon-layer">
 
 																		</lse-icon-picker>
 																		<?= lsGetSVGIcon('times', null, [
@@ -2678,6 +2686,9 @@
 																	</lse-fe-wrapper>
 																</lse-ib>
 															</lse-col>
+
+															<lse-separator></lse-separator>
+
 															<lse-col class="lse-full">
 																<lse-ib>
 																	<lse-text>
@@ -2692,6 +2703,19 @@
 																	</lse-fe-wrapper>
 																</lse-ib>
 															</lse-col>
+															<lse-col class="lse-3-1 lse-slider-type-only">
+																<lse-ib>
+																	<lse-text><?= __('Pin layer', 'LayerSlider') ?></lse-text>
+																</lse-ib>
+																<lse-ib class="lse-jcc" data-tt-de="0" data-tt>
+																	<?php lsGetCheckbox( $lsDefaults['layers']['pinned'], null, [
+																		'class' => 'lse-transition-prop'
+																	]) ?>
+
+																</lse-ib>
+																<lse-tt><?= __('The layer will behave as a fixed element and will not scroll along with the slider.', 'LayerSlider') ?></lse-tt>
+															</lse-col>
+
 														</lse-row>
 													</lse-grid>
 
@@ -3777,13 +3801,12 @@
 																<lse-ib>
 																	<lse-text><?= __('Prevent mouse events', 'LayerSlider') ?></lse-text>
 																</lse-ib>
-																<lse-ib>
+																<lse-ib class="lse-jcc">
 																	<?php lsGetCheckbox( $lsDefaults['layers']['pointerEvents'], null, [
 																		'class' => 'lse-transition-prop'
 																	]) ?>
 																</lse-ib>
 															</lse-col>
-															<lse-col-placeholder></lse-col-placeholder>
 
 															<lse-separator></lse-separator>
 
@@ -3864,7 +3887,7 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
  														<lse-li class="lse-slider-type-only lse-registration-required">
 															<?= __('Scroll Transition', 'LayerSlider') ?>
 															<lse-badge>
-																NEW
+																<?= __('NEW', 'LayerSlider') ?>
 															</lse-badge>
 														</lse-li>
 													</lse-ul>
@@ -3909,7 +3932,7 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 												<lse-sidebar-section-head class="lse-can-be-closed lse-show-more">
 													<lse-text class="lse-inline-badge-holder">
 														<?= __('Transition presets', 'LayerSlider') ?>
-															<lse-badge>NEW</lse-badge>
+															<lse-badge><?= __('NEW', 'LayerSlider') ?></lse-badge>
 													</lse-text>
 
 													<lse-options class="lse-icons-only">
@@ -4481,7 +4504,7 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 												<lse-sidebar-section-head class="lse-can-be-closed lse-show-more">
 													<lse-text class="lse-inline-badge-holder">
 														<?= __('Transition presets', 'LayerSlider') ?>
-															<lse-badge>NEW</lse-badge>
+															<lse-badge><?= __('NEW', 'LayerSlider') ?></lse-badge>
 													</lse-text>
 
 													<lse-options class="lse-icons-only">
@@ -4932,7 +4955,7 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 												<lse-sidebar-section-head class="lse-can-be-closed lse-show-more">
 													<lse-text class="lse-inline-badge-holder">
 														<?= __('Transition presets', 'LayerSlider') ?>
-															<lse-badge>NEW</lse-badge>
+															<lse-badge><?= __('NEW', 'LayerSlider') ?></lse-badge>
 													</lse-text>
 
 													<lse-options class="lse-icons-only">
@@ -5390,7 +5413,7 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 												<lse-sidebar-section-head class="lse-can-be-closed lse-show-more">
 													<lse-text class="lse-inline-badge-holder">
 														<?= __('Transition presets', 'LayerSlider') ?>
-															<lse-badge>NEW</lse-badge>
+															<lse-badge><?= __('NEW', 'LayerSlider') ?></lse-badge>
 													</lse-text>
 
 													<lse-options class="lse-icons-only">
@@ -5840,7 +5863,7 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 												<lse-sidebar-section-head class="lse-can-be-closed lse-show-more">
 													<lse-text class="lse-inline-badge-holder">
 														<?= __('Transition presets', 'LayerSlider') ?>
-															<lse-badge>NEW</lse-badge>
+															<lse-badge><?= __('NEW', 'LayerSlider') ?></lse-badge>
 													</lse-text>
 
 													<lse-options class="lse-icons-only">
@@ -6346,7 +6369,7 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 												<lse-sidebar-section-head class="lse-can-be-closed lse-show-more">
 													<lse-text class="lse-inline-badge-holder">
 														<?= __('Transition presets', 'LayerSlider') ?>
-															<lse-badge>NEW</lse-badge>
+															<lse-badge><?= __('NEW', 'LayerSlider') ?></lse-badge>
 													</lse-text>
 
 													<lse-options class="lse-icons-only">
@@ -7739,6 +7762,20 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 															<lse-col>
 																<lse-ib>
 																	<lse-text>
+																		<?= __('Duration', 'LayerSlider') ?>
+																	</lse-text>
+																</lse-ib>
+																<lse-ib>
+																	<lse-fe-wrapper class="lse-smart-help" data-smart-help="durationscroll" data-smart-help-title="<?= __('Scroll Duration', 'LayerSlider') ?>">
+																		<?php lsGetInput( $lsDefaults['layers']['scrollDuration'], null, [
+																			'class' => 'lse-transition-prop'
+																		]) ?>
+																	</lse-fe-wrapper><lse-unit>ms</lse-unit>
+																</lse-ib>
+															</lse-col>
+															<lse-col>
+																<lse-ib>
+																	<lse-text>
 																		<?= __('Center Point', 'LayerSlider') ?>
 																	</lse-text>
 																</lse-ib>
@@ -7753,15 +7790,15 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 															<lse-col>
 																<lse-ib>
 																	<lse-text>
-																		<?= __('Duration', 'LayerSlider') ?>
+																		<?= __('Get Scroll Position Of', 'LayerSlider') ?>
 																	</lse-text>
 																</lse-ib>
 																<lse-ib>
-																	<lse-fe-wrapper class="lse-smart-help" data-smart-help="durationscroll" data-smart-help-title="<?= __('Scroll Duration', 'LayerSlider') ?>">
-																		<?php lsGetInput( $lsDefaults['layers']['scrollDuration'], null, [
+																	<lse-fe-wrapper class="lse-select lse-smart-help" data-smart-help="scrollgetposition" data-smart-help-title="<?= __('Scroll Position', 'LayerSlider') ?>" >
+																		<?php lsGetSelect( $lsDefaults['layers']['scrollGetPosition'], null, [
 																			'class' => 'lse-transition-prop'
 																		]) ?>
-																	</lse-fe-wrapper><lse-unit>ms</lse-unit>
+																	</lse-fe-wrapper>
 																</lse-ib>
 															</lse-col>
 														</lse-row>
@@ -8385,6 +8422,12 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 																	<?php lsGetInput( $lsDefaults['layers']['rel']) ?>
 																</lse-ib>
 															</lse-col>
+															<lse-col class="lse-wide">
+																<lse-ib class="lse-1-2">
+																	<input type="text" value="tabindex" disabled>
+																	<?php lsGetInput( $lsDefaults['layers']['tabindex']) ?>
+																</lse-ib>
+															</lse-col>
 														</lse-row>
 													</lse-grid>
 
@@ -8504,12 +8547,9 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 
 </form>
 
-<!-- SMART HELP GOES HERE -->
+<!-- SMART HELP + SMART ALERT -->
 <?php include LS_ROOT_PATH . '/templates/tmpl-smart-help.php'; ?>
-
-<!-- SMART ALERT MARKUP -->
-<lse-smart-alert-overlay></lse-smart-alert-overlay>
-<lse-smart-alert></lse-smart-alert>
+<?php include LS_ROOT_PATH . '/templates/tmpl-smart-alert.php'; ?>
 
 <!-- GLOBAL TOOLTIPS -->
 <lse-tt class="tt-scroll-transition-properties-responsive">
@@ -8531,7 +8571,7 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 	<?= __('Advanced Option', 'LayerSlider') ?>
 </lse-tt>
 <lse-tt class="tt-premium lse-premium">
-	<?= __('This feature requires license registration. Click on the padlock to learn more.', 'LayerSlider') ?>
+	<?= __('This feature requires license registration. Click to learn more.', 'LayerSlider') ?>
 </lse-tt>
 <lse-tt class="tt-global-hover">
 	<?= __('Triggers all hover transitions at once when moving the mouse cursor over or tapping on the slide.', 'LayerSlider') ?>

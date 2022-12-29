@@ -59,7 +59,7 @@ class Booked_WC_Post_Status {
 		$arg = get_query_var( 'post_status' );
 		$post_status = BOOKED_WC_PLUGIN_PREFIX . 'awaiting';
 
-		if($arg!==$post_status && $post->post_status===$post_status) {
+		if($arg !== $post_status && isset( $post->post_status ) && $post->post_status === $post_status) {
 			return array(__('Awaiting Payment', 'booked'));
 		}
 

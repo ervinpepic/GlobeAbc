@@ -19,12 +19,13 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 	 * Class LP_Admin_Ajax
 	 */
 	class LP_Admin_Ajax {
+		public function __construct() {
+		}
 
 		/**
 		 * Add action ajax
 		 */
 		public static function init() {
-
 			if ( ! is_user_logged_in() ) {
 				return;
 			}
@@ -216,7 +217,7 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 			$post_type = learn_press_get_post_type( $post_id );
 
 			if ( ! $post_id ) {
-				learn_press_send_json_error( __( 'Ops! ID not found', 'learnpress' ) );
+				learn_press_send_json_error( __( 'Oops! ID not found', 'learnpress' ) );
 			} else {
 
 				$new_item_id = '';
@@ -259,7 +260,7 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 				}
 
 				if ( is_wp_error( $new_item_id ) ) {
-					learn_press_send_json_error( __( 'Duplicate post fail, please try again', 'learnpress' ) );
+					learn_press_send_json_error( __( 'Duplicate post failed. Please try again', 'learnpress' ) );
 				} else {
 					learn_press_send_json_success( admin_url( 'post.php?post=' . $new_item_id . '&action=edit' ) );
 				}
@@ -408,7 +409,7 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 			// verify nonce
 			$nonce = learn_press_get_request( 'remove_nonce' );
 			if ( ! wp_verify_nonce( $nonce, 'remove_order_item' ) ) {
-				die( __( 'Check nonce failed', 'learnpress' ) );
+				die( __( 'Nonce check failed', 'learnpress' ) );
 			}
 
 			// validate order
@@ -516,7 +517,7 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 		 * @param mixed $params (Optional) List of keys want to get from payload.
 		 *
 		 * @return array|bool|mixed|object
-		 * @depecated 4.1.6.9
+		 * @deprecated 4.1.6.9
 		 */
 		/*public static function get_php_input( $params = '' ) {
 			static $data = false;
@@ -547,7 +548,7 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 		 * Normally, parse and assign to $_POST or $_GET.
 		 *
 		 * @param $var
-		 * @depecated 4.1.6.9
+		 * @deprecated 4.1.6.9
 		 */
 		/*public static function parsePhpInput( &$var ) {
 			$data = self::get_php_input();
@@ -688,3 +689,5 @@ if ( ! class_exists( 'LP_Admin_Ajax' ) ) {
 
 	add_action( 'init', array( 'LP_Admin_Ajax', 'init' ) );
 }
+
+new LP_Admin_Ajax();

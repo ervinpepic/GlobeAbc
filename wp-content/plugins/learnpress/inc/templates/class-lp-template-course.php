@@ -58,7 +58,7 @@ class LP_Template_Course extends LP_Abstract_Template {
 	 *
 	 * @throws Exception
 	 */
-	public function button_retry( $course ) {
+	public function button_retry( $course = null ) {
 		$user = learn_press_get_current_user();
 		if ( empty( $course ) ) {
 			$course = learn_press_get_course();
@@ -152,7 +152,7 @@ class LP_Template_Course extends LP_Abstract_Template {
 
 		try {
 			if ( $user && $user->has_enrolled_course( get_the_ID() ) ) {
-				throw new Exception( 'User has enrolled course' );
+				throw new Exception( 'The user has enrolled in the course' );
 			}
 
 			$price_html = $course->get_course_price_html();
@@ -177,7 +177,7 @@ class LP_Template_Course extends LP_Abstract_Template {
 	 * @throws Exception
 	 * @version 4.0.1
 	 */
-	public function course_purchase_button( $course ) {
+	public function course_purchase_button( $course = null ) {
 		$can_show = true;
 		if ( empty( $course ) ) {
 			$course = learn_press_get_course();
@@ -229,7 +229,7 @@ class LP_Template_Course extends LP_Abstract_Template {
 	 * @throws Exception
 	 * @version 4.0.2
 	 */
-	public function course_enroll_button( $course ) {
+	public function course_enroll_button( $course = null ) {
 		$can_show = true;
 		$user     = learn_press_get_current_user();
 		if ( empty( $course ) ) {
@@ -346,7 +346,7 @@ class LP_Template_Course extends LP_Abstract_Template {
 	 * @version 4.0.2
 	 * @since  4.0.0
 	 */
-	public function course_continue_button( $course ) {
+	public function course_continue_button( $course = null ) {
 		$can_show = true;
 		$user     = learn_press_get_current_user();
 		if ( empty( $course ) ) {
@@ -363,7 +363,7 @@ class LP_Template_Course extends LP_Abstract_Template {
 			}
 
 			if ( $user->has_finished_course( $course->get_id() ) ) {
-				throw new Exception( 'User has finished course' );
+				throw new Exception( 'The user has completed the course.' );
 			}
 
 			// Course has no items
@@ -393,7 +393,7 @@ class LP_Template_Course extends LP_Abstract_Template {
 		learn_press_get_template( 'single-course/buttons/continue.php', $args );
 	}
 
-	public function course_finish_button( $course ) {
+	public function course_finish_button( $course = null ) {
 		$user = learn_press_get_current_user();
 		if ( empty( $course ) ) {
 			$course = learn_press_get_course();
@@ -430,7 +430,7 @@ class LP_Template_Course extends LP_Abstract_Template {
 	 * @editor tungnx
 	 * @modify 4.1.3
 	 */
-	public function course_external_button( $course ) {
+	public function course_external_button( $course = null ) {
 		if ( empty( $course ) ) {
 			$course = learn_press_get_course();
 		}
@@ -669,7 +669,7 @@ class LP_Template_Course extends LP_Abstract_Template {
 	}
 
 	/**
-	 * @depecated 4.1.7.2
+	 * @deprecated 4.1.7.2
 	 */
 	public function item_quiz_content() {
 		$item = LP_Global::course_item();
@@ -678,7 +678,7 @@ class LP_Template_Course extends LP_Abstract_Template {
 	}
 
 	/**
-	 * @depecated 4.1.7.2
+	 * @deprecated 4.1.7.2
 	 */
 	public function item_lesson_content_blocked() {
 		$item = LP_Global::course_item();
@@ -721,7 +721,7 @@ class LP_Template_Course extends LP_Abstract_Template {
 	}
 
 	/**
-	 * @depecated 4.1.6.9
+	 * @deprecated 4.1.6.9
 	 */
 	/*public function lesson_comment_form() {
 		$course = learn_press_get_course();
@@ -871,7 +871,7 @@ class LP_Template_Course extends LP_Abstract_Template {
 	}
 
 	/**
-	 * @depecated 4.1.7.2
+	 * @deprecated 4.1.7.2
 	 */
 	/*public function instructor_socials() {
 		$instructor = $this->course->get_instructor();
@@ -973,10 +973,16 @@ class LP_Template_Course extends LP_Abstract_Template {
 		$start_time      = $user_course->get_start_time();
 		$end_time        = $user_course->get_end_time();
 		$expiration_time = $user_course->get_expiration_time();
+		$data            = [
+			'status'          => $status,
+			'start_time'      => $start_time,
+			'end_time'        => $end_time,
+			'expiration_time' => $expiration_time,
+		];
 
 		learn_press_get_template(
 			'single-course/sidebar/user-time',
-			compact( 'status', 'start_time', 'end_time', 'expiration_time' )
+			compact( 'data' )
 		);
 	}
 

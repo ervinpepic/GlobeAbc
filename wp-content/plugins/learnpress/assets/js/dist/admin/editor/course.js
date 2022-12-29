@@ -1,4 +1,4 @@
-/******/ (function() { // webpackBootstrap
+/******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
@@ -6,26 +6,26 @@
 /*!*******************************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/actions/course-section.js ***!
   \*******************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 const $ = window.jQuery || jQuery;
 const CourseCurriculum = {
   toggleAllSections(context) {
     const hidden = context.getters.isHiddenAllSections;
-
     if (hidden) {
       context.commit('OPEN_ALL_SECTIONS');
     } else {
       context.commit('CLOSE_ALL_SECTIONS');
     }
-
     LP.Request({
       type: 'hidden-sections',
       hidden: context.getters.hiddenSections
     });
   },
-
   updateSectionsOrder(context, order) {
     LP.Request({
       type: 'sort-sections',
@@ -38,20 +38,17 @@ const CourseCurriculum = {
       console.error(error);
     });
   },
-
   toggleSection(context, section) {
     if (section.open) {
       context.commit('CLOSE_SECTION', section);
     } else {
       context.commit('OPEN_SECTION', section);
     }
-
     LP.Request({
       type: 'hidden-sections',
       hidden: context.getters.hiddenSections
     });
   },
-
   updateSection(context, section) {
     context.commit('UPDATE_SECTION_REQUEST', section.id);
     LP.Request({
@@ -63,7 +60,6 @@ const CourseCurriculum = {
       context.commit('UPDATE_SECTION_FAILURE', section.id);
     });
   },
-
   removeSection(context, payload) {
     context.commit('REMOVE_SECTION', payload.index);
     LP.Request({
@@ -75,7 +71,6 @@ const CourseCurriculum = {
       console.error(error);
     });
   },
-
   newSection(context, name) {
     const newSection = {
       type: 'new-section',
@@ -90,7 +85,6 @@ const CourseCurriculum = {
     });
     LP.Request(newSection).then(function (response) {
       const result = response.body;
-
       if (result.success) {
         const section = $.extend({}, result.data, {
           open: true
@@ -101,7 +95,6 @@ const CourseCurriculum = {
       console.error(error);
     });
   },
-
   updateSectionItem(context, payload) {
     context.commit('UPDATE_SECTION_ITEM_REQUEST', payload.item.id);
     LP.Request({
@@ -111,7 +104,6 @@ const CourseCurriculum = {
     }).then(function (response) {
       context.commit('UPDATE_SECTION_ITEM_SUCCESS', payload.item.id);
       const result = response.body;
-
       if (result.success) {
         const item = result.data;
         context.commit('UPDATE_SECTION_ITEM', {
@@ -124,7 +116,6 @@ const CourseCurriculum = {
       console.error(error);
     });
   },
-
   removeSectionItem(context, payload) {
     const id = payload.item.id;
     context.commit('REMOVE_SECTION_ITEM', payload);
@@ -138,7 +129,6 @@ const CourseCurriculum = {
         data,
         success
       } = rs.body;
-
       if (success) {
         context.commit('REMOVE_SECTION_ITEM', payload);
       } else {
@@ -146,11 +136,9 @@ const CourseCurriculum = {
         payload.oldId = id;
         context.commit('REMOVE_SECTION_ITEM', payload);
       }
-
       context.commit('REMOVE_SECTION_ITEM', payload);
     });
   },
-
   deleteSectionItem(context, payload) {
     const id = payload.item.id;
     context.commit('REMOVE_SECTION_ITEM', payload);
@@ -164,7 +152,6 @@ const CourseCurriculum = {
         data,
         success
       } = rs.body;
-
       if (success) {
         context.commit('REMOVE_SECTION_ITEM', payload);
       } else {
@@ -174,17 +161,15 @@ const CourseCurriculum = {
       }
     });
   },
-
   newSectionItem(context, payload) {
-    context.commit('APPEND_EMPTY_ITEM_TO_SECTION', payload); //context.commit('UPDATE_SECTION_ITEMS', {section_id: payload.section_id, items: result.data});
-
+    context.commit('APPEND_EMPTY_ITEM_TO_SECTION', payload);
+    //context.commit('UPDATE_SECTION_ITEMS', {section_id: payload.section_id, items: result.data});
     LP.Request({
       type: 'new-section-item',
       section_id: payload.section_id,
       item: JSON.stringify(payload.item)
     }).then(function (response) {
       const result = response.body;
-
       if (result.success) {
         // context.commit('UPDATE_SECTION_ITEMS', {section_id: payload.section_id, items: result.data});
         const items = {};
@@ -200,7 +185,6 @@ const CourseCurriculum = {
       console.error(error);
     });
   },
-
   updateSectionItems(_ref, payload) {
     let {
       state
@@ -212,16 +196,15 @@ const CourseCurriculum = {
       last_section: state.sections[state.sections.length - 1] === payload.section_id
     }).then(function (response) {
       const result = response.body;
-
-      if (result.success) {// console.log(result);
+      if (result.success) {
+        // console.log(result);
       }
     }, function (error) {
       console.error(error);
     });
   }
-
 };
-/* harmony default export */ __webpack_exports__["default"] = (CourseCurriculum);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CourseCurriculum);
 
 /***/ }),
 
@@ -229,9 +212,12 @@ const CourseCurriculum = {
 /*!***********************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/actions/course.js ***!
   \***********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 const Course = {
   heartbeat: function (context) {
     LP.Request({
@@ -245,18 +231,15 @@ const Course = {
   },
   draftCourse: function (context, payload) {
     var auto_draft = context.getters.autoDraft;
-
     if (auto_draft) {
       LP.Request({
         type: 'draft-course',
         course: JSON.stringify(payload)
       }).then(function (response) {
         var result = response.body;
-
         if (!result.success) {
           return;
         }
-
         context.commit('UPDATE_AUTO_DRAFT_STATUS', false);
       });
     }
@@ -264,21 +247,19 @@ const Course = {
   newRequest: function (context) {
     context.commit('INCREASE_NUMBER_REQUEST');
     context.commit('UPDATE_STATUS', 'loading');
-
     window.onbeforeunload = function () {
       return '';
     };
   },
   requestCompleted: function (context, status) {
     context.commit('DECREASE_NUMBER_REQUEST');
-
     if (context.getters.currentRequest === 0) {
       context.commit('UPDATE_STATUS', status);
       window.onbeforeunload = null;
     }
   }
 };
-/* harmony default export */ __webpack_exports__["default"] = (Course);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Course);
 
 /***/ }),
 
@@ -286,9 +267,12 @@ const Course = {
 /*!***********************************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/actions/modal-course-items.js ***!
   \***********************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 const ModalCourseItems = {
   toggle: function (context) {
     context.commit('TOGGLE');
@@ -308,11 +292,9 @@ const ModalCourseItems = {
       exclude: JSON.stringify([])
     }).then(function (response) {
       var result = response.body;
-
       if (!result.success) {
         return;
       }
-
       var data = result.data;
       context.commit('SET_LIST_ITEMS', data.items);
       context.commit('UPDATE_PAGINATION', data.pagination);
@@ -330,7 +312,6 @@ const ModalCourseItems = {
   },
   addItemsToSection: function (context) {
     var items = context.getters.addedItems;
-
     if (items.length > 0) {
       LP.Request({
         type: 'add-items-to-section',
@@ -338,7 +319,6 @@ const ModalCourseItems = {
         items: JSON.stringify(items)
       }).then(function (response) {
         var result = response.body;
-
         if (result.success) {
           context.commit('TOGGLE');
           var items = result.data;
@@ -355,7 +335,7 @@ const ModalCourseItems = {
     }
   }
 };
-/* harmony default export */ __webpack_exports__["default"] = (ModalCourseItems);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ModalCourseItems);
 
 /***/ }),
 
@@ -363,9 +343,12 @@ const ModalCourseItems = {
 /*!*******************************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/getters/course-section.js ***!
   \*******************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 const CourseCurriculum = {
   sections: function (state) {
     return state.sections || [];
@@ -392,7 +375,7 @@ const CourseCurriculum = {
     return state.statusUpdateSectionItem;
   }
 };
-/* harmony default export */ __webpack_exports__["default"] = (CourseCurriculum);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CourseCurriculum);
 
 /***/ }),
 
@@ -400,9 +383,12 @@ const CourseCurriculum = {
 /*!***********************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/getters/course.js ***!
   \***********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 const Course = {
   heartbeat: function (state) {
     return state.heartbeat;
@@ -432,7 +418,7 @@ const Course = {
     return state.nonce;
   }
 };
-/* harmony default export */ __webpack_exports__["default"] = (Course);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Course);
 
 /***/ }),
 
@@ -440,9 +426,12 @@ const Course = {
 /*!***********************************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/getters/modal-course-items.js ***!
   \***********************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 const Getters = {
   status: function (state) {
     return state.status;
@@ -455,7 +444,6 @@ const Getters = {
       var find = _getters.addedItems.find(function (_item) {
         return item.id === _item.id;
       });
-
       item.added = !!find;
       return item;
     });
@@ -473,7 +461,7 @@ const Getters = {
     return state.sectionId;
   }
 };
-/* harmony default export */ __webpack_exports__["default"] = (Getters);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Getters);
 
 /***/ }),
 
@@ -481,11 +469,11 @@ const Getters = {
 /*!*************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/http.js ***!
   \*************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ HTTP; }
+/* harmony export */   "default": () => (/* binding */ HTTP)
 /* harmony export */ });
 function HTTP(options) {
   const $ = window.jQuery || jQuery;
@@ -495,7 +483,6 @@ function HTTP(options) {
     store: false
   }, options || {});
   let $publishingAction = null;
-
   LP.Request = function (payload) {
     $publishingAction = $('#publishing-action');
     payload.id = options.store.getters.id;
@@ -513,30 +500,24 @@ function HTTP(options) {
       }
     });
   };
-
   $VueHTTP.interceptors.push(function (request, next) {
     if (request.params.namespace !== options.ns) {
       next();
       return;
     }
-
     options.store.dispatch('newRequest');
     next(function (response) {
       if (!jQuery.isPlainObject(response.body)) {
         response.body = LP.parseJSON(response.body);
       }
-
       const body = response.body;
       const result = body.success || false;
-
       if (result) {
         options.store.dispatch('requestCompleted', 'successful');
       } else {
         options.store.dispatch('requestCompleted', 'failed');
       }
-
       $publishingAction.removeClass('code-' + request.params.code);
-
       if (!$publishingAction.attr('class')) {
         $publishingAction.find('#publish').removeClass('disabled');
         $publishingAction.find('.spinner').removeClass('is-active');
@@ -551,9 +532,12 @@ function HTTP(options) {
 /*!*********************************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/mutations/course-section.js ***!
   \*********************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 const CourseCurriculum = {
   SORT_SECTION(state, orders) {
     state.sections = state.sections.map(function (section) {
@@ -561,18 +545,14 @@ const CourseCurriculum = {
       return section;
     });
   },
-
   SET_SECTIONS(state, sections) {
     state.sections = sections;
   },
-
   ADD_NEW_SECTION(state, newSection) {
     if (newSection.open === undefined) {
       newSection.open = true;
     }
-
     let pos;
-
     if (newSection.temp_id) {
       state.sections.map(function (section, i) {
         if (newSection.temp_id == section.id) {
@@ -581,42 +561,36 @@ const CourseCurriculum = {
         }
       });
     }
-
     if (pos !== undefined) {
       $Vue.set(state.sections, pos, newSection);
     } else {
       state.sections.push(newSection);
     }
   },
-
   ADD_EMPTY_SECTION(state, section) {
     section.open = true;
     state.sections.push(section);
   },
-
   REMOVE_SECTION(state, index) {
     state.sections.splice(index, 1);
   },
-
   REMOVE_SECTION_ITEM(state, payload) {
     const section = state.sections.find(function (section) {
       return section.id === payload.section_id;
     });
     let items = section.items || [],
-        item = payload.item,
-        index = -1;
+      item = payload.item,
+      index = -1;
     items.forEach(function (it, i) {
       if (it.id === item.id) {
         index = i;
       }
     });
-
     if (index !== -1) {
       if (payload.oldId !== undefined) {
         items[index].id = payload.oldId;
         return;
       }
-
       if (item.temp_id) {
         items[index].id = item.temp_id;
       } else {
@@ -624,21 +598,16 @@ const CourseCurriculum = {
       }
     }
   },
-
   UPDATE_SECTION_ITEMS(state, payload) {
     const section = state.sections.find(function (section) {
       return parseInt(section.id) === parseInt(payload.section_id);
     });
-
     if (!section) {
       return;
     }
-
     section.items = payload.items;
   },
-
   UPDATE_SECTION_ITEM(state, payload) {},
-
   CLOSE_SECTION(state, section) {
     state.sections.forEach(function (_section, index) {
       if (section.id === _section.id) {
@@ -646,7 +615,6 @@ const CourseCurriculum = {
       }
     });
   },
-
   OPEN_SECTION(state, section) {
     state.sections.forEach(function (_section, index) {
       if (section.id === _section.id) {
@@ -654,78 +622,62 @@ const CourseCurriculum = {
       }
     });
   },
-
   OPEN_ALL_SECTIONS(state) {
     state.sections = state.sections.map(function (_section) {
       _section.open = true;
       return _section;
     });
   },
-
   CLOSE_ALL_SECTIONS(state) {
     state.sections = state.sections.map(function (_section) {
       _section.open = false;
       return _section;
     });
   },
-
   UPDATE_SECTION_REQUEST(state, sectionId) {
     $Vue.set(state.statusUpdateSection, sectionId, 'updating');
   },
-
   UPDATE_SECTION_SUCCESS(state, sectionId) {
     $Vue.set(state.statusUpdateSection, sectionId, 'successful');
   },
-
   UPDATE_SECTION_FAILURE(state, sectionId) {
     $Vue.set(state.statusUpdateSection, sectionId, 'failed');
   },
-
   UPDATE_SECTION_ITEM_REQUEST(state, itemId) {
     $Vue.set(state.statusUpdateSectionItem, itemId, 'updating');
   },
-
   UPDATE_SECTION_ITEM_SUCCESS(state, itemId) {
     $Vue.set(state.statusUpdateSectionItem, itemId, 'successful');
   },
-
   UPDATE_SECTION_ITEM_FAILURE(state, itemId) {
     $Vue.set(state.statusUpdateSectionItem, itemId, 'failed');
   },
-
   APPEND_EMPTY_ITEM_TO_SECTION(state, data) {
     const section = state.sections.find(function (section) {
       return parseInt(section.id) === parseInt(data.section_id);
     });
-
     if (!section) {
       return;
     }
-
     section.items.push({
       id: data.item.id,
       title: data.item.title,
       type: 'empty-item'
     });
   },
-
   UPDATE_ITEM_SECTION_BY_ID(state, data) {
     const section = state.sections.find(function (section) {
       return parseInt(section.id) === parseInt(data.section_id);
     });
-
     if (!section) {
       return;
     }
-
     for (let i = 0; i < section.items.length; i++) {
       try {
         if (!section.items[i]) {
           continue;
         }
-
         const item_id = section.items[i].id;
-
         if (item_id) {
           if (data.items[item_id]) {
             $Vue.set(section.items, i, data.items[item_id]);
@@ -734,12 +686,13 @@ const CourseCurriculum = {
       } catch (ex) {
         console.log(ex);
       }
-    } //section.items.push({id: data.item.id, title: data.item.title, type: 'empty-item'});
+    }
 
+    //section.items.push({id: data.item.id, title: data.item.title, type: 'empty-item'});
   }
-
 };
-/* harmony default export */ __webpack_exports__["default"] = (CourseCurriculum);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CourseCurriculum);
 
 /***/ }),
 
@@ -747,9 +700,12 @@ const CourseCurriculum = {
 /*!*************************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/mutations/course.js ***!
   \*************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 const Course = {
   UPDATE_HEART_BEAT: function (state, status) {
     state.heartbeat = !!status;
@@ -767,7 +723,7 @@ const Course = {
     state.countCurrentRequest--;
   }
 };
-/* harmony default export */ __webpack_exports__["default"] = (Course);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Course);
 
 /***/ }),
 
@@ -775,9 +731,12 @@ const Course = {
 /*!*************************************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/mutations/modal-course-items.js ***!
   \*************************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 const Mutations = {
   TOGGLE: function (state) {
     state.open = !state.open;
@@ -815,7 +774,7 @@ const Mutations = {
     state.status = 'failed';
   }
 };
-/* harmony default export */ __webpack_exports__["default"] = (Mutations);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Mutations);
 
 /***/ }),
 
@@ -823,11 +782,11 @@ const Mutations = {
 /*!*****************************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/store/course-section.js ***!
   \*****************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* export default binding */ __WEBPACK_DEFAULT_EXPORT__; }
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _actions_course_section__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/course-section */ "./assets/src/apps/js/admin/editor/actions/course-section.js");
 /* harmony import */ var _mutations_course_section__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../mutations/course-section */ "./assets/src/apps/js/admin/editor/mutations/course-section.js");
@@ -863,9 +822,12 @@ const $ = window.jQuery;
 /*!*********************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/store/course.js ***!
   \*********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 /* harmony import */ var _store_modal_course_items__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../store/modal-course-items */ "./assets/src/apps/js/admin/editor/store/modal-course-items.js");
 /* harmony import */ var _store_course_section__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store/course-section */ "./assets/src/apps/js/admin/editor/store/course-section.js");
 /* harmony import */ var _store_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/i18n */ "./assets/src/apps/js/admin/editor/store/i18n.js");
@@ -879,7 +841,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const $ = window.jQuery;
-
 const Course = function Course(data) {
   var state = $.extend({}, data.root);
   state.status = 'success';
@@ -897,8 +858,7 @@ const Course = function Course(data) {
     }
   };
 };
-
-/* harmony default export */ __webpack_exports__["default"] = (Course);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Course);
 
 /***/ }),
 
@@ -906,11 +866,13 @@ const Course = function Course(data) {
 /*!*******************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/store/i18n.js ***!
   \*******************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 const $ = window.jQuery || jQuery;
-
 const i18n = function i18n(i18n) {
   const state = $.extend({}, i18n);
   const getters = {
@@ -924,8 +886,7 @@ const i18n = function i18n(i18n) {
     getters: getters
   };
 };
-
-/* harmony default export */ __webpack_exports__["default"] = (i18n);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (i18n);
 
 /***/ }),
 
@@ -933,11 +894,11 @@ const i18n = function i18n(i18n) {
 /*!*********************************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/store/modal-course-items.js ***!
   \*********************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* export default binding */ __WEBPACK_DEFAULT_EXPORT__; }
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _getters_modal_course_items__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../getters/modal-course-items */ "./assets/src/apps/js/admin/editor/getters/modal-course-items.js");
 /* harmony import */ var _mutations_modal_course_items__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../mutations/modal-course-items */ "./assets/src/apps/js/admin/editor/mutations/modal-course-items.js");
@@ -990,37 +951,37 @@ const $ = window.jQuery || jQuery;
 /******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/define property getters */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 		__webpack_require__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
 /******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	!function() {
-/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
-/******/ 	}();
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = function(exports) {
+/******/ 		__webpack_require__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-!function() {
+(() => {
 /*!***************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/course.js ***!
   \***************************************************/
@@ -1032,12 +993,12 @@ __webpack_require__.r(__webpack_exports__);
 window.$Vue = window.$Vue || Vue;
 window.$Vuex = window.$Vuex || Vuex;
 const $ = window.jQuery;
+
 /**
  * Init app.
  *
  * @since 3.0.0
  */
-
 $(document).ready(function () {
   window.LP_Curriculum_Store = new $Vuex.Store((0,_store_course__WEBPACK_IMPORTED_MODULE_1__["default"])(lpAdminCourseEditorSettings));
   (0,_http__WEBPACK_IMPORTED_MODULE_0__["default"])({
@@ -1051,7 +1012,8 @@ $(document).ready(function () {
     });
   }, 100);
 });
-}();
+})();
+
 /******/ })()
 ;
 //# sourceMappingURL=course.js.map

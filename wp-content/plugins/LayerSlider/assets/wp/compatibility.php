@@ -483,7 +483,7 @@ function ls_normalize_slider_data( $slider ) {
 				// Parse embedded JSON data
 				$layerVal['styles'] = !empty($layerVal['styles']) ? (object) json_decode(stripslashes($layerVal['styles']), true) : new stdClass;
 				$layerVal['transition'] = !empty($layerVal['transition']) ? (object) json_decode(stripslashes($layerVal['transition']), true) : new stdClass;
-				$layerVal['html'] = ( ! empty( $layerVal['html'] ) || $layerVal['html'] === '0' ) ? stripslashes($layerVal['html']) : '';
+				$layerVal['html'] = ( ! empty( $layerVal['html'] ) || ( isset( $layerVal['html'] ) && $layerVal['html'] === '0' ) ) ? stripslashes($layerVal['html']) : '';
 
 				// Add 'top', 'left' and 'wordwrap' to the styles object
 				if(isset($layerVal['top'])) { $layerVal['styles']->top = $layerVal['top']; unset($layerVal['top']); }

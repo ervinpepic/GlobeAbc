@@ -271,7 +271,7 @@ class LP_User_Item_Quiz extends LP_User_Item {
 			$user_quiz           = LP_User_Items_DB::getInstance()->get_user_course_item( $filter, true );
 			$course_start_time   = $user_quiz->start_time;
 			$timestamp_expire    = strtotime( $course_start_time . ' +' . $duration );
-			$timestamp_current   = strtotime( current_time( 'mysql', 1 ) );
+			$timestamp_current   = time();
 			$timestamp_remaining = $timestamp_expire - $timestamp_current;
 
 			if ( $timestamp_remaining < 0 ) {
@@ -336,9 +336,8 @@ class LP_User_Item_Quiz extends LP_User_Item {
 	 * @version 4.0.0
 	 */
 	public function calculate_results(): array {
-		$quiz          = learn_press_get_quiz( $this->get_item_id() );
-		$last_results  = LP_User_Items_Result_DB::instance()->get_result( $this->get_user_item_id() );
-		$is_has_change = 0;
+		$quiz         = learn_press_get_quiz( $this->get_item_id() );
+		$last_results = LP_User_Items_Result_DB::instance()->get_result( $this->get_user_item_id() );
 
 		if ( ! $last_results ) {
 			$last_results = array();
@@ -413,7 +412,6 @@ class LP_User_Item_Quiz extends LP_User_Item {
 			$result['question_count'] = count( $questions );
 
 			if ( $grade ) {
-				$is_has_change = 1;
 				learn_press_update_user_item_field(
 					array(
 						'graduation' => $grade,
@@ -423,10 +421,6 @@ class LP_User_Item_Quiz extends LP_User_Item {
 					)
 				);
 			}
-		}
-
-		if ( $is_has_change ) {
-			// LP_User_Items_Result_DB::instance()->update( $this->get_user_item_id(), wp_json_encode( $result ) );
 		}
 
 		return $result;
@@ -480,9 +474,9 @@ class LP_User_Item_Quiz extends LP_User_Item {
 				throw new Exception();
 			}
 
-			$question_ids             = $quiz->get_questions();
+			$question_ids             = $quiz->get_question_ids();
 			$result['mark']           = $quiz->get_mark();
-			$result['question_count'] = count( $question_ids );
+			$result['question_count'] = $quiz->count_questions();
 			$result['time_spend']     = $this->get_time_interval( 'display' );
 			$result['passing_grade']  = $quiz->get_passing_grade();
 			$checked_questions        = $this->get_checked_questions();
@@ -668,9 +662,13 @@ class LP_User_Item_Quiz extends LP_User_Item {
 		return $return;
 	}
 
+	/**
+	 * @deprecated 4.2.0
+	 */
 	public function get_total_questions() {
+		_deprecated_function( __METHOD__, '4.2.0' );
 		$quiz      = learn_press_get_quiz( $this->get_item_id() );
-		$questions = $quiz->get_questions();
+		$questions = $quiz->get_question_ids();
 
 		return sizeof( $questions );
 	}
@@ -687,11 +685,13 @@ class LP_User_Item_Quiz extends LP_User_Item {
 	 * @param string $return - Optional.
 	 *
 	 * @return LP_Duration
+	 * @deprecated 4.1.7.3
 	 */
 	public function get_time_remaining( $return = 'object' ) {
-		$time = parent::get_time_remaining( $return );
+		_deprecated_function( __METHOD__, '4.1.7.3' );
+		/*$time = parent::get_time_remaining( $return );
 
-		return apply_filters( 'learn-press/quiz/time-remaining', $time, $this->get_item_id(), $this->get_course_id(), $this->get_user_id() );
+		return apply_filters( 'learn-press/quiz/time-remaining', $time, $this->get_item_id(), $this->get_course_id(), $this->get_user_id() );*/
 	}
 
 	/**
@@ -744,12 +744,12 @@ class LP_User_Item_Quiz extends LP_User_Item {
 	public function instant_check_question( int $question_id, $answered = null ): array {
 		$question = learn_press_get_question( $question_id );
 		if ( ! $question ) {
-			throw new Exception( __( 'Question is invalid!', 'learnpress' ) );
+			throw new Exception( __( 'The question is invalid!', 'learnpress' ) );
 		}
 
 		$can_check = $this->can_check_answer( $question_id );
 		if ( ! $can_check ) {
-			throw new Exception( __( 'Cannot check answer the question.', 'learnpress' ) );
+			throw new Exception( __( 'Cannot check the answer to the question.', 'learnpress' ) );
 		}
 
 		$answered_check = array(

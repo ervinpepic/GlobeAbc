@@ -19,7 +19,7 @@ if( ! defined('NL')  ) { define('NL', "\r\n"); }
 if( ! defined('TAB') ) { define('TAB', "\t");  }
 
 if( ! defined('DAY_IN_SECONDS') ) { define( 'DAY_IN_SECONDS', 24 * 3600 ); }
-if( ! defined('MONTH_IN_SECONDS') ) {  define('MONTH_IN_SECONDS', ''); }
+if( ! defined('MONTH_IN_SECONDS') ) { define('MONTH_IN_SECONDS', ''); }
 
 // Load & initialize plugin config class
 include LS_ROOT_PATH.'/classes/class.ls.config.php';

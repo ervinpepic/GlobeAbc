@@ -1,4 +1,4 @@
-/******/ (function() { // webpackBootstrap
+/******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
@@ -6,9 +6,12 @@
 /*!********************************************************************!*\
   !*** ./node_modules/@wordpress/icons/build-module/library/page.js ***!
   \********************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/primitives */ "@wordpress/primitives");
@@ -25,7 +28,7 @@ const page = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_
 }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__.Path, {
   d: "M7 5.5h10a.5.5 0 01.5.5v12a.5.5 0 01-.5.5H7a.5.5 0 01-.5-.5V6a.5.5 0 01.5-.5zM17 4H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V6a2 2 0 00-2-2zm-1 3.75H8v1.5h8v-1.5zM8 11h8v1.5H8V11zm6 3.25H8v1.5h6v-1.5z"
 }));
-/* harmony default export */ __webpack_exports__["default"] = (page);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (page);
 //# sourceMappingURL=page.js.map
 
 /***/ }),
@@ -34,7 +37,7 @@ const page = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_
 /*!***********************************************!*\
   !*** ./assets/src/apps/js/blocks/category.js ***!
   \***********************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
@@ -59,11 +62,11 @@ __webpack_require__.r(__webpack_exports__);
 /*!****************************************************!*\
   !*** ./assets/src/apps/js/blocks/template/edit.js ***!
   \****************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ Edit; }
+/* harmony export */   "default": () => (/* binding */ Edit)
 /* harmony export */ });
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
@@ -90,22 +93,20 @@ const TEMPLATES = {
   }
 };
 function Edit(_ref) {
-  var _TEMPLATES$attributes, _TEMPLATES$attributes2;
-
+  var _TEMPLATES$attributes;
   let {
     attributes
   } = _ref;
   const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)();
-  const templateTitle = (_TEMPLATES$attributes = (_TEMPLATES$attributes2 = TEMPLATES[attributes.template]) === null || _TEMPLATES$attributes2 === void 0 ? void 0 : _TEMPLATES$attributes2.title) !== null && _TEMPLATES$attributes !== void 0 ? _TEMPLATES$attributes : attributes.template;
+  const templateTitle = (_TEMPLATES$attributes = TEMPLATES[attributes.template]?.title) !== null && _TEMPLATES$attributes !== void 0 ? _TEMPLATES$attributes : attributes.template;
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", blockProps, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Placeholder, {
     icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"],
     label: templateTitle,
     className: "wp-block-learnpress-template__placeholder"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "wp-block-learnpress-template__placeholder-inner"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.sprintf)(
-  /* translators: %s is the template title */
-  (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('This is an editor placeholder for the %s. On your store this will be replaced by the template and display with your course image(s), title, price, etc. You can move this placeholder around and add further blocks around it to extend the template.', 'learnpress'), templateTitle))));
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.sprintf)( /* translators: %s is the template title */
+  (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('This is an editor placeholder for the %s. This will be replaced by the template in your store and displayed with your course image(s), title, price, and so on. You can move this placeholder around and add further blocks around it to extend the template.', 'learnpress'), templateTitle))));
 }
 
 /***/ }),
@@ -114,13 +115,13 @@ function Edit(_ref) {
 /*!*****************************************************!*\
   !*** ./assets/src/apps/js/blocks/template/index.js ***!
   \*****************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "metadata": function() { return /* reexport default export from named module */ _block_json__WEBPACK_IMPORTED_MODULE_2__; },
-/* harmony export */   "name": function() { return /* binding */ name; },
-/* harmony export */   "settings": function() { return /* binding */ settings; }
+/* harmony export */   "metadata": () => (/* reexport default export from named module */ _block_json__WEBPACK_IMPORTED_MODULE_2__),
+/* harmony export */   "name": () => (/* binding */ name),
+/* harmony export */   "settings": () => (/* binding */ settings)
 /* harmony export */ });
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
@@ -148,7 +149,7 @@ const settings = {
 /*!*************************************!*\
   !*** external ["wp","blockEditor"] ***!
   \*************************************/
-/***/ (function(module) {
+/***/ ((module) => {
 
 module.exports = window["wp"]["blockEditor"];
 
@@ -158,7 +159,7 @@ module.exports = window["wp"]["blockEditor"];
 /*!********************************!*\
   !*** external ["wp","blocks"] ***!
   \********************************/
-/***/ (function(module) {
+/***/ ((module) => {
 
 module.exports = window["wp"]["blocks"];
 
@@ -168,7 +169,7 @@ module.exports = window["wp"]["blocks"];
 /*!************************************!*\
   !*** external ["wp","components"] ***!
   \************************************/
-/***/ (function(module) {
+/***/ ((module) => {
 
 module.exports = window["wp"]["components"];
 
@@ -178,7 +179,7 @@ module.exports = window["wp"]["components"];
 /*!*********************************!*\
   !*** external ["wp","element"] ***!
   \*********************************/
-/***/ (function(module) {
+/***/ ((module) => {
 
 module.exports = window["wp"]["element"];
 
@@ -188,7 +189,7 @@ module.exports = window["wp"]["element"];
 /*!******************************!*\
   !*** external ["wp","i18n"] ***!
   \******************************/
-/***/ (function(module) {
+/***/ ((module) => {
 
 module.exports = window["wp"]["i18n"];
 
@@ -198,7 +199,7 @@ module.exports = window["wp"]["i18n"];
 /*!************************************!*\
   !*** external ["wp","primitives"] ***!
   \************************************/
-/***/ (function(module) {
+/***/ ((module) => {
 
 module.exports = window["wp"]["primitives"];
 
@@ -208,7 +209,7 @@ module.exports = window["wp"]["primitives"];
 /*!*******************************************************!*\
   !*** ./assets/src/apps/js/blocks/template/block.json ***!
   \*******************************************************/
-/***/ (function(module) {
+/***/ ((module) => {
 
 module.exports = JSON.parse('{"apiVersion":2,"name":"learnpress/template","category":"learnpress","attributes":{"template":{"type":"string","default":""}}}');
 
@@ -242,55 +243,55 @@ module.exports = JSON.parse('{"apiVersion":2,"name":"learnpress/template","categ
 /******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat get default export */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = function(module) {
+/******/ 		__webpack_require__.n = (module) => {
 /******/ 			var getter = module && module.__esModule ?
-/******/ 				function() { return module['default']; } :
-/******/ 				function() { return module; };
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
 /******/ 			__webpack_require__.d(getter, { a: getter });
 /******/ 			return getter;
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/define property getters */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 		__webpack_require__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
 /******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	!function() {
-/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
-/******/ 	}();
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = function(exports) {
+/******/ 		__webpack_require__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-!function() {
+(() => {
 /*!********************************************!*\
   !*** ./assets/src/apps/js/blocks/index.js ***!
   \********************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "registerLearnPressBlocks": function() { return /* binding */ registerLearnPressBlocks; }
+/* harmony export */   "registerLearnPressBlocks": () => (/* binding */ registerLearnPressBlocks)
 /* harmony export */ });
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
@@ -299,31 +300,30 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const registerBlock = block => {
   if (!block) {
     return;
   }
-
   const {
     metadata,
     settings,
     name
   } = block;
-  (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(name, { ...metadata,
+  (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(name, {
+    ...metadata,
     ...settings
   });
 };
+
 /**
  * Function to register blocks.
  */
-
-
 const registerLearnPressBlocks = () => {
   [_template__WEBPACK_IMPORTED_MODULE_2__].forEach(registerBlock);
 };
 registerLearnPressBlocks();
-}();
+})();
+
 /******/ })()
 ;
 //# sourceMappingURL=index.js.map

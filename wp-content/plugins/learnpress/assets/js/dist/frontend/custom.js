@@ -1,4 +1,4 @@
-/******/ (function() { // webpackBootstrap
+/******/ (() => { // webpackBootstrap
 var __webpack_exports__ = {};
 /*!***********************************************!*\
   !*** ./assets/src/apps/js/frontend/custom.js ***!
@@ -6,6 +6,7 @@ var __webpack_exports__ = {};
 /**
  * Custom functions for frontend quiz.
  */
+
 const {
   Hook
 } = LP;
@@ -13,10 +14,10 @@ const $ = window.jQuery || jQuery;
 Hook.addFilter('question-blocks', function (blocks) {
   return blocks; ///[ 'answer-options', 'title', 'content', 'hint', 'explanation'];
 });
+
 Hook.addAction('before-start-quiz', function () {});
 Hook.addAction('quiz-started', function (results, id) {
   $(`.course-item-${id}`).removeClass('status-completed failed passed').addClass('has-status status-started');
-
   window.onbeforeunload = function () {
     return 'Warning!';
   };

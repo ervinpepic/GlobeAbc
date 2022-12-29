@@ -1,16 +1,16 @@
-/******/ (function() { // webpackBootstrap
+/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./assets/src/apps/js/frontend/profile/avatar.js":
 /*!*******************************************************!*\
   !*** ./assets/src/apps/js/frontend/profile/avatar.js ***!
   \*******************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ Avatar; }
+/* harmony export */   "default": () => (/* binding */ Avatar)
 /* harmony export */ });
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
@@ -47,30 +47,24 @@ function Avatar() {
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     async function getAvatar() {
       setSkeleton(true);
-
       try {
-        var _response$data, _response$data2, _response$data3;
-
         const response = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
           method: 'GET',
           path: 'lp/v1/profile/get-avatar'
         });
-        setWidth(response !== null && response !== void 0 && (_response$data = response.data) !== null && _response$data !== void 0 && _response$data.width ? parseInt(response.data.width) : 0);
-        setHeight(response !== null && response !== void 0 && (_response$data2 = response.data) !== null && _response$data2 !== void 0 && _response$data2.height ? parseInt(response.data.height) : 0);
-        setFile(response !== null && response !== void 0 && (_response$data3 = response.data) !== null && _response$data3 !== void 0 && _response$data3.url ? response.data.url : '');
+        setWidth(response?.data?.width ? parseInt(response.data.width) : 0);
+        setHeight(response?.data?.height ? parseInt(response.data.height) : 0);
+        setFile(response?.data?.url ? response.data.url : '');
       } catch (error) {
         setNotice({
           type: 'error',
           message: error.message
         });
       }
-
       setSkeleton(false);
     }
-
     getAvatar();
   }, []);
-
   function readFile(file) {
     return new Promise(resolve => {
       const reader = new FileReader();
@@ -78,18 +72,15 @@ function Avatar() {
       reader.readAsDataURL(file);
     });
   }
-
   const onCropComplete = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
-
   const base64Resize = (base64, width, height) => {
     return new Promise((resolve, reject) => {
       const canvas = document.createElement('canvas');
       const img = document.createElement('img');
       img.src = base64;
       img.setAttribute('crossOrigin', 'anonymous');
-
       img.onload = () => {
         if (img.naturalWidth > width || img.naturalHeight > height) {
           canvas.width = width;
@@ -98,19 +89,15 @@ function Avatar() {
           ctx.drawImage(img, 0, 0, width, height);
           resolve(canvas.toDataURL('image/jpeg'));
         }
-
         resolve(base64);
       };
-
       img.onerror = err => reject(err);
     });
   };
-
   const updateAvatar = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(async () => {
     setLoading({
       save: true
     });
-
     try {
       const croppedImage = await getCroppedImg(file, croppedAreaPixels, rotation);
       const imageResize = await base64Resize(croppedImage, width, height);
@@ -126,11 +113,9 @@ function Avatar() {
         status,
         message
       } = await response;
-
       if (status === 'success') {
         window.location.reload();
       }
-
       setNotice({
         type: status,
         message
@@ -141,12 +126,10 @@ function Avatar() {
         message: e.message || ''
       });
     }
-
     setLoading({
       save: false
     });
   }, [croppedAreaPixels, rotation]);
-
   const setFileInput = async fileUpload => {
     const file = await readFile(fileUpload);
     const img = new Image();
@@ -155,13 +138,11 @@ function Avatar() {
       setNaturalWidth(img.naturalWidth);
       setNaturalHeight(img.naturalHeight);
       let error = '';
-
       if (parseInt(fileUpload.size) > 2097152) {
-        error = (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('File size too large. You need to upload a file < 2MB', 'learnpress');
+        error = (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('The file size is too large. You need to upload a file < 2MB.', 'learnpress');
       } else if (img.naturalWidth < width || img.naturalHeight < height) {
-        error = (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Image size must be greater than or equal to %1$sx%2$spx', 'learnpress'), width, height);
+        error = (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('The image size must be greater than or equal to %1$sx%2$spx', 'learnpress'), width, height);
       }
-
       if (error) {
         setUploadError(error);
       } else {
@@ -170,13 +151,11 @@ function Avatar() {
       }
     };
   };
-
   async function removeAvatar() {
     if (confirm((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Are you sure you want to remove your avatar?', 'learnpress'))) {
       setLoading({
         remove: true
       });
-
       try {
         const response = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
           path: 'lp/v1/profile/remove-avatar',
@@ -198,13 +177,11 @@ function Avatar() {
           message: e.message || ''
         });
       }
-
       setLoading({
         remove: false
       });
     }
   }
-
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "learnpress_avatar"
   }, !skeleton ? (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, file && !uploadError && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, naturalHeight && naturalWidth ? (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -229,7 +206,7 @@ function Avatar() {
     onCropChange: setCrop,
     onCropComplete: onCropComplete
   })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    className: `learnpress_avatar__button learnpress_avatar__button--save ${loading !== null && loading !== void 0 && loading.save ? 'learnpress_avatar__button--loading' : ''}`,
+    className: `learnpress_avatar__button learnpress_avatar__button--save ${loading?.save ? 'learnpress_avatar__button--loading' : ''}`,
     onClick: updateAvatar
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Save', 'learnpress')))) : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "learnpress_avatar__cropper"
@@ -240,7 +217,7 @@ function Avatar() {
     className: `learnpress_avatar__button learnpress_avatar__button--replace`,
     onClick: () => fileInput.current && fileInput.current.click()
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Replace', 'learnpress')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    className: `learnpress_avatar__button learnpress_avatar__button--remove ${loading !== null && loading !== void 0 && loading.remove ? 'learnpress_avatar__button--loading' : ''}`,
+    className: `learnpress_avatar__button learnpress_avatar__button--remove ${loading?.remove ? 'learnpress_avatar__button--loading' : ''}`,
     onClick: removeAvatar
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Remove', 'learnpress'))))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("form", {
     style: {
@@ -300,20 +277,20 @@ function Avatar() {
       height: 20
     }
   })));
-} // Link: https://codesandbox.io/s/q8q1mnr01w
+}
 
+// Link: https://codesandbox.io/s/q8q1mnr01w
 const createImage = url => new Promise((resolve, reject) => {
   const image = new Image();
   image.addEventListener('load', () => resolve(image));
   image.addEventListener('error', error => reject(error));
   image.setAttribute('crossOrigin', 'anonymous'); // needed to avoid cross-origin issues on CodeSandbox
-
   image.src = url;
 });
-
 function getRadianAngle(degreeValue) {
   return degreeValue * Math.PI / 180;
 }
+
 /**
  * Returns the new bounding area of a rotated rectangle.
  *
@@ -321,8 +298,6 @@ function getRadianAngle(degreeValue) {
  * @param  height
  * @param  rotation
  */
-
-
 function rotateSize(width, height, rotation) {
   const rotRad = getRadianAngle(rotation);
   return {
@@ -330,6 +305,7 @@ function rotateSize(width, height, rotation) {
     height: Math.abs(Math.sin(rotRad) * width) + Math.abs(Math.cos(rotRad) * height)
   };
 }
+
 /**
  * This function was adapted from the one in the ReadMe of https://github.com/DominicTobias/react-image-crop
  *
@@ -338,8 +314,6 @@ function rotateSize(width, height, rotation) {
  * @param  rotation
  * @param  flip
  */
-
-
 async function getCroppedImg(imageSrc, pixelCrop) {
   let rotation = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
   let flip = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {
@@ -349,36 +323,42 @@ async function getCroppedImg(imageSrc, pixelCrop) {
   const image = await createImage(imageSrc);
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
-
   if (!ctx) {
     return null;
   }
+  const rotRad = getRadianAngle(rotation);
 
-  const rotRad = getRadianAngle(rotation); // calculate bounding box of the rotated image
-
+  // calculate bounding box of the rotated image
   const {
     width: bBoxWidth,
     height: bBoxHeight
-  } = rotateSize(image.width, image.height, rotation); // set canvas size to match the bounding box
+  } = rotateSize(image.width, image.height, rotation);
 
+  // set canvas size to match the bounding box
   canvas.width = bBoxWidth;
-  canvas.height = bBoxHeight; // translate canvas context to a central location to allow rotating and flipping around the center
+  canvas.height = bBoxHeight;
 
+  // translate canvas context to a central location to allow rotating and flipping around the center
   ctx.translate(bBoxWidth / 2, bBoxHeight / 2);
   ctx.rotate(rotRad);
   ctx.scale(flip.horizontal ? -1 : 1, flip.vertical ? -1 : 1);
-  ctx.translate(-image.width / 2, -image.height / 2); // draw rotated image
+  ctx.translate(-image.width / 2, -image.height / 2);
 
-  ctx.drawImage(image, 0, 0); // croppedAreaPixels values are bounding box relative
+  // draw rotated image
+  ctx.drawImage(image, 0, 0);
+
+  // croppedAreaPixels values are bounding box relative
   // extract the cropped image using these values
+  const data = ctx.getImageData(pixelCrop.x, pixelCrop.y, pixelCrop.width, pixelCrop.height);
 
-  const data = ctx.getImageData(pixelCrop.x, pixelCrop.y, pixelCrop.width, pixelCrop.height); // set canvas width to final desired crop size - this will clear existing context
-
+  // set canvas width to final desired crop size - this will clear existing context
   canvas.width = pixelCrop.width;
-  canvas.height = pixelCrop.height; // paste generated rotate image at the top left corner
+  canvas.height = pixelCrop.height;
 
-  ctx.putImageData(data, 0, 0); // As Base64 string
+  // paste generated rotate image at the top left corner
+  ctx.putImageData(data, 0, 0);
 
+  // As Base64 string
   return canvas.toDataURL('image/jpeg');
 }
 
@@ -388,17 +368,20 @@ async function getCroppedImg(imageSrc, pixelCrop) {
 /*!***********************************************************!*\
   !*** ./assets/src/apps/js/frontend/profile/course-tab.js ***!
   \***********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 /* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/url */ "@wordpress/url");
 /* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_url__WEBPACK_IMPORTED_MODULE_0__);
- // Rest API load content course enrolled, created - Nhamdv.
 
+
+// Rest API load content course enrolled, created - Nhamdv.
 const courseTab = () => {
   const elements = document.querySelectorAll('.learn-press-course-tab__filter__content');
-
   const getResponse = function (ele, dataset) {
     let append = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
     let viewMoreEle = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
@@ -408,7 +391,6 @@ const courseTab = () => {
     }).then(response => {
       const skeleton = ele.querySelector('.lp-skeleton-animation');
       skeleton && skeleton.remove();
-
       if (response.status === 'success' && response.data) {
         if (append) {
           ele.innerHTML += response.data;
@@ -420,19 +402,15 @@ const courseTab = () => {
       } else {
         ele.innerHTML = `<div class="lp-ajax-message" style="display:block">${response.message && response.message}</div>`;
       }
-
       if (viewMoreEle) {
         viewMoreEle.classList.remove('loading');
         const paged = viewMoreEle.dataset.paged;
         const numberPage = viewMoreEle.dataset.number;
-
         if (numberPage <= paged) {
           viewMoreEle.remove();
         }
-
         viewMoreEle.dataset.paged = parseInt(paged) + 1;
       }
-
       viewMore(ele, dataset);
     }).catch(error => {
       if (append) {
@@ -440,28 +418,25 @@ const courseTab = () => {
       } else {
         ele.innerHTML = `<div class="lp-ajax-message error" style="display:block">${error.message && error.message}</div>`;
       }
-
       if (viewMoreEle) {
         viewMoreEle.classList.remove('loading');
         const paged = viewMoreEle.dataset.paged;
         const numberPage = viewMoreEle.dataset.number;
-
         if (numberPage <= paged) {
           viewMoreEle.remove();
         }
-
         viewMoreEle.dataset.paged = parseInt(paged) + 1;
       }
     });
   };
-
   if ('IntersectionObserver' in window) {
     const eleObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const ele = entry.target;
           const params = ele.parentNode.querySelector('.lp_profile_tab_input_param');
-          const data = { ...JSON.parse(params.value),
+          const data = {
+            ...JSON.parse(params.value),
             status: ele.dataset.tab || ''
           };
           getResponse(ele, data);
@@ -474,14 +449,14 @@ const courseTab = () => {
         eleObserver.observe(ele);
       } else {
         const params = ele.parentNode.querySelector('.lp_profile_tab_input_param');
-        const data = { ...JSON.parse(params.value),
+        const data = {
+          ...JSON.parse(params.value),
           status: ele.dataset.tab === 'all' ? '' : ele.dataset.tab || ''
         };
         getResponse(ele, data);
       }
     });
   }
-
   const changeFilter = () => {
     const tabs = document.querySelectorAll('.learn-press-course-tab-filters');
     tabs.forEach(tab => {
@@ -496,7 +471,6 @@ const courseTab = () => {
           filter.classList.add('active');
           [...tab.querySelectorAll('.learn-press-course-tab__filter__content')].map(ele => {
             ele.style.display = 'none';
-
             if (ele.dataset.tab === tabName) {
               ele.style.display = '';
             }
@@ -505,9 +479,7 @@ const courseTab = () => {
       });
     });
   };
-
   changeFilter();
-
   const changeTab = () => {
     const tabUls = document.querySelectorAll('.learn-press-profile-course__tab__inner');
     tabUls.forEach(tabUl => {
@@ -522,7 +494,6 @@ const courseTab = () => {
           tab.classList.add('active');
           [...document.querySelectorAll('.learn-press-course-tab-filters')].map(ele => {
             ele.style.display = 'none';
-
             if (ele.dataset.tab === tabName) {
               ele.style.display = '';
             }
@@ -531,19 +502,17 @@ const courseTab = () => {
       });
     });
   };
-
   changeTab();
-
   const viewMore = (ele, dataset) => {
     const viewMoreEle = ele.querySelector('button[data-paged]');
-
     if (viewMoreEle) {
       viewMoreEle.addEventListener('click', e => {
         e.preventDefault();
         const paged = viewMoreEle && viewMoreEle.dataset.paged;
         viewMoreEle.classList.add('loading');
         const element = dataset.layout === 'list' ? '.lp_profile_course_progress' : '.learn-press-courses';
-        getResponse(ele.querySelector(element), { ...dataset,
+        getResponse(ele.querySelector(element), {
+          ...dataset,
           ...{
             paged
           }
@@ -552,8 +521,7 @@ const courseTab = () => {
     }
   };
 };
-
-/* harmony default export */ __webpack_exports__["default"] = (courseTab);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (courseTab);
 
 /***/ }),
 
@@ -561,56 +529,45 @@ const courseTab = () => {
 /*!**************************************************************!*\
   !*** ./assets/src/apps/js/frontend/profile/order-recover.js ***!
   \**************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ recoverOrder; }
+/* harmony export */   "default": () => (/* binding */ recoverOrder)
 /* harmony export */ });
 const $ = window.jQuery;
 function recoverOrder() {
   const wrap = $('.order-recover'),
-        buttonRecoverOrder = wrap.find('.button-recover-order');
-
+    buttonRecoverOrder = wrap.find('.button-recover-order');
   const ajaxRecover = () => {
     wrap.find('.learn-press-message').remove();
     $('.profile-recover-order').find('.learn-press-message').remove();
     $.post({
       url: '',
       data: wrap.serializeJSON(),
-
       beforeSend() {
         buttonRecoverOrder.addClass('loading').attr('disabled', 'disabled');
       },
-
       success(response) {
         response = LP.parseJSON(response);
-
         if (response.message) {
           const $msg = $('<div class="learn-press-message icon"><i class="fa"></i> ' + response.message + '</div>');
-
           if (response.result == 'error') {
             $msg.addClass('error');
           }
-
           wrap.before($msg);
         }
-
         if (response.redirect) {
           window.location.href = response.redirect;
         }
-
         buttonRecoverOrder.removeClass('loading').removeAttr('disabled', '');
       },
-
       error() {
         buttonRecoverOrder.removeClass('loading').removeAttr('disabled', '');
       }
-
     });
   };
-
   buttonRecoverOrder.on('click', ajaxRecover);
 }
 ;
@@ -621,21 +578,23 @@ function recoverOrder() {
 /*!**********************************************************!*\
   !*** ./assets/src/apps/js/frontend/profile/statistic.js ***!
   \**********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 /* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/url */ "@wordpress/url");
 /* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_url__WEBPACK_IMPORTED_MODULE_0__);
- // Rest API load content course progress - Nhamdv.
 
+
+// Rest API load content course progress - Nhamdv.
 const courseStatistics = () => {
   const elements = document.querySelector('.learn-press-profile-course__statistic');
-
   if (!elements) {
     return;
   }
-
   const getResponse = (ele, dataset) => {
     wp.apiFetch({
       path: (0,_wordpress_url__WEBPACK_IMPORTED_MODULE_0__.addQueryArgs)('lp/v1/profile/statistic', dataset),
@@ -647,21 +606,19 @@ const courseStatistics = () => {
         ele.innerHTML = `<div class="lp-ajax-message error" style="display:block">${response.message && response.message}</div>`;
       }
     }).catch(err => {
-      console.log(err); //ele.innerHTML += `<div class="lp-ajax-message error" style="display:block">${ err.message && err.message }</div>`;
+      console.log(err);
+      //ele.innerHTML += `<div class="lp-ajax-message error" style="display:block">${ err.message && err.message }</div>`;
     });
   };
 
   const elArgStatistic = document.querySelector('[name="args_query_user_courses_statistic"]');
-
   if (!elArgStatistic) {
     return;
   }
-
   const data = JSON.parse(elArgStatistic.value);
   getResponse(elements, data);
 };
-
-/* harmony default export */ __webpack_exports__["default"] = (courseStatistics);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (courseStatistics);
 
 /***/ }),
 
@@ -669,7 +626,7 @@ const courseStatistics = () => {
 /*!***********************************************!*\
   !*** ./node_modules/normalize-wheel/index.js ***!
   \***********************************************/
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 module.exports = __webpack_require__(/*! ./src/normalizeWheel.js */ "./node_modules/normalize-wheel/src/normalizeWheel.js");
 
@@ -680,7 +637,7 @@ module.exports = __webpack_require__(/*! ./src/normalizeWheel.js */ "./node_modu
 /*!******************************************************************!*\
   !*** ./node_modules/normalize-wheel/src/ExecutionEnvironment.js ***!
   \******************************************************************/
-/***/ (function(module) {
+/***/ ((module) => {
 
 "use strict";
 /**
@@ -734,7 +691,7 @@ module.exports = ExecutionEnvironment;
 /*!******************************************************************!*\
   !*** ./node_modules/normalize-wheel/src/UserAgent_DEPRECATED.js ***!
   \******************************************************************/
-/***/ (function(module) {
+/***/ ((module) => {
 
 /**
  * Copyright 2004-present Facebook. All Rights Reserved.
@@ -1026,7 +983,7 @@ module.exports = UserAgent_DEPRECATED;
 /*!**************************************************************!*\
   !*** ./node_modules/normalize-wheel/src/isEventSupported.js ***!
   \**************************************************************/
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 /**
@@ -1100,7 +1057,7 @@ module.exports = isEventSupported;
 /*!************************************************************!*\
   !*** ./node_modules/normalize-wheel/src/normalizeWheel.js ***!
   \************************************************************/
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 /**
@@ -1292,10 +1249,15 @@ module.exports = normalizeWheel;
 /*!******************************************************!*\
   !*** ./node_modules/react-easy-crop/index.module.js ***!
   \******************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "getInitialCropFromCroppedAreaPercentages": () => (/* binding */ getInitialCropFromCroppedAreaPercentages),
+/* harmony export */   "getInitialCropFromCroppedAreaPixels": () => (/* binding */ getInitialCropFromCroppedAreaPixels)
+/* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ "./node_modules/react-easy-crop/node_modules/tslib/tslib.es6.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
@@ -1568,11 +1530,16 @@ function (_super) {
       x: 0,
       y: 0
     };
+    _this.gestureZoomStart = 0;
+    _this.gestureRotationStart = 0;
+    _this.isTouching = false;
     _this.lastPinchDistance = 0;
     _this.lastPinchRotation = 0;
     _this.rafDragTimeout = null;
     _this.rafPinchTimeout = null;
     _this.wheelTimer = null;
+    _this.currentDoc = document;
+    _this.currentWindow = window;
     _this.state = {
       cropSize: null,
       hasWheelJustStarted: false
@@ -1583,10 +1550,17 @@ function (_super) {
     };
 
     _this.cleanEvents = function () {
-      document.removeEventListener('mousemove', _this.onMouseMove);
-      document.removeEventListener('mouseup', _this.onDragStopped);
-      document.removeEventListener('touchmove', _this.onTouchMove);
-      document.removeEventListener('touchend', _this.onDragStopped);
+      _this.currentDoc.removeEventListener('mousemove', _this.onMouseMove);
+
+      _this.currentDoc.removeEventListener('mouseup', _this.onDragStopped);
+
+      _this.currentDoc.removeEventListener('touchmove', _this.onTouchMove);
+
+      _this.currentDoc.removeEventListener('touchend', _this.onDragStopped);
+
+      _this.currentDoc.removeEventListener('gesturemove', _this.onGestureMove);
+
+      _this.currentDoc.removeEventListener('gestureend', _this.onGestureEnd);
     };
 
     _this.clearScrollEvent = function () {
@@ -1698,7 +1672,12 @@ function (_super) {
         _this.mediaSize = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)({}, renderedMediaSize), {
           naturalWidth: naturalWidth,
           naturalHeight: naturalHeight
-        });
+        }); // set media size in the parent
+
+        if (_this.props.setMediaSize) {
+          _this.props.setMediaSize(_this.mediaSize);
+        }
+
         var cropSize = _this.props.cropSize ? _this.props.cropSize : getCropSize(_this.mediaSize.width, _this.mediaSize.height, _this.containerRect.width, _this.containerRect.height, _this.props.aspect, _this.props.rotation);
 
         if (((_e = _this.state.cropSize) === null || _e === void 0 ? void 0 : _e.height) !== cropSize.height || ((_f = _this.state.cropSize) === null || _f === void 0 ? void 0 : _f.width) !== cropSize.width) {
@@ -1707,7 +1686,12 @@ function (_super) {
 
         _this.setState({
           cropSize: cropSize
-        }, _this.recomputeCropPosition);
+        }, _this.recomputeCropPosition); // pass crop size to parent
+
+
+        if (_this.props.setCropSize) {
+          _this.props.setCropSize(cropSize);
+        }
 
         return cropSize;
       }
@@ -1715,8 +1699,10 @@ function (_super) {
 
     _this.onMouseDown = function (e) {
       e.preventDefault();
-      document.addEventListener('mousemove', _this.onMouseMove);
-      document.addEventListener('mouseup', _this.onDragStopped);
+
+      _this.currentDoc.addEventListener('mousemove', _this.onMouseMove);
+
+      _this.currentDoc.addEventListener('mouseup', _this.onDragStopped);
 
       _this.onDragStart(Cropper.getMousePoint(e));
     };
@@ -1726,15 +1712,18 @@ function (_super) {
     };
 
     _this.onTouchStart = function (e) {
+      _this.isTouching = true;
+
       if (_this.props.onTouchRequest && !_this.props.onTouchRequest(e)) {
         return;
       }
 
-      document.addEventListener('touchmove', _this.onTouchMove, {
+      _this.currentDoc.addEventListener('touchmove', _this.onTouchMove, {
         passive: false
       }); // iOS 11 now defaults to passive: true
 
-      document.addEventListener('touchend', _this.onDragStopped);
+
+      _this.currentDoc.addEventListener('touchend', _this.onDragStopped);
 
       if (e.touches.length === 2) {
         _this.onPinchStart(e);
@@ -1754,6 +1743,43 @@ function (_super) {
       }
     };
 
+    _this.onGestureStart = function (e) {
+      e.preventDefault();
+
+      _this.currentDoc.addEventListener('gesturechange', _this.onGestureMove);
+
+      _this.currentDoc.addEventListener('gestureend', _this.onGestureEnd);
+
+      _this.gestureZoomStart = _this.props.zoom;
+      _this.gestureRotationStart = _this.props.rotation;
+    };
+
+    _this.onGestureMove = function (e) {
+      e.preventDefault();
+
+      if (_this.isTouching) {
+        // this is to avoid conflict between gesture and touch events
+        return;
+      }
+
+      var point = Cropper.getMousePoint(e);
+      var newZoom = _this.gestureZoomStart - 1 + e.scale;
+
+      _this.setNewZoom(newZoom, point, {
+        shouldUpdatePosition: true
+      });
+
+      if (_this.props.onRotationChange) {
+        var newRotation = _this.gestureRotationStart + e.rotation;
+
+        _this.props.onRotationChange(newRotation);
+      }
+    };
+
+    _this.onGestureEnd = function (e) {
+      _this.cleanEvents();
+    };
+
     _this.onDragStart = function (_a) {
       var _b, _c;
 
@@ -1770,8 +1796,8 @@ function (_super) {
     _this.onDrag = function (_a) {
       var x = _a.x,
           y = _a.y;
-      if (_this.rafDragTimeout) window.cancelAnimationFrame(_this.rafDragTimeout);
-      _this.rafDragTimeout = window.requestAnimationFrame(function () {
+      if (_this.rafDragTimeout) _this.currentWindow.cancelAnimationFrame(_this.rafDragTimeout);
+      _this.rafDragTimeout = _this.currentWindow.requestAnimationFrame(function () {
         if (!_this.state.cropSize) return;
         if (x === undefined || y === undefined) return;
         var offsetX = x - _this.dragStartPosition.x;
@@ -1788,6 +1814,8 @@ function (_super) {
 
     _this.onDragStopped = function () {
       var _a, _b;
+
+      _this.isTouching = false;
 
       _this.cleanEvents();
 
@@ -1806,7 +1834,9 @@ function (_super) {
       var pixelY = normalize_wheel__WEBPACK_IMPORTED_MODULE_1___default()(e).pixelY;
       var newZoom = _this.props.zoom - pixelY * _this.props.zoomSpeed / 200;
 
-      _this.setNewZoom(newZoom, point);
+      _this.setNewZoom(newZoom, point, {
+        shouldUpdatePosition: true
+      });
 
       if (!_this.state.hasWheelJustStarted) {
         _this.setState({
@@ -1822,7 +1852,7 @@ function (_super) {
         clearTimeout(_this.wheelTimer);
       }
 
-      _this.wheelTimer = window.setTimeout(function () {
+      _this.wheelTimer = _this.currentWindow.setTimeout(function () {
         return _this.setState({
           hasWheelJustStarted: false
         }, function () {
@@ -1859,21 +1889,25 @@ function (_super) {
       };
     };
 
-    _this.setNewZoom = function (zoom, point) {
+    _this.setNewZoom = function (zoom, point, _a) {
+      var _b = (_a === void 0 ? {} : _a).shouldUpdatePosition,
+          shouldUpdatePosition = _b === void 0 ? true : _b;
       if (!_this.state.cropSize || !_this.props.onZoomChange) return;
-
-      var zoomPoint = _this.getPointOnContainer(point);
-
-      var zoomTarget = _this.getPointOnMedia(zoomPoint);
-
       var newZoom = clamp(zoom, _this.props.minZoom, _this.props.maxZoom);
-      var requestedPosition = {
-        x: zoomTarget.x * newZoom - zoomPoint.x,
-        y: zoomTarget.y * newZoom - zoomPoint.y
-      };
-      var newPosition = _this.props.restrictPosition ? restrictPosition(requestedPosition, _this.mediaSize, _this.state.cropSize, newZoom, _this.props.rotation) : requestedPosition;
 
-      _this.props.onCropChange(newPosition);
+      if (shouldUpdatePosition) {
+        var zoomPoint = _this.getPointOnContainer(point);
+
+        var zoomTarget = _this.getPointOnMedia(zoomPoint);
+
+        var requestedPosition = {
+          x: zoomTarget.x * newZoom - zoomPoint.x,
+          y: zoomTarget.y * newZoom - zoomPoint.y
+        };
+        var newPosition = _this.props.restrictPosition ? restrictPosition(requestedPosition, _this.mediaSize, _this.state.cropSize, newZoom, _this.props.rotation) : requestedPosition;
+
+        _this.props.onCropChange(newPosition);
+      }
 
       _this.props.onZoomChange(newZoom);
     };
@@ -1929,18 +1963,24 @@ function (_super) {
   }
 
   Cropper.prototype.componentDidMount = function () {
-    window.addEventListener('resize', this.computeSizes);
-
     if (this.containerRef) {
+      if (this.containerRef.ownerDocument) {
+        this.currentDoc = this.containerRef.ownerDocument;
+      }
+
+      if (this.currentDoc.defaultView) {
+        this.currentWindow = this.currentDoc.defaultView;
+      }
+
+      this.currentWindow.addEventListener('resize', this.computeSizes);
       this.props.zoomWithScroll && this.containerRef.addEventListener('wheel', this.onWheel, {
         passive: false
       });
-      this.containerRef.addEventListener('gesturestart', this.preventZoomSafari);
-      this.containerRef.addEventListener('gesturechange', this.preventZoomSafari);
+      this.containerRef.addEventListener('gesturestart', this.onGestureStart);
     }
 
     if (!this.props.disableAutomaticStylesInjection) {
-      this.styleRef = document.createElement('style');
+      this.styleRef = this.currentDoc.createElement('style');
       this.styleRef.setAttribute('type', 'text/css');
 
       if (this.props.nonce) {
@@ -1948,7 +1988,7 @@ function (_super) {
       }
 
       this.styleRef.innerHTML = css_248z;
-      document.head.appendChild(this.styleRef);
+      this.currentDoc.head.appendChild(this.styleRef);
     } // when rendered via SSR, the image can already be loaded and its onLoad callback will never be called
 
 
@@ -1969,11 +2009,10 @@ function (_super) {
   Cropper.prototype.componentWillUnmount = function () {
     var _a;
 
-    window.removeEventListener('resize', this.computeSizes);
+    this.currentWindow.removeEventListener('resize', this.computeSizes);
 
     if (this.containerRef) {
       this.containerRef.removeEventListener('gesturestart', this.preventZoomSafari);
-      this.containerRef.removeEventListener('gesturechange', this.preventZoomSafari);
     }
 
     if (this.styleRef) {
@@ -2038,12 +2077,14 @@ function (_super) {
     var pointB = Cropper.getTouchPoint(e.touches[1]);
     var center = getCenter(pointA, pointB);
     this.onDrag(center);
-    if (this.rafPinchTimeout) window.cancelAnimationFrame(this.rafPinchTimeout);
-    this.rafPinchTimeout = window.requestAnimationFrame(function () {
+    if (this.rafPinchTimeout) this.currentWindow.cancelAnimationFrame(this.rafPinchTimeout);
+    this.rafPinchTimeout = this.currentWindow.requestAnimationFrame(function () {
       var distance = getDistanceBetweenPoints(pointA, pointB);
       var newZoom = _this.props.zoom * (distance / _this.lastPinchDistance);
 
-      _this.setNewZoom(newZoom, center);
+      _this.setNewZoom(newZoom, center, {
+        shouldUpdatePosition: false
+      });
 
       _this.lastPinchDistance = distance;
       var rotation = getRotationBetweenPoints(pointA, pointB);
@@ -2158,7 +2199,8 @@ function (_super) {
   return Cropper;
 }((react__WEBPACK_IMPORTED_MODULE_0___default().Component));
 
-/* harmony default export */ __webpack_exports__["default"] = (Cropper);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Cropper);
+
 //# sourceMappingURL=index.module.js.map
 
 
@@ -2168,34 +2210,34 @@ function (_super) {
 /*!**********************************************************************!*\
   !*** ./node_modules/react-easy-crop/node_modules/tslib/tslib.es6.js ***!
   \**********************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "__assign": function() { return /* binding */ __assign; },
-/* harmony export */   "__asyncDelegator": function() { return /* binding */ __asyncDelegator; },
-/* harmony export */   "__asyncGenerator": function() { return /* binding */ __asyncGenerator; },
-/* harmony export */   "__asyncValues": function() { return /* binding */ __asyncValues; },
-/* harmony export */   "__await": function() { return /* binding */ __await; },
-/* harmony export */   "__awaiter": function() { return /* binding */ __awaiter; },
-/* harmony export */   "__classPrivateFieldGet": function() { return /* binding */ __classPrivateFieldGet; },
-/* harmony export */   "__classPrivateFieldSet": function() { return /* binding */ __classPrivateFieldSet; },
-/* harmony export */   "__createBinding": function() { return /* binding */ __createBinding; },
-/* harmony export */   "__decorate": function() { return /* binding */ __decorate; },
-/* harmony export */   "__exportStar": function() { return /* binding */ __exportStar; },
-/* harmony export */   "__extends": function() { return /* binding */ __extends; },
-/* harmony export */   "__generator": function() { return /* binding */ __generator; },
-/* harmony export */   "__importDefault": function() { return /* binding */ __importDefault; },
-/* harmony export */   "__importStar": function() { return /* binding */ __importStar; },
-/* harmony export */   "__makeTemplateObject": function() { return /* binding */ __makeTemplateObject; },
-/* harmony export */   "__metadata": function() { return /* binding */ __metadata; },
-/* harmony export */   "__param": function() { return /* binding */ __param; },
-/* harmony export */   "__read": function() { return /* binding */ __read; },
-/* harmony export */   "__rest": function() { return /* binding */ __rest; },
-/* harmony export */   "__spread": function() { return /* binding */ __spread; },
-/* harmony export */   "__spreadArrays": function() { return /* binding */ __spreadArrays; },
-/* harmony export */   "__values": function() { return /* binding */ __values; }
+/* harmony export */   "__assign": () => (/* binding */ __assign),
+/* harmony export */   "__asyncDelegator": () => (/* binding */ __asyncDelegator),
+/* harmony export */   "__asyncGenerator": () => (/* binding */ __asyncGenerator),
+/* harmony export */   "__asyncValues": () => (/* binding */ __asyncValues),
+/* harmony export */   "__await": () => (/* binding */ __await),
+/* harmony export */   "__awaiter": () => (/* binding */ __awaiter),
+/* harmony export */   "__classPrivateFieldGet": () => (/* binding */ __classPrivateFieldGet),
+/* harmony export */   "__classPrivateFieldSet": () => (/* binding */ __classPrivateFieldSet),
+/* harmony export */   "__createBinding": () => (/* binding */ __createBinding),
+/* harmony export */   "__decorate": () => (/* binding */ __decorate),
+/* harmony export */   "__exportStar": () => (/* binding */ __exportStar),
+/* harmony export */   "__extends": () => (/* binding */ __extends),
+/* harmony export */   "__generator": () => (/* binding */ __generator),
+/* harmony export */   "__importDefault": () => (/* binding */ __importDefault),
+/* harmony export */   "__importStar": () => (/* binding */ __importStar),
+/* harmony export */   "__makeTemplateObject": () => (/* binding */ __makeTemplateObject),
+/* harmony export */   "__metadata": () => (/* binding */ __metadata),
+/* harmony export */   "__param": () => (/* binding */ __param),
+/* harmony export */   "__read": () => (/* binding */ __read),
+/* harmony export */   "__rest": () => (/* binding */ __rest),
+/* harmony export */   "__spread": () => (/* binding */ __spread),
+/* harmony export */   "__spreadArrays": () => (/* binding */ __spreadArrays),
+/* harmony export */   "__values": () => (/* binding */ __values)
 /* harmony export */ });
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -2432,7 +2474,7 @@ function __classPrivateFieldSet(receiver, privateMap, value) {
 /*!************************!*\
   !*** external "React" ***!
   \************************/
-/***/ (function(module) {
+/***/ ((module) => {
 
 "use strict";
 module.exports = window["React"];
@@ -2443,7 +2485,7 @@ module.exports = window["React"];
 /*!**********************************!*\
   !*** external ["wp","apiFetch"] ***!
   \**********************************/
-/***/ (function(module) {
+/***/ ((module) => {
 
 "use strict";
 module.exports = window["wp"]["apiFetch"];
@@ -2454,7 +2496,7 @@ module.exports = window["wp"]["apiFetch"];
 /*!*********************************!*\
   !*** external ["wp","element"] ***!
   \*********************************/
-/***/ (function(module) {
+/***/ ((module) => {
 
 "use strict";
 module.exports = window["wp"]["element"];
@@ -2465,7 +2507,7 @@ module.exports = window["wp"]["element"];
 /*!******************************!*\
   !*** external ["wp","i18n"] ***!
   \******************************/
-/***/ (function(module) {
+/***/ ((module) => {
 
 "use strict";
 module.exports = window["wp"]["i18n"];
@@ -2476,7 +2518,7 @@ module.exports = window["wp"]["i18n"];
 /*!*****************************!*\
   !*** external ["wp","url"] ***!
   \*****************************/
-/***/ (function(module) {
+/***/ ((module) => {
 
 "use strict";
 module.exports = window["wp"]["url"];
@@ -2511,49 +2553,49 @@ module.exports = window["wp"]["url"];
 /******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat get default export */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = function(module) {
+/******/ 		__webpack_require__.n = (module) => {
 /******/ 			var getter = module && module.__esModule ?
-/******/ 				function() { return module['default']; } :
-/******/ 				function() { return module; };
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
 /******/ 			__webpack_require__.d(getter, { a: getter });
 /******/ 			return getter;
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/define property getters */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 		__webpack_require__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
 /******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	!function() {
-/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
-/******/ 	}();
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = function(exports) {
+/******/ 		__webpack_require__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
-!function() {
+(() => {
 "use strict";
 /*!************************************************!*\
   !*** ./assets/src/apps/js/frontend/profile.js ***!
@@ -2575,11 +2617,11 @@ document.addEventListener('DOMContentLoaded', function (event) {
   (0,_profile_statistic__WEBPACK_IMPORTED_MODULE_2__["default"])();
   (0,_profile_order_recover__WEBPACK_IMPORTED_MODULE_3__["default"])();
 });
-
 if (document.getElementById('learnpress-avatar-upload')) {
   wp.element.render((0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_profile_avatar__WEBPACK_IMPORTED_MODULE_4__["default"], null), document.getElementById('learnpress-avatar-upload'));
 }
-}();
+})();
+
 /******/ })()
 ;
 //# sourceMappingURL=profile.js.map

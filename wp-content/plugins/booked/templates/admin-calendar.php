@@ -29,8 +29,8 @@
 
 		if (!$booked_none_assigned && count($calendars) >= 1):
 
-			?><div class="booked-calendarSwitcher"><p>
-				<i class="booked-icon booked-icon-calendar"></i><?php
+			?><div class="booked-calendarSwitcher">
+				<i class="fa-solid fa-calendar-days"></i><?php
 
 				echo '<select name="bookedCalendarDisplayed">';
 				if (current_user_can('manage_booked_options')): echo '<option value="">'.esc_html__('All Calendars','booked').'</option>'; endif;
@@ -43,7 +43,7 @@
 
 				echo '</select>';
 
-			?></p></div><?php
+			?></div><?php
 
 		else :
 

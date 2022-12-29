@@ -4,10 +4,10 @@
  * Plugin URI: http://thimpress.com/learnpress
  * Description: LearnPress is a WordPress complete solution for creating a Learning Management System (LMS). It can help you to create courses, lessons and quizzes.
  * Author: ThimPress
- * Version: 4.1.7.2
+ * Version: 4.2.0
  * Author URI: http://thimpress.com
- * Requires at least: 5.6
- * Tested up to: 6.0
+ * Requires at least: 5.8
+ * Tested up to: 6.1.1
  * Requires PHP: 7.0
  * Text Domain: learnpress
  * Domain Path: /languages/
@@ -44,10 +44,6 @@ if ( ! class_exists( 'LearnPress' ) ) {
 		 * @var int
 		 */
 		public $db_version = 4;
-		/**
-		 * @var int Version of mu file on folder mu-plugins
-		 */
-		public $mu_file_version = 2;
 
 		/**
 		 * The single instance of the class
@@ -222,6 +218,7 @@ if ( ! class_exists( 'LearnPress' ) ) {
 		 * @return void
 		 */
 		private function include_files_global() {
+			require_once 'inc/Helper/Singleton.php';
 			require_once 'inc/class-lp-multi-language.php';
 
 			// Filter query .
@@ -229,6 +226,7 @@ if ( ! class_exists( 'LearnPress' ) ) {
 			require_once 'inc/filters/class-lp-post-type-filter.php';
 			require_once 'inc/filters/class-lp-course-filter.php';
 			require_once 'inc/filters/class-lp-order-filter.php';
+			require_once 'inc/filters/class-lp-session-filter.php';
 			require_once 'inc/filters/class-lp-section-filter.php';
 			require_once 'inc/filters/class-lp-section-items-filter.php';
 			require_once 'inc/filters/class-lp-question-filter.php';
@@ -260,6 +258,7 @@ if ( ! class_exists( 'LearnPress' ) ) {
 
 			// File helper
 			require_once 'inc/class-lp-helper.php';
+			require_once 'inc/Helper/Template.php';
 
 			// Models
 			require_once 'inc/models/class-lp-rest-response.php';
@@ -276,6 +275,8 @@ if ( ! class_exists( 'LearnPress' ) ) {
 			require_once 'inc/cache/class-lp-courses-cache.php';
 			require_once 'inc/cache/class-lp-course-cache.php';
 			require_once 'inc/cache/class-lp-quiz-cache.php';
+			require_once 'inc/cache/class-lp-question-cache.php';
+			require_once 'inc/cache/class-lp-session-cache.php';
 
 			// Background processes.
 			require_once 'inc/libraries/wp-background-process/wp-background-processing.php';
@@ -348,7 +349,6 @@ if ( ! class_exists( 'LearnPress' ) ) {
 			require_once 'inc/course/lp-course-functions.php';
 			require_once 'inc/course/abstract-course.php';
 			require_once 'inc/course/class-lp-course.php';
-			//require_once 'inc/course/class-lp-course-utils.php';
 			require_once 'inc/quiz/lp-quiz-functions.php';
 			require_once 'inc/quiz/class-lp-quiz.php';
 			require_once 'inc/lesson/lp-lesson-functions.php';
@@ -415,6 +415,8 @@ if ( ! class_exists( 'LearnPress' ) ) {
 				return;
 			}
 
+			require_once 'inc/admin/class-lp-admin-ajax.php';
+
 			require_once 'inc/admin/class-lp-admin-notice.php';
 
 			// File handle install LP
@@ -425,8 +427,6 @@ if ( ! class_exists( 'LearnPress' ) ) {
 
 			require_once 'inc/admin/class-lp-admin.php';
 			// require_once 'inc/admin/settings/abstract-settings-page.php';
-
-			require_once 'inc/admin/class-lp-admin-ajax.php';
 		}
 
 		/**
@@ -448,10 +448,6 @@ if ( ! class_exists( 'LearnPress' ) ) {
 		 * Initial common hooks
 		 */
 		public function init_hooks() {
-			if ( 0 !== strcmp( LP_PLUGIN_BASENAME, 'learnpress/learnpress.php' ) ) {
-				add_action( 'admin_notices', array( $this, 'error' ) );
-			}
-
 			// Add links setting|document|addon on plugins page.
 			add_filter( 'plugin_action_links_' . LP_PLUGIN_BASENAME, array( $this, 'plugin_links' ) );
 
@@ -486,24 +482,6 @@ if ( ! class_exists( 'LearnPress' ) ) {
 			$links[] = sprintf( '<a href="%s" target="_blank">%s</a>', get_admin_url() . '/admin.php?page=learn-press-addons', __( 'Add-ons', 'learnpress' ) );
 
 			return $links;
-		}
-
-		public function error() {
-			?>
-			<div class="error">
-				<p>
-					<?php
-					printf(
-						__(
-							'LearnPress plugin base directory must be <strong>learnpress/learnpres.php</strong> (case sensitive) to ensure all functions work properly and fully operational (currently <strong>%s</strong>)',
-							'learnpress'
-						),
-						LP_PLUGIN_BASENAME
-					);
-					?>
-				</p>
-			</div>
-			<?php
 		}
 
 		/**
@@ -571,6 +549,12 @@ if ( ! class_exists( 'LearnPress' ) ) {
 		 */
 		public function plugin_loaded() {
 			do_action( 'learnpress/hook/before-addons-call-hook-learnpress-ready' );
+
+			// For check wp_remote call normally of WP
+			if ( ! empty( LP_Request::get_param( 'lp_test_wp_remote' ) ) ) {
+				echo '[TEST_REMOTE]';
+				die;
+			}
 
 			// Polylang
 			if ( defined( 'POLYLANG_VERSION' ) ) {
@@ -653,11 +637,10 @@ if ( ! class_exists( 'LearnPress' ) ) {
 		 * @since 3.3.0
 		 */
 		public function template( $type = '' ) {
-			if ( ! $this->template ) {
-				$this->template = LP_Template::instance();
-			}
+			$this->template = LP_Template::instance();
+			$templates      = (array) $this->template->get_templates();
 
-			return isset( $this->template[ $type ] ) ? $this->template[ $type ] : $this->template;
+			return $templates[ $type ] ?? $this->template;
 		}
 
 		/**
@@ -833,14 +816,6 @@ if ( ! class_exists( 'LearnPress' ) ) {
 			}
 
 			return self::$_instance;
-		}
-
-		public function admin_notice_require_addon_version() {
-			?>
-			<div class="notice notice-error">
-				<p><?php echo( '<strong>LearnPress version ' . LEARNPRESS_VERSION . ' require Addon</strong> version 4.0.0 or higher' ); ?></p>
-			</div>
-			<?php
 		}
 
 		/**

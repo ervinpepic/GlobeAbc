@@ -3,7 +3,7 @@
  * Class LP_User_Item_Course
  */
 
-class LP_User_Item_Course extends LP_User_Item implements ArrayAccess {
+class LP_User_Item_Course extends LP_User_Item {
 	public $_item_type = LP_COURSE_CPT;
 	public $_ref_type  = LP_ORDER_CPT;
 
@@ -154,8 +154,12 @@ class LP_User_Item_Course extends LP_User_Item implements ArrayAccess {
 		return $this->get_data( 'item_id' );
 	}
 
+	/**
+	 * @deprecated 4.1.7.3
+	 */
 	public function get_finishing_type() {
-		$type = $this->get_meta( 'finishing_type' );
+		_deprecated_function( __METHOD__, '4.1.7.3' );
+		/*$type = $this->get_meta( 'finishing_type' );
 
 		if ( ! $type ) {
 			$type = $this->is_exceeded() <= 0 ? 'exceeded' : 'click';
@@ -165,7 +169,7 @@ class LP_User_Item_Course extends LP_User_Item implements ArrayAccess {
 			$this->set_meta( 'finishing_type', $type );
 		}
 
-		return $type;
+		return $type;*/
 	}
 
 	public function offsetSet( $offset, $value ) {
@@ -191,7 +195,7 @@ class LP_User_Item_Course extends LP_User_Item implements ArrayAccess {
 
 	/**
 	 * @return LP_User_Item|bool
-	 * @depecated 4.1.6.9.2
+	 * @deprecated 4.1.6.9.2
 	 */
 	/*public function get_viewing_item() {
 		$item = LP_Global::course_item();
@@ -384,7 +388,7 @@ class LP_User_Item_Course extends LP_User_Item implements ArrayAccess {
 	 * @param string $context
 	 *
 	 * @return string
-	 * @depecated 4.1.6.9.3
+	 * @deprecated 4.1.6.9.3
 	 */
 	public function get_grade( string $context = '' ): string {
 		$grade = $this->get_graduation() ?? '';
@@ -630,7 +634,7 @@ class LP_User_Item_Course extends LP_User_Item implements ArrayAccess {
 					}
 
 					if ( $item->type == LP_QUIZ_CPT ) {
-						$total_questions     += count( $itemObj->get_questions() );
+						$total_questions     += count( $itemObj->get_question_ids() );
 						$total_mark_question += $itemObj->get_mark();
 					}
 				}
@@ -694,7 +698,7 @@ class LP_User_Item_Course extends LP_User_Item implements ArrayAccess {
 	}
 
 	/**
-	 * @depecated 4.1.6.9.2
+	 * @deprecated 4.1.6.9.2
 	 */
 	/*protected function _is_passed( $result ) {
 		$is_passed = LP_COURSE_GRADUATION_FAILED;
@@ -897,7 +901,7 @@ class LP_User_Item_Course extends LP_User_Item implements ArrayAccess {
 
 	/**
 	 * @return bool
-	 * @depecated 4.1.6.9.2
+	 * @deprecated 4.1.6.9.2
 	 */
 	/*public function can_graduated() {
 		return $this->get_results( 'result' ) >= $this->get_passing_condition();
@@ -996,8 +1000,10 @@ class LP_User_Item_Course extends LP_User_Item implements ArrayAccess {
 	 * Update course item and it's child.
 	 *
 	 * @TODO: tungnx - review to modify
+	 * @deprecated 4.1.7.3
 	 */
 	public function save() {
+		_deprecated_function( __METHOD__, '4.1.7.3' );
 		/**
 		 * @var LP_User_Item $item
 		 */
@@ -1008,16 +1014,14 @@ class LP_User_Item_Course extends LP_User_Item implements ArrayAccess {
 		}
 
 		foreach ( $items as $item_id => $item ) {
-
 			if ( ! $item->get_status() ) {
 				continue;
 			}
 
 			/**
-			 * Auto fill the end-time if it isn't already set
+			 * Autofill the end-time if it isn't already set
 			 */
 			if ( in_array( $item->get_status(), array( 'completed', 'finished' ) ) ) {
-
 				if ( ! $item->get_end_time() || $item->get_end_time()->is_null() ) {
 					$item->set_end_time( current_time( 'mysql', 1 ) );
 				}
@@ -1037,7 +1041,7 @@ class LP_User_Item_Course extends LP_User_Item implements ArrayAccess {
 	 * @param int    $section_id - Optional. Get in specific section
 	 *
 	 * @return array|bool|mixed
-	 * @depecated 4.1.6.9
+	 * @deprecated 4.1.6.9
 	 */
 	public function get_passed_items( $type = '', $with_total = false, $section_id = 0 ) {
 		_deprecated_function( __FUNCTION__, '4.1.6.9' );

@@ -75,7 +75,7 @@ $user_nickname = get_user_meta($current_user->ID, 'nickname', true);
 
 		<div class="booked-appointments">
 			<div class="booked-appointment-details">
-				<p class="appointment-info"><i class="booked-icon booked-icon-calendar"></i>&nbsp;&nbsp;&nbsp;<?php echo sprintf( esc_html__( '%s at %s','booked' ), $appt_date_name, $appt_timeslot ); ?></p>
+				<p class="appointment-info"><i class="fa-solid fa-calendar-days"></i>&nbsp;&nbsp;&nbsp;<?php echo sprintf( esc_html__( '%s at %s','booked' ), $appt_date_name, $appt_timeslot ); ?></p>
 			</div>
 		</div>
 
@@ -97,4 +97,4 @@ $user_nickname = get_user_meta($current_user->ID, 'nickname', true);
 	</form>
 </div>
 
-<a href="#" class="close"><i class="booked-icon booked-icon-close"></i></a>
+<a href="#" class="close"><i class="fa-solid fa-xmark"></i></a>

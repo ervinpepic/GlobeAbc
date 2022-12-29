@@ -91,7 +91,7 @@ $googleFonts = get_option( 'ls-google-fonts', [] );
 										<option value="uk" <?php echo ( $custom_locale === 'uk' ) ? 'selected' : ''?>>Українська</option>
 									</select>
 								</td>
-								<td><?php echo sprintf(__('You can change the default site language in %sSettings -> General%s or in your %sprofile settings%s.', 'LayerSlider'), '<a href="'.admin_url('options-general.php').'">', '</a>', '<a href="'.admin_url('profile.php').'">', '</a>') ?>
+								<td><?php echo sprintf(__('You can change the default site language in %sSettings → General%s or in your %sprofile settings%s.', 'LayerSlider'), '<a href="'.admin_url('options-general.php').'">', '</a>', '<a href="'.admin_url('profile.php').'">', '</a>') ?>
 								</td>
 							</tr>
 
@@ -199,6 +199,13 @@ $googleFonts = get_option( 'ls-google-fonts', [] );
 				<!-- Performance -->
 				<div>
 					<table class="ls-settings-table">
+
+						<tr>
+							<td><?= __('Performance mode', 'LayerSlider') ?></td>
+							<td><?= lsGetSwitchOptionField('performance_mode', true ) ?></td>
+							<td><?= __('Performance mode suspends every background activity when your sliders are out of the viewport and not visible. This can dramatically increase performance on pages with many sliders. However, it also means that media playback will stop, and sliders won’t progress further in the background.', 'LayerSlider') ?></td>
+						</tr>
+
 						<tr>
 							<td><?= __('Use markup caching', 'LayerSlider') ?></td>
 							<td><?= lsGetSwitchOptionField('use_cache', false) ?></td>
@@ -257,7 +264,7 @@ $googleFonts = get_option( 'ls-google-fonts', [] );
 
 						<tr>
 							<td><?= __('No-conflict mode', 'LayerSlider') ?></td>
-							<td><?= lsGetSwitchOptionField('admin_no_conflict_mode', false) ?></td>
+							<td><?= lsGetSwitchOptionField('admin_no_conflict_mode', false, [ 'data-warning-enable' => __('Do not enable this option unless you’re experiencing issues on LayerSlider’s admin screens. This option can be helpful in some cases but can easily cause other issues and side effects. Do you want to proceed?', 'LayerSlider') ]) ?></td>
 							<td><?= __('Removes extraneous scripts and styles on LayerSlider admin pages to reduce conflicts with 3rd party plugins and themes. Disable this option if you experience any issue.', 'LayerSlider') ?></td>
 						</tr>
 
@@ -275,7 +282,9 @@ $googleFonts = get_option( 'ls-google-fonts', [] );
 
 						<tr>
 							<td><?= __('Use GreenSock (GSAP) sandboxing', 'LayerSlider') ?></td>
-							<td><?= lsGetSwitchOptionField('gsap_sandboxing', true) ?></td>
+							<td><?= lsGetSwitchOptionField('gsap_sandboxing', true, [
+								'data-warning-disable' => __('Leaving this option enabled is strongly recommended to maximize compatibility with other plugins and themes. Disabling it might cause unexpected issues. Do you wish to proceed?', 'LayerSlider')
+							]) ?></td>
 							<td><?= __('Enabling GreenSock sandboxing can solve issues when other plugins are using multiple/outdated versions of this library.', 'LayerSlider') ?></td>
 						</tr>
 
@@ -299,6 +308,7 @@ $googleFonts = get_option( 'ls-google-fonts', [] );
 				<div>
 					<table class="ls-settings-table">
 
+
 						<tr>
 							<td><?= __('Use srcset attribute', 'LayerSlider') ?></td>
 							<td><?= lsGetSwitchOptionField('use_srcset', true ) ?></td>
@@ -320,7 +330,7 @@ $googleFonts = get_option( 'ls-google-fonts', [] );
 						<tr>
 							<td><?= __('Enable “Play By Scroll”', 'LayerSlider') ?></td>
 							<td><?= lsGetSwitchOptionField('enable_play_by_scroll', false) ?></td>
-							<td><?= __('“Play By Scroll” is a discontinued feature replaced by Scroll Transition. Sliders using “Play By Scroll” remain working as expected, but we’re hiding this feature by default due to its deprecation and eventual removal from LayerSlider.', 'LayerSlider') ?></td>
+							<td><?= __('“Play By Scroll” is a discontinued feature replaced by Scroll Scene. Sliders using “Play By Scroll” remain working as expected, but we’re hiding this feature by default due to its deprecation and eventual removal from LayerSlider.', 'LayerSlider') ?></td>
 						</tr>
 
 						<tr>

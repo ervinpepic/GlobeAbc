@@ -57,7 +57,7 @@
 		<div id="lse-project-wrapper"></div>
 	</div>
 
-		<?= lsGetSVGIcon('mouse-alt', 'light', [ 'id' => 'lse-project-scroll-icon' ], 'div') ?>
+	<?= lsGetSVGIcon('mouse-alt', 'light', [ 'id' => 'lse-project-scroll-icon' ], 'div') ?>
 
 </body>
 </html>

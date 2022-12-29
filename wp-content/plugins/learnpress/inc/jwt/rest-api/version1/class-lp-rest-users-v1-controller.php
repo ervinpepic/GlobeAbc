@@ -39,7 +39,7 @@ class LP_Jwt_Users_V1_Controller extends LP_REST_Jwt_Controller {
 			array(
 				'args'   => array(
 					'id' => array(
-						'description' => esc_html__( 'Unique identifier for the resource.', 'learnpress' ),
+						'description' => esc_html__( 'A unique identifier for the resource.', 'learnpress' ),
 						'type'        => 'integer',
 					),
 				),
@@ -385,7 +385,7 @@ class LP_Jwt_Users_V1_Controller extends LP_REST_Jwt_Controller {
 		return rest_ensure_response(
 			array(
 				'code'    => 'success',
-				'message' => esc_html__( 'Your password has been updated, Please login again to continue!', 'learnpress' ),
+				'message' => esc_html__( 'Your password has been updated. Please log in again to continue!', 'learnpress' ),
 			)
 		);
 	}
@@ -774,8 +774,8 @@ class LP_Jwt_Users_V1_Controller extends LP_REST_Jwt_Controller {
 				$query              = $user_profile->get_user_quizzes( $filter );
 
 				$ids = array();
-				if ( ! empty( $query['items'] ) ) {
-					foreach ( $query['items'] as $item ) {
+				if ( ! empty( $query->get_items() ) ) {
+					foreach ( $query->get_items() as $item ) {
 						$ids[] = array(
 							'id'         => $item->get_id(),
 							'result'     => $item->get_percent_result() ?? '',
@@ -810,9 +810,8 @@ class LP_Jwt_Users_V1_Controller extends LP_REST_Jwt_Controller {
 
 		if ( method_exists( $profile, 'query_orders' ) ) {
 			$query_orders = $profile->query_orders( array( 'fields' => 'ids' ) );
-
-			if ( ! empty( $query_orders['items'] ) ) {
-				foreach ( $query_orders['items'] as $order_id ) {
+			if ( ! empty( $query_orders->get_items() ) ) {
+				foreach ( $query_orders->get_items() as $order_id ) {
 					$order = learn_press_get_order( $order_id );
 
 					$output[ $order_id ] = array(
@@ -820,7 +819,7 @@ class LP_Jwt_Users_V1_Controller extends LP_REST_Jwt_Controller {
 						'total'     => $order->get_total(),
 						'currency'  => $order->get_currency(),
 						'status'    => $order->get_status(),
-						'date'      => lp_jwt_prepare_date_response( $order->get_order_date() ),
+						'date'      => $order->get_order_date( 'timestamp' ) ? lp_jwt_prepare_date_response( get_date_from_gmt( gmdate( 'Y-m-d H:i:s', $order->get_order_date( 'timestamp' ) ), 'Y-m-d H:i:s' ) ) : '',
 					);
 				}
 			}
@@ -1130,7 +1129,15 @@ class LP_Jwt_Users_V1_Controller extends LP_REST_Jwt_Controller {
 		return $output;
 	}*/
 
-	public function get_lp_data_tabs( $user, $request ) {
+	/**
+	 * Get data tabs.
+	 *
+	 * @param $user
+	 * @param $request
+	 *
+	 * @return array
+	 */
+	public function get_lp_data_tabs( $user, $request ): array {
 		$output = array();
 
 		if ( get_current_user_id() === $user->ID || current_user_can( 'list_users' ) ) {
@@ -1454,7 +1461,7 @@ class LP_Jwt_Users_V1_Controller extends LP_REST_Jwt_Controller {
 		$query_params['context']['default'] = 'view';
 
 		$query_params['exclude'] = array(
-			'description' => __( 'Ensure result set excludes specific IDs.' ),
+			'description' => __( 'Ensure the result set excludes specific IDs.' ),
 			'type'        => 'array',
 			'items'       => array(
 				'type' => 'integer',
@@ -1463,7 +1470,7 @@ class LP_Jwt_Users_V1_Controller extends LP_REST_Jwt_Controller {
 		);
 
 		$query_params['include'] = array(
-			'description' => __( 'Limit result set to specific IDs.' ),
+			'description' => __( 'Limit the result set to specific IDs.' ),
 			'type'        => 'array',
 			'items'       => array(
 				'type' => 'integer',
@@ -1478,14 +1485,14 @@ class LP_Jwt_Users_V1_Controller extends LP_REST_Jwt_Controller {
 
 		$query_params['order'] = array(
 			'default'     => 'asc',
-			'description' => __( 'Order sort attribute ascending or descending.' ),
+			'description' => __( 'Sorting attributes in ascending or descending order.' ),
 			'enum'        => array( 'asc', 'desc' ),
 			'type'        => 'string',
 		);
 
 		$query_params['orderby'] = array(
 			'default'     => 'name',
-			'description' => __( 'Sort collection by object attribute.' ),
+			'description' => __( 'Sort collections by the object attribute.' ),
 			'enum'        => array(
 				'id',
 				'include',

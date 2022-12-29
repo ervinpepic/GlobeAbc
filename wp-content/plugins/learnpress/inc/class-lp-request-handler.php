@@ -49,6 +49,8 @@ class LP_Request {
 	 * @param string $sanitize_type
 	 * @param string $method
 	 *
+	 * @since 4.1.7.2
+	 * @version 1.0.0
 	 * @return array|float|int|string
 	 */
 	public static function get_param( string $key, $default = '', string $sanitize_type = 'text', string $method = '' ) {
@@ -517,7 +519,7 @@ class LP_Request {
 		return $cookie[ $name ] ?? $def;
 	}
 
-	public static function set_cookie( $name, $value, $expires = '', $domain = '', $path = '', $secure = false ) {
+	/*public static function set_cookie( $name, $value, $expires = '', $domain = '', $path = '', $secure = false ) {
 		if ( func_num_args() > 2 ) {
 			learn_press_setcookie( $name, $value, $expires, $secure );
 		} else {
@@ -526,12 +528,15 @@ class LP_Request {
 			$cookie[ $name ] = $value;
 			learn_press_setcookie( 'LP', $value );
 		}
-	}
+	}*/
 }
 
 LP_Request::init();
 
-// Backward compatibility for 2.x.x
+/**
+ * @deprecated 4.1.7.3
+ * using in the addon course review 4.0.3, wishlist 4.0.3
+ */
 class LP_Request_Handler extends LP_Request {
 
 }

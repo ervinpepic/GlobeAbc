@@ -4,7 +4,7 @@
  *
  * @author  ThimPress (Nhamdv)
  * @package LearnPress/Admin/Views
- * @version 4.0.0
+ * @version 4.0.2
  */
 
 if ( isset( $order_items ) ) {
@@ -56,13 +56,19 @@ $user_ip      = $order->get_user_ip_address();
 			<input type="number" class="order-minute" name="mn" min="0" max="59" value="<?php echo esc_attr( $order->get_order_date( 'm' ) ); ?>">
 		</div>
 
-		<div class="order-data-field order-data-status <?php echo sanitize_title( $order->post_status ); ?>">
+		<div class="order-data-field order-data-status <?php echo sanitize_title( $order->get_post_status() ); ?>">
 			<label><?php esc_html_e( 'Status:', 'learnpress' ); ?></label>
 			<select name="order-status" data-status="<?php echo 'lp-' . $order->get_status(); ?>">
 				<?php
-				$statuses = learn_press_get_order_statuses();
+				$statuses = LP_Order::get_order_statuses();
 				foreach ( $statuses as $status => $status_name ) {
-					echo '<option data-desc="' . esc_attr( _learn_press_get_order_status_description( $status ) ) . '" value="' . esc_attr( $status ) . '" ' . selected( $status, 'lp-' . $order->get_status(), false ) . '>' . esc_html( $status_name ) . '</option>';
+					?>
+					<option data-desc="<?php echo esc_attr( _learn_press_get_order_status_description( $status ) ); ?>"
+							value="<?php echo esc_attr( $status ); ?>"
+						<?php echo selected( $status, 'lp-' . $order->get_status(), false ); ?>>
+						<?php echo esc_html( LP_Order::get_status_label( $status_name ) ); ?>
+					</option>;
+					<?php
 				}
 				?>
 			</select>
@@ -71,7 +77,7 @@ $user_ip      = $order->get_user_ip_address();
 				<div>
 					<div style="padding: 10px 18px; margin-top: 10px; border: 2px solid #d80000; border-radius: 4px; display: inline-block;">
 						<span class="dashicons dashicons-warning" style="color:#d80000"></span>
-						<?php esc_html_e( 'When change Status to "Pending", "Cancelled" or "Failed" will delete all course, lesson, quiz... progress!', 'learnpress' ); ?>
+						<?php esc_html_e( 'When the Status is changed to "Pending", "Cancelled", or "Failed" all courses, lessons, quizzes, and other progress are deleted!', 'learnpress' ); ?>
 					</div>
 				</div>
 			<?php endif; ?>
@@ -85,7 +91,7 @@ $user_ip      = $order->get_user_ip_address();
 					</ul>
 
 					<?php if ( 'pending' === $order->get_status() ) : ?>
-						<a href="" class="change-user" data-multiple="yes"><?php esc_html_e( 'Add multi users', 'learnpress' ); ?></a>
+						<a href="" class="change-user" data-multiple="yes"><?php esc_html_e( 'Add multiple users', 'learnpress' ); ?></a>
 					<?php endif; ?>
 
 					<?php else : ?>
@@ -115,7 +121,7 @@ $user_ip      = $order->get_user_ip_address();
 
 				<?php if ( $order->get_post_status() == 'auto-draft' ) : ?>
 					<?php esc_html_e( '- Or -', 'learnpress' ); ?>
-					<a href="" class="change-user" data-multiple="yes"><?php esc_html_e( 'Add multi users', 'learnpress' ); ?></a>
+					<a href="" class="change-user" data-multiple="yes"><?php esc_html_e( 'Add multiple users', 'learnpress' ); ?></a>
 				<?php endif; ?>
 
 				<?php
@@ -169,7 +175,7 @@ $user_ip      = $order->get_user_ip_address();
 				<?php endif; ?>
 
 				<tr class="no-order-items<?php echo esc_attr( $items ? ' hide-if-js' : '' ); ?>">
-					<td colspan="4"><?php esc_html_e( 'No order items', 'learnpress' ); ?></td>
+					<td colspan="4"><?php esc_html_e( 'There are no order items', 'learnpress' ); ?></td>
 				</tr>
 			</tbody>
 
@@ -184,7 +190,7 @@ $user_ip      = $order->get_user_ip_address();
 					</td>
 					<td width="100" class="align-right">
 						<span class="order-subtotal">
-							<?php echo learn_press_format_price( $order->order_subtotal, $currency_symbol ); ?>
+							<?php echo learn_press_format_price( $order->get_data( 'order_subtotal' ), $currency_symbol ); ?>
 						</span>
 					</td>
 				</tr>
@@ -194,7 +200,7 @@ $user_ip      = $order->get_user_ip_address();
 					</td>
 					<td class="align-right total">
 						<span class="order-total">
-							<?php echo learn_press_format_price( $order->order_total, $currency_symbol ); ?>
+							<?php echo learn_press_format_price( $order->get_data( 'order_total' ), $currency_symbol ); ?>
 						</span>
 					</td>
 				</tr>
@@ -238,7 +244,7 @@ $user_ip      = $order->get_user_ip_address();
 			<div class="order-users">
 				<ul id="list-users" class="advanced-list <?php echo esc_attr( $order->get_status() === 'completed' ? 'locked' : '' ); ?>"></ul>
 			</div>
-			<a href="" class="change-user" data-multiple="yes"><?php esc_html_e( 'Add multi users', 'learnpress' ); ?></a>
+			<a href="" class="change-user" data-multiple="yes"><?php esc_html_e( 'Add multiple users', 'learnpress' ); ?></a>
 		</div>
 	<# } #>
 </script>
@@ -262,7 +268,7 @@ wp_enqueue_style( 'jquery-ui' );
 <script type="text/html" id="tmpl-learn-press-modal-add-order-courses">
 	<div id="learn-press-modal-add-order-courses" class="lp-modal-search" data-nonce="<?php echo wp_create_nonce( 'add_item_to_order' ); ?>">
 		<div class="lp-search-items">
-			<input type="text" id="learn-press-search-item-term" data-nonce="<?php echo wp_create_nonce( 'search_item_term' ); ?>" name="lp-item-name" placeholder="<?php esc_html_e( 'Type here to search the course', 'learnpress' ); ?>"/>
+			<input type="text" id="learn-press-search-item-term" data-nonce="<?php echo wp_create_nonce( 'search_item_term' ); ?>" name="lp-item-name" placeholder="<?php esc_html_e( 'Type here to search for the course', 'learnpress' ); ?>"/>
 		</div>
 		<ul id="learn-press-courses-result">
 			<li class="lp-search-no-results hide-if-js" data-id="0"><?php esc_html_e( 'No results', 'learnpress' ); ?></li>

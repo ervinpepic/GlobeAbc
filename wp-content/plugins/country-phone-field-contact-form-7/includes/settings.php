@@ -53,6 +53,7 @@
                 <?php _e( 'Enter Country 2 character ISO code. Countries will display at top the dropdown. Kindly enter comma separted countries code.' ) ?>
             </p>
 
+
             <?php else: ?>
                 <form method="post" action="options.php">
 				<?php 
@@ -72,6 +73,7 @@
 		
 		'country'   => __('Country Field Settings', 'nb-cpf'), 
 		'phone' => __('Phone Field Settings', 'nb-cpf'),
+		//'ip_api' => __('IP API Settings', 'nb-cpf'),
 		'help' => __('Documentation', 'nb-cpf'),
 		);
 		$links = array();
@@ -100,7 +102,12 @@
 		foreach($input as $key => $input_val){
 			
 			// if it's not set, default to null!
-			if ($key == 'phone_nationalMode' || $key == 'phone_auto_select' || $key == 'country_auto_select') {
+			if($key == 'ip_api_key'){
+				$input[$key] = sanitize_text_field(strip_tags(trim($input_val))); 
+				// need to add slashes still before sending to the database
+				$valid_input[$key] = addslashes($input[$key]);
+			}
+			elseif ($key == 'phone_nationalMode' || $key == 'phone_auto_select' || $key == 'country_auto_select') {
 				// Our checkbox value is either 0 or 1
 				$valid_input[$key] = ( $input[$key] == 1 ? 1 : 0 );
 				
@@ -265,6 +272,23 @@
 			);
 			
         }
+		if($current_tab == 'ip_api'){
+
+			add_settings_section('nb_cpf_api_section', __( 'IP API Settings.', 'nb-cpf' ), array($this , 'nb_cpf_api_section'), 'nb_cpf_settings');
+
+			add_settings_field('ip_api_key', 
+				__( 'Add you own API Key', 'nb-cpf' ), 
+				array($this , 'nb_cpf_text_fields_cb'), 
+				'nb_cpf_settings', 
+				'nb_cpf_api_section',
+				['label_for' => 'ip_api_key', 
+				'class' => 'large-text', 
+				'description' => __( 'This is API key for IP auto-country detection. Please register to get free API. (<a href="https://ipgeolocation.io/" target="_blank">https://ipgeolocation.io/</a>) ', 'nb-cpf' ),
+				'wporg_custom_data' => 'custom',]
+			);
+			
+
+		}
     }
 	
 	public function nb_cpf_checkbox_fields_cb($args){ $options = get_option( 'nb_cpf_options' );
@@ -280,7 +304,8 @@
         $options = get_option( 'nb_cpf_options' );
 	?>
 		<input id="<?php echo esc_attr( $args['label_for'] ); ?>" name="nb_cpf_options[<?php echo esc_attr( $args['label_for'] ); ?>]" type="text"  class="<?php echo esc_attr( $args['class'] ); ?>" value="<?php echo isset( $options[ $args['label_for'] ] ) ? esc_attr($options[ $args['label_for'] ]) : ''; ?>" />
-		
+		<br/>
+		<p><?php echo isset($args['description']) ? $args['description'] : '' ?></p>
 	<?php 
     }
 
@@ -293,6 +318,7 @@
 		<input type="hidden" name="nb_cpf_options[phone_preferredCountries]" value="<?php echo isset( $options['phone_preferredCountries'] ) ? esc_attr($options['phone_preferredCountries']) : ''; ?>" />
 		<input type="hidden" name="nb_cpf_options[phone_nationalMode]" value="<?php echo isset( $options['phone_nationalMode'] ) ? esc_attr($options['phone_nationalMode']) : ''; ?>" />
 		<input type="hidden" name="nb_cpf_options[phone_auto_select]" value="<?php echo isset( $options['phone_auto_select'] ) ? esc_attr($options['phone_auto_select']) : ''; ?>" />
+		<input type="hidden" name="nb_cpf_options[ip_api_key]" value="<?php echo isset( $options['ip_api_key'] ) ? esc_attr($options['ip_api_key']) : ''; ?>" />
 		
 		<p id="<?php echo esc_attr( $args['id'] ); ?>">
 			<?php esc_html_e( 'Country dropdown field settings.', 'nb-cpf' ); ?>
@@ -309,9 +335,31 @@
 		<input type="hidden" name="nb_cpf_options[excludeCountries]" value="<?php echo isset( $options['excludeCountries'] ) ? esc_attr($options['excludeCountries']) : ''; ?>" />
 		<input type="hidden" name="nb_cpf_options[preferredCountries]" value="<?php echo isset( $options['preferredCountries'] ) ? esc_attr($options['preferredCountries']) : ''; ?>" />
 		<input type="hidden" name="nb_cpf_options[country_auto_select]" value="<?php echo isset( $options['country_auto_select'] ) ? esc_attr($options['country_auto_select']) : ''; ?>" />
-		
+		<input type="hidden" name="nb_cpf_options[ip_api_key]" value="<?php echo isset( $options['ip_api_key'] ) ? esc_attr($options['ip_api_key']) : ''; ?>" />
 		<p id="<?php echo esc_attr( $args['id'] ); ?>">
 			<?php esc_html_e( 'Phone field dropdown settings.', 'nb-cpf' ); ?>
+		</p>
+		
+	<?php
+    }
+
+	public function nb_cpf_api_section( $args ){
+        $options = get_option( 'nb_cpf_options' );
+	?>
+		<input type="hidden" name="nb_cpf_options[phone_defaultCountry]" value="<?php echo isset( $options['phone_defaultCountry'] ) ? esc_attr($options['phone_defaultCountry']) : ''; ?>" />
+		<input type="hidden" name="nb_cpf_options[phone_onlyCountries]" value="<?php echo isset( $options['phone_onlyCountries'] ) ? esc_attr($options['phone_onlyCountries']) : ''; ?>" />
+		<input type="hidden" name="nb_cpf_options[phone_excludeCountries]" value="<?php echo isset( $options['phone_excludeCountries'] ) ? esc_attr($options['phone_excludeCountries']) : ''; ?>" />
+		<input type="hidden" name="nb_cpf_options[phone_preferredCountries]" value="<?php echo isset( $options['phone_preferredCountries'] ) ? esc_attr($options['phone_preferredCountries']) : ''; ?>" />
+		<input type="hidden" name="nb_cpf_options[phone_nationalMode]" value="<?php echo isset( $options['phone_nationalMode'] ) ? esc_attr($options['phone_nationalMode']) : ''; ?>" />
+		<input type="hidden" name="nb_cpf_options[phone_auto_select]" value="<?php echo isset( $options['phone_auto_select'] ) ? esc_attr($options['phone_auto_select']) : ''; ?>" />
+		<input type="hidden" name="nb_cpf_options[defaultCountry]" value="<?php echo isset( $options['defaultCountry'] ) ? esc_attr($options['defaultCountry']) : ''; ?>" />
+		<input type="hidden" name="nb_cpf_options[onlyCountries]" value="<?php echo isset( $options['onlyCountries'] ) ? esc_attr($options['onlyCountries']) : ''; ?>" />
+		<input type="hidden" name="nb_cpf_options[excludeCountries]" value="<?php echo isset( $options['excludeCountries'] ) ? esc_attr($options['excludeCountries']) : ''; ?>" />
+		<input type="hidden" name="nb_cpf_options[preferredCountries]" value="<?php echo isset( $options['preferredCountries'] ) ? esc_attr($options['preferredCountries']) : ''; ?>" />
+		<input type="hidden" name="nb_cpf_options[country_auto_select]" value="<?php echo isset( $options['country_auto_select'] ) ? esc_attr($options['country_auto_select']) : ''; ?>" />
+		
+		<p id="<?php echo esc_attr( $args['id'] ); ?>">
+			<?php esc_html_e( 'IP API settings.', 'nb-cpf' ); ?>
 		</p>
 		
 	<?php

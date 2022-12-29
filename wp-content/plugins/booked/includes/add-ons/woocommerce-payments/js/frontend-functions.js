@@ -207,7 +207,7 @@
 
 			var $thisButton = $(this);
 
-			$('form#newAppointmentForm p.status').show().html('<i class="booked-icon booked-icon-spinner-clock booked-icon-spin"></i>&nbsp;&nbsp;&nbsp;' + booked_js_vars.i18n_please_wait);
+			$('form#newAppointmentForm p.status').show().html('<i class="fa-solid fa-circle-notch fa-spin"></i>&nbsp;&nbsp;&nbsp;' + booked_js_vars.i18n_please_wait);
 	        resize_booked_modal();
 
 			e.preventDefault();
@@ -232,7 +232,7 @@
 							if (!thisVal){ $(this).val(thisDefault); }
 						});
 
-						$('form#newAppointmentForm p.status').show().html('<i class="booked-icon booked-icon-alert" style="color:#E35656"></i>&nbsp;&nbsp;&nbsp;' + data[1]);
+						$('form#newAppointmentForm p.status').show().html('<i class="fa-solid fa-triangle-exclamation" style="color:#E35656"></i>&nbsp;&nbsp;&nbsp;' + data[1]);
 						resize_booked_modal();
 
 					} else {

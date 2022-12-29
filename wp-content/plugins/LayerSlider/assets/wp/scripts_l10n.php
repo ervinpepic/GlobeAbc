@@ -40,6 +40,8 @@ $l10n_ls = [
 	'notifyGoogleFontsMissing' => __('Some fonts might be missing since you disabled Google Fonts.', 'LayerSlider'),
 	'notifyMissingPopup' 	=> __('This is a Popup project, which requires license registration to use.', 'LayerSlider'),
 	'notifyMissingPopupMT' 	=> __('Register your LayerSlider license to use Popups.', 'LayerSlider'),
+	'notifyMissingScene' 	=> __('This is a Sticky or Scroll Scene project, which requires license registration to use on front-end pages.', 'LayerSlider'),
+	'notifyScrollSceneSlides' 	=> __('This is a Scroll Scene project, which will display and animate the first slide only.', 'LayerSlider'),
 	'notifyPremiumTemplate' => __('This is a premium template or a project based on it, which requires license registration to use on front-end pages.', 'LayerSlider'),
 	'notifyPremiumTemplateMT' => __('Register your LayerSlider license to use premium templates.', 'LayerSlider'),
 
@@ -60,8 +62,22 @@ $l10n_ls = [
 	'purchaseWWPopups' 		=> __('Purchase This Popup Template Pack ', 'LayerSlider'),
 
 	// Sliders list
-	'SLDeleteProject' 			=> __('Are you sure you want to delete the selected projects? This action cannot be undone.', 'LayerSlider'),
-	'SLHideProjects' 			=> __('This will also hide the selected projects on front-end pages where they are embedded. Hidden projects can be recovered at any time if you change your mind. Do you wish to proceed?', 'LayerSlider'),
+	'SLDeleteProjectTitle' 			=> __('Are you sure you want to delete "%s"?', 'LayerSlider'),
+	'SLDeleteProjectText' 			=> __('The project will be deleted immediately. You can’t undo this action.', 'LayerSlider'),
+	'SLDeleteProjectButton' 		=> __('Delete Project', 'LayerSlider'),
+
+	'SLDeleteProjectsTitle' 		=> __('Delete Selected Projects?', 'LayerSlider'),
+	'SLDeleteProjectsText' 			=> __('The selected projects will be deleted immediately. You can’t undo this action.', 'LayerSlider'),
+	'SLDeleteProjectsButton' 		=> __('Delete Projects', 'LayerSlider'),
+
+	'SLHideProjectTitle' 			=> __('Are you sure you want to hide "%s"?', 'LayerSlider'),
+	'SLHideProjectText' 			=> __('This will also hide it on front-end pages where it’s embedded. Hidden projects can be recovered at any time if you change your mind.', 'LayerSlider'),
+	'SLHideProjectButton' 			=> __('Hide Project', 'LayerSlider'),
+
+	'SLHideProjectsTitle' 			=> __('Hide Selected Projects?', 'LayerSlider'),
+	'SLHideProjectsText' 			=> __('This will also hide the selected projects on front-end pages where they are embedded. Hidden projects can be recovered at any time if you change your mind.', 'LayerSlider'),
+	'SLHideProjectsButton' 			=> __('Hide Projects', 'LayerSlider'),
+
 	'SLExportProjectHTML' 		=> __("You’re about to export this project as HTML. This option is for the jQuery version of LayerSlider and you will *NOT* be able to use the downloaded package on WordPress sites. For that, you need to choose the regular export option. Are you sure you want to continue?\n\nThis message will be suppressed after a couple of attempts. Please mind the difference in the future between the various export methods to avoid potential harm and data loss.", 'LayerSlider'),
 	'SLUploadProject' 			=> __('Uploading, please wait ...', 'LayerSlider'),
 	'SLEnterCode' 				=> __('Please enter a valid license key. For more information, please click on the “registration guide” link below.', 'LayerSlider'),
@@ -71,9 +87,10 @@ $l10n_ls = [
 
 	'SLImportNotice' 	=> sprintf( __('Importing is taking longer than usual. This might be completely normal, but can also indicate a server configuration issue. Please visit %sSystem Status%s to check for potential causes if this screen is stuck.', 'LayerSlider'), '<a href="'.admin_url( 'admin.php?page=layerslider&section=system-status' ).'" target="_blank">', '</a>'),
 	'SLImportErrorTitle' 	=> __('Import Error', 'LayerSlider'),
-	'SLImportError' 	=> __('It seems there is a server issue that prevented LayerSlider from importing your selected project. Please check LayerSlider → Options → System Status for potential errors, try to temporarily disable themes/plugins to rule out incompatibility issues or contact your hosting provider to resolve server configuration problems. Retrying the import might also help.', 'LayerSlider'),
-	'SLImportHTTPError' => __("It seems there is a server issue that prevented LayerSlider from importing your selected project. Please check LayerSlider → Options → System Status for potential errors, try to temporarily disable themes/plugins to rule out incompatibility issues or contact your hosting provider to resolve server configuration problems. Retrying the import might also help. Your HTTP server thrown the following error: \n\n %s", 'LayerSlider'),
-	'SLActivationError' => __("It seems there is a server issue that prevented LayerSlider from performing license registration. Please check LayerSlider → Options → System Status for potential errors, try to temporarily disable themes/plugins to rule out incompatibility issues or contact your hosting provider to resolve server configuration problems. Your HTTP server thrown the following error: \n\n %s", 'LayerSlider'),
+	'SLImportError' 	=> sprintf(__('It seems there is a server issue that prevented LayerSlider from importing your selected project. Please check %sSystem Status%s for potential errors, try to temporarily disable themes/plugins to rule out incompatibility issues or contact your hosting provider to resolve server configuration problems. Retrying the import might also help.', 'LayerSlider'), '<a href="'.admin_url( 'admin.php?page=layerslider&section=system-status' ).'" target="_blank">', '</a>'),
+	'SLImportHTTPError' => sprintf(__('It seems there is a server issue that prevented LayerSlider from importing your selected project. Please check %sSystem Status%s for potential errors, try to temporarily disable themes/plugins to rule out incompatibility issues or contact your hosting provider to resolve server configuration problems. Retrying the import might also help. Your HTTP server thrown the following error: %%s', 'LayerSlider'), '<a href="'.admin_url( 'admin.php?page=layerslider&section=system-status' ).'" target="_blank">', '</a>'),
+	'SLActivationErrorTitle' => __('Failed to Register Your License', 'LayerSlider'),
+	'SLActivationError' => sprintf( __('It seems there is a server issue that prevented LayerSlider from performing license registration. Please check %sSystem Status%s for potential errors, try to temporarily disable themes/plugins to rule out incompatibility issues, or contact your hosting provider to resolve server configuration problems. Your HTTP server thrown the following error: %%s', 'LayerSlider'), '<a href="'.admin_url( 'admin.php?page=layerslider&section=system-status' ).'" target="_blank">', '</a>'),
 	'SLRemoveGroupButton' => __('Clear & Remove Group', 'LayerSlider'),
 	'SLRemoveGroupTooltip' => __('Moves all projects out of this group, then deletes it. All of your projects will remain available on the main grid.', 'LayerSlider'),
 	'SLRemoveGroupConfirm' => __("You’re about to remove this group. All your projects will be moved and remain available on the main grid. \n\nContinue?", 'LayerSlider'),
@@ -206,7 +223,7 @@ $l10n_ls = [
 			'title' => __('Smart Operation', 'LayerSlider'),
 			'icon' 	=> lsGetSVGIcon('lightbulb-on')
 		],
-		'VIDEO_POSTER' 			=> [
+		'VIDEO_POSTER' 	=> [
 			'title' => __('Video poster', 'LayerSlider'),
 			'icon' 	=> lsGetSVGIcon('photo-video')
 		],
@@ -214,7 +231,10 @@ $l10n_ls = [
 			'title' => __('Modify Shape', 'LayerSlider'),
 			'icon' 	=> lsGetSVGIcon('shapes')
 		],
-
+		'MODIFY_OBJECT' => [
+			'title' => __('Modify Object', 'LayerSlider'),
+			'icon' 	=> lsGetSVGIcon('stars')
+		],
 		'LAYER_APPLY_TRANSITION' 	=> [
 			'title' => __('Apply transition', 'LayerSlider'),
 			'icon' 	=> lsGetSVGIcon('stars')
@@ -252,18 +272,31 @@ $l10n_ls = [
 	'SBPreviewLinkNotAvailable' => __('Auto-generated URLs are not available in Preview. This layer will link to “%s” on your front-end pages.', 'LayerSlider'),
 	'SBStaticUntil' 			=> __('Until the end of Slide #%d', 'LayerSlider'),
 	'SBPasteLayerError'			=> __('There’s nothing to paste. Copy a layer first!', 'LayerSlider'),
-	'SBPasteError' 				=> __('There is nothing to paste!', 'LayerSlider'),
-	'SBRemoveSlide' 			=> __('Are you sure you want to remove this slide?', 'LayerSlider'),
-	'SBRemoveLayer' 			=> __('Are you sure you want to remove this layer?', 'LayerSlider'),
+	'SBPasteError' 				=> __('There is nothing to paste! Copy layer style or transition options first.', 'LayerSlider'),
+	'SBRemoveSlideTitle' 		=> __('Remove selected slide?', 'LayerSlider'),
+	'SBRemoveSlideTitleName' 	=> __('Remove slide "%s"?', 'LayerSlider'),
+	'SBRemoveSlideText' 		=> __('Are you sure you want to remove this slide? You can’t undo this action.', 'LayerSlider'),
+	'SBRemoveSlideButton' 		=> __('Remove Slide', 'LayerSlider'),
+
+	'SBRemoveLayerTitle' 		=> __('Remove selected layer?', 'LayerSlider'),
+	'SBRemoveLayerTitleName' 	=> __('Remove layer "%s"?', 'LayerSlider'),
+	'SBRemoveLayerText' 		=> __('Are you sure you want to remove this layer?', 'LayerSlider'),
+	'SBRemoveLayerButton' 		=> __('Remove Layer', 'LayerSlider'),
+
+	'SBRemoveLayersTitle' 		=> __('Remove selected layers?', 'LayerSlider'),
+	'SBRemoveLayersText' 		=> __('Are you sure you want to remove the selected layers?', 'LayerSlider'),
+	'SBRemoveLayersButton' 		=> __('Remove Layers', 'LayerSlider'),
+
 	'SBMediaLibraryImage' 		=> __('Pick an image to use it in LayerSlider', 'LayerSlider'),
 	'SBMediaLibraryMedia'		=> __('Choose video or audio files', 'LayerSlider'),
-	'SBUploadError' 			=> __('Upload error', 'LayerSlider'),
-	'SBUploadErrorMessage' 		=> __('Upload error: %s', 'LayerSlider'),
+	'SBUploadError' 			=> __('Upload error. Please verify that the uploaded items have the correct file extension and they are supported by WordPress.', 'LayerSlider'),
+	'SBUploadErrorMessage' 		=> __('Upload error. Please verify that the uploaded items have the correct file extension and they are supported by WordPress. Your server thrown the following error: %s', 'LayerSlider'),
 	'SBInvalidFormat' 			=> __('Invalid format', 'LayerSlider'),
 	'SBEnterImageURL' 			=> __('Enter an image URL', 'LayerSlider'),
 	'SBTransitionApplyOthers' 	=> __('Are you sure you want to apply the currently selected transitions and effects on the other slides?', 'LayerSlider'),
 	'SBPostFilterWarning' 		=> __('No posts were found with the current filters.', 'LayerSlider'),
-	'SBSaveError' 				=> __("It seems there is a server issue that prevented LayerSlider from saving your work. Please check LayerSlider → Options → System Status for potential errors, try to temporarily disable themes/plugins to rule out incompatibility issues or contact your hosting provider to resolve server configuration problems. Your HTTP server thrown the following error: \n\n %s", 'LayerSlider'),
+	'SBSaveErrorTitle' 			=> __('Server Error', 'LayerSlider'),
+	'SBSaveError' 				=> sprintf(__('It seems there is a server issue that prevented LayerSlider from saving your work. Please check %sSystem Status%s for potential errors, try to temporarily disable themes/plugins to rule out incompatibility issues, or contact your hosting provider to resolve server configuration problems. Your HTTP server thrown the following error: %%s', 'LayerSlider'), '<a href="'.admin_url( 'admin.php?page=layerslider&section=system-status' ).'" target="_blank">', '</a>'),
 	'SBUnsavedChanges' 			=> __('You have unsaved changes on this page. Do you want to leave and discard the changes made since your last save?', 'LayerSlider'),
 	'SBLinkTextPage' 			=> __('WP Page: %s', 'LayerSlider'),
 	'SBLinkTextPost' 			=> __('WP Post: %s', 'LayerSlider'),
@@ -323,6 +356,6 @@ LayerSlider will attempt to start playback with sound if you select “Auto” f
 
 
 	// System Status
-	'SSClearGroupsConfirmation'	=> __("Are you sure you want to clear all groups? All your projects will be moved and remain available on the main grid. Your groups, however, will irreversibly be removed.\n\n Do you wish to continue?", 'LayerSlider'),
+	'SSClearGroupsConfirmation'	=> __('Are you sure you want to clear all groups? All your projects will be moved to the main grid, where they remain available to you. Your groups, however, will irreversibly be removed. Do you wish to continue?', 'LayerSlider'),
 	'SSClearLocalStorageConfirmation' => __('Clearing LocalStorage might affect some editor interface settings, but everything important, like your projects and plugin settings, are safely stored in your site’s database, and they won’t be touched.', 'LayerSlider')
 ];

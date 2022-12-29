@@ -344,6 +344,10 @@ function ls_download_module() {
 
 function ls_get_revisions() {
 
+	// Attempt to workaround memory limit & execution time issues
+	@ini_set( 'max_execution_time', 0 );
+	@ini_set( 'memory_limit', apply_filters( 'admin_memory_limit', WP_MAX_MEMORY_LIMIT ) );
+
 	$revisions = LS_Revisions::snapshots( (int) $_GET['sliderID'] );
 
 	foreach( $revisions as $key => $revision ) {
@@ -581,6 +585,7 @@ function ls_save_plugin_settings() {
 	$options = [
 
 		//Performance
+		'performance_mode',
 		'use_cache',
 		'include_at_footer',
 		'conditional_script_loading',
@@ -1204,8 +1209,8 @@ function ls_import_online() {
 
 	$name 			= $_GET['name'];
 	$slider 		= urlencode( $_GET['slider'] );
-	$collection 	= ! empty( $_GET['collection'] ) ? urlencode( $_GET['collection'] ) : '';
-	$remoteURL 		= LS_REPO_BASE_URL.'sliders/download.php?slider='.$slider.'&collection='.$collection;
+	$category 	= ! empty( $_GET['category'] ) ? urlencode( $_GET['category'] ) : '';
+	$remoteURL 		= LS_REPO_BASE_URL.'sliders/download.php?slider='.$slider.'&collection='.$category;
 
 	$uploads 		= wp_upload_dir();
 	$downloadPath 	= $uploads['basedir'].'/lsimport.zip';
@@ -1214,7 +1219,7 @@ function ls_import_online() {
 	$zip 			= $GLOBALS['LS_AutoUpdate']->sendApiRequest( $remoteURL );
 	$defErrorCode 	= 'ERR_UNAUTHORIZED_ACCESS';
 	$defErrorTitle 	= __('Import Error', 'LayerSlider');
-	$defErrorMsg 	= __('LayerSlider couldn’t download your selected slider. Please check LayerSlider → Options → System Status for potential issues. The WP Remote functions may be unavailable or your web hosting provider has to allow external connections to our domain.', 'LayerSlider');
+	$defErrorMsg 	= sprintf(__('It seems there is a server issue that prevented LayerSlider from importing the selected template. Please check %sSystem Status%s for potential errors, try to temporarily disable themes/plugins to rule out incompatibility issues or contact your hosting provider to resolve server configuration problems. Retrying the import might also help.', 'LayerSlider'), '<a href="'.admin_url( 'admin.php?page=layerslider&section=system-status' ).'" target="_blank">', '</a>');
 
 
 	// Invalid response
@@ -1236,7 +1241,10 @@ function ls_import_online() {
 
 			// Check activation state
 			if( ! empty( $json['_not_activated'] ) ) {
-				$GLOBALS['LS_AutoUpdate']->check_activation_state();
+
+				$subDeactivated = ! empty( $json['_sub_deactivated'] );
+				$GLOBALS['LS_AutoUpdate']->check_activation_state( $subDeactivated );
+
 				die( json_encode( [
 					'success' => false,
 					'reload' => true
@@ -1254,10 +1262,10 @@ function ls_import_online() {
 
 
 	// Save package
-	if( ! file_put_contents($downloadPath, $zip) ) {
+	if( ! file_put_contents( $downloadPath, $zip ) ) {
 		die( json_encode( [
 			'success' => false,
-			'message' => __('LayerSlider couldn’t save the downloaded slider on your server. Please check LayerSlider → Options → System Status for potential issues. The most common reason for this issue is the lack of write permission on the /wp-content/uploads/ directory.', 'LayerSlider')
+			'message' => sprintf(__('LayerSlider couldn’t save the downloaded template on your server. Please check %sSystem Status%s for potential issues. The most common reason for this issue is the lack of write permission on the /wp-content/uploads/ directory.', 'LayerSlider'), '<a href="'.admin_url( 'admin.php?page=layerslider&section=system-status' ).'" target="_blank">', '</a>')
 		] ) );
 	}
 

@@ -2091,7 +2091,9 @@ var booked_load_calendar_date_booking_options;
 						'appt_id'     	: appt_id
 					},
 					success: function(data) {
-						savingState(false);
+						setTimeout( function(){
+							savingState(false);
+						},500 );
 					}
 				});
 
@@ -2137,7 +2139,9 @@ var booked_load_calendar_date_booking_options;
 						'appt_id'     	: appt_id
 					},
 					success: function(data) {
-						savingState(false);
+						setTimeout( function(){
+							savingState(false);
+						},500 );
 					}
 				});
 
@@ -2170,7 +2174,9 @@ var booked_load_calendar_date_booking_options;
 						$('.booked-pending-appt-list .pending-appt:not(.no-pending-message)').remove();
 						$('.booked-pending-appt-list .no-pending-message').slideDown('fast');
 						$('.booked-pending-cap').slideUp('fast');
-						savingState(false);
+						setTimeout( function(){
+							savingState(false);
+						},500 );
 					}
 				});
 
@@ -2203,7 +2209,9 @@ var booked_load_calendar_date_booking_options;
 						$('.booked-pending-appt-list .pending-appt:not(.no-pending-message)').remove();
 						$('.booked-pending-appt-list .no-pending-message').slideDown('fast');
 						$('.booked-pending-cap').slideUp('fast');
-						savingState(false);
+						setTimeout( function(){
+							savingState(false);
+						},500 );
 					}
 				});
 
@@ -2253,7 +2261,9 @@ var booked_load_calendar_date_booking_options;
 					success: function(data) {
 						$('.booked-pending-cap .button.delete-past').hide();
 						$('.booked-pending-appt-list .pending-appt.passed').remove();
-						savingState(false);
+						setTimeout( function(){
+							savingState(false);
+						},500 );
 					}
 				});
 
@@ -2366,7 +2376,9 @@ var booked_load_calendar_date_booking_options;
 		}
 
 		$(document).ajaxStop(function() {
-			savingState(false);
+			setTimeout( function(){
+				savingState(false);
+			},500 );
 		});
 
 	});
@@ -2480,7 +2492,7 @@ function close_booked_modal(){
 // Function to adjust calendar sizing
 function adjust_calendar_boxes(){
 	var boxesWidth = jQuery('.booked-calendar tbody tr.week td').width();
-	boxesHeight = boxesWidth * 0.8;
+	boxesHeight = boxesWidth * 0.75;
 	jQuery('.booked-calendar tbody tr.week td').height(boxesHeight);
 	jQuery('.booked-calendar tbody tr.week td .date').css('line-height',boxesHeight+'px');
 

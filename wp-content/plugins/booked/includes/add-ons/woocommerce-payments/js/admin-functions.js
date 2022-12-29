@@ -33,7 +33,7 @@
 						function(response) {
 							if (response != 'no_order'){
 								apptBlock.find('.booked-wc_status-text').removeClass('awaiting').addClass('paid');
-								apptBlock.find('.booked-wc_status-text').html('<a target="_blank" href="' + response + '"><i class="booked-icon booked-icon-pencil"></i>&nbsp;&nbsp;' + booked_wc_variables.i18n_paid + '</a>');
+								apptBlock.find('.booked-wc_status-text').html('<a target="_blank" href="' + response + '"><i class="fa-solid fa-pencil"></i>&nbsp;&nbsp;' + booked_wc_variables.i18n_paid + '</a>');
 							}
 						}
 					);

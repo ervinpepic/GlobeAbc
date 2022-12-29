@@ -4,13 +4,13 @@
 Plugin Name: Booked
 Plugin URI: https://getbooked.io
 Description: Powerful appointment booking made simple.
-Version: 2.3.5
+Version: 2.4
 Author: Boxy Studio
 Author URI: https://boxystudio.com
 Text Domain: booked
 */
 
-define( 'BOOKED_VERSION', '2.3.5' );
+define( 'BOOKED_VERSION', '2.4' );
 define( 'BOOKED_WELCOME_SCREEN', get_option('booked_welcome_screen',true) );
 define( 'BOOKED_DEMO_MODE', get_option('booked_demo_mode',false) );
 define( 'BOOKED_PLUGIN_URL', untrailingslashit( plugin_dir_url( __FILE__ ) ) );
@@ -18,6 +18,9 @@ define( 'BOOKED_PLUGIN_DIR', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 define( 'BOOKED_STYLESHEET_DIR', get_stylesheet_directory() );
 define( 'BOOKED_PLUGIN_TEMPLATES_DIR', BOOKED_PLUGIN_DIR . '/templates/' );
 define( 'BOOKED_AJAX_INCLUDES_DIR', BOOKED_PLUGIN_DIR . '/includes/ajax/' );
+
+// FontAwesome Support
+require_once __DIR__ . '/vendor/fortawesome/wordpress-fontawesome/index.php';
 
 // Included Add-Ons
 require_once BOOKED_PLUGIN_DIR . '/includes/add-ons/init.php';
@@ -338,7 +341,7 @@ if(!class_exists('booked_plugin')) {
 		public function booked_profile_tabs($default_tabs){
 
 			foreach($default_tabs as $slug => $name):
-				echo '<li'.($name['class'] ? ' class="'.$name['class'].'"' : '').'><a href="#'.$slug.'"><i class="booked-icon '.$name['booked-icon'].'"></i>'.$name['title'].'</a></li>';
+				echo '<li'.($name['class'] ? ' class="'.$name['class'].'"' : '').'><a href="#'.$slug.'"><i class="fa-solid fa-'.$name['fa-icon'].'"></i>'.$name['title'].'</a></li>';
 			endforeach;
 
 		}
@@ -367,8 +370,6 @@ if(!class_exists('booked_plugin')) {
 			// Start a session if none is started yet.
 			if( !session_id() && apply_filters( 'booked_sessions_enabled', true ) ) {
 		        session_start();
-		        session_write_close();
-		        
 		    }
 
 		    // Check to see if the plugin was updated.
@@ -834,7 +835,6 @@ if(!class_exists('booked_plugin')) {
 
 			if (in_array($current_page,$this->booked_screens) || $screen->id == 'dashboard'):
 				wp_enqueue_style('wp-color-picker');
-				wp_enqueue_style('booked-icons', BOOKED_PLUGIN_URL . '/assets/css/icons.css', array(), BOOKED_VERSION);
 				wp_enqueue_style('booked-tooltipster', 	BOOKED_PLUGIN_URL . '/assets/js/tooltipster/css/tooltipster.css', array(), '3.3.0');
 				wp_enqueue_style('booked-tooltipster-theme', 	BOOKED_PLUGIN_URL . '/assets/js/tooltipster/css/themes/tooltipster-light.css', array(), '3.3.0');
 				wp_enqueue_style('chosen', BOOKED_PLUGIN_URL . '/assets/js/chosen/chosen.min.css', array(), '1.2.0');
@@ -899,38 +899,28 @@ if(!class_exists('booked_plugin')) {
 
 		public static function front_end_styles() {
 
-			wp_enqueue_style('booked-icons', BOOKED_PLUGIN_URL . '/assets/css/icons.css', array(), BOOKED_VERSION);
-			wp_enqueue_style('booked-tooltipster', 	BOOKED_PLUGIN_URL . '/assets/js/tooltipster/css/tooltipster.css', array(), '3.3.0');
-			wp_enqueue_style('booked-tooltipster-theme', 	BOOKED_PLUGIN_URL . '/assets/js/tooltipster/css/themes/tooltipster-light.css', array(), '3.3.0');
-			wp_enqueue_style('booked-animations', 	BOOKED_PLUGIN_URL . '/assets/css/animations.css', array(), BOOKED_VERSION);
-			//wp_enqueue_style('booked-styles', 		BOOKED_PLUGIN_URL . '/assets/css/styles.css', array(), BOOKED_VERSION);
-			//wp_enqueue_style('booked-responsive', 	BOOKED_PLUGIN_URL . '/assets/css/responsive.css', array(), BOOKED_VERSION);
-			wp_enqueue_style('booked-css', 	BOOKED_PLUGIN_URL . '/dist/booked.css', array(), BOOKED_VERSION);
+			wp_enqueue_style('booked-tooltipster', BOOKED_PLUGIN_URL . '/assets/js/tooltipster/css/tooltipster.css', array(), '3.3.0');
+			wp_enqueue_style('booked-tooltipster-theme', BOOKED_PLUGIN_URL . '/assets/js/tooltipster/css/themes/tooltipster-light.css', array(), '3.3.0');
+			wp_enqueue_style('booked-animations', BOOKED_PLUGIN_URL . '/assets/css/animations.css', array(), BOOKED_VERSION);
+			wp_enqueue_style('booked-css', BOOKED_PLUGIN_URL . '/dist/booked.css', array(), BOOKED_VERSION);
 
 			if ( defined('NECTAR_THEME_NAME') && NECTAR_THEME_NAME == 'salient' ):
 				wp_enqueue_style('booked-salient-overrides', BOOKED_PLUGIN_URL . '/assets/css/theme-specific/salient.css', array(), BOOKED_VERSION);
 			endif;
-
-		}
-
-		public static function front_end_color_theme() {
-
+			
 			if (!isset($_GET['print'])):
 				$colors_pattern_file = BOOKED_PLUGIN_DIR . '/assets/css/color-theme.php';
 				if ( !file_exists($colors_pattern_file) ) {
 					return;
 				}
-
+			
 				ob_start();
 				include(esc_attr($colors_pattern_file));
 				$booked_color_css = ob_get_clean();
-
 				$compressed_booked_color_css = booked_compress_css( $booked_color_css );
-
-				echo '<style type="text/css" media="screen">';
-					echo $compressed_booked_color_css;
-				echo '</style>';
-
+				
+				wp_add_inline_style( 'booked-css', $compressed_booked_color_css );
+			
 			endif;
 
 		}
@@ -965,7 +955,23 @@ if(class_exists('booked_plugin')) {
 	$booked_admin_caps->add_cap('manage_booked_options');
 
 	// Activation Hook
-	register_activation_hook(__FILE__, array('booked_plugin', 'activate'));
+	register_activation_hook( __FILE__, array('booked_plugin', 'activate'));
+	register_activation_hook( __FILE__, 'FortAwesome\FontAwesome_Loader::initialize' );
+	register_deactivation_hook( __FILE__, 'FortAwesome\FontAwesome_Loader::maybe_deactivate' );
+	
+	add_action(
+		'font_awesome_preferences',
+		function() {
+			fa()->register(
+				array(
+					'name' => 'Booked',
+					'version' => [
+						[ '6.1.2', '>=' ]
+					]
+				)
+			);
+		}
+	);
 
 	// Initiate the Booked Class
 	$booked_plugin = new booked_plugin();
@@ -992,7 +998,6 @@ if(class_exists('booked_plugin')) {
 
 		// Load the Front-End Styles and Color Settings
 		add_action('wp_enqueue_scripts', array('booked_plugin', 'front_end_styles'));
-		add_action('wp_enqueue_scripts', array('booked_plugin', 'front_end_color_theme'));
 
 	}
 }

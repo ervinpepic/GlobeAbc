@@ -5664,7 +5664,7 @@ function _deprecated_argument( $function, $version, $message = '' ) {
 						$version,
 						$message
 					),
-					E_USER_DEPRECATED
+					
 				);
 			} else {
 				trigger_error(

@@ -101,7 +101,8 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 * @modify 4.1.3
 		 */
 		public function get_course_data( int $course_id = 0 ) {
-			$lp_user_items_db = LP_User_Items_DB::getInstance();
+			$lp_user_items_db   = LP_User_Items_DB::getInstance();
+			$object_course_data = false;
 
 			try {
 				if ( ! $course_id ) {
@@ -451,16 +452,14 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 
 			if ( ! $course_id ) {
 				$course_id = get_the_ID();
-			}
-
-			if ( ! $course_id ) {
-				return $status;
+				if ( ! $course_id ) {
+					return $status;
+				}
 			}
 
 			$item = $this->get_item( $item_id, $course_id, true );
-
-			if ( false !== $item ) {
-				$status = $item['status'];
+			if ( $item instanceof LP_User_Item ) {
+				$status = $item->get_status();
 			}
 
 			return apply_filters( 'learn-press/user-item-status', $status, $item_id, $this->get_id(), $course_id );
@@ -560,7 +559,7 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 			$quiz_data = $this->get_item_data( $quiz_id, $course_id );
 			$remain    = $quiz_data->hint( $question_id );
 			if ( false === $remain ) {
-				return new WP_Error( 1001, __( 'You can not hint question.', 'learnpress' ) );
+				return new WP_Error( 1001, __( 'You can not hint at the question.', 'learnpress' ) );
 			}
 
 			return $remain;
@@ -627,7 +626,7 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 			if ( is_callable( $callback ) ) {
 				return call_user_func_array( $callback, $args );
 			} else {
-				throw new Exception( sprintf( __( 'The role %s for user doesn\'t exist', 'learnpress' ), $role ) );
+				throw new Exception( sprintf( __( 'The role %s for the user doesn\'t exist', 'learnpress' ), $role ) );
 			}
 		}
 
@@ -701,6 +700,9 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 
 			if ( $course ) {
 				$user_course = $this->get_course_data( $course_id );
+				if ( ! $user_course ) {
+					return $return;
+				}
 
 				$result = $user_course->calculate_course_results();
 
@@ -714,9 +716,8 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 				}
 
 				$user_course->set_graduation( $graduation );
-				$user_course->save();
-
-				$return = $user_course->complete( 'finished' );
+				//$user_course->save();
+				$return = $user_course->complete( LP_COURSE_FINISHED );
 
 				if ( $return ) {
 					do_action( 'learn-press/user-course-finished', $course_id, $this->get_id(), $return );
@@ -776,7 +777,7 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 			if ( is_callable( $callback ) ) {
 				return call_user_func_array( $callback, $args );
 			} else {
-				throw new Exception( sprintf( __( 'The role %s for user doesn\'t exist', 'learnpress' ), $role ) );
+				throw new Exception( sprintf( __( 'The role %s for the user doesn\'t exist', 'learnpress' ), $role ) );
 			}
 		}
 
@@ -788,7 +789,7 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 			if ( is_callable( $callback ) ) {
 				return call_user_func_array( $callback, $args );
 			} else {
-				throw new Exception( sprintf( __( 'The role %s for user doesn\'t exist', 'learnpress' ), $role ) );
+				throw new Exception( sprintf( __( 'The role %s for the user doesn\'t exist', 'learnpress' ), $role ) );
 			}
 		}
 
@@ -830,7 +831,7 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 * @param int $course_id
 		 *
 		 * @return bool
-		 * @depecated 4.1.6.9
+		 * @deprecated 4.1.6.9
 		 */
 		/*public function has_completed_quiz( $quiz_id, $course_id = 0 ): bool {
 			return $this->get_item_status( $quiz_id, $course_id ) == 'completed';
@@ -870,11 +871,8 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 					throw new Exception( __( 'You have already completed this lesson.', 'learnpress' ) );
 				}
 
-				$item->set_end_time( time() );
-				$item->set_status( 'completed' );
 				$item->set_graduation( 'passed' );
-
-				$updated = $item->update();
+				$updated = $item->complete();
 
 				do_action( 'learn-press/user-completed-lesson', $lesson_id, $course_id, $this->get_id() );
 			} catch ( Throwable $e ) {
@@ -891,7 +889,7 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 * @param null $course_id Course id.
 		 *
 		 * @return bool
-		 * @depecated 4.1.6.9
+		 * @deprecated 4.1.6.9
 		 */
 		public function has_completed_lesson( $lesson_id = 0, $course_id = null ): bool {
 			return 'completed' === $this->get_item_status( $lesson_id, $course_id );
@@ -919,7 +917,7 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 * @param $course_id
 		 *
 		 * @return int
-		 * @depecated 4.1.6.9
+		 * @deprecated 4.1.6.9
 		 */
 		public function get_course_history_id( $course_id ) {
 			$history = $this->get_course_info( $course_id );
@@ -1021,9 +1019,11 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 * @param int $course_id
 		 *
 		 * @return bool|int|string
+		 * @deprecated 4.1.7.3
 		 */
 		public function get_course_remaining_time( $course_id ) {
-			$course = learn_press_get_course( $course_id );
+			_deprecated_function( __FUNCTION__, '4.1.7.3' );
+			/*$course = learn_press_get_course( $course_id );
 			$remain = false;
 
 			if ( $course && $course->get_id() ) {
@@ -1033,7 +1033,7 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 				}
 			}
 
-			return $remain > 0 ? learn_press_seconds_to_weeks( $remain ) : false;
+			return $remain > 0 ? learn_press_seconds_to_weeks( $remain ) : false;*/
 		}
 
 		/**

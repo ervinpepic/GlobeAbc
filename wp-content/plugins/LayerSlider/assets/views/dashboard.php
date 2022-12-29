@@ -102,7 +102,7 @@
 	}
 
 	// Template store data
-	$lsStoreData 		= LS_RemoteData::get('templates');
+	$lsStoreData 		= LS_RemoteData::get('templates', [] );
 	$lsStoreLastViewed 	= get_user_meta( $userID, 'ls-store-last-viewed', true);
 
 	// Update last visited date
@@ -470,7 +470,7 @@
 				<div class="ls-item import-templates <?= $lsStoreHasUpdate ? 'has-updates' : '' ?>">
 					<div class="ls-item-inner">
 						<a href="#" id="ls-browse-templates-button" class="import-templates <?= $lsStoreHasUpdate ? 'has-updates' : '' ?>">
-							<?= lsGetSVGIcon('map'); ?>
+							<?= lsGetSVGIcon('layer-group'); ?>
 							<div class="ls-tile-text"><?= __('Browse Templates', 'LayerSlider') ?></div>
 						</a>
 					</div>
@@ -638,7 +638,7 @@
 							$item['data'] = $item['draft']['data'];
 						}
 
-						$class = ($item['flag_deleted'] == '1') ? 'dimmed' : '';
+						$class = ($item['flag_deleted'] == '1') ? 'ls-dimmed' : '';
 						$preview = apply_filters('ls_preview_for_slider', $item );
 
 						if( ! empty( $item['flag_group'] ) ) {
@@ -648,13 +648,13 @@
 							?>
 							<div class="slider-item group-item" data-id="<?= $item['id'] ?>">
 								<div class="slider-item-wrapper">
-									<div class="items">
+									<div class="ls-items">
 										<?php
 											if( ! empty( $item['items'] ) ) {
 											foreach( $groupItems as $groupKey => $groupItem )  {
 											$groupPreview = apply_filters('ls_preview_for_slider', $groupItem ); ?>
-												<div class="item <?= ($groupItem['flag_deleted'] == '1') ? 'dimmed' : '' ?>">
-													<div class="preview" style="background-image: url(<?=  ! empty( $groupPreview ) ? $groupPreview : LS_ROOT_URL . '/static/admin/img/blank.gif' ?>);">
+												<div class="ls-item <?= ($groupItem['flag_deleted'] == '1') ? 'ls-dimmed' : '' ?>">
+													<div class="ls-preview" style="background-image: url(<?=  ! empty( $groupPreview ) ? $groupPreview : LS_ROOT_URL . '/static/admin/img/blank.gif' ?>);">
 														<?php if( empty( $groupPreview ) ) : ?>
 														<div class="no-preview">
 															<?= __('No Preview', 'LayerSlider') ?>
@@ -665,8 +665,8 @@
 											<?php } } ?>
 									</div>
 
-									<div class="info">
-										<div class="name">
+									<div class="ls-info">
+										<div class="ls-name">
 											<?= lsGetSVGIcon('th-large') ?>
 											<ls-span>
 												<?= apply_filters('ls_slider_title', stripslashes( $item['name'] ), 40) ?>
@@ -686,7 +686,7 @@
 													$item['data'] = $item['draft']['data'];
 												}
 
-												$class = ($item['flag_deleted'] == '1') ? 'dimmed' : '';
+												$class = ($item['flag_deleted'] == '1') ? 'ls-dimmed' : '';
 												$preview = apply_filters('ls_preview_for_slider', $item );
 
 												include LS_ROOT_PATH.'/templates/tmpl-slider-grid-item.php';
@@ -1199,6 +1199,8 @@
 	</ls-section>
 
 </div>
+
+<?php include LS_ROOT_PATH . '/templates/tmpl-smart-alert.php'; ?>
 
 
 <script type="text/javascript">

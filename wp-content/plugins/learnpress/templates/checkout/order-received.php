@@ -6,7 +6,7 @@
  *
  * @author   ThimPress
  * @package  Learnpress/Templates
- * @version  4.0.0
+ * @version  4.0.1
  */
 
 defined( 'ABSPATH' ) || exit();
@@ -68,7 +68,7 @@ echo wp_sprintf(
 				if ( empty( $item['course_id'] ) || get_post_type( $item['course_id'] ) !== LP_COURSE_CPT ) {
 					$links[] = apply_filters(
 						'learn-press/order-item-not-course-id',
-						__( 'Course does not exist', 'learnpress' ),
+						__( 'The course does not exist', 'learnpress' ),
 						$item
 					);
 				} else {
@@ -122,5 +122,5 @@ echo wp_sprintf(
 	<?php endif; ?>
 </table>
 
-<?php do_action( 'learn-press/order/received/' . $order_received->payment_method, $order_received->get_id() ); ?>
+<?php //do_action( 'learn-press/order/received/' . $order_received->get_data( 'payment_method' ), $order_received->get_id() ); ?>
 <?php do_action( 'learn-press/order/received', $order_received ); ?>

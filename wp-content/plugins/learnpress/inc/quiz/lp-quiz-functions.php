@@ -58,13 +58,15 @@ function learn_press_get_question_answer_meta( $item_id, $meta_key, $single = tr
  * @param   boolean $only_ids return an array of questions with IDs only or as post objects
  *
  * @return  array|null
+ * @deprecated 4.1.7.3
  */
 function learn_press_get_quiz_questions( $quiz_id = null, $only_ids = true ) {
+	_deprecated_function( __FUNCTION__, '4.1.7.3' );
 	if ( ! $quiz_id ) {
 		$quiz_id = get_the_ID();
 	}
 
-	return ( $quiz = LP_Quiz::get_quiz( $quiz_id ) ) ? $quiz->get_questions() : false;
+	return ( $quiz = LP_Quiz::get_quiz( $quiz_id ) ) ? $quiz->get_question_ids() : false;
 }
 
 /**
@@ -93,7 +95,7 @@ function learn_press_get_quiz_id( $id ) {
  * @param   int $quiz_id The ID of quiz need to check
  *
  * @return  boolean
- * @depecated 4.1.6.9
+ * @deprecated 4.1.6.9
  */
 /*function learn_press_user_has_completed_quiz( $user_id = null, $quiz_id = null ) {
 	$user = learn_press_get_user( $user_id );

@@ -143,7 +143,7 @@ if(!class_exists('BookedFEA_Ajax')) {
 					endif;
 			
 					// Close button
-					echo '<a href="#" class="close"><i class="booked-icon booked-icon-close"></i></a>';
+					echo '<a href="#" class="close"><i class="fa-solid fa-xmark"></i></a>';
 				echo '</div>';
 				
 				echo ob_get_clean();

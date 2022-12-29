@@ -156,7 +156,7 @@ if ( ! class_exists( 'LP_Lesson_Post_Type' ) ) {
 					'name'               => esc_html__( 'Lessons', 'learnpress' ),
 					'menu_name'          => esc_html__( 'Lessons', 'learnpress' ),
 					'singular_name'      => esc_html__( 'Lesson', 'learnpress' ),
-					'add_new_item'       => esc_html__( 'Add New Lesson', 'learnpress' ),
+					'add_new_item'       => esc_html__( 'Add A New Lesson', 'learnpress' ),
 					'all_items'          => esc_html__( 'Lessons', 'learnpress' ),
 					'view_item'          => esc_html__( 'View Lesson', 'learnpress' ),
 					'add_new'            => esc_html__( 'Add New', 'learnpress' ),
@@ -164,7 +164,7 @@ if ( ! class_exists( 'LP_Lesson_Post_Type' ) ) {
 					'update_item'        => esc_html__( 'Update Lesson', 'learnpress' ),
 					'search_items'       => esc_html__( 'Search Lessons', 'learnpress' ),
 					'not_found'          => esc_html__( 'No lesson found', 'learnpress' ),
-					'not_found_in_trash' => esc_html__( 'No lesson found in Trash', 'learnpress' ),
+					'not_found_in_trash' => esc_html__( 'There was no lesson found in the trash', 'learnpress' ),
 				),
 				'public'             => true,
 				'query_var'          => true,
@@ -267,12 +267,8 @@ if ( ! class_exists( 'LP_Lesson_Post_Type' ) ) {
 					$this->_get_item_course( $post_id );
 					break;
 				case 'preview':
-					printf(
-						'<input type="checkbox" class="learn-press-checkbox learn-press-toggle-item-preview" %s value="%s" data-nonce="%s" />',
-						get_post_meta( $post_id, '_lp_preview', true ) == 'yes' ? ' checked="checked"' : '',
-						$post_id,
-						wp_create_nonce( 'learn-press-toggle-item-preview' )
-					);
+					$lesson_is_preview = 'yes' === get_post_meta( $post_id, '_lp_preview', true );
+					echo $lesson_is_preview ? '<span class="dashicons dashicons-saved" style="color: #00c700"></span>' : '';
 					break;
 				case 'format':
 					learn_press_item_meta_format( $post_id, __( 'Standard', 'learnpress' ) );

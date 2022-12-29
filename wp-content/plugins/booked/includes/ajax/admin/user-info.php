@@ -52,7 +52,7 @@ echo '<div class="booked-scrollable">';
 			$full_date = date_i18n( 'Y-m-d', $timestamp );
 
 			echo '<div class="field">';
-				echo '<i class="booked-icon booked-icon-calendar" style="font-size:1.2em; position:relative; top:-1px;"></i>&nbsp;&nbsp;<span class="booked_appt_date-formatted">' . date_i18n( $date_format, $timestamp ) . '</span>';
+				echo '<i class="fa-solid fa-calendar-days" style="font-size:1.2em; position:relative; top:-1px;"></i>&nbsp;&nbsp;<span class="booked_appt_date-formatted">' . date_i18n( $date_format, $timestamp ) . '</span>';
 				echo '<input type="hidden" placeholder="Date..." class="large textfield booked_appt_date" name="appt_date" value="' . date_i18n( 'Y-m-d', $timestamp ) . '">';
 			echo '</div>';
 			echo '<div class="field timeslots-select-field">';
@@ -161,4 +161,4 @@ echo '<div class="booked-scrollable">';
 echo '</div>';
 
 // Close button
-echo '<a href="#" class="close"><i class="booked-icon booked-icon-close"></i></a>';
+echo '<a href="#" class="close"><i class="fa-solid fa-xmark"></i></a>';

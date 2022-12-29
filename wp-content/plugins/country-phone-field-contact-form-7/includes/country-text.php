@@ -22,7 +22,7 @@ function nbcpf_countrytext_form_tag_handler( $tag ) {
 
 	$class = wpcf7_form_controls_class( $tag->type, 'wpcf7-text' );
 
-	if ( in_array( $tag->basetype, array( 'email', 'url', 'tel' ) ) ) {
+	if ( in_array( $tag->basetype, array( 'countrytext', 'countrytext*' ) ) ) {
 		$class .= ' wpcf7-validates-as-' . $tag->basetype;
 	}
 
@@ -56,7 +56,14 @@ function nbcpf_countrytext_form_tag_handler( $tag ) {
 		$atts['aria-required'] = 'true';
 	}
 
-	$atts['aria-invalid'] = $validation_error ? 'true' : 'false';
+	if ( $validation_error ) {
+		$atts['aria-invalid'] = 'true';
+		$atts['aria-describedby'] = wpcf7_get_validation_error_reference(
+			$tag->name
+		);
+	} else {
+		$atts['aria-invalid'] = 'false';
+	}
 
 	$value = (string) reset( $tag->values );
 
@@ -78,7 +85,7 @@ function nbcpf_countrytext_form_tag_handler( $tag ) {
 	$atts = wpcf7_format_atts( $atts );
 
 	$html = sprintf(
-		'<span class="wpcf7-form-control-wrap %1$s"><input %2$s />%3$s</span>',
+		'<span class="wpcf7-form-control-wrap" data-name="%1$s"><input %2$s />%3$s</span>',
 		sanitize_html_class( $tag->name ), $atts, $validation_error );
 
 	return $html;

@@ -116,7 +116,7 @@ include LS_ROOT_PATH . '/includes/ls_global.php';
 
 									<a href="<?= admin_url('admin.php?page=layerslider#activationBox') ?>" class="ls--mb-1 ls--mr-1 ls--button ls--small ls--bg-light"><?= __('Register License', 'LayerSlider') ?></a>
 
-									<a href="https://layerslider.com/pricing/" target="_blank" class="ls--mb-1 ls--button ls--small ls--bg-light"><?= __('Get License', 'LayerSlider') ?></a>
+									<a href="<?= LS_Config::get('purchase_url') ?>" target="_blank" class="ls--mb-1 ls--button ls--small ls--bg-light"><?= __('Get License', 'LayerSlider') ?></a>
 
 								</ls-div>
 								<?php endif ?>
@@ -367,7 +367,7 @@ include LS_ROOT_PATH . '/includes/ls_global.php';
 									<?= __('If you experience any issue, we recommend enabling the WP Debug mode while debugging.', 'LayerSlider') ?>
 								</ls-span>
 								<ls-div class="ls--text-right ls--mt-2">
-									<a href="https://wordpress.org/support/article/debugging-in-wordpress/" class="ls--mb-1 ls--button ls--small ls--bg-light"><?= __('Learn More', 'LayerSlider') ?>
+									<a target="_blank" href="https://wordpress.org/support/article/debugging-in-wordpress/" class="ls--mb-1 ls--button ls--small ls--bg-light"><?= __('Learn More', 'LayerSlider') ?>
 									</a>
 								</ls-div>
 								<?php endif ?>
@@ -617,15 +617,16 @@ include LS_ROOT_PATH . '/includes/ls_global.php';
 
 			jQuery('.ls-clear-groups-button').click( function( event ) {
 
-				if( ! confirm( LS_l10n.SSClearGroupsConfirmation ) ) {
-					event.preventDefault();
-				}
+				event.preventDefault();
+				lsCommon.smartAlert.confirm( LS_l10n.SSClearGroupsConfirmation, () => {
+					document.location.href = jQuery( this ).attr('href');
+				});
 			});
 
 
 			jQuery('.ls-clear-localstorage-button').click( function() {
 
-				if( confirm( LS_l10n.SSClearLocalStorageConfirmation ) ) {
+				lsCommon.smartAlert.confirm( LS_l10n.SSClearLocalStorageConfirmation, () => {
 
 					let items = [
 						'lsEditor',
@@ -641,9 +642,11 @@ include LS_ROOT_PATH . '/includes/ls_global.php';
 					];
 
 					items.forEach( item => window.localStorage.removeItem( item ) );
-				}
+				});
 			});
 
 		});
 	</script>
 </div>
+
+<?php include LS_ROOT_PATH . '/templates/tmpl-smart-alert.php'; ?>

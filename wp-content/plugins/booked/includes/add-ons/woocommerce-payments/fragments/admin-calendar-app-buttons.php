@@ -7,7 +7,7 @@ $awaiting_status = BOOKED_WC_PLUGIN_PREFIX . 'awaiting';
 
 if ( !$appointment->order_id || $appointment->order_id == 'manual' ): ?>
 
-	<a href="#" class="delete" <?php echo $calendar_id ? ' data-calendar-id="'.$calendar_id.'"' : '' ?> ><i class="booked-icon booked-icon-close"></i></a>
+	<a href="#" class="delete" <?php echo $calendar_id ? ' data-calendar-id="'.$calendar_id.'"' : '' ?> ><i class="fa-solid fa-xmark"></i></a>
 
 <?php endif; ?>
 
@@ -44,7 +44,7 @@ if ( !$appointment->order_id || $appointment->order_id == 'manual' ): ?>
 	echo '<span class="booked-wc_status-text paid">';
 
 		if (current_user_can('manage_booked_options') && $appointment->order_id != 'manual') :
-			echo '<a target="_blank" href="' . admin_url('/post.php?post=' . $appointment->order_id . '&action=edit') . '"><i class="booked-icon booked-icon-pencil"></i>&nbsp;&nbsp;' . __('Paid', 'booked') . '</a>';
+			echo '<a target="_blank" href="' . admin_url('/post.php?post=' . $appointment->order_id . '&action=edit') . '"><i class="fa-solid fa-pencil"></i>&nbsp;&nbsp;' . __('Paid', 'booked') . '</a>';
 		else :
 			echo '<span>' . __('Paid', 'booked') . '</span>';
 		endif;

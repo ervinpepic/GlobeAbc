@@ -262,6 +262,87 @@ $lsDefaults = [
 		],
 
 
+		'calculateOffsetFrom' => [
+			'value' => '',
+			'name' => __('Calculate offset from element', 'LayerSlider'),
+			'keys' => 'calculateOffsetFrom',
+			'desc' => __('You can provide a jQuery/CSS selector for your theme’s top navigation area, so LayerSlider can automatically adjust the position of your Hero scene relative to that element. This allows perfectly aligning the two elements in all cases, even if your top navigation area changes its size.', 'LayerSlider'),
+			'advanced' => true,
+			'attrs' => [
+				'placeholder' => __('Enter selector', 'LayerSlider')
+			]
+		],
+
+		'performanceMode' => [
+			'value' => 'inherit',
+			'name' => __('Performance Mode', 'LayerSlider'),
+			'keys' => 'performanceMode',
+			'desc' => __('Performance mode suspends every background activity when your sliders are out of the viewport and not visible. This can dramatically increase performance on pages with many sliders. However, it also means that media playback will stop, and sliders won’t progress further in the background.', 'LayerSlider'),
+			'options' => [
+				'inherit' => __('Global default', 'LayerSlider'),
+				'enabled' => __('Enabled', 'LayerSlider'),
+				'disabled' => __('Disabled', 'LayerSlider')
+			]
+		],
+
+		'performanceModeThreshold' => [
+			'value' => '20sh',
+			'name' => __('Performance Mode Threshold', 'LayerSlider'),
+			'keys' => 'performanceModeThreshold',
+			'desc' => __('The default 20sh value means that Performance Mode activates when a slider is out of the viewport with more than 20% of its height. A larger value will delay Performance Mode activation, and you’ll need to scroll further down or up before sliders stop running in the background.', 'LayerSlider')
+		],
+
+		'scene' => [
+			'value' => '',
+			'name' => __('Slider Behavior', 'LayerSlider'),
+			'keys' => 'scene',
+			'options' => [
+				'' => __('Disabled', 'LayerSlider'),
+				'sticky' => __('Sticky', 'LayerSlider'),
+				'scroll' => __('Scroll', 'LayerSlider')
+			],
+			'premium' => true
+		],
+
+		'sceneHeight' => [
+			'value' => '',
+			'name' => __('Scene Height', 'LayerSlider'),
+			'keys' => 'sceneHeight',
+			'attrs' => [
+				'placeholder' => __('auto', 'LayerSlider')
+			]
+		],
+
+		'sceneDuration' => [
+			'value' => '',
+			'keys' => 'sceneDuration'
+		],
+
+		'sceneSpeed' => [
+			'value' => 100,
+			'name' => __('Scene Speed', 'LayerSlider'),
+			'keys' => 'sceneSpeed',
+			'attrs' => [
+				'placeholder' => 100,
+				'min' => 10,
+				'max' => 999
+			]
+		],
+
+		'stickTo' => [
+			'value' => 'center',
+			'name' => __('Stick To', 'LayerSlider'),
+			'keys' => 'stickTo',
+			'desc' => __('The portion of the viewport (browser window) where the slider should stick to until visitors scrolls beyond the scene height.', 'LayerSlider'),
+			'options' => [
+				'top' => __('Top', 'LayerSlider'),
+				'center' => __('Center', 'LayerSlider'),
+				'bottom' => __('Bottom', 'LayerSlider')
+			]
+		],
+
+
+
 		// == COMPATIBILITY ==
 
 		'responsiveness' => [
@@ -1449,7 +1530,6 @@ $lsDefaults = [
 				'enabled' => __('Enabled', 'LayerSlider'),
 				'disabled' => __('Disabled', 'LayerSlider')
 			],
-			'advanced' => true,
 			'props' => [
 				'meta' => true
 			]
@@ -3532,6 +3612,17 @@ $lsDefaults = [
 			]
 		],
 
+		'scrollGetPosition' => [
+			'value' => 'project',
+			'name' => __('Calculate Scroll Position Of', 'LayerSlider'),
+			'keys' => 'scrollgetposition',
+			'options' => [
+				'project' => __('Project', 'LayerSlider'),
+				'scene' => __('Scene', 'LayerSlider'),
+				'document' => __('Document', 'LayerSlider')
+			]
+		],
+
 		'scrollTransformOrigin' => [
 			'value' => '50% 50% 0',
 			'name' => __('Transform Origin', 'LayerSlider'),
@@ -4389,6 +4480,12 @@ $lsDefaults = [
 			]
 		],
 
+		'pinned' => [
+			'value' => false,
+			'name' => __('Pin layer', 'LayerSlider'),
+			'keys' => 'pinned'
+		],
+
 		'minResponsiveRatio' => [
 			'value' => 0,
 			'name' => __('Minimum responsive ratio', 'LayerSlider'),
@@ -4511,6 +4608,15 @@ $lsDefaults = [
 			'value' => '',
 			'name' => __('Classes', 'LayerSlider'),
 			'keys' => 'class',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'tabindex' => [
+			'value' => '',
+			'name' => __('Tabindex', 'LayerSlider'),
+			'keys' => 'tabindex',
 			'props' => [
 				'meta' => true
 			]

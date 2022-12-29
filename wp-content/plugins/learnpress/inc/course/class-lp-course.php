@@ -73,6 +73,7 @@ if ( ! class_exists( 'LP_Course' ) ) {
 		 * @param int   $course_id
 		 *
 		 * @return mixed|bool|LP_Course
+		 * @Todo - Tungnx review to rewrite this method.
 		 */
 		public static function get_course( int $course_id = 0 ) {
 			if ( isset( LP_Global::$courses[ $course_id ] ) ) {
@@ -215,7 +216,7 @@ if ( ! class_exists( 'LP_Course' ) ) {
 			$course_start_time   = $course_item_data->get_start_time()->get_raw_date();
 			$duration            = $this->get_data( 'duration' );
 			$timestamp_expire    = strtotime( $course_start_time . ' +' . $duration );
-			$timestamp_current   = strtotime( current_time( 'mysql' ) );
+			$timestamp_current   = time();
 			$timestamp_remaining = $timestamp_expire - $timestamp_current;
 
 			if ( $timestamp_remaining < 0 ) {

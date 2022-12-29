@@ -29,7 +29,7 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 			'learn-press-meta-box-order' => apply_filters(
 				'learn-press/meta-box-order/script-data',
 				array(
-					'i18n_error' => esc_html__( 'Ooops! Error.', 'learnpress' ),
+					'i18n_error' => esc_html__( 'Oops! Error.', 'learnpress' ),
 					'i18n_guest' => esc_html__( 'Guest', 'learnpress' ),
 				)
 			),
@@ -37,7 +37,7 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 				'learn-press/upgrade/script-data',
 				array(
 					'i18n_confirm' => esc_html__(
-						'Before taking this action, we strongly recommend you should backup your site first before proceeding. Should any issues come at hand, do not hesitate to contact our Support team. Are you sure to proceed the update protocol?',
+						'Before taking this action, we strongly recommend you backup your site first before proceeding. If you encounter any problems, please do not hesitate to contact our support team. Are you sure to proceed with the update protocol?',
 						'learnpress'
 					),
 				)
@@ -251,15 +251,7 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 				),
 				'lp-dashboard'                      => new LP_Asset_Key(
 					self::url( 'js/dist/admin/pages/dashboard' . self::$_min_assets . '.js' ),
-					array(
-						'jquery',
-						'wp-element',
-						'wp-compose',
-						'wp-data',
-						'wp-hooks',
-						'wp-api-fetch',
-						'lodash',
-					),
+					[],
 					array( 'dashboard' ),
 					0,
 					1
@@ -274,6 +266,10 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 					array( 'widgets', 'elementor' ),
 					0,
 					1
+				),
+				'lp-admin-notices'                  => new LP_Asset_Key(
+					self::url( 'js/dist/admin/admin-notices' . self::$_min_assets . '.js' ),
+					[ 'wp-api-fetch' ]
 				),
 			)
 		);
@@ -332,10 +328,9 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 		if ( empty( $screen_id ) ) {
 			return;
 		}
-		wp_enqueue_media();
 
+		wp_enqueue_media(); //Todo: tungnx need check why call for that using.
 		$this->handle_js( $screen_id );
-
 		$this->handle_style( $screen_id );
 
 		do_action( 'learn-press/admin/after-enqueue-scripts' );

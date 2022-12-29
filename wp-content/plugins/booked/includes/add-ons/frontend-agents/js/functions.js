@@ -15,7 +15,7 @@
 				totalAppointments = $('#profile-'+thisTabName).find('.appt-block').length;
 			
 			if (totalAppointments > 0){
-				thisCounter.html(totalAppointments).fadeIn('fast');
+				thisCounter.html(totalAppointments).css({'display':'flex'});
 			}
 		});
 		

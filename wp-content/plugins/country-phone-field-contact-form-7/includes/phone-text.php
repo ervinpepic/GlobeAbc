@@ -22,7 +22,7 @@ function nbcpf_phonetext_form_tag_handler( $tag ) {
 
 	$class = wpcf7_form_controls_class( $tag->type, 'wpcf7-text' );
 
-	if ( in_array( $tag->basetype, array( 'email', 'url', 'tel' ) ) ) {
+	if ( in_array( $tag->basetype, array( 'phonetext' , 'phonetext*') ) ) {
 		$class .= ' wpcf7-validates-as-' . $tag->basetype;
 	}
 
@@ -60,7 +60,16 @@ function nbcpf_phonetext_form_tag_handler( $tag ) {
 		$atts['aria-required'] = 'true';
 	}
 
-	$atts['aria-invalid'] = $validation_error ? 'true' : 'false';
+	if ( $validation_error ) {
+		$atts['aria-invalid'] = 'true';
+		$atts['aria-describedby'] = wpcf7_get_validation_error_reference(
+			$tag->name
+		);
+	} else {
+		$atts['aria-invalid'] = 'false';
+	}
+
+	//$atts['aria-invalid'] = $validation_error ? 'true' : 'false';
 
 	$value = (string) reset( $tag->values );
 
@@ -81,7 +90,7 @@ function nbcpf_phonetext_form_tag_handler( $tag ) {
 
 	$atts = wpcf7_format_atts( $atts );
 
-	$atts_country_code=array();
+	$atts_country_code = array();
 	$atts_country_code['type'] = 'hidden';
 	$atts_country_code['name'] = $tag->name . '-country-code';
 	$atts_country_code['class'] = 'wpcf7-phonetext-country-code';
@@ -89,7 +98,7 @@ function nbcpf_phonetext_form_tag_handler( $tag ) {
 	$atts_country_code = wpcf7_format_atts( $atts_country_code );
 
 	$html = sprintf(
-		'<span class="wpcf7-form-control-wrap %1$s"><input %2$s /><input %3$s />%4$s</span>',
+		'<span class="wpcf7-form-control-wrap" data-name="%1$s"><input %2$s /><input %3$s />%4$s</span>',
 		sanitize_html_class( $tag->name ), $atts,  $atts_country_code, $validation_error);
 
 	return $html;
@@ -98,20 +107,28 @@ function nbcpf_phonetext_form_tag_handler( $tag ) {
 
 /* Validation filter */
 
-
 add_filter( 'wpcf7_validate_phonetext', 'nbcpf_phonetext_validation_filter', 10, 2 );
 add_filter( 'wpcf7_validate_phonetext*', 'nbcpf_phonetext_validation_filter', 10, 2 );
 
 function nbcpf_phonetext_validation_filter( $result, $tag ) {
 	$type = $tag->type;
 	$name = $tag->name;
+	$extension = $_POST[$name.'-country-code'];
 
 	$value = isset( $_POST[$name] ) ? (string) wp_unslash($_POST[$name]) : '';
+    $value = str_replace($extension , '', str_replace(" ", "" , $value));
+    $str_array = str_split($value);
 
-	if ( $tag->is_required() && '' == $value ) {
+	if ( ( $tag->is_required() && '' == $value ) || ($value == $extension)) {
 		$result->invalidate( $tag, wpcf7_get_message( 'invalid_required' ) );
 	}
-	if ( '' !== $value ) {
+	elseif ( $tag->has_option( 'numberonly') ) {
+		if ( '' != $value && ( ! is_numeric($value) ) ) {
+			$result->invalidate( $tag, __('Phone number must be numbers only', 'nb-cpf') );
+		}
+	}
+	else {
+
 		$maxlength = $tag->get_maxlength_option();
 		$minlength = $tag->get_minlength_option();
 
@@ -129,11 +146,7 @@ function nbcpf_phonetext_validation_filter( $result, $tag ) {
 			}
 		}
 	}
-	if ( $tag->has_option( 'numberonly') ) {
-		if ( '' != $value && ( ! is_numeric($value) ) ) {
-			$result->invalidate( $tag, __('Phone number must be numbers only', 'nb-cpf') );
-		}
-	}
+	
 	
 	return $result;
 }

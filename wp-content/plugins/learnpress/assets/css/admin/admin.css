@@ -1296,6 +1296,10 @@ ul .clearfix {
 .wrap.learn-press-settings .lp-admin-tab-content .subsubsub li:last-child::after {
   content: "";
 }
+.wrap.learn-press-settings .lp-admin-tab-content h2 {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
 .wrap #learn-press-uninstall-sample-data {
   float: right;
   opacity: 0.5;
@@ -1692,8 +1696,6 @@ ul .clearfix {
   margin: 0;
   padding: 15px 0;
   flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: flex-start;
 }
 .lp-meta-box__inner .form-field:not(fieldset) label {
   width: 180px;
@@ -1797,13 +1799,13 @@ ul .clearfix {
   color: #666;
 }
 .lp-meta-box input[type=checkbox] {
-  margin-top: 0;
+  margin-top: 2px;
 }
 .lp-meta-box .short {
   width: 50%;
 }
 .lp-meta-box textarea:not(.lp-meta-box__wp-editor__textarea) {
-  height: 3.5em;
+  height: 4.6rem;
   line-height: 1.5em;
   vertical-align: top;
 }
@@ -2490,14 +2492,25 @@ input[name=_lp_course_result]:checked ~ #passing-condition-quiz-result {
   content: "";
 }
 
+.related-themes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-gap: 20px;
+}
+.related-themes li {
+  margin: 0;
+}
 .related-themes .plugin-card-top {
   padding-bottom: 0;
+  background: #fff;
 }
 .related-themes .theme-content {
   position: relative;
 }
 .related-themes .image-thumbnail img {
   width: 100%;
+  height: auto;
+  vertical-align: middle;
 }
 .related-themes .theme-description {
   margin: 0 0 25px 0;
@@ -2754,7 +2767,6 @@ input[name=_lp_course_result]:checked ~ #passing-condition-quiz-result {
 }
 .lp-modal-dialog .lp-modal-footer {
   padding: 20px;
-  padding-top: 0;
   background-color: #f9fafb;
   text-align: right;
 }
@@ -2998,29 +3010,26 @@ input[name=_lp_course_result]:checked ~ #passing-condition-quiz-result {
 
 .lp-order-statuses {
   margin: 0;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 10px;
+}
+.lp-order-statuses .lp-skeleton-animation {
+  grid-column: 1/3;
 }
 .lp-order-statuses li {
-  float: left;
   width: 100%;
   margin: 0;
   background: #fff;
 }
-.lp-order-statuses li strong {
-  display: block;
-  margin-bottom: 5px;
-  color: #0073aa;
-  font-size: 20px;
-  font-weight: normal;
-}
-.lp-order-statuses li strong::before {
-  display: inline-block;
-  width: 25px;
-  height: 25px;
-  font-family: dashicons;
-  font-size: 25px;
-  line-height: 25px;
-  vertical-align: middle;
-  content: "";
+.lp-order-statuses li span {
+  font-size: 1.1rem;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  column-gap: 10px;
+  font-weight: 400;
 }
 .lp-order-statuses li p {
   margin: 0;
@@ -3029,42 +3038,49 @@ input[name=_lp_course_result]:checked ~ #passing-condition-quiz-result {
   font-size: 12px;
 }
 .lp-order-statuses li.counter-number {
-  width: 50%;
-  padding: 10px 0 0;
   text-align: center;
+  /*&.order-completed {
+
+  	strong::before {
+  		color: #0085ba;
+  		content: "\f058";
+  	}
+  }
+
+  &.order-processing {
+
+  	strong::before {
+  		margin-left: -1px;
+  		color: #563f7a;
+  		content: "\f321";
+  	}
+  }
+
+  &.order-pending {
+
+  	strong::before {
+  		color: #aaa;
+  		content: "\f534";
+  	}
+  }
+
+  &.order-cancelled {
+
+  	strong::before {
+  		color: #f00;
+  		content: "\f153";
+  	}
+  }*/
 }
 .lp-order-statuses li.counter-number .counter-inner {
-  margin: 0 5px;
   padding: 10px 0;
   border: 1px solid #f3f3f3;
   background: #f9f9f9;
-}
-.lp-order-statuses li.counter-number .counter-inner p {
-  text-transform: lowercase;
-}
-.lp-order-statuses li.counter-number.order-completed strong::before {
-  color: #0085ba;
-  content: "\f058";
-}
-.lp-order-statuses li.counter-number.order-processing strong::before {
-  margin-left: -1px;
-  color: #563f7a;
-  content: "\f321";
-}
-.lp-order-statuses li.counter-number.order-pending strong::before {
-  color: #aaa;
-  content: "\f534";
-}
-.lp-order-statuses li.counter-number.order-cancelled strong::before {
-  color: #f00;
-  content: "\f153";
 }
 .lp-order-statuses li.clear {
   float: none;
 }
 .lp-order-statuses li.featured-theme {
-  float: none;
-  clear: both;
   width: auto;
   margin: 12px -12px 0 -12px;
   padding: 8px 12px 0 12px;
@@ -3095,29 +3111,47 @@ input[name=_lp_course_result]:checked ~ #passing-condition-quiz-result {
   margin-right: 0;
 }
 .lp-order-statuses li.total-raised {
+  grid-column: 1/3;
   box-sizing: border-box;
   padding: 10px 0;
   border: 1px solid #f3f3f3;
   background: #f9f9f9;
   text-align: center;
+  color: #0073aa;
 }
-.lp-order-statuses li.total-raised strong {
+.lp-order-statuses li.total-raised span {
   margin-bottom: 10px;
   font-size: 26px;
 }
-.lp-order-statuses li.total-raised strong::before {
-  width: 30px;
-  height: 30px;
-  margin-top: -3px;
-  margin-right: 7px;
-  font-size: 30px;
-  line-height: 30px;
-  content: "\f185";
+.lp-order-statuses li.total-raised span i {
+  font-size: 25px;
 }
 .lp-order-statuses::after {
   display: block;
   clear: both;
   content: "";
+}
+
+.featured-theme {
+  border-top: 1px solid #eee;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+.featured-theme p {
+  margin: 0;
+  font-size: 12px;
+}
+.featured-theme .star-rating {
+  display: inline-block;
+  line-height: 12px;
+}
+.featured-theme .star-rating .star {
+  font-size: 13px;
+  width: 13px;
+  height: 13px;
+}
+.featured-theme span {
+  font-size: 11px;
 }
 
 .lp-place-holder {
@@ -3533,6 +3567,11 @@ input[name=_lp_course_result]:checked ~ #passing-condition-quiz-result {
   border-spacing: 0;
   width: 100%;
 }
+.post-type-lp_order .lp-order-status .dashicons {
+  display: inline-flex !important;
+  align-items: center;
+  font-size: 16px;
+}
 
 #learn-press-toggle-settings-js-css {
   display: none;
@@ -3906,6 +3945,28 @@ input[name=_lp_course_result]:checked ~ #passing-condition-quiz-result {
   padding: 10px 0;
   text-align: center;
   display: none;
+}
+
+/*** Admin notices ***/
+.lp-admin-notices {
+  background: transparent;
+  display: none;
+  padding: 0;
+  border: none;
+}
+.lp-admin-notices .lp-admin-notice {
+  position: relative;
+  padding: 1px 10px;
+}
+.lp-admin-notices .lp-mes-beta-version {
+  background: #4299e1;
+  color: whitesmoke;
+}
+.lp-admin-notices .lp-mes-beta-version h3, .lp-admin-notices .lp-mes-beta-version a, .lp-admin-notices .lp-mes-beta-version a:visited {
+  color: white;
+}
+.lp-admin-notices .lp-mes-beta-version .btn-lp-notice-dismiss::before {
+  color: #fff0f6;
 }
 
 /**
@@ -5412,7 +5473,7 @@ input[name=_lp_course_result]:checked ~ #passing-condition-quiz-result {
 }
 @media (max-width: 1024px) {
   .lp-admin-fib-question-editor .fib-blanks,
-.admin-quiz-fib-question-editor .fib-blanks {
+  .admin-quiz-fib-question-editor .fib-blanks {
     width: 100%;
     min-width: 100%;
   }

@@ -40,15 +40,15 @@ class Booked_FEA_Shortcodes {
 
 			if (!isset($atts['remove_wrapper'])): echo '<div id="booked-profile-page" class="booked-shortcode">'; endif;
 			
-				echo '<div class="booked-fea-appt-list">';
+				echo '<div class="booked-profile-appt-list booked-fea-appt-list">';
 				
 					$booked_light_color = get_option('booked_light_color','#44535B');
 					$booked_button_color = get_option('booked_button_color','#56C477');
 				
 					echo '<style type="text/css">';
-						echo "body #booked-profile-page .booked-fea-appt-list button.button-primary { background:$booked_button_color; border-color:$booked_button_color; color:#fff; }\n";
-						echo "body #booked-profile-page .booked-fea-appt-list button.button-primary:hover { background:$booked_light_color; border-color:$booked_light_color; }";
-						echo "body #booked-profile-page .booked-fea-appt-list .appt-block .booked-wc_status-text.paid { color:$booked_button_color; }";
+						echo "body #booked-profile-page .booked-profile-appt-list button.button-primary { background:$booked_button_color; border-color:$booked_button_color; color:#fff; }\n";
+						echo "body #booked-profile-page .booked-profile-appt-list button.button-primary:hover { background:$booked_light_color; border-color:$booked_light_color; }";
+						echo "body #booked-profile-page .booked-profile-appt-list .appt-block .booked-wc_status-text.paid { color:$booked_button_color; }";
 					echo '</style>';
 
 					if ($pending):
@@ -130,7 +130,7 @@ class Booked_FEA_Shortcodes {
 						echo '<div class="appt-block bookedClearFix" data-appt-id="'.$appt['post_id'].'">';
 						
 							$default_button_html = '<div class="booked-fea-buttons">';
-								$default_button_html .= '<a href="#" class="delete"'.($calendar_id ? ' data-calendar-id="'.$calendar_id.'"' : '').'><i class="booked-icon booked-icon-close"></i></a>';
+								$default_button_html .= '<a href="#" class="delete"'.($calendar_id ? ' data-calendar-id="'.$calendar_id.'"' : '').'><i class="fa-solid fa-xmark"></i></a>';
 								$default_button_html .= ($status_class == 'pending' ? '<button data-appt-id="'.$appt['post_id'].'" class="approve button button-primary">'.__('Approve','booked').'</button>' : '');
 							$default_button_html .=	'</div>';
 						
@@ -190,12 +190,12 @@ class Booked_FEA_Shortcodes {
 							echo '<br>';
 							if ($late_date > $date_to_compare): echo '<span class="late-appt">' . __('This appointment has passed.','booked') . '</span><br>'; endif;
 							if ($appt['calendar_id']): echo '<strong style="color:#000">'.$appt['calendar_id'][0]->name.'</strong><br>'; endif;
-							echo '<i class="booked-icon booked-icon-calendar"></i>'.$day_name.', '.$date_display;
-							echo '&nbsp;&nbsp;&nbsp;<i class="booked-icon booked-icon-clock"></i>'.$timeslotText;
+							echo '<i class="fa-solid fa-calendar-days"></i>'.$day_name.', '.$date_display;
+							echo '&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-clock"></i>'.$timeslotText;
 							
 							do_action('booked_shortcode_appointments_additional_information', $appt['post_id']);
 							$cf_meta_value = apply_filters('booked_fea_cf_metavalue',$cf_meta_value);
-							echo ($cf_meta_value ? '<br><i class="booked-icon booked-icon-info"></i><a href="#" class="booked-show-cf">'.__('Additional information','booked').'</a><div class="cf-meta-values-hidden">'.$cf_meta_value.'</div>' : '');
+							echo ($cf_meta_value ? '<br><i class="fa-solid fa-circle-info"></i><a href="#" class="booked-show-cf">'.__('Additional information','booked').'</a><div class="cf-meta-values-hidden">'.$cf_meta_value.'</div>' : '');
 							
 							if (!$historic):
 								if ($appt_date_time >= $date_to_compare):

@@ -42,6 +42,7 @@ class LS_Uninstaller {
 			'ls_custom_locale',
 			'ls-google-fonts',
 			'ls-google-font-scripts',
+			'ls_performance_mode',
 			'ls_use_cache',
 			'ls_include_at_footer',
 			'ls_conditional_script_loading',
