@@ -154,7 +154,6 @@ var Util = function ($) {
 
   return Util;
 }(jQuery);
-//# sourceMappingURL=util.js.map
 
 
 
@@ -487,4 +486,3 @@ var ScrollSpy = function ($) {
 
   return ScrollSpy;
 }(jQuery);
-//# sourceMappingURL=scrollspy.js.map

@@ -78,7 +78,13 @@ Tags: one-column, two-columns, three-columns, four-columns, left-sidebar, right-
 }
 .times-available-text {
     padding: 0px 0px 20px 0px;
-    margin-top: -20px !Important;
+    margin-top: -75px !Important;
+    margin-left: 15px !Important;
+}
+
+.times-available-text-front-page {
+    padding: 0px 0px 20px 0px;
+    margin-top: -55px !Important;
     margin-left: 15px !Important;
 }
 
