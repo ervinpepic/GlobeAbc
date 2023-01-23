@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version		1.2.7
+ * @version		1.2.8
  * 
  * Main Theme Functions File
  * Created by CMSMasters
@@ -11,6 +11,8 @@
 
 
 /*** START EDIT THEME PARAMETERS HERE ***/
+
+add_filter( 'learn-press/override-templates', function(){ return true; } );
 
 // Theme Settings System Fonts List
 if (!function_exists('language_school_system_fonts_list')) {

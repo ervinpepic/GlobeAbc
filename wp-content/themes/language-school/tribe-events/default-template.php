@@ -9,7 +9,7 @@
  * @package TribeEventsCalendar
  * 
  * @cmsmasters_package 	Language School
- * @cmsmasters_version 	1.1.8
+ * @cmsmasters_version 	1.2.8
  *
  */
 
@@ -18,6 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+use Tribe\Events\Views\V2\Template_Bootstrap;
 
 get_header();
 
@@ -37,12 +38,8 @@ if ($cmsmasters_layout == 'r_sidebar') {
 }
 
 
-echo '<div id="tribe-events-pg-template" class="clearfix">' . "\n\t";
-	tribe_events_before_html();
-	tribe_get_view();
-	tribe_events_after_html();
-	echo '<div class="cl"></div>';
-echo '</div> <!-- #tribe-events-pg-template -->' . "\n";
+echo tribe( Template_Bootstrap::class )->get_view_html();
+echo '<div class="cl"></div>';
 
 
 echo '</div>' . "\n" . 

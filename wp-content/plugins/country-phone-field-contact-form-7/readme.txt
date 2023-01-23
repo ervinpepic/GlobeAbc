@@ -185,3 +185,10 @@ This was a free API. But now it is not working anymore. So we discontinue it and
 * Update Country field validation functionality
 2.3.9
 * Fixed phone field validation issue.
+
+2.4.0
+* Fixed the auto country selection API issue.
+2.4.1
+* Update auto country selection API and refine the JS code.
+2.4.2
+* Update auto country selection API JS code issues.

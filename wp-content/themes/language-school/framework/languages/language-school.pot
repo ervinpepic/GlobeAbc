@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Language School 1.2.7\n"
+"Project-Id-Version: Language School 1.2.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-14 10:15+0200\n"
-"PO-Revision-Date: 2022-11-14 10:15+0200\n"
+"POT-Creation-Date: 2023-01-12 14:42+0200\n"
+"PO-Revision-Date: 2023-01-12 14:42+0200\n"
 "Last-Translator: \n"
 "Language-Team: cmsmasters <cmsmstrs@gmail.com>\n"
 "Language: en_US\n"
@@ -16,7 +16,7 @@ msgstr ""
 "_nx:1,2\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 3.2\n"
+"X-Generator: Poedit 3.2.2\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: 404.php:35
@@ -313,7 +313,7 @@ msgstr ""
 #: framework/admin/inc/admin-scripts.php:25
 #: framework/admin/options/cmsmasters-theme-options-general.php:212
 #: framework/admin/settings/cmsmasters-theme-settings-general.php:696
-#: functions.php:336
+#: functions.php:338
 msgid "Default"
 msgstr ""
 
@@ -339,8 +339,8 @@ msgstr ""
 #: framework/admin/options/cmsmasters-theme-options.php:628
 #: framework/admin/options/cmsmasters-theme-options.php:876
 #: framework/admin/settings/cmsmasters-theme-settings.php:322
-#: framework/admin/settings/cmsmasters-theme-settings.php:716
-#: framework/admin/settings/cmsmasters-theme-settings.php:972
+#: framework/admin/settings/cmsmasters-theme-settings.php:719
+#: framework/admin/settings/cmsmasters-theme-settings.php:975
 msgid "Remove"
 msgstr ""
 
@@ -440,34 +440,30 @@ msgid "Contact Form 7"
 msgstr ""
 
 #: framework/admin/inc/plugin-activator.php:115
-msgid "WordPress SEO by Yoast"
-msgstr ""
-
-#: framework/admin/inc/plugin-activator.php:120
 msgid "GDPR Cookie Consent"
 msgstr ""
 
-#: framework/admin/inc/plugin-activator.php:125
+#: framework/admin/inc/plugin-activator.php:120
 msgid "PayPal Donations"
 msgstr ""
 
-#: framework/admin/inc/plugin-activator.php:130
+#: framework/admin/inc/plugin-activator.php:125
 msgid "The Events Calendar"
 msgstr ""
 
-#: framework/admin/inc/plugin-activator.php:135
+#: framework/admin/inc/plugin-activator.php:130
 msgid "MailPoet 3"
 msgstr ""
 
-#: framework/admin/inc/plugin-activator.php:146
+#: framework/admin/inc/plugin-activator.php:141
 msgid "Theme Required & Recommended Plugins"
 msgstr ""
 
-#: framework/admin/inc/plugin-activator.php:147
+#: framework/admin/inc/plugin-activator.php:142
 msgid "Theme Plugins"
 msgstr ""
 
-#: framework/admin/inc/plugin-activator.php:148
+#: framework/admin/inc/plugin-activator.php:143
 msgid "Return to Theme Required & Recommended Plugins"
 msgstr ""
 
@@ -1103,7 +1099,7 @@ msgstr ""
 
 #: framework/admin/options/cmsmasters-theme-options-project.php:43
 #: framework/admin/settings/cmsmasters-theme-settings-single.php:20
-#: framework/function/theme-functions.php:1968 functions.php:278
+#: framework/function/theme-functions.php:1968 functions.php:280
 msgid "Project"
 msgstr ""
 
@@ -1199,7 +1195,7 @@ msgid "Project Features 3"
 msgstr ""
 
 #: framework/admin/options/cmsmasters-theme-options-tt-event.php:39
-#: functions.php:321
+#: functions.php:323
 msgid "Event"
 msgstr ""
 
@@ -1319,18 +1315,18 @@ msgid "Select Profile Category"
 msgstr ""
 
 #: framework/admin/options/cmsmasters-theme-options.php:509
-#: framework/admin/settings/cmsmasters-theme-settings.php:713
+#: framework/admin/settings/cmsmasters-theme-settings.php:716
 msgid "Choose Image"
 msgstr ""
 
 #: framework/admin/options/cmsmasters-theme-options.php:509
-#: framework/admin/settings/cmsmasters-theme-settings.php:713
+#: framework/admin/settings/cmsmasters-theme-settings.php:716
 msgid "Insert Image"
 msgstr ""
 
 #: framework/admin/options/cmsmasters-theme-options.php:557
 #: framework/admin/options/cmsmasters-theme-options.php:571
-#: framework/admin/settings/cmsmasters-theme-settings.php:925
+#: framework/admin/settings/cmsmasters-theme-settings.php:928
 msgid "Choose icon"
 msgstr ""
 
@@ -1339,22 +1335,22 @@ msgid "Remove icon"
 msgstr ""
 
 #: framework/admin/options/cmsmasters-theme-options.php:572
-#: framework/admin/settings/cmsmasters-theme-settings.php:926
+#: framework/admin/settings/cmsmasters-theme-settings.php:929
 msgid "Cancel changes"
 msgstr ""
 
 #: framework/admin/options/cmsmasters-theme-options.php:587
-#: framework/admin/settings/cmsmasters-theme-settings.php:931
+#: framework/admin/settings/cmsmasters-theme-settings.php:934
 msgid "Icon Color"
 msgstr ""
 
 #: framework/admin/options/cmsmasters-theme-options.php:591
-#: framework/admin/settings/cmsmasters-theme-settings.php:935
+#: framework/admin/settings/cmsmasters-theme-settings.php:938
 msgid "Icon Hover Color"
 msgstr ""
 
 #: framework/admin/options/cmsmasters-theme-options.php:591
-#: framework/admin/settings/cmsmasters-theme-settings.php:935
+#: framework/admin/settings/cmsmasters-theme-settings.php:938
 msgid "if not selected - Icon Color will be used"
 msgstr ""
 
@@ -1367,17 +1363,17 @@ msgid "Icon title"
 msgstr ""
 
 #: framework/admin/options/cmsmasters-theme-options.php:604
-#: framework/admin/settings/cmsmasters-theme-settings.php:948
+#: framework/admin/settings/cmsmasters-theme-settings.php:951
 msgid "Open link in a new tab/window?"
 msgstr ""
 
 #: framework/admin/options/cmsmasters-theme-options.php:608
-#: framework/admin/settings/cmsmasters-theme-settings.php:952
+#: framework/admin/settings/cmsmasters-theme-settings.php:955
 msgid "Add Icon"
 msgstr ""
 
 #: framework/admin/options/cmsmasters-theme-options.php:609
-#: framework/admin/settings/cmsmasters-theme-settings.php:953
+#: framework/admin/settings/cmsmasters-theme-settings.php:956
 msgid "Save Icon"
 msgstr ""
 
@@ -1763,7 +1759,7 @@ msgstr ""
 #: framework/admin/settings/cmsmasters-theme-settings-demo.php:85
 #: framework/admin/settings/cmsmasters-theme-settings.php:357
 #: framework/admin/settings/cmsmasters-theme-settings.php:358
-#: framework/admin/settings/cmsmasters-theme-settings.php:1434
+#: framework/admin/settings/cmsmasters-theme-settings.php:1437
 msgid "Theme Settings"
 msgstr ""
 
@@ -2134,7 +2130,7 @@ msgid "Links"
 msgstr ""
 
 #: framework/admin/settings/cmsmasters-theme-settings-font.php:18
-#: functions.php:338
+#: functions.php:340
 msgid "Navigation"
 msgstr ""
 
@@ -2330,17 +2326,17 @@ msgstr ""
 
 #: framework/admin/settings/cmsmasters-theme-settings-general.php:18
 #: framework/admin/settings/cmsmasters-theme-settings.php:374
-#: framework/admin/settings/cmsmasters-theme-settings.php:1442
+#: framework/admin/settings/cmsmasters-theme-settings.php:1445
 msgid "General"
 msgstr ""
 
 #: framework/admin/settings/cmsmasters-theme-settings-general.php:24
-#: functions.php:337
+#: functions.php:339
 msgid "Header"
 msgstr ""
 
 #: framework/admin/settings/cmsmasters-theme-settings-general.php:26
-#: functions.php:341
+#: functions.php:343
 msgid "Footer"
 msgstr ""
 
@@ -2996,17 +2992,17 @@ msgid ""
 msgstr ""
 
 #: framework/admin/settings/cmsmasters-theme-settings.php:386
-#: framework/admin/settings/cmsmasters-theme-settings.php:1449
+#: framework/admin/settings/cmsmasters-theme-settings.php:1452
 msgid "Fonts"
 msgstr ""
 
 #: framework/admin/settings/cmsmasters-theme-settings.php:398
-#: framework/admin/settings/cmsmasters-theme-settings.php:1456
+#: framework/admin/settings/cmsmasters-theme-settings.php:1459
 msgid "Colors"
 msgstr ""
 
 #: framework/admin/settings/cmsmasters-theme-settings.php:410
-#: framework/admin/settings/cmsmasters-theme-settings.php:1463
+#: framework/admin/settings/cmsmasters-theme-settings.php:1466
 msgid "Elements"
 msgstr ""
 
@@ -3021,20 +3017,20 @@ msgstr ""
 #: framework/admin/settings/cmsmasters-theme-settings.php:454
 #, php-format
 msgid ""
-"<p>To add new Google Font proceed to <a href=\"%1$s\" target=\"_blank"
-"\">fonts.google.com</a>, find needed Google Font and click on the + to "
-"select it: <a href=\"%2$s\" target=\"_blank\">screenshot</a>.<br />Choose "
-"the font style in the Customize tab: <a href=\"%3$s\" target=\"_blank"
-"\">screenshot</a>.<br />Copy the highlighted code and the font family: <a "
-"href=\"%4$s\" target=\"_blank\">screenshot</a>, click on the Add Font "
-"button: <a href=\"%5$s\" target=\"_blank\">screenshot</a>, and past Font "
-"Family and Font Style to the appropriate fields: <a href=\"%6$s\" target="
-"\"_blank\">screenshot</a>.<br />To add a specific subset choose the needed "
-"one from the Google Fonts Subset list.  To select multiple subsets hold down "
-"the Ctrl key and click on the subsets you need to add: <a href=\"%7$s\" "
-"target=\"_blank\">screenshot</a>.<br /><strong>Don't forget to Save Changes."
-"</strong><br />Then new Google Font will appear in the Google Fonts list: <a "
-"href=\"%8$s\" target=\"_blank\">screenshot</a></p>"
+"<p>To add new Google Font proceed to <a href=\"%1$s\" "
+"target=\"_blank\">fonts.google.com</a>, find needed Google Font and click on "
+"the + to select it: <a href=\"%2$s\" target=\"_blank\">screenshot</a>.<br /"
+">Choose the font style in the Customize tab: <a href=\"%3$s\" "
+"target=\"_blank\">screenshot</a>.<br />Copy the highlighted code and the "
+"font family: <a href=\"%4$s\" target=\"_blank\">screenshot</a>, click on the "
+"Add Font button: <a href=\"%5$s\" target=\"_blank\">screenshot</a>, and past "
+"Font Family and Font Style to the appropriate fields: <a href=\"%6$s\" "
+"target=\"_blank\">screenshot</a>.<br />To add a specific subset choose the "
+"needed one from the Google Fonts Subset list.  To select multiple subsets "
+"hold down the Ctrl key and click on the subsets you need to add: <a "
+"href=\"%7$s\" target=\"_blank\">screenshot</a>.<br /><strong>Don't forget to "
+"Save Changes.</strong><br />Then new Google Font will appear in the Google "
+"Fonts list: <a href=\"%8$s\" target=\"_blank\">screenshot</a></p>"
 msgstr ""
 
 #: framework/admin/settings/cmsmasters-theme-settings.php:475
@@ -3046,111 +3042,111 @@ msgstr ""
 msgid "Import Settings"
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:745
+#: framework/admin/settings/cmsmasters-theme-settings.php:748
 msgid "System Font"
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:760
+#: framework/admin/settings/cmsmasters-theme-settings.php:763
 msgid "Local Fonts"
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:771
+#: framework/admin/settings/cmsmasters-theme-settings.php:774
 msgid "Google Web Fonts"
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:782
+#: framework/admin/settings/cmsmasters-theme-settings.php:785
 msgid "Google Font"
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:790
+#: framework/admin/settings/cmsmasters-theme-settings.php:793
 msgid "Font Size"
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:790
-#: framework/admin/settings/cmsmasters-theme-settings.php:798
+#: framework/admin/settings/cmsmasters-theme-settings.php:793
+#: framework/admin/settings/cmsmasters-theme-settings.php:801
 msgid "in pixels"
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:798
+#: framework/admin/settings/cmsmasters-theme-settings.php:801
 msgid "Line Height"
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:812
+#: framework/admin/settings/cmsmasters-theme-settings.php:815
 msgid "Font Weight"
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:826
+#: framework/admin/settings/cmsmasters-theme-settings.php:829
 msgid "Font Style"
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:840
+#: framework/admin/settings/cmsmasters-theme-settings.php:843
 msgid "Text Transform"
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:854
+#: framework/admin/settings/cmsmasters-theme-settings.php:857
 msgid "Text Decoration"
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:866
+#: framework/admin/settings/cmsmasters-theme-settings.php:869
 msgid "Add Sidebar"
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:905
-#: framework/admin/settings/cmsmasters-theme-settings.php:915
+#: framework/admin/settings/cmsmasters-theme-settings.php:908
+#: framework/admin/settings/cmsmasters-theme-settings.php:918
 msgid "Font Family (for example: Roboto Slab)"
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:906
-#: framework/admin/settings/cmsmasters-theme-settings.php:915
+#: framework/admin/settings/cmsmasters-theme-settings.php:909
+#: framework/admin/settings/cmsmasters-theme-settings.php:918
 msgid "Font Style (for example: Roboto+Slab:100,300,400,700)"
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:915
+#: framework/admin/settings/cmsmasters-theme-settings.php:918
 msgid "Add Font"
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:940
+#: framework/admin/settings/cmsmasters-theme-settings.php:943
 msgid "Icon Link"
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:944
+#: framework/admin/settings/cmsmasters-theme-settings.php:947
 msgid "Icon Title"
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:1002
+#: framework/admin/settings/cmsmasters-theme-settings.php:1005
 msgid "Expecting a Numeric value!"
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:1008
-#: framework/admin/settings/cmsmasters-theme-settings.php:1325
+#: framework/admin/settings/cmsmasters-theme-settings.php:1011
+#: framework/admin/settings/cmsmasters-theme-settings.php:1328
 msgid "Expecting a Numeric value! Please fix."
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:1018
+#: framework/admin/settings/cmsmasters-theme-settings.php:1021
 msgid "Expecting comma separated numeric values"
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:1027
+#: framework/admin/settings/cmsmasters-theme-settings.php:1030
 msgid "Expecting comma separated numeric values! Please fix."
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:1049
+#: framework/admin/settings/cmsmasters-theme-settings.php:1052
 msgid "Invalid email! Please re-enter!"
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:1051
+#: framework/admin/settings/cmsmasters-theme-settings.php:1054
 msgid "This setting field cannot be empty! Please enter a valid email address."
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:1058
+#: framework/admin/settings/cmsmasters-theme-settings.php:1061
 msgid "Please enter a valid email address."
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:1319
+#: framework/admin/settings/cmsmasters-theme-settings.php:1322
 msgid "Number!"
 msgstr ""
 
-#: framework/admin/settings/cmsmasters-theme-settings.php:1470
+#: framework/admin/settings/cmsmasters-theme-settings.php:1473
 msgid "Single"
 msgstr ""
 
@@ -4123,87 +4119,87 @@ msgstr ""
 msgid "Socials"
 msgstr ""
 
-#: functions.php:84 functions.php:101
+#: functions.php:86 functions.php:103
 msgid "none"
 msgstr ""
 
-#: functions.php:85
+#: functions.php:87
 msgid "uppercase"
 msgstr ""
 
-#: functions.php:86
+#: functions.php:88
 msgid "lowercase"
 msgstr ""
 
-#: functions.php:87
+#: functions.php:89
 msgid "capitalize"
 msgstr ""
 
-#: functions.php:102
+#: functions.php:104
 msgid "underline"
 msgstr ""
 
-#: functions.php:103
+#: functions.php:105
 msgid "overline"
 msgstr ""
 
-#: functions.php:104
+#: functions.php:106
 msgid "line-through"
 msgstr ""
 
-#: functions.php:118
+#: functions.php:120
 msgid "Custom 1"
 msgstr ""
 
-#: functions.php:119
+#: functions.php:121
 msgid "Custom 2"
 msgstr ""
 
-#: functions.php:120
+#: functions.php:122
 msgid "Custom 3"
 msgstr ""
 
-#: functions.php:121
+#: functions.php:123
 msgid "Custom 4"
 msgstr ""
 
-#: functions.php:266
+#: functions.php:268
 msgid "Square"
 msgstr ""
 
-#: functions.php:272
+#: functions.php:274
 msgid "Masonry Blog"
 msgstr ""
 
-#: functions.php:283
+#: functions.php:285
 msgid "Masonry Project"
 msgstr ""
 
-#: functions.php:289
+#: functions.php:291
 msgid "Featured"
 msgstr ""
 
-#: functions.php:294
+#: functions.php:296
 msgid "Masonry"
 msgstr ""
 
-#: functions.php:300
+#: functions.php:302
 msgid "Full"
 msgstr ""
 
-#: functions.php:306
+#: functions.php:308
 msgid "Project Full"
 msgstr ""
 
-#: functions.php:311
+#: functions.php:313
 msgid "Masonry Full"
 msgstr ""
 
-#: functions.php:339
+#: functions.php:341
 msgid "Header Top"
 msgstr ""
 
-#: functions.php:340
+#: functions.php:342
 msgid "Bottom"
 msgstr ""
 

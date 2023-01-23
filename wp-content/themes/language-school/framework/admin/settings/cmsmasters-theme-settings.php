@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.2.7
+ * @version 	1.2.8
  * 
  * Admin Panel Main Functions
  * Created by CMSMasters
@@ -501,6 +501,9 @@ function language_school_form_field_fn($args = array()) {
 	$options = get_option($cmsmasters_option_name);
 	
 	if (!isset($options[$id])) {
+		if (!is_array($options)) {
+			$options = array();
+		}
 		$options[$id] = $std;
 	}
 	

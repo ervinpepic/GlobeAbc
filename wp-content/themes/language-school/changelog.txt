@@ -1,0 +1,236 @@
+/**
+ * @package 	WordPress
+ * @subpackage 	Language School
+ * @version 	1.2.8
+ */
+ 
+-----------------------------------------------------------------------
+				CHANGELOG
+-----------------------------------------------------------------------
+Version 1.2.8:
+
+	1. Fixed LearnPress
+	2. Fix for webp format in jQuery iLightBox
+	3. Fixed fatal error on PHP 8
+	4. The Events Calendar V2: fixed deprecated function warning in single event.
+	5. Updated plugins
+	6. Updated translates
+--------------------------------------
+Version 1.2.7:
+
+	1. Added the ability to add new Google fonts.
+	2. Added the ability to add and use local fonts.
+	3. Updated plugins
+	4. Updated translates
+--------------------------------------
+Version 1.2.6:
+
+	1. Fixed twitter connection
+	2. Updated plugins
+	3. Updated translates
+	4. Fixed hover slider script
+	5. Fixed behavior section setting for Posts Slider, Pricing Table and Gallery shortcodes
+--------------------------------------
+Version 1.2.5:
+
+	1. Fixed Content Composer (WP 6)
+	2. Update Plugins
+--------------------------------------
+Version 1.2.4:
+
+	1. Update Plugins
+	2. Update Translate
+	3. Fixed demo content
+	4. Small fixes for The Events Calendar updated design
+--------------------------------------
+Version 1.2.3:
+
+	1. Fixed The Events Calendar updated design
+	2. Update Plugins
+	3. Update Translate
+--------------------------------------
+Version 1.2.2:
+
+	1. revslider 6.4.11
+	2. Timetable 6.7
+	3. LayerSlider 6.11.8
+	4. Learnpress 4.0.6
+	5. Fixed events calendar arrows
+	6. Fixed Course shortcode styles
+	7. Updated translates
+	8. Fixed demo content
+--------------------------------------
+Version 1.2.1:
+
+	1. revslider 6.3.3
+	2. Timetable 6.4 CC button fix
+	3. WP 5.6 columns fix
+	4. WP 5.6 drag'n'drop fix
+	5. WP 5.6 pop-up fix
+	6. Update LightBox isotope
+--------------------------------------
+Version 1.2.0:
+
+	1. Gutenberg styles fix
+	2. revslider 6.2.23
+	3. LayerSlider 6.11.2
+	4. Timetable 6.3
+	5. Fix for span tag
+	6. Yoast SEO breadcrumbs fix
+	7. Added Classic Editor compatibility
+	8. Projects & Profiles categories fix on PHP 7.4
+	9. Gutenberg notices and CC button fixes
+	10. CC update
+	11. Envato theme check fix
+	12. TGMPA fix
+	13. Update isotope
+--------------------------------------
+Version 1.1.9:
+
+	1. WordPress 5.5 fix
+	2. Timetable 6.2
+	3. revslider 6.2.18
+	4. LayerSlider 6.11.2
+--------------------------------------
+Version 1.1.8:
+	
+	1. Update plugins
+	2. Fix cookies checkbox if disabled
+	3. Fix for activating cmsmasters plugins
+	4. Fix for comment-form-cookies (show if checked 'Show comments cookies opt-in checkbox.')
+	5. Fix cmsmasters_but_icon_slide_right & cmsmasters_but_icon_slide_left animation
+	6. Fixed Gutenberg (if open demo-post from Gutenberg plugin)
+	7. Search layout
+	8. Replace  role="main"
+	9. Logo 2x(retina) must has width as 1x (no retina);
+	10. Removed word Custom from setting General\Content & General\Footer
+	11. Custom meta box functions are allowed for design only. Removed 'Read More' from post options if CC inactive
+	12. Àix image alignment for guttenberg
+	13. Fix bug (WP 5.1<) when fullwidth page during the import are inserted into 'content-wrap'
+	14. Fixed Columns
+	15. Fixed theme description. Replaced 'columnns' to 'columns'
+	16. Update Languages
+	17. Fix for timetable slug
+	18. Fix view as events button on phone
+	19. Timetable th backgraund fix
+--------------------------------------
+Version 1.1.7:
+
+	1. Fix to subpage navigation items
+	2. Fix for events calendar if venue is empty
+	3. Fix for uniqid. Error on too quick servers
+	4. Add cmsmasters-importer in theme
+	5. Fixed Logo Type Text
+	6. Fixed events navigation
+	7. Fixed website in Contact Info Widget
+	8. Fixed style for input[type=date]
+	9. Changed escaping function attributes "esc_html|esc_html__" to "esc_attr|esc_attr__"
+	10. Timetable booking fix
+	11. Fix widgets in admin bar
+	12. Fix blog puzzle gallery
+	13. Fix booking widget title
+	14. Fixed Tribe Bar Views for new version The Events Calendar.
+	15. Move twitter to CC
+	16. Removed Google+ Button in Open Posts
+	17. Rename text domains in plugins
+	18. escaping data (echo $)
+	19. Fix for function "register_widget" (envato theme check)
+	20. Move not changed widgets to plugin
+	21. Gutenberg
+	22. Fix for settings upload images script
+	23. Fixed Change layout to fullwidth if sidebar is empty
+	24. Change cookie notice plugin
+	25. Add scrolling for cmsmasters_table
+	26. Fix for social sharing shortcode (pin it button)
+--------------------------------------
+Version 1.1.6:
+
+	1. Update Plugins
+	2. Fix for timetable slug
+	3. Update for Gutenberg
+	4. Update events calendar 4.6.21
+	5. Fix for iLightbox in load more gallery
+--------------------------------------
+Version 1.1.5:
+
+	1. Update plugins
+	2. Add mailpoet 3
+	3. Add Cookie Notice plugin
+	4. Update FB widget for Privacy Policy
+	5. Update Languages
+--------------------------------------
+Version 1.1.4:
+
+	1. Learnpress 3.0.2
+	2. Default layout set to fullwidth
+	3. Fix padding on fullwidth layout
+	4. Update plugins
+--------------------------------------
+Version 1.1.3:
+
+	1. Timetable 5.3
+	2. Fix for scrollspy (if not one page)
+	3. Update plugins
+	4. Fix for breadcrumbs
+	5. Fix for title learnpress
+	6. Comment reply fix
+--------------------------------------
+Version 1.1.2:
+
+	1. Update color-picker-alpha
+	2. Envato market
+	3. Update plugins
+	4. Fix for google fonts include
+	5. Fix for one page nav
+	6. Update languages
+	7. Child theme style priority
+	8. Pingbacks title fix
+--------------------------------------
+Version 1.1.1:
+
+	1. Fix for shortcodes lightbox (dont show default WP text options)
+	2. Plugins update
+	3. Fix Course duration time
+--------------------------------------
+Version 1.1.0:
+
+	1. Course Profile Style fix
+	2. Update sliders
+	3. Escapes and small style fix
+	4. Fixed duration translate in course page
+--------------------------------------
+Version 1.0.9:
+
+	1. Update iLightbox 2.2.1 (https fixed)
+	2. Fix for Event Calendar Pro Photo view
+	3. Fix for content composer, drag-n-drop
+	4. Fix orderby for popular items
+	5. Fix organizer link in open event
+	6. Fix in related projects
+	7. Featured event styles fix
+	8. Added single-featured files
+--------------------------------------
+Version 1.0.8:
+
+	1. Fix for default course page(heading, breadcrumbs)
+	2. Course price
+	3. MailPoet single post fix
+	4. Columns Custom Height Behavior
+	5. Update plugins
+	6. Wordpress to WordPress
+	7. Drag&drop in composer
+	8. Fix in fixed header script (touch desctops)
+	9. Add media width script
+	10. Heading fix (height:auto on 768 resolution)
+	11. Copyright fix
+--------------------------------------
+Version 1.0.7:
+
+	1. Learnpress(2.0.7) Update 
+	2. Add screenshot to child theme
+	3. Fix for WordPress 4.7
+	4. Update Plugins
+	5. Fix file_get_contents();
+	6. Languages
+	7. Update Demo content
+--------------------------------------
