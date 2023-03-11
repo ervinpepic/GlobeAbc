@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: LayerSlider WP 7.6.5\n"
+"Project-Id-Version: LayerSlider WP 7.6.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-12 22:36+0100\n"
-"PO-Revision-Date: 2022-12-12 22:37+0100\n"
+"POT-Creation-Date: 2023-02-14 18:32+0100\n"
+"PO-Revision-Date: 2023-02-14 18:33+0100\n"
 "Last-Translator: \n"
 "Language-Team: Українська\n"
 "Language: uk\n"
@@ -111,7 +111,7 @@ msgstr "Макет"
 #: assets/classes/class.ls.elementor.widget.php:99
 #: assets/classes/class.ls.elementor.widget.php:114
 #: assets/classes/class.ls.elementor.widget.php:124
-#: assets/views/project-editor.php:8233 assets/wp/gutenberg_l10n.php:20
+#: assets/views/project-editor.php:8285 assets/wp/gutenberg_l10n.php:20
 #: assets/wp/gutenberg_l10n.php:23 assets/wp/gutenberg_l10n.php:26
 #: assets/wp/gutenberg_l10n.php:31
 msgid "No override"
@@ -146,9 +146,9 @@ msgid "Full size"
 msgstr "Повний розмір"
 
 #: assets/classes/class.ls.elementor.widget.php:105
-#: assets/config/defaults.php:678
-#: assets/templates/tmpl-project-settings.php:1062
-#: assets/templates/tmpl-project-settings.php:1065
+#: assets/config/defaults.php:688
+#: assets/templates/tmpl-project-settings.php:1079
+#: assets/templates/tmpl-project-settings.php:1082
 #: assets/wp/gutenberg_l10n.php:22
 msgid "Skin"
 msgstr "Скін"
@@ -160,11 +160,11 @@ msgid "Auto-Start"
 msgstr "Автоматичний запуск слайдшоу"
 
 #: assets/classes/class.ls.elementor.widget.php:115
-#: assets/config/defaults.php:283 assets/config/defaults.php:1515
-#: assets/config/defaults.php:1530 assets/config/defaults.php:1545
-#: assets/config/defaults.php:2184 assets/config/defaults.php:2206
-#: assets/config/defaults.php:2217 assets/config/defaults.php:2228
-#: assets/config/defaults.php:2276 assets/config/defaults.php:2289
+#: assets/config/defaults.php:283 assets/config/defaults.php:1525
+#: assets/config/defaults.php:1540 assets/config/defaults.php:1555
+#: assets/config/defaults.php:2194 assets/config/defaults.php:2216
+#: assets/config/defaults.php:2227 assets/config/defaults.php:2238
+#: assets/config/defaults.php:2286 assets/config/defaults.php:2299
 #: assets/templates/tmpl-3d-transition.php:62
 #: assets/templates/tmpl-3d-transition.php:204
 #: assets/views/system-status.php:363 assets/views/system-status.php:466
@@ -176,12 +176,12 @@ msgstr "Увімкнути"
 
 #: assets/classes/class.ls.elementor.widget.php:116
 #: assets/config/defaults.php:284 assets/config/defaults.php:300
-#: assets/config/defaults.php:856 assets/config/defaults.php:1068
-#: assets/config/defaults.php:1516 assets/config/defaults.php:1531
-#: assets/config/defaults.php:1546 assets/config/defaults.php:1861
-#: assets/config/defaults.php:2207 assets/config/defaults.php:2218
-#: assets/config/defaults.php:2229 assets/config/defaults.php:2277
-#: assets/config/defaults.php:2290 assets/config/defaults.php:3956
+#: assets/config/defaults.php:866 assets/config/defaults.php:1078
+#: assets/config/defaults.php:1526 assets/config/defaults.php:1541
+#: assets/config/defaults.php:1556 assets/config/defaults.php:1871
+#: assets/config/defaults.php:2217 assets/config/defaults.php:2228
+#: assets/config/defaults.php:2239 assets/config/defaults.php:2287
+#: assets/config/defaults.php:2300 assets/config/defaults.php:3966
 #: assets/views/system-status.php:363 assets/views/system-status.php:466
 #: assets/views/system-status.php:480 assets/views/system-status.php:493
 #: assets/views/system-status.php:506 assets/wp/gutenberg_l10n.php:28
@@ -408,17 +408,17 @@ msgstr "Дізнатися більше"
 msgid "Templates"
 msgstr "Шаблони"
 
-#: assets/classes/class.ls.templateutils.php:103
-#: assets/templates/tmpl-import-templates.php:71
+#: assets/classes/class.ls.templateutils.php:110
+#: assets/templates/tmpl-import-templates.php:78
 #: assets/views/project-editor.php:981 assets/views/transition-builder.php:86
 #: assets/views/transition-builder.php:113
 msgid "Import"
 msgstr "Імпорт"
 
-#: assets/classes/class.ls.templateutils.php:121
+#: assets/classes/class.ls.templateutils.php:128
 #: assets/templates/tmpl-2d-transition.php:7
 #: assets/templates/tmpl-3d-transition.php:7
-#: assets/templates/tmpl-import-templates.php:58
+#: assets/templates/tmpl-import-templates.php:65
 #: assets/templates/tmpl-insert-media-modal.php:93
 #: assets/views/project-editor.php:354 assets/views/transition-builder.php:149
 #: assets/views/transition-builder.php:459
@@ -477,16 +477,16 @@ msgstr ""
 "Час очікування між повторюється в мілісекундах. Секунду становить 1000 "
 "мілісекунд."
 
-#: assets/config/defaults.php:65 assets/config/defaults.php:1985
+#: assets/config/defaults.php:65 assets/config/defaults.php:1995
 msgid "Schedule From"
 msgstr "Розклад від"
 
 #: assets/config/defaults.php:69 assets/config/defaults.php:83
-#: assets/config/defaults.php:1988 assets/config/defaults.php:2001
+#: assets/config/defaults.php:1998 assets/config/defaults.php:2011
 msgid "No schedule"
 msgstr "Без розкладу"
 
-#: assets/config/defaults.php:79 assets/config/defaults.php:1998
+#: assets/config/defaults.php:79 assets/config/defaults.php:2008
 msgid "Schedule Until"
 msgstr "Графіком, поки"
 
@@ -707,7 +707,7 @@ msgid ""
 msgstr ""
 
 #: assets/config/defaults.php:278
-#: assets/templates/tmpl-project-settings.php:1266
+#: assets/templates/tmpl-project-settings.php:1283
 #, fuzzy
 #| msgid "Permanently"
 msgid "Performance Mode"
@@ -721,8 +721,8 @@ msgid ""
 "playback will stop, and sliders won’t progress further in the background."
 msgstr ""
 
-#: assets/config/defaults.php:282 assets/config/defaults.php:1514
-#: assets/config/defaults.php:1529
+#: assets/config/defaults.php:282 assets/config/defaults.php:1524
+#: assets/config/defaults.php:1539
 #, fuzzy
 #| msgid "Parallax defaults"
 msgid "Global default"
@@ -754,9 +754,9 @@ msgstr "Поведінка слайдшоу"
 msgid "Sticky"
 msgstr ""
 
-#: assets/config/defaults.php:302 assets/config/defaults.php:762
-#: assets/config/defaults.php:1908 assets/config/defaults.php:3503
-#: assets/views/project-editor.php:8295
+#: assets/config/defaults.php:302 assets/config/defaults.php:772
+#: assets/config/defaults.php:1918 assets/config/defaults.php:3513
+#: assets/views/project-editor.php:8347
 msgid "Scroll"
 msgstr "Прокрутити"
 
@@ -768,10 +768,10 @@ msgstr "Прокрутити"
 msgid "Scene Height"
 msgstr "Висота рядка"
 
-#: assets/config/defaults.php:312 assets/config/defaults.php:1682
-#: assets/config/defaults.php:1729 assets/config/defaults.php:2266
-#: assets/config/defaults.php:4505 assets/config/defaults.php:4519
-#: assets/templates/tmpl-smart-help.php:1120 assets/wp/gutenberg_l10n.php:37
+#: assets/config/defaults.php:312 assets/config/defaults.php:1692
+#: assets/config/defaults.php:1739 assets/config/defaults.php:2276
+#: assets/config/defaults.php:4515 assets/config/defaults.php:4529
+#: assets/templates/tmpl-smart-help.php:1126 assets/wp/gutenberg_l10n.php:37
 msgid "auto"
 msgstr "авто"
 
@@ -792,36 +792,43 @@ msgid ""
 "to until visitors scrolls beyond the scene height."
 msgstr ""
 
-#: assets/config/defaults.php:338 assets/config/defaults.php:437
-#: assets/config/defaults.php:461 assets/config/defaults.php:3609
-#: assets/config/defaults.php:4057 assets/templates/tmpl-2d-transition.php:107
+#: assets/config/defaults.php:338 assets/config/defaults.php:447
+#: assets/config/defaults.php:471 assets/config/defaults.php:3619
+#: assets/config/defaults.php:4067 assets/templates/tmpl-2d-transition.php:107
 #: assets/templates/tmpl-project-settings.php:432
-#: assets/templates/tmpl-smart-help.php:1038
-#: assets/templates/tmpl-smart-help.php:1201
+#: assets/templates/tmpl-smart-help.php:1044
+#: assets/templates/tmpl-smart-help.php:1207
 #: assets/views/transition-builder.php:561
 msgid "Top"
 msgstr "Верх"
 
-#: assets/config/defaults.php:339 assets/config/defaults.php:436
-#: assets/config/defaults.php:462 assets/config/defaults.php:3610
-#: assets/templates/tmpl-smart-help.php:1030
-#: assets/templates/tmpl-smart-help.php:1183
-#: assets/templates/tmpl-smart-help.php:1202
+#: assets/config/defaults.php:339 assets/config/defaults.php:446
+#: assets/config/defaults.php:472 assets/config/defaults.php:3620
+#: assets/templates/tmpl-smart-help.php:1036
+#: assets/templates/tmpl-smart-help.php:1189
+#: assets/templates/tmpl-smart-help.php:1208
 msgid "Center"
 msgstr "Центр"
 
-#: assets/config/defaults.php:340 assets/config/defaults.php:463
-#: assets/config/defaults.php:3611 assets/templates/tmpl-2d-transition.php:109
+#: assets/config/defaults.php:340 assets/config/defaults.php:473
+#: assets/config/defaults.php:3621 assets/templates/tmpl-2d-transition.php:109
 #: assets/templates/tmpl-project-settings.php:486
-#: assets/templates/tmpl-smart-help.php:1040
-#: assets/templates/tmpl-smart-help.php:1203
+#: assets/templates/tmpl-smart-help.php:1046
+#: assets/templates/tmpl-smart-help.php:1209
 #: assets/views/transition-builder.php:563
 msgid "Bottom"
 msgstr "Знизу"
 
-#: assets/config/defaults.php:369 assets/config/defaults.php:777
-#: assets/config/defaults.php:4326
-#: assets/templates/tmpl-project-settings.php:1140
+#: assets/config/defaults.php:346
+#: assets/templates/tmpl-project-settings.php:884
+#, fuzzy
+#| msgid "Slide Transition"
+msgid "Smooth Scroll Duration"
+msgstr "Посунути перехід"
+
+#: assets/config/defaults.php:379 assets/config/defaults.php:787
+#: assets/config/defaults.php:4336
+#: assets/templates/tmpl-project-settings.php:1157
 #: assets/views/project-editor.php:1301 assets/views/project-editor.php:3394
 #: assets/views/project-editor.php:3398
 #, fuzzy
@@ -829,7 +836,7 @@ msgstr "Знизу"
 msgid "Background Size"
 msgstr "Розмір фону"
 
-#: assets/config/defaults.php:371
+#: assets/config/defaults.php:381
 msgid ""
 "This will be used as a default on all slides, unless you choose to "
 "explicitly override it on a per slide basis."
@@ -837,37 +844,37 @@ msgstr ""
 "Цей параметр використовуватиметься за промовчанням на всіх слайдах, якщо ви "
 "не бажаєте явно перевизначити її на основі кожного слайда."
 
-#: assets/config/defaults.php:373 assets/config/defaults.php:1642
-#: assets/config/defaults.php:2216 assets/config/defaults.php:2227
-#: assets/config/defaults.php:2275 assets/config/defaults.php:2288
-#: assets/config/defaults.php:4330 assets/config/defaults.php:4538
+#: assets/config/defaults.php:383 assets/config/defaults.php:1652
+#: assets/config/defaults.php:2226 assets/config/defaults.php:2237
+#: assets/config/defaults.php:2285 assets/config/defaults.php:2298
+#: assets/config/defaults.php:4340 assets/config/defaults.php:4548
 msgid "Auto"
 msgstr "Авто"
 
-#: assets/config/defaults.php:374 assets/config/defaults.php:1643
-#: assets/config/defaults.php:2253 assets/config/defaults.php:4331
+#: assets/config/defaults.php:384 assets/config/defaults.php:1653
+#: assets/config/defaults.php:2263 assets/config/defaults.php:4341
 msgid "Cover"
 msgstr "Обкладинка"
 
-#: assets/config/defaults.php:375 assets/config/defaults.php:1644
-#: assets/config/defaults.php:2252 assets/config/defaults.php:4332
+#: assets/config/defaults.php:385 assets/config/defaults.php:1654
+#: assets/config/defaults.php:2262 assets/config/defaults.php:4342
 msgid "Contain"
 msgstr "Містять"
 
-#: assets/config/defaults.php:376 assets/config/defaults.php:1645
-#: assets/config/defaults.php:4333
+#: assets/config/defaults.php:386 assets/config/defaults.php:1655
+#: assets/config/defaults.php:4343
 msgid "Stretch"
 msgstr "Розтягнути"
 
-#: assets/config/defaults.php:382 assets/config/defaults.php:770
-#: assets/config/defaults.php:4339 assets/views/project-editor.php:1277
+#: assets/config/defaults.php:392 assets/config/defaults.php:780
+#: assets/config/defaults.php:4349 assets/views/project-editor.php:1277
 #: assets/views/project-editor.php:3370
 #, fuzzy
 #| msgid "Background position"
 msgid "Background Position"
 msgstr "Фон позиція"
 
-#: assets/config/defaults.php:384
+#: assets/config/defaults.php:394
 msgid ""
 "This will be used as a default on all slides, unless you choose the "
 "explicitly override it on a per slide basis."
@@ -875,49 +882,49 @@ msgstr ""
 "Цей параметр використовуватиметься за промовчанням на всіх слайдах, якщо не "
 "вибрати явно перевизначити його на основі кожного слайда."
 
-#: assets/config/defaults.php:386 assets/config/defaults.php:4342
+#: assets/config/defaults.php:396 assets/config/defaults.php:4352
 msgid "left top"
 msgstr "верх зліва"
 
-#: assets/config/defaults.php:387 assets/config/defaults.php:4343
+#: assets/config/defaults.php:397 assets/config/defaults.php:4353
 msgid "left center"
 msgstr "центр зліва"
 
-#: assets/config/defaults.php:388 assets/config/defaults.php:4344
+#: assets/config/defaults.php:398 assets/config/defaults.php:4354
 msgid "left bottom"
 msgstr "низ зліва"
 
-#: assets/config/defaults.php:389 assets/config/defaults.php:4345
+#: assets/config/defaults.php:399 assets/config/defaults.php:4355
 msgid "center top"
 msgstr "по центру зверху"
 
-#: assets/config/defaults.php:390 assets/config/defaults.php:4346
+#: assets/config/defaults.php:400 assets/config/defaults.php:4356
 msgid "center center"
 msgstr "по центру"
 
-#: assets/config/defaults.php:391 assets/config/defaults.php:4347
+#: assets/config/defaults.php:401 assets/config/defaults.php:4357
 msgid "center bottom"
 msgstr "по центру внизу"
 
-#: assets/config/defaults.php:392 assets/config/defaults.php:4348
+#: assets/config/defaults.php:402 assets/config/defaults.php:4358
 msgid "right top"
 msgstr "верх зправа"
 
-#: assets/config/defaults.php:393 assets/config/defaults.php:4349
+#: assets/config/defaults.php:403 assets/config/defaults.php:4359
 msgid "right center"
 msgstr "зправа по центру"
 
-#: assets/config/defaults.php:394 assets/config/defaults.php:4350
+#: assets/config/defaults.php:404 assets/config/defaults.php:4360
 msgid "right bottom"
 msgstr "низ зправа"
 
-#: assets/config/defaults.php:400 assets/views/project-editor.php:1380
+#: assets/config/defaults.php:410 assets/views/project-editor.php:1380
 #, fuzzy
 #| msgid "Slide Transition"
 msgid "Slide Duration"
 msgstr "Посунути перехід"
 
-#: assets/config/defaults.php:402
+#: assets/config/defaults.php:412
 #, fuzzy
 #| msgid ""
 #| "The duration of your animation. This value is in millisecs, so the value "
@@ -930,26 +937,26 @@ msgstr ""
 "Тривалість анімації. Це значення в мілісекунди, так що значення 1000 означає "
 "1 секунда."
 
-#: assets/config/defaults.php:408 assets/views/project-editor.php:1421
+#: assets/config/defaults.php:418 assets/views/project-editor.php:1421
 #, fuzzy
 #| msgid "Forced animation duration"
 msgid "Transition Duration"
 msgstr "Тривалість примусового анімації"
 
-#: assets/config/defaults.php:410 assets/templates/tmpl-smart-help.php:127
+#: assets/config/defaults.php:420 assets/templates/tmpl-smart-help.php:127
 msgid ""
 "You can speed up or slow down slide transitions by providing a custom "
 "animation duration. Leave this option empty to use the default speed. This "
 "value is in milliseconds, so the value 1000 means 1 second."
 msgstr ""
 
-#: assets/config/defaults.php:416
+#: assets/config/defaults.php:426
 #, fuzzy
 #| msgid "Time Shift"
 msgid "TimeShift"
 msgstr "Зміна часу"
 
-#: assets/config/defaults.php:418 assets/templates/tmpl-smart-help.php:132
+#: assets/config/defaults.php:428 assets/templates/tmpl-smart-help.php:132
 #, fuzzy
 #| msgid ""
 #| "You can shift the starting point of the slide animation timeline, so "
@@ -967,13 +974,13 @@ msgstr ""
 "мілісекундах. Секунду становить 1000 мілісекунд. Можна використовувати лише "
 "від'ємне значення."
 
-#: assets/config/defaults.php:424
+#: assets/config/defaults.php:434
 #, fuzzy
 #| msgid "Parallax sensitivity"
 msgid "Parallax Sensitivity"
 msgstr "Паралакса чутливість"
 
-#: assets/config/defaults.php:426
+#: assets/config/defaults.php:436
 msgid ""
 "Increase or decrease the sensitivity of parallax content when moving your "
 "mouse cursor or tilting your mobile device."
@@ -981,13 +988,13 @@ msgstr ""
 "Збільшення або зменшення чутливості вмісту паралакса під час переміщення "
 "курсору миші або нахилу мобільного пристрою."
 
-#: assets/config/defaults.php:432
+#: assets/config/defaults.php:442
 #, fuzzy
 #| msgid "Parallax center layers"
 msgid "Parallax Center Point"
 msgstr "Паралакса центр шари"
 
-#: assets/config/defaults.php:434
+#: assets/config/defaults.php:444
 #, fuzzy
 #| msgid ""
 #| "Choose a center point for parallax content where all layers will be "
@@ -1000,13 +1007,13 @@ msgstr ""
 "Виберіть центральну точку для паралакса зміст, де всі шари будуть вирівняні "
 "ідеально відповідно до їх первісної позиції."
 
-#: assets/config/defaults.php:443
+#: assets/config/defaults.php:453
 #, fuzzy
 #| msgid "Parallax center degree"
 msgid "Parallax Center Degree"
 msgstr "Паралакса центр ступеня"
 
-#: assets/config/defaults.php:445
+#: assets/config/defaults.php:455
 msgid ""
 "Provide a comfortable holding position (in degrees) for mobile devices, "
 "which should be the center point for parallax content where all layers "
@@ -1016,7 +1023,7 @@ msgstr ""
 "пристроїв, які повинні бути центром точкою для паралакса зміст, де всі шари "
 "повинні вирівняти відмінно."
 
-#: assets/config/defaults.php:452
+#: assets/config/defaults.php:462
 msgid ""
 "Your parallax layers will move to the opposite direction when scrolling the "
 "page."
@@ -1024,13 +1031,13 @@ msgstr ""
 "Ваш паралакса шари буде рухатися в зворотному напрямку при прокручуванні "
 "сторінки."
 
-#: assets/config/defaults.php:457
+#: assets/config/defaults.php:467
 #, fuzzy
 #| msgid "Scroll to element (Enter selector)"
 msgid "Scroll Center Point"
 msgstr "Прокрутити до елемента (введіть селектор)"
 
-#: assets/config/defaults.php:459
+#: assets/config/defaults.php:469
 msgid ""
 "Choose a center point for scroll transition layers where they will be "
 "aligned perfectly according to their original position. Top: when the top "
@@ -1039,13 +1046,13 @@ msgid ""
 "the slider is at the bottom of the viewport."
 msgstr ""
 
-#: assets/config/defaults.php:475
+#: assets/config/defaults.php:485
 #, fuzzy
 #| msgid "Optimize for mobile"
 msgid "Optimize For Mobile"
 msgstr "Оптимізувати для мобільних"
 
-#: assets/config/defaults.php:478
+#: assets/config/defaults.php:488
 msgid ""
 "Enable optimizations on mobile devices to avoid performance issues (e.g. "
 "fewer tiles in slide transitions, reducing performance-heavy effects with "
@@ -1055,25 +1062,25 @@ msgstr ""
 "продуктивністю (наприклад, менше плитки в слайді переходи, зниження "
 "продуктивності важких ефектів з дуже аналогічними результатами, і т. д.)."
 
-#: assets/config/defaults.php:484
+#: assets/config/defaults.php:494
 #, fuzzy
 #| msgid "Hide on mobile"
 msgid "Hide On Mobile"
 msgstr "Сховати на мобільному"
 
-#: assets/config/defaults.php:486
+#: assets/config/defaults.php:496
 #, fuzzy
 #| msgid "Hides the slider on mobile devices, including tablets."
 msgid "Hides the project on mobile devices, including tablets."
 msgstr "Приховує повзунок на мобільних пристроях, включаючи Планшети."
 
-#: assets/config/defaults.php:492
+#: assets/config/defaults.php:502
 #, fuzzy
 #| msgid "Hide under"
 msgid "Hide Under"
 msgstr "Сховати під"
 
-#: assets/config/defaults.php:494
+#: assets/config/defaults.php:504
 #, fuzzy
 #| msgid ""
 #| "Hides the slider when the viewport width goes under the specified value."
@@ -1081,13 +1088,13 @@ msgid ""
 "Hides the project when the viewport width goes under the specified value."
 msgstr "Приховує повзунок, коли ширина проекції йде по вказаному значенню."
 
-#: assets/config/defaults.php:504
+#: assets/config/defaults.php:514
 #, fuzzy
 #| msgid "Hide over"
 msgid "Hide Over"
 msgstr "Сховатися"
 
-#: assets/config/defaults.php:506
+#: assets/config/defaults.php:516
 #, fuzzy
 #| msgid ""
 #| "Hides the slider when the viewport becomes wider than the specified value."
@@ -1095,13 +1102,13 @@ msgid ""
 "Hides the project when the viewport becomes wider than the specified value."
 msgstr "Приховує повзунок, коли в проекції стає ширшим за вказане значення."
 
-#: assets/config/defaults.php:515
+#: assets/config/defaults.php:525
 #, fuzzy
 #| msgid "Use slide effect when swiping"
 msgid "Use Slide Effect When Swiping"
 msgstr "Використання ефекту слайда під час Проведіть"
 
-#: assets/config/defaults.php:517
+#: assets/config/defaults.php:527
 msgid ""
 "Ignore selected slide transitions and use sliding effects only when users "
 "are changing slides with a swipe gesture on mobile devices."
@@ -1110,35 +1117,35 @@ msgstr ""
 "розсувні ефекти, лише коли користувачі змінюють слайди з жест серветки на "
 "мобільних пристроях."
 
-#: assets/config/defaults.php:527
+#: assets/config/defaults.php:537
 #, fuzzy
 #| msgid "Auto-start slideshow"
 msgid "Auto-start Slideshow"
 msgstr "Автоматичний запуск слайдшоу"
 
-#: assets/config/defaults.php:529
+#: assets/config/defaults.php:539
 msgid "Slideshow will automatically start after page load."
 msgstr "Показ слайдів буде автоматично починатися після завантаження сторінки."
 
-#: assets/config/defaults.php:534
+#: assets/config/defaults.php:544
 #, fuzzy
 #| msgid "Start only in viewport"
 msgid "Start Only In Viewport"
 msgstr "Почати лише в вікні перегляду"
 
-#: assets/config/defaults.php:536
+#: assets/config/defaults.php:546
 #, fuzzy
 #| msgid "The slider will not start until it becomes visible."
 msgid "The project will not start playing until it becomes visible."
 msgstr "Повзунок не запускається, доки вона не стане видимою."
 
-#: assets/config/defaults.php:541
+#: assets/config/defaults.php:551
 #, fuzzy
 #| msgid "Change URL hash"
 msgid "Change URL Hash"
 msgstr "Змінити хеш URL"
 
-#: assets/config/defaults.php:543
+#: assets/config/defaults.php:553
 #, fuzzy
 #| msgid ""
 #| "Updates the hash in the page URL when changing slides based on the "
@@ -1153,13 +1160,13 @@ msgstr ""
 "ви встановили на слайди. Це дає змогу обмінюватися URL-адресами, які почнуть "
 "повзунок із поточним видимим слайдом."
 
-#: assets/config/defaults.php:549
+#: assets/config/defaults.php:559
 #, fuzzy
 #| msgid "Pause layers"
 msgid "Pause Layers"
 msgstr "Призупинити шари"
 
-#: assets/config/defaults.php:551
+#: assets/config/defaults.php:561
 msgid ""
 "If you enable this option, layer transitions will not start playing as long "
 "the slideshow is in a paused state."
@@ -1167,29 +1174,29 @@ msgstr ""
 "Якщо ввімкнути цей параметр, переходи шарів не почнуть грати, поки слайд-шоу "
 "перебуває в призупиненому стані."
 
-#: assets/config/defaults.php:557
+#: assets/config/defaults.php:567
 #, fuzzy
 #| msgid "Pause on hover"
 msgid "Pause On Hover"
 msgstr "Пауза при нанаведенні"
 
-#: assets/config/defaults.php:560
+#: assets/config/defaults.php:570
 msgid "Do nothing"
 msgstr "Нічого не робити"
 
-#: assets/config/defaults.php:561
+#: assets/config/defaults.php:571
 msgid "Pause slideshow"
 msgstr "Призупинити показ слайдів"
 
-#: assets/config/defaults.php:562
+#: assets/config/defaults.php:572
 msgid "Pause slideshow and layer transitions"
 msgstr "Призупинити показ слайдів і переходи між шарами"
 
-#: assets/config/defaults.php:563
+#: assets/config/defaults.php:573
 msgid "Pause slideshow and layer transitions, including loops"
 msgstr "Призупинення показу слайдів і переходи між шарами, включаючи цикли"
 
-#: assets/config/defaults.php:565
+#: assets/config/defaults.php:575
 #, fuzzy
 #| msgid ""
 #| "Decide what should happen when you move your mouse cursor over the slider."
@@ -1198,11 +1205,11 @@ msgid ""
 msgstr ""
 "Вирішіть, що має відбуватися після переміщення курсору миші на повзунок."
 
-#: assets/config/defaults.php:570 assets/wp/gutenberg_l10n.php:30
+#: assets/config/defaults.php:580 assets/wp/gutenberg_l10n.php:30
 msgid "Start With Slide"
 msgstr "Починати з слайда"
 
-#: assets/config/defaults.php:572
+#: assets/config/defaults.php:582
 #, fuzzy
 #| msgid ""
 #| "The slider will start with the specified slide. You can also use the "
@@ -1214,33 +1221,33 @@ msgstr ""
 "Повзунок почнеться з вказаного слайда. Ви також можете використовувати "
 "значення \"випадково\"."
 
-#: assets/config/defaults.php:578
+#: assets/config/defaults.php:588
 #, fuzzy
 #| msgid "Keyboard navigation"
 msgid "Keyboard Navigation"
 msgstr "Клавіатура навігації"
 
-#: assets/config/defaults.php:580
+#: assets/config/defaults.php:590
 msgid "You can navigate through slides with the left and right arrow keys."
 msgstr ""
 "Ви можете переміщатися по слайдах з лівої і правої клавіші зі стрілками."
 
-#: assets/config/defaults.php:586
+#: assets/config/defaults.php:596
 #, fuzzy
 #| msgid "Touch navigation"
 msgid "Touch Navigation"
 msgstr "Сенсорна навігація"
 
-#: assets/config/defaults.php:588
+#: assets/config/defaults.php:598
 msgid "Gesture-based navigation when swiping on touch-enabled devices."
 msgstr "Переміщення на основі жестів під час Проведіть по сенсорним пристроям."
 
-#: assets/config/defaults.php:593
-#: assets/templates/tmpl-project-settings.php:1014
+#: assets/config/defaults.php:603
+#: assets/templates/tmpl-project-settings.php:1031
 msgid "Play By Scroll"
 msgstr "Грати, прокручуючи"
 
-#: assets/config/defaults.php:595
+#: assets/config/defaults.php:605
 #, fuzzy, php-format
 #| msgid ""
 #| "Play the slider by scrolling the web page. %sClick here%s to see a live "
@@ -1252,21 +1259,21 @@ msgstr ""
 "Щоб відтворити повзунок, прокручуйте веб-сторінку.  %sClick тут %s, щоб "
 "побачити живий приклад."
 
-#: assets/config/defaults.php:602
+#: assets/config/defaults.php:612
 msgid "Play By Scroll Speed"
 msgstr "Грати за швидкістю прокрутки"
 
-#: assets/config/defaults.php:604
+#: assets/config/defaults.php:614
 msgid "Play By Scroll speed multiplier."
 msgstr "Грати по швидкості прокрутки множника."
 
-#: assets/config/defaults.php:611
+#: assets/config/defaults.php:621
 #, fuzzy
 #| msgid "Start immediately"
 msgid "Start Immediately"
 msgstr "Почати негайно"
 
-#: assets/config/defaults.php:613
+#: assets/config/defaults.php:623
 #, fuzzy
 #| msgid ""
 #| "Instead of freezing the slider until visitors start scrolling, the slider "
@@ -1280,11 +1287,11 @@ msgstr ""
 "повзунок буде автоматично почати відтворення і буде пауза тільки в першому "
 "ключовий кадр."
 
-#: assets/config/defaults.php:619
+#: assets/config/defaults.php:629
 msgid "Skip Slide Breaks"
 msgstr "Пропускати розриви слайдів"
 
-#: assets/config/defaults.php:621
+#: assets/config/defaults.php:631
 #, fuzzy
 #| msgid ""
 #| "Enable this option to eliminate the stop between slide changes. Visitors "
@@ -1299,22 +1306,22 @@ msgstr ""
 "Відвідувачам більше не потрібно прокручувати в кінці слайдів, а повзунок "
 "зупиниться лише на ключових кадри, які ви вкажете."
 
-#: assets/config/defaults.php:628
-#: assets/templates/tmpl-project-settings.php:1029
+#: assets/config/defaults.php:638
+#: assets/templates/tmpl-project-settings.php:1046
 msgid "Cycles"
 msgstr "Циклів"
 
-#: assets/config/defaults.php:630
+#: assets/config/defaults.php:640
 msgid "Number of cycles if slideshow is enabled."
 msgstr "Кількість циклів, якщо увімкнено показ слайдів."
 
-#: assets/config/defaults.php:639
+#: assets/config/defaults.php:649
 #, fuzzy
 #| msgid "Force number of cycles"
 msgid "Force Number Of Cycles"
 msgstr "Форс-кількість циклів"
 
-#: assets/config/defaults.php:642
+#: assets/config/defaults.php:652
 #, fuzzy
 #| msgid ""
 #| "The slider will always stop at the given number of cycles, even if the "
@@ -1326,13 +1333,13 @@ msgstr ""
 "Повзунок завжди буде зупинятися на даній кількості циклів, навіть якщо слайд-"
 "шоу перезавантажується."
 
-#: assets/config/defaults.php:647
+#: assets/config/defaults.php:657
 #, fuzzy
 #| msgid "Shuffle mode"
 msgid "Shuffle Mode"
 msgstr "Режим Shuffle"
 
-#: assets/config/defaults.php:649
+#: assets/config/defaults.php:659
 msgid ""
 "Slideshow will proceed in random order. This feature does not work with "
 "looping."
@@ -1340,24 +1347,24 @@ msgstr ""
 "Показ слайдів буде відбуватися у випадковому порядку. Ця функція не працює з "
 "циклічність."
 
-#: assets/config/defaults.php:655
+#: assets/config/defaults.php:665
 #, fuzzy
 #| msgid "Two way slideshow"
 msgid "Two Way Slideshow"
 msgstr "Два способи слайд-шоу"
 
-#: assets/config/defaults.php:658
+#: assets/config/defaults.php:668
 msgid "Slideshow can go backwards if someone switches to a previous slide."
 msgstr ""
 "Показ слайдів може йти назад, якщо хтось переключається на попередній слайд."
 
-#: assets/config/defaults.php:663
+#: assets/config/defaults.php:673
 #, fuzzy
 #| msgid "Forced animation duration"
 msgid "Forced Animation Duration"
 msgstr "Тривалість примусового анімації"
 
-#: assets/config/defaults.php:666
+#: assets/config/defaults.php:676
 #, fuzzy
 #| msgid ""
 #| "The animation speed in milliseconds when the slider forces remaining "
@@ -1369,7 +1376,7 @@ msgstr ""
 "Швидкість анімації в мілісекундах, коли повзунок змушує решту шарів вийти зі "
 "сцени перед тим, як здійснювати заміну слайдів."
 
-#: assets/config/defaults.php:680
+#: assets/config/defaults.php:690
 #, fuzzy
 #| msgid ""
 #| "The skin used for this slider. The “noskin” skin is a border- and "
@@ -1384,13 +1391,13 @@ msgstr ""
 "шкіри. Користувацькі обкладинки відображатимуться у списку під час створення "
 "папок."
 
-#: assets/config/defaults.php:689
+#: assets/config/defaults.php:699
 #, fuzzy
 #| msgid "Initial fade duration"
 msgid "Initial Fade Duration"
 msgstr "Початкова тривалість затухання"
 
-#: assets/config/defaults.php:692
+#: assets/config/defaults.php:702
 msgid ""
 "Change the duration of the initial fade animation when the page loads. Enter "
 "0 to disable fading."
@@ -1398,13 +1405,13 @@ msgstr ""
 "Змінювати тривалість початкової анімації під час завантаження сторінки. "
 "Введіть 0, щоб вимкнути згасання."
 
-#: assets/config/defaults.php:701
+#: assets/config/defaults.php:711
 #, fuzzy
 #| msgid "Classes"
 msgid "Project Classes"
 msgstr "Класи"
 
-#: assets/config/defaults.php:703
+#: assets/config/defaults.php:713
 #, fuzzy
 #| msgid ""
 #| "One or more space-separated class names to be added to the slider "
@@ -1416,11 +1423,11 @@ msgstr ""
 "Один або кілька імен класів, розділених пробілами, які буде додано до "
 "елемента контейнера повзунка."
 
-#: assets/config/defaults.php:711
+#: assets/config/defaults.php:721
 msgid "Project CSS"
 msgstr ""
 
-#: assets/config/defaults.php:713
+#: assets/config/defaults.php:723
 #, fuzzy
 #| msgid ""
 #| "You can enter custom CSS to change some style properties on the slider "
@@ -1435,8 +1442,8 @@ msgstr ""
 "обгортку повзунок. Більш складні CSS повинні застосовуватися з "
 "користувацького редактора стилів."
 
-#: assets/config/defaults.php:722 assets/config/defaults.php:1657
-#: assets/config/defaults.php:4317 assets/views/project-editor.php:1262
+#: assets/config/defaults.php:732 assets/config/defaults.php:1667
+#: assets/config/defaults.php:4327 assets/views/project-editor.php:1262
 #: assets/views/project-editor.php:1266 assets/views/project-editor.php:3352
 #: assets/views/project-editor.php:3356 assets/views/project-editor.php:4338
 #: assets/views/project-editor.php:4342 assets/views/project-editor.php:6270
@@ -1447,7 +1454,7 @@ msgstr ""
 msgid "Background Color"
 msgstr "Колір фону"
 
-#: assets/config/defaults.php:724
+#: assets/config/defaults.php:734
 #, fuzzy
 #| msgid ""
 #| "Global background color of the slider. Slides with non-transparent "
@@ -1462,8 +1469,8 @@ msgstr ""
 "фоном. Ви можете використовувати всі методи CSS, такі як ШІСТНАДЦЯТКОВИЙ або "
 "RGB (а) значення."
 
-#: assets/config/defaults.php:729
-#: assets/templates/tmpl-project-settings.php:1126
+#: assets/config/defaults.php:739
+#: assets/templates/tmpl-project-settings.php:1143
 #: assets/views/project-editor.php:1246 assets/views/project-editor.php:1251
 #: assets/views/project-editor.php:3336 assets/views/project-editor.php:3341
 #, fuzzy
@@ -1471,7 +1478,7 @@ msgstr ""
 msgid "Background Image"
 msgstr "Фонове зображення"
 
-#: assets/config/defaults.php:731
+#: assets/config/defaults.php:741
 #, fuzzy
 #| msgid ""
 #| "Global background image of the slider. Slides with non-transparent "
@@ -1483,49 +1490,49 @@ msgstr ""
 "Глобальний фонове зображення повзунка. Слайди з непрозорим фоном покриє "
 "його. Це зображення не буде масштабно реагувати на режим."
 
-#: assets/config/defaults.php:744 assets/config/defaults.php:4356
+#: assets/config/defaults.php:754 assets/config/defaults.php:4366
 #: assets/views/project-editor.php:3406
 #, fuzzy
 #| msgid "Background repeat"
 msgid "Background Repeat"
 msgstr "Фон повторення"
 
-#: assets/config/defaults.php:746
+#: assets/config/defaults.php:756
 msgid "Global background image repeat."
 msgstr "Повторення глобального фонового зображення."
 
-#: assets/config/defaults.php:748
+#: assets/config/defaults.php:758
 msgid "No-repeat"
 msgstr "Не повторювати"
 
-#: assets/config/defaults.php:749 assets/config/defaults.php:3260
-#: assets/config/defaults.php:4360 assets/views/project-editor.php:5280
+#: assets/config/defaults.php:759 assets/config/defaults.php:3270
+#: assets/config/defaults.php:4370 assets/views/project-editor.php:5280
 msgid "Repeat"
 msgstr "Повторити"
 
-#: assets/config/defaults.php:750
+#: assets/config/defaults.php:760
 msgid "Repeat-x"
 msgstr "Повторювати горизонтально"
 
-#: assets/config/defaults.php:751
+#: assets/config/defaults.php:761
 msgid "Repeat-y"
 msgstr "Повторювати вертикально"
 
-#: assets/config/defaults.php:758
+#: assets/config/defaults.php:768
 #, fuzzy
 #| msgid "Background behavior"
 msgid "Background Behavior"
 msgstr "Фонова поведінка"
 
-#: assets/config/defaults.php:760
+#: assets/config/defaults.php:770
 msgid "Choose between a scrollable or fixed global background image."
 msgstr "Виберіть між прокруscable або фіксований глобальний фонове зображення."
 
-#: assets/config/defaults.php:763
+#: assets/config/defaults.php:773
 msgid "Fixed"
 msgstr "Фіксований"
 
-#: assets/config/defaults.php:772
+#: assets/config/defaults.php:782
 #, fuzzy
 #| msgid ""
 #| "Global background image position of the slider. The first value is the "
@@ -1537,7 +1544,7 @@ msgstr ""
 "Глобальна позиція зображення слайдера. Перше значення — це горизонтальне "
 "положення та друге значення — вертикальна."
 
-#: assets/config/defaults.php:779
+#: assets/config/defaults.php:789
 #, fuzzy
 #| msgid ""
 #| "Global background size of the slider. You can set the size in pixels, "
@@ -1549,19 +1556,19 @@ msgstr ""
 "Глобальний розмір фону повзунка. Можна задати розмір у пікселях, відсотках "
 "або константі: авто | Обкладинка | Містити "
 
-#: assets/config/defaults.php:790 assets/config/defaults.php:797
+#: assets/config/defaults.php:800 assets/config/defaults.php:807
 #, fuzzy
 #| msgid "Show Prev & Next buttons"
 msgid "Prev & Next Buttons"
 msgstr "Відобразити попередній & Next кнопки"
 
-#: assets/config/defaults.php:792
+#: assets/config/defaults.php:802
 msgid "Disabling this option will hide the Prev and Next buttons."
 msgstr ""
 "Вимкнення цього параметра призведе до приховання кнопок попередньої та "
 "наступної."
 
-#: assets/config/defaults.php:799
+#: assets/config/defaults.php:809
 #, fuzzy
 #| msgid ""
 #| "Show the buttons only when someone moves the mouse cursor over the "
@@ -1573,35 +1580,35 @@ msgstr ""
 "Показувати кнопки лише тоді, коли хтось переміщує курсор миші на повзунок. "
 "Цей параметр залежить від попередньої настройки."
 
-#: assets/config/defaults.php:804
+#: assets/config/defaults.php:814
 #, fuzzy
 #| msgid "Show Start & Stop buttons"
 msgid "Start & Stop Buttons"
 msgstr "Показати кнопки початку & стоп"
 
-#: assets/config/defaults.php:806
+#: assets/config/defaults.php:816
 msgid "Disabling this option will hide the Start & Stop buttons."
 msgstr "Вимкнення цього параметра призведе до приховання кнопок Start-Stop."
 
-#: assets/config/defaults.php:812
+#: assets/config/defaults.php:822
 #, fuzzy
 #| msgid "Show slide navigation buttons"
 msgid "Slide Navigation Buttons"
 msgstr "Показувати кнопки переходу на слайді"
 
-#: assets/config/defaults.php:814
+#: assets/config/defaults.php:824
 msgid "Disabling this option will hide slide navigation buttons or thumbnails."
 msgstr ""
 "Вимкнення цього параметра призведе до приховання кнопок навігації або "
 "ескізів слайдів."
 
-#: assets/config/defaults.php:819
+#: assets/config/defaults.php:829
 #, fuzzy
 #| msgid "Slideshow navigation"
 msgid "Slide Navigation"
 msgstr "Слайд-шоу навігація"
 
-#: assets/config/defaults.php:821
+#: assets/config/defaults.php:831
 msgid ""
 "Slide navigation buttons (including thumbnails) will be shown on mouse hover "
 "only."
@@ -1609,33 +1616,33 @@ msgstr ""
 "Кнопки навігації для слайдів (включно з мініатюрами) відображатимуться лише "
 "під час наведення вказівника миші."
 
-#: assets/config/defaults.php:826
+#: assets/config/defaults.php:836
 #, fuzzy
 #| msgid "Show bar timer"
 msgid "Bar Timer"
 msgstr "Показувати таймер смужок"
 
-#: assets/config/defaults.php:828
+#: assets/config/defaults.php:838
 msgid "Show the bar timer to indicate slideshow progression."
 msgstr "Відобразити таймер смужок для позначення прогресії слайдшоу."
 
-#: assets/config/defaults.php:833
+#: assets/config/defaults.php:843
 #, fuzzy
 #| msgid "Show circle timer"
 msgid "Circle Timer"
 msgstr "Показати таймер кола"
 
-#: assets/config/defaults.php:835
+#: assets/config/defaults.php:845
 msgid "Use circle timer to indicate slideshow progression."
 msgstr "Використовувати таймер коло для позначення слайд-шоу прогресії."
 
-#: assets/config/defaults.php:840
+#: assets/config/defaults.php:850
 #, fuzzy
 #| msgid "Show slidebar timer"
 msgid "Slidebar Timer"
 msgstr "Показати таймер слайдбара"
 
-#: assets/config/defaults.php:842
+#: assets/config/defaults.php:852
 msgid ""
 "You can grab the slidebar timer playhead and seek the whole slide real-time "
 "like a movie."
@@ -1643,81 +1650,81 @@ msgstr ""
 "Ви можете захопити слайдшоу таймер і шукати всю слайд реального часу, як "
 "фільм."
 
-#: assets/config/defaults.php:852 assets/templates/tmpl-project-settings.php:55
+#: assets/config/defaults.php:862 assets/templates/tmpl-project-settings.php:55
 msgid "Thumbnail Navigation"
 msgstr "Мініатюра навігації"
 
-#: assets/config/defaults.php:854
+#: assets/config/defaults.php:864
 msgid "Use thumbnail navigation instead of slide bullet buttons."
 msgstr "Замість кнопок маркера використовуйте мініатюру."
 
-#: assets/config/defaults.php:857 assets/views/project-editor.php:1508
+#: assets/config/defaults.php:867 assets/views/project-editor.php:1508
 msgid "Hover"
 msgstr "Наведення"
 
-#: assets/config/defaults.php:858
+#: assets/config/defaults.php:868
 msgid "Always"
 msgstr "Завжди"
 
-#: assets/config/defaults.php:864
+#: assets/config/defaults.php:874
 #, fuzzy
 #| msgid "Thumbnail container width"
 msgid "Thumbnail Container Width"
 msgstr "Ширина контейнера «Мініатюра»"
 
-#: assets/config/defaults.php:866
+#: assets/config/defaults.php:876
 #, fuzzy
 #| msgid "The width of the thumbnail area relative to the slider size."
 msgid "The width of the thumbnail area relative to the project size."
 msgstr "Ширина області мініатюр відносно розміру повзунка."
 
-#: assets/config/defaults.php:871
+#: assets/config/defaults.php:881
 #, fuzzy
 #| msgid "Thumbnail width"
 msgid "Thumbnail Width"
 msgstr "Ширина мініатюри"
 
-#: assets/config/defaults.php:873
+#: assets/config/defaults.php:883
 msgid "The width of thumbnails in the navigation area."
 msgstr "Ширина мініатюр в області переходів."
 
-#: assets/config/defaults.php:881
+#: assets/config/defaults.php:891
 #, fuzzy
 #| msgid "Thumbnail height"
 msgid "Thumbnail Height"
 msgstr "Висота мініатюри"
 
-#: assets/config/defaults.php:883
+#: assets/config/defaults.php:893
 msgid "The height of thumbnails in the navigation area."
 msgstr "Висота мініатюр в області переходів."
 
-#: assets/config/defaults.php:891
+#: assets/config/defaults.php:901
 #, fuzzy
 #| msgid "Active thumbnail opacity"
 msgid "Active Thumbnail Opacity"
 msgstr "Активна непрозора Мініатюра"
 
-#: assets/config/defaults.php:893
+#: assets/config/defaults.php:903
 msgid "Opacity in percentage of the active slide’s thumbnail."
 msgstr "Непрозорість у відсотках від ескізу активного слайда."
 
-#: assets/config/defaults.php:902
+#: assets/config/defaults.php:912
 #, fuzzy
 #| msgid "Inactive thumbnail opacity"
 msgid "Inactive Thumbnail Opacity"
 msgstr "Неактивні непрозора Мініатюра"
 
-#: assets/config/defaults.php:904
+#: assets/config/defaults.php:914
 msgid "Opacity in percentage of inactive slide thumbnails."
 msgstr "Непрозорість у відсотках від неактивних ескізів слайдів."
 
-#: assets/config/defaults.php:917
+#: assets/config/defaults.php:927
 #, fuzzy
 #| msgid "Automatically play media"
 msgid "Automatically Play Media"
 msgstr "Автоматично відтворювати медіафайли"
 
-#: assets/config/defaults.php:919
+#: assets/config/defaults.php:929
 msgid ""
 "The playback of video and audio layers will automatically be started on the "
 "active slide."
@@ -1725,13 +1732,13 @@ msgstr ""
 "Відтворення відео-та аудіошарів буде автоматично запущено на активному "
 "слайді."
 
-#: assets/config/defaults.php:924
+#: assets/config/defaults.php:934
 #, fuzzy
 #| msgid "Pause slideshow"
 msgid "Pause Slideshow"
 msgstr "Призупинити показ слайдів"
 
-#: assets/config/defaults.php:926
+#: assets/config/defaults.php:936
 msgid ""
 "The slideshow can temporally be paused while video or audio layers are "
 "playing. You can choose to permanently stop the pause until manual "
@@ -1741,25 +1748,25 @@ msgstr ""
 "аудіошарів. Можна остаточно зупинити паузу, доки не буде перезапустивши "
 "вручну."
 
-#: assets/config/defaults.php:928
+#: assets/config/defaults.php:938
 msgid "While playing"
 msgstr "Під час гри"
 
-#: assets/config/defaults.php:929
+#: assets/config/defaults.php:939
 msgid "Permanently"
 msgstr "Постійно"
 
-#: assets/config/defaults.php:930
+#: assets/config/defaults.php:940
 msgid "No action"
 msgstr "Немає дій"
 
-#: assets/config/defaults.php:936
+#: assets/config/defaults.php:946
 #, fuzzy
 #| msgid "Youtube preview"
 msgid "Youtube Preview"
 msgstr "YouTube Preview"
 
-#: assets/config/defaults.php:938
+#: assets/config/defaults.php:948
 msgid ""
 "The automatically fetched preview image quaility for YouTube videos when you "
 "do not set your own. Please note, some videos do not have HD previews, and "
@@ -1770,29 +1777,29 @@ msgstr ""
 "мають HD попереднього перегляду, і вам може знадобитися вибрати нижню "
 "quaility."
 
-#: assets/config/defaults.php:940
+#: assets/config/defaults.php:950
 msgid "Maximum quality"
 msgstr "Максимальна якість"
 
-#: assets/config/defaults.php:941
+#: assets/config/defaults.php:951
 msgid "High quality"
 msgstr "Висока якість"
 
-#: assets/config/defaults.php:942
+#: assets/config/defaults.php:952
 msgid "Medium quality"
 msgstr "Середньої якості"
 
-#: assets/config/defaults.php:943
+#: assets/config/defaults.php:953
 msgid "Default quality"
 msgstr "Якість за умовчанням"
 
-#: assets/config/defaults.php:950
+#: assets/config/defaults.php:960
 #, fuzzy
 #| msgid "Remember unmute state"
 msgid "Remember Unmute State"
 msgstr "Запам'ятати звук стану"
 
-#: assets/config/defaults.php:952
+#: assets/config/defaults.php:962
 #, fuzzy
 #| msgid ""
 #| "After a visitor has clicked on the Unmute button the slider will assume "
@@ -1808,13 +1815,13 @@ msgstr ""
 "параметр, якщо потрібно відображати кнопку увімкнути на кожному слайді "
 "окремо."
 
-#: assets/config/defaults.php:962
+#: assets/config/defaults.php:972
 #, fuzzy
 #| msgid "Open by click"
 msgid "Open By Click"
 msgstr "Відкрити, натисніть"
 
-#: assets/config/defaults.php:964
+#: assets/config/defaults.php:974
 msgid ""
 "Enter a jQuery selector to open the Popup by clicking on the target "
 "element(s). Acting as a toggle, a secondary click will close the Popup. "
@@ -1824,13 +1831,13 @@ msgstr ""
 "цільовий елемент (и). Діючи як перемикач, вторинний клік закриє спливаюче "
 "вікно. Залиште це поле пустим, якщо використовувати цей тригер не потрібно."
 
-#: assets/config/defaults.php:969
+#: assets/config/defaults.php:979
 #, fuzzy
 #| msgid "Open at scroll position"
 msgid "Open At Scroll Position"
 msgstr "Відкрити при прокручуванні позиції"
 
-#: assets/config/defaults.php:971
+#: assets/config/defaults.php:981
 msgid ""
 "Enter a scroll position in pixels or percents, which will open the Popup "
 "when visitors scroll to that location. Leave this field empty if you don’t "
@@ -1840,13 +1847,13 @@ msgstr ""
 "спливаюче вікно, коли відвідувачі прокручуються до цього розташування. "
 "Залиште це поле пустим, якщо використовувати цей тригер не потрібно."
 
-#: assets/config/defaults.php:976
+#: assets/config/defaults.php:986
 #, fuzzy
 #| msgid "Close at scroll position"
 msgid "Close At Scroll Position"
 msgstr "Закрити при прокручуванні позиції"
 
-#: assets/config/defaults.php:978
+#: assets/config/defaults.php:988
 msgid ""
 "Enter a scroll position in pixels or percents, which will close the Popup "
 "when visitors scroll to that location. Leave this field empty if you don’t "
@@ -1856,13 +1863,13 @@ msgstr ""
 "вікна, коли відвідувачі прокручуються до цього розташування. Залиште це поле "
 "пустим, якщо використовувати цей тригер не потрібно."
 
-#: assets/config/defaults.php:983
+#: assets/config/defaults.php:993
 #, fuzzy
 #| msgid "Close automatically after"
 msgid "Close Automatically After"
 msgstr "Закрити автоматично після"
 
-#: assets/config/defaults.php:985
+#: assets/config/defaults.php:995
 msgid ""
 "Automatically closes the Popup in the specified number of seconds after it "
 "was opened. Leave this field empty if you don’t want to use this trigger."
@@ -1871,13 +1878,13 @@ msgstr ""
 "відкриття. Залиште це поле пустим, якщо використовувати цей тригер не "
 "потрібно."
 
-#: assets/config/defaults.php:990
+#: assets/config/defaults.php:1000
 #, fuzzy
 #| msgid "Close on slider end"
 msgid "Close On End"
 msgstr "Закрити на кінці повзунка"
 
-#: assets/config/defaults.php:992
+#: assets/config/defaults.php:1002
 #, fuzzy
 #| msgid ""
 #| "Closes the Popup after the slider has completed a full cycle and all your "
@@ -1889,13 +1896,13 @@ msgstr ""
 "Закриває спливаюче вікно, коли повзунок завершив повний цикл, і всі слайди "
 "були відображені."
 
-#: assets/config/defaults.php:997
+#: assets/config/defaults.php:1007
 #, fuzzy
 #| msgid "Before leaving the page"
 msgid "Before Leaving The Page"
 msgstr "Перед виходом з сторінки"
 
-#: assets/config/defaults.php:999
+#: assets/config/defaults.php:1009
 msgid ""
 "Opens the Popup before leaving the page. A leave intent is considered when "
 "visitors leave the browser window with their mouse cursor in the direction "
@@ -1906,13 +1913,13 @@ msgstr ""
 "курсору миші в напрямку, де розташовано елементи керування вікнами та панель "
 "вкладок."
 
-#: assets/config/defaults.php:1004
+#: assets/config/defaults.php:1014
 #, fuzzy
 #| msgid "Open when idle for"
 msgid "Open When Idle For"
 msgstr "Відкрити при простоювання"
 
-#: assets/config/defaults.php:1006
+#: assets/config/defaults.php:1016
 msgid ""
 "Opens the Popup after the specified number of seconds when the user is "
 "inactive without moving the mouse cursor or pressing any button. Leave this "
@@ -1922,13 +1929,13 @@ msgstr ""
 "користувач неактивний, не переміщуючи курсор миші або натискаючи будь-яку "
 "кнопку. Залиште це поле пустим, якщо використовувати цей тригер не потрібно."
 
-#: assets/config/defaults.php:1011
+#: assets/config/defaults.php:1021
 #, fuzzy
 #| msgid "Open automatically after"
 msgid "Open Automatically After"
 msgstr "Відкривати автоматично після"
 
-#: assets/config/defaults.php:1013
+#: assets/config/defaults.php:1023
 msgid ""
 "Automatically opens the Popup after the specified number of seconds. Leave "
 "this field empty if you don’t want to use this trigger."
@@ -1936,13 +1943,13 @@ msgstr ""
 "Автоматично відкриває спливаюче вікно після вказаної кількості секунд. "
 "Залиште це поле пустим, якщо використовувати цей тригер не потрібно."
 
-#: assets/config/defaults.php:1019
+#: assets/config/defaults.php:1029
 #, fuzzy
 #| msgid "Prevent reopening"
 msgid "Prevent Reopening"
 msgstr "Заборонити відкриття"
 
-#: assets/config/defaults.php:1021
+#: assets/config/defaults.php:1031
 msgid ""
 "Depending on your settings, the same Popup can be displayed in multiple "
 "times without reloading the page. Such example would be when you use a "
@@ -1955,24 +1962,24 @@ msgstr ""
 "Увімкнення цього параметра призведе до запобігання відкриттю цього "
 "спливаючого вікна."
 
-#: assets/config/defaults.php:1026
+#: assets/config/defaults.php:1036
 #, fuzzy
 #| msgid "Disable overlay"
 msgid "Disable Overlay"
 msgstr "Вимкнути накладання"
 
-#: assets/config/defaults.php:1028
+#: assets/config/defaults.php:1038
 msgid "Disable this option to hide the overlay behind the Popup."
 msgstr ""
 "Вимкніть цей параметр, щоб приховати накладання позаду спливаючого вікна."
 
-#: assets/config/defaults.php:1033
+#: assets/config/defaults.php:1043
 #, fuzzy
 #| msgid "Show close button"
 msgid "Show Close Button"
 msgstr "Показати  \"Кнопказакриття\""
 
-#: assets/config/defaults.php:1035
+#: assets/config/defaults.php:1045
 #, fuzzy
 #| msgid ""
 #| "Disable this option to hide the Popup close button. This option is also "
@@ -1987,13 +1994,13 @@ msgstr ""
 "також корисний, якщо ви бажаєте використовувати настроювану кнопку Закрити. "
 "Для цього виберіть опцію \"закрити Popup\" у полі \"зв'язування шарів\"."
 
-#: assets/config/defaults.php:1040
+#: assets/config/defaults.php:1050
 #, fuzzy
 #| msgid "Close button custom CSS"
 msgid "Close Button Custom CSS"
 msgstr "Закрити кнопки користувацьких CSS"
 
-#: assets/config/defaults.php:1042
+#: assets/config/defaults.php:1052
 msgid ""
 "Enter a list of CSS properties, which will be applied to the built-in close "
 "button (if enabled) to customize it’s appearance."
@@ -2001,23 +2008,23 @@ msgstr ""
 "Введіть список властивостей CSS, які будуть застосовані до вбудованої кнопки "
 "закрити (якщо ввімкнуто), щоб налаштувати його зовнішній вигляд."
 
-#: assets/config/defaults.php:1048
+#: assets/config/defaults.php:1058
 #, fuzzy
 #| msgid "Close by clicking away"
 msgid "Close By Clicking Away"
 msgstr "Закрити, клацнувши на відстані"
 
-#: assets/config/defaults.php:1050
+#: assets/config/defaults.php:1060
 msgid "Close the Popup by clicking on the overlay."
 msgstr "Закрийте спливаюче вікно, натиснувши на перекриття."
 
-#: assets/config/defaults.php:1055
+#: assets/config/defaults.php:1065
 #, fuzzy
 #| msgid "Start immediately"
 msgid "Start Popup Immediately"
 msgstr "Почати негайно"
 
-#: assets/config/defaults.php:1057
+#: assets/config/defaults.php:1067
 #, fuzzy
 #| msgid ""
 #| "Enable this option to start your slider immediately, without waiting for "
@@ -2029,13 +2036,13 @@ msgstr ""
 "Увімкніть цей параметр, щоб негайно розпочати повзунок, не чекаючи "
 "спливаючих вікон, щоб завершити його відкриття."
 
-#: assets/config/defaults.php:1063
+#: assets/config/defaults.php:1073
 #, fuzzy
 #| msgid "Reset on close"
 msgid "Reset On Close"
 msgstr "Скидання під час закриття"
 
-#: assets/config/defaults.php:1065
+#: assets/config/defaults.php:1075
 #, fuzzy
 #| msgid ""
 #| "Choose whether the slider should play all slide transitions over again "
@@ -2047,57 +2054,57 @@ msgstr ""
 "Укажіть, чи слід відтворювати повзунок для всіх переходах слайдів, якщо "
 "повторно відкрити спливаюче вікно."
 
-#: assets/config/defaults.php:1069
+#: assets/config/defaults.php:1079
 #, fuzzy
 #| msgid "Select slider"
 msgid "Reset slide"
 msgstr "Виберіть слайдер"
 
-#: assets/config/defaults.php:1070
+#: assets/config/defaults.php:1080
 #, fuzzy
 #| msgid "Repeat Popup"
 msgid "Reset popup"
 msgstr "Меню \"Повторення\""
 
-#: assets/config/defaults.php:1083
+#: assets/config/defaults.php:1093
 msgid "Popup Width"
 msgstr "Ширина спливаючого вікна"
 
-#: assets/config/defaults.php:1096
+#: assets/config/defaults.php:1106
 msgid "Popup Height"
 msgstr "Висота спливаючого вікна"
 
-#: assets/config/defaults.php:1109
+#: assets/config/defaults.php:1119
 msgid "Fit Width"
 msgstr "Автодобір ширини"
 
-#: assets/config/defaults.php:1115
+#: assets/config/defaults.php:1125
 msgid "Fit Height"
 msgstr "Автодобір висоти"
 
-#: assets/config/defaults.php:1131
+#: assets/config/defaults.php:1141
 msgid "Distance Left"
 msgstr "Відстань ліворуч"
 
-#: assets/config/defaults.php:1137
+#: assets/config/defaults.php:1147
 msgid "Distance Right"
 msgstr "Відстань праворуч"
 
-#: assets/config/defaults.php:1143
+#: assets/config/defaults.php:1153
 msgid "Distance Top"
 msgstr "Відстань зверху"
 
-#: assets/config/defaults.php:1149
+#: assets/config/defaults.php:1159
 msgid "Distance Bottom"
 msgstr "Відстань знизу"
 
-#: assets/config/defaults.php:1155
+#: assets/config/defaults.php:1165
 #, fuzzy
 #| msgid "Opening duration"
 msgid "Opening Duration"
 msgstr "Тривалість відкриття"
 
-#: assets/config/defaults.php:1157
+#: assets/config/defaults.php:1167
 msgid ""
 "The Popup opening transition duration specified in milliseconds. A second "
 "equals to 1000 milliseconds."
@@ -2105,13 +2112,13 @@ msgstr ""
 "При відкритті у спливаючому меню тривалість, вказану в мілісекундах. Друга "
 "дорівнює 1000 мілісекундах."
 
-#: assets/config/defaults.php:1166
+#: assets/config/defaults.php:1176
 #, fuzzy
 #| msgid "Closing duration"
 msgid "Closing Duration"
 msgstr "Тривалість закриття"
 
-#: assets/config/defaults.php:1168
+#: assets/config/defaults.php:1178
 msgid ""
 "The Popup closing transition duration specified in milliseconds. A second "
 "equals to 1000 milliseconds."
@@ -2119,13 +2126,13 @@ msgstr ""
 "Тривалість переходу у спливаючому меню, указаної в мілісекундах. Друга "
 "дорівнює 1000 мілісекундах."
 
-#: assets/config/defaults.php:1177
+#: assets/config/defaults.php:1187
 #, fuzzy
 #| msgid "Opening delay"
 msgid "Opening Delay"
 msgstr "Затримка відкриття"
 
-#: assets/config/defaults.php:1179
+#: assets/config/defaults.php:1189
 msgid ""
 "Delay before opening the Popup specified in milliseconds. A second equals to "
 "1000 milliseconds."
@@ -2133,21 +2140,21 @@ msgstr ""
 "Затримка перед відкриттям спливаючих, вказаного в мілісекундах. Друга "
 "дорівнює 1000 мілісекундах."
 
-#: assets/config/defaults.php:1203 assets/config/defaults.php:1312
+#: assets/config/defaults.php:1213 assets/config/defaults.php:1322
 #: assets/views/project-editor.php:3880 assets/views/project-editor.php:3902
 #, fuzzy
 #| msgid "Opening transition"
 msgid "Opening Transition"
 msgstr "Відкриття переходу"
 
-#: assets/config/defaults.php:1205
+#: assets/config/defaults.php:1215
 msgid "Choose from one of the pre-defined Popup opening transitions."
 msgstr "Виберіть один із попередньо визначених переходів у спливаючому меню."
 
-#: assets/config/defaults.php:1207 assets/config/defaults.php:1234
-#: assets/config/defaults.php:1316 assets/config/defaults.php:1335
-#: assets/config/defaults.php:2367 assets/config/defaults.php:2564
-#: assets/config/defaults.php:2786 assets/config/defaults.php:2984
+#: assets/config/defaults.php:1217 assets/config/defaults.php:1244
+#: assets/config/defaults.php:1326 assets/config/defaults.php:1345
+#: assets/config/defaults.php:2377 assets/config/defaults.php:2574
+#: assets/config/defaults.php:2796 assets/config/defaults.php:2994
 #: assets/templates/tmpl-2d-transition.php:100
 #: assets/views/project-editor.php:4309 assets/views/project-editor.php:4877
 #: assets/views/project-editor.php:5785 assets/views/project-editor.php:6241
@@ -2155,57 +2162,57 @@ msgstr "Виберіть один із попередньо визначених
 msgid "Fade"
 msgstr "Зникання"
 
-#: assets/config/defaults.php:1208 assets/config/defaults.php:1317
+#: assets/config/defaults.php:1218 assets/config/defaults.php:1327
 msgid "Slide from top"
 msgstr "Посунути згори"
 
-#: assets/config/defaults.php:1209 assets/config/defaults.php:1318
+#: assets/config/defaults.php:1219 assets/config/defaults.php:1328
 msgid "Slide from bottom"
 msgstr "Посунути знизу"
 
-#: assets/config/defaults.php:1210 assets/config/defaults.php:1319
+#: assets/config/defaults.php:1220 assets/config/defaults.php:1329
 msgid "Slide from left"
 msgstr "Слайд із лівого"
 
-#: assets/config/defaults.php:1211 assets/config/defaults.php:1320
+#: assets/config/defaults.php:1221 assets/config/defaults.php:1330
 msgid "Slide from right"
 msgstr "Посунути справа"
 
-#: assets/config/defaults.php:1212
+#: assets/config/defaults.php:1222
 msgid "Rotate from top"
 msgstr "Поворот згори"
 
-#: assets/config/defaults.php:1213
+#: assets/config/defaults.php:1223
 msgid "Rotate from bottom"
 msgstr "Поворот знизу"
 
-#: assets/config/defaults.php:1214
+#: assets/config/defaults.php:1224
 msgid "Rotate from left"
 msgstr "Повертати зліва"
 
-#: assets/config/defaults.php:1215
+#: assets/config/defaults.php:1225
 msgid "Rotate from right"
 msgstr "Повертати праворуч"
 
-#: assets/config/defaults.php:1216
+#: assets/config/defaults.php:1226
 msgid "Scale from top"
 msgstr "Масштаб згори"
 
-#: assets/config/defaults.php:1217
+#: assets/config/defaults.php:1227
 msgid "Scale from bottom"
 msgstr "Масштаб знизу"
 
-#: assets/config/defaults.php:1218
+#: assets/config/defaults.php:1228
 msgid "Scale from left"
 msgstr "Масштаб зліва"
 
-#: assets/config/defaults.php:1219
+#: assets/config/defaults.php:1229
 msgid "Scale from right"
 msgstr "Масштаб справа"
 
-#: assets/config/defaults.php:1220 assets/config/defaults.php:1247
-#: assets/config/defaults.php:1325 assets/config/defaults.php:1344
-#: assets/config/defaults.php:1880 assets/templates/tmpl-2d-transition.php:128
+#: assets/config/defaults.php:1230 assets/config/defaults.php:1257
+#: assets/config/defaults.php:1335 assets/config/defaults.php:1354
+#: assets/config/defaults.php:1890 assets/templates/tmpl-2d-transition.php:128
 #: assets/views/project-editor.php:1482 assets/views/project-editor.php:3462
 #: assets/views/project-editor.php:3466 assets/views/project-editor.php:3473
 #: assets/views/project-editor.php:4077 assets/views/project-editor.php:4081
@@ -2221,100 +2228,100 @@ msgstr "Масштаб справа"
 msgid "Scale"
 msgstr "Змінити масштаб"
 
-#: assets/config/defaults.php:1221 assets/config/defaults.php:1248
+#: assets/config/defaults.php:1231 assets/config/defaults.php:1258
 msgid "Spin"
 msgstr "Спина"
 
-#: assets/config/defaults.php:1222 assets/config/defaults.php:1249
+#: assets/config/defaults.php:1232 assets/config/defaults.php:1259
 msgid "Spin horizontally"
 msgstr "Обертання по горизонталі"
 
-#: assets/config/defaults.php:1223 assets/config/defaults.php:1250
+#: assets/config/defaults.php:1233 assets/config/defaults.php:1260
 msgid "Spin vertically"
 msgstr "Спін вертикально"
 
-#: assets/config/defaults.php:1224 assets/config/defaults.php:1251
+#: assets/config/defaults.php:1234 assets/config/defaults.php:1261
 msgid "Elastic"
 msgstr "Пружні"
 
-#: assets/config/defaults.php:1230 assets/config/defaults.php:1331
+#: assets/config/defaults.php:1240 assets/config/defaults.php:1341
 #, fuzzy
 #| msgid "Closing transition"
 msgid "Closing Transition"
 msgstr "Заключне перехідне"
 
-#: assets/config/defaults.php:1232
+#: assets/config/defaults.php:1242
 msgid "Choose from one of the pre-defined Popup closing transitions."
 msgstr "Виберіть один із попередньо визначених спливаючих переходів."
 
-#: assets/config/defaults.php:1235 assets/config/defaults.php:1336
+#: assets/config/defaults.php:1245 assets/config/defaults.php:1346
 msgid "Slide to top"
 msgstr "Слайда на початок"
 
-#: assets/config/defaults.php:1236 assets/config/defaults.php:1337
+#: assets/config/defaults.php:1246 assets/config/defaults.php:1347
 msgid "Slide to bottom"
 msgstr "Зсунути в нижню"
 
-#: assets/config/defaults.php:1237 assets/config/defaults.php:1338
+#: assets/config/defaults.php:1247 assets/config/defaults.php:1348
 msgid "Slide to left"
 msgstr "Слайд ліворуч"
 
-#: assets/config/defaults.php:1238 assets/config/defaults.php:1339
+#: assets/config/defaults.php:1248 assets/config/defaults.php:1349
 msgid "Slide to right"
 msgstr "Посунути праворуч"
 
-#: assets/config/defaults.php:1239
+#: assets/config/defaults.php:1249
 msgid "Rotate to top"
 msgstr "Обернути на початок"
 
-#: assets/config/defaults.php:1240
+#: assets/config/defaults.php:1250
 msgid "Rotate to bottom"
 msgstr "Повертати до низу"
 
-#: assets/config/defaults.php:1241
+#: assets/config/defaults.php:1251
 msgid "Rotate to left"
 msgstr "Повертати ліворуч"
 
-#: assets/config/defaults.php:1242
+#: assets/config/defaults.php:1252
 msgid "Rotate to right"
 msgstr "Повертати направо"
 
-#: assets/config/defaults.php:1243
+#: assets/config/defaults.php:1253
 msgid "Scale to top"
 msgstr "Масштабувати на початок"
 
-#: assets/config/defaults.php:1244
+#: assets/config/defaults.php:1254
 msgid "Scale to bottom"
 msgstr "Масштабувати донизу"
 
-#: assets/config/defaults.php:1245
+#: assets/config/defaults.php:1255
 msgid "Scale to left"
 msgstr "Масштабувати ліворуч"
 
-#: assets/config/defaults.php:1246
+#: assets/config/defaults.php:1256
 msgid "Scale to right"
 msgstr "Масштабувати направо"
 
-#: assets/config/defaults.php:1269
+#: assets/config/defaults.php:1279
 #, fuzzy
 #| msgid "Overlay color"
 msgid "Overlay Color"
 msgstr "Накладення Кольору"
 
-#: assets/config/defaults.php:1271
+#: assets/config/defaults.php:1281
 msgid ""
 "The overlay color. You can use color names, hexadecimal, RGB or RGBA values."
 msgstr ""
 "Колір накладання. Ви можете використовувати імена кольорів, шістнадцяткові, "
 "RGB або RGBA значення."
 
-#: assets/config/defaults.php:1276
+#: assets/config/defaults.php:1286
 #, fuzzy
 #| msgid "Overlay opening duration"
 msgid "Overlay Opening Duration"
 msgstr "Тривалість відкриття накладання"
 
-#: assets/config/defaults.php:1278
+#: assets/config/defaults.php:1288
 msgid ""
 "The overlay opening transition duration specified in milliseconds. A second "
 "equals to 1000 milliseconds."
@@ -2322,13 +2329,13 @@ msgstr ""
 "Тривалість відкриття перехідного періоду, указаної в мілісекундах. Друга "
 "дорівнює 1000 мілісекундах."
 
-#: assets/config/defaults.php:1287
+#: assets/config/defaults.php:1297
 #, fuzzy
 #| msgid "Overlay closing duration"
 msgid "Overlay Closing Duration"
 msgstr "Тривалість завершення накладання"
 
-#: assets/config/defaults.php:1289
+#: assets/config/defaults.php:1299
 msgid ""
 "The overlay closing transition duration specified in milliseconds. A second "
 "equals to 1000 milliseconds."
@@ -2336,122 +2343,122 @@ msgstr ""
 "Тривалість закриття перехідного періоду, указаної в мілісекундах. Друга "
 "дорівнює 1000 мілісекундах."
 
-#: assets/config/defaults.php:1314
+#: assets/config/defaults.php:1324
 msgid "Choose from one of the pre-defined overlay opening transitions."
 msgstr ""
 "Виберіть один із попередньо визначених переходів із відкриттям для "
 "накладання."
 
-#: assets/config/defaults.php:1321
+#: assets/config/defaults.php:1331
 msgid "Fade from top right"
 msgstr "Зникнення зверху праворуч"
 
-#: assets/config/defaults.php:1322
+#: assets/config/defaults.php:1332
 msgid "Fade from top left"
 msgstr "Зникнення згори зліва"
 
-#: assets/config/defaults.php:1323
+#: assets/config/defaults.php:1333
 msgid "Fade from bottom right"
 msgstr "Fade знизу праворуч"
 
-#: assets/config/defaults.php:1324
+#: assets/config/defaults.php:1334
 msgid "Fade from bottom left"
 msgstr "Fade знизу зліва"
 
-#: assets/config/defaults.php:1333
+#: assets/config/defaults.php:1343
 msgid "Choose from one of the pre-defined overlay closing transitions."
 msgstr ""
 "Виберіть один із попередньо визначених завершальні переходи для накладання."
 
-#: assets/config/defaults.php:1340
+#: assets/config/defaults.php:1350
 msgid "Fade to top right"
 msgstr "Fade to верхньому правому"
 
-#: assets/config/defaults.php:1341
+#: assets/config/defaults.php:1351
 msgid "Fade to top left"
 msgstr "Fade до верхнього лівого"
 
-#: assets/config/defaults.php:1342
+#: assets/config/defaults.php:1352
 msgid "Fade to bottom right"
 msgstr "Поступова поява в нижньому правому куті"
 
-#: assets/config/defaults.php:1343
+#: assets/config/defaults.php:1353
 msgid "Fade to bottom left"
 msgstr "Плавно донизу ліворуч"
 
-#: assets/config/defaults.php:1352
+#: assets/config/defaults.php:1362
 #, fuzzy
 #| msgid "All pages"
 msgid "All Pages"
 msgstr "Всі сторінки"
 
-#: assets/config/defaults.php:1361
+#: assets/config/defaults.php:1371
 #, fuzzy
 #| msgid "Home page"
 msgid "Homepage"
 msgstr "Домашня сторінка"
 
-#: assets/config/defaults.php:1370 assets/templates/tmpl-post-chooser.php:18
+#: assets/config/defaults.php:1380 assets/templates/tmpl-post-chooser.php:18
 msgid "Pages"
 msgstr "Сторінки"
 
-#: assets/config/defaults.php:1379 assets/templates/tmpl-post-chooser.php:19
+#: assets/config/defaults.php:1389 assets/templates/tmpl-post-chooser.php:19
 msgid "Posts"
 msgstr "Записи"
 
-#: assets/config/defaults.php:1388
+#: assets/config/defaults.php:1398
 #, fuzzy
 #| msgid "Include custom pages"
 msgid "Include Custom Pages"
 msgstr "Включайте користувацькі сторінки"
 
-#: assets/config/defaults.php:1397
+#: assets/config/defaults.php:1407
 #, fuzzy
 #| msgid "Exclude pages"
 msgid "Exclude Pages"
 msgstr "Виключити сторінки"
 
-#: assets/config/defaults.php:1406
+#: assets/config/defaults.php:1416
 msgid "Administrators"
 msgstr "Адміністратори"
 
-#: assets/config/defaults.php:1413
+#: assets/config/defaults.php:1423
 msgid "Editors"
 msgstr "Редактори"
 
-#: assets/config/defaults.php:1420
+#: assets/config/defaults.php:1430
 msgid "Authors"
 msgstr "Автори"
 
-#: assets/config/defaults.php:1427
+#: assets/config/defaults.php:1437
 msgid "Contributors"
 msgstr "Співробітники"
 
-#: assets/config/defaults.php:1434
+#: assets/config/defaults.php:1444
 msgid "Subscribers"
 msgstr "Передплатники"
 
-#: assets/config/defaults.php:1441
+#: assets/config/defaults.php:1451
 #, fuzzy
 #| msgid "Custom"
 msgid "Customers"
 msgstr "Користувацький"
 
-#: assets/config/defaults.php:1448
+#: assets/config/defaults.php:1458
 msgid "Visitors"
 msgstr "Відвідувачів"
 
-#: assets/config/defaults.php:1455
+#: assets/config/defaults.php:1465
 #, fuzzy
 #| msgid "Show only for first time visitors"
 msgid "Show Only For First Time Visitors"
 msgstr "Показувати тільки для перших відвідувачів"
 
-#: assets/config/defaults.php:1462
+#: assets/config/defaults.php:1472
 msgid "Repeat Popup"
 msgstr "Меню \"Повторення\""
 
-#: assets/config/defaults.php:1464
+#: assets/config/defaults.php:1474
 msgid ""
 "Enables or disables repeating this Popup to your target audience with the "
 "below specified frequency."
@@ -2459,13 +2466,13 @@ msgstr ""
 "Вмикає або вимикає повторне повторення цього спливаючого вікна вашої "
 "цільової аудиторії за допомогою наведеної нижче вказаної частоти."
 
-#: assets/config/defaults.php:1470
+#: assets/config/defaults.php:1480
 #, fuzzy
 #| msgid "Repeat after"
 msgid "Repeat After"
 msgstr "Повторити після"
 
-#: assets/config/defaults.php:1472
+#: assets/config/defaults.php:1482
 msgid ""
 "Controls the repeat frequency of this Popup specified in days. Leave this "
 "option empty if you want to display the Popup on each page load. Enter 0 to "
@@ -2476,13 +2483,13 @@ msgstr ""
 "завантаження на сторінці. Введіть 0, щоб повторити після завершення сеансу "
 "перегляду (коли браузер закривається)."
 
-#: assets/config/defaults.php:1492
+#: assets/config/defaults.php:1502
 #, fuzzy
 #| msgid "Use relative URLs"
 msgid "Use Relative URLs"
 msgstr "Використання відносних URL-адрес"
 
-#: assets/config/defaults.php:1494
+#: assets/config/defaults.php:1504
 msgid ""
 "Use relative URLs for local images. This setting could be important when "
 "moving your WP installation."
@@ -2490,13 +2497,13 @@ msgstr ""
 "Використання відносних URL-адрес для локальних зображень. Ця настройка може "
 "бути важливим при переміщенні вашого РГ установки."
 
-#: assets/config/defaults.php:1502
+#: assets/config/defaults.php:1512
 #, fuzzy
 #| msgid "Allow restarting slides on resize"
 msgid "Allow Restarting Slides On Resize"
 msgstr "Дозволити перезапустивши слайди під час змінення розміру"
 
-#: assets/config/defaults.php:1504
+#: assets/config/defaults.php:1514
 #, fuzzy
 #| msgid ""
 #| "Certain transformation and transition options cannot be updated on the "
@@ -2514,13 +2521,13 @@ msgstr ""
 "параметр, повзунок автоматично виявить такі ситуації та перезавантажить саму "
 "себе для збереження його вигляду."
 
-#: assets/config/defaults.php:1510
+#: assets/config/defaults.php:1520
 #, fuzzy
 #| msgid "Use srcset attribute"
 msgid "Use srcset Attribute"
 msgstr "Використовувати атрибут srcset"
 
-#: assets/config/defaults.php:1512
+#: assets/config/defaults.php:1522
 #: assets/templates/tmpl-plugin-settings.php:315
 msgid ""
 "The srcset attribute allows loading dynamically scaled images based on "
@@ -2534,7 +2541,7 @@ msgstr ""
 "роздільною здатністю. У деяких рідкісних випадках краю цей параметр може "
 "спричинити розмите зображення."
 
-#: assets/config/defaults.php:1527
+#: assets/config/defaults.php:1537
 #: assets/templates/tmpl-plugin-settings.php:321
 #, fuzzy
 #| msgid ""
@@ -2563,11 +2570,11 @@ msgstr ""
 "генерації навіть незначні суми небажаного трафіку, але це також може "
 "викликати проблеми для індексації пошукача і інші теми WP/plugins."
 
-#: assets/config/defaults.php:1541
+#: assets/config/defaults.php:1551
 msgid "Prefer Blend Mode"
 msgstr "Віддаєте перевагу режиму накладання"
 
-#: assets/config/defaults.php:1543
+#: assets/config/defaults.php:1553
 msgid ""
 "Enable this option to avoid blend mode issues with slide transitions. Due to "
 "technical limitations, this will also clip your slide transitions regardless "
@@ -2577,85 +2584,85 @@ msgstr ""
 "допомогою переходів слайдів. У зв'язку з технічними обмеженнями, це також "
 "буде кліп на слайді переходи незалежно від ваших налаштувань."
 
-#: assets/config/defaults.php:1564
+#: assets/config/defaults.php:1574
 #, fuzzy
 #| msgid "published"
 msgid "Date Published"
 msgstr "опублікований"
 
-#: assets/config/defaults.php:1565
+#: assets/config/defaults.php:1575
 #, fuzzy
 #| msgid "Last Modified"
 msgid "Date Modified"
 msgstr "Останнє змінення"
 
-#: assets/config/defaults.php:1566
+#: assets/config/defaults.php:1576
 msgid "Post ID"
 msgstr "Запис ID"
 
-#: assets/config/defaults.php:1567
+#: assets/config/defaults.php:1577
 msgid "Post Title"
 msgstr "Назва запису"
 
-#: assets/config/defaults.php:1568
+#: assets/config/defaults.php:1578
 msgid "Number of Comments"
 msgstr "Кількість коментарів"
 
-#: assets/config/defaults.php:1569 assets/templates/tmpl-2d-transition.php:39
+#: assets/config/defaults.php:1579 assets/templates/tmpl-2d-transition.php:39
 #: assets/templates/tmpl-2d-transition.php:111
 #: assets/templates/tmpl-3d-transition.php:39
-#: assets/templates/tmpl-smart-help.php:1340
+#: assets/templates/tmpl-smart-help.php:1346
 #: assets/views/transition-builder.php:183
 #: assets/views/transition-builder.php:493
 #: assets/views/transition-builder.php:565
 msgid "Random"
 msgstr "Випадково"
 
-#: assets/config/defaults.php:1580
+#: assets/config/defaults.php:1590
 msgid "Ascending"
 msgstr "За зростанням"
 
-#: assets/config/defaults.php:1581
+#: assets/config/defaults.php:1591
 msgid "Descending"
 msgstr "За спаданням"
 
-#: assets/config/defaults.php:1625
+#: assets/config/defaults.php:1635
 #, fuzzy
 #| msgid "Set a slide image"
 msgid "Set A Slide Image"
 msgstr "Настроювання зображення слайда"
 
-#: assets/config/defaults.php:1638 assets/views/project-editor.php:2642
+#: assets/config/defaults.php:1648 assets/views/project-editor.php:2642
 #: assets/views/project-editor.php:4148 assets/views/project-editor.php:6052
 msgid "Size"
 msgstr "Розмір"
 
-#: assets/config/defaults.php:1641 assets/config/defaults.php:2205
-#: assets/config/defaults.php:2795 assets/config/defaults.php:2993
-#: assets/config/defaults.php:3490 assets/config/defaults.php:3501
-#: assets/config/defaults.php:3512 assets/config/defaults.php:3526
-#: assets/config/defaults.php:3538 assets/config/defaults.php:3550
-#: assets/config/defaults.php:3561 assets/config/defaults.php:3572
-#: assets/config/defaults.php:3583 assets/config/defaults.php:3608
-#: assets/config/defaults.php:4329
+#: assets/config/defaults.php:1651 assets/config/defaults.php:2215
+#: assets/config/defaults.php:2805 assets/config/defaults.php:3003
+#: assets/config/defaults.php:3500 assets/config/defaults.php:3511
+#: assets/config/defaults.php:3522 assets/config/defaults.php:3536
+#: assets/config/defaults.php:3548 assets/config/defaults.php:3560
+#: assets/config/defaults.php:3571 assets/config/defaults.php:3582
+#: assets/config/defaults.php:3593 assets/config/defaults.php:3618
+#: assets/config/defaults.php:4339
 msgid "Inherit"
 msgstr "Успадкувати"
 
-#: assets/config/defaults.php:1651 assets/templates/tmpl-shape-modal.php:474
-#: assets/views/project-editor.php:2667
+#: assets/config/defaults.php:1661 assets/templates/tmpl-shape-modal.php:474
+#: assets/views/project-editor.php:2667 assets/views/project-editor.php:8142
 msgid "Position"
 msgstr "Позиція"
 
-#: assets/config/defaults.php:1663
+#: assets/config/defaults.php:1673
 #, fuzzy
 #| msgid "Set a slide thumbnail"
 msgid "Set A Slide Thumbnail"
 msgstr "Настроювання мініатюри слайда"
 
-#: assets/config/defaults.php:1676 assets/config/defaults.php:2347
-#: assets/config/defaults.php:2503 assets/config/defaults.php:2773
-#: assets/config/defaults.php:2970 assets/config/defaults.php:3146
-#: assets/config/defaults.php:3344 assets/config/defaults.php:3598
+#: assets/config/defaults.php:1686 assets/config/defaults.php:2357
+#: assets/config/defaults.php:2513 assets/config/defaults.php:2783
+#: assets/config/defaults.php:2980 assets/config/defaults.php:3156
+#: assets/config/defaults.php:3354 assets/config/defaults.php:3608
 #: assets/templates/tmpl-2d-transition.php:55
 #: assets/templates/tmpl-3d-transition.php:69
 #: assets/templates/tmpl-3d-transition.php:129
@@ -2669,108 +2676,108 @@ msgstr "Настроювання мініатюри слайда"
 #: assets/views/project-editor.php:6612 assets/views/project-editor.php:7765
 #: assets/views/project-editor.php:7945 assets/views/project-editor.php:7983
 #: assets/views/project-editor.php:8021 assets/views/project-editor.php:8059
-#: assets/views/transition-builder.php:217
+#: assets/views/project-editor.php:8105 assets/views/transition-builder.php:217
 #: assets/views/transition-builder.php:290
 #: assets/views/transition-builder.php:381
 #: assets/views/transition-builder.php:509
 msgid "Duration"
 msgstr "Тривалість"
 
-#: assets/config/defaults.php:1716
+#: assets/config/defaults.php:1726
 msgid "Origami"
 msgstr "Орігамі"
 
-#: assets/config/defaults.php:1723
+#: assets/config/defaults.php:1733
 #, fuzzy
 #| msgid "Custom 2D transitions"
 msgid "Custom Transition Duration"
 msgstr "Настроювані 2D-переходи"
 
-#: assets/config/defaults.php:1735 assets/views/project-editor.php:1393
+#: assets/config/defaults.php:1745 assets/views/project-editor.php:1393
 msgid "Time Shift"
 msgstr "Зміна часу"
 
-#: assets/config/defaults.php:1744 assets/config/defaults.php:3974
+#: assets/config/defaults.php:1754 assets/config/defaults.php:3984
 msgid "Enter URL"
 msgstr "Введіть URL"
 
-#: assets/config/defaults.php:1772
+#: assets/config/defaults.php:1782
 msgid "Link Target"
 msgstr "Target посилання"
 
-#: assets/config/defaults.php:1775 assets/config/defaults.php:4005
+#: assets/config/defaults.php:1785 assets/config/defaults.php:4015
 msgid "Open on the same page"
 msgstr "Відкрити на тій самій сторінці"
 
-#: assets/config/defaults.php:1776 assets/config/defaults.php:4006
+#: assets/config/defaults.php:1786 assets/config/defaults.php:4016
 msgid "Open on new page"
 msgstr "Відкрити на новій сторінці"
 
-#: assets/config/defaults.php:1777 assets/config/defaults.php:4007
+#: assets/config/defaults.php:1787 assets/config/defaults.php:4017
 msgid "Open in parent frame"
 msgstr "Відкрити у батьківській рамці"
 
-#: assets/config/defaults.php:1778 assets/config/defaults.php:4008
+#: assets/config/defaults.php:1788 assets/config/defaults.php:4018
 msgid "Open in main frame"
 msgstr "Відкрити в головному кадрі"
 
-#: assets/config/defaults.php:1790
+#: assets/config/defaults.php:1800
 msgid "On top of layers"
 msgstr "Зверху шарів"
 
-#: assets/config/defaults.php:1791
+#: assets/config/defaults.php:1801
 msgid "Underneath layers"
 msgstr "Під шарами"
 
-#: assets/config/defaults.php:1800
+#: assets/config/defaults.php:1810
 msgid "#ID"
 msgstr "#ID"
 
-#: assets/config/defaults.php:1809
+#: assets/config/defaults.php:1819
 msgid "Deeplink"
 msgstr "Depplink"
 
-#: assets/config/defaults.php:1812
+#: assets/config/defaults.php:1822
 #, fuzzy
 #| msgid "Slider slug"
 msgid "Enter slide slug"
 msgstr "Слайдер кулі"
 
-#: assets/config/defaults.php:1818
+#: assets/config/defaults.php:1828
 msgid "Global Hover"
 msgstr "Глобальний наведення вказівника"
 
-#: assets/config/defaults.php:1842 assets/config/defaults.php:2651
-#: assets/config/defaults.php:2797 assets/config/defaults.php:2995
-#: assets/config/defaults.php:4127 assets/config/defaults.php:4529
+#: assets/config/defaults.php:1852 assets/config/defaults.php:2661
+#: assets/config/defaults.php:2807 assets/config/defaults.php:3005
+#: assets/config/defaults.php:4137 assets/config/defaults.php:4539
 msgid "Hidden"
 msgstr "Прихований"
 
-#: assets/config/defaults.php:1852 assets/views/project-editor.php:1888
+#: assets/config/defaults.php:1862 assets/views/project-editor.php:1888
 #, fuzzy
 #| msgid "Overflow layers"
 msgid "Overflow Layers"
 msgstr "Переповнення шарів"
 
-#: assets/config/defaults.php:1858 assets/views/project-editor.php:392
+#: assets/config/defaults.php:1868 assets/views/project-editor.php:392
 #: assets/views/project-editor.php:1470
 msgid "Zoom"
 msgstr "Збільшити"
 
-#: assets/config/defaults.php:1862
+#: assets/config/defaults.php:1872
 msgid "Zoom In"
 msgstr "Приближувати"
 
-#: assets/config/defaults.php:1863
+#: assets/config/defaults.php:1873
 msgid "Zoom Out"
 msgstr "Зменшення"
 
-#: assets/config/defaults.php:1869 assets/config/defaults.php:1965
-#: assets/config/defaults.php:2373 assets/config/defaults.php:2570
-#: assets/config/defaults.php:2837 assets/config/defaults.php:3039
-#: assets/config/defaults.php:3199 assets/config/defaults.php:3382
-#: assets/config/defaults.php:3556 assets/config/defaults.php:3819
-#: assets/config/defaults.php:4425 assets/templates/tmpl-smart-help.php:1292
+#: assets/config/defaults.php:1879 assets/config/defaults.php:1975
+#: assets/config/defaults.php:2383 assets/config/defaults.php:2580
+#: assets/config/defaults.php:2847 assets/config/defaults.php:3049
+#: assets/config/defaults.php:3209 assets/config/defaults.php:3392
+#: assets/config/defaults.php:3566 assets/config/defaults.php:3829
+#: assets/config/defaults.php:4435 assets/templates/tmpl-smart-help.php:1298
 #: assets/views/project-editor.php:1492 assets/views/project-editor.php:1610
 #: assets/views/project-editor.php:3485 assets/views/project-editor.php:3489
 #: assets/views/project-editor.php:3495 assets/views/project-editor.php:3501
@@ -2790,7 +2797,7 @@ msgstr "Зменшення"
 msgid "Rotation"
 msgstr "Обертання"
 
-#: assets/config/defaults.php:1894 assets/config/defaults.php:3487
+#: assets/config/defaults.php:1904 assets/config/defaults.php:3497
 #: assets/templates/tmpl-2d-transition.php:96
 #: assets/templates/tmpl-shape-modal.php:450
 #: assets/views/project-editor.php:1560 assets/views/project-editor.php:6861
@@ -2798,52 +2805,52 @@ msgstr "Обертання"
 msgid "Type"
 msgstr "Тип"
 
-#: assets/config/defaults.php:1897 assets/config/defaults.php:3491
+#: assets/config/defaults.php:1907 assets/config/defaults.php:3501
 #: assets/templates/tmpl-transition-gallery.php:10
 msgid "2D"
 msgstr "2d"
 
-#: assets/config/defaults.php:1898 assets/config/defaults.php:3492
+#: assets/config/defaults.php:1908 assets/config/defaults.php:3502
 #: assets/templates/tmpl-transition-gallery.php:11
 msgid "3D"
 msgstr "3d"
 
-#: assets/config/defaults.php:1904 assets/config/defaults.php:3498
+#: assets/config/defaults.php:1914 assets/config/defaults.php:3508
 #: assets/views/project-editor.php:1574 assets/views/project-editor.php:6875
 msgid "Event"
 msgstr "Подія"
 
-#: assets/config/defaults.php:1907 assets/config/defaults.php:3502
+#: assets/config/defaults.php:1917 assets/config/defaults.php:3512
 msgid "Cursor or Tilt"
 msgstr "Курсор або нахил"
 
-#: assets/config/defaults.php:1914 assets/config/defaults.php:3509
+#: assets/config/defaults.php:1924 assets/config/defaults.php:3519
 #: assets/views/project-editor.php:1586 assets/views/project-editor.php:6889
 msgid "Axes"
 msgstr "Сокири"
 
-#: assets/config/defaults.php:1917 assets/config/defaults.php:3513
-#: assets/config/defaults.php:4126
+#: assets/config/defaults.php:1927 assets/config/defaults.php:3523
+#: assets/config/defaults.php:4136
 msgid "None"
 msgstr "Нічого"
 
-#: assets/config/defaults.php:1918
+#: assets/config/defaults.php:1928
 msgid "Both axes"
 msgstr "Обох осей"
 
-#: assets/config/defaults.php:1919 assets/config/defaults.php:3515
+#: assets/config/defaults.php:1929 assets/config/defaults.php:3525
 msgid "Horizontal only"
 msgstr "Лише горизонтально"
 
-#: assets/config/defaults.php:1920 assets/config/defaults.php:3516
+#: assets/config/defaults.php:1930 assets/config/defaults.php:3526
 msgid "Vertical only"
 msgstr "Лише вертикально"
 
-#: assets/config/defaults.php:1927 assets/config/defaults.php:2422
-#: assets/config/defaults.php:2619 assets/config/defaults.php:2888
-#: assets/config/defaults.php:3090 assets/config/defaults.php:3248
-#: assets/config/defaults.php:3432 assets/config/defaults.php:3523
-#: assets/config/defaults.php:3628 assets/views/project-editor.php:1651
+#: assets/config/defaults.php:1937 assets/config/defaults.php:2432
+#: assets/config/defaults.php:2629 assets/config/defaults.php:2898
+#: assets/config/defaults.php:3100 assets/config/defaults.php:3258
+#: assets/config/defaults.php:3442 assets/config/defaults.php:3533
+#: assets/config/defaults.php:3638 assets/views/project-editor.php:1651
 #: assets/views/project-editor.php:1655 assets/views/project-editor.php:3539
 #: assets/views/project-editor.php:3543 assets/views/project-editor.php:4184
 #: assets/views/project-editor.php:4188 assets/views/project-editor.php:4708
@@ -2857,28 +2864,28 @@ msgstr "Лише вертикально"
 msgid "Transform Origin"
 msgstr "Трансформувати походження"
 
-#: assets/config/defaults.php:1933 assets/config/defaults.php:3532
+#: assets/config/defaults.php:1943 assets/config/defaults.php:3542
 #: assets/views/project-editor.php:1624 assets/views/project-editor.php:1628
 #: assets/views/project-editor.php:6980 assets/views/project-editor.php:6984
 msgid "Move Duration"
 msgstr "Тривалість переміщення"
 
-#: assets/config/defaults.php:1944 assets/config/defaults.php:3544
+#: assets/config/defaults.php:1954 assets/config/defaults.php:3554
 #: assets/views/project-editor.php:1637 assets/views/project-editor.php:1641
 #: assets/views/project-editor.php:6995 assets/views/project-editor.php:6999
 msgid "Leave Duration"
 msgstr "Залишіть тривалість"
 
-#: assets/config/defaults.php:1955 assets/config/defaults.php:3567
+#: assets/config/defaults.php:1965 assets/config/defaults.php:3577
 #: assets/views/project-editor.php:1598 assets/views/project-editor.php:6903
 msgid "Distance"
 msgstr "Відстань"
 
-#: assets/config/defaults.php:1975 assets/config/defaults.php:2470
-#: assets/config/defaults.php:2637 assets/config/defaults.php:2894
-#: assets/config/defaults.php:3098 assets/config/defaults.php:3306
-#: assets/config/defaults.php:3456 assets/config/defaults.php:3578
-#: assets/config/defaults.php:3634 assets/views/project-editor.php:1663
+#: assets/config/defaults.php:1985 assets/config/defaults.php:2480
+#: assets/config/defaults.php:2647 assets/config/defaults.php:2904
+#: assets/config/defaults.php:3108 assets/config/defaults.php:3316
+#: assets/config/defaults.php:3466 assets/config/defaults.php:3588
+#: assets/config/defaults.php:3644 assets/views/project-editor.php:1663
 #: assets/views/project-editor.php:1667 assets/views/project-editor.php:4199
 #: assets/views/project-editor.php:4203 assets/views/project-editor.php:4722
 #: assets/views/project-editor.php:4726 assets/views/project-editor.php:5174
@@ -2891,172 +2898,172 @@ msgstr "Відстань"
 msgid "Perspective"
 msgstr "Перспектива"
 
-#: assets/config/defaults.php:2033
+#: assets/config/defaults.php:2043
 msgid "HTML Element"
 msgstr ""
 
-#: assets/config/defaults.php:2117 assets/views/project-editor.php:2275
+#: assets/config/defaults.php:2127 assets/views/project-editor.php:2275
 #: assets/views/project-editor.php:2278 assets/views/project-editor.php:2788
 #, fuzzy
 #| msgid "Color"
 msgid "Icon Color"
 msgstr "Колір"
 
-#: assets/config/defaults.php:2126 assets/views/project-editor.php:2288
+#: assets/config/defaults.php:2136 assets/views/project-editor.php:2288
 msgid "Icon Placement"
 msgstr ""
 
-#: assets/config/defaults.php:2129 assets/config/defaults.php:4066
+#: assets/config/defaults.php:2139 assets/config/defaults.php:4076
 #: assets/templates/tmpl-2d-transition.php:110
 #: assets/templates/tmpl-project-settings.php:450
-#: assets/templates/tmpl-smart-help.php:1029
-#: assets/templates/tmpl-smart-help.php:1182
+#: assets/templates/tmpl-smart-help.php:1035
+#: assets/templates/tmpl-smart-help.php:1188
 #: assets/views/transition-builder.php:564
 msgid "Left"
 msgstr "Зліва"
 
-#: assets/config/defaults.php:2130 assets/templates/tmpl-2d-transition.php:108
+#: assets/config/defaults.php:2140 assets/templates/tmpl-2d-transition.php:108
 #: assets/templates/tmpl-project-settings.php:468
-#: assets/templates/tmpl-smart-help.php:1031
-#: assets/templates/tmpl-smart-help.php:1184
+#: assets/templates/tmpl-smart-help.php:1037
+#: assets/templates/tmpl-smart-help.php:1190
 #: assets/views/transition-builder.php:562
 msgid "Right"
 msgstr "Зправа"
 
-#: assets/config/defaults.php:2139 assets/views/project-editor.php:2300
+#: assets/config/defaults.php:2149 assets/views/project-editor.php:2300
 #: assets/views/project-editor.php:2747 assets/views/project-editor.php:2760
 #, fuzzy
 #| msgid "Size"
 msgid "Icon Size"
 msgstr "Розмір"
 
-#: assets/config/defaults.php:2153 assets/views/project-editor.php:2316
+#: assets/config/defaults.php:2163 assets/views/project-editor.php:2316
 #, fuzzy
 #| msgid "Icon"
 msgid "Icon Gap"
 msgstr "Іконка"
 
-#: assets/config/defaults.php:2167 assets/views/project-editor.php:2332
+#: assets/config/defaults.php:2177 assets/views/project-editor.php:2332
 #, fuzzy
 #| msgid "Vertical Center"
 msgid "Vertical Adjustment"
 msgstr "Вертикальний центр"
 
-#: assets/config/defaults.php:2181
+#: assets/config/defaults.php:2191
 msgid "Line Break"
 msgstr ""
 
-#: assets/config/defaults.php:2183
+#: assets/config/defaults.php:2193
 #, fuzzy
 #| msgid "Automatic Updates"
 msgid "Automatic"
 msgstr "Автоматичне оновлення"
 
-#: assets/config/defaults.php:2185
+#: assets/config/defaults.php:2195
 msgctxt "Displays as \"Manual (<br>)\". Plase don’t change the HTML entities."
 msgid "Manual (&lt;br&gt;)"
 msgstr ""
 
-#: assets/config/defaults.php:2202
+#: assets/config/defaults.php:2212
 #, fuzzy
 #| msgid "Autoplay"
 msgid "Media Autoplay"
 msgstr "Автозапуск"
 
-#: assets/config/defaults.php:2213
+#: assets/config/defaults.php:2223
 #, fuzzy
 #| msgid "Show info"
 msgid "Show Media Info"
 msgstr "Показати інформацію"
 
-#: assets/config/defaults.php:2224
+#: assets/config/defaults.php:2234
 #, fuzzy
 #| msgid "Controls"
 msgid "Media Controls"
 msgstr "Керування"
 
-#: assets/config/defaults.php:2237
+#: assets/config/defaults.php:2247
 #, fuzzy
 #| msgid "use post image"
 msgid "Media Poster Image"
 msgstr "використовувати поштове зображення"
 
-#: assets/config/defaults.php:2249
+#: assets/config/defaults.php:2259
 #, fuzzy
 #| msgid "Fill mode"
 msgid "Media Fill Mode"
 msgstr "Режим заливки"
 
-#: assets/config/defaults.php:2260
+#: assets/config/defaults.php:2270
 #, fuzzy
 #| msgid "Volume"
 msgid "Media Volume"
 msgstr "Обсяг"
 
-#: assets/config/defaults.php:2272
+#: assets/config/defaults.php:2282
 #, fuzzy
 #| msgid "Play muted"
 msgid "Play Media Muted"
 msgstr "Програвати приглушені"
 
-#: assets/config/defaults.php:2278
+#: assets/config/defaults.php:2288
 msgid "Offer to unmute"
 msgstr "Пропозиція для включення"
 
-#: assets/config/defaults.php:2285
+#: assets/config/defaults.php:2295
 #, fuzzy
 #| msgid "Media"
 msgid "Media Loop"
 msgstr "Медіа"
 
-#: assets/config/defaults.php:2296
+#: assets/config/defaults.php:2306
 #, fuzzy
 #| msgid "Background size"
 msgid "Background Video"
 msgstr "Розмір фону"
 
-#: assets/config/defaults.php:2302
+#: assets/config/defaults.php:2312
 #, fuzzy
 #| msgid "Overlay image"
 msgid "Video Overlay Image"
 msgstr "Накладення зображення"
 
-#: assets/config/defaults.php:2310
+#: assets/config/defaults.php:2320
 #, fuzzy
 #| msgid "Limit text length (if any)"
 msgid "Limit Post Text Length"
 msgstr "Обмежити довжину тексту (якщо є)"
 
-#: assets/config/defaults.php:2333 assets/config/defaults.php:2489
-#: assets/config/defaults.php:2759 assets/config/defaults.php:2956
-#: assets/config/defaults.php:3132 assets/config/defaults.php:3330
-#: assets/config/defaults.php:3641 assets/templates/tmpl-smart-help.php:1288
+#: assets/config/defaults.php:2343 assets/config/defaults.php:2499
+#: assets/config/defaults.php:2769 assets/config/defaults.php:2966
+#: assets/config/defaults.php:3142 assets/config/defaults.php:3340
+#: assets/config/defaults.php:3651 assets/templates/tmpl-smart-help.php:1294
 #: assets/views/project-editor.php:7120 assets/views/project-editor.php:7133
 #, fuzzy
 #| msgid "OffsetX"
 msgid "Offset X"
 msgstr "OffsetX"
 
-#: assets/config/defaults.php:2340 assets/config/defaults.php:2496
-#: assets/config/defaults.php:2766 assets/config/defaults.php:2963
-#: assets/config/defaults.php:3139 assets/config/defaults.php:3337
-#: assets/config/defaults.php:3674 assets/templates/tmpl-smart-help.php:1289
+#: assets/config/defaults.php:2350 assets/config/defaults.php:2506
+#: assets/config/defaults.php:2776 assets/config/defaults.php:2973
+#: assets/config/defaults.php:3149 assets/config/defaults.php:3347
+#: assets/config/defaults.php:3684 assets/templates/tmpl-smart-help.php:1295
 #: assets/views/project-editor.php:7185 assets/views/project-editor.php:7198
 #, fuzzy
 #| msgid "OffsetY"
 msgid "Offset Y"
 msgstr "OffsetY"
 
-#: assets/config/defaults.php:2354 assets/config/defaults.php:2515
-#: assets/config/defaults.php:3153
+#: assets/config/defaults.php:2364 assets/config/defaults.php:2525
+#: assets/config/defaults.php:3163
 #, fuzzy
 #| msgid "StartAt"
 msgid "Start At"
 msgstr "StartAt"
 
-#: assets/config/defaults.php:2361 assets/config/defaults.php:2558
-#: assets/config/defaults.php:2780 assets/config/defaults.php:2977
-#: assets/config/defaults.php:3186 assets/config/defaults.php:3358
+#: assets/config/defaults.php:2371 assets/config/defaults.php:2568
+#: assets/config/defaults.php:2790 assets/config/defaults.php:2987
+#: assets/config/defaults.php:3196 assets/config/defaults.php:3368
 #: assets/templates/tmpl-2d-transition.php:57
 #: assets/templates/tmpl-3d-transition.php:71
 #: assets/templates/tmpl-3d-transition.php:131
@@ -3071,6 +3078,7 @@ msgstr "StartAt"
 #: assets/views/project-editor.php:7992 assets/views/project-editor.php:7995
 #: assets/views/project-editor.php:8030 assets/views/project-editor.php:8033
 #: assets/views/project-editor.php:8068 assets/views/project-editor.php:8071
+#: assets/views/project-editor.php:8114 assets/views/project-editor.php:8117
 #: assets/views/transition-builder.php:219
 #: assets/views/transition-builder.php:292
 #: assets/views/transition-builder.php:383
@@ -3078,89 +3086,89 @@ msgstr "StartAt"
 msgid "Easing"
 msgstr "Ослаблення"
 
-#: assets/config/defaults.php:2380 assets/config/defaults.php:2577
-#: assets/config/defaults.php:2844 assets/config/defaults.php:3046
-#: assets/config/defaults.php:3206 assets/config/defaults.php:3389
-#: assets/config/defaults.php:3847 assets/config/defaults.php:4431
-#: assets/templates/tmpl-smart-help.php:1293
+#: assets/config/defaults.php:2390 assets/config/defaults.php:2587
+#: assets/config/defaults.php:2854 assets/config/defaults.php:3056
+#: assets/config/defaults.php:3216 assets/config/defaults.php:3399
+#: assets/config/defaults.php:3857 assets/config/defaults.php:4441
+#: assets/templates/tmpl-smart-help.php:1299
 #: assets/views/project-editor.php:7421 assets/views/project-editor.php:7434
 #, fuzzy
 #| msgid "Rotation"
 msgid "Rotation X"
 msgstr "Обертання"
 
-#: assets/config/defaults.php:2387 assets/config/defaults.php:2584
-#: assets/config/defaults.php:2851 assets/config/defaults.php:3053
-#: assets/config/defaults.php:3213 assets/config/defaults.php:3396
-#: assets/config/defaults.php:3875 assets/config/defaults.php:4437
-#: assets/templates/tmpl-smart-help.php:1294
+#: assets/config/defaults.php:2397 assets/config/defaults.php:2594
+#: assets/config/defaults.php:2861 assets/config/defaults.php:3063
+#: assets/config/defaults.php:3223 assets/config/defaults.php:3406
+#: assets/config/defaults.php:3885 assets/config/defaults.php:4447
+#: assets/templates/tmpl-smart-help.php:1300
 #: assets/views/project-editor.php:7478 assets/views/project-editor.php:7491
 #, fuzzy
 #| msgid "Rotation"
 msgid "Rotation Y"
 msgstr "Обертання"
 
-#: assets/config/defaults.php:2394 assets/config/defaults.php:2591
-#: assets/config/defaults.php:2872 assets/config/defaults.php:3074
-#: assets/config/defaults.php:3220 assets/config/defaults.php:3403
-#: assets/config/defaults.php:3763 assets/config/defaults.php:4461
-#: assets/templates/tmpl-smart-help.php:1295
+#: assets/config/defaults.php:2404 assets/config/defaults.php:2601
+#: assets/config/defaults.php:2882 assets/config/defaults.php:3084
+#: assets/config/defaults.php:3230 assets/config/defaults.php:3413
+#: assets/config/defaults.php:3773 assets/config/defaults.php:4471
+#: assets/templates/tmpl-smart-help.php:1301
 #: assets/views/project-editor.php:7537 assets/views/project-editor.php:7550
 #, fuzzy
 #| msgid "SkewX"
 msgid "Skew X"
 msgstr "Асик"
 
-#: assets/config/defaults.php:2401 assets/config/defaults.php:2598
-#: assets/config/defaults.php:2879 assets/config/defaults.php:3081
-#: assets/config/defaults.php:3227 assets/config/defaults.php:3410
-#: assets/config/defaults.php:3791 assets/config/defaults.php:4467
-#: assets/templates/tmpl-smart-help.php:1296
+#: assets/config/defaults.php:2411 assets/config/defaults.php:2608
+#: assets/config/defaults.php:2889 assets/config/defaults.php:3091
+#: assets/config/defaults.php:3237 assets/config/defaults.php:3420
+#: assets/config/defaults.php:3801 assets/config/defaults.php:4477
+#: assets/templates/tmpl-smart-help.php:1302
 #: assets/views/project-editor.php:7594 assets/views/project-editor.php:7607
 #, fuzzy
 #| msgid "SkewY"
 msgid "Skew Y"
 msgstr "Sky"
 
-#: assets/config/defaults.php:2408 assets/config/defaults.php:2605
-#: assets/config/defaults.php:2858 assets/config/defaults.php:3060
-#: assets/config/defaults.php:3234 assets/config/defaults.php:3417
-#: assets/config/defaults.php:3707 assets/config/defaults.php:4443
-#: assets/templates/tmpl-smart-help.php:1290
+#: assets/config/defaults.php:2418 assets/config/defaults.php:2615
+#: assets/config/defaults.php:2868 assets/config/defaults.php:3070
+#: assets/config/defaults.php:3244 assets/config/defaults.php:3427
+#: assets/config/defaults.php:3717 assets/config/defaults.php:4453
+#: assets/templates/tmpl-smart-help.php:1296
 #: assets/views/project-editor.php:7252 assets/views/project-editor.php:7265
 #, fuzzy
 #| msgid "ScaleX"
 msgid "Scale X"
 msgstr "ScaleX"
 
-#: assets/config/defaults.php:2415 assets/config/defaults.php:2612
-#: assets/config/defaults.php:2865 assets/config/defaults.php:3067
-#: assets/config/defaults.php:3241 assets/config/defaults.php:3424
-#: assets/config/defaults.php:3735 assets/config/defaults.php:4452
-#: assets/templates/tmpl-smart-help.php:1291
+#: assets/config/defaults.php:2425 assets/config/defaults.php:2622
+#: assets/config/defaults.php:2875 assets/config/defaults.php:3077
+#: assets/config/defaults.php:3251 assets/config/defaults.php:3434
+#: assets/config/defaults.php:3745 assets/config/defaults.php:4462
+#: assets/templates/tmpl-smart-help.php:1297
 #: assets/views/project-editor.php:7307 assets/views/project-editor.php:7320
 #, fuzzy
 #| msgid "ScaleY"
 msgid "Scale Y"
 msgstr "Скеля"
 
-#: assets/config/defaults.php:2428 assets/config/defaults.php:2625
-#: assets/config/defaults.php:3254 assets/views/project-editor.php:4169
+#: assets/config/defaults.php:2438 assets/config/defaults.php:2635
+#: assets/config/defaults.php:3264 assets/views/project-editor.php:4169
 #: assets/views/project-editor.php:4173 assets/views/project-editor.php:5144
 #: assets/views/project-editor.php:5148 assets/views/project-editor.php:6073
 #: assets/views/project-editor.php:6077
 msgid "Mask"
 msgstr "Маска"
 
-#: assets/config/defaults.php:2434 assets/config/defaults.php:2660
-#: assets/config/defaults.php:3438 assets/views/project-editor.php:1185
+#: assets/config/defaults.php:2444 assets/config/defaults.php:2670
+#: assets/config/defaults.php:3448 assets/views/project-editor.php:1185
 #: assets/views/project-editor.php:1227 assets/views/project-editor.php:3321
 msgid "Background"
 msgstr "Фон"
 
-#: assets/config/defaults.php:2440 assets/config/defaults.php:2666
-#: assets/config/defaults.php:2906 assets/config/defaults.php:3110
-#: assets/config/defaults.php:3444 assets/config/defaults.php:4296
+#: assets/config/defaults.php:2450 assets/config/defaults.php:2676
+#: assets/config/defaults.php:2916 assets/config/defaults.php:3120
+#: assets/config/defaults.php:3454 assets/config/defaults.php:4306
 #: assets/templates/tmpl-shape-modal.php:300
 #: assets/views/project-editor.php:2798 assets/views/project-editor.php:3104
 #: assets/views/project-editor.php:3108 assets/views/project-editor.php:3226
@@ -3168,23 +3176,23 @@ msgstr "Фон"
 msgid "Color"
 msgstr "Колір"
 
-#: assets/config/defaults.php:2446 assets/config/defaults.php:2672
-#: assets/config/defaults.php:3450 assets/config/defaults.php:4384
+#: assets/config/defaults.php:2456 assets/config/defaults.php:2682
+#: assets/config/defaults.php:3460 assets/config/defaults.php:4394
 msgid "Rounded Corners"
 msgstr "Закругленими кутами"
 
-#: assets/config/defaults.php:2452 assets/config/defaults.php:2678
-#: assets/config/defaults.php:4039 assets/views/project-editor.php:2646
+#: assets/config/defaults.php:2462 assets/config/defaults.php:2688
+#: assets/config/defaults.php:4049 assets/views/project-editor.php:2646
 msgid "Width"
 msgstr "Ширина"
 
-#: assets/config/defaults.php:2458 assets/config/defaults.php:2684
-#: assets/config/defaults.php:4048 assets/views/project-editor.php:2654
+#: assets/config/defaults.php:2468 assets/config/defaults.php:2694
+#: assets/config/defaults.php:4058 assets/views/project-editor.php:2654
 msgid "Height"
 msgstr "Висота"
 
-#: assets/config/defaults.php:2464 assets/config/defaults.php:2631
-#: assets/config/defaults.php:3312 assets/config/defaults.php:4584
+#: assets/config/defaults.php:2474 assets/config/defaults.php:2641
+#: assets/config/defaults.php:3322 assets/config/defaults.php:4594
 #: assets/views/project-editor.php:3709 assets/views/project-editor.php:3713
 #: assets/views/project-editor.php:4355 assets/views/project-editor.php:4359
 #: assets/views/project-editor.php:5362 assets/views/project-editor.php:5366
@@ -3192,8 +3200,8 @@ msgstr "Висота"
 msgid "Filter"
 msgstr "Фільтр"
 
-#: assets/config/defaults.php:2476 assets/config/defaults.php:2643
-#: assets/config/defaults.php:2900 assets/config/defaults.php:3104
+#: assets/config/defaults.php:2486 assets/config/defaults.php:2653
+#: assets/config/defaults.php:2910 assets/config/defaults.php:3114
 #: assets/views/project-editor.php:4213 assets/views/project-editor.php:4217
 #: assets/views/project-editor.php:4736 assets/views/project-editor.php:4740
 #: assets/views/project-editor.php:5645 assets/views/project-editor.php:5649
@@ -3203,263 +3211,263 @@ msgstr "Фільтр"
 msgid "Mirror Transition"
 msgstr "Наведіть<br>Перехід"
 
-#: assets/config/defaults.php:2526 assets/config/defaults.php:3011
+#: assets/config/defaults.php:2536 assets/config/defaults.php:3021
 msgid "Slide change starts (ignoring modifier)"
 msgstr "Розпочнеться зміна слайда (без урахування модифікатора)"
 
-#: assets/config/defaults.php:2527 assets/config/defaults.php:2815
-#: assets/config/defaults.php:3012 assets/config/defaults.php:3164
+#: assets/config/defaults.php:2537 assets/config/defaults.php:2825
+#: assets/config/defaults.php:3022 assets/config/defaults.php:3174
 msgid "Opening Transition completes"
 msgstr "Відкриття переходу завершено"
 
-#: assets/config/defaults.php:2528 assets/config/defaults.php:3013
-#: assets/config/defaults.php:3165
+#: assets/config/defaults.php:2538 assets/config/defaults.php:3023
+#: assets/config/defaults.php:3175
 msgid "Opening Text Transition starts"
 msgstr "Розпочнеться відкриття текстового переходу"
 
-#: assets/config/defaults.php:2529 assets/config/defaults.php:3014
-#: assets/config/defaults.php:3166
+#: assets/config/defaults.php:2539 assets/config/defaults.php:3024
+#: assets/config/defaults.php:3176
 msgid "Opening Text Transition completes"
 msgstr "Завершує відкриття текстового переходу"
 
-#: assets/config/defaults.php:2530 assets/config/defaults.php:3015
-#: assets/config/defaults.php:3167
+#: assets/config/defaults.php:2540 assets/config/defaults.php:3025
+#: assets/config/defaults.php:3177
 msgid "Opening and Opening Text Transition complete"
 msgstr "Відкриття та відкриття текстового переходу завершено"
 
-#: assets/config/defaults.php:2531 assets/config/defaults.php:2816
-#: assets/config/defaults.php:3016
+#: assets/config/defaults.php:2541 assets/config/defaults.php:2826
+#: assets/config/defaults.php:3026
 msgid "Loop starts"
 msgstr "Цикл починається"
 
-#: assets/config/defaults.php:2532 assets/config/defaults.php:2817
-#: assets/config/defaults.php:3017
+#: assets/config/defaults.php:2542 assets/config/defaults.php:2827
+#: assets/config/defaults.php:3027
 msgid "Loop completes"
 msgstr "Завершення циклу"
 
-#: assets/config/defaults.php:2533 assets/config/defaults.php:2818
-#: assets/config/defaults.php:3018
+#: assets/config/defaults.php:2543 assets/config/defaults.php:2828
+#: assets/config/defaults.php:3028
 msgid "Opening and Loop Transitions complete"
 msgstr "Відкриття та цикл переходів завершено"
 
-#: assets/config/defaults.php:2534 assets/config/defaults.php:3019
+#: assets/config/defaults.php:2544 assets/config/defaults.php:3029
 msgid "Opening Text and Loop Transitions complete"
 msgstr "Відкриття текстових і контурних переходів завершено"
 
-#: assets/config/defaults.php:2535 assets/config/defaults.php:3020
+#: assets/config/defaults.php:2545 assets/config/defaults.php:3030
 msgid "Opening, Opening Text and Loop Transitions complete"
 msgstr "Відкриття, відкриття та переходи між текстом і петлею"
 
-#: assets/config/defaults.php:2536
+#: assets/config/defaults.php:2546
 msgid "Ending Text Transition starts"
 msgstr "Початок закінчення текстового переходу"
 
-#: assets/config/defaults.php:2537
+#: assets/config/defaults.php:2547
 msgid "Ending Text Transition completes"
 msgstr "Завершення перенесення тексту"
 
-#: assets/config/defaults.php:2538
+#: assets/config/defaults.php:2548
 msgid "Ending Text and Loop Transitions complete"
 msgstr "Закінчувати переходи між текстом і петлею"
 
-#: assets/config/defaults.php:2726 assets/config/defaults.php:2923
+#: assets/config/defaults.php:2736 assets/config/defaults.php:2933
 #: assets/views/project-editor.php:4592 assets/views/project-editor.php:5501
 msgid "Animate"
 msgstr "Анімація"
 
-#: assets/config/defaults.php:2729 assets/config/defaults.php:2926
+#: assets/config/defaults.php:2739 assets/config/defaults.php:2936
 msgid "by lines ascending"
 msgstr "за рядками за зростанням"
 
-#: assets/config/defaults.php:2730 assets/config/defaults.php:2927
+#: assets/config/defaults.php:2740 assets/config/defaults.php:2937
 msgid "by lines descending"
 msgstr "за рядками за спаданням"
 
-#: assets/config/defaults.php:2731 assets/config/defaults.php:2928
+#: assets/config/defaults.php:2741 assets/config/defaults.php:2938
 msgid "by lines random"
 msgstr "за рядками випадкових"
 
-#: assets/config/defaults.php:2732 assets/config/defaults.php:2929
+#: assets/config/defaults.php:2742 assets/config/defaults.php:2939
 msgid "by lines center to edge"
 msgstr "по лінії центру до краю"
 
-#: assets/config/defaults.php:2733 assets/config/defaults.php:2930
+#: assets/config/defaults.php:2743 assets/config/defaults.php:2940
 msgid "by lines edge to center"
 msgstr "за лініями EDGE до центру"
 
-#: assets/config/defaults.php:2734 assets/config/defaults.php:2931
+#: assets/config/defaults.php:2744 assets/config/defaults.php:2941
 msgid "by words ascending"
 msgstr "за словами зростання"
 
-#: assets/config/defaults.php:2735 assets/config/defaults.php:2932
+#: assets/config/defaults.php:2745 assets/config/defaults.php:2942
 msgid "by words descending"
 msgstr "за словами спуску"
 
-#: assets/config/defaults.php:2736 assets/config/defaults.php:2933
+#: assets/config/defaults.php:2746 assets/config/defaults.php:2943
 msgid "by words random"
 msgstr "за словами випадкових"
 
-#: assets/config/defaults.php:2737 assets/config/defaults.php:2934
+#: assets/config/defaults.php:2747 assets/config/defaults.php:2944
 msgid "by words center to edge"
 msgstr "за словами центру до краю"
 
-#: assets/config/defaults.php:2738 assets/config/defaults.php:2935
+#: assets/config/defaults.php:2748 assets/config/defaults.php:2945
 msgid "by words edge to center"
 msgstr "за словами краю до центру"
 
-#: assets/config/defaults.php:2739 assets/config/defaults.php:2936
+#: assets/config/defaults.php:2749 assets/config/defaults.php:2946
 msgid "by chars ascending"
 msgstr "за символами за зростанням"
 
-#: assets/config/defaults.php:2740 assets/config/defaults.php:2937
+#: assets/config/defaults.php:2750 assets/config/defaults.php:2947
 msgid "by chars descending"
 msgstr "за символами за спаданням"
 
-#: assets/config/defaults.php:2741 assets/config/defaults.php:2938
+#: assets/config/defaults.php:2751 assets/config/defaults.php:2948
 msgid "by chars random"
 msgstr "за символами випадкового"
 
-#: assets/config/defaults.php:2742 assets/config/defaults.php:2939
+#: assets/config/defaults.php:2752 assets/config/defaults.php:2949
 msgid "by chars center to edge"
 msgstr "за символами центру до краю"
 
-#: assets/config/defaults.php:2743 assets/config/defaults.php:2940
+#: assets/config/defaults.php:2753 assets/config/defaults.php:2950
 msgid "by chars edge to center"
 msgstr "за краєм символів до центру"
 
-#: assets/config/defaults.php:2752 assets/views/project-editor.php:4831
+#: assets/config/defaults.php:2762 assets/views/project-editor.php:4831
 msgid "Shift In"
 msgstr "Зрушення в"
 
-#: assets/config/defaults.php:2792 assets/config/defaults.php:2990
-#: assets/config/defaults.php:4525 assets/views/project-editor.php:3773
+#: assets/config/defaults.php:2802 assets/config/defaults.php:3000
+#: assets/config/defaults.php:4535 assets/views/project-editor.php:3773
 #: assets/views/project-editor.php:4908 assets/views/project-editor.php:5816
 #, fuzzy
 #| msgid "Overflow layers"
 msgid "Overflow"
 msgstr "Переповнення шарів"
 
-#: assets/config/defaults.php:2796 assets/config/defaults.php:2994
-#: assets/config/defaults.php:4528
+#: assets/config/defaults.php:2806 assets/config/defaults.php:3004
+#: assets/config/defaults.php:4538
 msgid "Visible"
 msgstr ""
 
-#: assets/config/defaults.php:2804 assets/config/defaults.php:3001
+#: assets/config/defaults.php:2814 assets/config/defaults.php:3011
 msgid "StartAt"
 msgstr "StartAt"
 
-#: assets/config/defaults.php:2814 assets/config/defaults.php:3163
+#: assets/config/defaults.php:2824 assets/config/defaults.php:3173
 msgid "Opening Transition starts"
 msgstr "Відкриття переходу починається"
 
-#: assets/config/defaults.php:2949 assets/views/project-editor.php:5739
+#: assets/config/defaults.php:2959 assets/views/project-editor.php:5739
 msgid "Shift Out"
 msgstr "Змістити"
 
-#: assets/config/defaults.php:3192 assets/config/defaults.php:3371
-#: assets/config/defaults.php:3903 assets/config/defaults.php:4260
-#: assets/templates/tmpl-smart-help.php:1246
+#: assets/config/defaults.php:3202 assets/config/defaults.php:3381
+#: assets/config/defaults.php:3913 assets/config/defaults.php:4270
+#: assets/templates/tmpl-smart-help.php:1252
 #: assets/views/project-editor.php:3675 assets/views/project-editor.php:5341
 #: assets/views/project-editor.php:6688 assets/views/project-editor.php:7653
 #: assets/views/project-editor.php:7666
 msgid "Opacity"
 msgstr "Прозорість"
 
-#: assets/config/defaults.php:3266
+#: assets/config/defaults.php:3276
 msgid "Infinite"
 msgstr "Нескінченна"
 
-#: assets/config/defaults.php:3267 assets/config/defaults.php:4359
+#: assets/config/defaults.php:3277 assets/config/defaults.php:4369
 #, fuzzy
 #| msgid "No-repeat"
 msgid "No repeat"
 msgstr "Не повторювати"
 
-#: assets/config/defaults.php:3268
+#: assets/config/defaults.php:3278
 msgid "1x"
 msgstr ""
 
-#: assets/config/defaults.php:3269
+#: assets/config/defaults.php:3279
 msgid "2x"
 msgstr ""
 
-#: assets/config/defaults.php:3270
+#: assets/config/defaults.php:3280
 msgid "3x"
 msgstr ""
 
-#: assets/config/defaults.php:3271
+#: assets/config/defaults.php:3281
 msgid "4x"
 msgstr ""
 
-#: assets/config/defaults.php:3272
+#: assets/config/defaults.php:3282
 msgid "5x"
 msgstr ""
 
-#: assets/config/defaults.php:3273
+#: assets/config/defaults.php:3283
 msgid "6x"
 msgstr ""
 
-#: assets/config/defaults.php:3274
+#: assets/config/defaults.php:3284
 msgid "7x"
 msgstr ""
 
-#: assets/config/defaults.php:3275
+#: assets/config/defaults.php:3285
 msgid "8x"
 msgstr ""
 
-#: assets/config/defaults.php:3276
+#: assets/config/defaults.php:3286
 msgid "9x"
 msgstr ""
 
-#: assets/config/defaults.php:3277
+#: assets/config/defaults.php:3287
 msgid "10x"
 msgstr ""
 
-#: assets/config/defaults.php:3278
+#: assets/config/defaults.php:3288
 msgid "11x"
 msgstr ""
 
-#: assets/config/defaults.php:3279
+#: assets/config/defaults.php:3289
 msgid "12x"
 msgstr ""
 
-#: assets/config/defaults.php:3280
+#: assets/config/defaults.php:3290
 msgid "13x"
 msgstr ""
 
-#: assets/config/defaults.php:3281
+#: assets/config/defaults.php:3291
 msgid "14x"
 msgstr ""
 
-#: assets/config/defaults.php:3282
+#: assets/config/defaults.php:3292
 msgid "15x"
 msgstr ""
 
-#: assets/config/defaults.php:3283
+#: assets/config/defaults.php:3293
 msgid "16x"
 msgstr ""
 
-#: assets/config/defaults.php:3284
+#: assets/config/defaults.php:3294
 msgid "17x"
 msgstr ""
 
-#: assets/config/defaults.php:3285
+#: assets/config/defaults.php:3295
 msgid "18x"
 msgstr ""
 
-#: assets/config/defaults.php:3286
+#: assets/config/defaults.php:3296
 msgid "19x"
 msgstr ""
 
-#: assets/config/defaults.php:3287
+#: assets/config/defaults.php:3297
 msgid "20x"
 msgstr ""
 
-#: assets/config/defaults.php:3293 assets/views/project-editor.php:5294
+#: assets/config/defaults.php:3303 assets/views/project-editor.php:5294
 msgid "Wait"
 msgstr "Зачекайте"
 
-#: assets/config/defaults.php:3300 assets/views/project-editor.php:5309
+#: assets/config/defaults.php:3310 assets/views/project-editor.php:5309
 #: assets/views/project-editor.php:7150 assets/views/project-editor.php:7215
 #: assets/views/project-editor.php:7282 assets/views/project-editor.php:7337
 #: assets/views/project-editor.php:7394 assets/views/project-editor.php:7451
@@ -3468,120 +3476,120 @@ msgstr "Зачекайте"
 msgid "Yoyo"
 msgstr "Йо"
 
-#: assets/config/defaults.php:3351
+#: assets/config/defaults.php:3361
 #, fuzzy
 #| msgid "Reverse<br>duration"
 msgid "Reverse Duration"
 msgstr "Зворотний<br>Тривалість"
 
-#: assets/config/defaults.php:3353 assets/config/defaults.php:3366
+#: assets/config/defaults.php:3363 assets/config/defaults.php:3376
 msgid "same"
 msgstr ""
 
-#: assets/config/defaults.php:3364
+#: assets/config/defaults.php:3374
 #, fuzzy
 #| msgid "Reverse<br>easing"
 msgid "Reverse Easing"
 msgstr "Зворотний<br>Ослаблення"
 
-#: assets/config/defaults.php:3431
+#: assets/config/defaults.php:3441
 #, fuzzy
 #| msgid "Inherit"
 msgid "inherit"
 msgstr "Успадкувати"
 
-#: assets/config/defaults.php:3462
+#: assets/config/defaults.php:3472
 #, fuzzy
 #| msgid "Always on top"
 msgid "Always On Top"
 msgstr "Завжди на вершині"
 
-#: assets/config/defaults.php:3478 assets/views/project-editor.php:6838
+#: assets/config/defaults.php:3488 assets/views/project-editor.php:6838
 #: assets/views/project-editor.php:6850
 msgid "Parallax Level"
 msgstr "Паралакса рівень"
 
-#: assets/config/defaults.php:3514
+#: assets/config/defaults.php:3524
 msgid "Both"
 msgstr "Обидва"
 
-#: assets/config/defaults.php:3605 assets/views/project-editor.php:7779
+#: assets/config/defaults.php:3615 assets/views/project-editor.php:7779
 #: assets/views/project-editor.php:7783
 #, fuzzy
 #| msgid "center right"
 msgid "Center Point"
 msgstr "центрувати праворуч"
 
-#: assets/config/defaults.php:3617
+#: assets/config/defaults.php:3627
 #, fuzzy
 #| msgid "Close at scroll position"
 msgid "Calculate Scroll Position Of"
 msgstr "Закрити при прокручуванні позиції"
 
-#: assets/config/defaults.php:3620 assets/views/project-editor.php:343
+#: assets/config/defaults.php:3630 assets/views/project-editor.php:343
 #: assets/views/project-editor.php:382
 msgid "Project"
 msgstr ""
 
-#: assets/config/defaults.php:3621
+#: assets/config/defaults.php:3631
 #, fuzzy
 #| msgid "Hero scene"
 msgid "Scene"
 msgstr "Герой сцени"
 
-#: assets/config/defaults.php:3622
+#: assets/config/defaults.php:3632
 #, fuzzy
 #| msgid "Documentation"
 msgid "Document"
 msgstr "Документація"
 
-#: assets/config/defaults.php:3943
+#: assets/config/defaults.php:3953
 #, fuzzy
 #| msgid "Keep this layer visible:"
 msgid "Keep This Layer Visible"
 msgstr "Тримайте цей шар видимим:"
 
-#: assets/config/defaults.php:3946
+#: assets/config/defaults.php:3956
 msgid "Until the end of this slide (default)"
 msgstr "До кінця слайда (за промовчанням)"
 
-#: assets/config/defaults.php:3947
+#: assets/config/defaults.php:3957
 msgid "Forever (the layer will never animate out)"
 msgstr "Назавжди (шар ніколи не буде оживити)"
 
-#: assets/config/defaults.php:3953 assets/views/project-editor.php:4434
+#: assets/config/defaults.php:3963 assets/views/project-editor.php:4434
 #: assets/views/project-editor.php:4438
 #, fuzzy
 #| msgid "Start only in viewport"
 msgid "Skip “Start in Viewport”"
 msgstr "Почати лише в вікні перегляду"
 
-#: assets/config/defaults.php:3957
+#: assets/config/defaults.php:3967
 #, fuzzy
 #| msgid "Select transitions"
 msgid "Enabled for Opening transition"
 msgstr "Виберіть переходи"
 
-#: assets/config/defaults.php:3958
+#: assets/config/defaults.php:3968
 #, fuzzy
 #| msgid "Opening and Loop Transitions complete"
 msgid "Enabled for Opening and Loop transitions"
 msgstr "Відкриття та цикл переходів завершено"
 
-#: assets/config/defaults.php:3964 assets/views/project-editor.php:4450
+#: assets/config/defaults.php:3974 assets/views/project-editor.php:4450
 msgid "Play By Scroll Keyframe"
 msgstr "Грати за ключовий кадр прокручування"
 
-#: assets/config/defaults.php:4002
+#: assets/config/defaults.php:4012
 msgid "URL target"
 msgstr "Цільова URL-адреса"
 
-#: assets/config/defaults.php:4017 assets/config/defaults.php:4027
-#: assets/views/project-editor.php:8437
+#: assets/config/defaults.php:4027 assets/config/defaults.php:4037
+#: assets/views/project-editor.php:8490
 msgid "Custom Attributes"
 msgstr "Настроювані атрибути"
 
-#: assets/config/defaults.php:4019 assets/config/defaults.php:4029
+#: assets/config/defaults.php:4029 assets/config/defaults.php:4039
 msgid ""
 "Your list of custom attributes. Use this feature if your needs are not "
 "covered by the common attributes above or you want to override them. You can "
@@ -3597,340 +3605,340 @@ msgstr ""
 "галерея, ви можете ввести \"Data-FancyBox-групи\" і \"gallery1\" для імені "
 "атрибуту і значення, відповідно."
 
-#: assets/config/defaults.php:4075
+#: assets/config/defaults.php:4085
 #, fuzzy
 #| msgid "Padding"
 msgid "Padding Top"
 msgstr "Відступ"
 
-#: assets/config/defaults.php:4084
+#: assets/config/defaults.php:4094
 #, fuzzy
 #| msgid "Padding"
 msgid "Padding Right"
 msgstr "Відступ"
 
-#: assets/config/defaults.php:4093
+#: assets/config/defaults.php:4103
 #, fuzzy
 #| msgid "Padding"
 msgid "Padding Bottom"
 msgstr "Відступ"
 
-#: assets/config/defaults.php:4102
+#: assets/config/defaults.php:4112
 #, fuzzy
 #| msgid "Padding"
 msgid "Padding Left"
 msgstr "Відступ"
 
-#: assets/config/defaults.php:4111
+#: assets/config/defaults.php:4121
 #, fuzzy
 #| msgid "Border"
 msgid "Border Width"
 msgstr "Рамка"
 
-#: assets/config/defaults.php:4120
+#: assets/config/defaults.php:4130
 #, fuzzy
 #| msgid "Border"
 msgid "Border Style"
 msgstr "Рамка"
 
-#: assets/config/defaults.php:4128
+#: assets/config/defaults.php:4138
 msgid "Dotted"
 msgstr ""
 
-#: assets/config/defaults.php:4129
+#: assets/config/defaults.php:4139
 msgid "Dashed"
 msgstr ""
 
-#: assets/config/defaults.php:4130
+#: assets/config/defaults.php:4140
 msgid "Solid"
 msgstr ""
 
-#: assets/config/defaults.php:4131
+#: assets/config/defaults.php:4141
 msgid "Double"
 msgstr ""
 
-#: assets/config/defaults.php:4132
+#: assets/config/defaults.php:4142
 msgid "Groove"
 msgstr ""
 
-#: assets/config/defaults.php:4133
+#: assets/config/defaults.php:4143
 msgid "Ridge"
 msgstr ""
 
-#: assets/config/defaults.php:4134
+#: assets/config/defaults.php:4144
 #, fuzzy
 #| msgid "Insert Icon"
 msgid "Inset"
 msgstr "Піктограма вставлення"
 
-#: assets/config/defaults.php:4135
+#: assets/config/defaults.php:4145
 msgid "Outset"
 msgstr ""
 
-#: assets/config/defaults.php:4142
+#: assets/config/defaults.php:4152
 #, fuzzy
 #| msgid "Border"
 msgid "Border Color"
 msgstr "Рамка"
 
-#: assets/config/defaults.php:4151 assets/views/project-editor.php:3558
+#: assets/config/defaults.php:4161 assets/views/project-editor.php:3558
 msgid "Box Shadow"
 msgstr ""
 
-#: assets/config/defaults.php:4160 assets/views/project-editor.php:3079
+#: assets/config/defaults.php:4170 assets/views/project-editor.php:3079
 msgid "Text Shadow"
 msgstr ""
 
-#: assets/config/defaults.php:4169 assets/views/project-editor.php:2832
+#: assets/config/defaults.php:4179 assets/views/project-editor.php:2832
 #, fuzzy
 #| msgid "Family"
 msgid "Font Family"
 msgstr "Сім'ї"
 
-#: assets/config/defaults.php:4175 assets/views/project-editor.php:2847
+#: assets/config/defaults.php:4185 assets/views/project-editor.php:2847
 #, fuzzy
 #| msgid "Font size"
 msgid "Font Size"
 msgstr "Розмір шрифту"
 
-#: assets/config/defaults.php:4185
+#: assets/config/defaults.php:4195
 msgid "Line height"
 msgstr "Висота рядка"
 
-#: assets/config/defaults.php:4195
+#: assets/config/defaults.php:4205
 #, fuzzy
 #| msgid "Font weight"
 msgid "Font Weight"
 msgstr "Вага шрифту"
 
-#: assets/config/defaults.php:4209
+#: assets/config/defaults.php:4219
 #, fuzzy
 #| msgid "Font style"
 msgid "Font Style"
 msgstr "Стиль шрифту"
 
-#: assets/config/defaults.php:4218
+#: assets/config/defaults.php:4228
 #, fuzzy
 #| msgid "Text decoration"
 msgid "Text Decoration"
 msgstr "Оформлення тексту"
 
-#: assets/config/defaults.php:4227
+#: assets/config/defaults.php:4237
 #, fuzzy
 #| msgid "Text Transition"
 msgid "Text Transform"
 msgstr "Текст перехідного періоду"
 
-#: assets/config/defaults.php:4236 assets/views/project-editor.php:3006
+#: assets/config/defaults.php:4246 assets/views/project-editor.php:3006
 #, fuzzy
 #| msgid "Letter spacing"
 msgid "Letter Spacing"
 msgstr "Міжбуквений інтервал"
 
-#: assets/config/defaults.php:4251
+#: assets/config/defaults.php:4261
 #, fuzzy
 #| msgid "Text align"
 msgid "Text Align"
 msgstr "Вирівнювання тексту"
 
-#: assets/config/defaults.php:4274 assets/views/project-editor.php:3037
+#: assets/config/defaults.php:4284 assets/views/project-editor.php:3037
 #, fuzzy
 #| msgid "Min. font size"
 msgid "Min. Font Size"
 msgstr "Min. розмір шрифту"
 
-#: assets/config/defaults.php:4284 assets/views/project-editor.php:3056
+#: assets/config/defaults.php:4294 assets/views/project-editor.php:3056
 #, fuzzy
 #| msgid "Min. mobile font size"
 msgid "Min. Mobile Font Size"
 msgstr "Min. розмір мобільного шрифту"
 
-#: assets/config/defaults.php:4361
+#: assets/config/defaults.php:4371
 #, fuzzy
 #| msgid "Spin horizontally"
 msgid "Repeat horizontally"
 msgstr "Обертання по горизонталі"
 
-#: assets/config/defaults.php:4362
+#: assets/config/defaults.php:4372
 #, fuzzy
 #| msgid "Spin vertically"
 msgid "Repeat vertically"
 msgstr "Спін вертикально"
 
-#: assets/config/defaults.php:4363
+#: assets/config/defaults.php:4373
 msgid "Space"
 msgstr ""
 
-#: assets/config/defaults.php:4364
+#: assets/config/defaults.php:4374
 msgid "Round"
 msgstr ""
 
-#: assets/config/defaults.php:4370 assets/views/project-editor.php:3424
+#: assets/config/defaults.php:4380 assets/views/project-editor.php:3424
 #, fuzzy
 #| msgid "Background color"
 msgid "Background Clip"
 msgstr "Колір фону"
 
-#: assets/config/defaults.php:4374
+#: assets/config/defaults.php:4384
 msgid "No clip"
 msgstr ""
 
-#: assets/config/defaults.php:4375 assets/config/defaults.php:4542
+#: assets/config/defaults.php:4385 assets/config/defaults.php:4552
 #: assets/templates/tmpl-add-layer.php:14 assets/views/project-editor.php:2017
-#: assets/views/project-editor.php:8665 assets/wp/scripts_l10n.php:317
+#: assets/views/project-editor.php:8718 assets/wp/scripts_l10n.php:317
 msgid "Text"
 msgstr "Текст"
 
-#: assets/config/defaults.php:4377
+#: assets/config/defaults.php:4387
 #, fuzzy
 #| msgid "Padding"
 msgid "Padding area"
 msgstr "Відступ"
 
-#: assets/config/defaults.php:4378
+#: assets/config/defaults.php:4388
 #, fuzzy
 #| msgid "Content"
 msgid "Content area"
 msgstr "Контент"
 
-#: assets/config/defaults.php:4402
+#: assets/config/defaults.php:4412
 #, fuzzy
 #| msgid "Custom styles"
 msgid "Custom Styles"
 msgstr "Користувацький стиль"
 
-#: assets/config/defaults.php:4473
+#: assets/config/defaults.php:4483
 #, fuzzy
 #| msgid "Calculate positions from"
 msgid "Align Positions From"
 msgstr "Обчислити позиції з"
 
-#: assets/config/defaults.php:4476
+#: assets/config/defaults.php:4486
 #, fuzzy
 #| msgid "sides of the screen"
 msgid "Sides of the project"
 msgstr "сторін екрана"
 
-#: assets/config/defaults.php:4477
+#: assets/config/defaults.php:4487
 #, fuzzy
 #| msgid "sides of the screen"
 msgid "Sides of the screen"
 msgstr "сторін екрана"
 
-#: assets/config/defaults.php:4478
+#: assets/config/defaults.php:4488
 #, fuzzy
 #| msgid "sides of the screen"
 msgid "Sides of the screen horizontally"
 msgstr "сторін екрана"
 
-#: assets/config/defaults.php:4479
+#: assets/config/defaults.php:4489
 #, fuzzy
 #| msgid "sides of the screen"
 msgid "Sides of the screen vertically"
 msgstr "сторін екрана"
 
-#: assets/config/defaults.php:4485 assets/views/project-editor.php:2708
+#: assets/config/defaults.php:4495 assets/views/project-editor.php:2708
 #, fuzzy
 #| msgid "On layer"
 msgid "Pin layer"
 msgstr "Додати шар"
 
-#: assets/config/defaults.php:4491 assets/views/project-editor.php:3820
+#: assets/config/defaults.php:4501 assets/views/project-editor.php:3820
 #, fuzzy
 #| msgid "Maximum responsive ratio"
 msgid "Minimum responsive ratio"
 msgstr "Максимально чуйний коефіцієнт"
 
-#: assets/config/defaults.php:4502 assets/views/project-editor.php:3834
+#: assets/config/defaults.php:4512 assets/views/project-editor.php:3834
 #, fuzzy
 #| msgid "Maximum responsive ratio"
 msgid "Maximum responsive ratio"
 msgstr "Максимально чуйний коефіцієнт"
 
-#: assets/config/defaults.php:4514 assets/views/project-editor.php:3762
+#: assets/config/defaults.php:4524 assets/views/project-editor.php:3762
 #, fuzzy
 #| msgid "Stacking order"
 msgid "Stacking Order"
 msgstr "Порядок стекування"
 
-#: assets/config/defaults.php:4535 assets/views/project-editor.php:3787
+#: assets/config/defaults.php:4545 assets/views/project-editor.php:3787
 msgid "Mouse Cursor"
 msgstr ""
 
-#: assets/config/defaults.php:4539 assets/config/defaults.php:4562
-#: assets/templates/tmpl-smart-help.php:1347
+#: assets/config/defaults.php:4549 assets/config/defaults.php:4572
+#: assets/templates/tmpl-smart-help.php:1353
 #, fuzzy
 #| msgid "Default quality"
 msgid "Default"
 msgstr "Якість за умовчанням"
 
-#: assets/config/defaults.php:4540
+#: assets/config/defaults.php:4550
 #, fuzzy
 #| msgid "Center"
 msgid "Pointer"
 msgstr "Центр"
 
-#: assets/config/defaults.php:4541 assets/views/about.php:247
+#: assets/config/defaults.php:4551 assets/views/about.php:247
 #: assets/views/dashboard.php:265
 msgid "Help"
 msgstr ""
 
-#: assets/config/defaults.php:4543
+#: assets/config/defaults.php:4553
 #, fuzzy
 #| msgid "Vertical Center"
 msgid "Vertical text"
 msgstr "Вертикальний центр"
 
-#: assets/config/defaults.php:4544
+#: assets/config/defaults.php:4554
 #, fuzzy
 #| msgid "Zoom In"
 msgid "Zoom in"
 msgstr "Приближувати"
 
-#: assets/config/defaults.php:4545
+#: assets/config/defaults.php:4555
 #, fuzzy
 #| msgid "Zoom Out"
 msgid "Zoom out"
 msgstr "Зменшення"
 
-#: assets/config/defaults.php:4552
+#: assets/config/defaults.php:4562
 #, fuzzy
 #| msgid "Popup Events"
 msgid "Prevent Mouse Events"
 msgstr "Спливаючі події"
 
-#: assets/config/defaults.php:4559 assets/views/project-editor.php:3695
+#: assets/config/defaults.php:4569 assets/views/project-editor.php:3695
 msgid "Blend Mode"
 msgstr "Режим накладання"
 
-#: assets/config/defaults.php:4590 assets/views/project-editor.php:3723
+#: assets/config/defaults.php:4600 assets/views/project-editor.php:3723
 #: assets/views/project-editor.php:3727
 #, fuzzy
 #| msgid "Background size"
 msgid "Backdrop Filter"
 msgstr "Розмір фону"
 
-#: assets/config/defaults.php:4600
+#: assets/config/defaults.php:4610
 msgid "ID"
 msgstr "ID"
 
-#: assets/config/defaults.php:4609
+#: assets/config/defaults.php:4619
 msgid "Classes"
 msgstr "Класи"
 
-#: assets/config/defaults.php:4618
+#: assets/config/defaults.php:4628
 msgid "Tabindex"
 msgstr ""
 
-#: assets/config/defaults.php:4627
+#: assets/config/defaults.php:4637
 msgid "Title"
 msgstr "Назва"
 
-#: assets/config/defaults.php:4636
+#: assets/config/defaults.php:4646
 msgid "Alt"
 msgstr "Alt"
 
-#: assets/config/defaults.php:4645
+#: assets/config/defaults.php:4655
 msgid "Rel"
 msgstr "Rel"
 
@@ -4313,7 +4321,7 @@ msgstr ""
 #: assets/templates/tmpl-3d-transition.php:114
 #: assets/templates/tmpl-3d-transition.php:193
 #: assets/templates/tmpl-3d-transition.php:256
-#: assets/views/project-editor.php:8364 assets/views/transition-builder.php:174
+#: assets/views/project-editor.php:8417 assets/views/transition-builder.php:174
 #: assets/views/transition-builder.php:275
 #: assets/views/transition-builder.php:359
 #: assets/views/transition-builder.php:439
@@ -4666,7 +4674,7 @@ msgstr "Шаблони слайдера Premium"
 msgid "Access more templates to get started with projects."
 msgstr "Для початку роботи з проектами отримуйте доступ до інших шаблонів."
 
-#: assets/templates/tmpl-activation.php:38 assets/views/project-editor.php:8332
+#: assets/templates/tmpl-activation.php:38 assets/views/project-editor.php:8385
 msgid "Popups"
 msgstr "Popup-и"
 
@@ -4736,26 +4744,26 @@ msgid "Add New Layer"
 msgstr "Додати шар"
 
 #: assets/templates/tmpl-add-layer.php:10 assets/views/project-editor.php:2016
-#: assets/views/project-editor.php:2074 assets/views/project-editor.php:8661
+#: assets/views/project-editor.php:2074 assets/views/project-editor.php:8714
 #: assets/wp/scripts_l10n.php:315
 msgid "Image"
 msgstr "Зображення"
 
 #: assets/templates/tmpl-add-layer.php:18
 #: assets/templates/tmpl-project-settings.php:60
-#: assets/views/project-editor.php:2018 assets/views/project-editor.php:8669
+#: assets/views/project-editor.php:2018 assets/views/project-editor.php:8722
 #: assets/wp/scripts_l10n.php:319
 msgid "Video / Audio"
 msgstr "Відео/аудіо"
 
 #: assets/templates/tmpl-add-layer.php:22 assets/views/project-editor.php:2019
-#: assets/views/project-editor.php:8673 assets/wp/scripts_l10n.php:268
+#: assets/views/project-editor.php:8726 assets/wp/scripts_l10n.php:268
 #: assets/wp/scripts_l10n.php:318
 msgid "Button"
 msgstr "Кнопка"
 
 #: assets/templates/tmpl-add-layer.php:26 assets/views/project-editor.php:2020
-#: assets/views/project-editor.php:8677 assets/wp/scripts_l10n.php:322
+#: assets/views/project-editor.php:8730 assets/wp/scripts_l10n.php:322
 msgid "Shape"
 msgstr ""
 
@@ -4763,7 +4771,7 @@ msgstr ""
 #: assets/templates/tmpl-project-settings.php:29
 #: assets/templates/tmpl-project-settings.php:72
 #: assets/templates/tmpl-project-settings.php:788
-#: assets/templates/tmpl-project-settings.php:1269
+#: assets/templates/tmpl-project-settings.php:1286
 #: assets/templates/tmpl-shape-modal.php:33
 #: assets/templates/tmpl-shape-modal.php:41 assets/views/dashboard.php:478
 #: assets/views/project-editor.php:3890 assets/views/project-editor.php:3935
@@ -4775,7 +4783,7 @@ msgstr "НОВИЙ"
 
 #: assets/templates/tmpl-add-layer.php:35 assets/views/project-editor.php:2021
 #: assets/views/project-editor.php:2176 assets/views/project-editor.php:2260
-#: assets/views/project-editor.php:8681 assets/wp/scripts_l10n.php:316
+#: assets/views/project-editor.php:8734 assets/wp/scripts_l10n.php:316
 msgid "Icon"
 msgstr "Іконка"
 
@@ -4784,18 +4792,18 @@ msgid "Object / SVG"
 msgstr ""
 
 #: assets/templates/tmpl-add-layer.php:43 assets/views/project-editor.php:2023
-#: assets/views/project-editor.php:8689 assets/wp/scripts_l10n.php:320
+#: assets/views/project-editor.php:8742 assets/wp/scripts_l10n.php:320
 msgid "HTML"
 msgstr "HTML"
 
 #: assets/templates/tmpl-add-layer.php:47 assets/views/project-editor.php:2024
-#: assets/views/project-editor.php:8693
+#: assets/views/project-editor.php:8746
 msgid "Dynamic Layer"
 msgstr "Динамічний шар"
 
 #: assets/templates/tmpl-add-layer.php:51
 #: assets/templates/tmpl-import-layer.php:6
-#: assets/views/project-editor.php:8697
+#: assets/views/project-editor.php:8750
 msgid "Import Layer"
 msgstr "Шар імпорту"
 
@@ -4868,7 +4876,7 @@ msgstr "Анімація"
 
 #: assets/templates/tmpl-button-presets.php:290
 #: assets/templates/tmpl-project-settings.php:50
-#: assets/views/project-editor.php:8303 assets/wp/scripts_l10n.php:247
+#: assets/views/project-editor.php:8356 assets/wp/scripts_l10n.php:247
 #, fuzzy
 #| msgid "Navigation Area"
 msgid "Navigation"
@@ -5293,7 +5301,7 @@ msgstr ""
 "він також може бути використаний для вбудовування повзунків."
 
 #: assets/templates/tmpl-embed-slider.php:130
-#: assets/views/project-editor.php:8339
+#: assets/views/project-editor.php:8392
 msgid "Advanced"
 msgstr "Розширені"
 
@@ -5444,83 +5452,85 @@ msgstr "Імпортувати слайд"
 msgid "Click to import slides"
 msgstr "Клацніть, щоб імпортувати слайди"
 
-#: assets/templates/tmpl-import-templates.php:99
+#: assets/templates/tmpl-import-templates.php:106
 msgid "Back to Dashboard [ESC]"
 msgstr ""
 
-#: assets/templates/tmpl-import-templates.php:106
+#: assets/templates/tmpl-import-templates.php:113
 #, fuzzy
 #| msgid "cover"
 msgid "Discover"
 msgstr "обкладинка"
 
-#: assets/templates/tmpl-import-templates.php:112
+#: assets/templates/tmpl-import-templates.php:119
 #, fuzzy
 #| msgid "Actions"
 msgid "Collections"
 msgstr "Дії"
 
-#: assets/templates/tmpl-import-templates.php:126
+#: assets/templates/tmpl-import-templates.php:133
 #, fuzzy
 #| msgid "Last updated: "
 msgid "Last updated:"
 msgstr "Останнє оновлення: "
 
-#: assets/templates/tmpl-import-templates.php:130
+#: assets/templates/tmpl-import-templates.php:137
 msgid " ago"
 msgstr " тому"
 
-#: assets/templates/tmpl-import-templates.php:132
+#: assets/templates/tmpl-import-templates.php:139
 msgid "Just now"
 msgstr "Тільки зараз"
 
-#: assets/templates/tmpl-import-templates.php:136
+#: assets/templates/tmpl-import-templates.php:143
 #, fuzzy
 #| msgid "Check for updates"
 msgid "Check for Updates"
 msgstr "Перевіряти наявність оновлень"
 
-#: assets/templates/tmpl-import-templates.php:149
+#: assets/templates/tmpl-import-templates.php:156
 #, fuzzy
 #| msgid "Templates"
 msgid "Featured Template"
 msgstr "Шаблони"
 
-#: assets/templates/tmpl-import-templates.php:149
+#: assets/templates/tmpl-import-templates.php:156
 #, fuzzy
 #| msgid "Kreatura Media"
 msgid "Featured"
 msgstr "Креатура медіа"
 
-#: assets/templates/tmpl-import-templates.php:213
+#: assets/templates/tmpl-import-templates.php:220
 #, fuzzy
 #| msgid "Templates"
 msgid "Brand New Templates"
 msgstr "Шаблони"
 
-#: assets/templates/tmpl-import-templates.php:220
+#: assets/templates/tmpl-import-templates.php:227
 #, fuzzy, php-format
 #| msgid "What’s New"
 msgctxt "Templates category (eg. Latest Sliders)"
 msgid "Latest %s"
 msgstr "Що Нового"
 
-#: assets/templates/tmpl-import-templates.php:221
-msgid "See All"
-msgstr ""
+#: assets/templates/tmpl-import-templates.php:233
+#, fuzzy
+#| msgid "Show"
+msgid "Show All"
+msgstr "Показати"
 
-#: assets/templates/tmpl-import-templates.php:264
+#: assets/templates/tmpl-import-templates.php:273
 #, php-format
 msgid "Showing %s Collection"
 msgstr ""
 
-#: assets/templates/tmpl-import-templates.php:312
+#: assets/templates/tmpl-import-templates.php:321
 #, fuzzy
 #| msgid "Unavailable"
 msgid "Templates Unavailable"
 msgstr "Немає місця"
 
-#: assets/templates/tmpl-import-templates.php:313
+#: assets/templates/tmpl-import-templates.php:322
 #, fuzzy, php-format
 #| msgid ""
 #| "Importing is taking longer than usual. This might be completely normal, "
@@ -5910,7 +5920,7 @@ msgstr "Google Fonts"
 
 #: assets/templates/tmpl-plugin-settings.php:46
 #: assets/templates/tmpl-project-settings.php:70
-#: assets/templates/tmpl-project-settings.php:1265
+#: assets/templates/tmpl-project-settings.php:1282
 #, fuzzy
 #| msgid "Permanently"
 msgid "Performance"
@@ -6510,7 +6520,7 @@ msgstr "Параметри макета"
 
 #: assets/templates/tmpl-project-settings.php:22
 #: assets/templates/tmpl-project-settings.php:114
-#: assets/views/project-editor.php:8528 assets/wp/scripts_l10n.php:15
+#: assets/views/project-editor.php:8581 assets/wp/scripts_l10n.php:15
 msgid "Publish"
 msgstr "Опублікувати"
 
@@ -6522,24 +6532,24 @@ msgid "Layout"
 msgstr "Макет"
 
 #: assets/templates/tmpl-project-settings.php:35
-#: assets/templates/tmpl-project-settings.php:957
+#: assets/templates/tmpl-project-settings.php:974
 msgid "Mobile"
 msgstr "Мобільний телефон"
 
 #: assets/templates/tmpl-project-settings.php:40
-#: assets/templates/tmpl-project-settings.php:974
-#: assets/views/project-editor.php:8309
+#: assets/templates/tmpl-project-settings.php:991
+#: assets/views/project-editor.php:8362
 msgid "Slideshow"
 msgstr "Слайдершоу"
 
 #: assets/templates/tmpl-project-settings.php:45
-#: assets/templates/tmpl-project-settings.php:1056
-#: assets/templates/tmpl-project-settings.php:1197
+#: assets/templates/tmpl-project-settings.php:1073
+#: assets/templates/tmpl-project-settings.php:1214
 msgid "Appearance"
 msgstr "Зовнішній вигляд"
 
 #: assets/templates/tmpl-project-settings.php:65
-#: assets/templates/tmpl-project-settings.php:1251
+#: assets/templates/tmpl-project-settings.php:1268
 #: assets/views/project-editor.php:1200 assets/views/project-editor.php:1685
 #: assets/views/project-editor.php:1693
 #, fuzzy
@@ -6548,7 +6558,7 @@ msgid "Content Sources"
 msgstr "Контент"
 
 #: assets/templates/tmpl-project-settings.php:78
-#: assets/templates/tmpl-project-settings.php:1300
+#: assets/templates/tmpl-project-settings.php:1317
 #, fuzzy
 #| msgid "Default Options"
 msgid "Defaults"
@@ -6605,7 +6615,7 @@ msgid "Hero"
 msgstr ""
 
 #: assets/templates/tmpl-project-settings.php:299
-#: assets/views/project-editor.php:8218
+#: assets/views/project-editor.php:8270
 msgid "Popup"
 msgstr "Popup"
 
@@ -6650,7 +6660,7 @@ msgid ""
 msgstr ""
 
 #: assets/templates/tmpl-project-settings.php:340
-#: assets/templates/tmpl-project-settings.php:884
+#: assets/templates/tmpl-project-settings.php:901
 #, fuzzy
 #| msgid "Layer settings"
 msgid "Layout Settings"
@@ -6704,7 +6714,7 @@ msgid "Top Right Corner"
 msgstr "Правий верхній кут"
 
 #: assets/templates/tmpl-project-settings.php:459
-#: assets/templates/tmpl-smart-help.php:1039
+#: assets/templates/tmpl-smart-help.php:1045
 msgid "Middle"
 msgstr "Середина"
 
@@ -6785,7 +6795,7 @@ msgid "seconds"
 msgstr ""
 
 #: assets/templates/tmpl-project-settings.php:614
-#: assets/views/project-editor.php:8334
+#: assets/views/project-editor.php:8387
 msgid "Close Popup"
 msgstr "Закрийте Popup"
 
@@ -6888,15 +6898,22 @@ msgid ""
 "intense animations."
 msgstr ""
 
-#: assets/templates/tmpl-project-settings.php:899
-#: assets/templates/tmpl-project-settings.php:903
-#: assets/templates/tmpl-project-settings.php:906
+#: assets/templates/tmpl-project-settings.php:894
+msgid ""
+"Controls the smooth scrolling animation behavior. This value is in "
+"milliseconds. A second is 1000 milliseconds. Lower values result in faster "
+"reaction times."
+msgstr ""
+
+#: assets/templates/tmpl-project-settings.php:916
+#: assets/templates/tmpl-project-settings.php:920
+#: assets/templates/tmpl-project-settings.php:923
 #, fuzzy
 #| msgid "Vertical only"
 msgid "Vertical Spacing"
 msgstr "Лише вертикально"
 
-#: assets/templates/tmpl-project-settings.php:911
+#: assets/templates/tmpl-project-settings.php:928
 #, php-format
 msgid ""
 "Creates the given amount of space above and below your slider. <br>Supported "
@@ -6904,161 +6921,161 @@ msgid ""
 "height)."
 msgstr ""
 
-#: assets/templates/tmpl-project-settings.php:975
+#: assets/templates/tmpl-project-settings.php:992
 msgid "Slideshow behavior"
 msgstr "Поведінка слайдшоу"
 
-#: assets/templates/tmpl-project-settings.php:1001
+#: assets/templates/tmpl-project-settings.php:1018
 msgid "Slideshow navigation"
 msgstr "Слайд-шоу навігація"
 
-#: assets/templates/tmpl-project-settings.php:1041
+#: assets/templates/tmpl-project-settings.php:1058
 msgid "Other settings"
 msgstr "Інші налаштування"
 
-#: assets/templates/tmpl-project-settings.php:1057
+#: assets/templates/tmpl-project-settings.php:1074
 #, fuzzy
 #| msgid "Slider appearance"
 msgid "Project appearance"
 msgstr "Вигляд бігунця"
 
-#: assets/templates/tmpl-project-settings.php:1087
-#: assets/templates/tmpl-project-settings.php:1088
+#: assets/templates/tmpl-project-settings.php:1104
+#: assets/templates/tmpl-project-settings.php:1105
 #, fuzzy
 #| msgid "Custom CSS"
 msgid "Custom Project CSS"
 msgstr "Користувацький CSS"
 
-#: assets/templates/tmpl-project-settings.php:1088
+#: assets/templates/tmpl-project-settings.php:1105
 msgid "List of CSS properties, e.g. border-radius: 5px;"
 msgstr ""
 
-#: assets/templates/tmpl-project-settings.php:1094
+#: assets/templates/tmpl-project-settings.php:1111
 #, fuzzy
 #| msgid "Slider global background"
 msgid "Project global background"
 msgstr "Повзунок глобальний фон"
 
-#: assets/templates/tmpl-project-settings.php:1115
+#: assets/templates/tmpl-project-settings.php:1132
 msgid "Background image"
 msgstr "Фонове зображення"
 
-#: assets/templates/tmpl-project-settings.php:1126
-#: assets/templates/tmpl-project-settings.php:1403
+#: assets/templates/tmpl-project-settings.php:1143
+#: assets/templates/tmpl-project-settings.php:1420
 msgid "Click to set"
 msgstr "Натисніть, щоб встановити"
 
-#: assets/templates/tmpl-project-settings.php:1126
-#: assets/templates/tmpl-project-settings.php:1403
+#: assets/templates/tmpl-project-settings.php:1143
+#: assets/templates/tmpl-project-settings.php:1420
 msgid "Click to change"
 msgstr "Клацніть, щоб змінити"
 
-#: assets/templates/tmpl-project-settings.php:1152
+#: assets/templates/tmpl-project-settings.php:1169
 msgid "Navigation Area"
 msgstr "Навігаційна зона"
 
-#: assets/templates/tmpl-project-settings.php:1154
+#: assets/templates/tmpl-project-settings.php:1171
 msgid "Show navigation buttons"
 msgstr "Показати навігаційні кнопки"
 
-#: assets/templates/tmpl-project-settings.php:1167
+#: assets/templates/tmpl-project-settings.php:1184
 #, fuzzy
 #| msgid "Navigation buttons on hover"
 msgid "Show Navigation buttons on hover"
 msgstr "Навігаційні кнопки під час наведення вказівника"
 
-#: assets/templates/tmpl-project-settings.php:1179
+#: assets/templates/tmpl-project-settings.php:1196
 #, fuzzy
 #| msgid "Slideshow timers"
 msgid "Show Slideshow timers"
 msgstr "Таймер показу слайдів"
 
-#: assets/templates/tmpl-project-settings.php:1195
+#: assets/templates/tmpl-project-settings.php:1212
 msgid "Thumbnail navigation"
 msgstr "Мініатюра навігації"
 
-#: assets/templates/tmpl-project-settings.php:1209
+#: assets/templates/tmpl-project-settings.php:1226
 msgid "Thumbnail dimensions"
 msgstr "Розміри ескізу"
 
-#: assets/templates/tmpl-project-settings.php:1221
+#: assets/templates/tmpl-project-settings.php:1238
 msgid "Thumbnail appearance"
 msgstr "Мініатюра оформлення"
 
-#: assets/templates/tmpl-project-settings.php:1235
+#: assets/templates/tmpl-project-settings.php:1252
 #, fuzzy
 #| msgid "Add Video"
 msgid "Videos"
 msgstr "Додати відео"
 
-#: assets/templates/tmpl-project-settings.php:1254
+#: assets/templates/tmpl-project-settings.php:1271
 #, fuzzy
 #| msgid "Copy..."
 msgid "..."
 msgstr "Копіювати..."
 
-#: assets/templates/tmpl-project-settings.php:1257
-#: assets/templates/tmpl-project-settings.php:1258
+#: assets/templates/tmpl-project-settings.php:1274
+#: assets/templates/tmpl-project-settings.php:1275
 msgid "No content source"
 msgstr ""
 
-#: assets/templates/tmpl-project-settings.php:1278
+#: assets/templates/tmpl-project-settings.php:1295
 msgid "Perf. Mode Threshold"
 msgstr ""
 
-#: assets/templates/tmpl-project-settings.php:1278
+#: assets/templates/tmpl-project-settings.php:1295
 msgid "Threshold"
 msgstr ""
 
-#: assets/templates/tmpl-project-settings.php:1288
+#: assets/templates/tmpl-project-settings.php:1305
 msgid "Lazy Load"
 msgstr ""
 
-#: assets/templates/tmpl-project-settings.php:1302
+#: assets/templates/tmpl-project-settings.php:1319
 msgid "Slide background defaults"
 msgstr "За замовчуванням слайдів"
 
-#: assets/templates/tmpl-project-settings.php:1314
+#: assets/templates/tmpl-project-settings.php:1331
 #, fuzzy
 #| msgid "Slide background defaults"
 msgid "Slide duration & timings defaults"
 msgstr "За замовчуванням слайдів"
 
-#: assets/templates/tmpl-project-settings.php:1327
+#: assets/templates/tmpl-project-settings.php:1344
 #, fuzzy
 #| msgid "Parallax<br>Transition"
 msgid "Parallax Transition defaults"
 msgstr "Паралакс<br>Перехід"
 
-#: assets/templates/tmpl-project-settings.php:1341
+#: assets/templates/tmpl-project-settings.php:1358
 #, fuzzy
 #| msgid "Slide Transition"
 msgid "Scroll Transition defaults"
 msgstr "Посунути перехід"
 
-#: assets/templates/tmpl-project-settings.php:1352
-#: assets/templates/tmpl-project-settings.php:1365
+#: assets/templates/tmpl-project-settings.php:1369
+#: assets/templates/tmpl-project-settings.php:1382
 #: assets/views/project-editor.php:1215 assets/views/project-editor.php:1865
 msgid "Misc"
 msgstr "Різне"
 
-#: assets/templates/tmpl-project-settings.php:1367
+#: assets/templates/tmpl-project-settings.php:1384
 #, fuzzy
 #| msgid "padding"
 msgid "Loading"
 msgstr "внутрішній відступ"
 
-#: assets/templates/tmpl-project-settings.php:1381
+#: assets/templates/tmpl-project-settings.php:1398
 msgid "Other"
 msgstr ""
 
-#: assets/templates/tmpl-project-settings.php:1392
+#: assets/templates/tmpl-project-settings.php:1409
 #, fuzzy
 #| msgid "Slider preview image"
 msgid "Project preview image"
 msgstr "Зображення слайдера попереднього перегляду"
 
-#: assets/templates/tmpl-project-settings.php:1407
+#: assets/templates/tmpl-project-settings.php:1424
 #, fuzzy
 #| msgid "The preview image you can see in your list of sliders."
 msgid "The preview image you can see in your list of projects."
@@ -7366,7 +7383,7 @@ msgid "Tools"
 msgstr "Підказки"
 
 #: assets/templates/tmpl-shape-modal.php:508
-#: assets/templates/tmpl-smart-help.php:1245
+#: assets/templates/tmpl-smart-help.php:1251
 #: assets/views/project-editor.php:7686
 msgid "Invert"
 msgstr "Інвертувати"
@@ -7477,7 +7494,7 @@ msgid "Unhide"
 msgstr "Відобразити"
 
 #: assets/templates/tmpl-sliders-list-context-menu.php:38
-#: assets/views/dashboard.php:558 assets/views/project-editor.php:8643
+#: assets/views/dashboard.php:558 assets/views/project-editor.php:8696
 msgid "Delete"
 msgstr ""
 
@@ -7554,7 +7571,7 @@ msgstr ""
 msgid "Circle"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:91 assets/views/project-editor.php:8745
+#: assets/templates/tmpl-smart-help.php:91 assets/views/project-editor.php:8798
 msgid "Center Center"
 msgstr "Центр Центр"
 
@@ -8351,433 +8368,450 @@ msgid ""
 "window is resized."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1047
+#: assets/templates/tmpl-smart-help.php:1025
+msgid ""
+"The scene position to animate to. Supported units: <br><br> <b>%:</b> "
+"Percentage of the scene’s length. 0% means the beginning, while 100% means "
+"the end of the scene. <br><br> <b>ms:</b> A specific point in time on the "
+"scene’s animation timeline in milliseconds. A second is 1000 milliseconds. "
+"Sticky scenes do not support this unit."
+msgstr ""
+
+#: assets/templates/tmpl-smart-help.php:1053
 msgid "100px"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1048
+#: assets/templates/tmpl-smart-help.php:1054
 msgid "Enter the stage from left"
 msgstr "Введіть сцену зліва"
 
-#: assets/templates/tmpl-smart-help.php:1049
+#: assets/templates/tmpl-smart-help.php:1055
 msgid "Enter the stage from right"
 msgstr "Введіть стадію праворуч"
 
-#: assets/templates/tmpl-smart-help.php:1050
+#: assets/templates/tmpl-smart-help.php:1056
 msgid "Leave the stage on left"
 msgstr "Залишити сцену зліва"
 
-#: assets/templates/tmpl-smart-help.php:1051
+#: assets/templates/tmpl-smart-help.php:1057
 msgid "Leave the stage on right"
 msgstr "Залишити сцену праворуч"
 
-#: assets/templates/tmpl-smart-help.php:1052
+#: assets/templates/tmpl-smart-help.php:1058
 msgid "Enter the stage from top"
 msgstr "Входжу на сцену зверху"
 
-#: assets/templates/tmpl-smart-help.php:1053
+#: assets/templates/tmpl-smart-help.php:1059
 msgid "Enter the stage from bottom"
 msgstr "Введіть стадію знизу"
 
-#: assets/templates/tmpl-smart-help.php:1054
+#: assets/templates/tmpl-smart-help.php:1060
 msgid "Leave the stage on top"
 msgstr "Залиште сцену зверху"
 
-#: assets/templates/tmpl-smart-help.php:1055
+#: assets/templates/tmpl-smart-help.php:1061
 msgid "Leave the stage on bottom"
 msgstr "Залиште сцену на дні"
 
-#: assets/templates/tmpl-smart-help.php:1056
+#: assets/templates/tmpl-smart-help.php:1062
 msgid "Move out of stage on left"
 msgstr "Вийти зі сцени ліворуч"
 
-#: assets/templates/tmpl-smart-help.php:1057
+#: assets/templates/tmpl-smart-help.php:1063
 msgid "Move out of stage on right"
 msgstr "Вийти на сцену праворуч"
 
-#: assets/templates/tmpl-smart-help.php:1058
+#: assets/templates/tmpl-smart-help.php:1064
 msgid "Move out of stage on top"
 msgstr "Вийти зі сцени на вершині"
 
-#: assets/templates/tmpl-smart-help.php:1059
+#: assets/templates/tmpl-smart-help.php:1065
 msgid "Move out of stage on bottom"
 msgstr "Вийти з сцени внизу"
 
-#: assets/templates/tmpl-smart-help.php:1060
+#: assets/templates/tmpl-smart-help.php:1066
 msgid "100% layer width"
 msgstr "-100% ширини слою"
 
-#: assets/templates/tmpl-smart-help.php:1061
+#: assets/templates/tmpl-smart-help.php:1067
 msgid "-100% layer width"
 msgstr "-100% ширини слою"
 
-#: assets/templates/tmpl-smart-help.php:1062
+#: assets/templates/tmpl-smart-help.php:1068
 #, php-format
 msgid "50% slider width"
 msgstr "50% slider ширина"
 
-#: assets/templates/tmpl-smart-help.php:1063
+#: assets/templates/tmpl-smart-help.php:1069
 #, php-format
 msgid "-50% slider width"
 msgstr "-50% slider ширина"
 
-#: assets/templates/tmpl-smart-help.php:1064
+#: assets/templates/tmpl-smart-help.php:1070
 msgid "100% layer height"
 msgstr "-100% висота слою"
 
-#: assets/templates/tmpl-smart-help.php:1065
+#: assets/templates/tmpl-smart-help.php:1071
 msgid "-100% layer height"
 msgstr "-100% висота слою"
 
-#: assets/templates/tmpl-smart-help.php:1066
+#: assets/templates/tmpl-smart-help.php:1072
 #, php-format
 msgid "50% slider height"
 msgstr "50% slider висота"
 
-#: assets/templates/tmpl-smart-help.php:1067
+#: assets/templates/tmpl-smart-help.php:1073
 #, php-format
 msgid "-50% slider height"
 msgstr "-50% slider  висота"
 
-#: assets/templates/tmpl-smart-help.php:1068
+#: assets/templates/tmpl-smart-help.php:1074
 msgid "20% layer width"
 msgstr "-20% ширини слою"
 
-#: assets/templates/tmpl-smart-help.php:1069
+#: assets/templates/tmpl-smart-help.php:1075
 msgid "-20% layer width"
 msgstr "-20% ширини слою"
 
-#: assets/templates/tmpl-smart-help.php:1070
+#: assets/templates/tmpl-smart-help.php:1076
 msgid "20% layer height"
 msgstr "-20% висота слою"
 
-#: assets/templates/tmpl-smart-help.php:1071
+#: assets/templates/tmpl-smart-help.php:1077
 msgid "-20% layer height"
 msgstr "-20% висота слою"
 
-#: assets/templates/tmpl-smart-help.php:1072
-#: assets/templates/tmpl-smart-help.php:1081
-#: assets/templates/tmpl-smart-help.php:1097
-#: assets/templates/tmpl-smart-help.php:1109
+#: assets/templates/tmpl-smart-help.php:1078
+#: assets/templates/tmpl-smart-help.php:1087
+#: assets/templates/tmpl-smart-help.php:1103
+#: assets/templates/tmpl-smart-help.php:1115
 #, fuzzy
 #| msgid "Cycle between values"
 msgid "Random between two values"
 msgstr "Циклічний перехід між значеннями"
 
-#: assets/templates/tmpl-smart-help.php:1073
-#: assets/templates/tmpl-smart-help.php:1082
-#: assets/templates/tmpl-smart-help.php:1098
-#: assets/templates/tmpl-smart-help.php:1110
+#: assets/templates/tmpl-smart-help.php:1079
+#: assets/templates/tmpl-smart-help.php:1088
+#: assets/templates/tmpl-smart-help.php:1104
+#: assets/templates/tmpl-smart-help.php:1116
 #, fuzzy
 #| msgid "Cycle between values"
 msgid "Cycle through multiple values"
 msgstr "Циклічний перехід між значеннями"
 
-#: assets/templates/tmpl-smart-help.php:1083
-#: assets/templates/tmpl-smart-help.php:1099
-#: assets/templates/tmpl-smart-help.php:1111
+#: assets/templates/tmpl-smart-help.php:1089
+#: assets/templates/tmpl-smart-help.php:1105
+#: assets/templates/tmpl-smart-help.php:1117
 #, fuzzy
 #| msgid "Inherit from Slide Options"
 msgid "Inherit value from style settings"
 msgstr "Успадковувати від параметрів слайда"
 
-#: assets/templates/tmpl-smart-help.php:1084
+#: assets/templates/tmpl-smart-help.php:1090
 msgid "Add 60 to style settings value"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1085
-#: assets/templates/tmpl-smart-help.php:1101
+#: assets/templates/tmpl-smart-help.php:1091
+#: assets/templates/tmpl-smart-help.php:1107
 msgid "Divide style settings value by 2"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1093
+#: assets/templates/tmpl-smart-help.php:1099
 #, fuzzy
 #| msgid "Horizontal"
 msgid "Original size"
 msgstr "Горизонтальний"
 
-#: assets/templates/tmpl-smart-help.php:1094
+#: assets/templates/tmpl-smart-help.php:1100
 msgid "Enlarge layer to double size"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1095
+#: assets/templates/tmpl-smart-help.php:1101
 msgid "Shrink layer to half size"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1096
+#: assets/templates/tmpl-smart-help.php:1102
 #, fuzzy
 #| msgid "Hide layer"
 msgid "Flip layer"
 msgstr "Сховати шар"
 
-#: assets/templates/tmpl-smart-help.php:1100
+#: assets/templates/tmpl-smart-help.php:1106
 msgid "Multiply style settings value by 1.5"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1112
+#: assets/templates/tmpl-smart-help.php:1118
 msgid "Add 30 to style settings value"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1120
+#: assets/templates/tmpl-smart-help.php:1126
 msgid "The background image is displayed in its original size"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1121
+#: assets/templates/tmpl-smart-help.php:1127
 msgid "cover"
 msgstr "обкладинка"
 
-#: assets/templates/tmpl-smart-help.php:1121
+#: assets/templates/tmpl-smart-help.php:1127
 msgid ""
 "Resize the background image to cover the entire container, even if it has to "
 "stretch the image or cut a little bit off one of the edges"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1122
+#: assets/templates/tmpl-smart-help.php:1128
 msgid "contain"
 msgstr "містить"
 
-#: assets/templates/tmpl-smart-help.php:1122
+#: assets/templates/tmpl-smart-help.php:1128
 msgid "Resize the background image to make sure the image is fully visible"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1123
+#: assets/templates/tmpl-smart-help.php:1129
 msgid "stretch"
 msgstr "розтягнути"
 
-#: assets/templates/tmpl-smart-help.php:1123
+#: assets/templates/tmpl-smart-help.php:1129
 msgid ""
 "Stretches the background image to the same size as the layer. May result in "
 "distorted image."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1124
+#: assets/templates/tmpl-smart-help.php:1130
 msgid "initial"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1124
-#: assets/templates/tmpl-smart-help.php:1125
-#: assets/templates/tmpl-smart-help.php:1126
+#: assets/templates/tmpl-smart-help.php:1130
+#: assets/templates/tmpl-smart-help.php:1131
+#: assets/templates/tmpl-smart-help.php:1132
 msgid "Sets this property to its default value."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1125
+#: assets/templates/tmpl-smart-help.php:1131
 msgid "300px (example)"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1126
+#: assets/templates/tmpl-smart-help.php:1132
 msgid "80% (example)"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1135
+#: assets/templates/tmpl-smart-help.php:1141
 msgid "Used in Project"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1140
+#: assets/templates/tmpl-smart-help.php:1146
 #, fuzzy
 #| msgid "Google Fonts"
 msgid "Common Fonts"
 msgstr "Google Fonts"
 
-#: assets/templates/tmpl-smart-help.php:1152
+#: assets/templates/tmpl-smart-help.php:1158
 #, fuzzy
 #| msgid "Enable Google Fonts"
 msgid "External Fonts"
 msgstr "Увімкнути шрифти Google"
 
-#: assets/templates/tmpl-smart-help.php:1153
+#: assets/templates/tmpl-smart-help.php:1159
 msgid ""
 "Fonts loaded by third parties might not be present on every page and might "
 "only support some font weights and styles."
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1162
+#: assets/templates/tmpl-smart-help.php:1168
 msgid "From top"
 msgstr "Зверху"
 
-#: assets/templates/tmpl-smart-help.php:1163
+#: assets/templates/tmpl-smart-help.php:1169
 msgid "From right"
 msgstr "З правого"
 
-#: assets/templates/tmpl-smart-help.php:1164
+#: assets/templates/tmpl-smart-help.php:1170
 msgid "From bottom"
 msgstr "Знизу"
 
-#: assets/templates/tmpl-smart-help.php:1165
+#: assets/templates/tmpl-smart-help.php:1171
 msgid "From left"
 msgstr "Зліва"
 
-#: assets/templates/tmpl-smart-help.php:1176
+#: assets/templates/tmpl-smart-help.php:1182
 msgid "X axis"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1185
+#: assets/templates/tmpl-smart-help.php:1191
 #, fuzzy
 #| msgid "sides of the screen"
 msgid "Left side of the project canvas"
 msgstr "сторін екрана"
 
-#: assets/templates/tmpl-smart-help.php:1186
+#: assets/templates/tmpl-smart-help.php:1192
 #, fuzzy
 #| msgid "At center of the viewport"
 msgid "Center of the project canvas"
 msgstr "В центрі проекції"
 
-#: assets/templates/tmpl-smart-help.php:1187
+#: assets/templates/tmpl-smart-help.php:1193
 msgid "Right side of the project canvas"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1195
+#: assets/templates/tmpl-smart-help.php:1201
 msgid "Y axis"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1204
+#: assets/templates/tmpl-smart-help.php:1210
 msgid "Top of the project canvas"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1205
+#: assets/templates/tmpl-smart-help.php:1211
 msgid "Middle of the project canvas"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1206
+#: assets/templates/tmpl-smart-help.php:1212
 msgid "Bottom of the project canvas"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1214
+#: assets/templates/tmpl-smart-help.php:1220
 msgid "Z axis"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1224
-#: assets/templates/tmpl-smart-help.php:1257
-#: assets/templates/tmpl-smart-help.php:1302
+#: assets/templates/tmpl-smart-help.php:1230
+#: assets/templates/tmpl-smart-help.php:1263
+#: assets/templates/tmpl-smart-help.php:1308
 msgid "Apply selected values"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1238
+#: assets/templates/tmpl-smart-help.php:1244
 #, fuzzy
 #| msgid "Add new"
 msgid "Add new property"
 msgstr "Додати"
 
-#: assets/templates/tmpl-smart-help.php:1239
+#: assets/templates/tmpl-smart-help.php:1245
 #: assets/views/project-editor.php:3141 assets/views/project-editor.php:3629
 msgid "Blur"
 msgstr "Розмиття"
 
-#: assets/templates/tmpl-smart-help.php:1240
+#: assets/templates/tmpl-smart-help.php:1246
 msgid "Brightness"
 msgstr "Яскравість"
 
-#: assets/templates/tmpl-smart-help.php:1241
+#: assets/templates/tmpl-smart-help.php:1247
 msgid "Contrast"
 msgstr "Контраст"
 
-#: assets/templates/tmpl-smart-help.php:1242
+#: assets/templates/tmpl-smart-help.php:1248
 msgid "Drop Shadow"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1243
-#: assets/views/project-editor.php:8968
+#: assets/templates/tmpl-smart-help.php:1249
+#: assets/views/project-editor.php:9021
 msgid "Grayscale"
 msgstr "Відтінки сірого"
 
-#: assets/templates/tmpl-smart-help.php:1244
+#: assets/templates/tmpl-smart-help.php:1250
 #, fuzzy
 #| msgid "Hue-rotate"
 msgid "Hue-Rotate"
 msgstr "Відтінок-поворот"
 
-#: assets/templates/tmpl-smart-help.php:1247
+#: assets/templates/tmpl-smart-help.php:1253
 msgid "Saturate"
 msgstr "Насичення"
 
-#: assets/templates/tmpl-smart-help.php:1248
+#: assets/templates/tmpl-smart-help.php:1254
 msgid "Sepia"
 msgstr "Сепія"
 
-#: assets/templates/tmpl-smart-help.php:1265
-#: assets/templates/tmpl-smart-help.php:1273
+#: assets/templates/tmpl-smart-help.php:1271
+#: assets/templates/tmpl-smart-help.php:1279
 #, fuzzy
 #| msgid "No action"
 msgid "No limitation"
 msgstr "Немає дій"
 
-#: assets/templates/tmpl-smart-help.php:1266
+#: assets/templates/tmpl-smart-help.php:1272
 msgid "Half the layer’s original size"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1267
+#: assets/templates/tmpl-smart-help.php:1273
 msgid "Don’t allow shrinking"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1274
+#: assets/templates/tmpl-smart-help.php:1280
 msgid "Double the layer’s original size"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1275
+#: assets/templates/tmpl-smart-help.php:1281
 msgid "Don’t allow enlarging"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1287
+#: assets/templates/tmpl-smart-help.php:1293
 #, fuzzy
 #| msgid "Select a slide first."
 msgid "Select properties to mirror"
 msgstr "Спочатку виберіть слайд."
 
-#: assets/templates/tmpl-smart-help.php:1311
+#: assets/templates/tmpl-smart-help.php:1317
 #, fuzzy
 #| msgid "Apply to others"
 msgid "Apply Value To All Slides"
 msgstr "Звернутися до інших"
 
-#: assets/templates/tmpl-smart-help.php:1320
+#: assets/templates/tmpl-smart-help.php:1326
 msgid ""
 "auto (Calculated automatically based on slide duration and slider height)"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1321
+#: assets/templates/tmpl-smart-help.php:1327
 msgid "2000px"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1322
+#: assets/templates/tmpl-smart-help.php:1328
 #, fuzzy, php-format
 #| msgid "50% slider height"
 msgid "250sh (250% of slider height)"
 msgstr "50% slider висота"
 
-#: assets/templates/tmpl-smart-help.php:1323
+#: assets/templates/tmpl-smart-help.php:1329
 #, fuzzy, php-format
 #| msgid "50% slider height"
 msgid "150vh (150% of viewport height)"
 msgstr "50% slider висота"
 
-#: assets/templates/tmpl-smart-help.php:1330
+#: assets/templates/tmpl-smart-help.php:1336
 msgid "200px"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1331
+#: assets/templates/tmpl-smart-help.php:1337
 #, fuzzy, php-format
 #| msgid "50% slider height"
 msgid "60sh (60% of slider height)"
 msgstr "50% slider висота"
 
-#: assets/templates/tmpl-smart-help.php:1332
+#: assets/templates/tmpl-smart-help.php:1338
 #, php-format
 msgid "90vh (90% of viewport height)"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1339
+#: assets/templates/tmpl-smart-help.php:1345
 #, fuzzy
 #| msgid "Sequence"
 msgid "Normal sequence"
 msgstr "Послідовність"
 
-#: assets/templates/tmpl-smart-help.php:1348
+#: assets/templates/tmpl-smart-help.php:1354
 msgid "Activate immediately once the slider leaves the viewport"
 msgstr ""
 
-#: assets/templates/tmpl-smart-help.php:1349
+#: assets/templates/tmpl-smart-help.php:1355
 msgid ""
 "Activate once the slider moves by a screen distance away from the viewport"
+msgstr ""
+
+#: assets/templates/tmpl-smart-help.php:1362
+msgid "50% (Animate to the center of a Sticky or Scroll Scene)"
+msgstr ""
+
+#: assets/templates/tmpl-smart-help.php:1363
+msgid "1200ms (Animate to 1200ms on the timline of a Scroll Scene)"
 msgstr ""
 
 #: assets/templates/tmpl-static-layer-item.php:14
@@ -9593,7 +9627,7 @@ msgstr "Відновити виділені"
 msgid "Merge selected as new"
 msgstr "Об'єднати виділені як нові"
 
-#: assets/views/dashboard.php:723 assets/views/project-editor.php:8637
+#: assets/views/dashboard.php:723 assets/views/project-editor.php:8690
 msgid "Apply"
 msgstr "Застосувати"
 
@@ -9921,7 +9955,7 @@ msgid "Slides List"
 msgstr "Слайди"
 
 #: assets/views/project-editor.php:361 assets/views/project-editor.php:766
-#: assets/views/project-editor.php:8106 assets/wp/scripts_l10n.php:257
+#: assets/views/project-editor.php:8158 assets/wp/scripts_l10n.php:257
 #, fuzzy
 #| msgctxt "verb"
 #| msgid "Slide"
@@ -10128,7 +10162,7 @@ msgstr "Параметри шару"
 msgid "Layers List"
 msgstr "Макет"
 
-#: assets/views/project-editor.php:838 assets/views/project-editor.php:8655
+#: assets/views/project-editor.php:838 assets/views/project-editor.php:8708
 msgid "Add Layer"
 msgstr "Додати шар"
 
@@ -10514,13 +10548,13 @@ msgstr "Посилання"
 msgid "Actions"
 msgstr "Дії"
 
-#: assets/views/project-editor.php:1991 assets/views/project-editor.php:8383
+#: assets/views/project-editor.php:1991 assets/views/project-editor.php:8436
 #, fuzzy
 #| msgid "Attribute name"
 msgid "Attributes"
 msgstr "Ім'я атрибута"
 
-#: assets/views/project-editor.php:2022 assets/views/project-editor.php:8685
+#: assets/views/project-editor.php:2022 assets/views/project-editor.php:8738
 #: assets/wp/scripts_l10n.php:323
 msgid "Object"
 msgstr ""
@@ -11442,405 +11476,445 @@ msgstr ""
 msgid "Selector"
 msgstr "Вибрати"
 
-#: assets/views/project-editor.php:8102
+#: assets/views/project-editor.php:8101
+msgid "Scrolls to the specified position of the target scene."
+msgstr ""
+
+#: assets/views/project-editor.php:8128
+#, fuzzy
+#| msgid "Link Target"
+msgid "Target"
+msgstr "Target посилання"
+
+#: assets/views/project-editor.php:8133
+#, fuzzy
+#| msgid "Currency Icons"
+msgid "Current Scene"
+msgstr "Значки валют"
+
+#: assets/views/project-editor.php:8134
+#, fuzzy
+#| msgid "Preview Slide"
+msgid "Previous Scene"
+msgstr "Попередній перегляд слайда"
+
+#: assets/views/project-editor.php:8135
+#, fuzzy
+#| msgid "Add New Slider"
+msgid "Next Scene"
+msgstr "Додати слайдер"
+
+#: assets/views/project-editor.php:8145
+#, fuzzy
+#| msgid "sizing & position"
+msgid "Scene Position"
+msgstr "зміна розміру & позиції"
+
+#: assets/views/project-editor.php:8154
 msgid ""
 "Jumps to the specified slide. Project Settings like Shuffle mode does not "
 "affect the selected slide."
 msgstr ""
 
-#: assets/views/project-editor.php:8111
+#: assets/views/project-editor.php:8163
 #, fuzzy
 #| msgid "Select slider"
 msgid "Select Slide"
 msgstr "Виберіть слайдер"
 
-#: assets/views/project-editor.php:8120
+#: assets/views/project-editor.php:8172
 msgid ""
 "Jumps to the next slide. Options like Shuffle mode or Two way slideshow can "
 "affect the sequence."
 msgstr ""
 
-#: assets/views/project-editor.php:8126
+#: assets/views/project-editor.php:8178
 msgid ""
 "Jumps to the previous slide. Options like Shuffle mode or Two way slideshow "
 "can affect the sequence."
 msgstr ""
 
-#: assets/views/project-editor.php:8133
+#: assets/views/project-editor.php:8185
 msgid ""
 "Stops the slideshow. Depending on your settings, layer animations and "
 "progress timers may not be interrupted, but your project will not commence "
 "to the next slide automatically."
 msgstr ""
 
-#: assets/views/project-editor.php:8139
+#: assets/views/project-editor.php:8191
 #, fuzzy
 #| msgid "Fires when the slider has started a slide change."
 msgid "Resumes the slideshow and re-enables the automatic slide change."
 msgstr "Пожежі, коли повзунок розпочав зміну слайдів."
 
-#: assets/views/project-editor.php:8147
+#: assets/views/project-editor.php:8199
 msgid ""
 "Instantly restarts the slide replaying all layer transitions from the "
 "beginning."
 msgstr ""
 
-#: assets/views/project-editor.php:8153
+#: assets/views/project-editor.php:8205
 msgid ""
 "Plays all transitions backward from the moment it’s triggered, then pauses "
 "at the beginning of the slide. An option is provided to continue replaying "
 "the slide normally afterward."
 msgstr ""
 
-#: assets/views/project-editor.php:8157
+#: assets/views/project-editor.php:8209
 msgid "Replay"
 msgstr ""
 
-#: assets/views/project-editor.php:8167
+#: assets/views/project-editor.php:8219
 #, fuzzy
 #| msgid "A media element on the current slide has started playback."
 msgid ""
 "Immediately sets the current slide back to its starting state and pauses it."
 msgstr "Почато відтворення мультимедійного елемента на поточному слайді."
 
-#: assets/views/project-editor.php:8174
+#: assets/views/project-editor.php:8226
 msgid ""
 "Stops the project by freezing every animation taking place when triggered, "
 "including slide transitions when changing slides."
 msgstr ""
 
-#: assets/views/project-editor.php:8180
+#: assets/views/project-editor.php:8232
 msgid "Resumes the project and continues playing frozen animations."
 msgstr ""
 
-#: assets/views/project-editor.php:8186
+#: assets/views/project-editor.php:8238
 msgid ""
 "Toggles between Pause Project and Resume Project by respecting the current "
 "state."
 msgstr ""
 
-#: assets/views/project-editor.php:8194
+#: assets/views/project-editor.php:8246
 msgid "Starts playback of any active media element on the current slide."
 msgstr ""
 
-#: assets/views/project-editor.php:8200
+#: assets/views/project-editor.php:8252
 msgid "Pauses playback of any active media element on the current slide."
 msgstr ""
 
-#: assets/views/project-editor.php:8206
+#: assets/views/project-editor.php:8258
 msgid ""
 "Unmutes playback of any active media element on the current slide. Using "
 "this action may require a Click or Tap trigger due to browser restrictions."
 msgstr ""
 
-#: assets/views/project-editor.php:8214
+#: assets/views/project-editor.php:8266
 msgid ""
 "Opens the selected Popup. Embedding it to the page is optional; the Popup "
 "will be loaded dynamically if needed. Manually embedding it in advance makes "
 "it open faster."
 msgstr ""
 
-#: assets/views/project-editor.php:8229
+#: assets/views/project-editor.php:8281
 #, fuzzy
 #| msgid "On this slide"
 msgid "Open With Slide"
 msgstr "На цьому слайді"
 
-#: assets/views/project-editor.php:8239
+#: assets/views/project-editor.php:8291
 msgid "Close if already open"
 msgstr ""
 
-#: assets/views/project-editor.php:8249
+#: assets/views/project-editor.php:8301
 msgid ""
 "Closes this Popup. Works only if the current project type is set to a Popup."
 msgstr ""
 
-#: assets/views/project-editor.php:8255
+#: assets/views/project-editor.php:8307
 msgid ""
 "Opens all Popups waiting in the background to be launched. Popups must be "
 "embedded on the page beforehand."
 msgstr ""
 
-#: assets/views/project-editor.php:8261
+#: assets/views/project-editor.php:8313
 msgid "Closes all opened Popups on page."
 msgstr ""
 
-#: assets/views/project-editor.php:8269
+#: assets/views/project-editor.php:8321
 msgid ""
 "Calls a JavaScript function by its name. This is intended for web "
 "developers. The function must be present on page prior triggering this "
 "action."
 msgstr ""
 
-#: assets/views/project-editor.php:8273
+#: assets/views/project-editor.php:8325
 msgid "Function Name"
 msgstr ""
 
-#: assets/views/project-editor.php:8276
+#: assets/views/project-editor.php:8328
 msgid "myFunction"
 msgstr ""
 
-#: assets/views/project-editor.php:8291
+#: assets/views/project-editor.php:8343
 #, fuzzy
 #| msgid "Layer options"
 msgid "Layer Action"
 msgstr "Параметри шару"
 
-#: assets/views/project-editor.php:8292
+#: assets/views/project-editor.php:8344
 msgid "ADD NEW LAYER ACTION..."
 msgstr ""
 
-#: assets/views/project-editor.php:8297
+#: assets/views/project-editor.php:8349
 msgid "Scroll Below Project"
 msgstr ""
 
-#: assets/views/project-editor.php:8298
+#: assets/views/project-editor.php:8350
 #, fuzzy
 #| msgid "Scroll to element (Enter selector)"
 msgid "Scroll to Next Project"
 msgstr "Прокрутити до елемента (введіть селектор)"
 
-#: assets/views/project-editor.php:8299
+#: assets/views/project-editor.php:8351
 msgid "Scroll to Previous Project"
 msgstr ""
 
-#: assets/views/project-editor.php:8300
+#: assets/views/project-editor.php:8352
 #, fuzzy
 #| msgid "Scale to left"
 msgid "Scroll to Element"
 msgstr "Масштабувати ліворуч"
 
-#: assets/views/project-editor.php:8304
+#: assets/views/project-editor.php:8353
+#, fuzzy
+#| msgid "Slide Transition"
+msgid "Scroll to Scene Position"
+msgstr "Посунути перехід"
+
+#: assets/views/project-editor.php:8357
 #, fuzzy
 #| msgid "Import Slide"
 msgid "Jump to Slide"
 msgstr "Імпортувати слайд"
 
-#: assets/views/project-editor.php:8305
+#: assets/views/project-editor.php:8358
 #, fuzzy
 #| msgid "Add New Slider"
 msgid "Next Slide"
 msgstr "Додати слайдер"
 
-#: assets/views/project-editor.php:8306
+#: assets/views/project-editor.php:8359
 #, fuzzy
 #| msgid "Preview Slide"
 msgid "Previous Slide"
 msgstr "Попередній перегляд слайда"
 
-#: assets/views/project-editor.php:8310
+#: assets/views/project-editor.php:8363
 #, fuzzy
 #| msgid "Stop the slideshow"
 msgid "Stop Slideshow"
 msgstr "Зупинити слайд-шоу"
 
-#: assets/views/project-editor.php:8311
+#: assets/views/project-editor.php:8364
 #, fuzzy
 #| msgid "Auto-Start Slideshow"
 msgid "Start Slideshow"
 msgstr "Автоматичний запуск слайдшоу"
 
-#: assets/views/project-editor.php:8314
+#: assets/views/project-editor.php:8367
 #, fuzzy
 #| msgid "Slide navigation on hover"
 msgid "Slide Animation Timeline"
 msgstr "Посунути навігацію на наведенні"
 
-#: assets/views/project-editor.php:8315
+#: assets/views/project-editor.php:8368
 #, fuzzy
 #| msgid "Choose a Slide"
 msgid "Replay Slide"
 msgstr "Вибрати слайд"
 
-#: assets/views/project-editor.php:8316
+#: assets/views/project-editor.php:8369
 #, fuzzy
 #| msgid "Reverse"
 msgid "Reverse Slide"
 msgstr "Зворотний"
 
-#: assets/views/project-editor.php:8317
+#: assets/views/project-editor.php:8370
 #, fuzzy
 #| msgid "Preview Slide"
 msgid "Reset Slide"
 msgstr "Попередній перегляд слайда"
 
-#: assets/views/project-editor.php:8320
+#: assets/views/project-editor.php:8373
 msgid "Project Animation Timeline"
 msgstr ""
 
-#: assets/views/project-editor.php:8321
+#: assets/views/project-editor.php:8374
 msgid "Pause Project"
 msgstr ""
 
-#: assets/views/project-editor.php:8322
+#: assets/views/project-editor.php:8375
 msgid "Resume Project"
 msgstr ""
 
-#: assets/views/project-editor.php:8323
+#: assets/views/project-editor.php:8376
 msgid "Toggle Pause/Resume"
 msgstr ""
 
-#: assets/views/project-editor.php:8326
+#: assets/views/project-editor.php:8379
 #, fuzzy
 #| msgid "Unmute media playback"
 msgid "Media Playback"
 msgstr "Увімкнути відтворення мультимедіа"
 
-#: assets/views/project-editor.php:8327
+#: assets/views/project-editor.php:8380
 #, fuzzy
 #| msgid "Play muted"
 msgid "Play Media"
 msgstr "Програвати приглушені"
 
-#: assets/views/project-editor.php:8328
+#: assets/views/project-editor.php:8381
 #, fuzzy
 #| msgid "Choose Media"
 msgid "Pause Media"
 msgstr "Виберіть медіа"
 
-#: assets/views/project-editor.php:8329
+#: assets/views/project-editor.php:8382
 #, fuzzy
 #| msgid "Unmute media playback"
 msgid "Unmute Media"
 msgstr "Увімкнути відтворення мультимедіа"
 
-#: assets/views/project-editor.php:8333
+#: assets/views/project-editor.php:8386
 #, fuzzy
 #| msgid "Repeat Popup"
 msgid "Open Popup"
 msgstr "Меню \"Повторення\""
 
-#: assets/views/project-editor.php:8335
+#: assets/views/project-editor.php:8388
 #, fuzzy
 #| msgid "Launch Popup"
 msgid "Launch Popups"
 msgstr "Меню \"запуск\""
 
-#: assets/views/project-editor.php:8336
+#: assets/views/project-editor.php:8389
 #, fuzzy
 #| msgid "Close Popup"
 msgid "Close All Popups"
 msgstr "Закрийте Popup"
 
-#: assets/views/project-editor.php:8340
+#: assets/views/project-editor.php:8393
 #, fuzzy
 #| msgid "Always load all JavaScript files"
 msgid "Call JavaScript function"
 msgstr "Завжди завантажуйте всі файли JavaScript"
 
-#: assets/views/project-editor.php:8350
+#: assets/views/project-editor.php:8403
 msgid "Trigger"
 msgstr ""
 
-#: assets/views/project-editor.php:8355
+#: assets/views/project-editor.php:8408
 #, fuzzy
 #| msgid "Click to import"
 msgid "Click or Tap"
 msgstr "Клацніть, щоб імпортувати"
 
-#: assets/views/project-editor.php:8356
+#: assets/views/project-editor.php:8409
 msgid "Mouse Enter"
 msgstr ""
 
-#: assets/views/project-editor.php:8357
+#: assets/views/project-editor.php:8410
 msgid "Mouse Leave"
 msgstr ""
 
-#: assets/views/project-editor.php:8388
+#: assets/views/project-editor.php:8441
 msgid "Common Attributes"
 msgstr "Загальні атрибути"
 
-#: assets/views/project-editor.php:8447
+#: assets/views/project-editor.php:8500
 #, fuzzy
 #| msgid "Key"
 msgctxt "HTML attribute key"
 msgid "key"
 msgstr "Ключ"
 
-#: assets/views/project-editor.php:8448
+#: assets/views/project-editor.php:8501
 #, fuzzy
 #| msgid "Value"
 msgctxt "HTML attribute value"
 msgid "value"
 msgstr "Значення"
 
-#: assets/views/project-editor.php:8469
+#: assets/views/project-editor.php:8522
 msgid "Quick Tip"
 msgstr ""
 
-#: assets/views/project-editor.php:8474
+#: assets/views/project-editor.php:8527
 msgid "Show QUICK TIP when publishing projects."
 msgstr ""
 
-#: assets/views/project-editor.php:8482
+#: assets/views/project-editor.php:8535
 #, fuzzy
 #| msgid "Paste embed or HTML code"
 msgid "Grab the embed code:"
 msgstr "Вставити вбудувати або HTML-код"
 
-#: assets/views/project-editor.php:8493
+#: assets/views/project-editor.php:8546
 msgid "copy"
 msgstr ""
 
-#: assets/views/project-editor.php:8496 assets/views/system-status.php:159
+#: assets/views/project-editor.php:8549 assets/views/system-status.php:159
 #: assets/views/system-status.php:177 assets/views/system-status.php:206
 #: assets/views/system-status.php:229 assets/views/system-status.php:320
 msgid "OK"
 msgstr "ДОБРЕ"
 
-#: assets/views/project-editor.php:8506
+#: assets/views/project-editor.php:8559
 #, fuzzy
 #| msgid "Show More Options"
 msgid "Show more embed options"
 msgstr "Показати додаткові параметри"
 
-#: assets/views/project-editor.php:8522 assets/views/project-editor.php:8640
+#: assets/views/project-editor.php:8575 assets/views/project-editor.php:8693
 #: assets/wp/scripts_l10n.php:11
 #, fuzzy
 #| msgid "Saved"
 msgid "Save"
 msgstr "Збережено"
 
-#: assets/views/project-editor.php:8523
+#: assets/views/project-editor.php:8576
 #, fuzzy
 #| msgid "Saving ..."
 msgid "Saving"
 msgstr "Збереження..."
 
-#: assets/views/project-editor.php:8529
+#: assets/views/project-editor.php:8582
 #, fuzzy
 #| msgid "Publish"
 msgid "Publishing"
 msgstr "Опублікувати"
 
-#: assets/views/project-editor.php:8556
+#: assets/views/project-editor.php:8609
 msgid ""
 "The transition property will be normalized regarding to the current "
 "responsive ratio of the slider."
 msgstr ""
 
-#: assets/views/project-editor.php:8559
+#: assets/views/project-editor.php:8612
 msgid ""
 "The transition will play backward after the layer leaves its center point."
 msgstr ""
 
-#: assets/views/project-editor.php:8562
+#: assets/views/project-editor.php:8615
 msgid "The transition will start from the opposite value of this property."
 msgstr ""
 
-#: assets/views/project-editor.php:8566
+#: assets/views/project-editor.php:8619
 #, fuzzy
 #| msgid "leave it empty to use default"
 msgid "Restore to defaults"
 msgstr "залиште пустим, щоб використовувати за промовчанням"
 
-#: assets/views/project-editor.php:8571
+#: assets/views/project-editor.php:8624
 #, fuzzy
 #| msgid "Advanced option"
 msgid "Advanced Option"
 msgstr "Розширена опція"
 
-#: assets/views/project-editor.php:8574
+#: assets/views/project-editor.php:8627
 #, fuzzy
 #| msgid ""
 #| "This feature requires product activation. Click on the padlock icon to "
@@ -11850,7 +11924,7 @@ msgstr ""
 "Ця функція потребує активації продукту. Натисніть на іконку замка, щоб "
 "дізнатися більше."
 
-#: assets/views/project-editor.php:8577
+#: assets/views/project-editor.php:8630
 #, fuzzy
 #| msgid ""
 #| "Plays a transition based on the options below when the user moves the "
@@ -11862,7 +11936,7 @@ msgstr ""
 "Відтворює перехід на основі наведених нижче параметрів, коли користувач "
 "переміщує курсор миші на цей шар."
 
-#: assets/views/project-editor.php:8580
+#: assets/views/project-editor.php:8633
 msgid ""
 "In some cases your layers may be wrapped by another element. For example, an "
 "＜A＞ tag when you use layer linking. By default, new attributes will be "
@@ -11879,377 +11953,377 @@ msgstr ""
 "прапорець, якщо потрібно застосувати цей атрибут до елементу Layer у всіх "
 "випадках."
 
-#: assets/views/project-editor.php:8583
+#: assets/views/project-editor.php:8636
 #, fuzzy
 #| msgid "Layer position"
 msgid "Set layers list position"
 msgstr "Положення шару"
 
-#: assets/views/project-editor.php:8586
+#: assets/views/project-editor.php:8639
 #, fuzzy
 #| msgid "Lock layer"
 msgid "Dock layers list"
 msgstr "Заблокувати шар"
 
-#: assets/views/project-editor.php:8589
+#: assets/views/project-editor.php:8642
 #, fuzzy
 #| msgid "Align layer(s)"
 msgid "Pin layers list"
 msgstr "Вирівняти шар (и)"
 
-#: assets/views/project-editor.php:8592
+#: assets/views/project-editor.php:8645
 #, fuzzy
 #| msgid "Choose a layer type"
 msgid "Close layers list"
 msgstr "Вибір типу шару"
 
-#: assets/views/project-editor.php:8595
+#: assets/views/project-editor.php:8648
 #, fuzzy
 #| msgid "Style properties"
 msgid "Copy style properties"
 msgstr "Властивості стилю"
 
-#: assets/views/project-editor.php:8598
+#: assets/views/project-editor.php:8651
 #, fuzzy
 #| msgid "Style properties"
 msgid "Paste style properties"
 msgstr "Властивості стилю"
 
-#: assets/views/project-editor.php:8601
+#: assets/views/project-editor.php:8654
 msgid "Copy transition properties"
 msgstr "Копіювати властивості переходу"
 
-#: assets/views/project-editor.php:8604
+#: assets/views/project-editor.php:8657
 msgid "Paste transition properties"
 msgstr "Вставлення властивостей переходу"
 
-#: assets/views/project-editor.php:8607
+#: assets/views/project-editor.php:8660
 msgid "Expand / shrink sidebar"
 msgstr ""
 
-#: assets/views/project-editor.php:8610
+#: assets/views/project-editor.php:8663
 #, fuzzy
 #| msgid "Fade to top left"
 msgid "Align item to top left"
 msgstr "Fade до верхнього лівого"
 
-#: assets/views/project-editor.php:8613
+#: assets/views/project-editor.php:8666
 #, fuzzy
 #| msgid "by lines edge to center"
 msgid "Align item to top center"
 msgstr "за лініями EDGE до центру"
 
-#: assets/views/project-editor.php:8616
+#: assets/views/project-editor.php:8669
 #, fuzzy
 #| msgid "Fade to top right"
 msgid "Align item to top right"
 msgstr "Fade to верхньому правому"
 
-#: assets/views/project-editor.php:8619
+#: assets/views/project-editor.php:8672
 #, fuzzy
 #| msgid "by lines edge to center"
 msgid "Align item to center left"
 msgstr "за лініями EDGE до центру"
 
-#: assets/views/project-editor.php:8622
+#: assets/views/project-editor.php:8675
 #, fuzzy
 #| msgid "center center"
 msgid "Align item to center center"
 msgstr "по центру"
 
-#: assets/views/project-editor.php:8625
+#: assets/views/project-editor.php:8678
 #, fuzzy
 #| msgid "center right"
 msgid "Align item to center right"
 msgstr "центрувати праворуч"
 
-#: assets/views/project-editor.php:8628
+#: assets/views/project-editor.php:8681
 #, fuzzy
 #| msgid "Fade to bottom left"
 msgid "Align item to bottom left"
 msgstr "Плавно донизу ліворуч"
 
-#: assets/views/project-editor.php:8631
+#: assets/views/project-editor.php:8684
 #, fuzzy
 #| msgid "bottom center"
 msgid "Align item to bottom center"
 msgstr "нижньому центрі"
 
-#: assets/views/project-editor.php:8634
+#: assets/views/project-editor.php:8687
 #, fuzzy
 #| msgid "Fade to bottom right"
 msgid "Align item to bottom right"
 msgstr "Поступова поява в нижньому правому куті"
 
-#: assets/views/project-editor.php:8704
+#: assets/views/project-editor.php:8757
 msgid "Overlapping Layers"
 msgstr "Шари, що перекриваються"
 
-#: assets/views/project-editor.php:8712
+#: assets/views/project-editor.php:8765
 msgid "Align Layer"
 msgstr "Вирівняти шар"
 
-#: assets/views/project-editor.php:8713
+#: assets/views/project-editor.php:8766
 #, fuzzy
 #| msgid "Align Layer"
 msgid "Align Layers"
 msgstr "Вирівняти шар"
 
-#: assets/views/project-editor.php:8719 assets/views/project-editor.php:8758
+#: assets/views/project-editor.php:8772 assets/views/project-editor.php:8811
 msgid "Left Edge"
 msgstr "Лівому краю"
 
-#: assets/views/project-editor.php:8723 assets/views/project-editor.php:8762
+#: assets/views/project-editor.php:8776 assets/views/project-editor.php:8815
 msgid "Horizontal Center"
 msgstr "Горизонтальний центр"
 
-#: assets/views/project-editor.php:8727 assets/views/project-editor.php:8766
+#: assets/views/project-editor.php:8780 assets/views/project-editor.php:8819
 msgid "Right Edge"
 msgstr "Правого краю"
 
-#: assets/views/project-editor.php:8732 assets/views/project-editor.php:8771
+#: assets/views/project-editor.php:8785 assets/views/project-editor.php:8824
 msgid "Top Edge"
 msgstr "Верхній край"
 
-#: assets/views/project-editor.php:8736 assets/views/project-editor.php:8775
+#: assets/views/project-editor.php:8789 assets/views/project-editor.php:8828
 msgid "Vertical Center"
 msgstr "Вертикальний центр"
 
-#: assets/views/project-editor.php:8740 assets/views/project-editor.php:8779
+#: assets/views/project-editor.php:8793 assets/views/project-editor.php:8832
 msgid "Bottom Edge"
 msgstr "Нижній край"
 
-#: assets/views/project-editor.php:8752
+#: assets/views/project-editor.php:8805
 #, fuzzy
 #| msgid "View Selection"
 msgid "Align Layers in Selection"
 msgstr "Переглянути виділений фрагмент"
 
-#: assets/views/project-editor.php:8785
+#: assets/views/project-editor.php:8838
 msgid "Duplicate Layer"
 msgstr "Дублювати шар"
 
-#: assets/views/project-editor.php:8786
+#: assets/views/project-editor.php:8839
 #, fuzzy
 #| msgid "Duplicate Layer"
 msgid "Duplicate Layers"
 msgstr "Дублювати шар"
 
-#: assets/views/project-editor.php:8795 assets/wp/scripts_l10n.php:284
+#: assets/views/project-editor.php:8848 assets/wp/scripts_l10n.php:284
 msgid "Remove Layer"
 msgstr "Видалити шар"
 
-#: assets/views/project-editor.php:8796 assets/wp/scripts_l10n.php:288
+#: assets/views/project-editor.php:8849 assets/wp/scripts_l10n.php:288
 #, fuzzy
 #| msgid "Remove Layer"
 msgid "Remove Layers"
 msgstr "Видалити шар"
 
-#: assets/views/project-editor.php:8801
+#: assets/views/project-editor.php:8854
 msgid "Copy Layer"
 msgstr "Копіювати шар"
 
-#: assets/views/project-editor.php:8802
+#: assets/views/project-editor.php:8855
 #, fuzzy
 #| msgid "Copy Layer"
 msgid "Copy Layers"
 msgstr "Копіювати шар"
 
-#: assets/views/project-editor.php:8811
+#: assets/views/project-editor.php:8864
 msgid "Paste Layer"
 msgstr "Вставити шар"
 
-#: assets/views/project-editor.php:8812
+#: assets/views/project-editor.php:8865
 #, fuzzy
 #| msgid "Paste Layer"
 msgid "Paste Layers"
 msgstr "Вставити шар"
 
-#: assets/views/project-editor.php:8822
+#: assets/views/project-editor.php:8875
 msgid "Toggle Layer Visibility"
 msgstr "Переключити видимість шару"
 
-#: assets/views/project-editor.php:8823
+#: assets/views/project-editor.php:8876
 #, fuzzy
 #| msgid "Toggle Layer Visibility"
 msgid "Toggle Layers Visibility"
 msgstr "Переключити видимість шару"
 
-#: assets/views/project-editor.php:8827
+#: assets/views/project-editor.php:8880
 msgid "Toggle Layer Locking"
 msgstr "Переключити блокування шару"
 
-#: assets/views/project-editor.php:8828
+#: assets/views/project-editor.php:8881
 #, fuzzy
 #| msgid "Toggle Layer Locking"
 msgid "Toggle Layers Locking"
 msgstr "Переключити блокування шару"
 
-#: assets/views/project-editor.php:8833
+#: assets/views/project-editor.php:8886
 msgid "Copy Layer Styles"
 msgstr "Копіювання стилів шарів"
 
-#: assets/views/project-editor.php:8837
+#: assets/views/project-editor.php:8890
 msgid "Paste Layer Styles"
 msgstr "Вставити стилі шару"
 
-#: assets/views/project-editor.php:8844
+#: assets/views/project-editor.php:8897
 #, fuzzy
 #| msgid "Slide image"
 msgid "Pick image"
 msgstr "Слайд-зображення"
 
-#: assets/views/project-editor.php:8845
+#: assets/views/project-editor.php:8898
 #, fuzzy
 #| msgid "use post image"
 msgid "Use post image"
 msgstr "використовувати поштове зображення"
 
-#: assets/views/project-editor.php:8846
+#: assets/views/project-editor.php:8899
 #, fuzzy
 #| msgid "insert from URL"
 msgid "Enter from URL"
 msgstr "вставити з URL-адреси"
 
-#: assets/views/project-editor.php:8848
+#: assets/views/project-editor.php:8901
 #, fuzzy
 #| msgid "Image Editor"
 msgid "Image editor"
 msgstr "Редактор зображень"
 
-#: assets/views/project-editor.php:8850
+#: assets/views/project-editor.php:8903
 #, fuzzy
 #| msgid "Remove slide image"
 msgid "Remove image"
 msgstr "Видалення зображення слайду"
 
-#: assets/views/project-editor.php:8858
+#: assets/views/project-editor.php:8911
 #, fuzzy
 #| msgid "Duplicate"
 msgid "Duplicate Slide"
 msgstr "Дублювати"
 
-#: assets/views/project-editor.php:8862
+#: assets/views/project-editor.php:8915
 #, fuzzy
 #| msgid "Unpublished slider"
 msgid "Unpublish Slide"
 msgstr "Неопублікований повзунок"
 
-#: assets/views/project-editor.php:8866
+#: assets/views/project-editor.php:8919
 #, fuzzy
 #| msgid "Unpublished slider"
 msgid "Publish Slide"
 msgstr "Неопублікований повзунок"
 
-#: assets/views/project-editor.php:8870 assets/wp/scripts_l10n.php:279
+#: assets/views/project-editor.php:8923 assets/wp/scripts_l10n.php:279
 #, fuzzy
 #| msgid "Removed slider"
 msgid "Remove Slide"
 msgstr "Видалений повзунок"
 
-#: assets/views/project-editor.php:8875
+#: assets/views/project-editor.php:8928
 #, fuzzy
 #| msgid "Slide Thumbnail"
 msgid "Generate Thumbnail"
 msgstr "Мініатюра слайда"
 
-#: assets/views/project-editor.php:8882
+#: assets/views/project-editor.php:8935
 #, fuzzy
 #| msgid "Slider Settings"
 msgid "Sidebar Settings"
 msgstr "Налаштування слайдера"
 
-#: assets/views/project-editor.php:8889
+#: assets/views/project-editor.php:8942
 #, fuzzy
 #| msgid "Actions"
 msgid "Section tabs"
 msgstr "Дії"
 
-#: assets/views/project-editor.php:8893
+#: assets/views/project-editor.php:8946
 msgid "Expand all"
 msgstr ""
 
-#: assets/views/project-editor.php:8902
+#: assets/views/project-editor.php:8955
 msgid "Collapse all"
 msgstr ""
 
-#: assets/views/project-editor.php:8908
+#: assets/views/project-editor.php:8961
 #, fuzzy
 #| msgid "Reset on close"
 msgid "Auto close"
 msgstr "Скидання під час закриття"
 
-#: assets/views/project-editor.php:8917
+#: assets/views/project-editor.php:8970
 #, fuzzy
 #| msgid "Layer editor"
 msgid "Layers List Pos."
 msgstr "Редактор шарів"
 
-#: assets/views/project-editor.php:8922
+#: assets/views/project-editor.php:8975
 #, fuzzy
 #| msgid "Left Edge"
 msgid "Left side"
 msgstr "Лівому краю"
 
-#: assets/views/project-editor.php:8923
+#: assets/views/project-editor.php:8976
 #, fuzzy
 #| msgid "Right Edge"
 msgid "Right side"
 msgstr "Правого краю"
 
-#: assets/views/project-editor.php:8930
+#: assets/views/project-editor.php:8983
 #, fuzzy
 #| msgid "Align Layer"
 msgid "Pin Layers List"
 msgstr "Вирівняти шар"
 
-#: assets/views/project-editor.php:8939
+#: assets/views/project-editor.php:8992
 msgid "Show Quick Tip when publishing"
 msgstr ""
 
-#: assets/views/project-editor.php:8952
+#: assets/views/project-editor.php:9005
 #, fuzzy
 #| msgid "Basic Settings"
 msgid "Workspace Settings"
 msgstr "Базові налаштування"
 
-#: assets/views/project-editor.php:8960
+#: assets/views/project-editor.php:9013
 #, fuzzy
 #| msgid "Editor, Admin"
 msgid "Editor Theme"
 msgstr "Редактор, адміністратор"
 
-#: assets/views/project-editor.php:8966
+#: assets/views/project-editor.php:9019
 #, fuzzy
 #| msgid "Default quality"
 msgid "Default (Dark)"
 msgstr "Якість за умовчанням"
 
-#: assets/views/project-editor.php:8967
+#: assets/views/project-editor.php:9020
 #, fuzzy
 #| msgid "Right"
 msgid "Light"
 msgstr "Зправа"
 
-#: assets/views/project-editor.php:8975
+#: assets/views/project-editor.php:9028
 #, fuzzy
 #| msgid "Show me"
 msgid "Show rulers"
 msgstr "Показати більше"
 
-#: assets/views/project-editor.php:8981
+#: assets/views/project-editor.php:9034
 #, fuzzy
 #| msgid "Show me"
 msgid "Show guides"
 msgstr "Показати більше"
 
-#: assets/views/project-editor.php:8987
+#: assets/views/project-editor.php:9040
 #, fuzzy
 #| msgid "Show info"
 msgid "Show info panel"
 msgstr "Показати інформацію"
 
-#: assets/views/project-editor.php:8996
+#: assets/views/project-editor.php:9049
 msgid "Workspace Padding"
 msgstr ""
 
@@ -16264,9 +16338,6 @@ msgstr "https://kreaturamedia.com"
 
 #~ msgid "Chart Icons"
 #~ msgstr "Значки діаграми"
-
-#~ msgid "Currency Icons"
-#~ msgstr "Значки валют"
 
 #~ msgid "Text Editor Icons"
 #~ msgstr "Значки текстового редактора"

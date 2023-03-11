@@ -8096,6 +8096,58 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 															</lse-col>
 														</lse-b>
 
+														<lse-b data-layer-action="scrollToScenePosition">
+															<lse-col class="lse-wide lse-layer-action-desc">
+																<?= __('Scrolls to the specified position of the target scene.', 'LayerSlider') ?>
+															</lse-col>
+															<lse-col>
+																<lse-ib>
+																	<lse-text><?= __('Duration', 'LayerSlider') ?></lse-text>
+																</lse-ib>
+																<lse-ib>
+																	<input type="text" name="duration" value="1000">
+																	<lse-unit>ms</lse-unit>
+																</lse-ib>
+															</lse-col>
+															<lse-col>
+																<lse-ib>
+																	<lse-text><?= __('Easing', 'LayerSlider') ?></lse-text>
+																</lse-ib>
+																<lse-ib>
+																	<lse-fe-wrapper class="lse-select lse-smart-help" data-smart-help="easing" data-smart-help-title="<?= __('Easing', 'LayerSlider') ?>">
+																		<select name="easing">
+																			<?php foreach( $lsDefaults['easings'] as $easing ) : ?>
+																			<option <?= ( $easing === 'easeInOutQuart' ) ? 'selected' : '' ?>><?= $easing ?></option>
+																			<?php endforeach ?>
+																		</select>
+																	</lse-fe-wrapper>
+																</lse-ib>
+															</lse-col>
+															<lse-col>
+																<lse-ib>
+																	<lse-text><?= __('Target', 'LayerSlider') ?></lse-text>
+																</lse-ib>
+																<lse-ib>
+																	<lse-fe-wrapper class="lse-select">
+																		<select name="target">
+																			<option value="currentScene"><?= __('Current Scene', 'LayerSlider') ?></option>
+																			<option value="previousScene"><?= __('Previous Scene', 'LayerSlider') ?></option>
+																			<option value="nextScene"><?= __('Next Scene', 'LayerSlider') ?></option>
+																		</select>
+																	</lse-fe-wrapper>
+																</lse-ib>
+															</lse-col>
+															<lse-col>
+																<lse-ib>
+																	<lse-text><?= __('Position', 'LayerSlider') ?></lse-text>
+																</lse-ib>
+																<lse-ib>
+																	<lse-fe-wrapper class="lse-smart-help" data-smart-help="scroll-to-scene-position" data-smart-options="scroll-to-scene-position" data-smart-help-title="<?= __('Scene Position', 'LayerSlider') ?>">
+																		<input type="text" name="position" placeholder="0% / 0ms">
+																	</lse-fe-wrapper>
+																</lse-ib>
+															</lse-col>
+														</lse-b>
 														<!-- Navigation -->
 														<lse-b data-layer-action="switchSlide">
 															<lse-col class="lse-wide lse-layer-action-desc">
@@ -8298,6 +8350,7 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 																				<option value="scrollToNextProject"><?= __('Scroll to Next Project', 'LayerSlider') ?></option>
 																				<option value="scrollToPrevProject"><?= __('Scroll to Previous Project', 'LayerSlider') ?></option>
 																				<option value="scrollToElement"><?= __('Scroll to Element', 'LayerSlider') ?></option>
+																				<option value="scrollToScenePosition"><?= __('Scroll to Scene Position', 'LayerSlider') ?></option>
 																			</optgroup>
 
 																			<optgroup label="<?= __('Navigation', 'LayerSlider') ?>">

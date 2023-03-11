@@ -126,6 +126,25 @@ function nbcpf_phonetext_validation_filter( $result, $tag ) {
 		if ( '' != $value && ( ! is_numeric($value) ) ) {
 			$result->invalidate( $tag, __('Phone number must be numbers only', 'nb-cpf') );
 		}
+		else {
+
+			$maxlength = $tag->get_maxlength_option();
+			$minlength = $tag->get_minlength_option();
+	
+			if ( $maxlength and $minlength and $maxlength < $minlength ) {
+				$maxlength = $minlength = null;
+			}
+	
+			$code_units = wpcf7_count_code_units( stripslashes( $value ) );
+	
+			if ( false !== $code_units ) {
+				if ( $maxlength and $maxlength < $code_units ) {
+					$result->invalidate( $tag, wpcf7_get_message( 'invalid_too_long' ) );
+				} elseif ( $minlength and $code_units < $minlength ) {
+					$result->invalidate( $tag, wpcf7_get_message( 'invalid_too_short' ) );
+				}
+			}
+		}
 	}
 	else {
 

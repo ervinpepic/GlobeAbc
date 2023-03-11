@@ -341,6 +341,16 @@ $lsDefaults = [
 			]
 		],
 
+		'smoothScrollDuration' => [
+			'value' => '',
+			'name' => __('Smooth Scroll Duration', 'LayerSlider'),
+			'keys' => 'smoothScrollDuration',
+			'attrs' => [
+				'type' => 'number',
+				'placeholder' => 1000,
+				'min' => 0
+			]
+		],
 
 
 		// == COMPATIBILITY ==

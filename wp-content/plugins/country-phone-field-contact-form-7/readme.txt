@@ -188,7 +188,15 @@ This was a free API. But now it is not working anymore. So we discontinue it and
 
 2.4.0
 * Fixed the auto country selection API issue.
+
 2.4.1
 * Update auto country selection API and refine the JS code.
+
 2.4.2
 * Update auto country selection API JS code issues.
+
+2.4.3
+* Phone number maxlength and minlength validation has fixed
+
+2.4.4
+* update IP tracking API to https://reallyfreegeoip.org/json/

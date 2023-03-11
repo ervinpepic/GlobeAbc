@@ -134,7 +134,8 @@ function nb_cpf_embedCssJs() {
 				var ip_address = "";
 
 				jQuery.ajax({
-					url: "https://ipwho.is/",
+					//url: "https://ipwho.is/",
+					url: "https://reallyfreegeoip.org/json/",
 					success: function(response){
 						
 						//console.log(response);

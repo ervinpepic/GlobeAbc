@@ -543,15 +543,45 @@ function ls_sliders_bulk_action() {
 			exit;
 		}
 
-		if($sliders = LS_Sliders::find($_POST['sliders'])) {
+		if( $sliders = LS_Sliders::find( $_POST['sliders'] ) ) {
+
+			$data = [
+				'layers' => [],
+				'googlefonts' => []
+			];
+
 			foreach($sliders as $key => $item) {
 
 				// Get IDs
 				$ids[] = '#' . $item['id'];
 
 				// Merge slides
-				if($key === 0) { $data = $item['data']; }
-				else { $data['layers'] = array_merge($data['layers'], $item['data']['layers']); }
+				if($key === 0) {
+					$data = $item['data'];
+				} else {
+
+					if( ! empty( $item['data']['layers'] ) ) {
+						$data['layers'] = array_merge( $data['layers'], $item['data']['layers'] );
+					}
+
+					if( ! empty( $item['data']['googlefonts'] ) ) {
+						$data['googlefonts'] = array_merge( $data['googlefonts'], $item['data']['googlefonts'] );
+					}
+				}
+			}
+
+			// Filter out duplicate Google Fonts
+			if( ! empty( $data['googlefonts'] ) ) {
+				$usedFonts = [];
+				$data['googlefonts'] = array_filter( $data['googlefonts'], function( $font ) use ( &$usedFonts ) {
+
+					if( ! in_array( $font['param'], $usedFonts ) ) {
+						$usedFonts[] = $font['param'];
+						return true;
+					}
+
+					return false;
+				});
 			}
 
 			// Save as new

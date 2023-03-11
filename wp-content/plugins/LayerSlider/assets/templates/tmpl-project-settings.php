@@ -877,6 +877,23 @@ $sProps =& $slider['properties'];
 										<?php
 											lsOptionRow('select', $sDefs['stickTo'], $sProps, [], 'lse-only-scene' );
 										?>
+
+										<tr class="lse-only-scroll-scene">
+											<td>
+												<lse-b>
+													<?= __('Smooth Scroll Duration', 'LayerSlider') ?>
+												</lse-b>
+											</td>
+											<td>
+												<lse-ib class="lse-range-inputs lse-modal-inputs">
+													<?php lsGetInput( $sDefs['smoothScrollDuration'], $sProps ); ?>
+													<lse-unit>ms</lse-unit>
+												</lse-ib>
+											</td>
+											<td class="lse-desc">
+												<?= __('Controls the smooth scrolling animation behavior. This value is in milliseconds. A second is 1000 milliseconds. Lower values result in faster reaction times.', 'LayerSlider') ?>
+											</td>
+										</tr>
 									</tbody>
 								</table>
 							</lse-table-wrapper>

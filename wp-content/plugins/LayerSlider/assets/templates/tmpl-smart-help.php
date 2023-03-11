@@ -1019,6 +1019,12 @@
 		<?= __('The minimum distance between the slider and viewport edges when Performance Mode should activate as described on the right. Supported units: <br><br> <b>px:</b> A fixed value specified in pixels. <br><br> <b>%</b> or <b>sh:</b> Percentage of the slider height. 1sh equals to 1% of the slider height. This value scales dinamically when the slider’s size changes. <b> <br><br> vh:</b> Percentage of the viewport (browser window) height. 1vh equals to 1% of the viewport height. This value scales dinamically when the browser window is resized.', 'LayerSlider') ?>
 	</div>
 
+
+
+	<div data-smart-help="scroll-to-scene-position">
+		<?= __('The scene position to animate to. Supported units: <br><br> <b>%:</b> Percentage of the scene’s length. 0% means the beginning, while 100% means the end of the scene. <br><br> <b>ms:</b> A specific point in time on the scene’s animation timeline in milliseconds. A second is 1000 milliseconds. Sticky scenes do not support this unit.', 'LayerSlider') ?>
+	</div>
+
 </lse-smart-help-contents>
 
 <lse-smart-options-contents>
@@ -1347,6 +1353,14 @@
 			<lse-li data-smart-inject=""><?= __('Default', 'LayerSlider') ?></lse-li>
 			<lse-li data-smart-inject="0"><?= __('Activate immediately once the slider leaves the viewport', 'LayerSlider') ?></lse-li>
 			<lse-li data-smart-inject="100vh"><?= __('Activate once the slider moves by a screen distance away from the viewport', 'LayerSlider') ?></lse-li>
+		</lse-ul>
+	</div>
+
+	<div data-smart-options="scroll-to-scene-position">
+
+		<lse-ul class="lse-smart-inject">
+			<lse-li data-smart-inject="50%"><?= __('50% (Animate to the center of a Sticky or Scroll Scene)', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="1200ms"><?= __('1200ms (Animate to 1200ms on the timline of a Scroll Scene)', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 	</div>
 
