@@ -4,7 +4,7 @@
       will probably still use them later
 */
 
-jQuery(window).load(function () {
+window.addEventListener("load", (event) => {
 	console.log("HD Quiz Save Results Light INIT");
 	hdq_a_light_start();
 });

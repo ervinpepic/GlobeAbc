@@ -619,6 +619,7 @@ class LP_Database {
 		// Order by
 		$ORDER_BY = '';
 		if ( ! $filter->return_string_query && $filter->order_by ) {
+			$filter->order = strtoupper( $filter->order );
 			if ( ! in_array( $filter->order, [ 'DESC', 'ASC' ] ) ) {
 				$filter->order = 'DESC';
 			}
@@ -683,20 +684,24 @@ class LP_Database {
 		}
 
 		// Query total rows
-		$query       = str_replace( array( $LIMIT, $ORDER_BY ), '', $query );
-		$query_total = "SELECT COUNT($filter->field_count) FROM ($query) AS $ALIAS_COLLECTION";
-		$total_rows  = (int) $this->wpdb->get_var( $query_total );
+		if ( $filter->run_query_count ) {
+			$query       = str_replace( array( $LIMIT, $ORDER_BY ), '', $query );
+			$query_total = "SELECT COUNT($filter->field_count) FROM ($query) AS $ALIAS_COLLECTION";
+			$total_rows  = (int) $this->wpdb->get_var( $query_total );
+
+			$this->check_execute_has_error();
+
+			if ( $filter->query_count ) {
+				// Debug string query
+				if ( $filter->debug_string_query ) {
+					return $query_total;
+				}
+
+				return $total_rows;
+			}
+		}
 
 		$this->check_execute_has_error();
-
-		if ( $filter->query_count ) {
-			// Debug string query
-			if ( $filter->debug_string_query ) {
-				return $query_total;
-			}
-
-			return $total_rows;
-		}
 
 		return $result;
 	}

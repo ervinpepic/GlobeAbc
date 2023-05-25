@@ -32,7 +32,7 @@
 			]) ?>
 
 			<?= lsGetSVGIcon('exclamation-triangle', false, [
-				'class' => 'lse-unregistered-layer',
+				'class' => 'lse-unregistered-layer lse-premium-lock',
 				'data-tt' => '.tt-layer-unregistered'
 			]) ?>
 

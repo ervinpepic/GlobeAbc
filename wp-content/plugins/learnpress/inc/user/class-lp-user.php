@@ -24,7 +24,6 @@ class LP_User extends LP_Abstract_User {
 		);
 
 		$course = learn_press_get_course( $course_id );
-
 		if ( ! $course ) {
 			return $view;
 		}
@@ -122,7 +121,7 @@ class LP_User extends LP_Abstract_User {
 			$view = $view_new;
 		}
 
-		return apply_filters( 'learnpress/course/item/can-view', $view, $item );
+		return apply_filters( 'learnpress/course/item/can-view', $view, $item, $this );
 	}
 
 	/**
@@ -216,7 +215,6 @@ class LP_User extends LP_Abstract_User {
 			}*/
 
 			$user_course = $this->get_course_data( $course_id );
-
 			if ( ! $user_course || ! $user_course->is_enrolled() ) {
 				throw new Exception( esc_html__( 'The course is not enrolled.', 'learnpress' ) );
 			}

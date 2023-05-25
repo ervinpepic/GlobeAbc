@@ -1,4 +1,7 @@
 <?php
+
+use LearnPress\Helpers\Template;
+
 /**
  * Class LP_Admin_Assets
  *
@@ -12,7 +15,7 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 	 * LP_Admin_Assets constructor.
 	 */
 	protected function __construct() {
-		add_action( 'admin_footer', array( $this, 'show_overlay' ) );
+		add_action( 'admin_footer', array( $this, 'add_elements_global' ) );
 		parent::__construct();
 	}
 
@@ -83,12 +86,12 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 					$this->url( 'src/js/vendor/jquery/jquery-ui-timepicker-addon.js' ),
 					array( 'jquery-ui-datepicker' )
 				),
-				'themes-addons'                     => new LP_Asset_Key(
-					$this->url( 'js/dist/admin/pages/themes-addons' . self::$_min_assets . '.js' ),
+				'lp-addons'                         => new LP_Asset_Key(
+					$this->url( 'js/dist/admin/pages/addons' . self::$_min_assets . '.js' ),
 					array( 'jquery' ),
 					array( 'learnpress_page_learn-press-addons' ),
 					0,
-					1
+					0
 				),
 				'advanced-list'                     => new LP_Asset_Key( $this->url( self::$_folder_source . 'js/admin/share/advanced-list' . self::$_min_assets . '.js' ) ),
 				'learn-press-global'                => new LP_Asset_Key(
@@ -210,20 +213,20 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 					1,
 					1
 				),
-				'lp-admin-tabs'                     => new LP_Asset_Key(
+				/*'lp-admin-tabs'                     => new LP_Asset_Key(
 					$this->url( self::$_folder_source . 'js/admin/share/admin-tabs' . self::$_min_assets . '.js' ),
 					array( 'jquery' ),
 					array( LP_COURSE_CPT ),
 					0,
 					1
-				),
-				'lp-admin-notice'                   => new LP_Asset_Key(
+				),*/
+				/*'lp-admin-notice'                   => new LP_Asset_Key(
 					$this->url( self::$_folder_source . 'js/admin/share/admin-notice' . self::$_min_assets . '.js' ),
 					array( 'jquery' ),
 					array(),
 					0,
 					1
-				),
+				),*/
 				'lp-modal-search-users'             => new LP_Asset_Key(
 					$this->url( self::$_folder_source . 'js/admin/share/modal-search-users' . self::$_min_assets . '.js' ),
 					array( 'jquery' ),
@@ -329,7 +332,7 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 			return;
 		}
 
-		wp_enqueue_media(); //Todo: tungnx need check why call for that using.
+		//wp_enqueue_media(); //Todo: tungnx need check why call for that using.
 		$this->handle_js( $screen_id );
 		$this->handle_style( $screen_id );
 
@@ -349,12 +352,15 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 	/**
 	 * Show overlay
 	 */
-	public function show_overlay() {
+	public function add_elements_global() {
 		echo '<div class="lp-overlay">';
 		apply_filters( 'learnpress/admin/modal-dialog', learn_press_get_template( 'global/lp-modal-overlay' ) );
 		echo '</div>';
 
 		apply_filters( 'learnpress/admin/steps', learn_press_get_template( 'global/lp-group-step' ) );
+
+		// Added notify message when action done.
+		Template::instance()->get_admin_template( 'global/notify-action.php' );
 	}
 
 	public static function instance() {

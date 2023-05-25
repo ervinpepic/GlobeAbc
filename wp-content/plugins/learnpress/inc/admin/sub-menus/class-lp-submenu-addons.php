@@ -11,60 +11,24 @@ class LP_Submenu_Addons extends LP_Abstract_Submenu {
 	 */
 	public function __construct() {
 		$this->id         = 'learn-press-addons';
-		$this->menu_title = __( 'Add-ons', 'learnpress' );
+		$this->menu_title = __( 'Add-ons', 'learnpress' ) . '<span class="lp-notify has-addon-update"></span>';
 		$this->page_title = __( 'LearnPress Add-ons', 'learnpress' );
 		$this->priority   = 20;
 		$this->callback   = [ $this, 'display' ];
 
-		$this->add_ons_tabs();
-
 		parent::__construct();
 	}
 
-	public function add_ons_tabs() {
-		// Check is page addons
-		$current_page = LP_Helper::getUrlCurrent();
-		$pattern      = '/.*page=learn-press-addons.*/';
-		$match        = preg_match( $pattern, $current_page, $matches );
-		if ( ! $match ) {
-			return;
-		}
-
-		$tabs = array(
-			'more'      => sprintf( __( 'Get more (%d)', 'learnpress' ), LP_Plugins_Helper::count_plugins() ),
-			'installed' => sprintf( __( 'Installed (%d)', 'learnpress' ), LP_Plugins_Helper::count_plugins( 'installed' ) ),
-			'themes'    => sprintf( __( 'Themes (%d)', 'learnpress' ), LP_Plugins_Helper::count_themes() ),
+	public function display() {
+		echo '<h1>' . __( 'LearnPress Addons' ) . '</h1>';
+		echo '<p><strong><i>* If you use premium theme and theme include addons, you can go to tab Plugins to download/update</strong></i></p>';
+		echo sprintf(
+			'<p>* If you buy premium addon separately, you can enter purchase code( %s ) and download/update addons on here</p>',
+			'<a href="https://thimpress.com/my-account/" target="_blank">get from your account</a>'
 		);
-
-		$this->tabs = apply_filters(
-			'learn-press/admin/page-addons-tabs',
-			$tabs
-		);
-	}
-
-	public function page_content_installed() {
-		$this->page_content_search_form();
-		learn_press_admin_view( 'addons/html-plugins-installed' );
-	}
-
-	public function page_content_more() {
-		$this->page_content_search_form();
-		learn_press_admin_view( 'addons/html-plugins-more' );
-	}
-
-	public function page_content_themes() {
-		$this->page_content_search_form();
-		learn_press_admin_view( 'addons/html-themes' );
-	}
-
-	public function page_content_search_form() {
-		?>
-
-		<p class="search-box">
-			<input type="text" class="lp-search-addon" value="" placeholder="<?php esc_attr_e( 'Search...', 'learnpress' ); ?>">
-		</p>
-
-		<?php
+		echo '<div class="lp-addons-page">';
+		lp_skeleton_animation_html( 20 );
+		echo '</div>';
 	}
 }
 

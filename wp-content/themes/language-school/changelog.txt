@@ -1,12 +1,18 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.2.8
+ * @version 	1.2.9
  */
  
 -----------------------------------------------------------------------
 				CHANGELOG
 -----------------------------------------------------------------------
+Version 1.2.9:
+	
+	1. Fixed apply custom fonts in gutenberg editor
+	2. Fixed tribe event series
+	3. Updated plugins
+--------------------------------------
 Version 1.2.8:
 
 	1. Fixed LearnPress

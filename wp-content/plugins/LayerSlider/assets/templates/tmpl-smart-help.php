@@ -879,6 +879,15 @@
 		<?= __('The layer’s position from the top edge of the project canvas. You can use pixels and percents. Percentage values align the layer’s center point to the given position, so 50% places the layer exactly at the middle. The 0% and 100% special values align the layer to the top and bottom edges.', 'LayerSlider') ?>
 	</div>
 
+	<div data-smart-help="position-adjustment-left">
+		<?= __('Useful when you want to position layers relative to the right side. In this case, set the value of the left position to 100% and enter the distance from the right side in this field as a negative value in pixels.', 'LayerSlider') ?>
+	</div>
+
+
+	<div data-smart-help="position-adjustment-top">
+		<?= __('Useful when you want to position layers relative to the bottom. In this case, set the value of the top position to 100% and enter the distance from the bottom edge in this field as a negative value in pixels.', 'LayerSlider') ?>
+	</div>
+
 
 	<div data-smart-help="duration">
 		<?= __('The length of the transition in milliseconds. A second equals to 1000 milliseconds.', 'LayerSlider') ?>
@@ -1169,6 +1178,17 @@
 			<lse-li data-smart-inject="0 0 0 100%"><?= __('From right', 'LayerSlider') ?></lse-li>
 			<lse-li data-smart-inject="100% 0 0 0"><?= __('From bottom', 'LayerSlider') ?></lse-li>
 			<lse-li data-smart-inject="0 100% 0 0"><?= __('From left', 'LayerSlider') ?></lse-li>
+		</lse-ul>
+
+	</div>
+
+	<div data-smart-options="maskout">
+
+		<lse-ul class="lse-smart-inject">
+			<lse-li data-smart-inject="0 0 100% 0"><?= __('To top', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="0 0 0 100%"><?= __('To right', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="100% 0 0 0"><?= __('To bottom', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="0 100% 0 0"><?= __('To left', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 
 	</div>

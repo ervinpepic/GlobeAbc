@@ -62,10 +62,20 @@ if(isset($slides['properties']['autoPauseSlideshow'])) {
 
 // Get global background image by attachment ID (if any)
 if( ! empty( $slides['properties']['props']['globalBGImageId'] ) ) {
+
+	if( has_filter('wpml_object_id') && get_option('ls_wpml_media_translation', true ) ) {
+		$slides['properties']['props']['globalBGImageId'] = apply_filters('wpml_object_id', $slides['properties']['props']['globalBGImageId'], 'attachment', true );
+	}
+
 	$tempSrc = wp_get_attachment_image_src( $slides['properties']['props']['globalBGImageId'], 'full' );
 	$tempSrc = apply_filters('layerslider_init_props_image', $tempSrc[0]);
 
 	$slides['properties']['attrs']['globalBGImage'] = $tempSrc;
+}
+
+// GLobal background image asset
+if( ! empty( $slides['properties']['attrs']['globalBGImage'] ) && ! ls_assets_cond( $slides['properties']['attrs'], 'globalBGImage' ) ) {
+	unset( $slides['properties']['attrs']['globalBGImage'] );
 }
 
 

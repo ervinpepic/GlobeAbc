@@ -82,7 +82,7 @@ var __webpack_exports__ = {};
           if (response.messages) {
             showErrors(response.messages);
           } else if (response.message) {
-            showMessage('<div class="learn-press-message error">' + response.message + '</div>');
+            showMessage(response.message);
           }
           $('#learn-press-checkout-place-order').removeClass('loading');
           if ('success' === response.result) {

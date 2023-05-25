@@ -119,6 +119,10 @@
 		transform: none !important;
 	}
 
+	.ls-wrapper .line {
+		white-space: nowrap;
+	}
+
 	.ls-layer.ls-has-chars .word {
 		position: static !important;
 	}
@@ -133,6 +137,12 @@
 
 	.ls-layer.ls-has-lines .line {
 		position: relative !important;
+	}
+
+	.ls-layer .char,
+	.ls-layer .word,
+	.ls-layer .line {
+		text-decoration: inherit;
 	}
 
 	.ls-textnode-dummy {
@@ -1152,6 +1162,11 @@
 		display: block;
 	}
 
+	.ls-container .ls-layer:not(.ls-html-layer),
+	.ls-container .ls-l:not(.ls-html-layer) {
+		stroke-width: 0;
+	}
+
 	.ls-container .ls-layer:not(.ls-html-layer) svg,
 	.ls-container .ls-l:not(.ls-html-layer) svg {
 		fill: currentColor;
@@ -1448,12 +1463,31 @@
 		}
 	}
 
-	[data-ls-animating-in],
-	[data-ls-animating-out] {
+	.ls-z[data-ls-animating-in] .ls-wrapper.ls-in-out,
+	.ls-z[data-ls-animating-out] .ls-wrapper.ls-in-out,
+	.ls-curtile,
+	.ls-nexttile {
 		will-change: transform, opacity;
 	}
 
-	.ls-loop {
-		will-change: transform;
+	.ls-layer[data-ls-animating-in],
+	.ls-layer[data-ls-animating-out] {
+		will-change: filter;
 	}
 
+	.ls-layer[data-ls-text-animating-in] .line,
+	.ls-layer[data-ls-text-animating-in] .word,
+	.ls-layer[data-ls-text-animating-in] .char,
+	.ls-layer[data-ls-text-animating-out] .line,
+	.ls-layer[data-ls-text-animating-out] .word,
+	.ls-layer[data-ls-text-animating-out] .char {
+		will-change: transform, opacity;
+	}
+
+	.ls-z:not([data-ls-hidden]),
+	.ls-z:not([data-ls-hidden]) .ls-wrapper.ls-loop,
+	.ls-z:not([data-ls-hidden]) .ls-wrapper.ls-parallax,
+	.ls-z:not([data-ls-hidden]) .ls-wrapper.ls-scroll-transform,
+	.ls-z:not([data-ls-hidden]) .ls-wrapper.ls-scroll {
+		will-change: transform, opacity;
+	}

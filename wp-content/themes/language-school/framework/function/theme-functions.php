@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.2.7
+ * @version 	1.2.9
  * 
  * Theme Functions
  * Created by CMSMasters
@@ -469,7 +469,11 @@ function cmsmasters_theme_google_font($fonts, $font_name = '') {
 		
 		
 		if ($local_fonts != '' && $font_name == '') {
-			wp_add_inline_style('theme-design-style', $local_fonts);
+			wp_register_style( 'theme_fonts_generate', false );
+		
+			wp_enqueue_style( 'theme_fonts_generate' );
+
+			wp_add_inline_style('theme_fonts_generate', $local_fonts);
 		}
 		
 		

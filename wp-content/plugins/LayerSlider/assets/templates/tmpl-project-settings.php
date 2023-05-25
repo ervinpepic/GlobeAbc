@@ -1129,7 +1129,13 @@ $sProps =& $slider['properties'];
 									</td>
 								</tr>
  								<tr>
-									<td><?= __('Background image', 'LayerSlider') ?></td>
+									<td>
+										<?= lsGetSVGIcon('exclamation-triangle', false, [
+											'class' => 'lse-unregistered-layer lse-premium lse-premium-lock',
+											'data-tt' => '.tt-option-unregistered'
+										]) ?>
+										<?= __('Background image', 'LayerSlider') ?>
+									</td>
 									<td>
 										<?php $bgImage = !empty($sProps['backgroundimage']) ? $sProps['backgroundimage'] : null; ?>
 										<?php $bgImageId = !empty($sProps['backgroundimageId']) ? $sProps['backgroundimageId'] : null; ?>
@@ -1403,6 +1409,7 @@ $sProps =& $slider['properties'];
 								lsOptionRow('checkbox', $sDefs['relativeURLs'], $sProps );
 								lsOptionRow('select', $sDefs['useSrcset'], $sProps );
 								lsOptionRow('checkbox', $sDefs['allowRestartOnResize'], $sProps );
+								lsOptionRow('checkbox', $sDefs['fixFloatedContainers'], $sProps );
 								lsOptionRow('select', $sDefs['preferBlendMode'], $sProps );
 								?>
 								<tr>

@@ -1,6 +1,5 @@
 <?php
 // show results and settings tabs
-
 wp_enqueue_style(
     'hdq_admin_style',
     plugin_dir_url(__FILE__) . './css/hdq_a_light_admin_style.css?v=' . HDQ_A_LIGHT_PLUGIN_VERSION
@@ -12,7 +11,6 @@ wp_enqueue_script(
     '1.0',
     true
 );
-
 
 $opt_name1 = 'hdq_a_l_members_only';
 $hidden_field_name = 'hd_submit_hidden';
@@ -31,7 +29,6 @@ if (isset($_POST['hdq_about_options_nonce'])) {
         } else {
             $opt_val1 = "";
         }
-
         // Save the posted value in the database
         update_option($opt_name1, $opt_val1);
     }
@@ -65,6 +62,9 @@ if (isset($_POST['hdq_about_options_nonce'])) {
                             With the Pro version of this addon, you will be able to add a custom form that either needs to be completed before starting a quiz, or before submitting the quiz to get your results. You also know each individual answer that a user makes, the time taken to complete the quiz, and you'll be able to sort / filter your results by date, quiz name, result (pass or fail), and user.
                         </p>
                         <p>
+                            <strong>NEW:</strong> The Pro addon now also has included leaderboard functionality. You can either automatically add a leaderboard after each page, or use a shortcode to add a leaderboard to any page or post you want.
+                        </p>
+                        <p>
                             <a href="https://harmonicdesign.ca/product/hd-quiz-save-results-pro/?utm_source=HDQuiz&utm_medium=hdql" style="text-decoration:none" class="hdq_button2" target="_blank">VIEW ADDON PAGE</a>
                         </p>
                     </div>
@@ -74,6 +74,7 @@ if (isset($_POST['hdq_about_options_nonce'])) {
                         <li>+ send results via email</li>
                         <li>+ sort and filter results</li>
                         <li>+ save each question result</li>
+                        <li>+ NEW: leaderboard</li>
                     </ul>
                 </div>
             </div>
@@ -175,7 +176,7 @@ if (isset($_POST['hdq_about_options_nonce'])) {
                             </div>
                         </div>
 
-                        <div class="hdq_row">
+                        <div class="hdq_row" style="text-align:right">
                             <input type="submit" class="hdq_button2" id="hdq_save_settings" value="SAVE">
                         </div>
 

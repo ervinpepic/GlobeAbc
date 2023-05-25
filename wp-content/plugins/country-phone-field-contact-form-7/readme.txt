@@ -1,9 +1,9 @@
 === Country & Phone Field Contact Form 7 ===
-Contributors: narinderbisht,webgrex
-Donate link: https://www.paypal.me/webgrex
+Contributors: narinderbisht
+Donate link: https://www.paypal.com/paypalme/narinderbisht
 Tags: country dropdown, flags, phone extension, form, contact form, contact form 7, country dropdown plugin, international telephone input, Country & Phone Field, WordPress plugin
 Requires at least: 6.0
-Tested up to: 6.1.1
+Tested up to: 6.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -61,9 +61,6 @@ While adding the field, enable number only validation checkbox. If you already a
 
 Please use contact form 7 standard featured minlength and maxlength option. It will work for you.
 
-= freegeoip.live/json API is not working anymore.
-
-This was a free API. But now it is not working anymore. So we discontinue it and remove from plugin. Pleae update the plugin. Plugin have new API integration.
 
 == Screenshots ==
 
@@ -200,3 +197,6 @@ This was a free API. But now it is not working anymore. So we discontinue it and
 
 2.4.4
 * update IP tracking API to https://reallyfreegeoip.org/json/
+
+2.4.5
+* Tested on WordPress 6.2

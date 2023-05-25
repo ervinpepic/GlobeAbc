@@ -89,7 +89,7 @@ class LP_Checkout {
 	/**
 	 * Constructor
 	 */
-	public function __construct() {
+	protected function __construct() {
 		add_filter( 'learn-press/validate-checkout-field', array( $this, 'validate_fields' ), 10, 3 );
 		add_filter( 'learn-press/validate-checkout-fields', array( $this, 'check_validate_fields' ), 10, 3 );
 		//add_filter( 'learn-press/payment-successful-result', array( $this, 'process_customer' ), 10, 2 );
@@ -407,6 +407,15 @@ class LP_Checkout {
 						throw new Exception( __( 'Create account failed', 'learnpress' ), 0 );
 					}
 				}
+
+				// Get user_id Guest
+				if ( ! $user_id ) {
+					/**
+					 * @var LP_User_Guest $user_guest
+					 */
+					$user_guest = learn_press_get_user();
+					$user_id    = $user_guest->get_id();
+				}
 			}
 
 			$order->set_customer_note( $this->order_comment );
@@ -671,6 +680,8 @@ class LP_Checkout {
 				@set_time_limit( 0 ); // @codingStandardsIgnoreLine
 			}
 
+			$lp_session = LearnPress::instance()->session;
+
 			do_action( 'learn-press/before-checkout' );
 
 			$cart = LearnPress::instance()->cart;
@@ -700,25 +711,29 @@ class LP_Checkout {
 				// maybe throw new exception
 				$this->validate_payment();
 
-				// Create order.
-				$order_id = $this->create_order();
-				if ( is_wp_error( $order_id ) ) {
-					throw new Exception( $order_id->get_error_message() );
+				// Create order if not handle done.
+				$order_id = $lp_session->get( 'order_awaiting_payment', 0 );
+				if ( ! $order_id ) {
+					$order_id = $this->create_order();
+					if ( is_wp_error( $order_id ) ) {
+						throw new Exception( $order_id->get_error_message() );
+					}
+
+					$lp_session->set( 'order_awaiting_payment', $order_id, true );
 				}
 
 				// allow Third-party hook: send email and more...
 				do_action( 'learn-press/checkout-order-processed', $order_id, $this );
 
 				if ( $this->payment_method instanceof LP_Gateway_Abstract ) {
-					//LearnPress::instance()->session->set( 'order_awaiting_payment', $order_id );
 					// Process Payment
 					$result = $this->payment_method->process_payment( $order_id );
-
 					if ( isset( $result['result'] ) ) {
-						// Clear cart.
-						LearnPress::instance()->get_cart()->empty_cart();
-
 						if ( 'success' === $result['result'] ) {
+							// Clear cart.
+							LearnPress::instance()->get_cart()->empty_cart();
+							// Clear order_awaiting_payment.
+							//$lp_session->remove( 'order_awaiting_payment', true );
 							$result = apply_filters( 'learn-press/payment-successful-result', $result, $order_id );
 						}
 
@@ -753,6 +768,8 @@ class LP_Checkout {
 
 						// Clear cart.
 						LearnPress::instance()->get_cart()->empty_cart();
+						// Clear order_awaiting_payment.
+						//$lp_session->remove( 'order_awaiting_payment', true );
 
 						$result = array(
 							'result'   => 'success',
@@ -787,13 +804,13 @@ class LP_Checkout {
 	}
 
 	/**
-	 * Get unique instance for this object
+	 * Singleton
 	 *
 	 * @return LP_Checkout
 	 */
 	public static function instance() {
 		if ( empty( self::$_instance ) ) {
-			self::$_instance = new LP_Checkout();
+			self::$_instance = new self();
 		}
 
 		return self::$_instance;

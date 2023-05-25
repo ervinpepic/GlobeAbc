@@ -14,7 +14,13 @@
 	// Get slider
 
 	$sliderItem = LS_Sliders::find( $id );
-	$slider 	= $sliderItem['data'];
+	$slider 	= ! empty( $sliderItem['data'] ) ? $sliderItem['data'] : [];
+
+	// Variable to display editor warning if the project cannot be found
+	if( empty( $slider ) || ! empty( $sliderItem['flag_group'] ) ){
+		$lsProjectNotFound = true;
+	}
+
 
 	$sliderDraft = LS_Sliders::getDraft( $id );
 
@@ -27,14 +33,6 @@
 	}
 
 	$slider = ls_normalize_slider_data( $slider );
-
-	// Redirect back to the slider list if the slider cannot be found
-	// or it is malformed or a group item.
-	//
-	// Using <script> tag since headers are already sent out at this point.
-	if( empty( $slider ) || ! empty( $sliderItem['flag_group'] ) ){
-		die('<script>window.location.href = "'.admin_url('admin.php?page=layerslider').'";</script>');
-	}
 
 	// License registration
 	$lsActivated = LS_Config::isActivatedSite();
@@ -96,20 +94,22 @@
 	]);
 
 
-	// Global options
+	// Global Settings
 	wp_localize_script('ls-project-editor', 'LS_pluginSettings', [
 		'performanceMode' => (bool) get_option('ls_performance_mode', true )
 	]);
 
 
-	// Layer type icons
+	// Icons
 	wp_localize_script('ls-project-editor', 'LS_InterfaceIcons', [
+
 		'layerTypes' => [
 			'img' 			=> lsGetSVGIcon('image-polaroid', 'regular'),
 			'text' 			=> lsGetSVGIcon('align-left'),
 			'media' 		=> lsGetSVGIcon('play-circle'),
 			'button' 		=> lsGetSVGIcon('dot-circle'),
 			'icon' 			=> lsGetSVGIcon('icons'),
+			'asset' 		=> lsGetSVGIcon('photo-video'),
 			'shape' 		=> lsGetSVGIcon('shapes'),
 			'svg' 			=> lsGetSVGIcon('stars'),
 			'html' 			=> lsGetSVGIcon('code'),
@@ -128,7 +128,7 @@
 			'window-maximize' 	=> lsGetSVGIcon('window-maximize', 'regular')
 		],
 
-		'search' 		=> [
+		'search' => [
 
 			'circle' 		=> lsGetSVGIcon('circle', 'regular'),
 			'fullscreen' 	=> lsGetSVGIcon('expand-alt'),
@@ -158,8 +158,6 @@
 			'twitter' 		=> lsGetSVGIcon('twitter', 'brands'),
 			'youtube' 		=> lsGetSVGIcon('youtube', 'brands'),
 			'chevronRight' 	=> lsGetSVGIcon('chevron-right')
-
-
 		]
 	]);
 
@@ -229,11 +227,47 @@
 			</lse-p>
 			<!-- Button -->
 			<lse-p class="lse-warning-button lse-tac">
-				<lse-button>
+
+				<a href="<?= admin_url('admin.php?page=layerslider') ?>" class="lse-button">
+					<?= lsGetSVGIcon('arrow-left',false,['class' => 'lse-it-fix']) ?>
+					<lse-text><?= __('Back to Dashboard', 'LayerSlider') ?></lse-text>
+				</a>
+
+				<lse-button class="lse-load-anyway">
 					<lse-text><?= __('Load Editor Anyway', 'LayerSlider') ?></lse-text>
 					<?= lsGetSVGIcon('arrow-right',false,['class' => 'lse-it-fix']) ?>
 				</lse-button>
 			</lse-p>
+		</lse-b>
+
+
+
+		<!-- Project Not Found -->
+		<lse-b class="lse-warning-project-not-found">
+			<!-- Icon -->
+			<?= lsGetSVGIcon('exclamation-triangle') ?>
+			<!-- Title -->
+			<lse-p class="lse-warning-title">
+				<?= __('Project Not Found', 'LayerSlider') ?>
+			</lse-p>
+			<!-- Text -->
+			<lse-p class="lse-warning-text">
+				<?= sprintf(__('The project you’re looking for does not exist. If you’re reading this right after creating a new project, you’re likely experiencing database-related problems. Please visit %sSystem Status%s, and press the UPDATE DATABASE button. If that doesn’t help, you may need to contact your hosting company to resolve database problems.', 'LayerSlider'), '<a href="'.admin_url( 'admin.php?page=layerslider&section=system-status' ).'">', '</a>') ?>
+			</lse-p>
+			<!-- Button -->
+			<lse-p class="lse-warning-button lse-tac">
+
+				<a href="<?= admin_url('admin.php?page=layerslider') ?>" class="lse-button">
+					<?= lsGetSVGIcon('arrow-left',false,['class' => 'lse-it-fix']) ?>
+					<lse-text><?= __('Back to Dashboard', 'LayerSlider') ?></lse-text>
+				</a>
+
+				<lse-button class="lse-load-anyway">
+					<lse-text><?= __('Load Editor Anyway', 'LayerSlider') ?></lse-text>
+					<?= lsGetSVGIcon('arrow-right',false,['class' => 'lse-it-fix']) ?>
+				</lse-button>
+			</lse-p>
+
 		</lse-b>
 
 	</lse-warning>
@@ -290,7 +324,14 @@
 
 			warningElement.className += ' lse-visible lse-warning-old-browser';
 			document.body.appendChild( warningElement );
+
+		} else if( <?= ! empty( $lsProjectNotFound ) ? 'true' : 'false' ?>) {
+			var warningElement = document.getElementById('lse-warning');
+
+			warningElement.className += ' lse-visible lse-warning-project-not-found';
+			document.body.appendChild( warningElement );
 		}
+
 	</script>
 
 	<lse-dropzone-overlay></lse-dropzone-overlay>
@@ -347,6 +388,11 @@
 							<lse-text><span class="lse-not-wide"><?= __('Slides', 'LayerSlider') ?></span><span class="lse-wide"><?= __('Slides List', 'LayerSlider') ?></span></lse-text>
 							<?= lsGetSVGIcon('sort-down',false,['class' => 'lse-open lse-it-0']) ?>
 							<?= lsGetSVGIcon('times',false,['class' => 'lse-close']) ?>
+						</lse-button>
+						<lse-button class="lse-assets-library-button lse-no-toggle">
+							<?= lsGetSVGIcon('photo-video') ?>
+							<lse-text><?= __('Assets', 'LayerSlider') ?></lse-text>
+							<lse-badge><?= __('NEW', 'LayerSlider') ?></lse-badge>
 						</lse-button>
 						<lse-submenu-wrapper id="lse-preview">
 							<lse-button class="lse-exit-preview">
@@ -838,6 +884,11 @@
 										<lse-text><?= __('Add Layer', 'LayerSlider') ?></lse-text>
 									</lse-subnav-item>
 
+									<lse-subnav-item class="lse-import-layer-button lse-no-toggle">
+										<?= lsGetSVGIcon('file-import') ?>
+										<lse-text><?= __('Import Layer', 'LayerSlider') ?></lse-text>
+									</lse-subnav-item>
+
 								</lse-sidebar-subnav>
 
 								<lse-sidebar-body>
@@ -871,6 +922,9 @@
 
 										<lse-tt class="tt-layer-unregistered lse-premium">
 											<?= __('This layer’s appearance and functionality may be affected since it uses a premium feature, which requires license registration.', 'LayerSlider') ?>
+										</lse-tt>
+										<lse-tt class="tt-option-unregistered lse-premium">
+											<?= __('This option’s functionality may be affected since it uses a premium feature or content, which requires license registration.', 'LayerSlider') ?>
 										</lse-tt>
 
 										<lse-sidebar-section-body class="lse-mv-0">
@@ -1242,6 +1296,10 @@
 														<lse-row>
 															<lse-col>
 																<lse-ib>
+																	<?= lsGetSVGIcon('exclamation-triangle', false, [
+																		'class' => 'lse-unregistered-layer lse-premium lse-premium-lock',
+																		'data-tt' => '.tt-option-unregistered'
+            														]) ?>
 																	<lse-text>
 																		<?= __('Background Image', 'LayerSlider') ?>
 																	</lse-text>
@@ -1254,6 +1312,16 @@
 																			'data-contextmenu-selector' => '#lse-context-menu-image-input'
 																		]) ?>
 																	</lse-fe-wrapper>
+																</lse-ib>
+															</lse-col>
+															<lse-col>
+																<lse-ib>
+																	<lse-text><?= __('or', 'LayerSlider') ?></lse-text>
+																</lse-ib>
+																<lse-ib class="lse-jcc">
+																	<lse-button class="lse-assets-library-button" data-accepts="image" data-asset-for="slide-image">
+																		<?= __('Choose Asset', 'LayerSlider') ?>
+																	</lse-button>
 																</lse-ib>
 															</lse-col>
 															<lse-col>
@@ -1307,6 +1375,7 @@
 																	</lse-fe-wrapper>
 																</lse-ib>
 															</lse-col>
+															<lse-col-placeholder></lse-col-placeholder>
 														</lse-row>
 													</lse-grid>
 												</lse-sidebar-section-body>
@@ -1323,6 +1392,10 @@
 														<lse-row>
 															<lse-col>
 																<lse-ib>
+																	<?= lsGetSVGIcon('exclamation-triangle', false, [
+																		'class' => 'lse-unregistered-layer lse-premium lse-premium-lock',
+																		'data-tt' => '.tt-option-unregistered'
+            														]) ?>
 																	<lse-text>
 																		<?= __('Set Thumbnail', 'LayerSlider') ?>
 																	</lse-text>
@@ -2019,7 +2092,7 @@
 														<lse-li data-name="button"><?= lsGetSVGIcon('dot-circle') ?><ls-text><?= __('Button', 'LayerSlider') ?></ls-text></lse-li>
 														<lse-li data-name="shape"><?= lsGetSVGIcon('shapes') ?><ls-text><?= __('Shape', 'LayerSlider') ?></ls-text></lse-li>
 														<lse-li data-name="icon"><?= lsGetSVGIcon('icons') ?><ls-text><?= __('Icon', 'LayerSlider') ?></ls-text></lse-li>
-														<lse-li data-name="svg"><?= lsGetSVGIcon('stars') ?><ls-text><?= __('Object', 'LayerSlider') ?></ls-text></lse-li>
+														<lse-li data-name="svg"><?= lsGetSVGIcon('stars') ?><ls-text><?= __('SVG', 'LayerSlider') ?></ls-text></lse-li>
 														<lse-li data-name="html"><?= lsGetSVGIcon('code') ?><ls-text><?= __('HTML', 'LayerSlider') ?></ls-text></lse-li>
 														<lse-li data-name="post"><?= lsGetSVGIcon('database') ?><ls-text><?= __('Dynamic Layer', 'LayerSlider') ?></ls-text></lse-li>
 													</lse-ul>
@@ -2067,6 +2140,10 @@
 
 															<lse-col class="lse-img-type-only">
 																<lse-ib>
+																	<?= lsGetSVGIcon('exclamation-triangle', false, [
+																		'class' => 'lse-unregistered-layer lse-premium lse-premium-lock',
+																		'data-tt' => '.tt-option-unregistered'
+            														]) ?>
 																	<lse-text><?= __('Set image', 'LayerSlider') ?></lse-text>
 																</lse-ib>
 																<lse-ib class="lse-tac">
@@ -2079,7 +2156,16 @@
 																	</lse-fe-wrapper>
 																</lse-ib>
 															</lse-col>
-															<lse-col-placeholder class="lse-img-type-only"></lse-col-placeholder>
+															<lse-col class="lse-img-type-only">
+																<lse-ib>
+																	<lse-text><?= __('or', 'LayerSlider') ?></lse-text>
+																</lse-ib>
+																<lse-ib class="lse-jcc">
+																	<lse-button class="lse-assets-library-button" data-accepts="image" data-asset-for="layer-image">
+																		<?= __('Choose Asset', 'LayerSlider') ?>
+																	</lse-button>
+																</lse-ib>
+															</lse-col>
 
 
 															<!-- COMMON (CONTENT BOX) -->
@@ -2143,14 +2229,24 @@
 
 
 
-															<!-- OBJECT LAYER -->
+															<!-- OBJECT (SVG) LAYER -->
 
 															<lse-col class="lse-object-type-only">
 																<lse-ib class="lse-half lse-jcc">
-																	<lse-button data-search-name="<?= __('Modify Object', 'LayerSlider') ?>" class="lse-giant lse-aic lse-modify-object">
+																	<lse-button data-search-name="<?= __('Modify SVG', 'LayerSlider') ?>" class="lse-giant lse-aic lse-modify-object">
 																		<?= lsGetSVGIcon('palette')?>
 																		<lse-text>
-																		<?= __('Modify Object', 'LayerSlider') ?>
+																		<?= __('Modify SVG', 'LayerSlider') ?>
+																		</lse-text>
+																	</lse-button>
+																</lse-ib>
+															</lse-col>
+															<lse-col class="lse-object-type-only">
+																<lse-ib class="lse-half lse-jcc">
+																	<lse-button class="lse-giant lse-aic lse-assets-library-button" data-asset-for="layer-svg"  data-accepts="svg" data-asset-category="maps-flags">
+																		<?= lsGetSVGIcon('photo-video')?>
+																		<lse-text>
+																		<?= __('Choose Asset', 'LayerSlider') ?>
 																		</lse-text>
 																	</lse-button>
 																</lse-ib>
@@ -2365,6 +2461,10 @@
 
 															<lse-col>
 																<lse-ib>
+																	<?= lsGetSVGIcon('exclamation-triangle', false, [
+																		'class' => 'lse-unregistered-layer lse-premium lse-premium-lock',
+																		'data-tt' => '.tt-option-unregistered'
+            														]) ?>
 																	<lse-text><?= __('Poster image', 'LayerSlider') ?></lse-text>
 																</lse-ib>
 																<lse-ib>
@@ -2687,6 +2787,47 @@
 																</lse-ib>
 															</lse-col>
 
+															<lse-col class="lse-full">
+																<lse-ib>
+																	<lse-text class="lse-show-for-static-position-only">
+																		<?= __('Margin', 'LayerSlider') ?> <lse-cur-prop></lse-cur-prop><lse-units>px</lse-units>
+																	</lse-text>
+																	<lse-text class="lse-show-for-positioned-layers-only">
+																		<?= __('Position Adjustment', 'LayerSlider') ?> <lse-cur-prop></lse-cur-prop><lse-units>px</lse-units>
+																	</lse-text>
+																</lse-ib>
+																<lse-ib class="lse-quarter lse-margin-style">
+																	<lse-fe-wrapper class="lse-smart-help" data-smart-help="position-adjustment-top" data-smart-help-title="<?= __('Position Adjustment', 'LayerSlider') ?>" data-smart-operations>
+																		<?php lsGetInput( $lsDefaults['layers']['marginTop'], null, [
+																			'class' 			=> 'lse-style-prop',
+																			'data-prop-type' 	=> __('top', 'LayerSlider'),
+																			'data-link' 		=> 'margin-style'
+																		]) ?>
+																	</lse-fe-wrapper>
+																	<lse-fe-wrapper class="lse-show-for-static-position-only">
+																		<?php lsGetInput( $lsDefaults['layers']['marginRight'], null, [
+																			'class' 			=> 'lse-style-prop',
+																			'data-prop-type' 	=> __('right', 'LayerSlider'),
+																			'data-link' 		=> 'margin-style'
+																		]) ?>
+																	</lse-fe-wrapper>
+																	<lse-fe-wrapper class="lse-show-for-static-position-only">
+																		<?php lsGetInput( $lsDefaults['layers']['marginBottom'], null, [
+																			'class' 			=> 'lse-style-prop',
+																			'data-prop-type' 	=> __('bottom', 'LayerSlider'),
+																			'data-link' 		=> 'margin-style'
+																		]) ?>
+																	</lse-fe-wrapper>
+																	<lse-fe-wrapper class="lse-smart-help" data-smart-help="position-adjustment-left" data-smart-help-title="<?= __('Position Adjustment', 'LayerSlider') ?>" data-smart-operations>
+																		<?php lsGetInput( $lsDefaults['layers']['marginLeft'], null, [
+																			'class' 			=> 'lse-style-prop',
+																			'data-prop-type' 	=> __('left', 'LayerSlider'),
+																			'data-link' 		=> 'margin-style'
+																		]) ?>
+																	</lse-fe-wrapper>
+																</lse-ib>
+															</lse-col>
+
 															<lse-separator></lse-separator>
 
 															<lse-col class="lse-full">
@@ -2726,7 +2867,7 @@
 														<?= __('Icon Style', 'LayerSlider') ?>
 													</lse-text>
 													<lse-text class="lse-object-type-only">
-														<?= __('Object Style', 'LayerSlider') ?>
+														<?= __('SVG Style', 'LayerSlider') ?>
 													</lse-text>
 													<lse-text class="lse-shape-type-only">
 														<?= __('Shape Style', 'LayerSlider') ?>
@@ -2788,7 +2929,7 @@
 																		<?= __('Icon Color', 'LayerSlider') ?>
 																	</lse-text>
 																	<lse-text class="lse-object-type-only">
-																		<?= __('Object Color', 'LayerSlider') ?>
+																		<?= __('Fill Color', 'LayerSlider') ?>
 																	</lse-text>
 																	<lse-text class="lse-shape-type-only">
 																		<?= __('Shape Color', 'LayerSlider') ?>
@@ -2799,7 +2940,7 @@
 																		<?php lsGetInput( $lsDefaults['layers']['color'], null, [
 																			'type' => 'text',
 																			'class' => 'lse-style-prop',
-																			'data-shape-color' => '1'
+																			'data-shape-data-key' => 'fillColor'
 																		] ) ?>
 																		<?= lsGetSVGIcon('times', null, [
 																			'class' => 'lse-remove lse-it-0'
@@ -2807,6 +2948,51 @@
 																	</lse-fe-wrapper>
 																</lse-ib>
 															</lse-col>
+
+															<lse-col class="lse-vector-type-only lse-stroke-type-only">
+																<lse-ib>
+																	<lse-text>
+																		<?= __('Stroke Color', 'LayerSlider') ?>
+																	</lse-text>
+																</lse-ib>
+																<lse-ib>
+																	<lse-fe-wrapper class="lse-smart-help lse-color-input" data-smart-help="textcolor" data-smart-help-title="<?= __('Stroke Color', 'LayerSlider') ?>" data-smart-load="lse-color-picker">
+																		<?php lsGetInput( $lsDefaults['layers']['stroke'], null, [
+																			'type' => 'text',
+																			'class' => 'lse-style-prop',
+																			'data-shape-data-key' => 'strokeColor'
+																		] ) ?>
+																		<?= lsGetSVGIcon('times', null, [
+																			'class' => 'lse-remove lse-it-0'
+																		]) ?>
+																	</lse-fe-wrapper>
+																</lse-ib>
+															</lse-col>
+
+															<lse-col class="lse-vector-type-only lse-stroke-type-only">
+																<lse-ib>
+																	<lse-text>
+																		<?= __('Stroke Size', 'LayerSlider') ?>
+																	</lse-text>
+																</lse-ib>
+																<lse-ib class="lse-range-inputs lse-half">
+																	<?php lsGetInput( $lsDefaults['layers']['strokeWidth'], null, [
+																		'type' 	=> 'range',
+																		'min' 	=> 0,
+																		'max' 	=> 10,
+																		'step' 	=> 0.1,
+																		'name' 	=> '',
+																		'class' => 'lse-style-prop',
+																		'data-shape-data-key' => 'strokeWidth'
+																	]) ?>
+																	<?php lsGetInput( $lsDefaults['layers']['strokeWidth'], null, [
+																		'class' => 'lse-style-prop',
+																		'data-shape-data-key' => 'strokeWidth'
+																	]) ?>
+																	<lse-unit>px</lse-unit>
+																</lse-ib>
+															</lse-col>
+
 															<lse-col-placeholder></lse-col-placeholder>
 														</lse-row>
 													</lse-grid>
@@ -3316,7 +3502,7 @@
 
 												</lse-sidebar-section-body>
 
-												<lse-sidebar-section-head class="lse-can-be-closed lse-show-more">
+												<lse-sidebar-section-head class="lse-can-be-closed lse-show-more lse-layer-styles-bg">
 													<lse-text>
 														<?= __('Background', 'LayerSlider') ?>
 													</lse-text>
@@ -3332,6 +3518,10 @@
 														<lse-row>
 															<lse-col>
 																<lse-ib>
+																	<?= lsGetSVGIcon('exclamation-triangle', false, [
+																		'class' => 'lse-unregistered-layer lse-premium lse-premium-lock',
+																		'data-tt' => '.tt-option-unregistered'
+            														]) ?>
 																	<lse-text>
 																		<?= __('Background Image', 'LayerSlider') ?>
 																	</lse-text>
@@ -3344,6 +3534,16 @@
 																			'data-contextmenu-selector' => '#lse-context-menu-image-input'
 																		]) ?>
 																	</lse-fe-wrapper>
+																</lse-ib>
+															</lse-col>
+															<lse-col>
+																<lse-ib>
+																	<lse-text><?= __('or', 'LayerSlider') ?></lse-text>
+																</lse-ib>
+																<lse-ib class="lse-jcc">
+																	<lse-button class="lse-assets-library-button" data-accepts="image" data-asset-for="layer-background-image">
+																		<?= __('Choose Asset', 'LayerSlider') ?>
+																	</lse-button>
 																</lse-ib>
 															</lse-col>
 															<lse-col>
@@ -3881,14 +4081,11 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 														<lse-li class="lse-textish-type-only"><?= __('Opening Text Transition', 'LayerSlider') ?></lse-li>
 														<lse-li><?= __('Loop or Middle Transition', 'LayerSlider') ?></lse-li>
 														<lse-li class="lse-textish-type-only"><?= __('Ending Text Transition', 'LayerSlider') ?></lse-li>
-														<lse-li><?= __('Ending Transition', 'LayerSlider') ?></lse-li>
+														<lse-li class="lse-ending-transition-option"><?= __('Ending Transition', 'LayerSlider') ?></lse-li>
 														<lse-li><?= __('Hover Transition', 'LayerSlider') ?></lse-li>
 														<lse-li><?= __('Parallax Transition', 'LayerSlider') ?></lse-li>
  														<lse-li class="lse-slider-type-only lse-registration-required">
 															<?= __('Scroll Transition', 'LayerSlider') ?>
-															<lse-badge>
-																<?= __('NEW', 'LayerSlider') ?>
-															</lse-badge>
 														</lse-li>
 													</lse-ul>
 												</lse-smart-dropdown-inner>
@@ -5145,7 +5342,7 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 																	</lse-text>
 																</lse-ib>
 																<lse-ib>
-																	<lse-fe-wrapper class="lse-smart-help" data-smart-help="mask" data-smart-help-title="<?= __('Mask', 'LayerSlider') ?>">
+																	<lse-fe-wrapper class="lse-smart-help" data-smart-help="mask" data-smart-options="mask" data-smart-help-title="<?= __('Mask', 'LayerSlider') ?>">
 																		<?php lsGetInput( $lsDefaults['layers']['loopClip'], null, [
 																			'class' => 'lse-transition-prop'
 																		]) ?>
@@ -6074,7 +6271,7 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 																	</lse-text>
 																</lse-ib>
 																<lse-ib>
-																	<lse-fe-wrapper class="lse-smart-help" data-smart-help="mask" data-smart-help-title="<?= __('Mask', 'LayerSlider') ?>">
+																	<lse-fe-wrapper class="lse-smart-help" data-smart-help="mask" data-smart-options="maskout" data-smart-help-title="<?= __('Mask', 'LayerSlider') ?>">
 																		<?php lsGetInput( $lsDefaults['layers']['transitionOutClip'], null, [
 																			'class' => 'lse-transition-prop'
 																		]) ?>
@@ -8725,6 +8922,10 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 						<?= lsGetSVGIcon('dot-circle') ?>
 						<span><?= __('Button', 'LayerSlider') ?></span>
 					</lse-button>
+					<lse-button data-type="asset">
+						<?= lsGetSVGIcon('photo-video') ?>
+						<span><?= __('Asset', 'LayerSlider') ?></span>
+					</lse-button>
 					<lse-button data-type="shape-modal">
 						<?= lsGetSVGIcon('shapes') ?>
 						<span><?= __('Shape', 'LayerSlider') ?></span>
@@ -8735,7 +8936,7 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 					</lse-button>
 					<lse-button data-type="svg-modal">
 						<?= lsGetSVGIcon('stars') ?>
-						<span><?= __('Object', 'LayerSlider') ?></span>
+						<span><?= __('SVG', 'LayerSlider') ?></span>
 					</lse-button>
 					<lse-button data-type="html">
 						<?= lsGetSVGIcon('code') ?>
@@ -8744,10 +8945,6 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 					<lse-button data-type="post">
 						<?= lsGetSVGIcon('database') ?>
 						<span><?= __('Dynamic Layer', 'LayerSlider') ?></span>
-					</lse-button>
-					<lse-button data-type="import">
-						<?= lsGetSVGIcon('file-import') ?>
-						<span><?= __('Import Layer', 'LayerSlider') ?></span>
 					</lse-button>
 				</lse-submenu>
 			</lse-submenu-wrapper>
@@ -8833,6 +9030,10 @@ overflow: hidden;', 'LayerSlider') ?>"></textarea>
 					</lse-button>
 				</lse-submenu>
 			</lse-submenu-wrapper>
+			<lse-button class="lse-import-layer-button">
+				<?= lsGetSVGIcon('file-import') ?>
+				<span><?= __('Import Layer', 'LayerSlider') ?></span>
+			</lse-button>
 			<lse-button class="lse-context-menu-duplicate">
 				<?= lsGetSVGIcon('clone') ?>
 				<lse-text class="lse-context-menu-single"><?= __('Duplicate Layer', 'LayerSlider') ?></lse-text>
@@ -9074,6 +9275,7 @@ include LS_ROOT_PATH . '/templates/tmpl-add-layer.php';
 include LS_ROOT_PATH . '/templates/tmpl-post-chooser.php';
 include LS_ROOT_PATH . '/templates/tmpl-insert-icons-modal.php';
 include LS_ROOT_PATH . '/templates/tmpl-insert-media-modal.php';
+include LS_ROOT_PATH . '/templates/tmpl-assets-library-modal.php';
 include LS_ROOT_PATH . '/templates/tmpl-button-presets.php';
 include LS_ROOT_PATH . '/templates/tmpl-import-slide.php';
 include LS_ROOT_PATH . '/templates/tmpl-import-layer.php';

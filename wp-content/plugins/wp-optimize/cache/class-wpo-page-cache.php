@@ -96,7 +96,7 @@ class WPO_Page_Cache {
 	 */
 	public function __construct() {
 		$this->config = WPO_Cache_Config::instance();
-		$this->rules  = WPO_Cache_Rules::instance();
+		WPO_Cache_Rules::instance();
 		$this->logger = new Updraft_PHP_Logger();
 
 		add_action('activated_plugin', array($this, 'activate_deactivate_plugin'));
@@ -675,7 +675,12 @@ if (empty(\$GLOBALS['wpo_cache_config'])) {
 	include_once(WPO_CACHE_CONFIG_DIR . '/$config_file_basename');
 }
 
-if (empty(\$GLOBALS['wpo_cache_config']) || empty(\$GLOBALS['wpo_cache_config']['enable_page_caching'])) { return; }
+if (empty(\$GLOBALS['wpo_cache_config'])) {
+	error_log('WP-Optimize: Caching failed because the configuration data could not be loaded from the config file.');
+	return;
+}
+
+if (empty(\$GLOBALS['wpo_cache_config']['enable_page_caching'])) { return; }
 
 if (false !== \$plugin_location) { include_once(\$plugin_location.'/file-based-page-cache.php'); }
 
@@ -1034,7 +1039,22 @@ EOF;
 	 * @return bool
 	 */
 	public static function delete_single_post_cache($post_id) {
-	
+		$is_cache_deleted = self::really_delete_single_post_cache($post_id);
+
+		do_action('wpo_single_post_cache_deleted', $post_id);
+
+		return $is_cache_deleted;
+	}
+
+	/**
+	 * Really delete cached files for single post.
+	 *
+	 * @param integer $post_id The post ID
+	 *
+	 * @return bool
+	 */
+	public static function really_delete_single_post_cache($post_id) {
+
 		if (!defined('WPO_CACHE_FILES_DIR')) return;
 
 		$post_url = get_permalink($post_id);
@@ -1116,6 +1136,15 @@ EOF;
 	 * Delete post feed from cache.
 	 */
 	public static function delete_post_feed_cache($post_id) {
+		self::really_delete_post_feed_cache($post_id);
+
+		do_action('wpo_single_post_feed_cache_deleted', $post_id);
+	}
+
+	/**
+	 * Really delete post feed from cache.
+	 */
+	public static function really_delete_post_feed_cache($post_id) {
 		if (!defined('WPO_CACHE_FILES_DIR')) return;
 
 		$post_url = get_permalink($post_id);

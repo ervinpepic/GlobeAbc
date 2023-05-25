@@ -12,4 +12,3 @@
 defined( 'ABSPATH' ) || exit();
 ?>
 
-</div>

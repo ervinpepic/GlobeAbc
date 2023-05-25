@@ -68,6 +68,7 @@ jQuery(function($) {
 
 		kmw.modal.open({
 			content: $('#tmpl-plugin-settings-content'),
+			outerClasses: 'plugin-settings-content-modal',
 			clip: true,
 			minWidth: 400,
 			maxHeight: '90%',

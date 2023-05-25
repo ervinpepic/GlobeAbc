@@ -1767,6 +1767,7 @@ const Timer = () => {
       if (durationTime > 0) {
         let remainSeconds = seconds;
         remainSeconds -= 1;
+        remainSeconds = wp.hooks.applyFilters('js-lp-quiz-remaining_time', remainSeconds, durationTime);
         if (remainSeconds > 0) {
           setSeconds(remainSeconds);
           timeSpend++;
@@ -1907,8 +1908,10 @@ class Quiz extends _wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Component {
   render() {
     const {
       status,
-      isReviewing
+      isReviewing,
+      answered
     } = this.props;
+    wp.hooks.doAction('lp-js-quiz-answer', answered, status);
     const isA = -1 !== ['', 'completed', 'viewed'].indexOf(status) || !status;
     const notStarted = -1 !== ['', 'viewed', undefined].indexOf(status) || !status;
 
@@ -2097,7 +2100,11 @@ const startQuiz = function* () {
       // End
     }
 
-    yield _dispatch('learnpress/quiz', '__requestStartQuizSuccess', camelCaseDashObjectKeys(response), itemId, courseId);
+    // Reload when start/retake quiz
+    window.localStorage.removeItem('LP');
+    window.location.reload();
+
+    //yield _dispatch( 'learnpress/quiz', '__requestStartQuizSuccess', camelCaseDashObjectKeys( response ), itemId, courseId );
   } else {
     const elButtons = document.querySelector('.quiz-buttons');
     const message = `<div class="learn-press-message error">${response.message}</div>`;
@@ -2547,6 +2554,8 @@ const submitQuiz = (state, action) => {
 const startQuizz = (state, action) => {
   const successResponse = action.results.success !== undefined ? action.results.success : false;
   const messageResponse = action.results.message || false;
+  const chunks = chunk(action.results.results.questionIds, state.questionsPerPage);
+  state.numPages = chunks.length;
   return resetCurrentPage(state, {
     checkedQuestions: [],
     hintedQuestions: [],

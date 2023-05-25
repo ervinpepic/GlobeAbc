@@ -28,7 +28,7 @@ class LS_ImportUtil {
 
 
 	// Target folders
-	private $uploadsDir, $targetDir, $targetURL, $tmpDir;
+	private $uploadsDir, $uploadsURL, $tmpDir;
 
 
 	// Imported images
@@ -56,8 +56,7 @@ class LS_ImportUtil {
 
 		// Get target folders
 		$this->uploadsDir 	= $uploads['basedir'];
-		$this->targetDir 	= $uploads['basedir'].'/layerslider/projects';
-		$this->targetURL 	= $uploads['baseurl'].'/layerslider/projects';
+		$this->uploadsURL 	= $uploads['baseurl'];
 		$this->tmpDir 		= $uploads['basedir'].'/layerslider/tmp';
 
 		$type = wp_check_filetype( basename( $name ), [
@@ -90,7 +89,8 @@ class LS_ImportUtil {
 					$this->imported = [];
 
 					if( ! isset( $_POST['skip_images'] ) ) {
-						$this->uploadMedia( $dir );
+						$this->uploadMedia( $dir, 'uploads' );
+						$this->uploadMedia( $dir, 'assets' );
 					}
 
 					if( file_exists($dir.'/settings.json') ) {
@@ -158,54 +158,67 @@ class LS_ImportUtil {
 
 
 
-	public function uploadMedia($dir = null) {
+	public function uploadMedia( $dir = null, $subdir = null) {
 
 		// Check provided data
-		if( empty( $dir ) || ! is_string( $dir ) || ! file_exists( $dir.'/uploads' ) ) {
+		if(
+			empty( $dir ) ||
+			empty( $subdir ) ||
+			! is_string( $dir ) ||
+			! is_string( $subdir ) ||
+			! file_exists( $dir.'/'.$subdir )
+		) {
 			return false;
 		}
 
 		// Create folder if it isn't exists already
-		$targetDir = $this->targetDir . '/' . basename($dir);
-		if( ! file_exists( $targetDir ) ) { mkdir($targetDir, 0755); }
+		$baseDir 	= ( $subdir === 'assets' ) ? $this->uploadsDir.'/layerslider/assets/imported' : $this->uploadsDir.'/layerslider/projects';
+		$baseURL 	= ( $subdir === 'assets' ) ? $this->uploadsURL.'/layerslider/assets/imported' : $this->uploadsURL.'/layerslider/projects';
+
+		$targetDir 	= $baseDir.'/'.basename( $dir );
+		$targetURL 	= $baseURL.'/'.basename( $dir );
+
+		if( ! file_exists( $targetDir ) ) {
+			mkdir( $targetDir, 0755 );
+		}
 
 		// Include image.php for media library upload
-		require_once(ABSPATH.'wp-admin/includes/image.php');
+		require_once( ABSPATH.'wp-admin/includes/image.php' );
 
 		// Iterate through directory
-		foreach(glob($dir.'/uploads/*') as $filePath) {
+		foreach( glob( "$dir/$subdir/*" ) as $imagePath ) {
 
-			$fileName 	= sanitize_file_name(basename($filePath));
-			$targetFile = $targetDir.'/'.$fileName;
-			$targetURL 	= $this->targetURL.'/'.basename($dir).'/'.$fileName;
+			$fileName 	= sanitize_file_name( basename( $imagePath ) );
+			$filePath 	= $targetDir.'/'.$fileName;
+			$fileURL 	= $targetURL.'/'.$fileName;
 
 			// Validate media
 			$filetype = wp_check_filetype($fileName, null);
 			if( ! empty( $filetype['ext'] ) && $filetype['ext'] != 'php' ) {
 
 				// New upload
-				if( ! $attach_id = $this->attachIDForURL( $targetURL, $targetFile ) ) {
+				if( ! $attach_id = $this->attachIDForURL( $fileURL, $filePath ) ) {
 
 					// Move item to place
-					rename($filePath, $targetFile);
+					rename($imagePath, $filePath);
 
 					// Upload to media library
 					$attachment = [
-						'guid' => $targetFile,
+						'guid' => $filePath,
 						'post_mime_type' => $filetype['type'],
 						'post_title' => preg_replace( '/\.[^.]+$/', '', $fileName),
 						'post_content' => '',
 						'post_status' => 'inherit'
 					];
 
-					$attach_id = wp_insert_attachment($attachment, $targetFile, 37);
-					if($attach_data = wp_generate_attachment_metadata($attach_id, $targetFile)) {
+					$attach_id = wp_insert_attachment($attachment, $filePath, 37);
+					if($attach_data = wp_generate_attachment_metadata($attach_id, $filePath)) {
 						wp_update_attachment_metadata($attach_id, $attach_data);
 					}
 
 					$this->imported[$fileName] = [
 						'id' => $attach_id,
-						'url' => $this->targetURL.'/'.basename($dir).'/'.$fileName
+						'url' => $fileURL
 					];
 
 				// Already uploaded
@@ -213,7 +226,7 @@ class LS_ImportUtil {
 
 					$this->imported[$fileName] = [
 						'id' => $attach_id,
-						'url' => $targetURL
+						'url' => $fileURL
 					];
 				}
 			}
@@ -342,8 +355,10 @@ class LS_ImportUtil {
 
 	public function attachURLForImage($file = '') {
 
-		if( isset($this->imported[ basename($file) ]) ) {
-			return $this->imported[ basename($file) ]['url'];
+		$file = sanitize_file_name( basename($file) );
+
+		if( isset($this->imported[ $file ]) ) {
+			return $this->imported[ $file ]['url'];
 		}
 
 		return $file;
@@ -352,8 +367,10 @@ class LS_ImportUtil {
 
 	public function attachIDForImage( $file = '' ) {
 
-		if( isset($this->imported[ basename($file) ]) ) {
-			return $this->imported[ basename($file) ]['id'];
+		$file = sanitize_file_name( basename($file) );
+
+		if( isset($this->imported[ $file ]) ) {
+			return $this->imported[ $file ]['id'];
 		}
 
 		return '';

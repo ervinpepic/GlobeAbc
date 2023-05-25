@@ -1532,7 +1532,7 @@ $lsDefaults = [
 
 		'enhancedLazyLoad' => [
 			'value' => 'inherit',
-			'name' => 'Enhanced Lazy Load',
+			'name' => __('Enhanced Lazy Load', 'LayerSlider'),
 			'keys' => 'enhancedLazyLoad',
 			'desc' => __('The default lazy loading behavior ensures maximum compatibility and works ideally for general purposes. However, there is a chance that the browser might start downloading some assets for a split second before LayerSlider cancels them. Enabling this option will eliminate any chance of generating even a minuscule amount of unwanted traffic, but it can also cause issues for search engine indexing and other WP themes/plugins.', 'LayerSlider'),
 			'options' => [
@@ -1558,6 +1558,13 @@ $lsDefaults = [
 			'advanced' => true
 		],
 
+		'fixFloatedContainers' => [
+			'value' => false,
+			'name' => __('Fix resizing issues in special cases', 'LayerSlider'),
+			'keys' => 'fixFloatedContainers',
+			'desc' => __('If the slider is inside a floated element or a flexbox layout, enabling this option can fix resizing issues.', 'LayerSlider'),
+			'advanced' => true
+		],
 
 		'postType' => [
 			'value' => '',
@@ -2102,6 +2109,12 @@ $lsDefaults = [
 		'imageId' => [
 			'value' => '',
 			'keys' => 'imageId',
+			'props' => [ 'meta' => true ]
+		],
+
+		'isAsset' => [
+			'value' => '',
+			'keys' => 'isAsset',
 			'props' => [ 'meta' => true ]
 		],
 
@@ -4080,6 +4093,54 @@ $lsDefaults = [
 			]
 		],
 
+		'marginTop' => [
+			'value' => '',
+			'name' => __('Margin Top', 'LayerSlider'),
+			'keys' => 'margin-top',
+			'attrs' => [
+				'placeholder' => '0px'
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'marginRight' => [
+			'value' => '',
+			'name' => __('Margin Right', 'LayerSlider'),
+			'keys' => 'margin-right',
+			'attrs' => [
+				'placeholder' => '0px'
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'marginBottom' => [
+			'value' => '',
+			'name' => __('Margin Bottom', 'LayerSlider'),
+			'keys' => 'margin-bottom',
+			'attrs' => [
+				'placeholder' => '0px'
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'marginLeft' => [
+			'value' => '',
+			'name' => __('Margin Left', 'LayerSlider'),
+			'keys' => 'margin-left',
+			'attrs' => [
+				'placeholder' => '0px'
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
 		'paddingTop' => [
 			'value' => '',
 			'name' => __('Padding Top', 'LayerSlider'),
@@ -4305,6 +4366,28 @@ $lsDefaults = [
 			'value' => '#000',
 			'name' => __('Color', 'LayerSlider'),
 			'keys' => 'color',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'stroke' => [
+			'value' => '#000',
+			'name' => __('Stroke Color', 'LayerSlider'),
+			'keys' => 'stroke',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'strokeWidth' => [
+			'value' => 0,
+			'name' => __('Stroke Size', 'LayerSlider'),
+			'keys' => 'stroke-width',
+			'attrs' => [
+				'type' => 'number',
+				'min' => 0
+			],
 			'props' => [
 				'meta' => true
 			]

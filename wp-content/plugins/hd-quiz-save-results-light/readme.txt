@@ -2,9 +2,9 @@
 Contributors: HarmonicDesign
 Tags: quiz, quizzes, quizes, quiz, questionnaire, questionnaires, questionnairs, questionair, questionaires, hdquiz, hd quiz, test, question and answers, harmonic design
 Requires at least: 5.0
-Tested up to: 5.6
-Stable tag: 0.3
-Requires PHP: 5.6.0
+Tested up to: 6.2
+Stable tag: 0.4
+Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://www.patreon.com/harmonic_design
@@ -22,12 +22,17 @@ See a live demo of [HD Quiz in action](https://designbypixl.com/the-ultimate-fri
 This addon will create a new Results page for HD Quiz that shows a nice table listing each time one of your quizzes was completed. The table includes the name of the completed quiz, the date and time of completion, the score, whether the quiz was passed of failed, and, if the user was logged-in, their display name.
 
 = NOTICE ⚠️ =
-This is a free and "light" version. A more featured Pro version is currently in development and will be found in the HD Quiz addons page when available.
-Please DO NOT post any questions or support requests for the Pro version here as that is against WordPress terms of service.
+This is a free and "light" version. 
 
+The Save Results Pro addon is a paid version and can be found here: [Save Results Pro](https://harmonicdesign.ca/product/hd-quiz-save-results-pro/ "Save Results Pro")
+-   save quiz taker’s name and email
+-   add custom form fields
+-   send results via email
+-   sort and filter results
+-   save each result of each question/answer
+-   leaderboard functionality
 
-> == HOW TO USE | TUTORIAL ==
-
+== HOW TO USE | TUTORIAL ==
 -   Install HD Quiz
 -   Install this
 -   Check the Results page
@@ -36,6 +41,11 @@ Please DO NOT post any questions or support requests for the Pro version here as
 Quiz, quizzes, create a quiz, add a quiz, quiz plugin, hdq, harmonic design
 
 == Changelog ==
+= 0.4
+-   better compatability with WP 6.x+
+-   minor UI updates to coincide with HDQ 1.8.8 tabs
+-   update SRP copy
+
 = 0.3
 -   increase total records from 500 to 1000
 -   better datetime - use WordPress defined timezone

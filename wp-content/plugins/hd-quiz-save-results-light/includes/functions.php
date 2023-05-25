@@ -58,8 +58,8 @@ function hdq_a_light_submit_action($data)
     $result->quizTaker = $quizTaker;
 
     // save the date and time
-	$timezone = get_option('timezone_string');
-	date_default_timezone_set($timezone);
+    $timezone = get_option('timezone_string');
+    date_default_timezone_set($timezone);
     $result->datetime = date('m-d-Y h:i:s a', time());
 
     // read in existing results

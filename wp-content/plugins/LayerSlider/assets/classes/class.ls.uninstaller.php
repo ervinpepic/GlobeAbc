@@ -64,6 +64,8 @@ class LS_Uninstaller {
 			'ls_use_srcset',
 			'ls_enhanced_lazy_load',
 			'ls_enable_play_by_scroll',
+			'ls_wpml_string_translation',
+			'ls_wpml_media_translation',
 
 			// Updates & Services
 			'ls-share-displayed',

@@ -200,9 +200,9 @@ include LS_ROOT_PATH . '/includes/ls_global.php';
 							if( ! $test ) { $test = strpos(LS_ROOT_FILE, '\\wp-content\\plugins\\LayerSlider\\'); }
 
 						?>
-						<tr class="<?= ! $test ? 'ls--info' : ''?>">
+						<tr class="<?= ! $test ? 'ls--warning' : ''?>">
 							<td><?= __('Install Location', 'LayerSlider') ?></td>
-							<td><?= lsGetSVGIcon( ! $test ? 'info-circle' : 'check' ) ?></td>
+							<td><?= lsGetSVGIcon( ! $test ? 'exclamation-triangle' : 'check' ) ?></td>
 							<td><?= ! $test ? __('Non-standard', 'LayerSlider') : __('OK', 'LayerSlider') ?></td>
 							<td>
 								<?php if( ! $test ) : ?>

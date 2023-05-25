@@ -34,3 +34,20 @@ function ls_get_markup_image( $id, $attrs = [] ) {
 function ls_lazy_loading_cb() {
 	return false;
 }
+
+function ls_assets_cond( $data = [], $key = 0 ) {
+
+	if( ! $GLOBALS['lsIsActivatedSite'] ) {
+
+		if( ! empty( $data['isAsset'] ) ) {
+			return false;
+		}
+
+		if( ! empty( $data[ $key ] ) && strpos( $data[ $key ], '/layerslider/assets/' ) !== false ) {
+			return false;
+		}
+	}
+
+	return true;
+
+}
