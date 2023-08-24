@@ -235,12 +235,12 @@ function layerslider_enqueue_content_res() {
 	$uploads = wp_upload_dir();
 	$uploads['baseurl'] = set_url_scheme( $uploads['baseurl'] );
 
-	if(file_exists($uploads['basedir'].'/layerslider.custom.transitions.js')) {
-		wp_register_script('ls-user-transitions', $uploads['baseurl'].'/layerslider.custom.transitions.js', false, LS_PLUGIN_VERSION, $footer );
+	if( file_exists( $uploads['basedir'].'/layerslider.custom.transitions.js' ) ) {
+		wp_register_script('ls-user-transitions', $uploads['baseurl'].'/layerslider.custom.transitions.js', false, filemtime($uploads['basedir'].'/layerslider.custom.transitions.js'), $footer );
 	}
 
-	if(file_exists($uploads['basedir'].'/layerslider.custom.css')) {
-		wp_enqueue_style('ls-user', $uploads['baseurl'].'/layerslider.custom.css', false, LS_PLUGIN_VERSION );
+	if( file_exists( $uploads['basedir'].'/layerslider.custom.css' ) ) {
+		wp_enqueue_style('ls-user', $uploads['baseurl'].'/layerslider.custom.css', false, filemtime($uploads['basedir'].'/layerslider.custom.css') );
 	}
 
 	if( ! $footer || $always ) {
@@ -557,13 +557,14 @@ function ls_require_builder_assets() {
 	$uploads = wp_upload_dir();
 	$uploads['baseurl'] = set_url_scheme( $uploads['baseurl'] );
 
-	if(file_exists($uploads['basedir'].'/layerslider.custom.transitions.js')) {
-		wp_enqueue_script('ls-user-transitions', $uploads['baseurl'].'/layerslider.custom.transitions.js', false, LS_PLUGIN_VERSION );
+
+	if( file_exists( $uploads['basedir'].'/layerslider.custom.transitions.js' ) ) {
+		wp_enqueue_script('ls-user-transitions', $uploads['baseurl'].'/layerslider.custom.transitions.js', false, filemtime($uploads['basedir'].'/layerslider.custom.transitions.js') );
 	}
 
 	// User transitions
-	if(file_exists($uploads['basedir'].'/layerslider.custom.css')) {
-		wp_enqueue_style('ls-user', $uploads['baseurl'].'/layerslider.custom.css', false, LS_PLUGIN_VERSION );
+	if( file_exists( $uploads['basedir'].'/layerslider.custom.css' ) ) {
+		wp_enqueue_style('ls-user', $uploads['baseurl'].'/layerslider.custom.css', false, filemtime($uploads['basedir'].'/layerslider.custom.css') );
 	}
 }
 

@@ -74,10 +74,15 @@ class LS_ImportUtil {
 			// Extract ZIP
 			if( $this->unpack( $archive) ) {
 
+				// Make sure all imported items have the same creation date for sorting purposes
+				$addProperties['date_c'] = time();
+
 				// Uploaded folders
 				$folders = glob( $this->tmpDir.'/*', GLOB_ONLYDIR );
-
 				$folders = $this->reduceSliders( $folders );
+
+				// Sort projects by name
+				natsort( $folders );
 
 				$groupId = NULL;
 				if( ! empty( $groupName ) && count( $folders ) > 1 ) {
@@ -94,7 +99,11 @@ class LS_ImportUtil {
 					}
 
 					if( file_exists($dir.'/settings.json') ) {
-						$this->lastImportId = $this->addSlider($dir.'/settings.json', $groupId);
+						$this->lastImportId = $this->addSlider(
+							$dir.'/settings.json',
+							$groupId,
+							$addProperties
+						);
 					}
 				}
 
@@ -238,7 +247,7 @@ class LS_ImportUtil {
 
 
 
-	public function addSlider( $file, $groupId = NULL ) {
+	public function addSlider( $file, $groupId = NULL, $addProperties = [] ) {
 
 		// Increment the slider counter
 		$this->sliderCount++;
@@ -310,7 +319,7 @@ class LS_ImportUtil {
 		}}
 
 		// Add slider
-		return LS_Sliders::add( $title, $data, $slug, $groupId );
+		return LS_Sliders::add( $title, $data, $slug, $groupId, $addProperties );
 	}
 
 

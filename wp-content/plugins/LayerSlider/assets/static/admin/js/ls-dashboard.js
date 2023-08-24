@@ -156,27 +156,6 @@ jQuery(function($) {
 		});
 	});
 
-	// Twitter feed
-	window.lsTwitterFeedInterval = setInterval( function() {
-
-		let $iframe 	= $('#ls--box-twitter-feed iframe'),
-			$contents 	= $iframe.contents(),
-			$header 	= $contents.find('.timeline-Header');
-
-		if( $header.length ) {
-
-			$contents.find('head').append('<link rel="stylesheet" href="'+LS_pageMeta.assetsPath+'/static/admin/css/twitter.css" type="text/css" />');
-			clearInterval( window.lsTwitterFeedInterval );
-		}
-
-
-	}, 200 );
-
-	// Fallback Twitter feed
-	setTimeout( function() {
-		clearInterval( window.lsTwitterFeedInterval );
-	}, 5000 );
-
 
 	$('#ls-notification-clear-button').click( function() {
 
@@ -350,6 +329,7 @@ jQuery(function($) {
 
 			$.get( ajaxurl, {
 				action: 'ls_rename_slider_group',
+				nonce: LS_pageMeta.dashboardNonce,
 				groupId: $lastOpenedGroup.data('id'),
 				name: $this.val()
 			});
@@ -369,6 +349,7 @@ jQuery(function($) {
 
 			$.get( ajaxurl, {
 				action: 'ls_delete_slider_group',
+				nonce: LS_pageMeta.dashboardNonce,
 				groupId: $lastOpenedGroup.data('id'),
 			});
 
@@ -1319,13 +1300,17 @@ jQuery(function($) {
 
 					$.getJSON( ajaxurl, {
 						action: 'ls_create_slider_group',
+						nonce: LS_pageMeta.dashboardNonce,
 						items: [
 							$( targetSliderItem ).data('id'),
 							$( draggedSliderItem ).data('id')
 						]
 
 					}, function( data ) {
-						$group.data('id', data.groupId );
+
+						if( data.success && data.groupId ) {
+							$group.data('id', data.groupId );
+						}
 					});
 				}
 			}
@@ -1349,6 +1334,7 @@ jQuery(function($) {
 		if( ! withoutXHR ) {
 			$.get( ajaxurl, {
 				action: 'ls_add_slider_to_group',
+				nonce: LS_pageMeta.dashboardNonce,
 				sliderId: $slider.data('id'),
 				groupId: $group.data('id')
 			});
@@ -1399,6 +1385,7 @@ jQuery(function($) {
 		if( ! withoutXHR ) {
 			$.get( ajaxurl, {
 				action: 'ls_remove_slider_from_group',
+				nonce: LS_pageMeta.dashboardNonce,
 				sliderId: $slider.data('id'),
 				groupId: $group.data('id')
 			});

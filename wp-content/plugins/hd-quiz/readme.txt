@@ -1,50 +1,53 @@
 ﻿=== HD Quiz ===
-Contributors: HarmonicDesign
-Tags: quiz, quizzes, quizes, quiz, questionnaire, questionnaires, questionnairs, questionair, questionaires, hdquiz, hd quiz, test, question and answers, harmonic design
+Contributors: Harmonic_Design, HarmonicDesign
+Tags: quiz, quizzes, MCQ, exam, quiz maker, questionnaire, questionnaires, questionnairs, quizes, questionair, questionaires, hdquiz, hd quiz, test, question and answers, harmonic design, HDPlugins
 Requires at least: 5.0
-Tested up to: 6.0
-Stable tag: 1.8.7
+Tested up to: 6.3.0
+Stable tag: 1.8.9
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://www.patreon.com/harmonic_design
 
-Create a Quiz. A very easy to use and feature rich plugin to create an unlimited amount of quizzes and embed them on to any page or post.
+Create a Quiz. An easy to use and feature rich plugin to create quizzes with quiz timer, pagination, hints, advanced question marking, and leading help and support.
 
 == Description ==
 
 HD Quiz. The easiest way to create fun quizzes for your site
 ======
 
-# HD Quiz. The easiest way to create fun quizzes for your site 🙋
+# **If you are looking for an easy way to add fun quizzes to your site, HD Quiz is here to help.** 🙋
+
+👀 [VIEW DEMO QUIZ](https://hdplugins.com/hd-quiz-demo/?utm_source=WPOrgPluginPage) 👀
+
 
 HD Quiz is an **easy and intuitive quiz builder** for WordPress. With HD Quiz, you can create an unlimited amount of quizzes and embed them anywhere on your site. We use both shortcodes as well as a custom Gutenberg block to make this as easy as possible for you.
 
 The quizzes are fun, beautiful, highly customizable, accessible (visually impaired, screen readers etc), and automatically responsive. HD Quiz was designed so that **quizzes automatically inherit the fonts and styling of your theme** - but you can still customize the styles yourself or purchase the HD Quiz Styler addon to really make the quizzes your own.
 
 
-[VIEW LIVE DEMO](https://designbypixl.com/the-ultimate-friends-quiz/)
-
-
 ## ▶️ VIEW VIDEO DEMO / TUTORIAL ▶️
-https://www.youtube.com/watch?v=IgDada_WqNw
+
+https://www.youtube.com/watch?v=YDyNDs3TdTs
 
 ## ✨ Features ✨
 HD Quiz has *so many* cool features, settings, and options, that I cannot possibly list them all. So here are some of the highlights of what I think are some of the coolest and most important features of HD Quiz. **Everything you see listed here is included by default and 100% FREE!**
 
- - Unlimited amount of quizzes and questions
- - Each quiz has its own options/settings
- - Social sharing - share quiz results on Twitter or Facebook
- - Mobile and touch friendly
- - Quizzes are accessible (screen readers)
- - Each question can have a featured image and or tooltip
- - Each question can have "extra" text, that by default will appear if the user gets the question wrong
- - Multiple question types
-	 - text based multiple choice
-	 - image based multiple choice
-	 - select all that apply
-	 - text input (type the answer)
-	 - heading (not a question; is used to separate questions into "categories")
+[See full documenation](https://hdplugins.com/learn/hd-quiz/hd-quiz-documentation/?utm_source=WPOrgPluginPage)
+
+- Unlimited amount of quizzes and questions
+- Each quiz has its own options/settings
+- Social sharing - share quiz results on Twitter or Facebook
+- Mobile and touch friendly
+- Quizzes are accessible (screen readers)
+- Each question can have a featured image and or tooltip
+- Each question can have "extra" text, that by default will appear if the user gets the question wrong
+- Multiple question types
+	- text based multiple choice
+	- image based multiple choice
+	- select all that apply
+	- text input (type the answer)
+	- heading (not a question, is used to separate questions into "categories")
 - Pagination
 - Timer
 	- Timer per quiz (example: 60 seconds to complete the quiz)
@@ -65,9 +68,9 @@ HD Quiz has *so many* cool features, settings, and options, that I cannot possib
 - automatically hide the questions on quiz completion
 - allow "authors" to create quizzes
 - **free addon to save results of quizzes**
-- and i'm sure a ton of other things that I can;t even remember
+- and i'm sure a ton of other things that I can't even remember
 
-Have any questions or want additional information? [view the Harmonic Design HD Quiz plugin page here](https://harmonicdesign.ca/hd-quiz/ "view the HD Quiz plugin page here").
+Have any questions or want additional information? [view the Harmonic Design HD Quiz plugin page here](https://hdplugins.com/forum/hd-quiz-support/?utm_source=WPOrgPluginPage "view the HD Quiz plugin page here").
 
 
 ## 🤓 HOW TO USE | TUTORIAL 🤓
@@ -96,7 +99,7 @@ Have any questions or want additional information? [view the Harmonic Design HD 
 ### 🗓️ UPCOMING FEATURES 🗓️
 I have already taken this plugin farther than I intended, but I’m overwhelmed with joy at how much you are all using and loving HD Quiz!  Because of this, I have no intentions of stopping or slowing down development!
 
-If you have any feature requests, then please let me know via the support tab or by leaving a comment on the  [HD Quiz plugin page](https://harmonicdesign.ca/hd-quiz/ "HD Quiz plugin page").
+If you have any feature requests, then please let me know via the support tab or by leaving a comment on the  [HD Quiz plugin page](https://hdplugins.com/forum/hd-quiz-support/?utm_source=WPOrgPluginPage "HD Quiz plugin page").
 
 **TODO List** - please note that there are no timelines for completion of any of the following features and this list is not in any particular order.
 
@@ -136,10 +139,10 @@ Unless you are a unique situation, I'd almost always recommend using jQuery Pagi
 More information can be found on the HD Quiz About / Options page.
 
 = I have a feature request! =
-Fantastic! I'm one of those coders who loves a good challenge. Please submit your feature request here by using the **support** tab or leave a request of the [official HD Quiz plugin page](https://harmonicdesign.ca/hd-quiz/ "view the HD Quiz plugin page").
+Fantastic! I'm one of those coders who loves a good challenge. Please submit your feature request here by using the **support** tab or leave a request of the [official HD Quiz plugin page](https://wordpress.org/support/plugin/hd-quiz/ "view the HD Quiz plugin page").
 
 = Keywords =
-Quiz, quizzes, create a quiz, add a quiz, quiz plugin, hdq, harmonic design
+Quiz, quizzes, create a quiz, add a quiz, quiz plugin, hdq, harmonic design, HDPlugins, text, MCQ, multiple choice
 
 == Screenshots ==
 
@@ -149,6 +152,18 @@ Quiz, quizzes, create a quiz, add a quiz, quiz plugin, hdq, harmonic design
 4. Questions Page
 
 == Changelog ==
+= 1.8.9 =
+* Minor update to default question template
+* Better shortcode detection in answers
+
+= 1.8.8 =
+* Updated cleaner UI
+* Update to HDPlugins - new place to house Harmonic Design WP Plugin support
+* KaTeX support for answers
+* Additional actions/hooks
+* Better scrolling for sites with sticky headers
+* Tons of tiny little enhancements throughout
+
 = 1.8.7 =
 * Hotfix: Translate Result Text
 
@@ -279,11 +294,10 @@ Massive rewrite of almost the entire plugin. Please do not hesitate to ask for s
 * New option to share via twitter.
  * You can set up your twitter handle to have each share mention you.
 * Extended Facebook share.
- * If you create a Facebook App (don't worry, it's easy to do!), then HD Quiz can actual share a users score and results instead of Facebook grabbing content from your page as if the content were static.
+ * If you create a Facebook App (don't worry, it's easy to do!), then HD Quiz can actually share a user's score and results instead of Facebook grabbing content from your page as if the content were static.
  * If you do not wish to create an app, then HD Quiz will revert to the old facebook share.
 * These options are global options and can be found under HD Quiz -> About / Options
 
 == Upgrade Notice ==
-* New Twitter Share Text customization (about/options page)
-* Text based answers basic stemming
-* Hotfix: Translate Result Text
+* Minor update to default question template
+* Better shortcode detection in answers

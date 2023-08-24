@@ -1097,8 +1097,11 @@ $sProps =& $slider['properties'];
 									<td class="lse-desc"><?= $sDefs['skin']['desc'] ?></td>
 								</tr>
 								<?php
-								lsOptionRow('input', $sDefs['sliderFadeInDuration'], $sProps );
 								lsOptionRow('input', $sDefs['sliderClasses'], $sProps );
+								lsOptionRow('input', $sDefs['sliderFadeInDuration'], $sProps );
+								lsOptionRow('checkbox', $sDefs['animateFirstSlide'], $sProps );
+								lsOptionRow('input', $sDefs['firstSlideDuration'], $sProps );
+								lsOptionRow('input', $sDefs['firstSlideTimeShift'], $sProps );
 								?>
 								<tr>
 									<td><?= __('Custom Project CSS', 'LayerSlider') ?></td>
@@ -1236,6 +1239,7 @@ $sProps =& $slider['properties'];
 								<?php
 								lsOptionRow('input', $sDefs['thumbnailWidth'], $sProps );
 								lsOptionRow('input', $sDefs['thumbnailHeight'], $sProps );
+								lsOptionRow('select', $sDefs['tnFillMode'], $sProps );
 								?>
 							</tbody>
 						</table>

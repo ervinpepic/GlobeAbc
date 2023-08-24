@@ -176,7 +176,7 @@ class LS_Sliders {
 				SELECT SQL_CALC_FOUND_ROWS {$args['columns']}
 				FROM $table
 				$where
-				ORDER BY `{$args['orderby']}` {$args['order']}
+				ORDER BY `{$args['orderby']}` {$args['order']}, name ASC
 				LIMIT {$args['limit']}
 
 			", ARRAY_A);
@@ -225,7 +225,7 @@ class LS_Sliders {
 	 * @param array $data The settings of the slider to create
 	 * @return int The slider database ID inserted
 	 */
-	public static function add($title = 'Unnamed', $data = [], $slug = '', $groupId = NULL ) {
+	public static function add($title = 'Unnamed', $data = [], $slug = '', $groupId = NULL, $addProperties = [] ) {
 
 		global $wpdb;
 
@@ -259,8 +259,8 @@ class LS_Sliders {
 			'name' => $title,
 			'slug' => $slug,
 			'data' => json_encode($data),
-			'date_c' => time(),
-			'date_m' => time(),
+			'date_c' => ! empty( $addProperties['date_c'] ) ? $addProperties['date_c'] : time(),
+			'date_m' => ! empty( $addProperties['date_m'] ) ? $addProperties['date_m'] : time(),
 			'flag_popup' => $popup
 		], [
 			'%d', '%d', '%s', '%s', '%s', '%d', '%d', '%d'
@@ -853,7 +853,7 @@ class LS_Sliders {
 			SELECT *
 			FROM $table
 			WHERE $where
-			ORDER BY `{$args['orderby']}` {$args['order']}
+			ORDER BY `{$args['orderby']}` {$args['order']}, name ASC
 			LIMIT 100
 		", ARRAY_A );
 

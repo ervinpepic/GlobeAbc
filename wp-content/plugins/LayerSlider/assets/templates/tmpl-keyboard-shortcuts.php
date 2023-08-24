@@ -117,6 +117,32 @@
 			</table>
 		</lse-table-wrapper>
 
+		<lse-h2><?= __('Managing slides', 'LayerSlider') ?></lse-h2>
+		<lse-table-wrapper>
+			<table>
+				<thead>
+					<th><?= __('Shortcut', 'LayerSlider') ?></th>
+					<th><?= __('Description', 'LayerSlider') ?></th>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<kbd class="lse-key lse-key-wide lse-key-ctrl"></kbd> +
+							<kbd class="lse-key lse-key-arrows-left"></kbd>
+						</td>
+						<td><?= __('Switch to the previous slide.', 'LayerSlider') ?></td>
+					</tr>
+					<tr>
+						<td>
+							<kbd class="lse-key lse-key-wide lse-key-ctrl"></kbd> +
+							<kbd class="lse-key lse-key-arrows-right"></kbd>
+						</td>
+						<td><?= __('Switch to the next slide.', 'LayerSlider') ?></td>
+					</tr>
+				</tbody>
+			</table>
+		</lse-table-wrapper>
+
 		<lse-h2><?= __('Managing layers', 'LayerSlider') ?></lse-h2>
 		<lse-table-wrapper>
 			<table>

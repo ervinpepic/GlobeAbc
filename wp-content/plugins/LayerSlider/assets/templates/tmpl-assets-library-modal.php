@@ -77,6 +77,11 @@
 				<kmw-menutext><?= __('Photos', 'LayerSlider') ?></kmw-menutext>
 				<lse-badge><?= __('NEW', 'LayerSlider') ?></lse-badge>
 			</kmw-menuitem>
+			<kmw-menuitem data-type="videos" data-category="videos">
+				<?= lsGetSVGIcon('films', 'solid', false, 'kmw-icon') ?>
+				<kmw-menutext><?= __('Videos', 'LayerSlider') ?></kmw-menutext>
+				<lse-badge><?= __('NEW', 'LayerSlider') ?></lse-badge>
+			</kmw-menuitem>
 
 			<!-- Objects -->
 			<kmw-menutitle>
@@ -104,7 +109,7 @@
 
 				<lse-b id="lse-assets-welcome-screen" style="background-image: url(https://layerslider.com/media/assets/welcome/welcome-1.jpg)">
 					<lse-b>
-						<?= sprintf(__('%sSay goodbye to design roadblocks.%s Elevate your creative vision and easily bring your dream projects to life using our vast collection of professional assets. These pre-made graphics are designed for immediate use and can be quickly integrated into your projects with just a few clicks.', 'LayerSlider'), '<b>', '</b>') ?>
+						<?= sprintf(__('%sSay goodbye to design roadblocks.%s Elevate your creative vision and easily bring your dream projects to life using our vast collection of professional assets and millions of stock photos and videos. These pre-made graphics are designed for immediate use and can be quickly integrated into your projects with just a few clicks.', 'LayerSlider'), '<b>', '</b>') ?>
 					</lse-b>
 				</lse-b>
 

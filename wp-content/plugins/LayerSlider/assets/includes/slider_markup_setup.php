@@ -26,7 +26,7 @@ if(has_filter('layerslider_override_defaults')) {
 foreach( $embed as $key => $val ) {
 
 	if( $key !== 'id' ) {
-		$slides['properties'][ $key ] = $val;
+		$slides['properties'][ $key ] = esc_js( $val );
 	}
 }
 
@@ -48,7 +48,9 @@ if(has_filter('layerslider_pre_parse_defaults')) {
 }
 
 // Filter slider data with defaults
-$slides['properties'] = apply_filters('ls_parse_defaults', $lsDefaults['slider'], $slides['properties']);
+$slides['properties'] = apply_filters('ls_parse_defaults', $lsDefaults['slider'], $slides['properties'], [ 'esc_js' => true ] );
+
+
 $skin = !empty($slides['properties']['attrs']['skin']) ? $slides['properties']['attrs']['skin'] : $lsDefaults['slider']['skin']['value'];
 $slides['properties']['attrs']['skinsPath'] = dirname(LS_Sources::urlForSkin($skin)) . '/';
 if(isset($slides['properties']['autoPauseSlideshow'])) {

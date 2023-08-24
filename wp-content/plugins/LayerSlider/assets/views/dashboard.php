@@ -120,7 +120,8 @@
 	$inlineNotifications = LS_Notifications::inlineNotifications();
 
 
-	$pluginUpdates 			= get_plugin_updates();
+	$pluginUpdates 	= get_plugin_updates();
+	$lBoxOrder 		= LS_RemoteData::get('license-box-order');
 
 	// Notification messages
 	$notificationsItemCount = ! empty( $_GET['count'] ) ? (int)$_GET['count'] : 0;
@@ -162,9 +163,11 @@
 	wp_localize_script('ls-dashboard', 'LS_slidersMeta', [
 		'isActivatedSite' => $validity
 	]);
+
 	wp_localize_script('ls-dashboard', 'LS_pageMeta', [
-		'assetsPath' 	=> LS_ROOT_URL,
-		'skinsPath' 	=> LS_ROOT_URL.'/static/layerslider/skins/',
+		'assetsPath' 		=> LS_ROOT_URL,
+		'skinsPath' 		=> LS_ROOT_URL.'/static/layerslider/skins/',
+		'dashboardNonce' 	=> wp_create_nonce('ls-dashboard-nonce')
 	]);
 
 
@@ -250,7 +253,7 @@
 					<ls-button-text><?= __('Projects', 'LayerSlider') ?></ls-button-text>
 				</ls-button>
 
-				<ls-button data-scroll="#ls--box-twitter-feed">
+				<ls-button data-scroll="#ls--box-news-feed">
 					<?= lsGetSVGIcon('newspaper') ?>
 					<ls-button-text><?= __('News', 'LayerSlider') ?></ls-button-text>
 				</ls-button>
@@ -750,21 +753,22 @@
 		<ls-grid>
 			<ls-row class="ls--flex-stretch">
 
-				<ls-col class="ls--col1-2">
-					<ls-box id="ls--box-twitter-feed">
+				<ls-col class="ls--col1-2 ls--max-height">
+					<ls-box id="ls--box-news-feed">
 						<ls-box-inner>
 							<ls-h2 class="ls--lightgray">
 								<?= __('Latest News', 'LayerSlider') ?>
 							</ls-h2>
-							<ls-wrapper>
-								<ls-div>
-									<a class="twitter-timeline" data-chrome="noheader noborders transparent" href="https://twitter.com/kreaturamedia?ref_src=twsrc%5Etfw">Tweets by kreaturamedia</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-								</ls-div>
-							</ls-wrapper>
+							<iframe src="https://layerslider.com/embed/news-feed/?v=<?= LS_PLUGIN_VERSION?>&t=<?= floor( time() / 60 / 60 ) ?>" frameborder="0"></iframe>
+							<ls-div id="ls--news-feed-more" class="ls--text-center ls--bottom-gradient">
+								<a target="_blank" href="https://layerslider.com/blog/" class="ls--button ls--bg-lightgray ls--white">
+									<?= __('Read More Articles', 'LayerSlider') ?>
+								</a>
+							</ls-div>
 						</ls-box-inner>
 					</ls-box>
 				</ls-col>
-				<ls-col class="ls--col1-2">
+				<ls-col class="ls--col1-2 ls--max-height">
 					<ls-box id="ls--box-updates">
 						<ls-box-inner>
 							<ls-h2 class="ls--red">
@@ -839,7 +843,7 @@
 
 								<ls-div class="ls--text-center ls--bottom-gradient">
 									<a target="_blank" href="https://layerslider.com/release-log/" class="ls--button ls--bg-lightgray ls--white">
-										<?= __('Show More', 'LayerSlider') ?>
+										<?= __('Open Release Log', 'LayerSlider') ?>
 									</a>
 								</ls-div>
 								<?php endif ?>
@@ -849,7 +853,7 @@
 					</ls-box>
 				</ls-col>
 
-				<ls-col>
+				<ls-col <?= ! empty( $lBoxOrder ) ? 'style="order: '.$lBoxOrder.'"' : '' ?>>
 
 					<ls-box id="ls--box-license" class="ls--bg-cover ls--no-overflow">
 

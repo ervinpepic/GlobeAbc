@@ -66,6 +66,7 @@ $l10n_ls = [
 
 	'assetsDLErrorTitle' 	=> __('Download Error', 'LayerSlider'),
 	'assetsDLAsset' 		=> __('Downloading Asset ...'),
+	'assetsDLAssetFail' 	=> __('Download Failed. Retrying... (%1$s/%2$s)'),
 
 	'assetsDefaultInspectorTitles' => [
 		'objects' 	=> __('Object Details', 'LayerSlider'),
@@ -81,6 +82,8 @@ $l10n_ls = [
 	'assetsAPIErrorText' 	=> __('It seems the remote API is experiencing a temporary outage, and we couldn’t load the assets you’re looking for. Please try again in a few minutes.', 'LayerSlider'),
 	'assetsServerErrorTitle'=> __('Something went wrong', 'LayerSlider'),
 	'assetsServerErrorText' => sprintf(__('It seems there is a server issue that prevented LayerSlider from accessing the assets you’re looking for. Please check %sSystem Status%s for potential errors, try to temporarily disable themes/plugins to rule out incompatibility issues, or contact your hosting provider to resolve server configuration problems.', 'LayerSlider'), '<a href="'.admin_url( 'admin.php?page=layerslider&section=system-status' ).'" target="_blank">', '</a>'),
+	'assetsDLServerErrorTitle'=> __('Something went wrong', 'LayerSlider'),
+	'assetsDLServerErrorText' => sprintf(__('It seems there is a server issue that prevented LayerSlider from downloading the selected asset. Please check %sSystem Status%s for potential errors, try to temporarily disable themes/plugins to rule out incompatibility issues, or contact your hosting provider to resolve server configuration problems.', 'LayerSlider'), '<a href="'.admin_url( 'admin.php?page=layerslider&section=system-status' ).'" target="_blank">', '</a>'),
 
 
 	// Activation
@@ -307,6 +310,7 @@ $l10n_ls = [
 	'SBStaticUntil' 			=> __('Until the end of Slide #%d', 'LayerSlider'),
 	'SBPasteLayerError'			=> __('There’s nothing to paste. Copy a layer first!', 'LayerSlider'),
 	'SBPasteError' 				=> __('There is nothing to paste! Copy layer style or transition options first.', 'LayerSlider'),
+	'SBCPPasteError' 			=> __('There is nothing to paste! Copy a color or gradient first.', 'LayerSlider'),
 	'SBRemoveSlideTitle' 		=> __('Remove selected slide?', 'LayerSlider'),
 	'SBRemoveSlideTitleName' 	=> __('Remove slide "%s"?', 'LayerSlider'),
 	'SBRemoveSlideText' 		=> __('Are you sure you want to remove this slide? You can’t undo this action.', 'LayerSlider'),

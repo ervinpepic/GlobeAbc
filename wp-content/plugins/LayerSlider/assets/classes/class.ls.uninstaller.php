@@ -87,10 +87,14 @@ class LS_Uninstaller {
 			'ls-store-last-updated',
 			'ls-important-notice',
 			'ls-release-log-last-updated',
+			'ls-remote-data',
+			'ls-remote-data-updated',
+			'ls-remote-data-v2',
+			'ls-remote-data-v2-updated',
+			'ls-news-feed-data',
+			'ls-news-feed-data-updated',
 			'ls-google-fonts-data',
 			'ls-google-fonts-data-updated',
-			'ls-remote-data-updated',
-			'ls-remote-data',
 			'ls-p-url',
 
 			// GDPR

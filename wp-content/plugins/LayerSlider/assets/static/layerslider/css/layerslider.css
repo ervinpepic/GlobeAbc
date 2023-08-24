@@ -291,7 +291,6 @@
 		background: none !important;
 	}
 
-	.ls-parallax,
 	.ls-bg-wrap,
 	.ls-loop {
 		margin: 0 !important;
@@ -784,6 +783,10 @@
 			margin: 0 auto;
 		}
 
+		.ls-thumbnail-wrapper.ls-thumbnail-fill  a img {
+			width: 100%;
+		}
+
 		.ls-thumbnail {
 			position: relative;
 			margin: 0 auto;
@@ -819,6 +822,7 @@
 			max-height: 100% !important;
 			height: 100%;
 			visibility: visible !important;
+			background-position: center !important;
 		}
 
 		.ls-touchscroll {
@@ -1007,8 +1011,7 @@
 
 	.ls-curtile,
 	.ls-nexttile,
-	.ls-3d-box,
-	.ls-3d-box div {
+	.ls-3d-box {
 		-ms-backface-visibility: hidden;
 		-moz-backface-visibility: hidden;
 		-webkit-backface-visibility: hidden;
@@ -1199,6 +1202,33 @@
 		display: inline;
 		width: auto;
 		height: auto;
+	}
+
+/* Smart BG */
+
+	.ls-l[data-ls-smart-bg],
+	.ls-layer[data-ls-smart-bg],
+	ls-layer[data-ls-smart-bg] {
+		overflow: hidden !important;
+		background-size: 0 0 !important;
+	}
+
+	.ls-l[data-ls-smart-bg]:before,
+	.ls-layer[data-ls-smart-bg]:before,
+	ls-layer[data-ls-smart-bg]:before {
+		content: '';
+		display: block;
+		position: absolute;
+		left: 0;
+		top: 0;
+		z-index: -1;
+		width: var(--sw);
+		height: var(--sh);
+		transform: translate( calc( var( --x, 0px ) + var( --lx, 0px ) ), calc( var( --y, 0px ) + var( --ly, 0px ) ) );
+		background-image: inherit;
+		background-size: var( --bgs, inherit );
+		background-position: inherit;
+		background-repeat: inherit;
 	}
 
 /* Removing all default global styles of WordPress themes */
@@ -1467,7 +1497,14 @@
 	.ls-z[data-ls-animating-out] .ls-wrapper.ls-in-out,
 	.ls-curtile,
 	.ls-nexttile {
-		will-change: transform, opacity;
+		will-change: transform;
+	}
+
+	.ls-z[data-ls-animating-in] .ls-layer,
+	.ls-z[data-ls-animating-out] .ls-layer,
+	.ls-curtile,
+	.ls-nexttile {
+		will-change: opacity;
 	}
 
 	.ls-layer[data-ls-animating-in],
@@ -1481,7 +1518,7 @@
 	.ls-layer[data-ls-text-animating-out] .line,
 	.ls-layer[data-ls-text-animating-out] .word,
 	.ls-layer[data-ls-text-animating-out] .char {
-		will-change: transform, opacity;
+		will-change: transform;
 	}
 
 	.ls-z:not([data-ls-hidden]),
@@ -1489,5 +1526,5 @@
 	.ls-z:not([data-ls-hidden]) .ls-wrapper.ls-parallax,
 	.ls-z:not([data-ls-hidden]) .ls-wrapper.ls-scroll-transform,
 	.ls-z:not([data-ls-hidden]) .ls-wrapper.ls-scroll {
-		will-change: transform, opacity;
+		will-change: transform;
 	}

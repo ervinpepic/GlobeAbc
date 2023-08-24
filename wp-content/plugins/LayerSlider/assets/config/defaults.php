@@ -693,7 +693,6 @@ $lsDefaults = [
 			]
 		],
 
-
 		'sliderFadeInDuration' => [
 			'value' => 0,
 			'name' => __('Initial Fade Duration', 'LayerSlider'),
@@ -705,6 +704,36 @@ $lsDefaults = [
 			]
 		],
 
+		'animateFirstSlide' => [
+			'value' => false,
+			'name' => __('Animate First Slide', 'LayerSlider'),
+			'keys' => 'animateFirstSlide',
+			'desc' => __('If enabled, the slider will start by playing the selected slide transition when it appears.', 'LayerSlider')
+		],
+
+		'firstSlideDuration' => [
+			'value' => '',
+			'name' => __('First Slide Duration', 'LayerSlider'),
+			'keys' => 'firstSlideDuration',
+			'advanced' => true,
+			'desc' => sprintf(__('When %s Animate First Slide %s is enabled, you can override the duration of the initial slide transition. By modifying this value, you can speed up or slow down the transition. Leave this option empty to use the default speed. This value is in milliseconds, so the value 1000 means 1 second.', 'LayerSlider'), '<b>', '</b>'),
+			'attrs' => [
+				'type' => 'number',
+				'min' => 0
+			]
+		],
+
+		'firstSlideTimeShift' => [
+			'value' => '',
+			'name' => __('First Slide Time Shift', 'LayerSlider'),
+			'keys' => 'firstSlideTimeShift',
+			'advanced' => true,
+			'desc' => sprintf(__('When %s Animate First Slide %s is enabled, layers can animate in at an earlier time before the initial slide transition finishes. This value is in milliseconds, so the value 1000 means 1 second. You can only use negative values.', 'LayerSlider'), '<b>', '</b>'),
+			'attrs' => [
+				'type' => 'number',
+				'max' => 0
+			]
+		],
 
 		'sliderClasses' => [
 			'value' => '',
@@ -893,6 +922,19 @@ $lsDefaults = [
 			'desc' => __('The height of thumbnails in the navigation area.', 'LayerSlider'),
 			'attrs' => [
 				'min' => 0
+			]
+		],
+
+		'tnFillMode' => [
+			'value' => 'contain',
+			'name' => __('Thumbnail Fill Mode', 'LayerSlider'),
+			'keys' => 'tnFillMode',
+			'desc' => __('Set how the thumbnail image should fill the area defined by the thumbnail width/height.', 'LayerSlider'),
+			'options' => [
+				'contain' => __('Contain', 'LayerSlider'),
+				'cover' => __('Cover', 'LayerSlider'),
+				'100% 100%' => __('Stretch', 'LayerSlider'),
+				'auto' => __('Auto', 'LayerSlider')
 			]
 		],
 
@@ -2267,17 +2309,6 @@ $lsDefaults = [
 		],
 
 
-		'mediaFillMode' => [
-			'value' => 'cover',
-			'name' => __('Media Fill Mode', 'LayerSlider'),
-			'keys' => 'fillmode',
-			'options' => [
-				'contain'  => __('Contain', 'LayerSlider'),
-				'cover'  => __('Cover', 'LayerSlider')
-			]
-		],
-
-
 		'mediaVolume' => [
 			'value' => '',
 			'name' => __('Media Volume', 'LayerSlider'),
@@ -2366,17 +2397,16 @@ $lsDefaults = [
 		],
 
 		'transitionInDuration' => [
-			'value' => 1000,
+			'value' => '1000',
 			'name' => __('Duration', 'LayerSlider'),
 			'keys' => 'durationin',
 			'attrs' => [ 'min' => 0, 'step' => 50 ]
 		],
 
 		'transitionInDelay' => [
-			'value' => 0,
+			'value' => '0',
 			'name' => __('Start At', 'LayerSlider'),
-			'keys' => 'delayin',
-			'attrs' => [ 'min' => 0, 'step' => 50 ]
+			'keys' => 'delayin'
 		],
 
 		'transitionInEasing' => [
@@ -2522,7 +2552,7 @@ $lsDefaults = [
 		],
 
 		'transitionOutDuration' => [
-			'value' => 1000,
+			'value' => '1000',
 			'name' => __('Duration', 'LayerSlider'),
 			'keys' => 'durationout',
 			'attrs' => [ 'min' => 0, 'step' => 50 ]
@@ -3165,7 +3195,7 @@ $lsDefaults = [
 		],
 
 		'loopDuration' => [
-			'value' => 1000,
+			'value' => '1000',
 			'name' => __('Duration', 'LayerSlider'),
 			'keys' => 'loopduration',
 			'attrs' => ['min' => 0, 'step' => 100 ]
@@ -3211,7 +3241,7 @@ $lsDefaults = [
 		],
 
 		'loopOpacity' => [
-			'value' => 1,
+			'value' => '1',
 			'name' => __('Opacity', 'LayerSlider'),
 			'keys' => 'loopopacity',
 			'attrs' => [ 'min' => 0, 'max' => 1, 'step' => 0.1 ]
@@ -3312,7 +3342,7 @@ $lsDefaults = [
 		],
 
 		'loopWait' => [
-			'value' => 0,
+			'value' => '0',
 			'name' => __('Wait', 'LayerSlider'),
 			'keys' => 'looprepeatdelay',
 			'attrs' => [ 'min' => 0, 'step' => 100 ]
@@ -3363,7 +3393,7 @@ $lsDefaults = [
 		],
 
 		'hoverInDuration' => [
-			'value' => 500,
+			'value' => '500',
 			'name' => __('Duration', 'LayerSlider'),
 			'keys' => 'hoverdurationin',
 			'attrs' => [ 'min' => 0, 'step' => 100 ]
@@ -3617,10 +3647,30 @@ $lsDefaults = [
 		],
 
 		'scrollDuration' => [
-			'value' => 500,
+			'value' => '500',
 			'name' => __('Duration', 'LayerSlider'),
 			'keys' => 'scrollduration',
 			'attrs' => [ 'min' => 0, 'step' => 100 ]
+		],
+
+		'scrollDurationRev' => [
+			'value' => '',
+			'name' => __('Reverse Duration', 'LayerSlider'),
+			'keys' => 'scrolldurationrev',
+			'attrs' => [ 'min' => 0, 'step' => 100, 'placeholder' => __('same', 'LayerSlider') ]
+		],
+
+		'scrollEase' => [
+			'value' => 'easeOutQuad',
+			'name' => __('Easing', 'LayerSlider'),
+			'keys' => 'scrollease'
+		],
+
+		'scrollEaseRev' => [
+			'value' => '',
+			'name' => __('Reverse  Easing', 'LayerSlider'),
+			'keys' => 'scrolleaserev',
+			'attrs' => [ 'placeholder' => __('same', 'LayerSlider') ]
 		],
 
 		'scrollCenter' => [
@@ -3650,6 +3700,15 @@ $lsDefaults = [
 			'value' => '50% 50% 0',
 			'name' => __('Transform Origin', 'LayerSlider'),
 			'keys' => 'scrolltransformorigin'
+		],
+
+		'scrollTransformOriginAlt' => [
+			'value' => '',
+			'name' => __('Alternate Transform Origin', 'LayerSlider'),
+			'keys' => 'scrolltransformoriginalt',
+			'attrs' => [
+				'placeholder' => __('same', 'LayerSlider')
+			]
 		],
 
 		'scrollPerspective' => [
@@ -4327,7 +4386,7 @@ $lsDefaults = [
 		],
 
 		'opacity' => [
-			'value' => 1,
+			'value' => '1',
 			'name' => __('Opacity', 'LayerSlider'),
 			'keys' => 'opacity',
 			'attrs' => [
@@ -4441,6 +4500,19 @@ $lsDefaults = [
 				'100% 0%' => __('right top', 'LayerSlider'),
 				'100% 50%' => __('right center', 'LayerSlider'),
 				'100% 100%' => __('right bottom', 'LayerSlider')
+			]
+		],
+
+		'smartBG' => [
+			'value' => 'disabled',
+			'name' => __('Smart Background Behavior', 'LayerSlider'),
+			'keys' => 'smartBG',
+			'options' => [
+				'disabled' => __('Disabled', 'LayerSlider'),
+				'enabled' => __('Continuous Background', 'LayerSlider'),
+				'inout' => __('Dynamic for Opening/Ending Transitions', 'LayerSlider'),
+				'loop' => __('Dynamic for Loop Transition', 'LayerSlider'),
+				'inoutloop' => __('Dynamic for Opening/Ending/Loop Transitions', 'LayerSlider')
 			]
 		],
 
@@ -4635,7 +4707,9 @@ $lsDefaults = [
 				'text' => __('Text', 'LayerSlider'),
 				'vertical-text' => __('Vertical text', 'LayerSlider'),
 				'zoom-in' => __('Zoom in', 'LayerSlider'),
-				'zoom-out' => __('Zoom out', 'LayerSlider')
+				'zoom-out' => __('Zoom out', 'LayerSlider'),
+				'move' => __('Move', 'LayerSlider'),
+				'none' => __('None', 'LayerSlider')
 			]
 		],
 

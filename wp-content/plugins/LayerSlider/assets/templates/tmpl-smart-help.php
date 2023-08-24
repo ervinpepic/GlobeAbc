@@ -63,6 +63,22 @@
 	</lse-smart-operations-content>
 	<lse-color-picker>
 		<form class="lse-color-picker" name="grad">
+
+
+			<?= lsGetSVGIcon('copy', false, [
+				'class' => 'lse-color-picker-copy',
+				'data-tt' => '',
+				'data-tt-de' => 0
+			]) ?>
+			<lse-tt><?= __('Copy color or gradient') ?></lse-tt>
+
+			<?= lsGetSVGIcon('clipboard', false, [
+				'class' => 'lse-color-picker-paste',
+				'data-tt' => '',
+				'data-tt-de' => 0
+			]) ?>
+			<lse-tt><?= __('Paste color or gradient') ?></lse-tt>
+
 			<div class="lse-grad-row">
 				<lse-fe-wrapper class="lse-select">
 					<select class="lse-grad-type lse-grad-input" name="type">
@@ -119,7 +135,7 @@
 
 	<!-- SLIDE DURATION & TIMINGS -->
 	<div data-smart-help="slideduration">
-		<?= __('The time that this slide remains visible before the slideshow attempts to change to the next slide. Leave this option empty to let LayerSlider manage it automatically. This value is in milliseconds, so the value 1000 means 1 second.', 'LayerSlider') ?>
+		<?= __('The time that this slide remains visible before the slideshow attempts to change to the next slide. In other words, it’s the animation timeline’s length. Leave this option empty to let LayerSlider manage it automatically. This value is in milliseconds, so the value 1000 means 1 second.', 'LayerSlider') ?>
 	</div>
 
 
@@ -786,6 +802,31 @@
 
 	</div>
 
+	<div data-smart-help="alternatetransformorigin">
+		<lse-b class="lse-anim lse-jcse">
+			<lse-ib class="lse-anim-box-13 lse-anim-box">
+				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
+				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
+				<lse-origin class="lse-anim-center">&#10011;</lse-origin>
+			</lse-ib>
+			<lse-ib class="lse-anim-box-11 lse-anim-box">
+				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
+				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
+				<lse-origin class="lse-anim-center">&#10011;</lse-origin>
+			</lse-ib>
+			<lse-ib class="lse-anim-box-12 lse-anim-box">
+				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
+				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
+				<lse-origin class="lse-anim-center">&#10011;</lse-origin>
+			</lse-ib>
+		</lse-b>
+
+		<?= __('The transform origin is the point around which transformations are applied. For example, a layer may rotate around its center point or an entirely custom point like one of its corners. See the below options for common values.', 'LayerSlider') ?>
+		<br><br>
+		<b><?= __('This transform origin takes effect when you scroll past the center point set for this layer in Scroll Transition Properties.', 'LayerSlider') ?></b>
+
+	</div>
+
 
 	<div data-smart-help="perspective">
 		<lse-b class="lse-anim lse-jcse">
@@ -864,9 +905,49 @@
 		<?= __('The width of the layer in pixels or percents. Percentage values are relative to the project canvas size.', 'LayerSlider') ?>
 	</div>
 
+	<div data-smart-help="widthin">
+		<lse-b class="lse-anim lse-jcse">
+			<lse-ib class="lse-anim-box-40 lse-anim-box">
+				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
+				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
+			</lse-ib>
+		</lse-b>
+		<?= __('Sets the layer’s initial width before it starts animating in. Layers animate from this value toward their appearance set under the <b>STYLE</b> menu. You can use pixels or percents. Percentage values are relative to the project canvas size.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="widthout">
+		<lse-b class="lse-anim lse-jcse">
+			<lse-ib class="lse-anim-box-40 lse-anim-box">
+				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
+				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
+			</lse-ib>
+		</lse-b>
+		<?= __('Changes the layer’s width while it’s animating out. Layers animate from their current state toward the value you set here. You can use pixels or percents. Percentage values are relative to the project canvas size.', 'LayerSlider') ?>
+	</div>
+
 
 	<div data-smart-help="height">
 		<?= __('The height of the layer in pixels or percents. Percentage values are relative to the project canvas size.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="heightin">
+		<lse-b class="lse-anim lse-jcse">
+			<lse-ib class="lse-anim-box-41 lse-anim-box">
+				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
+				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
+			</lse-ib>
+		</lse-b>
+		<?= __('Sets the layer’s initial height before it starts animating in. Layers animate from this value toward their appearance set under the <b>STYLE</b> menu. You can use pixels or percents. Percentage values are relative to the project canvas size.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="heightout">
+		<lse-b class="lse-anim lse-jcse">
+			<lse-ib class="lse-anim-box-41 lse-anim-box">
+				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
+				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
+			</lse-ib>
+		</lse-b>
+		<?= __('Changes the layer’s height while it’s animating out. Layers animate from their current state toward the value you set here. You can use pixels or percents. Percentage values are relative to the project canvas size.', 'LayerSlider') ?>
 	</div>
 
 
@@ -935,6 +1016,10 @@
 		<?= __('Shifts the above selected starting time by performing a custom operation.', 'LayerSlider') ?>
 		<br><br>
 		<?= __('For example, “- 1000” will advance the animation by playing it 1 second (1000 milliseconds) earlier.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="opacity">
+		<?= __('Opacity specifies the transparency of layers. You can enter a decimal number between 0 and 1. The value 0 means the layer is fully transparent and invisible, while the value 1 results in a fully solid and opaque layer.', 'LayerSlider') ?>
 	</div>
 
 
@@ -1006,6 +1091,27 @@
 	<div data-smart-help="backgroundsize">
 		<?= __('Sets the size of the background image. The image can be left to its natural size, stretched, or constrained to fit the available space.', 'LayerSlider') ?>
 	</div>
+
+	<div data-smart-help="smartbg">
+		<?= __('When enabled, the layer background will use the whole slide area, acting like a slide background, but only the part covered by the layer will be visible. It creates an effect as if you were looking through the layer - like a window - to the background.
+			<br><br>
+
+			<b>Continuous Background:</b><br>
+			The cut out part is static and will not change as the layer moves.
+
+			<br><br>
+
+			<b>Dynamic for Transitions:</b><br>
+			The cut out part is dynamic and will show the corresponding part of the background for the selected transition type as the layer moves.
+
+			<br><br>
+
+			Useful tip: use this feature with more layers and the same background to create great effects.', 'LayerSlider') ?>
+
+			<br><br>
+			<a class="lse-button lse-link" target="_blank" href="https://layerslider.com/blog/introducing-smart-background/"><?= __('Explore Live Examples', 'LayerSlider') ?> </a>
+	</div>
+
 
 
 	<div data-smart-help="deeplink">
@@ -1084,7 +1190,8 @@
 			<lse-li class="_hover-x" data-smart-inject="-20lw"><?= __('-20% layer width', 'LayerSlider') ?></lse-li>
 			<lse-li class="_hover-y" data-smart-inject="20lh"><?= __('20% layer height', 'LayerSlider') ?></lse-li>
 			<lse-li class="_hover-y" data-smart-inject="-20lh"><?= __('-20% layer height', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="random(-100,100)"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="[-100..100]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="[-90|10|70]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
 			<lse-li class="_textin-x _textin-y _textout-x _textout-y" data-smart-inject="50|-50|25|-25"><?= __('Cycle through multiple values', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 
@@ -1093,8 +1200,9 @@
 	<div data-smart-options="rotate">
 
 		<lse-ul class="lse-smart-inject">
-			<lse-li data-smart-inject="random(120,-120)"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
-			<lse-li class="_text" data-smart-inject="30|60|90|120"><?= __('Cycle through multiple values', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="[-5..40]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="[-5|9|60]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+			<lse-li class="_text" data-smart-inject="30|60|90"><?= __('Cycle through multiple values', 'LayerSlider') ?></lse-li>
 			<lse-li class="_in _out" data-smart-inject="="><?= __('Inherit value from style settings', 'LayerSlider') ?></lse-li>
 			<lse-li class="_in _out" data-smart-inject="+=60"><?= __('Add 60 to style settings value', 'LayerSlider') ?></lse-li>
 			<lse-li class="_in _out" data-smart-inject="/=2"><?= __('Divide style settings value by 2', 'LayerSlider') ?></lse-li>
@@ -1109,7 +1217,8 @@
 			<lse-li data-smart-inject="2"><?= __('Enlarge layer to double size', 'LayerSlider') ?></lse-li>
 			<lse-li data-smart-inject="0.5"><?= __('Shrink layer to half size', 'LayerSlider') ?></lse-li>
 			<lse-li data-smart-inject="-1"><?= __('Flip layer', 'LayerSlider') ?></lse-li>
-			<lse-li class="_transition" data-smart-inject="random(1,2)"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li class="_transition" data-smart-inject="[2..3]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li class="_transition" data-smart-inject="[0.5|1.5|2]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
 			<lse-li class="_text" data-smart-inject="3|2|1.5"><?= __('Cycle through multiple values', 'LayerSlider') ?></lse-li>
 			<lse-li class="_in _out" data-smart-inject="="><?= __('Inherit value from style settings', 'LayerSlider') ?></lse-li>
 			<lse-li class="_in _out" data-smart-inject="*=1.5"><?= __('Multiply style settings value by 1.5', 'LayerSlider') ?></lse-li>
@@ -1121,12 +1230,34 @@
 	<div data-smart-options="skew">
 
 		<lse-ul class="lse-smart-inject">
-			<lse-li data-smart-inject="random(20,-20)"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="[-10..10]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="[5|10|15]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
 			<lse-li class="_text" data-smart-inject="10|20|30"><?= __('Cycle through multiple values', 'LayerSlider') ?></lse-li>
 			<lse-li class="_in _out" data-smart-inject="="><?= __('Inherit value from style settings', 'LayerSlider') ?></lse-li>
 			<lse-li class="_in _out" data-smart-inject="+=30"><?= __('Add 30 to style settings value', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 
+	</div>
+
+	<div data-smart-options="width">
+
+		<lse-ul class="lse-smart-inject">
+			<lse-li data-smart-inject="300px"><?= __('300px', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="50%"><?= __('50%', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="[0..500]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="[0..500]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="[10|50|100]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+		</lse-ul>
+	</div>
+
+	<div data-smart-options="height">
+
+		<lse-ul class="lse-smart-inject">
+			<lse-li data-smart-inject="100px"><?= __('100px', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="50%"><?= __('50%', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="[0..200]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="[10|50|100]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+		</lse-ul>
 	</div>
 
 	<div data-smart-options="backgroundsize">
@@ -1253,6 +1384,18 @@
 		</lse-grid>
 	</div>
 
+
+	<div data-smart-options="opacity">
+		<lse-ul class="lse-smart-inject">
+			<lse-li data-smart-inject="1"><?= __('Fully opaque', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="0.5"><?= __('Semi-transparent', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="0"><?= __('Invisible', 'LayerSlider') ?></lse-li>
+			<lse-li class="_transition" data-smart-inject="[0.5..1]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li class="_transition" data-smart-inject="[0.3|0.5|0.7]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+		</lse-ul>
+	</div>
+
+
 	<div data-smart-options="filter">
 		<lse-grid class="lse-form-elements lse-smart-help-theme lse-form-rows lse-collect-values">
 			<?= lsGetSVGIcon('times-circle',false,['class' => 'lse-form-rows-close']) ?>
@@ -1330,6 +1473,31 @@
 			</lse-row>
 		</lse-grid>
 	</div>
+
+	<div data-smart-options="startatin">
+
+		<lse-ul class="lse-smart-inject">
+			<lse-li data-smart-inject="[500..1000]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="[50|450|850]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+		</lse-ul>
+	</div>
+
+	<div data-smart-options="duration">
+
+		<lse-ul class="lse-smart-inject">
+			<lse-li data-smart-inject="[900..1800]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="[1000|2000|3000]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+		</lse-ul>
+	</div>
+
+	<div data-smart-options="loopwait">
+
+		<lse-ul class="lse-smart-inject">
+			<lse-li data-smart-inject="[1000..4000]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="[500|1000|1500]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+		</lse-ul>
+	</div>
+
 	<div data-smart-options="applytoallslides">
 		<lse-grid class="lse-form-elements lse-smart-help-theme lse-form-rows">
 			<lse-row>
