@@ -141,7 +141,7 @@ $presets = [
 		],
 
 		[
-			'name' => __('Levitating (slow, infninite)', 'LayerSlider'),
+			'name' => __('Levitating (slow, infinite)', 'LayerSlider'),
 			'data' => '{ "styles": {}, "transition": { "loopoffsety":"-25lh","loopduration":"2000","loopeasing":"easeInOutQuad","loopcount":"-1","loopyoyo":true}}'
 		],
 

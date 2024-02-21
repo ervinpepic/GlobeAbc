@@ -155,6 +155,10 @@ $l10n_ls = [
 			'title' => __('Slide thumbnail', 'LayerSlider'),
 			'icon' 	=> lsGetSVGIcon('image')
 		],
+		'LAYER_SELECT' 			=> [
+			'title' => __('Select layer', 'LayerSlider'),
+			'icon' => lsGetSVGIcon('square-dashed')
+		],
 		'LAYER_NEW' 			=> [
 			'title' => __('New layer', 'LayerSlider'),
 			'icon' 	=> lsGetSVGIcon('layer-plus')
@@ -303,6 +307,7 @@ $l10n_ls = [
 	'SBPreviewTextPlaceholder' 	=> __('Text Layer', 'LayerSlider'),
 	'SBPreviewHTMLPlaceholder' 	=> __('HTML Layer', 'LayerSlider'),
 	'SBPreviewButtonPlaceholder' => __('Button', 'LayerSlider'),
+	'SBPreviewAudioPlaceholder' => __('Embedded Audio', 'LayerSlider'),
 	'SBPreviewPostPlaceholder' 	=> __('Howdy, [author]', 'LayerSlider'),
 	'SBPreviewSlide' 			=> __('Preview Slide', 'LayerSlider'),
 	'SBPreviewSlideExit' 		=> __('Stop Preview', 'LayerSlider'),
@@ -327,6 +332,7 @@ $l10n_ls = [
 
 	'SBMediaLibraryImage' 		=> __('Pick an image to use it in LayerSlider', 'LayerSlider'),
 	'SBMediaLibraryMedia'		=> __('Choose video or audio files', 'LayerSlider'),
+	'SBMediaLibraryAVError' 	=> __('Please select only video or audio sources without mixing them together.', 'LayerSlider'),
 	'SBUploadError' 			=> __('Upload error. Please verify that the uploaded items have the correct file extension and they are supported by WordPress.', 'LayerSlider'),
 	'SBUploadErrorMessage' 		=> __('Upload error. Please verify that the uploaded items have the correct file extension and they are supported by WordPress. Your server thrown the following error: %s', 'LayerSlider'),
 	'SBInvalidFormat' 			=> __('Invalid format', 'LayerSlider'),

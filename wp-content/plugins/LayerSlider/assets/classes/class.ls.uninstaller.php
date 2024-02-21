@@ -113,6 +113,14 @@ class LS_Uninstaller {
 			// Other
 			'ls-transition-presets',
 
+			// 404
+			'ls-404-addon-enabled',
+			'ls-404-addon-title',
+			'ls-404-addon-type',
+			'ls-404-addon-page',
+			'ls-404-addon-slider',
+			'ls-404-addon-background',
+
 			// Legacy
 			'ls-collapsed-boxes',
 			'layerslider-validated',

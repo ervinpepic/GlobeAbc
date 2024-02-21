@@ -13,6 +13,7 @@ require dirname(__FILE__) . '/fields/radio.php';
 require dirname(__FILE__) . '/fields/checkbox.php';
 require dirname(__FILE__) . '/fields/select.php';
 require dirname(__FILE__) . '/fields/encrypt.php';
+
 /* Print each field type
 ------------------------------------------------------- */
 function hdq_print_tab_fields($tab, $tab_slug, $fields)
@@ -272,7 +273,7 @@ function hdq_print_question_tab_content($fields)
 			$classes = "tab_content_active";
 		}
 		echo '<div id="tab_' . $tabs[$i]["slug"] . '" class="tab_content ' . $classes . '"><h2 class="tab_heading">' . $tabs[$i]["title"] . '</h2>';
-		if ($hasContent) {
+		if ($hasContent) {			
 			hdq_print_tab_fields($tab, $tabs[$i]["slug"], $fields);
 		}
 		echo '</div>';
@@ -679,17 +680,21 @@ function hdq_get_question_meta()
 			"required": true,
 			"options": [
 				{
-					"label": "Multiple Choice:Text",
+					"label": "Multiple Choice: Text",
 					"value": "multiple_choice_text",
 					"default": "true"
 				},
 				{
-					"label": "Multiple Choice:Image",
+					"label": "Multiple Choice: Image",
 					"value": "multiple_choice_image"
 				},
 				{
-					"label": "Select All That Apply:Text",
+					"label": "Select All That Apply: Text",
 					"value": "select_all_apply_text"
+				},
+				{
+					"label": "Select All That Apply: Image",
+					"value": "select_all_apply_image"
 				},				
 				{
 					"label": "Text Based Answers",
@@ -870,8 +875,10 @@ function hdq_getValue($tab, $fields)
 	if (isset($fields[$tab["name"]])) {
 		$value = $fields[$tab["name"]]["value"];
 		if (!is_array($value)) {
-			if ($tab["type"] != "editor") {
-				$value = htmlspecialchars($value);
+			if(isset($tab["type"])){
+				if ($tab["type"] != "editor") {
+					$value = htmlspecialchars($value);
+				}
 			}
 		}
 	}
@@ -982,7 +989,7 @@ function hdq_printField_heading3($tab, $tab_slug)
 }
 
 function hdq_print_answers_admin($tab, $tab_slug, $fields)
-{
+{	
 	$answers = $fields["answers"]["value"];
 	$question_type = $fields["question_type"]["value"];
 	$image_as_answers = "hdq_hide";
@@ -1021,10 +1028,12 @@ function hdq_print_answers_admin($tab, $tab_slug, $fields)
 	
 			for ($x = 1; $x < $hdq_max_answers + 1; $x++) {
 				$v = "";
+				$i = "";
 				if (isset($answers[$x - 1])) {
-					$v = $answers[$x - 1]["answer"];
+					$v = $answers[$x - 1]["answer"];					
+					$i = $answers[$x - 1]["image"];
 				}
-				$i = $answers[$x - 1]["image"]; ?>
+				?>
 
 				<tr>
 					<td width="1"><?php echo $x; ?></td>
@@ -1069,7 +1078,7 @@ function hdq_print_answers_admin($tab, $tab_slug, $fields)
 }
 
 function hdq_print_quizzes_admin($tab, $tab_slug, $fields)
-{
+{	
 	$attached_terms = get_the_terms($fields["question_id"]["value"], "quiz");
 
 	$attached = array();

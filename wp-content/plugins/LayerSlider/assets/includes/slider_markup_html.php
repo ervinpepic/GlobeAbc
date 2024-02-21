@@ -24,7 +24,13 @@ if(!empty($slides['properties']['props']['maxwidth'])) {
 
 $sliderStyleAttr[] = 'margin:0 auto;';
 if(isset($slides['properties']['props']['sliderStyle'])) {
-	$sliderStyleAttr[] = $slides['properties']['props']['sliderStyle'];
+	$sliderStyleAttr[] = str_replace('\n', ' ', $slides['properties']['props']['sliderStyle'] );
+}
+
+// Border radius
+$borderRadius = ! empty( $slides['properties']['props']['borderRadius'] ) ? $slides['properties']['props']['borderRadius'] : '';
+if( ! empty( $borderRadius ) && $borderRadius !== '0px' && $borderRadius !== '0%' && $borderRadius !== '0' ) {
+	$sliderStyleAttr[] = 'border-radius:'.layerslider_check_unit($borderRadius).';overflow: hidden;';
 }
 
 // Gutenberg Margin Options
@@ -40,7 +46,8 @@ if(has_action('layerslider_before_slider_content')) {
 
 // Wrap Popups
 if( !empty($slides['properties']['attrs']['type']) && $slides['properties']['attrs']['type'] === 'popup' ) {
-	$lsContainer[] = '<div class="ls-popup">';
+	$popupClasses = ! empty( $slides['properties']['props']['popupScrollable'] ) ? 'ls-popup-scrollable' : '';
+	$lsContainer[] = '<div class="ls-popup '.$popupClasses.'">';
 }
 
 $customClasses = '';
@@ -375,7 +382,12 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 				$svgIB = false;
 
 				// Skip this layer?
-				if( ! empty( $layer['props']['skip'] ) ) { continue; }
+				if( ! empty( $layer['props']['skip'] ) ) {
+					$skip = ls_normalize_hide_layer_value( $layer['props']['skip'] );
+					if( $skip === 'all' ) {
+						continue;
+					}
+				}
 
 				unset($layerAttributes);
 				unset($innerAttributes);
@@ -482,6 +494,42 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 					$layer['props']['post_text_length'] = !empty($layer['props']['post_text_length']) ? $layer['props']['post_text_length'] : 0;
 					$layer['props']['html'] = $postContent->getWithFormat($layer['props']['html'], $layer['props']['post_text_length']);
 					$layer['props']['html'] = do_shortcode($layer['props']['html']);
+				}
+
+
+				// Handle media uploads
+				if( $layer['props']['media'] === 'media' && isset( $layer['props']['mediaAttachments'] ) ) {
+
+					// Make sure to empty the layer's HTML in case of using uploaded media
+					$layer['props']['html'] = '';
+
+					if( ! empty( $layer['props']['mediaAttachments'] ) ) {
+
+						$mediaHTML = '';
+						$mediaType = $layer['props']['mediaAttachments'][0]['type'];
+
+						if( $mediaType === 'video' ) {
+							$mediaHTML .= '<video width="640" height="360" preload="metadata" controls>';
+						} else {
+							$mediaHTML .= '<audio preload="metadata" controls>';
+						}
+
+						foreach( $layer['props']['mediaAttachments'] as $item ) {
+
+							if( has_filter('wpml_object_id') && get_option('ls_wpml_media_translation', true ) ) {
+								$item['id'] = apply_filters('wpml_object_id', $item['id'], 'attachment', true );
+							}
+
+							$mediaURL = wp_get_attachment_url( $item['id'] );
+							$mediaURL = ! empty( $mediaURL ) ? $mediaURL : $item['url'];
+							$mediaHTML .= '<source src="'.$mediaURL.'" type="'.$item['mime'].'">';
+						}
+
+
+						$mediaHTML .= '</'.$mediaType.'>';
+
+						$layer['props']['html'] = $mediaHTML;
+					}
 				}
 
 				// Should wrap layer? Test for a single HTML element
@@ -770,7 +818,7 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 					unset( $layer['props']['styles']['background-color'] );
 				}
 
-
+				// v7.2.5: Add prefixed version of backdrop filter for Safari
 				if( ! empty( $layer['props']['styles']['backdrop-filter'] ) ) {
 					$layer['props']['styles']['-webkit-backdrop-filter'] = $layer['props']['styles']['backdrop-filter'];
 				}
@@ -790,6 +838,11 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 							$layer['props']['styles']['-webkit-text-fill-color'] = 'transparent';
 						}
 					}
+				}
+
+				// v7.9.9: Added clip-path support
+				if( ! empty( $layer['props']['styles']['clip-path'] ) ) {
+					$layer['props']['styles']['clip-path'] = 'polygon('.$layer['props']['styles']['clip-path'].')';
 				}
 
 

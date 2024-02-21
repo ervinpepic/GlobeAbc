@@ -5,7 +5,7 @@
     * Plugin URI: https://harmonicdesign.ca/hd-quiz/
     * Author: Harmonic Design
     * Author URI: https://harmonicdesign.ca
-    * Version: 1.8.9
+    * Version: 1.8.13
 */
 
 if (!defined('ABSPATH')) {
@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
 }
 
 if (!defined('HDQ_PLUGIN_VERSION')) {
-    define('HDQ_PLUGIN_VERSION', '1.8.9');
+    define('HDQ_PLUGIN_VERSION', '1.8.13');
 }
 
 // custom quiz image sizes
@@ -123,22 +123,7 @@ function hdq_create_settings_page()
     if (hdq_user_permission()) {
         function hdq_register_quizzes_page()
         {
-            add_menu_page('HD Quiz', 'HD Quiz', 'publish_posts', 'hdq_quizzes', 'hdq_register_quizzes_page_callback', 'dashicons-clipboard', 5);
-            add_menu_page('HD Quiz Addons', 'HDQ Addons', 'edit_posts', 'hdq_addons', 'hdq_register_addons_page_callbak', '', 99);
-            add_menu_page('HD Quiz Tools', 'HDQ Tools', 'edit_posts', 'hdq_tools', 'hdq_register_tools_page_callbak', '', 99);
 
-            add_menu_page('HD Quiz Tools - CSV Importer', 'HDQ Tools CSV', 'edit_posts', 'hdq_tools_csv_importer', 'hdq_register_tools_csv_importer_page_callback', '', 99);
-            add_menu_page('HD Quiz Tools - Data Upgrade', 'HDQ Tools DATA', 'edit_posts', 'hdq_tools_data_upgrade', 'hdq_register_tools__data_upgrade_page_callback', '', 99);
-
-            remove_menu_page('hdq_addons');
-            remove_menu_page('hdq_tools');
-            remove_menu_page('hdq_tools_csv_importer');
-            remove_menu_page('hdq_tools_data_upgrade');
-        }
-        add_action('admin_menu', 'hdq_register_quizzes_page');
-
-        function hdq_register_settings_page()
-        {
             $addon_text = "";
             $new_addon = get_transient("hdq_new_addon");
             if ($new_addon === false) {
@@ -149,12 +134,18 @@ function hdq_create_settings_page()
                     $addon_text = ' <span class="awaiting-mod">NEW</span>';
                 }
             }
-            add_submenu_page('hdq_quizzes', 'Quizzes', 'Quizzes', 'publish_posts', 'hdq_quizzes', 'hdq_register_quizzes_page_callback');
-            add_submenu_page('hdq_quizzes', 'HD Quiz About', 'About / Options', 'publish_posts', 'hdq_options', 'hdq_register_settings_page_callback');
-            add_submenu_page('hdq_quizzes', 'Addons', 'Addons' . $addon_text, 'manage_options', 'admin.php?page=hdq_addons');
-            add_submenu_page('hdq_quizzes', 'Tools', 'Tools', 'manage_options', 'admin.php?page=hdq_tools');
+
+            add_menu_page('HD Quiz', 'HD Quiz', 'publish_posts', 'hdq_quizzes', 'hdq_register_quizzes_page_callback', 'dashicons-clipboard', 5);
+
+            add_submenu_page("hdq_quizzes", "HD Quiz Addons", "Addons {$addon_text}", "delete_others_posts", "hdq_addons", "hdq_register_addons_page_callbak");
+            add_submenu_page("hdq_quizzes", "HD Quiz Tools", "Tools", "delete_others_posts", "hdq_tools", "hdq_register_tools_page_callbak");
+            add_submenu_page("hdq_quizzes", "HD Quiz About / Settings", "About / Settings", "delete_others_posts", 'hdq_options', 'hdq_register_settings_page_callback');
+
+            // tools, hidden pages
+            add_submenu_page("", "CSV Importer", "CSV Importer", "publish_posts", "hdq_tools_csv_importer", "hdq_register_tools_csv_importer_page_callback");
+            add_submenu_page("", "Data Upgrade", "Data Upgrade", "publish_posts", "hdq_tools_data_upgrade", "hdq_register_tools__data_upgrade_page_callback");
         }
-        add_action('admin_menu', 'hdq_register_settings_page', 11);
+        add_action('admin_menu', 'hdq_register_quizzes_page');
     }
 
     $hdq_version = sanitize_text_field(get_option('HDQ_PLUGIN_VERSION'));

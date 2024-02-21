@@ -72,7 +72,7 @@
 		$userFilters = true;
 		$urlParamTerm = htmlentities($_GET['term']);
 		$filters['groups'] = false;
-		$filters['where'] = "name LIKE '%".esc_sql($_GET['term'])."%' OR slug LIKE '%".esc_sql($_GET['term'])."%' OR id = '".esc_sql($_GET['term'])."'";
+		$filters['where'] = "name LIKE '%".esc_sql($_GET['term'])."%' OR slug LIKE '%".esc_sql($_GET['term'])."%' OR id = '".esc_sql($_GET['term'])."'  OR keywords LIKE '%".esc_sql($_GET['term'])."%'";
 	}
 
 	// Find sliders
@@ -107,7 +107,7 @@
 
 	// Update last visited date
 	if( empty( $lsStoreLastViewed ) ) {
-		$lsStoreLastViewed = time();
+		$lsStoreLastViewed = date('Y-m-d');
 		update_user_meta( $userID, 'ls-store-last-viewed', date('Y-m-d'));
 	}
 
@@ -122,6 +122,7 @@
 
 	$pluginUpdates 	= get_plugin_updates();
 	$lBoxOrder 		= LS_RemoteData::get('license-box-order');
+	$lsReleaseLog 	= LS_RemoteData::get('release-log');
 
 	// Notification messages
 	$notificationsItemCount = ! empty( $_GET['count'] ) ? (int)$_GET['count'] : 0;
@@ -491,7 +492,6 @@
 					</div>
 				</div>
 
-				<?php //if( ! $validity ) : ?>
 				<div class="ls-item">
 					<div class="ls-item-inner">
 						<a href="#" id="ls-addons-button">
@@ -500,7 +500,18 @@
 						</a>
 					</div>
 				</div>
-				<?php //endif ?>
+
+				<!-- <div class="ls-item has-updates">
+					<div class="ls-item-inner ls--anim-shine">
+						<a href="#" id="ls-addons-button">
+							<?= lsGetSVGIcon('award'); ?>
+							<div class="ls-tile-text"><?= __('Add-Ons & Premium', 'LayerSlider') ?></div>
+						</a>
+					</div>
+					<lse-badge><?= __('NEW', 'LayerSlider') ?></lse-badge>
+				</div> -->
+
+
 			</div>
 
 			<!-- show hidden projects if any -->
@@ -672,7 +683,7 @@
 										<div class="ls-name">
 											<?= lsGetSVGIcon('th-large') ?>
 											<ls-span>
-												<?= apply_filters('ls_slider_title', stripslashes( $item['name'] ), 40) ?>
+												<?= apply_filters('ls_slider_title', stripslashes( $item['name'] ), 99) ?>
 											</ls-span>
 										</div>
 									</div>
@@ -833,13 +844,13 @@
 									</ls-li>
 								</ls-ul>
 							</ls-box>
-							<?php if( empty( LS_RemoteData::get('release-log') ) ) : ?>
+							<?php if( empty( $lsReleaseLog ) ) : ?>
 							<ls-p><?= sprintf(__('Couldn’t display the release log. Please check %sSystem Status%s for potential errors.', 'LayerSlider'), '<a href="'.admin_url('admin.php?page=layerslider&section=system-status').'">', '</a>' ) ?></ls-p>
 							<?php endif ?>
 							<ls-ul id="ls--release-log">
 
-								<?php if( ! empty( LS_RemoteData::get('release-log') ) ) : ?>
-								<?= LS_RemoteData::get('release-log') ?>
+								<?php if( ! empty( $lsReleaseLog ) ) : ?>
+								<?= $lsReleaseLog ?>
 
 								<ls-div class="ls--text-center ls--bottom-gradient">
 									<a target="_blank" href="https://layerslider.com/release-log/" class="ls--button ls--bg-lightgray ls--white">

@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.2.8
+ * @version 	1.3.1
  * 
  * Admin Panel Main Functions
  * Created by CMSMasters
@@ -540,7 +540,7 @@ function language_school_form_field_fn($args = array()) {
 			
 			echo '<span>' . $item[0] . ':</span> ' . 
 			'<input class="' . $field_class . '" type="text" id="' . $id . '|' . $item[1] . '" name="' . $cmsmasters_option_name . '[' . $id . '|' . $item[1] . ']" value="' . $value . '" />' . 
-			'<br />';
+			'<br /><br />';
 		}
 		
 		echo (($desc != '') ? '<span class="description">' . $desc . '</span>' : '');

@@ -58,7 +58,7 @@
 						<td>
 							<kbd class="lse-key lse-key-wide lse-key-ctrl"></kbd> + <kbd class="lse-key">Y</kbd>
 							<lse-i class="lse-n1">or</lse-i><br>
-							<kbd class="lse-key lse-key-wide lse-key-ctrl"></kbd> + <kbd class="lse-key lse-key-wide lse-key-shift"></kbd> +
+							<kbd class="lse-key lse-key-wide lse-key-shift"></kbd> + <kbd class="lse-key lse-key-wide lse-key-ctrl"></kbd> +
 							<kbd class="lse-key">Z</kbd>
 						</td>
 						<td><?= __('Redo. Reverses the undo or advances the buffer to a more current state.', 'LayerSlider') ?></td>
@@ -84,7 +84,7 @@
 					</tr>
 					<tr>
 						<td>
-							<kbd class="lse-key lse-key-wide lse-key-ctrl"></kbd> + <kbd class="lse-key lse-key-wide lse-key-shift"></kbd> + <kbd class="lse-key">S</kbd>
+						<kbd class="lse-key lse-key-wide lse-key-shift"></kbd> + <kbd class="lse-key lse-key-wide lse-key-ctrl"></kbd> + <kbd class="lse-key">S</kbd>
 						</td>
 						<td><?= __('Publish the project, so changes go live on front-end pages.', 'LayerSlider') ?></td>
 					</tr>
@@ -192,6 +192,22 @@
 						</td>
 						<td><?= __('Remove selected layers.', 'LayerSlider') ?></td>
 					</tr>
+					<tr>
+						<td>
+							<kbd class="lse-key lse-key-wide lse-key-ctrl"></kbd> +
+							<kbd class="lse-key">L</kbd>
+						</td>
+						<td><?= __('Lock/Unlock selected layers.', 'LayerSlider') ?></td>
+					</tr>
+					<tr>
+						<td>
+							<kbd class="lse-key lse-key-wide lse-key-shift"></kbd>
+							<kbd class="lse-key lse-key-wide lse-key-ctrl"></kbd> +
+							<kbd class="lse-key">H</kbd>
+						</td>
+						<td><?= __('Hide/Unhide selected layers.', 'LayerSlider') ?></td>
+					</tr>
+
 				</tbody>
 			</table>
 		</lse-table-wrapper>

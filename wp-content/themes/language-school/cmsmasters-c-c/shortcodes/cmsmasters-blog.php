@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.2.2
+ * @version 	1.3.1
  * 
  * Content Composer Posts Slider Shortcode
  * Created by CMSMasters
@@ -158,16 +158,19 @@ if ($pagination == 'more') {
 
 
 if ($pagination == 'pagination') {
-	if (get_query_var('paged')) { 
-		$paged = get_query_var('paged'); 
-	} elseif (get_query_var('page')) { 
-		$paged = get_query_var('page'); 
-	} else { 
-		$paged = 1; 
+	if ( empty( $shortcode_id ) ) {
+		if (get_query_var('paged')) { 
+			$paged = get_query_var('paged'); 
+		} elseif (get_query_var('page')) { 
+			$paged = get_query_var('page'); 
+		} else { 
+			$paged = 1; 
+		}
+		
+		$args['paged'] = $paged;
+	} else {
+		$args['paged'] = absint( empty( $_GET["cmsmasters-{$shortcode_id}-page"] ) ? 1 : $_GET["cmsmasters-{$shortcode_id}-page"] );
 	}
-	
-	
-	$args['paged'] = $paged;
 }
 
 
@@ -231,7 +234,7 @@ if ($pagination !== 'disabled') {
 	$out .= '<div class="cmsmasters_wrap_more_posts cmsmasters_wrap_more_items">';
 	
 		if ($pagination == 'pagination' && $query->max_num_pages > 1) {
-			$out .= cmsmasters_pagination($query->max_num_pages);
+			$out .= cmsmasters_pagination($query->max_num_pages, $shortcode_id);
 		} elseif ($pagination == 'more' && $query->found_posts > $count) {
 			$out .= "<div class=\"cmsmasters_wrap_post_loader cmsmasters_wrap_items_loader\">
 				<a href=\"javascript:void(0);\" class=\"cmsmasters_button cmsmasters_post_loader cmsmasters_items_loader\">

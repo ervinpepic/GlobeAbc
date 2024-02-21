@@ -254,7 +254,6 @@ add_action('init', function() {
 		add_action('wp_ajax_ls_import_online', 'ls_import_online');
 		add_action('wp_ajax_ls_save_pagination_limit', 'ls_save_pagination_limit');
 		add_action('wp_ajax_ls_save_editor_settings', 'ls_save_editor_settings');
-		add_action('wp_ajax_ls_slider_library_contents', 'ls_slider_library_contents');
 		add_action('wp_ajax_ls_get_slider_details', 'ls_get_slider_details');
 		add_action('wp_ajax_ls_get_mce_sliders', 'ls_get_mce_sliders');
 		add_action('wp_ajax_ls_get_mce_slides', 'ls_get_mce_slides');
@@ -280,6 +279,8 @@ add_action('init', function() {
 		add_action( 'wp_ajax_ls_get_popup_markup', 'ls_get_popup_markup' );
 	}
 
+	// ADMIN PUBLIC AJAX FUNCTIONS
+	add_action('wp_ajax_ls_slider_library_contents', 'ls_slider_library_contents');
 
 	// FRONT-END AJAX FUNCTIONS
 	add_action( 'wp_ajax_nopriv_ls_get_popup_markup', 'ls_get_popup_markup' );
@@ -743,7 +744,7 @@ function ls_slider_library_contents() {
 
 	$excludeActionSheet = true;
 
-	include LS_ROOT_PATH.'/templates/tmpl-slider-library.php';
+	include LS_ROOT_PATH.'/templates/tmpl-project-library.php';
 
 	exit;
 }
@@ -1743,28 +1744,35 @@ function layerslider_convert_urls($arr) {
 
 function layerslider_register_wpml_strings( $sliderID, $data ) {
 
+	$currentLang = apply_filters( 'wpml_current_language', NULL );
+
 	if(!empty($data['layers']) && is_array($data['layers'])) {
 		foreach($data['layers'] as $slideIndex => $slide) {
 
 			if(!empty($slide['sublayers']) && is_array($slide['sublayers'])) {
 				foreach($slide['sublayers'] as $layerIndex => $layer) {
 
-					if( ! empty( $layer['html'] ) && $layer['type'] != 'img' ) {
+					if( empty( $layer['html'] ) ) {
+						continue;
+					}
 
-						// Check 'createdWith' property to decide which WPML implementation
-						// should we use. This property was added in v6.5.5 along with the
-						// new WPML implementation, so no version comparison required.
-						if( ! empty( $layer['uuid'] ) && ! empty( $data['properties']['createdWith'] ) ) {
+					if( ! empty( $layer['media'] ) && $layer['media'] === 'img' ) {
+						continue;
+					}
 
-							$string_name = "slider-{$sliderID}-layer-{$layer['uuid']}-html";
-							do_action( 'wpml_register_single_string', 'LayerSlider Sliders', $string_name, $layer['html'] );
+					// Check 'createdWith' property to decide which WPML implementation
+					// should we use. This property was added in v6.5.5 along with the
+					// new WPML implementation, so no version comparison required.
+					if( ! empty( $layer['uuid'] ) && ! empty( $data['properties']['createdWith'] ) ) {
 
-						// Old implementation
-						} else {
+						$string_name = "slider-{$sliderID}-layer-{$layer['uuid']}-html";
+						do_action( 'wpml_register_single_string', 'LayerSlider Sliders', $string_name, $layer['html'], false, $currentLang );
 
-							$string_name = '<'.$layer['type'].':'.substr(sha1($layer['html']), 0, 10).'> layer on slide #'.($slideIndex+1).' in slider #'.$sliderID.'';
-							do_action( 'wpml_register_single_string', 'LayerSlider WP', $string_name, $layer['html']);
-						}
+					// Old implementation
+					} else {
+
+						$string_name = '<'.$layer['type'].':'.substr(sha1($layer['html']), 0, 10).'> layer on slide #'.($slideIndex+1).' in slider #'.$sliderID.'';
+						do_action( 'wpml_register_single_string', 'LayerSlider WP', $string_name, $layer['html'], false, $currentLang );
 					}
 				}
 			}
@@ -1983,7 +1991,7 @@ function ls_download_object() {
 			] ) );
 		}
 
-	// IMAGE
+	// IMAGE, VIDEO, AUDIO
 	} else {
 
 		$data = ls_maybe_upload_from_path( $downloadPath, $attachURL, $needsNewThumbs );
@@ -2191,7 +2199,7 @@ function ls_maybe_upload_from_path( $path, $url = '', $updateThumbnails = false 
 
 
 	$attach_url = wp_get_attachment_url( $attach_id );
-	$attach_data = wp_get_attachment_metadata( $attach_id );
+	$attach_data = wp_prepare_attachment_for_js( (int) $attach_id );
 
 	// SUCCESS
 	if( ! empty( $attach_id ) && ! empty( $attach_url ) ) {

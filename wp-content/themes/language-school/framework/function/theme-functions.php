@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.2.9
+ * @version 	1.3.1
  * 
  * Theme Functions
  * Created by CMSMasters
@@ -1518,7 +1518,7 @@ function language_school_create_file($file, $content = '', $verifycontent = true
 
 
 /* Twitter Shortcode Function */
-function cmsmasters_get_tweets( $username, $count ) {
+function cmsmasters_get_tweets( $count = 1 ) {
 	$backup_name = 'cmsmasters_' . 'language-school' . '_tweets_list_backup';
 
 	$backup_tweets = get_option( $backup_name );
@@ -1529,38 +1529,27 @@ function cmsmasters_get_tweets( $username, $count ) {
 
 	$cmsmasters_option = language_school_get_global_options();
 
-	if ( empty( $cmsmasters_option['language-school' . '_twitter_access_token'] ) ) {
+	if ( empty( $cmsmasters_option['language-school' . '_twitter_access_data'] ) ) {
 		return $backup_tweets;
 	}
 
-	$response = wp_remote_get(
-		'https://api.twitter.com/1.1/statuses/user_timeline.json',
-		array(
-			'headers' => array(
-				'Authorization' => 'Bearer ' . esc_html( $cmsmasters_option['language-school' . '_twitter_access_token'] ),
-			),
-			'body' => array(
-				'screen_name' => $username,
-				'count' => max( 50, $count * 3 ),
-				'exclude_replies' => true,
-				'include_rts' => true,
-			),
-		)
-	);
+	$twitter_api_data = cmsmasters_twitter_api_get_data( $cmsmasters_option['language-school' . '_twitter_access_data'] );
 
-	if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
+	if ( empty( $twitter_api_data ) ) {
 		return $backup_tweets;
 	}
 
-	$fetchedTweets = json_decode( wp_remote_retrieve_body( $response ) );
-	$limitToDisplay = min( $count, count( $fetchedTweets ) );
+	$api_tweets = $twitter_api_data->includes->tweets;
+
+	$limit_to_display = min( $count, count( $api_tweets ) );
+	$name = $twitter_api_data->data->username;
+	$image = $twitter_api_data->data->profile_image_url;
+
 	$tweets = array();
 
-	for ( $i = 0; $i < $limitToDisplay; $i++ ) {
-		$tweet = $fetchedTweets[$i];
-		$name = $tweet->user->name;
-		$permalink = '//twitter.com/' . $name . '/status/' . $tweet->id_str;
-		$image = $tweet->user->profile_image_url;
+	for ( $i = 0; $i < $limit_to_display; $i++ ) {
+		$tweet = $api_tweets[$i];
+		$permalink = '//twitter.com/' . $name . '/status/' . $tweet->id;
 		$pattern = '/(http|https):(\S)+/';
 		$replace = '<a href="${0}" target="_blank" rel="nofollow">${0}</a>';
 		$text = preg_replace($pattern, $replace, $tweet->text);
@@ -1579,9 +1568,112 @@ function cmsmasters_get_tweets( $username, $count ) {
 
 	update_option( $backup_name, $tweets );
 
-	set_transient( 'cmsmasters_' . 'language-school' . '_tweets_list_regeneration', 'done', HOUR_IN_SECONDS * 6 );
+	set_transient( 'cmsmasters_' . 'language-school' . '_tweets_list_regeneration', 'done', DAY_IN_SECONDS );
 
 	return $tweets;
+}
+
+function cmsmasters_twitter_api_get_data( $access_data ) {
+	$base_url = 'https://api.twitter.com/2/users/me';
+
+	$fields = array(
+		'user.fields' => 'id,public_metrics,username,profile_image_url,most_recent_tweet_id',
+		'expansions' => 'most_recent_tweet_id',
+		'tweet.fields' => 'id,text,created_at,public_metrics',
+	);
+
+	$consumer_key = $access_data['consumer_key'];
+	$consumer_secret = $access_data['consumer_secret'];
+	$access_token = $access_data['access_token'];
+	$access_token_secret = $access_data['access_token_secret'];
+
+	if (
+		empty( $consumer_key ) ||
+		empty( $consumer_secret ) ||
+		empty( $access_token ) ||
+		empty( $access_token_secret )
+	) {
+		return false;
+	}
+
+	$oauth_params = array(
+		'oauth_consumer_key' => $consumer_key,
+		'oauth_nonce' => md5( mt_rand() ),
+		'oauth_signature_method' => 'HMAC-SHA1',
+		'oauth_timestamp' => time(),
+		'oauth_token' => $access_token,
+		'oauth_version' => '1.0',
+	);
+
+	foreach ( $fields as $field_key => $field_value ) {
+		$oauth_params[ $field_key ] = $field_value;
+	}
+
+	$base_string = cmsmasters_twitter_api_build_base_string( $base_url, $oauth_params );
+
+	$composite_key = rawurlencode( $consumer_secret ) . '&' . rawurlencode( $access_token_secret );
+	$oauth_signature = base64_encode( hash_hmac( 'sha1', $base_string, $composite_key, true ) );
+	$oauth_params['oauth_signature'] = $oauth_signature;
+
+	$oauth_header = cmsmasters_twitter_api_build_oauth_header( $oauth_params );
+
+	$request_url = $base_url . cmsmasters_twitter_api_parse_fields_to_string( $fields );
+
+	$response = wp_remote_get( $request_url, array(
+		'headers' => $oauth_header,
+		'timeout' => 60,
+	) );
+
+	if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
+		return false;
+	}
+
+	return json_decode( wp_remote_retrieve_body( $response ) );
+}
+
+function cmsmasters_twitter_api_build_base_string( $base_url, $oauth_params ) {
+	$base_string = array();
+
+	ksort( $oauth_params );
+
+	foreach ( $oauth_params as $key => $value ) {
+		$base_string[] = rawurlencode( $key ) . '=' . rawurlencode( $value );
+	}
+
+	return 'GET&' . rawurlencode( $base_url ) . '&' . rawurlencode( implode( '&', $base_string ) );
+}
+
+function cmsmasters_twitter_api_build_oauth_header( $oauth_params ) {
+	$header = 'Authorization: OAuth ';
+	$values = array();
+
+	foreach ( $oauth_params as $key => $value ) {
+		if ( in_array( $key, array( 'oauth_consumer_key', 'oauth_nonce', 'oauth_signature', 'oauth_signature_method', 'oauth_timestamp', 'oauth_token', 'oauth_version' ) ) ) {
+			$values[] = "$key=\"" . rawurlencode( $value ) . "\"";
+		}
+	}
+
+	$header .= implode( ', ', $values );
+
+	return $header;
+}
+
+function cmsmasters_twitter_api_parse_fields_to_string( $fields ) {
+	$url_string = '?';
+	$length = count( $fields );
+	$j = 1;
+
+	foreach ( $fields as $key => $value ) {
+		$url_string .= rawurlencode( $key ) . '=' . rawurlencode( $value );
+
+		if ( $j != $length ) {
+			$url_string .= '&';
+		}
+
+		$j++;
+	}
+
+	return $url_string;
 }
 
 

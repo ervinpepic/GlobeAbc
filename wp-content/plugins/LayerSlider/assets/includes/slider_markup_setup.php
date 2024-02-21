@@ -8,6 +8,7 @@ $slider = [];
 $sliderVersion 	= ! empty( $slides['properties']['sliderVersion'] ) ? $slides['properties']['sliderVersion'] : '1.0.0';
 $preVersion725 	= version_compare( $sliderVersion, '7.2.5', '<' );
 
+
 // Filter to override the defaults
 if(has_filter('layerslider_override_defaults')) {
 	$newDefaults = apply_filters('layerslider_override_defaults', $lsDefaults);
@@ -114,7 +115,7 @@ if(isset($slides['layers']) && is_array($slides['layers'])) {
 
 			$toParams = explode(' ', trim( $slide['properties']['parallaxtransformorigin'] ) );
 			if( $toParams[0] === '50%' ) { $toParams[0] = 'slidercenter'; }
-			if( $toParams[1] === '50%' ) { $toParams[1] = 'slidermiddle'; }
+			if( isset( $toParams[1] ) && $toParams[1] === '50%' ) { $toParams[1] = 'slidermiddle'; }
 
 			$slide['properties']['parallaxtransformorigin'] = implode(' ', $toParams);
 		}
@@ -165,7 +166,7 @@ if(isset($slides['layers']) && is_array($slides['layers'])) {
 
 					$toParams = explode(' ', trim( $layer['parallaxtransformorigin'] ) );
 					if( $toParams[0] === '50%' ) { $toParams[0] = 'slidercenter'; }
-					if( $toParams[1] === '50%' ) { $toParams[1] = 'slidermiddle'; }
+					if( isset( $toParams[1] ) && $toParams[1] === '50%' ) { $toParams[1] = 'slidermiddle'; }
 
 					$layer['parallaxtransformorigin'] = implode(' ', $toParams);
 				}

@@ -223,5 +223,5 @@ jQuery(document).ready(function($){
 				inst.snapElements[ i ].snapping = ( ts || bs || ls || rs || cc || mm || first );
 			}
 		}
-	} );
+	});
 });

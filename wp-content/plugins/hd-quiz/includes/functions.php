@@ -237,7 +237,36 @@ add_action('wp_ajax_hdq_save_quiz', 'hdq_save_quiz');
 ------------------------------------------------------- */
 function get_hdq_question($questionID)
 {
-    return hdq_sanitize_fields(get_post_meta($questionID, "question_data", true));
+	$data = get_post_meta($questionID, "question_data", true);
+	if(!$data || $data == ""){
+		$data = hdq_get_question_meta_values();
+	}	
+    return hdq_sanitize_fields($data);
+}
+
+
+// return clean array of question data
+function hdq_get_question_meta_values()
+{
+	return array(
+		"question_id" => array(
+			"value" => 0,
+			"type" => "integer"
+			
+		),
+		"title" => array(
+			"value" => "",
+			"type" => "title"
+		),
+		"question_type" => array(
+			"value" => "multiple_choice_text",
+			"type" => "select"
+		),
+		"answers" => array(
+			"value" => array(),
+			"type" => "answers"
+		)		
+	);
 }
 
 /* Save Question Meta
@@ -353,6 +382,10 @@ function hdq_add_quiz()
         $quiz, // the term
         'quiz' // the taxonomy
     );
+
+    // save current user ID as custom meta
+    $user_id = get_current_user_id();
+    add_term_meta($hdq_new_quiz["term_id"], "hdq_author_id", $user_id);
     echo '{"success": true, "quiz": "' . hdq_encodeURIComponent($quiz) . '", "id": "' . $hdq_new_quiz["term_id"] . '"}';
     die();
 }
@@ -414,7 +447,7 @@ function hdq_sanitize_fields($fields)
                 $fields[$key]["value"] = intval($v["value"]);
             }
         } elseif ($v["type"] == "checkbox") {
-            if (is_array($v["value"])) {
+            if (isset($v["value"]) && is_array($v["value"])) {
                 for ($i = 0; $i < count($v["value"]); $i++) {
                     $fields[$key]["value"][$i] = sanitize_text_field($v["value"][$i]);
                 }
@@ -499,6 +532,11 @@ function hdq_sanitize_array($data)
 ------------------------------------------------------- */
 function hdq_get_results($quiz_settings)
 {
+
+    if (!defined('HDQ_TWITTER_SHARE_ICON')) {
+        define('HDQ_TWITTER_SHARE_ICON', false);
+    }
+
     $pass_text = $quiz_settings["quiz_pass_text"]["value"];
     $fail_text = $quiz_settings["quiz_fail_text"]["value"];
     $share_results = $quiz_settings["share_results"]["value"][0];
@@ -518,7 +556,7 @@ function hdq_get_results($quiz_settings)
     $results_percent = $settings["hd_qu_percent"]["value"][0]; ?>
 
     <div class="hdq_results_wrapper">
-        <div class="hdq_results_inner" aria-live = "polite">
+        <div class="hdq_results_inner" aria-live="polite">
             <h2 class="hdq_results_title"><?php echo $result_text; ?></h2>
             <div class="hdq_result"><?php if ($results_percent == "yes") {
                                         echo ' - <span class = "hdq_result_percent"></span>';
@@ -532,7 +570,6 @@ function hdq_get_results($quiz_settings)
                     <?php
                     if ($fb_appId == "" || $fb_appId == null) {
                     ?>
-
                         <div class="hdq_social_icon">
                             <a title="share quiz on Facebook" href="http://www.facebook.com/sharer/sharer.php?u=<?php echo the_permalink(); ?>&amp;title=Quiz" target="_blank" class="hdq_facebook">
                                 <img src="<?php echo plugins_url('/images/fbshare.png', __FILE__); ?>" alt="Share your score!">
@@ -543,20 +580,30 @@ function hdq_get_results($quiz_settings)
                         hdq_get_fb_app_share($fb_appId);
                     } ?>
                     <div class="hdq_social_icon">
-                        <a href="#" target="_blank" class="hdq_twitter"><img src="<?php echo plugins_url('/images/twshare.png', __FILE__); ?>" alt="Tweet your score!"></a>
+                        <?php
+                        if (HDQ_TWITTER_SHARE_ICON) {
+                        ?>
+                            <a href="#" target="_blank" class="hdq_twitter" title="X, formerly Twitter"><img src="<?php echo plugins_url('/images/twshare.png', __FILE__); ?>" alt="Tweet your score!"></a>
+                        <?php
+                        } else {
+                        ?>
+                            <a href="#" target="_blank" class="hdq_twitter" title="X, formerly Twitter"><img src="<?php echo plugins_url('/images/xshare.png', __FILE__); ?>" alt="Tweet your score!"></a>
+                        <?php
+                        }
+                        ?>
+                    </div>
+                    <div class="hdq_social_icon">
+                        <a href="#" class="hdq_share_other"><img src="<?php echo plugins_url('/images/share.png', __FILE__); ?>" alt="Share to other"></a>
                     </div>
                 </div>
             <?php
             } ?>
         </div>
-
         <?php
         if (isset($settings["hd_qu_heart"]["value"]) && $settings["hd_qu_heart"]["value"][0] === "yes") {
-            echo '<p class = "hdq_heart">HD Quiz powered by <a href = "https://harmonicdesign.ca" target = "_blank" title = "Best WordPress Developers">harmonic design</a></p>';
+            echo '<p class = "hdq_heart">HD Quiz powered by <a href = "https://hdplugins.com" target = "_blank" title = "Best WordPress Developers">harmonic design</a></p>';
         }
         ?>
-
-
     </div>
 <?php
 }
@@ -786,4 +833,17 @@ function hdq_title($question_ID, $question_number, $question, $quiz)
 function hdq_select_all_apply_text($question_ID, $question_number, $question, $quiz)
 {
     require(dirname(__FILE__) . '/templates/select-all-text.php');
+}
+
+function hdq_select_all_apply_image($question_ID, $question_number, $question, $quiz)
+{
+    require(dirname(__FILE__) . '/templates/select-all-image.php');
+}
+
+// polyfill for < php8
+if (!function_exists('str_contains')) {
+    function str_contains($haystack, $needle)
+    {
+        return $needle !== '' && mb_strpos($haystack, $needle) !== false;
+    }
 }

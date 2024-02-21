@@ -14,6 +14,8 @@ var importModalWindowTimeline = null,
 
 	projectRenameTimeout = 0;
 
+var LS_importQueue = [];
+
 
 // Stores the lastly selected slider item
 // foe which the context menu was opened.
@@ -21,6 +23,11 @@ var LS_contextMenuSliderItem;
 
 
 jQuery(function($) {
+
+	// Check if addons buttons should pulse/highlight
+	jQuery( '#ls-addons-button' ).closest( '.ls-item' ).addClass( 'ls--highlight-' + ( localStorage.getItem( 'lsDashboard.addonsHighlight' ) || 'enabled' ) );
+
+
 
 	kmUI.dropdown.init();
 
@@ -297,9 +304,7 @@ jQuery(function($) {
 			animationIn: 'scale',
 			overlaySettings: {
 				animationIn: 'fade',
-				customStyle: {
-					backgroundColor: 'rgba( 225, 225, 225, 0.95 )'
-				}
+				customClasses: 'ls-project-group-modal-overlay'
 			},
 			onBeforeOpen: function() {
 				jQuery('#ls-slider-selection-bar-placeholder').show();
@@ -410,6 +415,101 @@ jQuery(function($) {
 			closeButton: true
 		});
 	});
+
+
+	// Add-Ons
+	// var LS_Addons = {
+
+	// 	initialized: false,
+	// 	$modal: null,
+
+	// 	init: function(){
+
+	// 		jQuery('#ls-addons-button' ).on( 'click', function(e){
+	// 			e.preventDefault();
+	// 			kmw.modal.close();
+	// 			LS_Addons.openModal();
+
+	// 			// disable pulse/highlight effect
+	// 			localStorage.setItem( 'lsDashboard.addonsHighlight', 'disabled' );
+	// 		});
+	// 	},
+
+	// 	attachEvents: function(){
+
+	// 		jQuery(document).on( 'mouseenter', '#ls-addons-modal-window .ls--video', function(e){
+	// 			$( this ).attr( 'loop', '' );
+	// 			this.play();
+
+	// 		}).on( 'mouseleave', '#ls-addons-modal-window ls-col:not(".kmw-active") .ls--video', function(e){
+	// 			$( this ).removeAttr( 'loop' );
+	// 			if( $( this ).is( '.ls--allowstop') ){
+	// 				this.pause();
+	// 			}
+
+	// 		}).on('click', '#ls-addons-grid .kmw-menuitem', function(e) {
+	// 			LS_Addons.openAddon( $( this ) );
+	// 			$( '#ls-addons-grid .kmw-menuitem .ls--video' ).trigger( 'mouseleave' );
+	// 		});
+
+	// 	},
+
+	// 	openModal: function(){
+
+	// 		kmw.modal.open({
+	// 			id: 'ls-addons-modal-window',
+	// 			content: $('#ls-addons-modal-content'),
+	// 			maxWidth: 1200,
+	// 			overlaySettings: {
+	// 				customClasses: 'ls--dark-overlay'
+	// 			},
+	// 			sidebar: {
+	// 				right: {
+	// 					title: ' ', // Important for having the kmw-sidebar-title element in place
+	// 					width: 400,
+	// 					content: $('#ls-addons-modal-sidebar')
+	// 				}
+	// 			},
+	// 			onBeforeOpen: function() {
+
+	// 				LS_Addons.$modal = jQuery('#ls-addons-modal-window');
+
+	// 				if( ! LS_Addons.initialized ) {
+	// 					LS_Addons.initialized = true;
+	// 					LS_Addons.attachEvents();
+	// 				}
+
+	// 				LS_Addons.maintainSidebarTitle();
+	// 			}
+	// 		});
+	// 	},
+
+	// 	closeModal: function(){
+	// 		kmw.modal.close();
+	// 	},
+
+	// 	maintainSidebarTitle: function() {
+
+	// 		var $menuItems = $('#ls-addons-grid .kmw-menuitem'),
+	// 			$activeItem = $menuItems.filter('.kmw-active');
+
+	// 			if( $activeItem.length ) {
+	// 				$activeItem.click();
+	// 			 } else {
+	// 				$menuItems.first().click();
+	// 			 }
+	// 	},
+
+	// 	openAddon: function( $tab ) {
+
+	// 		var title = $tab.find('.ls--title').text(),
+	// 			$sidebarTitle = LS_Addons.$modal.find('.kmw-sidebar-title');
+	// 			$sidebarTitle.text( title );
+	// 	}
+	// };
+
+	// LS_Addons.init();
+
 
 
 	// Import Sliders
@@ -696,10 +796,18 @@ jQuery(function($) {
 
 		var $curTag = $(this),
 			handle = $curTag.attr( 'data-handle' ),
-			$templatesHolder = $curTag.closest( 'ls-templates-container' ).find( 'ls-templates-holder' ),
+			$templatesContainer = $curTag.closest( 'ls-templates-container' ),
+			$templatesHolder = $templatesContainer.find( 'ls-templates-holder' ),
 			$allTemplates = $templatesHolder.find( 'ls-template' ),
 			$filteredTemplates = $templatesHolder.find( 'ls-template[data-groups*="'+handle+'"]' ),
-			$allButFilteredTemplates = $templatesHolder.find( 'ls-template:not([data-groups*="'+handle+'"])' );
+			$allButFilteredTemplates = $templatesHolder.find( 'ls-template:not([data-groups*="'+handle+'"])' ),
+			$descHolder = $templatesContainer.find( 'ls-tag-descriptions-holder' ),
+			$allDesc = $descHolder.find('ls-tag-description');
+
+			$( 'ls-templates-containers' ).scrollTop(0);
+
+			$allDesc.hide();
+			$allDesc.filter('[data-handle="' + handle + '"]').css('display','flex');
 
 			$curTag.addClass('ls--active').siblings().removeClass('ls--active');
 			$allTemplates.show();
@@ -1050,14 +1158,28 @@ jQuery(function($) {
 				data = data ? JSON.parse( data ) : {};
 
 				if( data.success ) {
-					document.location.href = data.url;
+
+					if( LS_importQueue && LS_importQueue.length > 0 ) {
+						kmw.modal.close();
+						lsDownloadNextTemplate();
+						return;
+
+					} else {
+						document.location.href = data.url;
+					}
 
 				} else {
 
 					kmw.modal.close();
 
 					if( data.reload ) {
-						window.location.reload( true );
+						if( LS_importQueue && LS_importQueue.length > 0 ) {
+							lsDownloadNextTemplate();
+
+						} else {
+							window.location.reload( true );
+						}
+
 						return;
 					}
 
@@ -1744,3 +1866,61 @@ jQuery(function($) {
 		skinsPath: LS_pageMeta.skinsPath
 	});
 });
+
+var lsDownloadAllTemplates = function() {
+
+	lsCommon.smartAlert.confirm( 'Import all templates? This will take a long time.', () => {
+
+		LS_importQueue = [];
+		jQuery('#ls-browse-templates-button').click();
+
+		setTimeout( () => {
+
+			jQuery('ls-templates-container').filter('[data-category="sliders"],[data-category="kreatura-popups"],[data-category="webshopworks-popups"]').find('ls-template').each( function() {
+
+				LS_importQueue.push({
+					isPending: true,
+					element: this
+				});
+			});
+
+			lsDownloadNextTemplate();
+		}, 2000 );
+	});
+};
+
+var lsDownloadNextTemplate = function() {
+
+	// Exit early if the queue is empty
+	if( ! LS_importQueue || ! LS_importQueue.length ) {
+		return;
+	}
+
+	var template, templateIndex;
+
+	// Find the next unprocessed item from the queue
+	for( var c = 0; c < LS_importQueue.length; c++ ) {
+		if( LS_importQueue[c].isPending ) {
+			template = LS_importQueue[c];
+			templateIndex = c;
+			break;
+		}
+	}
+
+	// Did not find unprocessed items, empty the queue and exit
+	if( ! template ) {
+		LS_importQueue = [];
+		return;
+	}
+
+	// Otherwise, mark the item as processed
+	template.isPending = false;
+
+	// Gather template data
+	var $item = jQuery( template.element ),
+		projectName = $item.find('ls-template-name').text();
+
+	// Start importing
+	console.log('Downloading Template ('+(templateIndex+1)+'/'+(LS_importQueue.length)+'): ' + projectName );
+	$item.find('.ls--import-template-button').click();
+};

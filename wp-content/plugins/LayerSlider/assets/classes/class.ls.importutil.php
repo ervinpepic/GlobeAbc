@@ -10,7 +10,7 @@ defined( 'LS_ROOT_FILE' ) || exit;
  * @package LS_ImportUtil
  * @since 5.0.3
  * @author John Gera
- * @copyright Copyright (c) 2023  John Gera, George Krupa, and Kreatura Media Kft.
+ * @copyright Copyright (c) 2024  John Gera, George Krupa, and Kreatura Media Kft.
  */
 
 class LS_ImportUtil {
@@ -314,6 +314,13 @@ class LS_ImportUtil {
 				if( ! empty($layer['layerBackground']) ) {
 					$layer['layerBackgroundId'] = $this->attachIDForImage($layer['layerBackground']);
 					$layer['layerBackground'] = $this->attachURLForImage($layer['layerBackground']);
+				}
+
+				if( ! empty( $layer['mediaAttachments'] ) ) {
+					foreach( $layer['mediaAttachments'] as $mediaKey => $media ) {
+						$layer['mediaAttachments'][$mediaKey]['id'] = $this->attachIDForImage( $media['url'] );
+						$layer['mediaAttachments'][$mediaKey]['url'] = $this->attachURLForImage( $media['url'] );
+					}
 				}
 			}}
 		}}

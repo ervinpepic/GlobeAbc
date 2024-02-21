@@ -110,10 +110,17 @@
 	text-align: center;
 	background: rgba(0, 0, 0, 0.1);
 	padding: 22px;
+	display: flex;
+	justify-content: center;
 }
 
 .hdq_social_icon {
-	margin: 0 10px;
+	display: inline-block;
+	line-height: 1;
+	margin: 0.4em;
+}
+
+.hdq_social_icon > a {
 	display: inline-block;
 }
 
@@ -496,10 +503,6 @@ h3.hdq_question_heading {
 	.hdq_share {
 		padding: 8px;
 		line-height: 1;
-	}
-
-	.hdq_social_icon {
-		margin: 0 4px;
 	}
 
 	.hdq_question,

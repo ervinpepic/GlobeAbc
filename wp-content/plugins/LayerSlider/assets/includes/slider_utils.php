@@ -51,3 +51,13 @@ function ls_assets_cond( $data = [], $key = 0 ) {
 	return true;
 
 }
+
+function ls_normalize_hide_layer_value( $value = false ) {
+	if( $value === 'editor' || $value === 'all' ) {
+		return $value;
+	}
+
+	$value = !! $value;
+
+	return $value ? 'all' : false;
+}

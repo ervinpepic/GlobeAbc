@@ -24,9 +24,6 @@
 				<lse-b data-type="asset">
 					<?= lsGetSVGIcon('photo-video') ?>
 					<lse-text><?= __('Asset', 'LayerSlider') ?></lse-text>
-					<lse-badge>
-						<?= __('NEW', 'LayerSlider') ?>
-					</lse-badge>
 				</lse-b>
 			</lse-row>
 			<lse-row>

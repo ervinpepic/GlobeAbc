@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.2.6
+ * @version 	1.3.1
  * 
  * Admin Panel Element Options
  * Created by CMSMasters
@@ -540,18 +540,24 @@ function language_school_options_element_fields($set_tab = false) {
 		
 		$options[] = array( 
 			'section' => 'code_section', 
-			'id' => 'language-school' . '_twitter_access_token', 
-			'title' => esc_html__('Twitter Access Token', 'language-school'), 
+			'id' => 'language-school' . '_twitter_access_data', 
+			'title' => esc_html__('Twitter Access Data', 'language-school'), 
 			'desc' => sprintf(
-				/* translators: Twitter access token. %s: Link to twitter access token generator */
-				esc_html__( 'Generate %s and paste Access Token to this field.', 'language-school' ),
+				/* translators: Twitter access data. %s: Link to twitter access data generator */
+				esc_html__( 'Generate %s and paste access data to fields.', 'language-school' ),
 				'<a href="' . esc_url( 'https://api.cmsmasters.net/wp-json/cmsmasters-api/v1/twitter-request-token' ) . '" target="_blank">' .
-					esc_html__( 'twitter access token', 'language-school' ) .
+					esc_html__( 'twitter access data', 'language-school' ) .
 				'</a>'
 			), 
-			'type' => 'text', 
-			'std' => '', 
-			'class' => '' 
+			'type' => 'multi-text', 
+			'std' => array(),
+			'class' => 'regular-text', 
+			'choices' => array( 
+				esc_html__('Consumer Key', 'language-school') . '|consumer_key', 
+				esc_html__('Consumer Secret', 'language-school') . '|consumer_secret', 
+				esc_html__('Access Token', 'language-school') . '|access_token', 
+				esc_html__('Access Token Secret', 'language-school') . '|access_token_secret' 
+			) 
 		);
 		
 		break;

@@ -57,8 +57,7 @@ class LS_Config {
 
 		self::set( [
 			'theme_bundle' 	=> true,
-			'autoupdate' 	=> false,
-			'notices' 		=> false
+			'autoupdate' 	=> false
 		] );
 	}
 

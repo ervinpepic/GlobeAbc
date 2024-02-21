@@ -14,6 +14,12 @@
 
 <div id="main">
 	<?php
+	
+if (!defined('HDQ_EDIT_AUTHORED')) {
+    define('HDQ_EDIT_AUTHORED', false);
+}
+	
+	
 	$wasUpgrade = sanitize_text_field(get_option("hdq_remove_data_upgrade_notice"));
 
 	if ($wasUpgrade === "yes") {
@@ -84,9 +90,15 @@
 				'order' => 'ASC',
 			);
 			$tax_terms = get_terms($taxonomy, $term_args);
-
+			$user_id = get_current_user_id();
 			if (!empty($tax_terms) && !is_wp_error($tax_terms)) {
 				foreach ($tax_terms as $tax_terms) {
+					if(HDQ_EDIT_AUTHORED === true){
+						$author_id = intval(get_term_meta($tax_terms->term_id, "hdq_author_id", true));
+						if($user_id !== $author_id && !current_user_can('administrator')){
+							continue;
+						}
+					}					
 			?>
 					<div role="button" class="hdq_quiz_item hdq_quiz_term" data-name="<?php echo $tax_terms->name; ?>" data-id="<?php echo $tax_terms->term_id; ?>">
 						<?php

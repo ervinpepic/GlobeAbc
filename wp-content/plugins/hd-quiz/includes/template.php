@@ -20,6 +20,12 @@ if (!defined('HDQ_REDIRECT')) {
     define('HDQ_REDIRECT', true);
 }
 
+if (!defined('HDQ_FORCE_ORDER')) {
+    define('HDQ_FORCE_ORDER', false);
+}
+
+
+
 if (!is_singular() && HDQ_REDIRECT) {
     // if we are on a category, search, or home blog page
     // replace quiz with direct link to post or page
@@ -200,6 +206,11 @@ if ($buildQuiz === true) {
             global $post;
             $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 
+
+            if (HDQ_FORCE_ORDER !== false) {
+                $question_order = HDQ_FORCE_ORDER;
+            }
+
             // WP_Query arguments
             $args = array(
                 'post_type' => array('post_type_questionna'),
@@ -214,6 +225,7 @@ if ($buildQuiz === true) {
                 'paged' => $paged,
                 'orderby' => $question_order, // defaults to menu_order
                 'order' => 'ASC',
+                'suppress_filters' => true // attempt to remove any filters added by other plugins so that we can use our own order
             );
 
             $query = new WP_Query($args);
@@ -267,6 +279,8 @@ if ($buildQuiz === true) {
                         hdq_title($question_ID, $i, $question, $quiz_settings);
                     } elseif ($question["question_type"]["value"] === "select_all_apply_text") {
                         hdq_select_all_apply_text($question_ID, $i, $question, $quiz_settings);
+                    } elseif ($question["question_type"]["value"] === "select_all_apply_image") {
+                        hdq_select_all_apply_image($question_ID, $i, $question, $quiz_settings);
                     } else {
                         // TODO: Allow custom question types to be hookable
                         echo "Question type not found";

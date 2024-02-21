@@ -676,9 +676,20 @@ const HDQ = {
 			multiple_choice_text: function () {
 				// default
 			},
+			select_all_apply_image: function () {
+				let question_type_tip = document.getElementById("question_type_tip");
+				let data = `<p>With this question type, the user will need to correctly select ALL of the correct answers in order to be awarded a point for this question</p>`;
+				question_type_tip.innerHTML = data;
+				
+				let featured_images_wrap = document.getElementsByClassName("hdq_answer_as_image");
+				for (let i = 0; i < featured_images_wrap.length; i++) {
+					featured_images_wrap[i].classList.remove("hdq_hide");
+				}
+				
+			},			
 			select_all_apply_text: function () {
 				let question_type_tip = document.getElementById("question_type_tip");
-				let data = `<p>With this question type, the user will need to correcly select ALL of the correct answers in order to be awarded a point for this question</p>`;
+				let data = `<p>With this question type, the user will need to correctly select ALL of the correct answers in order to be awarded a point for this question</p>`;
 				question_type_tip.innerHTML = data;
 			},
 			multiple_choice_image: function () {

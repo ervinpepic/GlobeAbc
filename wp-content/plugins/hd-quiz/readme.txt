@@ -2,8 +2,8 @@
 Contributors: Harmonic_Design, HarmonicDesign
 Tags: quiz, quizzes, MCQ, exam, quiz maker, questionnaire, questionnaires, questionnairs, quizes, questionair, questionaires, hdquiz, hd quiz, test, question and answers, harmonic design, HDPlugins
 Requires at least: 5.0
-Tested up to: 6.3.0
-Stable tag: 1.8.9
+Tested up to: 6.4.3
+Stable tag: 1.8.13
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -33,7 +33,7 @@ https://www.youtube.com/watch?v=YDyNDs3TdTs
 ## ✨ Features ✨
 HD Quiz has *so many* cool features, settings, and options, that I cannot possibly list them all. So here are some of the highlights of what I think are some of the coolest and most important features of HD Quiz. **Everything you see listed here is included by default and 100% FREE!**
 
-[See full documenation](https://hdplugins.com/learn/hd-quiz/hd-quiz-documentation/?utm_source=WPOrgPluginPage)
+[See full documentation](https://hdplugins.com/learn/hd-quiz/hd-quiz-documentation/?utm_source=WPOrgPluginPage)
 
 - Unlimited amount of quizzes and questions
 - Each quiz has its own options/settings
@@ -152,6 +152,21 @@ Quiz, quizzes, create a quiz, add a quiz, quiz plugin, hdq, harmonic design, HDP
 4. Questions Page
 
 == Changelog ==
+= 1.8.13 =
+* New definition HDQ_FORCE_ORDER to force order of questions
+* HDInvoice announcement
+* Better PHP8 compatibility
+
+= 1.8.12 =
+* Caved in and updated Twitter to X
+* Security improvement for Adset Code
+
+= 1.8.11 =
+* New question type: Select all that apply: images
+
+= 1.8.10 =
+* New Web Share social share feature (for compatible browsers)
+
 = 1.8.9 =
 * Minor update to default question template
 * Better shortcode detection in answers
@@ -176,7 +191,7 @@ Quiz, quizzes, create a quiz, add a quiz, quiz plugin, hdq, harmonic design, HDP
 * new hook to add custom content after question featured image
 
 = 1.8.5 =
-* Better accessability (keyboard navigation)
+* Better accessibility (keyboard navigation)
 * Better support for timer per-question and select all that apply question type
 * New hook to better add custom data attributes to questions
 * Minor bug fixes
@@ -299,5 +314,7 @@ Massive rewrite of almost the entire plugin. Please do not hesitate to ask for s
 * These options are global options and can be found under HD Quiz -> About / Options
 
 == Upgrade Notice ==
-* Minor update to default question template
-* Better shortcode detection in answers
+= 1.8.13 =
+* New definition HDQ_FORCE_ORDER to force order of questions
+* HDInvoice announcement
+* Better PHP8 compatibility

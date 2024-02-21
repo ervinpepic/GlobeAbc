@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.1.7
+ * @version 	1.3.1
  * 
  * Custom Theme Widgets
  * Created by CMSMasters
@@ -962,7 +962,7 @@ class WP_Widget_Custom_Twitter extends WP_Widget {
 	function __construct() {
 		$widget_ops = array( 
 			'classname' => 		'widget_custom_twitter_entries', 
-			'description' => 	esc_attr__('Your Twitter account latest tweets', 'language-school') 
+			'description' => 	esc_attr__('Your Twitter account recent tweet', 'language-school') 
 		);
 		
 		parent::__construct('custom-twitter', esc_attr__('Twitter', 'language-school'), $widget_ops);
@@ -972,18 +972,6 @@ class WP_Widget_Custom_Twitter extends WP_Widget {
 		extract($args);
 		
 		$title = apply_filters('widget_title', empty($instance['title']) ? esc_attr__('Twitter', 'language-school') : $instance['title'], $instance, $this->id_base);
-		$user = isset($instance['user']) ? $instance['user'] : '';
-		$number = isset($instance['number']) ? (int) $instance['number'] : '';
-		
-		$uid = uniqid();
-		
-        if (empty($instance['number']) || !$number = absint($instance['number'])) {
-            $number = 3;
-        } elseif ($number < 1) {
-            $number = 1;
-        } elseif ($number > 20) {
-            $number = 20;
-        }
 		
 		echo wp_kses_post($before_widget);
 		
@@ -991,60 +979,44 @@ class WP_Widget_Custom_Twitter extends WP_Widget {
 			echo wp_kses_post($before_title . esc_html($title) . $after_title);
 		}
 		
-		if ($user != '') {
-			$tweets = cmsmasters_get_tweets($user, $number);
+		$tweets = cmsmasters_get_tweets();
+		
+		if (!empty($tweets)) {
+			echo '<ul class="tweet_list">';
 			
-			if ($tweets != '') {
-				echo '<ul class="tweet_list">' . "\n";
-				
-				foreach ($tweets as $t) {
-					echo '<li>' . "\n" . 
-						'<span class="tweet_time">' . human_time_diff($t['time'], current_time('timestamp')) . ' ' . esc_html__('ago', 'language-school') . '</span>' . "\n" . 
-						'<span class="tweet_text">' . "\n" . $t['text'] . '</span>' . "\n" . 
-					'</li>' . "\n";
-				}
-			} else {
-				echo '<div class="cmsmasters_notice cmsmasters_notice_error cmsmasters_theme_icon_cancel">' . "\n" . 
-					'<div class="notice_content">' . "\n" . 
-						'<p>' . esc_html__('Please add your Twitter API keys', 'language-school') . ', ' . '<a target="_blank" href="http://docs.cmsmasters.net/admin2/twitter-functionality/">' . esc_html__('read more how', 'language-school') . '</a></p>' . "\n" . 
-					'</div>' . "\n" . 
-				'</div>' . "\n";
+			foreach ($tweets as $t) {
+				echo '<li>' . "\n" . 
+					'<span class="tweet_time cmsmasters_theme_icon_user_twitter">' . human_time_diff($t['time'], current_time('timestamp')) . ' ' . esc_html__('ago', 'language-school') . '</span>' . "\n" . 
+					'<span class="tweet_text">' . "\n" . $t['text'] . '</span>' . "\n" . 
+				'</li>' . "\n";
 			}
+
+			echo '</ul>';
+		} else {
+			echo '<div class="cmsmasters_notice cmsmasters_notice_error cmsmasters_theme_icon_cancel">' . "\n" . 
+				'<div class="notice_content">' . "\n" . 
+					'<p>' . esc_html__('Please add your Twitter API keys', 'language-school') . ', ' . '<a target="_blank" href="//cmsmasters.net/twitter-functionality/">' . esc_html__('read more how', 'language-school') . '</a></p>' . "\n" . 
+				'</div>' . "\n" . 
+			'</div>' . "\n";
 		}
 		
-		echo '</ul>' . "\n" . 
-		$after_widget;
+		echo wp_kses_post($after_widget);
 	}
 	
 	function update($new_instance, $old_instance) {
 		$instance = $old_instance;
 		
 		$instance['title'] = strip_tags($new_instance['title']);
-        $instance['user'] = strip_tags($new_instance['user']);
-        $instance['number'] = absint($new_instance['number']);
 		
 		return $instance;
 	}
 	
     function form($instance) {
         $title = isset($instance['title']) ? esc_attr($instance['title']) : '';
-        $user = isset($instance['user']) ? esc_attr($instance['user']) : '';
-        $number = (isset($instance['number']) && $instance['number'] != 0) ? absint($instance['number']) : 3;
         ?>
         <p>
             <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_html_e('Title', 'language-school'); ?>:<br />
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr($title); ?>" />
-            </label>
-        </p>
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('user')); ?>"><?php esc_html_e('Twitter Username', 'language-school'); ?>:<br />
-                <input class="widefat" id="<?php echo esc_attr($this->get_field_id('user')); ?>" name="<?php echo esc_attr($this->get_field_name('user')); ?>" type="text" value="<?php echo esc_attr($user); ?>" />
-            </label>
-        </p>
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('number')); ?>"><?php esc_html_e("Enter the number of latest tweets you'd like to display", 'language-school'); ?>:<br /><br />
-                <input id="<?php echo esc_attr($this->get_field_id('number')); ?>" name="<?php echo esc_attr($this->get_field_name('number')); ?>" type="text" value="<?php echo esc_attr($number); ?>" size="3" />
-                <small class="s_red"><?php esc_html_e('default is', 'language-school'); ?> 3</small><br />
             </label>
         </p>
         <div class="cl"></div>

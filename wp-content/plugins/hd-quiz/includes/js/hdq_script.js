@@ -11,7 +11,7 @@ const HDQ = {
 	},
 	VARS: {},
 	init: async function () {
-		console.log("HD Quiz 1.8.9 Loaded");
+		console.log("HD Quiz 1.8.13 Loaded");
 		if (HDQ.EL.quizzes.length > 1) {
 			for (let i = 0; i < HDQ.EL.quizzes.length; i++) {
 				let html = `<p>HD QUIZ - WARNING: There is more than one quiz on this page. Due to the complexity of HD Quiz, only one quiz should on a page at a time.</p>`;
@@ -221,7 +221,7 @@ const HDQ = {
 
 				// check question type
 				let qt = p.getAttribute("data-type");
-				if (qt == "select_all_apply_text" && sap === false) {
+				if ((qt == "select_all_apply_text" && sap === false) || (qt == "select_all_apply_image" && sap === false)) {
 					// does "next" button already exist?
 					let n = p.getElementsByClassName("hdq_button");
 					if (typeof n[0] == "undefined") {
@@ -229,7 +229,7 @@ const HDQ = {
 						p.insertAdjacentHTML("beforeend", html);
 					}
 					return;
-				} else if (qt == "select_all_apply_text") {
+				} else if (qt == "select_all_apply_text" || qt == "select_all_apply_image") {
 					let n = p.getElementsByClassName("hdq_button")[0];
 					n.remove();
 				}
@@ -388,10 +388,17 @@ const HDQ = {
 			}
 		},
 		text: async function (el) {
+			function decodeHtml(html) {
+				var txt = document.createElement("textarea");
+				txt.innerHTML = html;
+				return txt.value;
+			}
 			let value = el.value.toLocaleUpperCase().trim();
 			let answers = el.getAttribute("data-answers");
 			answers = decodeURIComponent(answers);
+			answers = decodeHtml(answers);
 			answers = JSON.parse(answers);
+
 			for (let i = 0; i < answers.length; i++) {
 				answers[i] = answers[i].toLocaleUpperCase();
 			}
@@ -603,7 +610,43 @@ const HDQ = {
 
 			function hdq_show_part_wrong(answers) {
 				// if the user got part of the question right,
-				// visualy show that even though the selected answer was correct,
+				// Visually show that even though the selected answer was correct,
+				// the entire answer set is incorrect
+				for (let i = 0; i < answers.length; i++) {
+					if (answers[i].value == 1 && answers[i].checked == true) {
+						answers[i].parentElement.parentElement.parentElement.classList.remove("hdq_correct");
+						answers[i].parentElement.parentElement.parentElement.classList.add("hdq_correct_not_selected");
+					}
+				}
+			}
+		},
+		select_all_apply_image: async function (answers) {
+			let results = [];
+			for (let i = 0; i < answers.length; i++) {
+				results.push({ checked: answers[i].checked, v: answers[i].value });
+			}
+			HDQ.validate.extraText(false, answers[0]);
+			for (let i = 0; i < results.length; i++) {
+				if (results[i].v == 1 && results[i].checked == false) {
+					if (HDQ.VARS.mark_correct != "yes" && HDQ.VARS.show_results == "yes") {
+						hdq_show_part_wrong(answers);
+					}
+					return 0;
+					break;
+				}
+				if (results[i].v == 0 && results[i].checked == true) {
+					if (HDQ.VARS.mark_correct != "yes" && HDQ.VARS.show_results == "yes") {
+						hdq_show_part_wrong(answers);
+					}
+					return 0;
+					break;
+				}
+			}
+			return 1;
+
+			function hdq_show_part_wrong(answers) {
+				// if the user got part of the question right,
+				// Visually show that even though the selected answer was correct,
 				// the entire answer set is incorrect
 				for (let i = 0; i < answers.length; i++) {
 					if (answers[i].value == 1 && answers[i].checked == true) {
@@ -736,27 +779,63 @@ const HDQ = {
 		}, 100);
 	},
 	share: function () {
-		function create_twitter_share() {
-			let baseURL = "https://twitter.com/intent/tweet";
+		function create_social_share() {
+			create_twitter();
+			create_webshare();
 
-			let text = HDQ.VARS.share_text;
-			let score = HDQ.VARS.hdq_score[0] + "/" + HDQ.VARS.hdq_score[1];
-			text = text.replaceAll("%score%", score);
-			text = text.replaceAll("%quiz%", HDQ.VARS.name);
+			function create_webshare() {
+				const el = document.getElementsByClassName("hdq_share_other")[0];
+				if (el && typeof el !== "undefined") {
+					try {
+						if (!navigator.canShare) {
+							el.remove();
+						}
+					} catch (err) {
+						el.remove();
+					}
 
-			if (HDQ.VARS.twitter != "") {
-				baseURL += "?screen_name=" + HDQ.VARS.twitter;
-			} else {
-				baseURL += "?";
+					el.addEventListener("click", async function () {
+						let text = HDQ.VARS.share_text;
+						let score = HDQ.VARS.hdq_score[0] + "/" + HDQ.VARS.hdq_score[1];
+						text = text.replaceAll("%score%", score);
+						text = text.replaceAll("%quiz%", HDQ.VARS.name);
+
+						const data = {
+							title: "HD Quiz",
+							text: text,
+							url: HDQ.VARS.permalink,
+						};
+
+						try {
+							await navigator.share(data);
+						} catch (err) {
+							console.warn(err);
+						}
+					});
+				}
 			}
-			text = "&text=" + encodeURI(text);
-			let url = "&url=" + encodeURI(HDQ.VARS.permalink);
-			let hashtags = "&hashtags=hdquiz";
 
-			let shareLink = baseURL + text + url + hashtags;
-			jQuery(".hdq_twitter").attr("href", shareLink);
+			function create_twitter() {
+				let baseURL = "https://twitter.com/intent/tweet";
+				let text = HDQ.VARS.share_text;
+				let score = HDQ.VARS.hdq_score[0] + "/" + HDQ.VARS.hdq_score[1];
+				text = text.replaceAll("%score%", score);
+				text = text.replaceAll("%quiz%", HDQ.VARS.name);
+
+				if (HDQ.VARS.twitter != "") {
+					baseURL += "?screen_name=" + HDQ.VARS.twitter;
+				} else {
+					baseURL += "?";
+				}
+				text = "&text=" + encodeURI(text);
+				let url = "&url=" + encodeURI(HDQ.VARS.permalink);
+				let hashtags = "&hashtags=hdquiz";
+
+				let shareLink = baseURL + text + url + hashtags;
+				jQuery(".hdq_twitter").attr("href", shareLink);
+			}
 		}
-		create_twitter_share();
+		create_social_share();
 	},
 	jPaginate: function () {
 		let hdq_form_id = jQuery(this).attr("data-id");
@@ -802,7 +881,11 @@ const HDQ = {
 		setTimeout(function () {
 			if (!HDQ.VARS.legacy_scroll) {
 				// results_wrapper[0].scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
-				document.getElementById("hdq_offset_div").scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+				document.getElementById("hdq_offset_div").scrollIntoView({
+					behavior: "smooth",
+					block: "start",
+					inline: "nearest",
+				});
 			} else {
 				HDQ.scroll_legacy.question();
 			}
@@ -926,10 +1009,18 @@ const HDQ = {
 	scroll: function () {
 		setTimeout(function () {
 			if (HDQ.VARS.results_position === "above" && !HDQ.VARS.legacy_scroll) {
-				document.getElementById("hdq_offset_div").scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+				document.getElementById("hdq_offset_div").scrollIntoView({
+					behavior: "smooth",
+					block: "start",
+					inline: "nearest",
+				});
 			} else {
 				const results_wrapper = document.getElementsByClassName("hdq_results_wrapper")[0];
-				results_wrapper.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+				results_wrapper.scrollIntoView({
+					behavior: "smooth",
+					block: "center",
+					inline: "nearest",
+				});
 			}
 		}, 300);
 	},
@@ -968,7 +1059,12 @@ if (typeof hdq_local_vars != "undefined") {
 				stop_reselect: hdq_locals.hdq_stop_answer_reselect,
 				submit_actions: hdq_locals.hdq_submit,
 				init_actions: hdq_locals.hdq_init,
-				timer: { time: hdq_locals.hdq_timer, max: hdq_locals.hdq_timer, question: hdq_locals.hdq_timer_question, active: false },
+				timer: {
+					time: hdq_locals.hdq_timer,
+					max: hdq_locals.hdq_timer,
+					question: hdq_locals.hdq_timer_question,
+					active: false,
+				},
 				twitter: hdq_locals.hdq_twitter_handle,
 				ads: hdq_locals.hdq_use_ads,
 				hdq_score: [],
@@ -1004,4 +1100,3 @@ jQuery("#hdq_fb_sharer").on("click", function () {
 		}
 	);
 });
-

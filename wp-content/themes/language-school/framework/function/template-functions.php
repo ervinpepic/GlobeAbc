@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version		1.2.3
+ * @version		1.3.1
  * 
  * Template Functions
  * Created by CMSMasters
@@ -76,7 +76,7 @@ function language_school_get_page_classes($cmsmasters_option, $classes = false) 
 		$cmsmasters_header_overlaps = $cmsmasters_option['language-school' . '_header_overlaps'];
 	}
 
-	if ($cmsmasters_header_overlaps != 'false') {
+	if (!empty($cmsmasters_header_overlaps) && $cmsmasters_header_overlaps != 'false') {
 		echo 'cmsmasters_heading_under_header ';
 	} else {
 		echo 'cmsmasters_heading_after_header ';

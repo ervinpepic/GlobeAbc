@@ -1,13 +1,13 @@
 <?php defined( 'LS_ROOT_FILE' ) || exit; ?>
 <div class="ls-d-none">
 
-	<lse-b id="lse-assets-inspector">
-		<lse-b id="lse-assets-inspector-overlay">
+	<lse-b id="lse-assets-inspector" class="kmw-inspector">
+		<lse-b id="lse-assets-inspector-overlay" class="kmw-inspector-overlay">
 		</lse-b>
-		<lse-b id="lse-assets-inspector-content">
-			<?= lsGetSVGIcon('times',false,['class' => 'lse-assets-inspector-close']) ?>
-			<lse-b id="lse-assets-inspector-inner" class="lse-scrollbar lse-scrollbar-dark">
-				<lse-h1 id="lse-assets-inspector-title"></lse-h1>
+		<lse-b id="lse-assets-inspector-content" class="kmw-inspector-content">
+			<?= lsGetSVGIcon('times',false,['class' => 'kmw-inspector-close']) ?>
+			<lse-b id="lse-assets-inspector-inner" class="kmw-inspector-inner lse-scrollbar lse-scrollbar-dark">
+				<lse-h1 id="lse-assets-inspector-title" class="kmw-inspector-title"></lse-h1>
 				<lse-b id="lse-assets-inspector-preview-wrapper" class="lse-hidden-x">
 					<lse-b id="lse-assets-inspector-preview"></lse-b>
 				</lse-b>
@@ -72,15 +72,13 @@
 			<kmw-menutitle>
 				<kmw-menutext><?= __('Stock Assets', 'LayerSlider') ?></kmw-menutext>
 			</kmw-menutitle>
-			<kmw-menuitem data-type="photos">
+			<kmw-menuitem data-type="photos" data-category="photos">
 				<?= lsGetSVGIcon('images', 'solid', false, 'kmw-icon') ?>
 				<kmw-menutext><?= __('Photos', 'LayerSlider') ?></kmw-menutext>
-				<lse-badge><?= __('NEW', 'LayerSlider') ?></lse-badge>
 			</kmw-menuitem>
 			<kmw-menuitem data-type="videos" data-category="videos">
 				<?= lsGetSVGIcon('films', 'solid', false, 'kmw-icon') ?>
 				<kmw-menutext><?= __('Videos', 'LayerSlider') ?></kmw-menutext>
-				<lse-badge><?= __('NEW', 'LayerSlider') ?></lse-badge>
 			</kmw-menuitem>
 
 			<!-- Objects -->

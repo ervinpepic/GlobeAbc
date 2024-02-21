@@ -693,6 +693,17 @@ $lsDefaults = [
 			]
 		],
 
+		'borderRadius' => [
+			'value' => '',
+			'name' => __('Rounded Corners', 'LayerSlider'),
+			'keys' => 'borderRadius',
+			'desc' => __('Rounding of the project canvas. You can enter a pixel or percentage value or space-separated values for the 4 distinct corners. Using rounded corners will clip overflowing content, such as layers outside the project canvas.', 'LayerSlider'),
+			'props' => [
+				'meta' => true
+			]
+
+		],
+
 		'sliderFadeInDuration' => [
 			'value' => 0,
 			'name' => __('Initial Fade Duration', 'LayerSlider'),
@@ -1041,7 +1052,14 @@ $lsDefaults = [
 			'value' => false,
 			'name' => __('Close On End', 'LayerSlider'),
 			'keys' => 'popupCloseOnSliderEnd',
-			'desc' => __('Closes the Popup after it has completed a full cycle and all your slides were displayed.', 'LayerSlider')
+			'desc' => __('Automatically closes the Popup after it has completed a full cycle and all your slides were displayed.', 'LayerSlider')
+		],
+
+		'popupCloseOnEsc' => [
+			'value' => false,
+			'name' => __('Close With Esc', 'LayerSlider'),
+			'keys' => 'popupCloseOnEsc',
+			'desc' => __('Closes the Popup by pressing the Escape key on the keyboard.', 'LayerSlider')
 		],
 
 		'popupShowOnLeave' => [
@@ -1200,6 +1218,17 @@ $lsDefaults = [
 			'value' => 10,
 			'name' => __('Distance Bottom', 'LayerSlider'),
 			'keys' => 'popupDistanceBottom'
+		],
+
+		'popupScrollable' => [
+			'value' => false,
+			'name' => __('Scrollable', 'LayerSlider'),
+			'desc' => __('When enabled, the popup will scroll along with the page instead of staying fixed on the screen. In that case, the popup will always open at the top of the page.', 'LayerSlider'),
+			'keys' => 'popupScrollable',
+			'advanced' => true,
+			'props' => [
+				'meta' => true
+			]
 		],
 
 		'popupDurationIn' => [
@@ -1538,6 +1567,13 @@ $lsDefaults = [
 		// |  Misc  | //
 		// ========== //
 
+
+		'noContextMenu' => [
+			'value' => false,
+			'name' => __('Disable Context Menu', 'LayerSlider'),
+			'keys' => 'noContextMenu',
+			'desc' => __('Prevents showing the right-click context menu over the slider and its elements when enabled. Useful to forbid saving images.', 'LayerSlider')
+		],
 
 		'relativeURLs' => [
 			'value' => false,
@@ -1929,7 +1965,7 @@ $lsDefaults = [
 			'keys' => 'kenburnsrotate',
 			'attrs' => [
 				'type' => 'number',
-				'placeholder' => 0
+				'placeholder' => '0 '
 			]
 
 		],
@@ -1941,9 +1977,6 @@ $lsDefaults = [
 			'attrs' => [
 				'type' => 'number',
 				'step' => 0.1
-			],
-			'props' => [
-				'output' => true
 			]
 		],
 
@@ -2262,13 +2295,22 @@ $lsDefaults = [
 			]
 		],
 
+		'mediaAttachments' => [
+			'value' => '',
+			'keys' => 'mediaAttachments',
+			'props' => [
+				'meta' => true
+			]
+		],
+
 		'mediaAutoPlay' => [
 			'value' => 'inherit',
 			'name' => __('Media Autoplay', 'LayerSlider'),
 			'keys' => 'autoplay',
 			'options' => [
 				'inherit' => __('Inherit', 'LayerSlider'),
-				'enabled' => __('Enabled', 'LayerSlider'),
+				'instant' => __('Immediately', 'LayerSlider'),
+				'enabled' => __('After Opening Transition', 'LayerSlider'),
 				'disabled' => __('Disabled', 'LayerSlider')
 			]
 		],
@@ -2409,6 +2451,12 @@ $lsDefaults = [
 			'keys' => 'delayin'
 		],
 
+		'startAtFirst' => [
+			'value' => '0',
+			'name' => __('Start At First', 'LayerSlider'),
+			'keys' => 'startatfirst'
+		],
+
 		'transitionInEasing' => [
 			'value' => 'easeInOutQuint',
 			'name' => __('Easing', 'LayerSlider'),
@@ -2516,6 +2564,17 @@ $lsDefaults = [
 			'value' => '',
 			'name' => __('Filter', 'LayerSlider'),
 			'keys' => 'filterin'
+		],
+
+		'zIndexIn' => [
+			'value' => '',
+			'name' => __('Stacking Order', 'LayerSlider'),
+			'keys' => 'zindexin',
+			'attrs' => [
+				'type' => 'number',
+				'min' => 1,
+				'placeholder' => __('auto', 'LayerSlider')
+			]
 		],
 
 		'transitionInPerspective' => [
@@ -2685,6 +2744,17 @@ $lsDefaults = [
 			'keys' => 'filterout'
 		],
 
+		'zIndexOut' => [
+			'value' => '',
+			'name' => __('Stacking Order', 'LayerSlider'),
+			'keys' => 'zindexout',
+			'attrs' => [
+				'type' => 'number',
+				'min' => 1,
+				'placeholder' => __('auto', 'LayerSlider')
+			]
+		],
+
 		'transitionOutPerspective' => [
 			'value' => '500',
 			'name' => __('Perspective', 'LayerSlider'),
@@ -2700,7 +2770,7 @@ $lsDefaults = [
 		// -----
 
 		'skipLayer' => [
-			'value' => false,
+			'value' => '',
 			'name' => __('Hidden', 'LayerSlider'),
 			'keys' => 'skip',
 			'props' => [
@@ -2847,7 +2917,8 @@ $lsDefaults = [
 			'options' => [
 				'inherit' => __('Inherit', 'LayerSlider'),
 				'visible' => __('Visible', 'LayerSlider'),
-				'hidden' => __('Hidden', 'LayerSlider')
+				'hidden' => __('Hidden', 'LayerSlider'),
+				'textmask' => __('Mask Text Fragments', 'LayerSlider')
 			]
 		],
 
@@ -3045,7 +3116,8 @@ $lsDefaults = [
 			'options' => [
 				'inherit' => __('Inherit', 'LayerSlider'),
 				'visible' => __('Visible', 'LayerSlider'),
-				'hidden' => __('Hidden', 'LayerSlider')
+				'hidden' => __('Hidden', 'LayerSlider'),
+				'textmask' => __('Mask Text Fragments', 'LayerSlider')
 			]
 		],
 
@@ -3624,6 +3696,12 @@ $lsDefaults = [
 				'step' => 1,
 				'placeholder' => __('Inherit', 'LayerSlider')
 			]
+		],
+
+		'parallaxReset' => [
+			'value' => false,
+			'name' => __('Reset Parallax Transition', 'LayerSlider'),
+			'keys' => 'parallaxreset'
 		],
 
 		'parallaxPerspective' => [
@@ -4633,6 +4711,12 @@ $lsDefaults = [
 			'keys' => 'skewY'
 		],
 
+		'clip' => [
+			'value' => '',
+			'name' => __('Mask', 'LayerSlider'),
+			'keys' => 'clip-path'
+		],
+
 		'position' => [
 			'value' => '',
 			'name' => __('Align Positions From', 'LayerSlider'),
@@ -4686,14 +4770,22 @@ $lsDefaults = [
 		],
 
 		'overflow' => [
-			'value' => 'visible',
+			'value' => '',
 			'name' => __('Overflow', 'LayerSlider'),
 			'keys' => 'overflow',
 			'options' => [
+				'' => __('Default', 'LayerSlider'),
 				'visible' => __('Visible', 'LayerSlider'),
 				'hidden' => __('Hidden', 'LayerSlider')
 			]
 		],
+
+		'trmask' => [
+			'value' => false,
+			'name' => __('Mask Transitions', 'LayerSlider'),
+			'keys' => 'trmask'
+		],
+
 
 		'cursor' => [
 			'value' => '',

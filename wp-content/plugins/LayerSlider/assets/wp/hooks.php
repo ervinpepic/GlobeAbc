@@ -12,7 +12,7 @@ add_filter('ls_get_image', 'ls_get_image', 10, 2);
 // Public filters
 add_filter('ls_parse_defaults', 'ls_parse_defaults', 10, 3);
 
-function ls_filter_slider_title($sliderName = '', $maxLength = 50) {
+function ls_filter_slider_title($sliderName = '', $maxLength = 70) {
 	$name = empty($sliderName) ? 'Unnamed' : htmlspecialchars(stripslashes($sliderName), ENT_COMPAT);
 	$name = str_replace('&amp;', '&', $name);
 	$return = isset($name[$maxLength]) ? substr($name, 0, $maxLength) . ' ...' : $name;

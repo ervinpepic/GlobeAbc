@@ -420,7 +420,7 @@ include LS_ROOT_PATH . '/includes/ls_global.php';
 						</tr>
 
 
-						<?php $test = ! ( $postMaxB > 0 && $postMaxB < 16 * 1000 * 1000 ); ?>
+						<?php $test = ! ( $postMaxB > 0 && $postMaxB < 32 * 1000 * 1000 ); ?>
 						<tr class="<?= ! $test ? 'ls--error' : '' ?>">
 							<td><?= __('PHP Post Max Size:', 'LayerSlider') ?></td>
 							<td><?= lsGetSVGIcon( ! $test ? 'exclamation-triangle' : 'check' ) ?></td>
@@ -433,7 +433,7 @@ include LS_ROOT_PATH . '/includes/ls_global.php';
 						</tr>
 
 
-						<?php $test = ! ( $uploadB > 0 && $uploadB < 16 * 1000 * 1000 ); ?>
+						<?php $test = ! ( $uploadB > 0 && $uploadB < 32 * 1000 * 1000 ); ?>
 						<tr class="<?= ! $test ? 'ls--error' : '' ?>">
 							<td><?= __('PHP Max Upload Size:', 'LayerSlider') ?></td>
 							<td><?= lsGetSVGIcon( ! $test ? 'exclamation-triangle' : 'check' ) ?></td>

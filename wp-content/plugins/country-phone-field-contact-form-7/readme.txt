@@ -3,7 +3,7 @@ Contributors: narinderbisht
 Donate link: https://www.paypal.com/paypalme/narinderbisht
 Tags: country dropdown, flags, phone extension, form, contact form, contact form 7, country dropdown plugin, international telephone input, Country & Phone Field, WordPress plugin
 Requires at least: 6.0
-Tested up to: 6.2
+Tested up to: 6.3.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -200,3 +200,6 @@ Please use contact form 7 standard featured minlength and maxlength option. It w
 
 2.4.5
 * Tested on WordPress 6.2
+
+2.4.6
+* Tested on WordPress 6.3.2

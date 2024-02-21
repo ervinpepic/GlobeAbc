@@ -25,8 +25,8 @@ function hdq_printField_encode($tab, $tab_slug, $fields)
         ?>
     </label>
     <textarea data-tab="<?php echo $tab_slug; ?>" data-type="encode" data-required="<?php echo $required; ?>" type="password"
-        class="hdq_input hderp_input" id="<?php echo $tab["name"]; ?>"
-			  rows = "5" placeholder="<?php echo $placeholder; ?>"><?php echo $value; ?></textarea>
+        class="hdq_input hderp_input" id="<?php echo esc_attr($tab["name"]); ?>"
+			  rows = "5" placeholder="<?php echo esc_attr($placeholder); ?>"><?php echo esc_textarea($value); ?></textarea>
 </div>
 <?php
 }
