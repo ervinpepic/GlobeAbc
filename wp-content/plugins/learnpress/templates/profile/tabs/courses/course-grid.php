@@ -5,8 +5,12 @@
  *
  * @author   ThimPress
  * @package  Learnpress/Templates
- * @version  4.0.10
+ * @version  4.0.12
  */
+
+use LearnPress\Helpers\Template;
+use LearnPress\Models\CourseModel;
+use LearnPress\TemplateHooks\Course\ListCoursesTemplate;
 
 defined( 'ABSPATH' ) || exit();
 
@@ -21,19 +25,31 @@ if ( ! isset( $user ) || ! isset( $course_ids ) || ! isset( $current_page ) || !
 		<?php endif; ?>
 
 		<?php
-		global $post;
-
-		foreach ( $course_ids as $id ) {
-			$course = learn_press_get_course( $id );
-			$post   = get_post( $id );
-			setup_postdata( $post );
-
-			//$course_data    = $user->get_course_data( $id );
-			//$course_results = $course_data->get_result();
-			learn_press_get_template( 'content-course.php' );
+		$template_is_override = Template::check_template_is_override( 'content-course.php' );
+		$listCoursesTemplate  = ListCoursesTemplate::instance();
+		if ( $template_is_override ) {
+			global $post;
 		}
 
-		wp_reset_postdata();
+		foreach ( $course_ids as $id ) {
+			$course = CourseModel::find( $id, true );
+			if ( ! $course ) {
+				continue;
+			}
+
+			if ( $template_is_override ) {
+				$post = get_post( $id );
+				setup_postdata( $post );
+
+				learn_press_get_template( 'content-course.php' );
+			} else {
+				echo $listCoursesTemplate::render_course( $course );
+			}
+		}
+
+		if ( $template_is_override ) {
+			wp_reset_postdata();
+		}
 		?>
 
 		<?php if ( $current_page === 1 ) : ?>

@@ -107,10 +107,18 @@ abstract class LP_Abstract_Assets {
 			// For version addon.
 			if ( ! LP_Debug::is_debug() && ! empty( $script->_version ) ) {
 				self::$_version_assets = $script->_version;
+			} elseif ( LP_Debug::is_debug() ) {
+				self::$_version_assets = time();
+			} else {
+				self::$_version_assets = LEARNPRESS_VERSION;
 			}
 			// End
 
 			wp_register_script( $handle, $script->_url, $script->_deps, self::$_version_assets, $script->_in_footer );
+			// Add strategy for script defer/async. @since 4.2.5.5
+			foreach ( $script->_strategy as $key => $value ) {
+				wp_script_add_data( $handle, $key, $value );
+			}
 
 			if ( ! $script->_only_register ) {
 				$can_load_js = $this->check_can_load_asset( $handle, $page_current, $script->_screens, $script->_exclude_screens );
@@ -126,6 +134,7 @@ abstract class LP_Abstract_Assets {
 		 * Path translate of a string on file ".pot" if have must map to js/dist
 		 */
 		wp_set_script_translations( 'lp-quiz', 'learnpress' );
+		wp_set_script_translations( 'lp-profile', 'learnpress' );
 		wp_set_script_translations( 'lp-admin', 'learnpress' );
 	}
 
@@ -141,7 +150,7 @@ abstract class LP_Abstract_Assets {
 		$styles = $this->_get_styles();
 		if ( $styles ) {
 			/**
-			 * @var LP_Asset_Key[] $style
+			 * @var LP_Asset_Key[] $styles
 			 */
 			foreach ( $styles as $handle => $style ) {
 				if ( ! $style instanceof LP_Asset_Key ) {
@@ -151,6 +160,10 @@ abstract class LP_Abstract_Assets {
 				// For version addon.
 				if ( ! LP_Debug::is_debug() && ! empty( $style->_version ) ) {
 					self::$_version_assets = $style->_version;
+				} elseif ( LP_Debug::is_debug() ) {
+					self::$_version_assets = time();
+				} else {
+					self::$_version_assets = LEARNPRESS_VERSION;
 				}
 				// End
 
@@ -354,7 +367,6 @@ abstract class LP_Abstract_Assets {
 				$wp_scripts->print_extra_script( $handle );
 			}
 		}
-
 	}
 
 	public function localize_printed_admin_scripts() {

@@ -88,57 +88,6 @@ function learn_press_update_order_status( $order_id, $status = '' ) {
 	return false;
 }
 
-/**
- * Add an order item into order.
- *
- * @param int   $order_id
- * @param mixed $item - Array of item data or ID
- *
- * @return bool
- * @editor tungnx
- * @modify 4.1.4 - comment - not use
- */
-/*function learn_press_add_order_item( $order_id, $item ) {
-	$item_id = false;
-	$order   = learn_press_get_order( $order_id );
-
-	if ( $order ) {
-		$item_id = $order->add_item( $item );
-	}
-
-	return $item_id;
-}*/
-
-/**
- * Remove an order item by order_item_id.
- *
- * @param int $order_id
- * @param int $item_id
- *
- * @return bool
- */
-function learn_press_remove_order_item( $order_id, $item_id ) {
-	$order = learn_press_get_order( $order_id );
-
-	if ( $order ) {
-		return $order->remove_item( $item_id );
-	}
-
-	return false;
-}
-
-function _learn_press_before_delete_order_item( $item_id, $order_id ) {
-	global $wpdb;
-	$order = learn_press_get_order_by_item_id( $item_id );
-
-	if ( $order ) {
-		$course_id = learn_press_get_order_item_meta( $item_id, '_course_id' );
-		learn_press_delete_user_data( $order->user_id, $course_id );
-	}
-}
-
-// add_action( 'learn-press/before-delete-order-item', '_learn_press_before_delete_order_item', 10, 2 );
-
 function _learn_press_ajax_add_order_item_meta( $item ) {
 	$item_id = $item['id'];
 	$order   = learn_press_get_order_by_item_id( $item_id );
@@ -661,12 +610,10 @@ function learn_press_get_order_status_label( $order_id = 0 ) {
  * @param bool $prefix
  * @param bool $status_only
  *
- * @since 2.1.7
- *
  * @return array
  * @deprecated 4.2.0
  */
-function learn_press_get_order_statuses( $prefix = true, $status_only = false ) {
+/*function learn_press_get_order_statuses( $prefix = true, $status_only = false ) {
 	_deprecated_function( __FUNCTION__, '4.2.0' );
 	$register_statues = learn_press_get_register_order_statuses();
 
@@ -691,7 +638,7 @@ function learn_press_get_order_statuses( $prefix = true, $status_only = false ) 
 
 	// @since 3.0.0
 	return apply_filters( 'learn-press/order-statues', $order_statuses );
-}
+}*/
 
 /**
  * Get list of registered order's statues for registering with wp post's status.
@@ -703,6 +650,14 @@ function learn_press_get_order_statuses( $prefix = true, $status_only = false ) 
 function learn_press_get_register_order_statuses() {
 	$order_statues = array();
 
+	$order_statues['lp-completed']  = array(
+		'label'                     => _x( 'Completed', 'Order status', 'learnpress' ),
+		'public'                    => false,
+		'exclude_from_search'       => false,
+		'show_in_admin_all_list'    => true,
+		'show_in_admin_status_list' => true,
+		'label_count'               => _n_noop( 'Completed <span class="count">(%s)</span>', 'Completed <span class="count">(%s)</span>', 'learnpress' ),
+	);
 	$order_statues['lp-pending']    = array(
 		'label'                     => _x( 'Pending', 'Order status', 'learnpress' ),
 		'public'                    => false,
@@ -718,14 +673,6 @@ function learn_press_get_register_order_statuses() {
 		'show_in_admin_all_list'    => true,
 		'show_in_admin_status_list' => true,
 		'label_count'               => _n_noop( 'Processing <span class="count">(%s)</span>', 'Processing <span class="count">(%s)</span>', 'learnpress' ),
-	);
-	$order_statues['lp-completed']  = array(
-		'label'                     => _x( 'Completed', 'Order status', 'learnpress' ),
-		'public'                    => false,
-		'exclude_from_search'       => false,
-		'show_in_admin_all_list'    => true,
-		'show_in_admin_status_list' => true,
-		'label_count'               => _n_noop( 'Completed <span class="count">(%s)</span>', 'Completed <span class="count">(%s)</span>', 'learnpress' ),
 	);
 	$order_statues['lp-cancelled']  = array(
 		'label'                     => _x( 'Cancelled', 'Order status', 'learnpress' ),
@@ -743,12 +690,20 @@ function learn_press_get_register_order_statuses() {
 		'show_in_admin_status_list' => true,
 		'label_count'               => _n_noop( 'Failed <span class="count">(%s)</span>', 'Failed <span class="count">(%s)</span>', 'learnpress' ),
 	);
+	$order_statues['trash']     = array(
+		'label'                     => _x( 'Trash', 'Order status', 'learnpress' ),
+		'public'                    => false,
+		'exclude_from_search'       => false,
+		'show_in_admin_all_list'    => true,
+		'show_in_admin_status_list' => true,
+		'label_count'               => _n_noop( 'Trash <span class="count">(%s)</span>', 'Trash <span class="count">(%s)</span>', 'learnpress' ),
+	);
 
 	return $order_statues;
 }
 
 function _learn_press_get_order_status_description( $status ) {
-	$descriptions        = array(
+	$descriptions = array(
 		'pending'    => __( 'Order received in case a user purchases a course but doesn\'t finalize the order.', 'learnpress' ),
 		'processing' => __( 'Payment received and the order is awaiting fulfillment.', 'learnpress' ),
 		'completed'  => __( 'The order is fulfilled and completed.', 'learnpress' ),
@@ -782,31 +737,51 @@ if ( ! function_exists( 'learn_press_cancel_order_process' ) ) {
 	 */
 	function learn_press_cancel_order_process() {
 		if ( empty( $_REQUEST['cancel-order'] ) || empty( $_REQUEST['lp-nonce'] ) ||
-			! wp_verify_nonce( $_REQUEST['lp-nonce'], 'cancel-order' ) || is_admin() ) {
+		     ! wp_verify_nonce( $_REQUEST['lp-nonce'], 'cancel-order' ) || is_admin() ) {
 			return;
 		}
 
-		$url      = '';
-		$order_id = absint( $_REQUEST['cancel-order'] );
-		$order    = learn_press_get_order( $order_id );
-		$user     = learn_press_get_current_user();
+		$user = learn_press_get_current_user();
+		$url  = learn_press_user_profile_link(
+			$user->get_id(),
+			LP_Settings::instance()->get( 'profile_endpoints.orders', 'orders' )
+		);
 
-		if ( ! $order ) {
-			learn_press_add_message( sprintf( __( 'Order number <strong>%s</strong> not found', 'learnpress' ), $order_id ), 'error' );
-		} elseif ( $order->has_status( 'pending' ) ) {
-			$order->update_status( LP_ORDER_CANCELLED );
-			$order->add_note( __( 'The order is cancelled by the customer', 'learnpress' ) );
+		try {
+			$message = [
+				'status'  => 'error',
+				'content' => '',
+			];
 
-			// set updated message
-			learn_press_add_message( sprintf( __( 'Order number <strong>%s</strong> has been cancelled', 'learnpress' ), $order->get_order_number() ) );
-			$url = $order->get_cancel_order_url( true );
-		} else {
-			learn_press_add_message( sprintf( __( 'The order number <strong>%s</strong> can not be cancelled.', 'learnpress' ), $order->get_order_number() ), 'error' );
+			$order_id = absint( $_REQUEST['cancel-order'] );
+			$order    = learn_press_get_order( $order_id );
+
+			if ( ! $order ) {
+				throw new Exception( sprintf( __( 'Order number <strong>%s</strong> not found', 'learnpress' ), $order_id ) );
+			}
+
+			$user_ids = (array) $order->get_user_id();
+			if ( ! in_array( $user->get_id(), $user_ids ) ) {
+				throw new Exception( __( 'You do not have permission to cancel this order.', 'learnpress' ) );
+			}
+
+			if ( $order->has_status( LP_ORDER_PENDING ) ) {
+				$order->update_status( LP_ORDER_CANCELLED );
+				$order->add_note( __( 'The order is cancelled by the customer', 'learnpress' ) );
+
+				$message['status']  = 'success';
+				$message['content'] = sprintf( __( 'Order number <strong>%s</strong> has been cancelled', 'learnpress' ), $order->get_order_number() );
+			} else {
+				throw new Exception(
+					__( 'The order number <strong>%s</strong> can not be cancelled.', 'learnpress' ),
+					$order->get_order_number()
+				);
+			}
+		} catch ( Throwable $e ) {
+			$message['content'] = $e->getMessage();
 		}
 
-		if ( ! $url ) {
-			$url = learn_press_user_profile_link( $user->get_id(), LP_Settings::instance()->get( 'profile_endpoints.profile-orders', 'orders' ) );
-		}
+		learn_press_set_message( $message );
 		wp_safe_redirect( $url );
 		exit();
 	}
@@ -826,15 +801,16 @@ function learn_press_get_total_price_order_complete() {
 		"SELECT SUM(meta_value) as order_total From `{$wpdb->prefix}postmeta` as mt
 		INNER JOIN `{$wpdb->prefix}posts` as p ON p.id = mt.post_id
 		WHERE p.post_type = %s AND mt.meta_key = %s
+		AND p.post_status = %s
 		",
 		LP_ORDER_CPT,
-		'_order_total'
+		'_order_total',
+		'lp-completed'
 	);
 
 	$total = $wpdb->get_results( $query )[0]->order_total;
 
 	return learn_press_format_price( $total, true );
-
 }
 /**
  * Auto enroll course after user checkout
@@ -875,4 +851,3 @@ function learn_press_get_total_price_order_complete() {
 
 	return $result;
 }*/
-

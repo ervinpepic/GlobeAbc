@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.3.1
+ * @version 	1.3.5
  * 
  * Admin Panel Main Functions
  * Created by CMSMasters
@@ -685,7 +685,7 @@ function language_school_form_field_fn($args = array()) {
 		$options[$id] = esc_attr(stripslashes($options[$id]));
 		
 		
-		echo '<input type="text" id="' . $id . '" name="' . $cmsmasters_option_name . '[' . $id . ']" value="' . $options[$id] . '" class="cmsmasters-color-field" data-default-color="' . $std . '" data-alpha="true" data-reset-alpha="true" />' . 
+		echo '<input type="text" id="' . $id . '" name="' . $cmsmasters_option_name . '[' . $id . ']" value="' . $options[$id] . '" class="cmsmasters-color-field" data-default-color="' . $std . '" data-alpha-enabled="true" data-alpha-reset="true" />' . 
 		'<br />' . 
 		'<span class="description">' . 
 			(($desc != '') ? $desc . '<br />' : '') . 
@@ -932,11 +932,11 @@ function language_school_form_field_fn($args = array()) {
 			'<span class="icon_upload_link" style="display:none;">' . 
 				'<label for="new_icon_color">' . 
 					'<span class="cmsmasters_col_label">' . esc_html__('Icon Color', 'language-school') . '</span>' . 
-					'<input class="cmsmasters-color-field" type="text" id="new_icon_color" value="" data-default-color="" data-alpha="true" data-reset-alpha="true" /> ' . 
+					'<input class="cmsmasters-color-field" type="text" id="new_icon_color" value="" data-default-color="" data-alpha-enabled="true" data-alpha-reset="true" /> ' . 
 				'</label>' . 
 				'<label for="new_icon_hover">' . 
 					'<span class="cmsmasters_col_label">' . esc_html__('Icon Hover Color', 'language-school') . '<br /><em>' . esc_html__('if not selected - Icon Color will be used', 'language-school') . '</em></span>' . 
-					'<input class="cmsmasters-color-field" type="text" id="new_icon_hover" value="" data-default-color="" data-alpha="true" data-reset-alpha="true" /> ' . 
+					'<input class="cmsmasters-color-field" type="text" id="new_icon_hover" value="" data-default-color="" data-alpha-enabled="true" data-alpha-reset="true" /> ' . 
 				'</label>' . 
 				'<label for="new_icon_link">' . 
 					'<input class="all-options" type="text" id="new_icon_link" /> ' . 

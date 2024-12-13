@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version		1.3.1
+ * @version		1.3.5
  * 
  * Template Functions
  * Created by CMSMasters
@@ -989,38 +989,31 @@ function language_school_social_icons() {
 /* Get Social Icons Styles Function */
 function language_school_theme_social_icons_styles() {
 	$cmsmasters_option = language_school_get_global_options();
-	
 	$out = '';
-	
 	$i = 1;
-	
-	
-	foreach ($cmsmasters_option['language-school' . '_social_icons'] as $cmsmasters_social_icons) {
-		$cmsmasters_social_icon = explode('|', str_replace(' ', '', $cmsmasters_social_icons));
-		
-		
-		if (isset($cmsmasters_social_icon[4]) && $cmsmasters_social_icon[4] != '') {
-			$out .= "
-	
+
+	if (isset($cmsmasters_option['language-school' . '_social_icons']) && is_array($cmsmasters_option['language-school' . '_social_icons'])) {
+		foreach ($cmsmasters_option['language-school' . '_social_icons'] as $cmsmasters_social_icons) {
+			$cmsmasters_social_icon = explode('|', str_replace(' ', '', $cmsmasters_social_icons));
+
+			if (isset($cmsmasters_social_icon[4]) && $cmsmasters_social_icon[4] != '') {
+				$out .= "
 	#page .cmsmasters_social_icon_color.cmsmasters_social_icon_{$i} {
 		background-color:{$cmsmasters_social_icon[4]};
 	}
 	";
-		}
-		
-		
-		if (isset($cmsmasters_social_icon[5]) && $cmsmasters_social_icon[5] != '') {
-			$out .= "
-	
+			}
+
+			if (isset($cmsmasters_social_icon[5]) && $cmsmasters_social_icon[5] != '') {
+				$out .= "
 	#page .cmsmasters_social_icon_color.cmsmasters_social_icon_{$i}:hover {
 		background-color:{$cmsmasters_social_icon[5]};
 	}";
+			}
+
+			$i++;
 		}
-		
-		
-		$i++;
 	}
-	
 	
 	return $out;
 }

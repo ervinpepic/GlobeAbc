@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version		1.0.3
+ * @version		1.3.5
  * 
  * Colored Categories
  * Created by CMSMasters
@@ -24,7 +24,7 @@ function language_school_add_category_color() {
 	?>
 	<div class="form-field">
 		<label for="term_meta[cmsmasters_cat_color]"><?php esc_html_e('Category Color', 'language-school'); ?></label>
-		<input type="text" id="term_meta[cmsmasters_cat_color]" name="term_meta[cmsmasters_cat_color]" value="" class="cmsmasters-color-field" data-alpha="true" data-reset-alpha="true" />
+		<input type="text" id="term_meta[cmsmasters_cat_color]" name="term_meta[cmsmasters_cat_color]" value="" class="cmsmasters-color-field" data-alpha-enabled="true" data-alpha-reset="true" />
 	</div>
 	<?php
 }
@@ -51,7 +51,7 @@ function language_school_edit_category_color($term) {
 			<label for="term_meta[cmsmasters_cat_color]"><?php esc_html_e('Category Color', 'language-school'); ?></label>
 		</th>
 		<td>
-			<input type="text" id="term_meta[cmsmasters_cat_color]" name="term_meta[cmsmasters_cat_color]" value="<?php echo (esc_attr($term_meta) ? esc_attr($term_meta) : ''); ?>" class="cmsmasters-color-field" data-alpha="true" data-reset-alpha="true" />
+			<input type="text" id="term_meta[cmsmasters_cat_color]" name="term_meta[cmsmasters_cat_color]" value="<?php echo (esc_attr($term_meta) ? esc_attr($term_meta) : ''); ?>" class="cmsmasters-color-field" data-alpha-enabled="true" data-alpha-reset="true" />
 		</td>
 	</tr>
 	<?php 

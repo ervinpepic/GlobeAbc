@@ -3,9 +3,6 @@
  * Defines the functions which called by hooks
  */
 
-// add_action( 'in_admin_footer', 'learn_press_footer_advertisement', - 10 );
-add_action( 'admin_footer', 'learn_press_footer_advertisement', - 10 );
-
 /***************************************/
 
 /**
@@ -300,5 +297,5 @@ if ( ! function_exists( 'lp_remove_admin_warning' ) ) {
 		wp_die();
 	}
 }
-add_action( 'wp_ajax_lp_remove_admin_warning', 'lp_remove_admin_warning' );
+//add_action( 'wp_ajax_lp_remove_admin_warning', 'lp_remove_admin_warning' );
 

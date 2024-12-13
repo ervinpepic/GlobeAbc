@@ -20,6 +20,8 @@ $sProps =& $slider['properties'];
 			<kmw-menuitem data-deeplink="publish">
 				<?= lsGetSVGIcon('calendar-alt', false, false, 'kmw-icon') ?>
 				<kmw-menutext><?= __('Publish', 'LayerSlider') ?></kmw-menutext>
+				<lse-badge class="lse-unpublished-project-indicator" data-tt>!</lse-badge>
+				<lse-tt><?= __('Unpublished projects won’t appear on front-end pages.', 'LayerSlider') ?></lse-tt>
 			</kmw-menuitem>
 
 			<kmw-menuitem class="kmw-active" data-deeplink="layout">
@@ -38,7 +40,7 @@ $sProps =& $slider['properties'];
 			</kmw-menuitem>
 
 			<kmw-menuitem data-deeplink="appearance">
-				<?= lsGetSVGIcon('link', false, false, 'kmw-icon') ?>
+				<?= lsGetSVGIcon('palette', false, false, 'kmw-icon') ?>
 				<kmw-menutext><?= __('Appearance', 'LayerSlider') ?></kmw-menutext>
 			</kmw-menuitem>
 
@@ -78,8 +80,9 @@ $sProps =& $slider['properties'];
 			</kmw-menuitem>
 
 			<kmw-menuitem data-deeplink="" class="lse-callbacks-tab kmw-unselectable">
-				<?= lsGetSVGIcon('retweet', false, false, 'kmw-icon') ?>
+				<?= lsGetSVGIcon('brackets-curly', false, false, 'kmw-icon') ?>
 				<kmw-menutext><?= __('Event Callbacks', 'LayerSlider') ?></kmw-menutext>
+				<lse-badge class="lse-dn"></lse-badge>
 			</kmw-menuitem>
 
 		</kmw-navigation>
@@ -128,7 +131,7 @@ $sProps =& $slider['properties'];
 							<tbody>
 								<tr>
 									<td class="lse-half">
-										<input class="lse-large" type="text" name="slug" maxlength="100" value="<?= !empty($sProps['slug']) ? htmlentities( $sProps['slug'] ) : '' ?>" autocomplete="off" placeholder="<?= __('slug: e.g. homepageslider', 'LayerSlider') ?>" data-tt=".tt-project-slug" data-tt-de="0">
+										<input class="lse-large lse-must-be-validated" type="text" name="slug" maxlength="100" pattern="[A-Za-z0-9_\-]+" value="<?= !empty($sProps['slug']) ? htmlentities( $sProps['slug'] ) : '' ?>" autocomplete="off" placeholder="<?= __('slug: e.g. homepageslider', 'LayerSlider') ?>" data-tt=".tt-project-slug" data-tt-de="0">
 										<input class="lse-large" type="text" name="keywords" maxlength="100" value="<?= !empty($sProps['keywords']) ? htmlentities( $sProps['keywords'] ) : '' ?>" autocomplete="off" placeholder="<?= __('keywords: e.g. mobile, promotion, socials', 'LayerSlider') ?>" data-tt=".tt-project-keywords" data-tt-de="0">
 									</td>
 								</tr>
@@ -860,7 +863,7 @@ $sProps =& $slider['properties'];
 												</lse-fe-wrapper>
 											</td>
 											<td class="lse-desc">
-												<?= __('The length of the scrollable area. Use larger values to keep the slider visible for longer, and play animations slower in case of a Scroll Scene. Supported units: px, % or sh (percentage of slider height), vh (percentage of viewport height).', 'LayerSlider') ?>
+												<?= __('The length of the scrollable area. Use larger values to keep the slider visible for longer, and play animations slower in case of a Scroll Scene. Supported units: px, %, sh (percentage of slider height), vh (percentage of viewport height).', 'LayerSlider') ?>
 											</td>
 										</tr>
 
@@ -940,7 +943,7 @@ $sProps =& $slider['properties'];
 												</lse-fe-wrapper>
 											</td>
 											<td class="lse-desc">
-												<?= __('Creates the given amount of space above and below your slider. <br>Supported units: px, % or sh (percentage of slider height), vh (percentage of viewport height).', 'LayerSlider') ?>
+												<?= __('Creates the given amount of space above and below your slider. <br>Supported units: px, %, sh (percentage of slider height), vh (percentage of viewport height).', 'LayerSlider') ?>
 											</td>
 										</tr>
 										<?php
@@ -1139,6 +1142,7 @@ $sProps =& $slider['properties'];
 					<lse-table-wrapper>
 						<table>
 							<tbody>
+								<?php lsOptionRow('select', $sDefs['globalBGFor'], $sProps ); ?>
 								<tr>
 									<td>
 										<?= $sDefs['globalBGColor']['name'] ?>
@@ -1161,7 +1165,7 @@ $sProps =& $slider['properties'];
 											'class' => 'lse-unregistered-layer lse-premium lse-premium-lock',
 											'data-tt' => '.tt-option-unregistered'
 										]) ?>
-										<?= __('Background image', 'LayerSlider') ?>
+										<?= __('Background Image', 'LayerSlider') ?>
 									</td>
 									<td>
 										<?php $bgImage = !empty($sProps['backgroundimage']) ? $sProps['backgroundimage'] : null; ?>
@@ -1427,12 +1431,25 @@ $sProps =& $slider['properties'];
 						</table>
 					</lse-table-wrapper>
 
-					<lse-h2 class="lse-advanced"><?= __('Other', 'LayerSlider') ?>  --></lse-h2>
+					<lse-h2 class="lse-advanced"><?= __('Other', 'LayerSlider') ?></lse-h2> -->
+
+					<lse-h2><?= __('Browser behavior', 'LayerSlider') ?></lse-h2>
 					<lse-table-wrapper>
 						<table>
 							<tbody>
 								<?php
+								lsOptionRow('checkbox', $sDefs['noUserSelect'], $sProps );
 								lsOptionRow('checkbox', $sDefs['noContextMenu'], $sProps );
+								?>
+							</tbody>
+						</table>
+					</lse-table-wrapper>
+
+					<lse-h2><?= __('Other', 'LayerSlider') ?></lse-h2>
+					<lse-table-wrapper>
+						<table>
+							<tbody>
+								<?php
 								lsOptionRow('checkbox', $sDefs['relativeURLs'], $sProps );
 								lsOptionRow('select', $sDefs['useSrcset'], $sProps );
 								lsOptionRow('checkbox', $sDefs['allowRestartOnResize'], $sProps );

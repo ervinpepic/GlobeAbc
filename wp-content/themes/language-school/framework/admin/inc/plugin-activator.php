@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.3.1
+ * @version 	1.3.5
  * 
  * TGM-Plugin-Activation 2.6.1
  * Created by CMSMasters
@@ -22,7 +22,7 @@ function language_school_register_theme_plugins() {
 			'slug'					=> 'cmsmasters-content-composer', 
 			'source'				=> get_template_directory() . '/framework/admin/inc/plugins/cmsmasters-content-composer.zip', 
 			'required'				=> true, 
-			'version'				=> '1.8.7', 
+			'version'				=> '1.9.0', 
 			'force_activation'		=> false, 
 			'force_deactivation' 	=> true 
 		), 
@@ -49,7 +49,7 @@ function language_school_register_theme_plugins() {
 			'slug'					=> 'cmsmasters-importer', 
 			'source'				=> get_template_directory() . '/framework/admin/inc/plugins/cmsmasters-importer.zip', 
 			'required'				=> true, 
-			'version'				=> '1.0.7', 
+			'version'				=> '1.0.8', 
 			'force_activation'		=> false, 
 			'force_deactivation' 	=> true 
 		), 
@@ -58,7 +58,7 @@ function language_school_register_theme_plugins() {
 			'slug' 					=> 'LayerSlider', 
 			'source'				=> get_template_directory() . '/framework/admin/inc/plugins/LayerSlider.zip', 
 			'required'				=> false, 
-			'version'				=> '7.9.5', 
+			'version'				=> '7.12.5', 
 			'force_activation'		=> false, 
 			'force_deactivation' 	=> false 
 		), 
@@ -67,7 +67,7 @@ function language_school_register_theme_plugins() {
 			'slug' 					=> 'revslider', 
 			'source'				=> get_template_directory() . '/framework/admin/inc/plugins/revslider.zip', 
 			'required'				=> false, 
-			'version'				=> '6.6.18', 
+			'version'				=> '6.7.20', 
 			'force_activation'		=> false, 
 			'force_deactivation' 	=> false 
 		), 
@@ -76,7 +76,7 @@ function language_school_register_theme_plugins() {
 			'slug'					=> 'timetable', 
 			'source'				=> get_template_directory() . '/framework/admin/inc/plugins/timetable.zip', 
 			'required'				=> false, 
-			'version'				=> '7.2', 
+			'version'				=> '7.4', 
 			'force_activation'		=> false, 
 			'force_deactivation' 	=> true 
 		), 

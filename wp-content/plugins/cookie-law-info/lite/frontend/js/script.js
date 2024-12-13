@@ -174,6 +174,13 @@ function _ckyRemoveElement(tag) {
     item && item.remove();
 }
 
+function _ckyFireEvent(responseCategories) {
+    const consentUpdate = new CustomEvent("cookieyes_consent_update", {
+      detail: responseCategories
+    });
+    document.dispatchEvent(consentUpdate);
+}
+
 /**
  * Remove styles by it's id.
  */
@@ -263,6 +270,7 @@ function _ckySetInitialState() {
         ref._ckySetInStore(`${category.slug}`, valueToSet);
     }
     _ckyUnblock();
+    _ckyFireEvent(responseCategories);
 }
 
 /**
@@ -804,6 +812,7 @@ function _ckyAcceptCookies(choice = "all") {
         } else responseCategories.accepted.push(category.slug);
     }
     _ckyUnblock();
+    _ckyFireEvent(responseCategories);
 }
 function _ckySetShowMoreLess() {
     const activeLaw = _ckyGetLaw();
@@ -1035,9 +1044,9 @@ function _ckyAddProviderToList(node, cleanedHostname) {
             categories: [categoryName],
             fullPath: false,
         });
-    else if (!provider.isOverriden) {
+    else if (!provider.isOverridden) {
         provider.categories = [categoryName];
-        provider.isOverriden = true;
+        provider.isOverridden = true;
     } else if (!provider.categories.includes(categoryName))
         provider.categories.push(categoryName);
 }
@@ -1140,10 +1149,10 @@ function _ckyAttachNoticeStyles() {
 }
 
 function _ckyFindCheckBoxValue(id = "") {
-    const elemetsToCheck = id
+    const elementsToCheck = id
         ? [`ckySwitch`, `ckyCategoryDirect`]
         : [`ckyCCPAOptOut`];
-    return elemetsToCheck.some((key) => {
+    return elementsToCheck.some((key) => {
         const checkBox = document.getElementById(`${key}${id}`);
         return checkBox && checkBox.checked;
     });
@@ -1305,3 +1314,27 @@ function _ckySetCheckBoxInfo(
 }
 
 window.revisitCkyConsent = () => _revisitCkyConsent();
+
+window.getCkyConsent = function () {
+    const cookieConsent = {
+      activeLaw: "",
+      categories: {},
+      isUserActionCompleted: false,
+      consentID: "",
+      languageCode: ""
+    };
+  
+    try {
+        cookieConsent.activeLaw = _ckyGetLaw();
+  
+        _ckyStore._categories.forEach(category => {
+            cookieConsent.categories[category.slug] = ref._ckyGetFromStore(category.slug) === "yes";
+         });
+  
+        cookieConsent.isUserActionCompleted = ref._ckyGetFromStore("action") === "yes";
+        cookieConsent.consentID = ref._ckyGetFromStore("consentid") || "";
+        cookieConsent.languageCode = _ckyStore._language || "";
+    } catch (e) {}
+  
+    return cookieConsent;
+};

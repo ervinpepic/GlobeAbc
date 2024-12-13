@@ -6,33 +6,35 @@
  *
  * @author   ThimPress
  * @package  Learnpress/Templates
- * @version  4.0.2
+ * @version  4.0.3
  */
 
 defined( 'ABSPATH' ) || exit();
 
+/**
+ * @var LP_Profile $profile
+ */
 if ( ! isset( $user ) || ! isset( $profile ) ) {
 	return;
 }
 ?>
 
-<div id="profile-nav">
+<div id="profile-nav" class="profile-nav">
 
 	<?php do_action( 'learn-press/before-profile-nav', $profile ); ?>
 
 	<ul class="lp-profile-nav-tabs">
-
 		<?php
 		/**
 		 * @var LP_Profile_Tab $profile_tab
 		 */
 		foreach ( $profile->get_tabs()->tabs() as $tab_key => $profile_tab ) {
-			if ( ! is_object( $profile_tab ) || ! $profile_tab || $profile_tab->is_hidden() || ! $profile_tab->user_can_view() ) {
+			if ( ! is_object( $profile_tab ) || ! $profile_tab || $profile_tab->is_hidden() || ! $profile->current_user_can( 'view-tab-' . $tab_key ) ) {
 				continue;
 			}
 
 			// Admin view another user profile
-			if ( $profile->get_user()->get_id() !== get_current_user_id() && current_user_can( ADMIN_ROLE ) ) {
+			if ( $profile->get_user()->get_id() !== $profile->get_user_current()->get_id() && current_user_can( ADMIN_ROLE ) ) {
 				$tab_key_hidden_admin_view_user = [ 'settings', 'logout', 'orders', 'gradebook' ];
 				if ( in_array( $tab_key, $tab_key_hidden_admin_view_user ) ) {
 					continue;
@@ -58,7 +60,7 @@ if ( ! isset( $user ) || ! isset( $profile ) ) {
 				<a href="<?php echo esc_url_raw( $link ); ?>" data-slug="<?php echo esc_attr( $link ); ?>">
 					<?php
 					if ( ! empty( $profile_tab->get( 'icon' ) ) ) {
-						echo wp_kses_post( $profile_tab->get( 'icon' ) );
+						echo wp_kses_post( str_replace(array('fas fa-','fa fa-'),'lp-icon-', $profile_tab->get( 'icon' ) ));
 					}
 					?>
 					<?php echo apply_filters( 'learn_press_profile_' . $tab_key . '_tab_title', $profile_tab->get( 'title' ), $tab_key ); ?>
@@ -86,7 +88,13 @@ if ( ! isset( $user ) || ! isset( $profile ) ) {
 										echo wp_kses_post( $section_data['icon'] );
 									}
 									?>
-									<?php echo apply_filters( 'learn_press_profile_' . $tab_key . '_tab_title', $section_data['title'], $tab_key ); ?>
+									<?php echo apply_filters(
+										'learn_press_profile_' . $tab_key . '_tab_title',
+										$section_data['title'],
+										$tab_key,
+										$section_key,
+										$section_data
+									); ?>
 								</a>
 							</li>
 

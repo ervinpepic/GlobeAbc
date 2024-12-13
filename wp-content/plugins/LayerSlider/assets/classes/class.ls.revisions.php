@@ -37,12 +37,13 @@ class LS_Revisions {
 
 	public static function init() {
 
-		if( LS_Config::isActivatedSite() ) {
-			self::$active = true;
-		}
-
+		self::$enabled 	= ! empty( get_option('ls-revisions-enabled', true) );
 		self::$limit 	= get_option('ls-revisions-limit', 100);
 		self::$interval = get_option('ls-revisions-interval', 10);
+
+		if( LS_Config::isActivatedSite() && self::$enabled ) {
+			self::$active = true;
+		}
 	}
 
 

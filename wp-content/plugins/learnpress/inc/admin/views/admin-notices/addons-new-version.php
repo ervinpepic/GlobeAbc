@@ -18,14 +18,14 @@ if ( ! isset( $data ) || empty( $data['addons'] ) ) {
 
 if ( empty( $data['dismiss'] ) ) {
 	?>
-	<div id="notice-install" class="lp-notice notice notice-info">
+	<div class="lp-notice notice notice-info">
 		<?php
 		if ( isset( $data['allow_dismiss'] ) ) {
 			Template::instance()->get_admin_template( 'admin-notices/button-dismiss.php', array( 'key' => 'lp-addons-new-version' ) );
 		}
 		?>
 		<p><?php echo sprintf( '<strong>%s</strong>', __( 'New version Addons.', 'learnpress' ) ); ?></p>
-		<p style="display: flex;gap: 5px">
+		<p style="display: flex;gap: 5px;flex-wrap: wrap">
 			<?php
 			foreach ( $data['addons'] as $addon ) {
 				echo sprintf(

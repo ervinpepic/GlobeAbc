@@ -44,8 +44,12 @@ abstract class Abstract_Block_Template extends \WP_Block_Template {
 
 		// Set content from theme file.
 		if ( file_exists( $template_file ) ) {
-			$content       = file_get_contents( $template_file );
-			$this->content = _inject_theme_attribute_in_block_template_content( $content );
+			$content = file_get_contents( $template_file );
+			if ( version_compare( get_bloginfo( 'version' ), '6.4-beta', '>=' ) ) {
+				$this->content = traverse_and_serialize_blocks( parse_blocks( $content ) );
+			} else {
+				$this->content = _inject_theme_attribute_in_block_template_content( $content );
+			}
 		}
 	}
 
@@ -61,7 +65,7 @@ abstract class Abstract_Block_Template extends \WP_Block_Template {
 
 		try {
 			ob_start();
-			$template = $attributes['template'] ?? $this->path_template_render_default;
+			$template = $this->path_template_render_default;
 			Template::instance()->get_frontend_template( $template, compact( 'attributes' ) );
 
 			$content = ob_get_clean();

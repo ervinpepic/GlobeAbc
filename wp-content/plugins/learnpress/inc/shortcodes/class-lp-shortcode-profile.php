@@ -5,7 +5,7 @@
  * @author   ThimPress
  * @category Shortcodes
  * @package  Learnpress/Shortcodes
- * @version  4.0.0
+ * @version  4.0.1
  * @extends  LP_Abstract_Shortcode
  */
 
@@ -53,6 +53,8 @@ if ( ! class_exists( 'LP_Shortcode_Profile' ) ) {
 				}
 			}
 
+			$viewing_user = apply_filters( 'learn-press/profile/can-view-user', $viewing_user );
+
 			if ( ! $viewing_user ) {
 				return new WP_Error( 'cannot-view-profile', esc_html__( 'You can\'t view the user profile', 'learnpress' ) );
 			}
@@ -66,13 +68,28 @@ if ( ! class_exists( 'LP_Shortcode_Profile' ) ) {
 		 * @return string
 		 */
 		public function output() {
-			$profile = LP_Global::profile();
+			$profile = LP_Profile::instance();
 			$output  = '';
 			wp_enqueue_style( 'learnpress' );
 			wp_enqueue_script( 'lp-profile' );
 
 			try {
 				ob_start();
+
+				if ( ! LP_Page_Controller::is_page_profile() ) {
+					$customer_message = [
+						'status'  => 'error',
+						'content' => sprintf(
+							__( 'This shortcode LP Profile only use on the page <a href="%s">%s</a>', 'learnpress' ),
+							admin_url( 'admin.php?page=learn-press-settings' ),
+							'<strong>' . esc_html__( 'Profile', 'learnpress' ) . '</strong>'
+						)
+					];
+					Template::instance()->get_frontend_template( 'global/lp-message.php', compact( 'customer_message' ) );
+
+					return ob_get_clean();
+				}
+
 				if ( is_wp_error( $this->can_view_profile() ) ) {
 					$messages = [
 						'status'  => 'error',
@@ -82,15 +99,12 @@ if ( ! class_exists( 'LP_Shortcode_Profile' ) ) {
 					learn_press_set_message( $messages );
 					learn_press_show_message();
 				} else {
-					//learn_press_print_messages();
 					learn_press_show_message();
-					//learn_press_get_template( 'pages/profile.php', array( 'profile' => $profile ) );
 					Template::instance()->get_frontend_template( 'pages/profile.php', compact( 'profile' ) );
 				}
 
 				$output = ob_get_clean();
 			} catch ( Throwable $e ) {
-				ob_end_clean();
 				error_log( $e->getMessage() );
 			}
 

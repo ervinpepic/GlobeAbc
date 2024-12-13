@@ -24,11 +24,6 @@ var LS_contextMenuSliderItem;
 
 jQuery(function($) {
 
-	// Check if addons buttons should pulse/highlight
-	jQuery( '#ls-addons-button' ).closest( '.ls-item' ).addClass( 'ls--highlight-' + ( localStorage.getItem( 'lsDashboard.addonsHighlight' ) || 'enabled' ) );
-
-
-
 	kmUI.dropdown.init();
 
 	$('#ls-list-main-menu ls-button[data-scroll]').on('click', function() {
@@ -41,7 +36,7 @@ jQuery(function($) {
 		$(this).closest('#ls-slider-filters').submit();
 	});
 
-	$('#ls-plugin-settings-tabs input[name="ls_gdpr_goole_fonts"]').on('change', function() {
+	$('#ls-plugin-settings-tabs input[name="ls_google_fonts_status"]').on('change', function() {
 
 		var $checkbox 	= $( this ),
 			$wrapper 	= $('.ls-show-if-google-fonts-enabled');
@@ -108,7 +103,7 @@ jQuery(function($) {
 	});
 
 
-	$( document ).on('click', '#ls-plugin-settings-content input', function( event ) {
+	$( document ).on('click', '#ls-plugin-settings-content input, #ls-addons-modal-sidebar input', function( event ) {
 
 		const 	$checkbox 	= $( this ),
 				checked 	= $checkbox.prop('checked');
@@ -324,8 +319,14 @@ jQuery(function($) {
 
 	});
 
+	// Prevent form submission when pressing Enter
+	$( document ).on('keydown', '.ls-slider-group-modal-window .kmw-modal-title input', function( event ) {
 
-	$( document ).on('input', '.ls-slider-group-modal-window .kmw-modal-title input', function() {
+		if( event.keyCode === 13 ) {
+			event.preventDefault();
+		}
+
+	}).on('input', '.ls-slider-group-modal-window .kmw-modal-title input', function() {
 
 		$this = $( this );
 
@@ -401,115 +402,6 @@ jQuery(function($) {
 
 		});
 	});
-
-	jQuery('#ls-addons-button').click( function( e ) {
-		e.preventDefault();
-
-		kmw.modal.open({
-			id: 'ls-premium-benefits-modal',
-			content: '<iframe src="https://layerslider.com/premium-embed/" frameborder="0" allowtransparency="true" allowfullscreen="true"></iframe>',
-			maxWidth: 1280,
-			maxHeight: '100%',
-			padding: 0,
-			spacing: 20,
-			closeButton: true
-		});
-	});
-
-
-	// Add-Ons
-	// var LS_Addons = {
-
-	// 	initialized: false,
-	// 	$modal: null,
-
-	// 	init: function(){
-
-	// 		jQuery('#ls-addons-button' ).on( 'click', function(e){
-	// 			e.preventDefault();
-	// 			kmw.modal.close();
-	// 			LS_Addons.openModal();
-
-	// 			// disable pulse/highlight effect
-	// 			localStorage.setItem( 'lsDashboard.addonsHighlight', 'disabled' );
-	// 		});
-	// 	},
-
-	// 	attachEvents: function(){
-
-	// 		jQuery(document).on( 'mouseenter', '#ls-addons-modal-window .ls--video', function(e){
-	// 			$( this ).attr( 'loop', '' );
-	// 			this.play();
-
-	// 		}).on( 'mouseleave', '#ls-addons-modal-window ls-col:not(".kmw-active") .ls--video', function(e){
-	// 			$( this ).removeAttr( 'loop' );
-	// 			if( $( this ).is( '.ls--allowstop') ){
-	// 				this.pause();
-	// 			}
-
-	// 		}).on('click', '#ls-addons-grid .kmw-menuitem', function(e) {
-	// 			LS_Addons.openAddon( $( this ) );
-	// 			$( '#ls-addons-grid .kmw-menuitem .ls--video' ).trigger( 'mouseleave' );
-	// 		});
-
-	// 	},
-
-	// 	openModal: function(){
-
-	// 		kmw.modal.open({
-	// 			id: 'ls-addons-modal-window',
-	// 			content: $('#ls-addons-modal-content'),
-	// 			maxWidth: 1200,
-	// 			overlaySettings: {
-	// 				customClasses: 'ls--dark-overlay'
-	// 			},
-	// 			sidebar: {
-	// 				right: {
-	// 					title: ' ', // Important for having the kmw-sidebar-title element in place
-	// 					width: 400,
-	// 					content: $('#ls-addons-modal-sidebar')
-	// 				}
-	// 			},
-	// 			onBeforeOpen: function() {
-
-	// 				LS_Addons.$modal = jQuery('#ls-addons-modal-window');
-
-	// 				if( ! LS_Addons.initialized ) {
-	// 					LS_Addons.initialized = true;
-	// 					LS_Addons.attachEvents();
-	// 				}
-
-	// 				LS_Addons.maintainSidebarTitle();
-	// 			}
-	// 		});
-	// 	},
-
-	// 	closeModal: function(){
-	// 		kmw.modal.close();
-	// 	},
-
-	// 	maintainSidebarTitle: function() {
-
-	// 		var $menuItems = $('#ls-addons-grid .kmw-menuitem'),
-	// 			$activeItem = $menuItems.filter('.kmw-active');
-
-	// 			if( $activeItem.length ) {
-	// 				$activeItem.click();
-	// 			 } else {
-	// 				$menuItems.first().click();
-	// 			 }
-	// 	},
-
-	// 	openAddon: function( $tab ) {
-
-	// 		var title = $tab.find('.ls--title').text(),
-	// 			$sidebarTitle = LS_Addons.$modal.find('.kmw-sidebar-title');
-	// 			$sidebarTitle.text( title );
-	// 	}
-	// };
-
-	// LS_Addons.init();
-
 
 
 	// Import Sliders
@@ -729,14 +621,33 @@ jQuery(function($) {
 		$('#ls-add-slider-button').click();
 
 	}).on('click', '.ls-open-template-store', function(e) {
-
 		e.preventDefault();
-
 		kmw.modal.close();
 
-		setTimeout(function() {
+		let delay 		= $(this).data('delay') || 0,
+			category 	= $(this).data('category'),
+			collection 	= $(this).data('collection');
+
+		setTimeout( function() {
 			$('#ls-browse-templates-button').click();
-		}, $(this).data('delay') || 0);
+
+			if( category ) {
+				setTimeout( function() {
+					$('#ls-import-modal-window ls-templates-nav ls-li[data-show-category="'+category+'"]').click();
+					$( '#ls-import-modal-window ls-templates-container.ls--active ls-tag' ).first().click();
+				}, 100 );
+			}
+
+			if( collection ) {
+				setTimeout( function() {
+					$('#ls-import-modal-window ls-templates-nav ls-li[data-show-category="collections"]').click();
+					$('#ls-import-modal-window ls-templates-holder.ls--collections-list ls-template[data-handle="'+collection+'"]').click();
+				}, 100 );
+			}
+		}, delay );
+	}).on('click', '.ls-open-maintenance-addon', function(e) {
+		e.preventDefault();
+		lsShowAddOn({ handle: 'maintenance'});
 	});
 
 	$('#ls--release-channel select').change( function() {
@@ -889,6 +800,17 @@ jQuery(function($) {
 		}
 	};
 
+	// Templates Store: Template Inspector
+	$( document ).on( 'click', '.ls-open-inspector-button', function( e ){
+		e.preventDefault();
+		$( 'div#ls-import-modal-window' ).addClass( 'ls-show-templates-inspector' );
+	});
+
+	$( document ).on( 'click', 'ls-templates-inspector-overlay, .ls-templates-inspector-close', function( e ){
+		e.preventDefault();
+		$( 'div#ls-import-modal-window' ).removeClass( 'ls-show-templates-inspector' );
+	});
+
 
 
 	// Auto-update and License registration
@@ -976,7 +898,11 @@ jQuery(function($) {
 
 		var $form = $(this).closest('form');
 
-		$.get( ajaxurl, $.param({ action: 'ls_deauthorize_site' }), function(data) {
+		$.get( ajaxurl, $.param({
+			action: 'ls_deauthorize_site',
+			_wpnonce: $form.find('input[name="_wpnonce"]').val(),
+			_wp_http_referer: $form.find('input[name="_wp_http_referer"]').val()
+		}), function(data) {
 
 			// Parse response and set message
 			var data = $.parseJSON(data);
@@ -1238,6 +1164,18 @@ jQuery(function($) {
 	} else if( document.location.hash === '#open-addons' ) {
 		setTimeout( function() {
 			$('#ls-addons-button').click();
+		}, 500);
+
+	} else if( document.location.hash.includes('#download-template=' ) ) {
+		setTimeout( function() {
+			let handle = document.location.hash.split('#download-template=')[1];
+			lsDownloadTemplateByHandle( handle );
+		}, 500);
+
+	} else if( document.location.hash === '#open-maintenance-addon' ) {
+		document.location.hash = '';
+		setTimeout( function() {
+			lsShowAddOn({ handle: 'maintenance'});
 		}, 500);
 	}
 
@@ -1837,14 +1775,6 @@ jQuery(function($) {
 	removeSliderFromGroupDraggable();
 	removeSliderFromGroupDroppable();
 
-	var LS__setRegistered = function( registered){
-		if( registered ){
-			$('#ls--admin-boxes, #ls--projects-list').removeClass('ls--not-registered').addClass('ls--registered');
-		}else{
-			$('#ls--admin-boxes, #ls--projects-list').removeClass('ls--registered').addClass('ls--not-registered');
-		}
-
-	};
 
 	// Initialize sliders on the main admin page
 	$( '#ls--license-slider' ).layerSlider({
@@ -1866,6 +1796,277 @@ jQuery(function($) {
 		skinsPath: LS_pageMeta.skinsPath
 	});
 });
+
+var LS__setRegistered = function( registered ){
+	if( registered ){
+		jQuery('#ls--admin-boxes, #ls--projects-list, #ls-addons-modal-window').removeClass('ls--not-registered').addClass('ls--registered');
+	}else{
+		jQuery('#ls--admin-boxes, #ls--projects-list, #ls-addons-modal-window').removeClass('ls--registered').addClass('ls--not-registered');
+	}
+};
+
+
+// Add-Ons
+var LS_Addons = {
+
+	initialized: false,
+	$modal: null,
+
+	init: function(){
+
+		jQuery('#ls-addons-button' ).on( 'click', function(e){
+			e.preventDefault();
+			kmw.modal.close();
+			LS_Addons.openModal();
+		});
+	},
+
+	attachEvents: function(){
+
+		// ----- Addon modal -----
+		jQuery(document).on( 'mouseenter', '#ls-addons-modal-window .ls--video', function(e){
+			jQuery( this ).attr( 'loop', '' );
+			this.play();
+
+		}).on( 'mouseleave', '#ls-addons-modal-window ls-col:not(".kmw-active") .ls--video', function(e){
+			jQuery( this ).removeAttr( 'loop' );
+			if( jQuery( this ).is( '.ls--allowstop') ){
+				this.pause();
+			}
+
+		}).on('click', '#ls-addons-grid .kmw-menuitem', function(e) {
+			LS_Addons.openAddon( jQuery( this ) );
+			jQuery( '#ls-addons-grid .kmw-menuitem .ls--video' ).trigger( 'mouseleave' );
+
+
+		// ----- Addon settings -----
+		}).on( 'click', '#ls-addons-modal-window input[name="enabled"]', function( event ) {
+
+			const checked = jQuery(this).prop('checked');
+
+			if( checked && ! LS_slidersMeta.isActivatedSite ) {
+				lsDisplayActivationWindow();
+				event.preventDefault();
+			}
+
+		}).on( 'change', '#ls-addons-modal-window input[name="enabled"]', function() {
+
+			const $this = jQuery(this),
+				checked = $this.prop('checked');
+
+			// Update UI
+			$this.closest('.ls--addon-settings').attr('data-enabled', checked ? 'true' : 'false');
+
+			// Save changes
+			if( ! checked ) {
+				LS_Addons.saveAddonSettings();
+			}
+
+		}).on( 'click', '#ls-addons-modal-window .ls-addon-save-button', function() {
+			LS_Addons.saveAddonSettings();
+		});
+
+	},
+
+	openModal: function(){
+
+		if( jQuery('#ls-addons-button').hasClass('has-updates') ) {
+			jQuery.getJSON( ajaxurl, {
+				action: 'ls_addons_opened',
+				nonce: LS_pageMeta.dashboardNonce,
+			});
+		}
+
+		kmw.modal.open({
+			id: 'ls-addons-modal-window',
+			content: jQuery('#ls-addons-modal-content'),
+			maxWidth: 1200,
+			overlaySettings: {
+				customClasses: 'ls--dark-overlay'
+			},
+			sidebar: {
+				right: {
+					title: ' ', // Important for having the kmw-sidebar-title element in place
+					width: 400,
+					content: jQuery('#ls-addons-modal-sidebar')
+				}
+			},
+			onBeforeOpen: function() {
+
+				LS_Addons.$modal = jQuery('#ls-addons-modal-window');
+
+				if( ! LS_Addons.initialized ) {
+					LS_Addons.initialized = true;
+					LS_Addons.attachEvents();
+				}
+
+				LS_Addons.maintainSidebarTitle();
+				LS__setRegistered( LS_slidersMeta.isActivatedSite );
+			},
+			onOpen: function() {
+				jQuery( '#ls-addons-modal-content .kmw-menuitem.kmw-active .ls--video' ).trigger( 'mouseenter' );
+			}
+		});
+	},
+
+	closeModal: function(){
+		kmw.modal.close();
+	},
+
+	maintainSidebarTitle: function() {
+
+		var $menuItems = jQuery('#ls-addons-grid .kmw-menuitem'),
+			$activeItem = $menuItems.filter('.kmw-active');
+
+			if( $activeItem.length ) {
+				$activeItem.click();
+			 } else {
+				$menuItems.first().click();
+			 }
+	},
+
+	openAddon: function( $tab ) {
+
+		var title = $tab.find('.ls--title').text(),
+			$sidebarTitle = LS_Addons.$modal.find('.kmw-sidebar-title');
+			$sidebarTitle.text( title );
+
+			LS_Addons.setInitialPrevAddonData();
+	},
+
+	getAddonSettings: function( $wrapper ) {
+
+		const addonData = {};
+
+		$wrapper = $wrapper || LS_Addons.getAddonWrapper();
+		$wrapper.find(':input').each( function() {
+			let $input = jQuery(this);
+
+			if( $input.is(':checkbox') ) {
+				addonData[ $input.attr('name') ] = $input.prop('checked') ? 1 : '';
+			} else {
+				addonData[ $input.attr('name') ] = $input.val();
+			}
+		});
+
+		return addonData;
+	},
+
+	getAddonWrapper: function() {
+		return jQuery('#ls-addons-modal-window .ls--addon-settings:visible');
+	},
+
+	getPrevAddonData: function( $wrapper ) {
+		$wrapper = $wrapper || LS_Addons.getAddonWrapper();
+		return $wrapper.data('prevData') || {};
+
+	},
+
+	setPrevAddonData: function( $wrapper, data ) {
+
+		$wrapper = $wrapper || LS_Addons.getAddonWrapper();
+		data = data || LS_Addons.getAddonSettings( $wrapper );
+		$wrapper.data('prevData', data );
+	},
+
+	setInitialPrevAddonData: function( $wrapper ) {
+
+		$wrapper = $wrapper || LS_Addons.getAddonWrapper();
+		const data = $wrapper.data('prevData');
+
+		if( typeof data === 'undefined' ) {
+			LS_Addons.setPrevAddonData( $wrapper );
+		}
+	},
+
+	saveAddonSettings: function( forceActivate = false) {
+
+		const addonData 	= LS_Addons.getAddonSettings();
+		const $addonWrapper = LS_Addons.getAddonWrapper();
+		const $button 		= $addonWrapper.find('.ls-addon-save-button');
+		const prevAddonData = LS_Addons.getPrevAddonData() || {};
+
+		if( ! forceActivate ) {
+
+			if( ! prevAddonData.enabled && addonData.enabled && $button.data('beforePublishConfirmation') ) {
+				lsCommon.smartAlert.open({
+					type: 'confirm',
+					width: 650,
+					title: $button.data('beforePublishTitle'),
+					text: $button.data('beforePublishText'),
+					'buttons': {
+						ok: {
+							label: $button.data('beforePublishButton')
+						}
+					},
+					onConfirm: function() {
+						LS_Addons.saveAddonSettings( true );
+					}
+				});
+
+				return;
+			}
+		}
+
+		$button.attr({
+			'disabled': 'disabled',
+			'data-state': 'saving'
+		});
+
+		jQuery.ajax({
+			url: LS_AddonsMeta.ajaxurl,
+			type: 'POST',
+			data: addonData,
+			dataType: 'json',
+			complete: function( jqXHR ) {
+
+				const data = jqXHR.responseJSON;
+
+				// Error handling
+				if( ! data || ! data.success ) {
+					kmUI.notify.show({
+						iconColor: "#ff2323",
+						icon: 'error',
+						text: LS_AddonsMeta.settingsError,
+						timeout: 3000
+					});
+					$button.removeAttr('disabled').attr('data-state', '');
+					return;
+				}
+
+				$button.removeAttr('disabled').attr('data-state', '');
+				$addonWrapper.attr( 'data-published', addonData.enabled ? 'true' : 'false' );
+
+				// Bail out without showing a notification if the enable switch
+				// was toggled back and forth without any saved changes.
+				if( ! prevAddonData.enabled && ! addonData.enabled ) {
+					return;
+				}
+
+				// Default saved message
+				let message = LS_AddonsMeta.settingsSaved;
+
+				// Show a different message if the addon was disabled
+				if( ! addonData.enabled && prevAddonData.enabled ) {
+					message = LS_AddonsMeta.addonDisabled;
+				}
+
+				// Update data with the new settings to compare with next time
+				LS_Addons.setPrevAddonData();
+
+				kmUI.notify.show({
+					iconColor: "#8BC34A",
+					icon: 'success',
+					text: message,
+					timeout: 2000
+				});
+
+			}
+		});
+	}
+};
+
+LS_Addons.init();
 
 var lsDownloadAllTemplates = function() {
 
@@ -1923,4 +2124,27 @@ var lsDownloadNextTemplate = function() {
 	// Start importing
 	console.log('Downloading Template ('+(templateIndex+1)+'/'+(LS_importQueue.length)+'): ' + projectName );
 	$item.find('.ls--import-template-button').click();
+};
+
+var lsDownloadTemplateByHandle = function( handle ) {
+
+	jQuery('#ls-browse-templates-button').click();
+
+	setTimeout( () => {
+		jQuery('.ls--import-template-button[data-handle="'+handle+'"]').first().click();
+	}, 1500 );
+};
+
+var lsShowAddOn = function( properties ) {
+	properties = properties || {};
+	setTimeout( () => {
+
+		if( ! jQuery('#ls-addons-modal-window:visible').length ) {
+			LS_Addons.openModal();
+		}
+
+		if( properties.handle ) {
+			jQuery('#ls-addons-grid [data-tab-target="'+properties.handle+'"]').click();
+		}
+	}, properties.delay || 0 );
 };

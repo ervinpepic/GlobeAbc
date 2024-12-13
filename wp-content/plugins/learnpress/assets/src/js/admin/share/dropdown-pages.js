@@ -17,14 +17,14 @@
 			$( '.learn-press-dropdown-pages select' ).each( function() {
 				const $sel = $( this ),
 					$option = $new_option.clone();
-				if ( position == 0 ) {
+				if ( position === 0 ) {
 					$( 'option', $sel ).each( function() {
 						if ( parseInt( $( this ).val() ) ) {
 							$option.insertBefore( $( this ) );
 							return false;
 						}
 					} );
-				} else if ( position == args.positions.length - 1 ) {
+				} else if ( position === args.positions.length - 1 ) {
 					$sel.append( $option );
 				} else {
 					$option.insertAfter( $( 'option[value="' + args.positions[ position - 1 ] + '"]', $sel ) );
@@ -48,19 +48,21 @@
 		} );
 
 		// Select 2
-		$select
-			.css( 'width', $select.width() + 50 )
-			.find( 'option' ).each( function() {
-				$( this ).html( $( this ).html().replace( /&nbsp;&nbsp;&nbsp;/g, '' ) );
-			} );
+		// $select
+		// 	.css( 'width', $select.width() + 50 )
+		// 	.find( 'option' ).each( function() {
+		// 		$( this ).html( $( this ).html().replace( /&nbsp;&nbsp;&nbsp;/g, '' ) );
+		// 	} );
 
-		$select.select2( {
-			allowClear: true,
-		} );
+		// $select.select2( {
+		// 	allowClear: true,
+		// 	placeholder: lpDataAdmin.i18n.select_page,
+		// } );
 
-		$select.on( 'select2:select', function( e ) {
-			const data = e.params.data;
-		} );
+		// $select.on( 'select2:select', function( e ) {
+		// 	const data = e.params.data;
+		// } );
+		//end
 
 		$element.on( 'click', '.quick-add-page-inline button', function() {
 			const $button = $( this ),
@@ -72,11 +74,20 @@
 				return;
 			}
 			$button.prop( 'disabled', true );
+
+			const tr = $button.closest( 'tr' );
+			let field_name = '';
+			if ( tr.length ) {
+				field_name = tr.find( '.field_name' ).attr( 'name' );
+			}
+
 			$.ajax( {
 				url: lpGlobalSettings.ajax,
 				data: {
 					action: 'learnpress_create_page',
 					page_name,
+					field_name,
+					nonce: lpDataAdmin.nonce,
 				},
 				type: 'post',
 				dataType: 'html',
@@ -88,8 +99,9 @@
 							name: response.page.post_title,
 							positions: response.positions,
 						} );
-						$select.val( response.page.ID ).trigger( 'focus' );
-						$select.val( response.page.ID ).trigger( 'change' );
+						/*$select.val( response.page.ID ).trigger( 'focus' );
+						$select.val( response.page.ID ).trigger( 'change' );*/
+						window.location.reload();
 						$form.addClass( 'hide-if-js' );
 					} else if ( response.error ) {
 						alert( response.error );

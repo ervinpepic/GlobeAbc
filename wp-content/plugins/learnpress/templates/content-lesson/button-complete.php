@@ -6,7 +6,7 @@
  *
  * @author   ThimPress
  * @package  Learnpress/Templates
- * @version  4.0.1
+ * @version  4.0.3
  */
 
 defined( 'ABSPATH' ) || exit();
@@ -19,25 +19,31 @@ if ( $item->is_preview() && ! $user->has_enrolled_course( $course->get_id() ) ) 
 	return;
 }
 
-$message_confirm_complete_item = sprintf( '%s "%s" ?', __( 'Do you want to complete the lesson', 'learnpress' ), $item->get_title() );
+$message_confirm_complete_item = sprintf( '%s "%s"?', __( 'Do you want to complete the lesson', 'learnpress' ), $item->get_title() );
 $completed                     = $user->has_completed_item( $item->get_id(), $course->get_id() );
 
 if ( $completed ) :
+	$user_item_data = $user->get_item_data( $item->get_id(), $course->get_id() );
+	if ( empty( $user_item_data ) ) {
+		return;
+	}
 	?>
-	<div>
+	<div class="learn-press-message success">
 		<?php
 		echo sprintf(
 			'%s %s',
 			esc_html__( 'You have completed this lesson at ', 'learnpress' ),
-			$user->get_item_data( $item->get_id(), $course->get_id(), 'end_time' )
+			$user_item_data->get_end_time()->format( LP_Datetime::I18N_FORMAT_HAS_TIME )
 		)
 		?>
 	</div>
 	<button class="lp-button completed" disabled>
-		<i class="fa fa-check"></i><?php esc_html_e( 'Completed', 'learnpress' ); ?>
+		<i class="lp-icon-check"></i><?php esc_html_e( 'Completed', 'learnpress' ); ?>
 	</button>
-<?php else : ?>
-
+	<?php
+else :
+	$item_id_next = $course->get_next_item();
+	?>
 	<form method="post" name="learn-press-form-complete-lesson"
 		class="learn-press-form form-button <?php echo esc_attr( $completed ) ? 'completed' : ''; ?>"
 		data-title="<?php echo esc_attr( __( 'Complete lesson', 'learnpress' ) ); ?>"
@@ -50,6 +56,7 @@ if ( $completed ) :
 		<input type="hidden" name="complete-lesson-nonce"
 			value="<?php echo esc_attr( wp_create_nonce( 'lesson-complete' ) ); ?>"/>
 		<input type="hidden" name="type" value="lp_lesson"/>
+		<input type="hidden" name="item_id_next" value="<?php echo esc_attr( $item_id_next ); ?>"/>
 		<input type="hidden" name="lp-ajax" value="complete-lesson"/>
 		<input type="hidden" name="noajax" value="yes"/>
 		<button class="lp-button button button-complete-item button-complete-lesson lp-btn-complete-item">

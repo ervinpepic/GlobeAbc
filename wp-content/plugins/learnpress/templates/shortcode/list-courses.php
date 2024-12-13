@@ -4,8 +4,11 @@
  *
  * @author  ThimPress
  * @package LearnPress/Templates
- * @version 4.0.0
+ * @version 4.0.2
  */
+
+use LearnPress\Models\CourseModel;
+use LearnPress\TemplateHooks\Course\ListCoursesTemplate;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -23,28 +26,20 @@ if ( ! isset( $query ) ) {
 		<?php endif; ?>
 
 		<?php
-		if ( $query->have_posts() ) :
-			/**
-			 * LP Hook
-			 */
-			do_action( 'learn-press/shortcode/before-courses-loop' );
+		$posts = $query->posts;
+		if ( count( $posts ) > 0 ) :
+			echo '<ul class="learn-press-courses" data-layout="grid">';
 
-			LearnPress::instance()->template( 'course' )->begin_courses_loop();
+			foreach ( $posts as $post ) {
+				$course = CourseModel::find( $post->ID, true );
+				if ( ! $course ) {
+					continue;
+				}
 
-			while ( $query->have_posts() ) :
-				$query->the_post();
+				echo ListCoursesTemplate::render_course( $course );
+			}
 
-				learn_press_get_template_part( 'content', 'course' );
-
-			endwhile;
-
-			LearnPress::instance()->template( 'course' )->end_courses_loop();
-
-			/**
-			 * LP Hook
-			 */
-			do_action( 'learn-press/shortcode/after-main-content' );
-			wp_reset_postdata();
+			echo '</ul>';
 		else :
 			_e( 'No courses', 'learnpress' );
 		endif;

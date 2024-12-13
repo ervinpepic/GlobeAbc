@@ -15,8 +15,8 @@ class LP_Meta_Box_File_Field extends LP_Meta_Box_Field {
 	 * @param string $id
 	 * @param string $label
 	 * @param string $description
-	 * @param mixed  $default
-	 * @param array  $extra
+	 * @param mixed $default
+	 * @param array $extra
 	 */
 	public function __construct( $label = '', $description = '', $default = '', $extra = array() ) {
 		parent::__construct( $label, $description, $default, $extra );
@@ -33,15 +33,15 @@ class LP_Meta_Box_File_Field extends LP_Meta_Box_Field {
 		$field['description'] = $this->description;
 		$field['label']       = $this->label;
 
-		$field['class']         = isset( $field['class'] ) ? $field['class'] : 'short';
-		$field['style']         = isset( $field['style'] ) ? $field['style'] : '';
-		$field['wrapper_class'] = isset( $field['wrapper_class'] ) ? $field['wrapper_class'] : '';
+		$field['class']         = $field['class'] ?? 'short';
+		$field['style']         = $field['style'] ?? '';
+		$field['wrapper_class'] = $field['wrapper_class'] ?? '';
 		$field['default']       = ( ! $this->meta_value( $thepostid ) && isset( $field['default'] ) ) ? $field['default'] : $this->meta_value( $thepostid );
-		$field['value']         = isset( $field['value'] ) ? $field['value'] : $field['default'];
-		$field['name']          = isset( $field['name'] ) ? $field['name'] : $field['id'];
+		$field['value']         = $field['value'] ?? $field['default'];
+		$field['name']          = $field['name'] ?? $field['id'];
 		$field['mime_type']     = isset( $field['mime_type'] ) ? implode( ',', $field['mime_type'] ) : '';
-		$field['multil']        = ( isset( $field['multil'] ) && $field['multil'] ) ? true : false;
-		$field['desc_tip']      = isset( $field['desc_tip'] ) ? $field['desc_tip'] : false;
+		$field['multil']        = isset( $field['multil'] ) && $field['multil'];
+		$field['desc_tip']      = $field['desc_tip'] ?? false;
 
 		// Custom attribute handling
 		$custom_attributes = array();
@@ -56,13 +56,15 @@ class LP_Meta_Box_File_Field extends LP_Meta_Box_Field {
 		<label for="' . esc_attr( $field['id'] ) . '">' . wp_kses_post( $field['label'] ) . '</label>';
 
 		echo '<div id="' . esc_attr( $field['id'] ) . '" class="lp-meta-box__file ' . esc_attr( $field['class'] ) . '" data-mime="' . $field['mime_type'] . '" data-multil="' . $field['multil'] . '" style="' . esc_attr( $field['style'] ) . '" ' . implode(
-			' ',
-			$custom_attributes
-		) . '>';
+				' ',
+				$custom_attributes
+			) . '>';
 		echo '<ul class="lp-meta-box__file_list">';
 
+		$value = (array) $field['value'];
 		if ( ! empty( $field['value'] ) ) {
-			foreach ( (array) $field['value'] as $attachment_id ) {
+			$value = array_map( 'absint', $value );
+			foreach ( $value as $attachment_id ) {
 				$url = wp_get_attachment_url( $attachment_id );
 
 				if ( $url ) {
@@ -96,12 +98,21 @@ class LP_Meta_Box_File_Field extends LP_Meta_Box_Field {
 		}
 		echo '</div>';
 		echo '</div>';
-
 	}
 
 	public function save( $post_id ) {
-		$value = ! empty( $_POST[ $this->id ] ) ? wp_unslash( array_filter( explode( ',', $_POST[ $this->id ] ) ) ) : '';
+		$value = LP_Request::get_param( $this->id );
+		if ( ! empty( $value ) ) {
+			$value = explode( ',', $value );
+			if ( ! empty( $value ) ) {
+				$value = array_map( 'absint', $value );
+			}
+		} else {
+			$value = $this->default ?? '';
+		}
 
 		update_post_meta( $post_id, $this->id, $value );
+
+		return $value;
 	}
 }

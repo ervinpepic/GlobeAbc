@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.3.1
+ * @version 	1.3.5
  * 
  * Theme Functions
  * Created by CMSMasters
@@ -786,6 +786,15 @@ if (function_exists('add_theme_support')) {
 	add_action('load-post.php', 'add_post_type_support_project');
 	
 	add_action('load-post-new.php', 'add_post_type_support_project');
+	
+	// Add post-formats to post_type 'project'
+	function language_school_add_post_formats_to_project() {
+		add_post_type_support('project', 'post-formats');
+		
+		register_taxonomy_for_object_type('post_format', 'project');
+	}
+	
+	add_action('init', 'language_school_add_post_formats_to_project', 11);
 	
 	if (CMSMASTERS_LEARNPRESS) {
 		function lpr_course_add_attr() {

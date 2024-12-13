@@ -7,6 +7,9 @@
  * @version 4.0.1
  */
 
+use LearnPress\Models\CourseModel;
+use LearnPress\Models\CoursePostModel;
+
 defined( 'ABSPATH' ) || exit();
 
 if ( ! class_exists( 'LP_Course' ) ) {
@@ -235,11 +238,11 @@ if ( ! class_exists( 'LP_Course' ) ) {
 			return 'yes' === $this->get_data( 'block_course_finished' );
 		}
 
-		public function allow_repurchase() : bool {
+		public function allow_repurchase(): bool {
 			return 'yes' === $this->get_data( 'allow_repurchase' );
 		}
 
-		public function allow_repurchase_course_option() : string {
+		public function allow_repurchase_course_option(): string {
 			return $this->get_data( 'allow_repurchase_course_option', 'reset' );
 		}
 
@@ -249,11 +252,14 @@ if ( ! class_exists( 'LP_Course' ) ) {
 		 * @author tungnx
 		 * @since 4.0.0
 		 * @modify 4.1.3
-		 * @version 1.0.1
+		 * @version 1.0.2
 		 * @return int
 		 */
 		public function get_first_item_id(): int {
 			$course_id = $this->get_id();
+
+			$courseModel = CourseModel::find( $course_id, true );
+			return $courseModel->get_first_item_id();
 
 			try {
 				// Get cache
@@ -305,6 +311,7 @@ if ( ! class_exists( 'LP_Course' ) ) {
 		 * @author tungnx
 		 * @version 1.0.0
 		 * @return LP_Course_Extra_Info_Fast_Query_Model
+		 * @deprecated 4.2.7.4
 		 */
 		public function get_info_extra_for_fast_query(): LP_Course_Extra_Info_Fast_Query_Model {
 			$extra_info = new LP_Course_Extra_Info_Fast_Query_Model();
@@ -312,17 +319,12 @@ if ( ! class_exists( 'LP_Course' ) ) {
 			try {
 				$extra_info_str = get_post_meta( $this->get_id(), $this->key_info_extra_fast_query, true );
 
-				if ( $extra_info_str ) {
-					$extra_info_stdclass = json_decode( $extra_info_str );
-
-					if ( JSON_ERROR_NONE !== json_last_error() ) {
-						throw new Exception( 'Error json decode on ' . __METHOD__ );
-					}
-
-					$extra_info = $extra_info->map_stdclass( $extra_info_stdclass );
+				if ( ! empty( $extra_info_str ) ) {
+					$extra_info_stdclass = LP_Helper::json_decode( $extra_info_str );
+					$extra_info          = $extra_info->map_stdclass( $extra_info_stdclass );
 				}
 			} catch ( Throwable $e ) {
-				error_log( $e->getMessage() );
+				error_log( __METHOD__ . ': ' . $e->getMessage() );
 			}
 
 			return $extra_info;
@@ -355,47 +357,34 @@ if ( ! class_exists( 'LP_Course' ) ) {
 		 *
 		 * @param string $type
 		 * @param bool $include_preview
+		 *
+		 * @return int
+		 * @throws Exception
+		 * @version 1.0.1
 		 * @author tungnx
 		 * @since 4.1.4.1
-		 * @version 1.0.0
-		 * @return int
 		 */
 		public function count_items( string $type = '', bool $include_preview = true ): int {
-			$course_id = $this->get_id();
-
-			// Get cache
-			$lp_course_cache = LP_Course_Cache::instance();
-			$key_cache       = "$course_id/total_items";
-			$total_items     = $lp_course_cache->get_cache( $key_cache );
-			$count_items     = 0;
-
-			if ( ! $total_items ) {
-				$extra_info = $this->get_info_extra_for_fast_query();
-
-				if ( ! $extra_info->total_items ) {
-					$total_items             = LP_Course_DB::getInstance()->get_total_items( $course_id );
-					$extra_info->total_items = $total_items;
-
-					// Save post meta
-					$this->set_info_extra_for_fast_query( $extra_info );
-				} else {
-					$total_items = $extra_info->total_items;
-				}
-
-				$lp_course_cache->set_cache( $key_cache, $total_items );
+			$course_id   = $this->get_id();
+			$courseModel = CourseModel::find( $course_id, true );
+			if ( ! $courseModel ) {
+				return 0;
 			}
 
-			if ( ! empty( $total_items ) ) {
-				if ( ! empty( $type ) ) {
-					if ( isset( $total_items->{$type} ) ) {
-						$count_items = $total_items->{$type};
-					}
-				} else {
-					$count_items = $total_items->count_items;
-				}
+			$total_items = $courseModel->get_total_items();
+			if ( empty( $total_items ) ) {
+				return 0;
 			}
 
-			return apply_filters( 'learn-press/course/count-items', intval( $count_items ), $course_id );
+			if ( ! empty( $type ) ) {
+				if ( isset( $total_items->{$type} ) ) {
+					return $total_items->{$type};
+				}
+			} else {
+				return $total_items->count_items ?? 0;
+			}
+
+			return 0;
 		}
 
 		/**
@@ -436,8 +425,12 @@ if ( ! class_exists( 'LP_Course' ) ) {
 				$lp_course_cache = new LP_Course_Cache( true );
 				$lp_course_cache->clean_total_students_enrolled( $this->get_id() );
 				$lp_course_cache->clean_total_students_enrolled_or_purchased( $this->get_id() );
+				// Clear cache count students many courses.
+				$lp_courses_cache = new LP_Courses_Cache( true );
+				$lp_courses_cache->clear_cache_on_group( LP_Courses_Cache::KEYS_COUNT_STUDENT_COURSES );
+				$lp_course_cache->clear_cache_on_group( LP_Courses_Cache::KEYS_COUNT_COURSES_FREE );
 				// Clear cache user course.
-				$lp_user_items_cache = new LP_User_Items_Cache( true );
+				$lp_user_items_cache = new LP_User_Items_Cache();
 				$lp_user_items_cache->clean_user_items_by_course( $this->get_id() );
 			} catch ( Throwable $e ) {
 				error_log( __FUNCTION__ . ':' . $e->getMessage() );
@@ -482,6 +475,96 @@ if ( ! class_exists( 'LP_Course' ) ) {
 		}
 
 		/**
+		 * Handle params before query courses
+		 *
+		 * @param array $param
+		 * @param LP_Course_Filter $filter
+		 *
+		 * @return void
+		 * @since 4.2.3.3
+		 * @version 1.0.1
+		 * @deprecated 4.2.7.1
+		 */
+		public static function handle_params_for_query_courses( LP_Course_Filter &$filter, array $param = [] ) {
+			//_deprecated_function( __METHOD__, '4.2.7.1', 'Courses::handle_params_for_query_courses' );
+			//return $filter;
+
+			$filter->page       = absint( $param['paged'] ?? 1 );
+			$filter->post_title = LP_Helper::sanitize_params_submitted( trim( $param['c_search'] ?? '' ) );
+
+			// Get Columns
+			$fields_str = LP_Helper::sanitize_params_submitted( urldecode( $param['c_fields'] ?? '' ) );
+			if ( ! empty( $fields_str ) ) {
+				$fields         = explode( ',', $fields_str );
+				$filter->fields = $fields;
+			}
+
+			// Exclude Columns
+			$fields_exclude_str = LP_Helper::sanitize_params_submitted( urldecode( $param['c_exclude_fields'] ?? '' ) );
+			if ( ! empty( $fields_exclude_str ) ) {
+				$fields_exclude         = explode( ',', $fields_exclude_str );
+				$filter->exclude_fields = $fields_exclude;
+			}
+
+			// Author
+			$filter->post_author = LP_Helper::sanitize_params_submitted( $param['c_author'] ?? 0 );
+			$author_ids_str      = LP_Helper::sanitize_params_submitted( $param['c_authors'] ?? 0 );
+			if ( ! empty( $author_ids_str ) ) {
+				$author_ids           = explode( ',', $author_ids_str );
+				$filter->post_authors = $author_ids;
+			}
+
+			/**
+			 * Sort by
+			 * 1. on_sale
+			 * 2. on_free
+			 * 3. on_paid
+			 * 4. on_feature
+			 */
+			if ( ! empty( $param['sort_by'] ) ) {
+				$filter->sort_by[] = $param['sort_by'];
+			}
+
+			// Sort by level
+			$levels_str = LP_Helper::sanitize_params_submitted( urldecode( $param['c_level'] ?? '' ) );
+			if ( ! empty( $levels_str ) ) {
+				$levels_str     = str_replace( 'all', '', $levels_str );
+				$levels         = explode( ',', $levels_str );
+				$filter->levels = $levels;
+			}
+
+			// Find by category
+			$term_ids_str = LP_Helper::sanitize_params_submitted( urldecode( $param['term_id'] ?? '' ) );
+			if ( ! empty( $term_ids_str ) ) {
+				$term_ids         = explode( ',', $term_ids_str );
+				$filter->term_ids = $term_ids;
+			}
+
+			// Find by tag
+			$tag_ids_str = LP_Helper::sanitize_params_submitted( urldecode( $param['tag_id'] ?? '' ) );
+			if ( ! empty( $tag_ids_str ) ) {
+				$tag_ids         = explode( ',', $tag_ids_str );
+				$filter->tag_ids = $tag_ids;
+			}
+
+			// Order by
+			$filter->order_by = LP_Helper::sanitize_params_submitted( ! empty( $param['order_by'] ) ? $param['order_by'] : 'post_date', 'key' );
+			$filter->order    = LP_Helper::sanitize_params_submitted( ! empty( $param['order'] ) ? $param['order'] : 'DESC' );
+			$filter->limit    = $param['limit'] ?? LP_Settings::get_option( 'archive_course_limit', 10 );
+
+			// For search suggest courses
+			if ( ! empty( $param['c_suggest'] ) ) {
+				$filter->only_fields = [ 'ID', 'post_title' ];
+				$filter->limit       = apply_filters( 'learn-press/rest-api/courses/suggest-limit', 10 );
+			}
+
+			$return_type = $param['return_type'] ?? 'html';
+			if ( 'json' !== $return_type ) {
+				$filter->only_fields = array( 'DISTINCT(ID) AS ID' );
+			}
+		}
+
+		/**
 		 * Get list course
 		 * Order By: price, title, rating, date ...
 		 * Order: ASC, DES
@@ -489,34 +572,45 @@ if ( ! class_exists( 'LP_Course' ) ) {
 		 * @param LP_Course_Filter $filter
 		 * @param int $total_rows
 		 *
-		 * @return array|null|string|int
+		 * @return object|null|string|int
 		 * @author tungnx
 		 * @version 1.0.0
 		 * @sicne 4.1.5
+		 * @deprecated 4.2.7.1
 		 */
 		public static function get_courses( LP_Course_Filter $filter, int &$total_rows = 0 ) {
+			//_deprecated_function( __METHOD__, '4.2.7.1', 'Courses::get_courses' );
+			//return [];
+
 			$lp_course_db = LP_Course_DB::getInstance();
 
 			try {
-				$key_cache            = md5( json_encode( $filter ) );
-				$key_cache_total_rows = md5( json_encode( $filter ) . 'total_rows' );
-				$courses_cache        = LP_Courses_Cache::instance()->get_cache( $key_cache );
+				/*$lp_courses_cache = new LP_Courses_Cache( true );
+				$key_cache            = 'query-courses-' . md5( json_encode( $filter ) );
+				$key_cache_total_rows = 'query-courses-total-' . md5( json_encode( $filter ) );
+				$courses_cache        = $lp_courses_cache->get_cache( $key_cache );
 
 				if ( false !== $courses_cache ) {
-					$total_rows = LP_Courses_Cache::instance()->get_cache( $key_cache_total_rows );
-					return $courses_cache;
-				}
+					$total_rows = $lp_courses_cache->get_cache( $key_cache_total_rows );
+					return LP_Helper::json_decode( $courses_cache );
+				}*/
 
 				// Sort by
 				$filter->sort_by = (array) $filter->sort_by;
 				foreach ( $filter->sort_by as $sort_by ) {
 					$filter_tmp                      = clone $filter;
-					$filter_tmp->only_fields         = array( 'ID' );
+					$filter_tmp->only_fields         = array( 'DISTINCT(ID)' );
 					$filter_tmp->return_string_query = true;
 
 					switch ( $sort_by ) {
 						case 'on_sale':
 							$filter_tmp = $lp_course_db->get_courses_sort_by_sale( $filter_tmp );
+							break;
+						case 'on_free':
+							$filter_tmp = $lp_course_db->get_courses_sort_by_free( $filter_tmp );
+							break;
+						case 'on_paid':
+							$filter_tmp = $lp_course_db->get_courses_sort_by_paid( $filter_tmp );
 							break;
 						case 'on_feature':
 							$filter_tmp = $lp_course_db->get_courses_sort_by_feature( $filter_tmp );
@@ -546,6 +640,17 @@ if ( ! class_exists( 'LP_Course' ) ) {
 					case 'popular':
 						$filter = $lp_course_db->get_courses_order_by_popular( $filter );
 						break;
+					case 'post_title':
+						$filter->order = 'ASC';
+						break;
+					case 'post_title_desc':
+						$filter->order_by = 'post_title';
+						$filter->order    = 'DESC';
+						break;
+					case 'menu_order':
+						$filter->order_by = 'menu_order';
+						$filter->order    = 'ASC';
+						break;
 					default:
 						$filter = apply_filters( 'lp/courses/filter/order_by/' . $filter->order_by, $filter );
 						break;
@@ -555,15 +660,15 @@ if ( ! class_exists( 'LP_Course' ) ) {
 				$filter  = apply_filters( 'lp/courses/filter', $filter );
 				$courses = LP_Course_DB::getInstance()->get_courses( $filter, $total_rows );
 
-				LP_Courses_Cache::instance()->set_cache( $key_cache, $courses );
-				LP_Courses_Cache::instance()->set_cache( $key_cache_total_rows, $total_rows );
-
-				/**
-				 * Save key cache to array to clear
-				 * @see LP_Background_Single_Course::save_post() - clear cache when save post
-				 */
-				LP_Courses_Cache::instance()->save_cache_keys( $key_cache );
-				LP_Courses_Cache::instance()->save_cache_keys( $key_cache_total_rows );
+				//              $lp_courses_cache->set_cache( $key_cache, json_encode( $courses ) );
+				//              $lp_courses_cache->set_cache( $key_cache_total_rows, $total_rows );
+				//
+				//              /**
+				//               * Save key cache to array to clear
+				//               * @see LP_Background_Single_Course::save_post() - clear cache when save post
+				//               */
+				//              $lp_courses_cache->save_cache_keys_query_courses( $key_cache );
+				//              $lp_courses_cache->save_cache_keys( LP_Courses_Cache::KEYS_QUERY_TOTAL_COURSES, $key_cache_total_rows );
 			} catch ( Throwable $e ) {
 				$courses = [];
 				error_log( __FUNCTION__ . ': ' . $e->getMessage() );
@@ -577,14 +682,17 @@ if ( ! class_exists( 'LP_Course' ) ) {
 		 *
 		 * @return array
 		 * @since 4.1.6.9
-		 * @version 1.0.0
+		 * @version 1.0.1
 		 * @author tungnx
 		 */
-		public function get_full_sections_and_items_course(): array {
+		public function get_full_sections_and_items_course() {
 			$sections_items = [];
 			$course_id      = $this->get_id();
 
 			try {
+				$courseModel = CourseModel::find( $course_id, true );
+				return $courseModel->get_section_items();
+
 				// Get cache
 				$lp_course_cache = LP_Course_Cache::instance();
 				$key_cache       = "$course_id/sections_items";
@@ -646,12 +754,16 @@ if ( ! class_exists( 'LP_Course' ) ) {
 					$item->type    = $sections_item->item_type;
 
 					if ( $section_new != $section_current ) {
-						$sections_items[ $section_new ]              = new stdClass();
-						$sections_items[ $section_new ]->id          = $section_new;
-						$sections_items[ $section_new ]->order       = $section_order;
-						$sections_items[ $section_new ]->title       = html_entity_decode( $sections_item->section_name );
-						$sections_items[ $section_new ]->description = html_entity_decode( $sections_item->section_description );
-						$sections_items[ $section_new ]->items       = [];
+						$sections_items[ $section_new ]                      = new stdClass();
+						$sections_items[ $section_new ]->id                  = $section_new; // old field will be deprecated in future
+						$sections_items[ $section_new ]->section_id          = $section_new; // new field
+						$sections_items[ $section_new ]->order               = $section_order; // old field will be deprecated in future
+						$sections_items[ $section_new ]->section_order       = $section_order; // new field
+						$sections_items[ $section_new ]->title               = html_entity_decode( $sections_item->section_name ); // old field will be deprecated in future
+						$sections_items[ $section_new ]->section_name        = html_entity_decode( $sections_item->section_name ); // new field
+						$sections_items[ $section_new ]->description         = html_entity_decode( $sections_item->section_description ); // old field will be deprecated in future
+						$sections_items[ $section_new ]->section_description = html_entity_decode( $sections_item->section_description ); // new field
+						$sections_items[ $section_new ]->items               = [];
 
 						// Sort item by item_order
 						if ( $section_current != 0 ) {
@@ -895,6 +1007,91 @@ if ( ! class_exists( 'LP_Course' ) ) {
 			}
 
 			return $evaluation_type;
+		}
+
+		/**
+		 * Get categories of course.
+		 *
+		 * @since 4.2.3
+		 * @version 1.0.0
+		 * @return array|WP_Term[]
+		 */
+		public function get_categories(): array {
+			// Todo: set cache.
+			$categories = get_the_terms( $this->get_id(), LP_COURSE_CATEGORY_TAX );
+			if ( ! $categories ) {
+				$categories = array();
+			}
+
+			return $categories;
+		}
+
+		/**
+		 * Get tags of course.
+		 *
+		 * @since 4.2.3
+		 * @version 1.0.0
+		 * @return array|WP_Term[]
+		 */
+		public function get_tags(): array {
+			// Todo: set cache.
+			$tags = get_the_terms( $this->get_id(), LP_COURSE_TAXONOMY_TAG );
+			if ( ! $tags ) {
+				$tags = array();
+			}
+
+			return $tags;
+		}
+
+		/**
+		 * Get all categories.
+		 *
+		 * @return array
+		 */
+		public static function get_all_categories(): array {
+			// Todo: set cache.
+			$categories = get_terms( LP_COURSE_CATEGORY_TAX );
+			if ( ! $categories ) {
+				$categories = array();
+			}
+
+			return $categories;
+		}
+
+		/**
+		 * Get all curriculum of this course.
+		 *
+		 * @return bool|LP_Course_Section
+		 * @since 4.2.3.5
+		 */
+		public function get_level(): string {
+			$level = get_post_meta( $this->get_id(), '_lp_level', true );
+			if ( ! $level ) {
+				$level = '';
+			}
+
+			return $level;
+		}
+
+		/**
+		 * Get duration of this course.
+		 *
+		 * @return bool|LP_Course_Section
+		 * @since 4.2.3.5
+		 */
+		public function get_duration(): string {
+			$duration = get_post_meta( $this->get_id(), '_lp_duration', true );
+
+			return $duration;
+		}
+
+		/**
+		 * Check if a course is enabled Offline
+		 *
+		 * @return bool
+		 */
+		public function is_offline(): bool {
+			return get_post_meta( $this->get_id(), CoursePostModel::META_KEY_OFFLINE_COURSE, 'no' ) === 'yes';
 		}
 	}
 }

@@ -37,15 +37,20 @@ class LP_Meta_Box_WP_Editor_Field extends LP_Meta_Box_Field {
 		$value    = $extra['value'] ?? $value;
 		$desc_tip = $extra['desc_tip'] ?? '';
 
-		echo '<div class="lp-meta-box__wp-editor form-field ' . esc_attr( $this->id . '_field ' . $wrapper_class ) . '">
-		<label for="' . esc_attr( $this->id ) . '">' . wp_kses_post( $this->label ) . '</label>';
+		printf(
+			'<div class="lp-meta-box__wp-editor form-field %s"><label for="%s">%s</label>',
+			esc_attr( $this->id . '_field ' . $wrapper_class ),
+			esc_attr( $this->id ),
+			wp_kses_post( $this->label )
+		);
 
-		echo wp_editor(
+		wp_editor(
 			$value,
-			$this->id,
+			sanitize_key( $this->id ),
 			array(
 				'textarea_rows' => 10,
 				'editor_class'  => 'lp-meta-box__wp-editor__textarea',
+				'textarea_name' => $this->id,
 			)
 		);
 
@@ -62,8 +67,10 @@ class LP_Meta_Box_WP_Editor_Field extends LP_Meta_Box_Field {
 	}
 
 	public function save( $post_id ) {
-		$meta_value = isset( $_POST[ $this->id ] ) ? wpautop( wp_unslash( $_POST[ $this->id ] ) ) : $this->default;
+		$meta_value = LP_Request::get_param( $this->id, $this->default ?? '', 'html' );
 
 		update_post_meta( $post_id, $this->id, $meta_value );
+
+		return $meta_value;
 	}
 }

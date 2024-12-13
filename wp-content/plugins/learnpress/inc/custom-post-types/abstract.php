@@ -8,6 +8,9 @@
  * @version 1.0
  */
 
+use LearnPress\Models\UserModel;
+use LearnPress\TemplateHooks\UserTemplate;
+
 defined( 'ABSPATH' ) || exit();
 
 abstract class LP_Abstract_Post_Type {
@@ -73,7 +76,8 @@ abstract class LP_Abstract_Post_Type {
 			$this->_post_type = $post_type;
 		}
 		add_action( 'init', array( $this, '_do_register' ) );
-		add_action( 'save_post', array( $this, '_do_save_post' ), 10, 2 );
+		add_action( 'save_post', array( $this, '_do_save_post' ), - 1, 3 );
+		add_action( 'wp_after_insert_post', [ $this, 'wp_after_insert_post' ], - 1, 3 );
 		add_action( 'before_delete_post', array( $this, '_before_delete_post' ) );
 		add_action( 'deleted_post', array( $this, '_deleted_post' ) );
 		add_action( 'wp_trash_post', array( $this, '_before_trash_post' ) );
@@ -165,7 +169,7 @@ abstract class LP_Abstract_Post_Type {
 	 *
 	 * @return array
 	 */
-	public function args_register_post_type() : array {
+	public function args_register_post_type(): array {
 		return array();
 	}
 
@@ -174,13 +178,15 @@ abstract class LP_Abstract_Post_Type {
 	 *
 	 * In child-class use function save()
 	 *
-	 * @param int     $post_id
+	 * @param int $post_id
 	 * @param WP_Post $post
+	 * @param bool $is_update
+	 *
 	 * @editor tungnx
 	 * @since modify 4.0.9
-	 * @version 4.0.1
+	 * @version 4.0.2
 	 */
-	final function _do_save_post( int $post_id = 0, WP_Post $post = null ) {
+	final function _do_save_post( int $post_id = 0, WP_Post $post = null, bool $is_update = false ) {
 		// Maybe remove
 		$this->maybe_remove_assigned( $post );
 
@@ -189,6 +195,7 @@ abstract class LP_Abstract_Post_Type {
 		}
 
 		$this->save( $post_id, $post );
+		$this->save_post( $post_id, $post, $is_update );
 	}
 
 	/**
@@ -202,33 +209,85 @@ abstract class LP_Abstract_Post_Type {
 	}
 
 	/**
-	 * Hook before delete post
-	 * Only on receiver 1 param $post_id, can't get param $post - don't know why
+	 * Function for child class handle when post has just saved
+	 * This function provides the argument `$update` to determine whether a post is updated or new.
+	 * Replace for function save only has two args
 	 *
 	 * @param int $post_id
+	 * @param WP_Post $post
+	 * @param bool $is_update
 	 *
-	 * @editor tungnx
-	 * @since modify 4.0.9
+	 * @since 4.2.6.9
+	 * @version 1.0.0
 	 */
-	final function _before_delete_post( int $post_id ) {
-		// Todo: check is pages of LP
-		if ( 'page' === get_post_type( $post_id ) ) {
-			// Clear cache LP settings
-			$lp_settings_cache = new LP_Settings_Cache( true );
-			$lp_settings_cache->clean_lp_settings();
-		}
+	public function save_post( int $post_id, WP_Post $post = null, bool $is_update = false ) {
+		// Implement from child
+	}
 
+	/**
+	 * Callback hook 'wp_after_insert_post'
+	 *
+	 * @param $post_id
+	 * @param $post
+	 * @param $update
+	 *
+	 * @return void
+	 * @since 4.2.6.9
+	 * @version 1.0.0
+	 */
+	final function wp_after_insert_post( $post_id, $post, $update ) {
 		if ( ! $this->check_post( $post_id ) ) {
 			return;
 		}
 
-		$this->before_delete( $post_id );
+		$this->after_insert_post( $post_id, $post, $update );
+	}
+
+	/**
+	 * Function for child class handle when post has just saved
+	 *
+	 * @param int $post_id
+	 * @param WP_Post|null $post
+	 * @param bool $update
+	 */
+	public function after_insert_post( int $post_id, WP_Post $post = null, bool $update = false ) {
+		// Implement from child
+	}
+
+	/**
+	 * Hook before delete post
+	 * Only on receiver 1 param $post_id, can't get param $post - don't know why
+	 *
+	 * @param int $post_id
+	 * @param WP_Post|null $post
+	 *
+	 * @editor tungnx
+	 * @since modify 4.0.9
+	 */
+	final function _before_delete_post( int $post_id, WP_Post $post = null ) {
+		try {
+			// Todo: check is pages of LP
+			if ( 'page' === get_post_type( $post_id ) ) {
+				// Clear cache LP settings
+				$lp_settings_cache = new LP_Settings_Cache( true );
+				$lp_settings_cache->clean_lp_settings();
+			}
+
+			if ( ! $this->check_post( $post_id ) ) {
+				return;
+			}
+
+			$this->before_delete( $post_id );
+		} catch ( Throwable $e ) {
+			error_log( __METHOD__ . ': ' . $e->getMessage() );
+		}
 	}
 
 	/**
 	 * Function for child class handle before post deleted
 	 *
 	 * @param int $post_id
+	 *
 	 * @editor tungnx
 	 * @since modify 4.0.9
 	 */
@@ -256,6 +315,7 @@ abstract class LP_Abstract_Post_Type {
 	}
 
 	protected $course_of_item_trashed = 0;
+
 	/**
 	 * Hook before delete post
 	 *
@@ -266,7 +326,7 @@ abstract class LP_Abstract_Post_Type {
 	 * @version 1.0.0
 	 */
 	final function _before_trash_post( int $post_id ) {
-		if ( ! $this->check_post() ) {
+		if ( ! $this->check_post( $post_id ) ) {
 			return;
 		}
 
@@ -313,7 +373,7 @@ abstract class LP_Abstract_Post_Type {
 	 * @version 1.0.0
 	 */
 	final function _trashed_post( int $post_id ) {
-		if ( ! $this->check_post() ) {
+		if ( ! $this->check_post( $post_id ) ) {
 			return;
 		}
 
@@ -324,10 +384,11 @@ abstract class LP_Abstract_Post_Type {
 	 * Method handle Trashed post
 	 *
 	 * @param int $post_id
-	 * @author tungnx
+	 *
+	 * @return void
 	 * @since 4.1.6.9
 	 * @version 1.0.0
-	 * @return void
+	 * @author tungnx
 	 */
 	public function trashed_post( int $post_id ) {
 		// Implement from child
@@ -340,8 +401,7 @@ abstract class LP_Abstract_Post_Type {
 		if ( $this->course_of_item_trashed ) {
 			// Save course when item assign on course is trashed
 			$course_id   = $this->course_of_item_trashed;
-			$course_post = get_post( $course_id );
-			LP_Course_Post_Type::instance()->save( $course_id, $course_post );
+			LP_Course_Post_Type::instance()->save_post( $course_id, null, true );
 			$this->course_of_item_trashed = 0;
 		}
 	}
@@ -349,13 +409,28 @@ abstract class LP_Abstract_Post_Type {
 	public function column_instructor( $post_id = 0 ) {
 		global $post;
 
+		$user_id = get_the_author_meta( 'ID' );
+		if ( ! $user_id ) {
+			return;
+		}
+
+		$user = UserModel::find( $user_id, true );
+		if ( ! $user ) {
+			return;
+		}
+
 		$args = array(
 			'post_type' => $post->post_type,
-			'author'    => get_the_author_meta( 'ID' ),
+			'author'    => $user_id,
 		);
 
 		$author_link = esc_url_raw( add_query_arg( $args, 'edit.php' ) );
-		echo sprintf( '<span class="post-author">%s<a href="%s">%s</a></span>', get_avatar( get_the_author_meta( 'ID' ), 32 ), $author_link, get_the_author() );
+		echo sprintf(
+			'<span class="post-author">%s<a href="%s">%s</a></span>',
+			UserTemplate::instance()->html_avatar( $user, [ 'width' => 32, 'height' => 32 ] ),
+			$author_link,
+			get_the_author()
+		);
 	}
 
 	public function get_post_type() {
@@ -402,7 +477,7 @@ abstract class LP_Abstract_Post_Type {
 						$message = $('<p class="learn-press-notice-assigned-item"></p>').html(isAssigned),
 						currentStatus = $postStatus.val();
 
-					(currentStatus === 'publish') && isAssigned && $postStatus.on('change', function() {
+					(currentStatus === 'publish') && isAssigned && $postStatus.on('change', function () {
 						if (this.value !== 'publish') {
 							$message.insertBefore($('#post-status-select'));
 						} else {
@@ -467,6 +542,7 @@ abstract class LP_Abstract_Post_Type {
 	 * Maybe remove assigned item
 	 *
 	 * @param WP_Post $post
+	 *
 	 * @editor tungnx
 	 * @todo Review and move to place correct
 	 */
@@ -543,7 +619,7 @@ abstract class LP_Abstract_Post_Type {
 	 * Ouput meta boxes.
 	 *
 	 * @param WP_Post $post
-	 * @param mixed   $box
+	 * @param mixed $box
 	 */
 	public function _do_output_meta_box( $post, $box ) {
 		$callback = $this->_meta_boxes[ $box['id'] ][2];
@@ -632,10 +708,13 @@ abstract class LP_Abstract_Post_Type {
 	 *
 	 * @return bool
 	 */
-	public function _check_post():bool {
+	public function _check_post(): bool {
 		global $pagenow, $post_type;
 
-		if ( ! is_admin() || ( ! in_array( $pagenow, array( 'edit.php', 'post.php' ) ) ) || ( $this->_post_type != $post_type ) ) {
+		if ( ! is_admin() || ( ! in_array( $pagenow, array(
+				'edit.php',
+				'post.php'
+			) ) ) || ( $this->_post_type != $post_type ) ) {
 			return false;
 		}
 
@@ -649,25 +728,25 @@ abstract class LP_Abstract_Post_Type {
 	 *
 	 * @return bool
 	 * @since 4.1.6.9
-	 * @version 1.0.0
+	 * @version 1.0.1
 	 */
-	public function check_post( int $post_id = 0 ):bool {
+	public function check_post( int $post_id = 0 ): bool {
 		$can_save = true;
 
 		try {
 			$post = get_post( $post_id );
 			if ( ! $post ) {
-				throw new Exception( 'Post is invalid' );
+				return false;
 			}
 
 			if ( $this->_post_type !== $post->post_type ) {
-				throw new Exception( 'Post type is invalid' );
+				//throw new Exception( 'Post type is invalid' );
+				return false;
 			}
 
-			if ( ! current_user_can( ADMIN_ROLE ) ) {
-				if ( get_current_user_id() !== $post->post_author ) {
-					$can_save = false;
-				}
+			if ( ! current_user_can( ADMIN_ROLE ) &&
+				 get_current_user_id() !== (int) $post->post_author ) {
+				$can_save = false;
 			}
 
 			$can_save = apply_filters( 'lp/custom-post-type/can-save', $can_save, $post );
@@ -683,7 +762,7 @@ abstract class LP_Abstract_Post_Type {
 	 *
 	 * @return bool
 	 */
-	protected function is_page_list_posts_on_backend():bool {
+	protected function is_page_list_posts_on_backend(): bool {
 		global $pagenow, $post_type;
 
 		if ( ! is_admin() || $pagenow != 'edit.php' || ( $this->_post_type != $post_type ) ) {
@@ -696,9 +775,8 @@ abstract class LP_Abstract_Post_Type {
 	/**
 	 * New Metabox instance
 	 *
-	 * @author Nhamdv
-	 *
 	 * @return void
+	 * @author Nhamdv
 	 */
 	public function meta_boxes() {
 		return array();
@@ -707,9 +785,8 @@ abstract class LP_Abstract_Post_Type {
 	/**
 	 * Render Metabox.
 	 *
-	 * @author Nhamdv
-	 *
 	 * @return void
+	 * @author Nhamdv
 	 */
 	public function render_meta_box() {
 		$add_meta_box = $this->meta_boxes();
@@ -759,16 +836,14 @@ abstract class LP_Abstract_Post_Type {
 			$meta_box[2] = array( $this, '_do_output_meta_box' );
 			call_user_func_array( 'add_meta_box', $meta_box );
 		}
-
 	}
 
 	/**
 	 * Filter item by the course selected.
 	 *
-	 * @since 3.0.7
-	 *
 	 * @return bool|int
 	 * @Todo move to course LP_Course_Post_Type
+	 * @since 3.0.7
 	 */
 	protected function _filter_items_by_course() {
 		$course_id = ! empty( $_REQUEST['course'] ) ? absint( $_REQUEST['course'] ) : false;
@@ -893,7 +968,8 @@ abstract class LP_Abstract_Post_Type {
 	 * Show actions on list post
 	 *
 	 * @param string[] $actions
-	 * @param WP_Post  $post
+	 * @param WP_Post $post
+	 *
 	 * @return array|false|mixed
 	 */
 	public function _post_row_actions( $actions, $post ) {
@@ -962,7 +1038,7 @@ abstract class LP_Abstract_Post_Type {
 
 			$preview_permalink = learn_press_get_preview_url( $post->ID );
 
-			$preview_link                       = sprintf( ' <a target="_blank" href="%s">%s</a>', esc_url_raw( $preview_permalink ), sprintf( '%s %s', __( 'Preview', 'learnpress' ), $post_type_object->labels->singular_name ) );
+			$preview_link                      = sprintf( ' <a target="_blank" href="%s">%s</a>', esc_url_raw( $preview_permalink ), sprintf( '%s %s', __( 'Preview', 'learnpress' ), $post_type_object->labels->singular_name ) );
 			$messages[ $this->_post_type ][8]  .= $preview_link;
 			$messages[ $this->_post_type ][10] .= $preview_link;
 		}

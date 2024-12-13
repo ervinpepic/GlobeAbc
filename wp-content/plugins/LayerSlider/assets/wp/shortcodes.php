@@ -5,7 +5,6 @@ defined( 'LS_ROOT_FILE' ) || exit;
 
 $GLOBALS['lsLoadPlugins'] 	= [];
 $GLOBALS['lsLoadIcons'] 	= [];
-$GLOBALS['lsLoadedFonts'] 	= [];
 
 function layerslider( $id = 0, $filters = '', $options = [] ) {
 
@@ -352,6 +351,7 @@ class LS_Shortcode {
 		// Slider and markup data
 		$id 			= $slider['id'];
 		$sliderID 		= 'layerslider_'.$id;
+		$sliderSlug 	= $slider['slug'];
 		$slides 		= $slider['data'];
 
 		// Store generated output
@@ -457,3 +457,23 @@ class LS_Shortcode {
 				</div>';
 	}
 }
+
+
+add_action('init', function() {
+	if( ! shortcode_exists('ls_search_form')) {
+		add_shortcode('ls_search_form', function( $args = [] ) {
+
+			$args['reader'] 		= ! empty( $args['reader'] ) ? esc_html( $args['reader'] ) : _x( 'Search for:', 'label' );
+			$args['placeholder'] 	= ! empty( $args['placeholder'] ) ? esc_attr( $args['placeholder'] ) : esc_attr_x('Search &hellip;', 'Search form input placeholder text', 'LayerSlider');
+			$args['button'] 		= ! empty( $args['button'] ) ? esc_attr( $args['button'] ) : esc_attr_x( 'Search', 'submit button' );
+
+			return '<form role="search" method="get" id="searchform" class="search-form ls-search-form" action="'.esc_url( home_url( '/' ) ).'">
+				<label>
+					<span class="screen-reader-text">'.$args['reader'].'</span>
+					<input type="search" class="search-field" placeholder="'.$args['placeholder'].'" value="'.get_search_query().'" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="'.$args['button'].'">
+			</form>';
+		});
+	}
+});

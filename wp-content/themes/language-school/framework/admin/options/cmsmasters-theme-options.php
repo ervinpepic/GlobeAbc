@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.2.2
+ * @version 	1.3.5
  * 
  * Post, Page, Project, Profile, Course Options
  * Created by CMSMasters
@@ -534,7 +534,7 @@ function show_cmsmasters_meta_box() {
 			
 			break;
 		case 'rgba':
-			echo '<input type="text" id="' . $field['id'] . '" name="' . $field['id'] . '" value="' . $meta . '" class="my-color-field cmsmasters-rgba" data-default-color="' . $field['std'] . '" data-alpha="true" data-reset-alpha="true" />' . 
+			echo '<input type="text" id="' . $field['id'] . '" name="' . $field['id'] . '" value="' . $meta . '" class="my-color-field cmsmasters-rgba" data-default-color="' . $field['std'] . '" data-alpha-enabled="true" data-alpha-reset="true" />' . 
 			'<br />' . 
 			'<span class="description">' . $field['desc'] . '</span>' . 
 			'<script type="text/javascript"> ' . 
@@ -585,11 +585,11 @@ function show_cmsmasters_meta_box() {
 				'<span class="icon_upload_link" style="display:none;">' . 
 					'<label for="new_icon_color">' . 
 						'<span class="cmsmasters_col_label">' . esc_html__('Icon Color', 'language-school') . '</span>' . 
-						'<input class="cmsmasters-color-field" type="text" id="new_icon_color" value="" data-default-color="" data-alpha="true" data-reset-alpha="true" /> ' . 
+						'<input class="cmsmasters-color-field" type="text" id="new_icon_color" value="" data-default-color="" data-alpha-enabled="true" data-alpha-reset="true" /> ' . 
 					'</label>' . 
 					'<label for="new_icon_hover">' . 
 						'<span class="cmsmasters_col_label">' . esc_html__('Icon Hover Color', 'language-school') . '<br /><em>' . esc_html__('if not selected - Icon Color will be used', 'language-school') . '</em></span>' . 
-						'<input class="cmsmasters-color-field" type="text" id="new_icon_hover" value="" data-default-color="" data-alpha="true" data-reset-alpha="true" /> ' . 
+						'<input class="cmsmasters-color-field" type="text" id="new_icon_hover" value="" data-default-color="" data-alpha-enabled="true" data-alpha-reset="true" /> ' . 
 					'</label>' . 
 					'<label for="new_icon_link">' . 
 						'<input class="all-options" type="text" id="new_icon_link" /> ' . 

@@ -49,7 +49,7 @@ class Upgrade extends Modules {
 	 */
 	public function init() {
 		add_action( 'admin_init', array( $this, 'migrate' ) );
-		$this->add_migration_notice();
+		add_action( 'admin_init', array( $this, 'add_migration_notice' ) );
 		add_action( 'admin_init', array( $this, 'revert' ) );
 	}
 
@@ -308,6 +308,7 @@ class Upgrade extends Modules {
 		$config['config']['notice']['styles']['border-color']                     = $border_color;
 		$config['config']['notice']['elements']['title']['styles']['color']       = $color;
 		$config['config']['notice']['elements']['description']['styles']['color'] = $color;
+		$config['config']['notice']['elements']['closeButton']['status'] = has_shortcode( $settings['notify_message'], 'cookie_close' );
 
 		$config['config']['preferenceCenter']['styles']['background-color'] = $background_color;
 		$config['config']['preferenceCenter']['styles']['border-color']     = $border_color;

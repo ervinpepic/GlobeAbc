@@ -11,6 +11,9 @@
 /**
  * Prevent loading this file directly
  */
+
+use LearnPress\Models\UserItems\UserCourseModel;
+
 defined( 'ABSPATH' ) || exit();
 
 if ( ! class_exists( 'LP_Abstract_User' ) ) {
@@ -80,7 +83,6 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 			if ( $this->get_id() > 0 ) {
 				$this->load();
 			}
-
 		}
 
 		/**
@@ -113,10 +115,11 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 					throw new Exception( 'User is Guest' );
 				}*/
 
-				$filter           = new LP_User_Items_Filter();
-				$filter->item_id  = $course_id;
-				$filter->user_id  = $this->get_id();
-				$last_user_course = $lp_user_items_db->get_last_user_course( $filter );
+				$filter            = new LP_User_Items_Filter();
+				$filter->item_id   = $course_id;
+				$filter->item_type = LP_COURSE_CPT;
+				$filter->user_id   = $this->get_id();
+				$last_user_course  = $lp_user_items_db->get_last_user_course( $filter );
 
 				if ( $last_user_course ) {
 					$object_course_data = new LP_User_Item_Course( $last_user_course );
@@ -133,6 +136,26 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 			}
 
 			return $object_course_data;
+		}
+
+		/**
+		 * Get course attend of user not Guest.
+		 * Replace get_course_data method.
+		 *
+		 * @param int $course_id
+		 * @return false|UserCourseModel
+		 * @since 4.2.5
+		 * @version 1.0.1
+		 */
+		public function get_course_attend( int $course_id = 0 ) {
+			if ( $this instanceof LP_User_Guest ) {
+				return false;
+			}
+
+			$filter          = new LP_User_Items_Filter();
+			$filter->item_id = $course_id;
+			$filter->user_id = $this->get_id();
+			return UserCourseModel::get_user_item_model_from_db( $filter );
 		}
 
 		/**
@@ -525,56 +548,6 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		}
 
 		/**
-		 * Mark question that user has checked.
-		 *
-		 * @param int $question_id
-		 * @param int $quiz_id
-		 * @param int $course_id
-		 *
-		 * @return WP_Error|mixed
-		 * @since 3.0.0
-		 */
-		public function hint( $question_id, $quiz_id, $course_id ) {
-			$course = learn_press_get_course( $course_id );
-			if ( ! $course ) {
-				return false;
-			}
-
-			if ( ! $course->has_item( $quiz_id ) ) {
-				return false;
-			}
-
-			/**
-			 * @var $quiz LP_Quiz
-			 */
-			$quiz = $course->get_item( $quiz_id );
-			if ( ! $quiz instanceof LP_Course_Item_Quiz ) {
-				return false;
-			}
-
-			if ( ! $quiz->has_question( $question_id ) ) {
-				return false;
-			}
-
-			$quiz_data = $this->get_item_data( $quiz_id, $course_id );
-			$remain    = $quiz_data->hint( $question_id );
-			if ( false === $remain ) {
-				return new WP_Error( 1001, __( 'You can not hint at the question.', 'learnpress' ) );
-			}
-
-			return $remain;
-		}
-
-		public function get_quiz_last_results( $quiz_id ) {
-			$results = $this->get_course_info( $quiz_id );
-			if ( $results ) {
-				$results = reset( $results );
-			}
-
-			return apply_filters( 'learn_press_user_quiz_last_results', $results, $quiz_id, $this );
-		}
-
-		/**
 		 * Check if user has at least one role.
 		 *
 		 * @param array|string $roles
@@ -608,28 +581,6 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 			return $is;
 		}
 
-		/**
-		 *
-		 * Check what the user can do
-		 *
-		 * @param $role
-		 *
-		 * @return mixed
-		 * @throws Exception
-		 */
-		public function can( $role ) {
-			_deprecated_function( __FUNCTION__, '3.0.8' );
-			$args = func_get_args();
-			unset( $args[0] );
-			$method   = 'can_' . preg_replace( '!-!', '_', $role );
-			$callback = array( $this, $method );
-			if ( is_callable( $callback ) ) {
-				return call_user_func_array( $callback, $args );
-			} else {
-				throw new Exception( sprintf( __( 'The role %s for the user doesn\'t exist', 'learnpress' ), $role ) );
-			}
-		}
-
 		public function can_edit_item( $item_id, $course_id = 0 ) {
 			$return = $this->is_admin();
 
@@ -643,22 +594,6 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 			}
 
 			return apply_filters( 'learn_press_user_can_edit_item', $return, $item_id, $course_id, $this->get_id() );
-		}
-
-		/**
-		 * Check if user can finish course by getting current progress
-		 * and compares with course passing condition.
-		 *
-		 * @param int $course_id
-		 *
-		 * @return bool
-		 * @editor tungnx
-		 * @modify 4.1.3
-		 */
-		public function can_finish_course( int $course_id ) {
-			_deprecated_function( __FUNCTION__, '4.1.3', 'is_course_finished' );
-
-			return true;
 		}
 
 		/**
@@ -765,20 +700,6 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 */
 		public function is_author_of( $post_id ) {
 			return absint( get_post_field( 'post_author', $post_id ) ) === $this->get_id();
-		}
-
-		public function has( $role ) {
-			_deprecated_function( __FUNCTION__, '3.0.8' );
-
-			$args = func_get_args();
-			unset( $args[0] );
-			$method   = 'has_' . preg_replace( '!-!', '_', $role );
-			$callback = array( $this, $method );
-			if ( is_callable( $callback ) ) {
-				return call_user_func_array( $callback, $args );
-			} else {
-				throw new Exception( sprintf( __( 'The role %s for the user doesn\'t exist', 'learnpress' ), $role ) );
-			}
 		}
 
 		public function get( $role ) {
@@ -1014,29 +935,6 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		}
 
 		/**
-		 * Get the remaining time of a course for the user.
-		 *
-		 * @param int $course_id
-		 *
-		 * @return bool|int|string
-		 * @deprecated 4.1.7.3
-		 */
-		public function get_course_remaining_time( $course_id ) {
-			_deprecated_function( __FUNCTION__, '4.1.7.3' );
-			/*$course = learn_press_get_course( $course_id );
-			$remain = false;
-
-			if ( $course && $course->get_id() ) {
-				$course_data = $this->get_course_data( $course_id, true );
-				if ( $course_data ) {
-					$remain = $course_data->is_exceeded();
-				}
-			}
-
-			return $remain > 0 ? learn_press_seconds_to_weeks( $remain ) : false;*/
-		}
-
-		/**
 		 * Get the order that contains the course.
 		 *
 		 * @param int $course_id
@@ -1080,58 +978,6 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		}
 
 		/**
-		 * @param      $question_id
-		 * @param null $quiz_id
-		 *
-		 * @return bool
-		 */
-		public function get_answer_results( $question_id, $quiz_id = null ) {
-
-			_deprecated_function( __CLASS__ . '::' . __FUNCTION__, '3.0.0' );
-
-			$data = false;
-			if ( ! $quiz_id ) {
-				$quiz_id = $this->get_quiz_by_question( $question_id );
-			}
-			if ( $quiz_id ) {
-				$question = LP_Question::get_question( $question_id );
-
-				if ( $question ) {
-					$quiz_results = $this->get_quiz_results( $quiz_id );
-					if ( ! empty( $quiz_results->question_answers ) ) {
-						$question_answer = array_key_exists(
-							$question_id,
-							$quiz_results->question_answers
-						) ? $quiz_results->question_answers[ $question_id ] : null;
-						$data            = $question->check( $question_answer );
-					}
-				}
-			}
-
-			return $data;
-		}
-
-		/**
-		 * @param      $question_id
-		 * @param null $quiz_id
-		 *
-		 * @return bool
-		 */
-		public function is_answered_question( $question_id, $quiz_id = null ) {
-			if ( empty( $this->answered_questions ) ) {
-				$this->answered_questions = array();
-			}
-			if ( ! $quiz_id ) {
-				$quiz_id = $this->get_quiz_by_question( $question_id );
-			}
-
-			$results  = $this->get_quiz_results( $quiz_id );
-			$answered = ! empty( $results->question_answers ) ? $results->question_answers : array();
-
-			return $answered ? array_key_exists( $question_id, $answered ) : false;
-		}
-
-		/**
 		 * @return array
 		 */
 		public function get_roles() {
@@ -1153,23 +999,6 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 			$quiz_data = $this->get_item_data( $quiz_id, $course_id );
 
 			return $quiz_data ? $quiz_data->has_checked_question( $question_id ) : false;
-		}
-
-		/**
-		 * @param     $question_id
-		 * @param     $quiz_id
-		 * @param int $course_id
-		 *
-		 * @return bool
-		 */
-		public function has_hinted_answer( $question_id, $quiz_id, $course_id = 0 ) {
-			if ( ! $course_id ) {
-				$course_id = get_the_ID();
-			}
-
-			$quiz_data = $this->get_item_data( $quiz_id, $course_id );
-
-			return $quiz_data ? $quiz_data->has_hinted_question( $question_id ) : false;
 		}
 
 		/**
@@ -1198,8 +1027,28 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 *
 		 * @return string
 		 */
-		public function get_upload_profile_src( $size = '' ) {
-			return LP_Profile::instance( $this->get_id() )->get_upload_profile_src( $size );
+		public function get_upload_profile_src() {
+			return LP_Profile::instance( $this->get_id() )->get_upload_profile_src();
+		}
+
+		/**
+		 * Get profile avatar url
+		 *
+		 * @return string
+		 * @since 4.2.7.2
+		 * @version 1.0.0
+		 */
+		public function get_profile_avatar_url(): string {
+			$avatar_url = $this->get_upload_profile_src();
+			if ( empty( $avatar_url ) ) {
+				$args       = learn_press_get_avatar_thumb_size();
+				$avatar_url = get_avatar_url( $this->get_id(), $args );
+				if ( empty( $avatar_url ) ) {
+					$avatar_url = LP_PLUGIN_URL . 'assets/images/avatar-default.png';
+				}
+			}
+
+			return $avatar_url;
 		}
 
 		/**
@@ -1215,9 +1064,11 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 
 		/**
 		 * Get links socials of use on Profile page
+		 * Icon is font awesome
 		 *
 		 * @param int $user_id
 		 * @return array
+		 * @deprecated 4.2.3
 		 */
 		public function get_profile_socials( int $user_id = 0 ): array {
 			$socials    = array();
@@ -1231,19 +1082,72 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 
 					switch ( $k ) {
 						case 'facebook':
-							$i = '<i class="fab fa-facebook-f"></i>';
+							$i = '<i class="lp-icon-facebook-f"></i>';
 							break;
 						case 'twitter':
-							$i = '<i class="fab fa-twitter"></i>';
+							$i = '<i class="lp-icon-twitter"></i>';
 							break;
 						case 'googleplus':
-							$i = '<i class="fab fa-google-plus-g"></i>';
+							$i = '<i class="lp-icon-google-plus"></i>';
 							break;
 						case 'youtube':
-							$i = '<i class="fab fa-youtube"></i>';
+							$i = '<i class="lp-icon-youtube-play"></i>';
+							break;
+						case 'linkedin':
+							$i = '<i class="lp-icon-linkedin"></i>';
 							break;
 						default:
-							$i = sprintf( '<i class="fab fa-%s"></i>', $k );
+							$i = sprintf( '<i class="lp-icon-%s"></i>', $k );
+					}
+
+					$icon          = apply_filters(
+						'learn-press/user-profile-social-icon',
+						$i,
+						$k,
+						$this->get_id(),
+						$this
+					);
+					$socials[ $k ] = sprintf( '<a href="%s">%s</a>', esc_url_raw( $v ), $icon );
+				}
+			}
+
+			return apply_filters( 'learn-press/user-profile-socials', $socials, $this->get_id(), $this );
+		}
+
+		/**
+		 * Get links socials of use on Profile page
+		 * Icon is svg
+		 *
+		 * @param int $user_id
+		 * @return array
+		 * @since 4.2.3
+		 * @version 1.0.0
+		 */
+		public function get_profile_social( int $user_id = 0 ): array {
+			$socials    = array();
+			$extra_info = learn_press_get_user_extra_profile_info( $user_id );
+
+			if ( $extra_info ) {
+				foreach ( $extra_info as $k => $v ) {
+					if ( empty( $v ) ) {
+						continue;
+					}
+
+					switch ( $k ) {
+						case 'facebook':
+ 							$i = '<i class="lp-user-ico lp-icon-facebook"></i>';
+							break;
+						case 'twitter':
+ 							$i = '<i class="lp-user-ico lp-icon-twitter"></i>';
+							break;
+						case 'linkedin':
+ 							$i = '<i class="lp-user-ico lp-icon-linkedin"></i>';
+							break;
+						case 'youtube':
+ 							$i = '<i class="lp-user-ico lp-icon-youtube-play"></i>';
+							break;
+						default:
+							$i = sprintf( '<i class="lp-user-ico lp-icon-%s"></i>', $k );
 					}
 
 					$icon          = apply_filters(
@@ -1271,7 +1175,7 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 			$user        = learn_press_get_user( $this->get_id() );
 			$user_course = $user->get_course_data( $course_id );
 
-			return  $user_course && LP_COURSE_GRADUATION_IN_PROGRESS === $user_course->get_graduation();
+			return $user_course && LP_COURSE_GRADUATION_IN_PROGRESS === $user_course->get_graduation();
 		}
 
 		/**
@@ -1315,8 +1219,15 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 			return $course_results['completed_items'] >= $course->count_items();
 		}
 
+		/**
+		 * Get role of user.
+		 *
+		 * @return string
+		 * @since 3.0.0
+		 * @version 1.0.1
+		 */
 		public function get_role() {
-			return $this->is_admin() ? 'admin' : ( $this->is_instructor() ? 'instructor' : 'user' );
+			return $this->get_data( 'role' );
 		}
 
 		/**
@@ -1347,7 +1258,7 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 * @return bool
 		 */
 		public function is_guest(): bool {
-			return ! $this->get_id() || ! get_user_by( 'id', $this->get_id() );
+			return $this instanceof LP_User_Guest;
 		}
 
 		/**
@@ -1389,7 +1300,7 @@ if ( ! class_exists( 'LP_Abstract_User' ) ) {
 		 * @return string
 		 */
 		public function get_description(): string {
-			return $this->get_data( 'description', '' );
+			return get_the_author_meta( 'description', $this->get_id() );
 		}
 
 		/**

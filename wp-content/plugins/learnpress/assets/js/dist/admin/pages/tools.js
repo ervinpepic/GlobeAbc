@@ -359,13 +359,13 @@ const upgradeDB = () => {
   const elStatusUpgrade = elToolUpgradeDB.find('.wrapper-lp-status-upgrade');
   const elWrapperUpgradeMessage = elToolUpgradeDB.find('.wrapper-lp-upgrade-message');
   let checkValidBeforeUpgrade = null;
+  const elMessageUpgrading = $('input[name=message-when-upgrading]').val();
   if (elWrapperTermsUpgrade.length) {
     // Show Terms Upgrade.
     _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].setContentModal(elWrapperTermsUpgrade.html());
     const elTermUpdate = _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elLPOverlay.find('.terms-upgrade');
     const elLPAgreeTerm = elTermUpdate.find('input[name=lp-agree-term]');
     const elTermMessage = elTermUpdate.find('.error');
-    const elMessageUpgrading = $('input[name=message-when-upgrading]').val();
     checkValidBeforeUpgrade = function () {
       elTermMessage.hide();
       elTermMessage.removeClass('learn-press-message');
@@ -374,7 +374,6 @@ const upgradeDB = () => {
           agree_terms: 1
         }, {});
         _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elFooter.find('.learn-press-notice').remove();
-        _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elFooter.prepend('<span class="learn-press-notice">' + elMessageUpgrading + '</span>');
         _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].setContentModal(elStatusUpgrade.html());
         return true;
       }
@@ -395,10 +394,15 @@ const upgradeDB = () => {
   _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].setTitleModal(elToolUpgradeDB.find('h2').html());
   _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnYes.text('Upgrade');
   _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnYes.show();
-  _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnNo.text('close');
-  _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].callBackYes = function () {
+  _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnNo.text('Cancel');
+  _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].callBackYes = function (e) {
     if (!checkValidBeforeUpgrade()) {
       return;
+    }
+    const target = e.target;
+    // Show message note when upgrading.
+    if (target.innerText === 'Upgrade') {
+      _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elFooter.prepend('<span class="learn-press-notice">' + elMessageUpgrading + '</span>');
     }
     isUpgrading = 1;
     _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnYes.hide();
@@ -465,6 +469,7 @@ const upgradeDB = () => {
             _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].setContentModal(elWrapperUpgradeMessage.html());
           }, 1000);
           _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elFooter.find('.learn-press-notice').remove();
+          _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnNo.text('Close');
           _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnNo.show();
           _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elBtnNo.on('click', () => {
             window.location.reload();
@@ -605,8 +610,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
 /**
  * Reset course progress.
@@ -736,25 +741,25 @@ const ResetCourse = () => {
     }
     setMessage(notice);
   };
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, __('Reset course progress', 'learnpress')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, __('Reset Course Progress', 'learnpress')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "description"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, __('This action will reset progress of a course for all users have enrolled.', 'learnpress')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, __('Search results only show course have user data.', 'learnpress')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(TextControl, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, __('This action will reset course progress of all users who have enrolled.', 'learnpress')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, __('Search results only show if courses have user data.', 'learnpress')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(TextControl, {
     placeholder: __('Search course by name', 'learnpress'),
     value: search,
     onChange: value => setSearch(value),
     style: {
       width: 300
     }
-  }))), loading && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(Spinner, null), data.length > 0 && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }))), loading && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Spinner, null), data.length > 0 && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "lp-reset-course_progress",
     style: {
       border: '1px solid #eee'
     }
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     style: {
       background: '#eee'
     }
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(CheckboxControl, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(CheckboxControl, {
     checked: checkData.length === data.length,
     onChange: () => {
       if (checkData.length === data.length) {
@@ -766,23 +771,23 @@ const ResetCourse = () => {
     style: {
       margin: 0
     }
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, __('ID', 'learnpress')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, __('Name', 'learnpress')), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, __('Students', 'learnpress')))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, __('ID', 'learnpress')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, __('Name', 'learnpress')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, __('Students', 'learnpress')))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     style: {
       height: '100%',
       maxHeight: 200,
       overflow: 'auto'
     }
   }, data.map(dt => {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       style: {
         borderTop: '1px solid #eee'
       },
       key: dt.id
-    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(CheckboxControl, {
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(CheckboxControl, {
       checked: checkData.includes(dt.id),
       onChange: () => checkItems(dt.id)
-    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, "#", dt.id), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, dt.title), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, dt.students));
-  }))), loadingReset ? (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(Spinner, null) : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(Button, {
+    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, "#", dt.id), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, dt.title), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, dt.students));
+  }))), loadingReset ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Spinner, null) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Button, {
     isPrimary: true,
     onClick: () => resetCourse(),
     style: {
@@ -790,12 +795,12 @@ const ResetCourse = () => {
       height: 30
     }
   }, __('Reset now', 'learnpress'))), message.length > 0 && message.map((mess, index) => {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(Notice, {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Notice, {
       status: mess.status,
       key: index,
       isDismissible: false
     }, mess.message);
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("style", null, '\
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("style", null, '\
 				.lp-reset-course_progress .components-base-control__field {\
 					margin: 0;\
 				}\
@@ -827,14 +832,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _course__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./course */ "./assets/src/apps/js/admin/pages/tools/reset-data/course.js");
 
 
 const resetData = () => {
   if (document.querySelectorAll('#learn-press-reset-course-users').length > 0) {
-    wp.element.render((0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_course__WEBPACK_IMPORTED_MODULE_1__["default"], null), [...document.querySelectorAll('#learn-press-reset-course-users')][0]);
+    wp.element.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_course__WEBPACK_IMPORTED_MODULE_1__["default"], null), [...document.querySelectorAll('#learn-press-reset-course-users')][0]);
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (resetData);
@@ -917,7 +922,7 @@ const lpModalOverlay = {
       e.preventDefault();
       e.stopPropagation();
       if ('function' === typeof lpModalOverlay.callBackYes) {
-        lpModalOverlay.callBackYes();
+        lpModalOverlay.callBackYes(e);
       }
     });
     this.instance = this;
@@ -940,13 +945,13 @@ const lpModalOverlay = {
 
 /***/ }),
 
-/***/ "@wordpress/element":
-/*!*********************************!*\
-  !*** external ["wp","element"] ***!
-  \*********************************/
+/***/ "react":
+/*!************************!*\
+  !*** external "React" ***!
+  \************************/
 /***/ ((module) => {
 
-module.exports = window["wp"]["element"];
+module.exports = window["React"];
 
 /***/ })
 
@@ -1019,8 +1024,6 @@ module.exports = window["wp"]["element"];
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
 /*!*************************************************!*\
   !*** ./assets/src/apps/js/admin/pages/tools.js ***!
   \*************************************************/
@@ -1122,17 +1125,27 @@ __webpack_require__.r(__webpack_exports__);
     e.preventDefault();
     $('.lp-install-sample__options').toggleClass('hide-if-js');
   };
+  const formatValueInput = e => {
+    const input = $(e.target);
+    let value = input.val();
+    value = value.replace(/[^0-9]/g, '');
+    input.val(value);
+    if (parseInt(value, 10) < input.attr('min')) {
+      input.val(input.attr('min'));
+    }
+    if (parseInt(value, 10) > input.attr('max')) {
+      input.val(input.attr('max'));
+    }
+  };
   $(function () {
     (0,_tools_database_upgrade__WEBPACK_IMPORTED_MODULE_0__["default"])();
     (0,_tools_database_create_indexs__WEBPACK_IMPORTED_MODULE_1__["default"])();
     (0,_tools_database_re_upgrade_db__WEBPACK_IMPORTED_MODULE_2__["default"])();
     (0,_tools_reset_data__WEBPACK_IMPORTED_MODULE_4__["default"])();
     (0,_tools_database_clean_database__WEBPACK_IMPORTED_MODULE_3__["default"])();
-    $doc.on('click', '.lp-install-sample__install', installSampleCourse).on('click', '.lp-install-sample__uninstall', uninstallSampleCourse).on('click', '#learn-press-clear-cache', clearHardCache).on('click', 'input[name="enable_hard_cache"]', toggleHardCache).on('click', '.lp-install-sample__toggle-options', toggleOptions);
+    $doc.on('click', '.lp-install-sample__install', installSampleCourse).on('click', '.lp-install-sample__uninstall', uninstallSampleCourse).on('click', '#learn-press-clear-cache', clearHardCache).on('click', 'input[name="enable_hard_cache"]', toggleHardCache).on('click', '.lp-install-sample__toggle-options', toggleOptions).on('change', 'input[name="section-range[]"]', formatValueInput).on('change', 'input[name="item-range[]"]', formatValueInput).on('change', 'input[name="question-range[]"]', formatValueInput).on('change', 'input[name="answer-range[]"]', formatValueInput).on('change', 'input[name="course-price"]', formatValueInput);
   });
 })(jQuery);
-})();
-
 /******/ })()
 ;
 //# sourceMappingURL=tools.js.map

@@ -9,13 +9,15 @@
  * @version  4.0.1
  */
 
+use LearnPress\Helpers\Template;
+
 defined( 'ABSPATH' ) || exit();
 
 $profile = LP_Profile::instance();
 
 $query_orders = $profile->query_orders( array( 'fields' => 'ids' ) );
 if ( ! $query_orders->get_items() ) {
-	learn_press_display_message( __( 'No orders!', 'learnpress' ) );
+	Template::print_message( __( 'No orders!', 'learnpress' ), 'info' );
 	return;
 }
 ?>
@@ -69,7 +71,7 @@ if ( ! $query_orders->get_items() ) {
 
 	<tfoot>
 		<tr class="list-table-nav">
-			<td colspan="2" class="nav-text"><?php echo esc_html( $query_orders->get_offset_text() ); ?></td>
+			<td colspan="3" class="nav-text"><?php echo esc_html( $query_orders->get_offset_text() ); ?></td>
 			<td colspan="2" class="nav-pages"><?php $query_orders->get_nav_numbers( true ); ?></td>
 		</tr>
 	</tfoot>

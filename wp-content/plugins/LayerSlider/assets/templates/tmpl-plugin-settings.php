@@ -3,7 +3,8 @@
 defined( 'LS_ROOT_FILE' ) || exit;
 
 $custom_capability = $custom_role = get_option('layerslider_custom_capability', 'manage_options');
-$gdpr_google_fonts = get_option('layerslider-google-fonts-enabled', true );
+$ls_google_fonts_enabled = get_option('layerslider-google-fonts-enabled', true );
+$ls_google_fonts_host_locally = get_option('layerslider-google-fonts-host-locally', false );
 $custom_locale = get_option('ls_custom_locale', 'auto' );
 
 $default_capabilities = [
@@ -146,15 +147,31 @@ $googleFonts = get_option( 'ls-google-fonts', [] );
 							</td>
 							<td>
 								<?= lsGetSwitchControl([
-									'name' => 'ls_gdpr_goole_fonts',
-									'checked' => $gdpr_google_fonts,
-									'data-warning-disable' => __("Many of our importable project templates use and rely on Google Fonts. If you disable this feature, you may not be able to add custom fonts and it might compromise the appearance of textual content in projects. \n\n Are you sure you want to disable Google Fonts?", 'LayerSlider')
+									'name' => 'ls_google_fonts_status',
+									'checked' => $ls_google_fonts_enabled,
+
+									// TODO: Add this back later: <br><br> <b>To comply with GDPR, you can host fonts from a local cache by turning on the “Host Fonts Locally” switch.</b>
+									'data-warning-disable' => __("Many of our importable project templates use and rely on Google Fonts. If you turn off this feature, you may be unable to add custom fonts, and the appearance of textual content might be compromised in projects. <br><br> Are you sure you want to disable Google Fonts?", 'LayerSlider')
 								])?>
 							</td>
 							<td>
 								<?= __('Making the web more beautiful, fast, and open through great typography. Google Fonts provides over a thousand of web-optimized fonts that you can use in your projects.', 'LayerSlider') ?>
 							</td>
 						</tr>
+						<!-- <tr class="ls-show-if-google-fonts-enabled">
+							<td>
+								<?= __('Host Fonts Locally', 'LayerSlider') ?>
+							</td>
+							<td>
+							<?= lsGetSwitchControl([
+									'name' => 'ls_google_fonts_local_cache',
+									'checked' => $ls_google_fonts_host_locally
+								])?>
+							</td>
+							<td>
+								<?= __('You can host fonts from a local cache to ensure full compliance with GDPR and EU regulations.', 'LayerSlider') ?>
+							</td>
+						</tr> -->
 					</table>
 
 
@@ -162,7 +179,7 @@ $googleFonts = get_option( 'ls-google-fonts', [] );
 					<div class="ls-show-if-google-fonts-enabled">
 						<div class="ls-notification-info solid">
 							<?= lsGetSVGIcon('info-circle') ?>
-							<?= __('Consider adding Google Fonts in the project editor for convenience and better performance. Fonts added here will be loaded globally, even if they aren’t used.', 'LayerSlider') ?>
+							<?= sprintf(__('Consider adding Google Fonts %sin the Project Editor%s for convenience and better performance. Fonts added here will be loaded globally, even if they aren’t used.', 'LayerSlider'), '<a href="https://layerslider.com/media/help/project-editor-google-fonts@2x.png" target="_blank">', '</a>') ?>
 						</div>
 
 						<ls-div class="ls--form-control">

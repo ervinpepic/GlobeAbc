@@ -21,7 +21,12 @@ class LP_Courses_Cache extends LP_Cache {
 	/**
 	 * @var string Save list keys cached to clear
 	 */
-	public static $keys = 'keys';
+	public static $keys              = 'keys';
+	const KEYS_QUERY_COURSES         = 'keys/query_courses';
+	const KEYS_QUERY_COURSES_APP     = 'keys/query_courses/app';
+	const KEYS_QUERY_TOTAL_COURSES   = 'keys/query_courses/total';
+	const KEYS_COUNT_COURSES_FREE    = 'keys/count_courses_free';
+	const KEYS_COUNT_STUDENT_COURSES = 'keys/count_student_courses';
 
 	/**
 	 * Get instance
@@ -36,17 +41,43 @@ class LP_Courses_Cache extends LP_Cache {
 		return self::$instance;
 	}
 
-	public function __construct() {
-		parent::__construct();
+	public function __construct( $has_thim_cache = false ) {
+		parent::__construct( $has_thim_cache );
 	}
 
-	public function save_cache_keys( string $key_cache ) {
-		$keys_cache = $this->get_cache( self::$keys );
-		if ( false === $keys_cache ) {
-			$keys_cache = array();
-		}
+	/**
+	 * Store list keys cache of query count courses free
+	 *
+	 * @param string $key_cache
+	 *
+	 * @since 4.2.5.4
+	 * @version 1.0.0
+	 */
+	public function save_cache_keys_count_courses_free( string $key_cache ) {
+		$this->save_cache_keys( self::KEYS_COUNT_COURSES_FREE, $key_cache );
+	}
 
-		$keys_cache[] = $key_cache;
-		$this->set_cache( self::$keys, $keys_cache );
+	/**
+	 * Store list keys cache of query count student of courses
+	 *
+	 * @param string $key_cache
+	 *
+	 * @since 4.2.5.4
+	 * @version 1.0.0
+	 */
+	public function save_cache_keys_count_student_courses( string $key_cache ) {
+		$this->save_cache_keys( self::KEYS_COUNT_STUDENT_COURSES, $key_cache );
+	}
+
+	/**
+	 * Store list keys cache query courses
+	 *
+	 * @param string $key_cache
+	 *
+	 * @since 4.2.5.4
+	 * @version 1.0.0
+	 */
+	public function save_cache_keys_query_courses( string $key_cache ) {
+		$this->save_cache_keys( self::KEYS_QUERY_COURSES, $key_cache );
 	}
 }

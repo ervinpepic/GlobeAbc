@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class LP_Forms_Handler
  *
@@ -234,6 +235,11 @@ class LP_Forms_Handler {
 	 */
 	public static function learnpress_create_new_customer( $email = '', $username = '', $password = '', $confirm_password = '', $args = array(), $update_meta = array() ) {
 		try {
+			$user_can_register = get_option( 'users_can_register' );
+			if ( ! $user_can_register ) {
+				throw new Exception( __( 'System WordPress does not allow register.', 'learnpress' ), 110 );
+			}
+
 			if ( empty( $email ) || ! is_email( $email ) ) {
 				throw new Exception( __( 'Please provide a valid email address.', 'learnpress' ), 101 );
 			}
@@ -280,7 +286,7 @@ class LP_Forms_Handler {
 			}
 
 			$custom_fields = LP_Settings::get_option( 'register_profile_fields', [] );
-			if ( $custom_fields && ! empty( $update_meta ) ) {
+			if ( ! empty( $custom_fields ) ) {
 				foreach ( $custom_fields as $field ) {
 					if ( $field['required'] === 'yes' && empty( $update_meta[ $field['id'] ] ) ) {
 						throw new Exception( $field['name'] . __( ' is required field.', 'learnpress' ), 109 );
@@ -301,6 +307,13 @@ class LP_Forms_Handler {
 					)
 				)
 			);
+
+			// Add hook registration_errors of WordPress
+			$errors = null;
+			$errors = apply_filters( 'registration_errors', $errors, $username, $email );
+			if ( is_wp_error( $errors ) ) {
+				throw new Exception( $errors->get_error_message() );
+			}
 
 			$customer_id = wp_insert_user( $new_customer_data );
 
@@ -346,9 +359,14 @@ class LP_Forms_Handler {
 				case 109:
 					$code_str = 'registration-custom-required-field';
 					break;
+				case 110:
+					$code_str = 'registration-not-allow';
+					break;
 				default:
+					$code_str = $e->getMessage();
 					break;
 			}
+
 			return new WP_Error( $code_str, $e->getMessage() );
 		}
 
@@ -377,11 +395,16 @@ class LP_Forms_Handler {
 			return new WP_Error( 'error_email', esc_html__( 'This email address is already registered.', 'learnpress' ) );
 		}
 
-		$custom_fields = LP_Settings::instance()->get( 'register_profile_fields' );
-
+		$custom_fields = LP_Profile::get_register_fields_custom();
 		if ( $custom_fields && ! empty( $update_meta ) ) {
 			foreach ( $custom_fields as $field ) {
-				if ( $field['required'] === 'yes' && empty( $update_meta[ $field['id'] ] ) ) {
+				if ( $field['required'] !== 'yes' ) {
+					continue;
+				}
+
+				$is_empty = empty( $update_meta[ $field['id'] ] );
+				$is_empty = apply_filters( 'learn-press/profile/update-register-custom-field/is-require', $is_empty, $field );
+				if ( $is_empty ) {
 					return new WP_Error( 'registration-custom-exists', $field['name'] . __( ' is required field.', 'learnpress' ) );
 				}
 			}

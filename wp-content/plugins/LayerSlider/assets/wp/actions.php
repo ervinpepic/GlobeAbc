@@ -263,6 +263,7 @@ add_action('init', function() {
 		add_action('wp_ajax_ls_get_taxonomies', 'ls_get_taxonomies');
 		add_action('wp_ajax_ls_upload_from_url', 'ls_upload_from_url');
 		add_action('wp_ajax_ls_store_opened', 'ls_store_opened');
+		add_action('wp_ajax_ls_addons_opened', 'ls_addons_opened');
 		add_action('wp_ajax_ls_create_slider_group', 'ls_create_slider_group');
 		add_action('wp_ajax_ls_add_slider_to_group', 'ls_add_slider_to_group');
 		add_action('wp_ajax_ls_rename_slider_group', 'ls_rename_slider_group');
@@ -271,18 +272,18 @@ add_action('init', function() {
 		add_action('wp_ajax_ls_download_module', 'ls_download_module');
 		add_action('wp_ajax_ls_get_revisions', 'ls_get_revisions');
 		add_action('wp_ajax_ls_save_revisions_options', 'ls_save_revisions_options');
+		add_action('wp_ajax_ls_delete_revisions', 'ls_delete_revisions');
 		add_action('wp_ajax_ls_save_transition_presets', 'ls_save_transition_presets');
 		add_action('wp_ajax_ls_download_object', 'ls_download_object');
 		add_action('wp_ajax_ls_assets_remote_download', 'ls_assets_remote_download');
 		add_action('wp_ajax_ls_assets_remote_search', 'ls_assets_remote_search');
-
-		add_action( 'wp_ajax_ls_get_popup_markup', 'ls_get_popup_markup' );
 	}
 
 	// ADMIN PUBLIC AJAX FUNCTIONS
 	add_action('wp_ajax_ls_slider_library_contents', 'ls_slider_library_contents');
 
-	// FRONT-END AJAX FUNCTIONS
+	// POPUP FUNCTIONS
+	add_action( 'wp_ajax_ls_get_popup_markup', 'ls_get_popup_markup' );
 	add_action( 'wp_ajax_nopriv_ls_get_popup_markup', 'ls_get_popup_markup' );
 });
 
@@ -302,8 +303,8 @@ function ls_save_transition_presets() {
 
 function ls_get_popup_markup() {
 
-	$id 	= (int) $_GET['id'];
-	$popup = LS_Sliders::find( $id );
+	$id 	= is_numeric( $_GET['id'] ) ? (int) $_GET['id'] : (string) $_GET['id'];
+	$popup 	= LS_Sliders::find( $id );
 
 	if( $popup ) {
 		$GLOBALS['lsAjaxOverridePopupSettings'] = true;
@@ -445,7 +446,17 @@ function ls_delete_slider_group() {
 
 // Template store last viewed
 function ls_store_opened() {
-	update_user_meta(get_current_user_id(), 'ls-store-last-viewed', date('Y-m-d'));
+	update_user_meta( get_current_user_id(), 'ls-store-last-viewed', date('Y-m-d'));
+	exit;
+}
+
+function ls_addons_opened() {
+
+	if( ! wp_verify_nonce( $_GET['nonce'], 'ls-dashboard-nonce') ) {
+		die( json_encode( [ 'success' => false ] ) );
+	}
+
+	update_user_meta( get_current_user_id(), 'ls-addons-last-version', LS_ADDONS_VERSION );
 	exit;
 }
 
@@ -680,7 +691,8 @@ function ls_save_plugin_settings() {
 	}
 
 	// Google Fonts
-	update_option('layerslider-google-fonts-enabled', (int) array_key_exists('ls_gdpr_goole_fonts', $_POST) );
+	update_option('layerslider-google-fonts-enabled', (int) array_key_exists('ls_google_fonts_status', $_POST) );
+	update_option('layerslider-google-fonts-host-locally', (int) array_key_exists('ls_google_fonts_local_cache', $_POST) );
 
 	// Scripts priority
 	update_option('ls_scripts_priority', (int)$_POST['scripts_priority']);
@@ -812,11 +824,10 @@ function ls_layer_action_popups() {
 
 	foreach( $popups as $key => $item) {
 		$popups[ $key ]['name'] 	= apply_filters('ls_slider_title', stripslashes( $item['name'] ), 40);
-		$popups[ $key ]['slug'] 	= ! empty( $item['slug'] ) ? htmlentities( $item['slug'] ) : '';
+		$popups[ $key ]['slug'] 	= ! empty( $item['slug'] ) ? htmlspecialchars( stripslashes( $item['slug'] ) ) : '';
 	}
 
-
-	return die( json_encode( $popups ) );
+	return die( json_encode( $popups, JSON_UNESCAPED_UNICODE ) );
 }
 
 
@@ -1031,11 +1042,30 @@ function ls_save_revisions_options() {
 	// Security check
 	check_admin_referer('ls-save-revisions-options');
 
-	update_option('ls-revisions-limit', (int) $_POST['ls-revisions-limit']);
-	update_option('ls-revisions-interval', (int) $_POST['ls-revisions-interval']);
+	$enabled = ! empty( $_POST['enabled'] );
+
+	update_option('ls-revisions-enabled', $enabled );
+	update_option('ls-revisions-limit', (int) $_POST['limit']);
+	update_option('ls-revisions-interval', (int) $_POST['interval']);
+
+	die( json_encode( [ 'status' => true, 'success' => true ] ) );
+}
+
+
+function ls_delete_revisions() {
+
+	// Security check
+	check_admin_referer('ls-save-revisions-options');
+
+	// Delete revisions
+	if( ! empty( $_POST['delete-all'] ) ) {
+		LS_Revisions::truncate();
+	}
+
 
 	die( json_encode( [ 'status' => true ] ) );
 }
+
 
 
 
@@ -1191,11 +1221,11 @@ function ls_import_online() {
 
 	$name 			= $_GET['name'];
 	$slider 		= urlencode( $_GET['slider'] );
-	$category 	= ! empty( $_GET['category'] ) ? urlencode( $_GET['category'] ) : '';
+	$category 		= ! empty( $_GET['category'] ) ? urlencode( $_GET['category'] ) : '';
 	$remoteURL 		= LS_REPO_BASE_URL.'sliders/download.php?slider='.$slider.'&collection='.$category;
-
-	$uploads 		= wp_upload_dir();
-	$downloadPath 	= $uploads['basedir'].'/lsimport.zip';
+	$fileName 		= sanitize_file_name( $slider );
+	$tmpFolder 		= LS_FileSystem::createUniqueTmpFolder( $fileName.'_zip' );
+	$downloadPath 	= $tmpFolder . '/'.$fileName.'.zip';
 
 	// Download package
 	$zip 			= $GLOBALS['LS_AutoUpdate']->sendApiRequest( $remoteURL );
@@ -1253,12 +1283,13 @@ function ls_import_online() {
 
 	// Load importUtil & import the slider
 	require_once LS_ROOT_PATH.'/classes/class.ls.importutil.php';
-	$import = new LS_ImportUtil( $downloadPath, null, $name );
+	$import = new LS_ImportUtil( $downloadPath, null, $name, true );
 	$id = $import->lastImportId;
 	$sliderCount = (int)$import->sliderCount;
 
 	// Remove package
-	unlink( $downloadPath );
+	LS_FileSystem::deleteDir( $tmpFolder );
+	LS_FileSystem::cleanupTmpFiles();
 
 	$url = admin_url('admin.php?page=layerslider&action=edit&id='.$id);
 

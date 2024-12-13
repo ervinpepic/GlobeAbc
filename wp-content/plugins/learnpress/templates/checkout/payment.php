@@ -24,7 +24,7 @@ defined( 'ABSPATH' ) || exit();
 		<h4>
 			<?php esc_html_e( 'Payment', 'learnpress' ); ?>
 			<span class="secure-connection">
-				<i class="fas fa-lock"></i>
+				<i class="lp-icon-lock"></i>
 				<?php echo esc_html_x( 'Secure Connection', 'payment method', 'learnpress' ); ?>
 			</span>
 		</h4>
@@ -71,9 +71,9 @@ defined( 'ABSPATH' ) || exit();
 		</button>
 
 		<?php
-		if ( is_user_logged_in() ) {
+		/*if ( is_user_logged_in() ) {
 			wp_nonce_field( 'learn-press-user-logged', 'learn-press-checkout-nonce' );
-		}
+		}*/
 
 		do_action( 'learn-press/after-checkout-submit-button' );
 		?>

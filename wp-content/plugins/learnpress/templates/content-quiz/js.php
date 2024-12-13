@@ -28,11 +28,8 @@ $question_ids        = $quiz->get_question_ids();
 $user_js             = array();
 
 
-$user_course = $user->get_course_data( $course->get_id() );
-/**
- * @var LP_User_Item_Quiz $user_quiz
- */
-$user_quiz         = $user_course ? $user_course->get_item( $quiz->get_id() ) : false;
+$user_course       = $user->get_course_attend( $course->get_id() );
+$user_quiz         = $user_course ? $user_course->get_item_attend( $quiz->get_id(), LP_QUIZ_CPT ) : false;
 $answered          = array();
 $status            = '';
 $checked_questions = array();
@@ -43,26 +40,23 @@ $max_retrying  = learn_press_get_quiz_max_retrying( $quiz->get_id(), $course->ge
 $quiz_results  = null;
 
 if ( $user_quiz ) {
-	$status = $user_quiz->get_status();
-	if ( LP_ITEM_STARTED === $status ) {
-		$quiz_results = LP_User_Items_Result_DB::instance()->get_result( $user_quiz->get_user_item_id() );
-	}
-
-	if ( ! $quiz_results ) {
-		$quiz_results = $user_quiz->get_result();
-	}
-
+	$status            = $user_quiz->get_status();
+	$quiz_results      = $user_quiz->get_result();
 	$checked_questions = $user_quiz->get_checked_questions();
 
 	$user_js = array(
 		'status'            => $status,
 		'attempts'          => $user_quiz->get_attempts(),
 		'checked_questions' => $checked_questions,
-		'start_time'        => $user_quiz->get_start_time()->toSql(),
-		'retaken'           => absint( $user_quiz->get_retaken_count() ),
+		'start_time'        => $user_quiz->start_time,
+		'retaken'           => $user_quiz->get_retaken_count(),
 	);
 
-	$time_remaining        = $user_quiz->get_timestamp_remaining();
+	try {
+		$time_remaining = $user_quiz->get_timestamp_remaining();
+	} catch ( Exception $e ) {
+		$time_remaining = 0;
+	}
 	$user_js['total_time'] = $time_remaining;
 
 	if ( $quiz_results ) {
@@ -120,26 +114,29 @@ $js = array(
 	'edit_permalink'         => $editable ? get_edit_post_link( $quiz->get_id() ) : '',
 	'results'                => array(),
 	'required_password'      => post_password_required( $quiz->get_id() ),
-	'allow_retake'           => $quiz->get_retake_count() == -1,
+	'allow_retake'           => $quiz->get_retake_count() == - 1,
+	'quiz_description'       => $quiz->get_content(),
 );
+
+LP_Helper::print_inline_script_tag( 'lp_quiz_js_data', [ 'data' => $js ] );
 
 $js = array_merge( $js, $user_js );
 
-if ( $total_question ) :
+if ( $total_question || $user_quiz ) :
 	?>
 	<div id="learn-press-quiz-app"></div>
 
 	<script>
-	document.addEventListener( 'DOMContentLoaded', () => {
-		if ( typeof LP !== 'undefined' ) {
-			LP.Hook.addAction('course-ready', () => {
-				LP.quiz.init(
-					'#learn-press-quiz-app',
-					<?php echo json_encode( $js ); ?>
-				)
-			});
-		}
-	});
+		document.addEventListener( 'DOMContentLoaded', () => {
+			if ( typeof LP !== 'undefined' ) {
+				LP.Hook.addAction( 'course-ready', () => {
+					LP.quiz.init(
+						'#learn-press-quiz-app',
+						<?php echo json_encode( $js ); ?>
+					)
+				} );
+			}
+		} );
 	</script>
 
 	<?php

@@ -39,13 +39,13 @@ var __webpack_exports__ = {};
   \***************************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "classNames": () => (/* binding */ classNames),
-/* harmony export */   "isQuestionCorrect": () => (/* binding */ isQuestionCorrect),
-/* harmony export */   "questionBlocks": () => (/* binding */ questionBlocks),
-/* harmony export */   "questionChecker": () => (/* binding */ questionChecker),
-/* harmony export */   "questionFooterButtons": () => (/* binding */ questionFooterButtons),
-/* harmony export */   "questionTitleParts": () => (/* binding */ questionTitleParts),
-/* harmony export */   "quizStartBlocks": () => (/* binding */ quizStartBlocks)
+/* harmony export */   classNames: () => (/* binding */ classNames),
+/* harmony export */   isQuestionCorrect: () => (/* binding */ isQuestionCorrect),
+/* harmony export */   questionBlocks: () => (/* binding */ questionBlocks),
+/* harmony export */   questionChecker: () => (/* binding */ questionChecker),
+/* harmony export */   questionFooterButtons: () => (/* binding */ questionFooterButtons),
+/* harmony export */   questionTitleParts: () => (/* binding */ questionTitleParts),
+/* harmony export */   quizStartBlocks: () => (/* binding */ quizStartBlocks)
 /* harmony export */ });
 const {
   Hook

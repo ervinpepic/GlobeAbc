@@ -149,7 +149,7 @@ function learn_press_pages_dropdown( $name, $selected = false, $args = array() )
 		$id = $name;
 	}
 
-	$class .= 'list-pages lp-list-pages learn-press-select2';
+	$class .= 'list-pages lp-list-pages lp-tom-select';
 
 	$args    = array(
 		'name'             => $name,
@@ -224,6 +224,8 @@ function learn_press_pages_dropdown( $name, $selected = false, $args = array() )
 			<a class="view-page" href="<?php echo get_permalink( $selected ); ?>"
 				target="_blank"><?php esc_html_e( 'View page', 'learnpress' ); ?></a>
 		</p>
+		<!-- Not use input on here, will be not save value -->
+		<div class="field_name" name="<?php echo esc_attr( $id ); ?>"></div>
 
 		<?php
 		$output .= ob_get_clean();
@@ -236,7 +238,8 @@ function learn_press_pages_dropdown( $name, $selected = false, $args = array() )
 	if ( $echo ) {
 		$allowed_html           = wp_kses_allowed_html( 'post' );
 		$allowed_html['select'] = [
-			'name' => [],
+			'name'        => [],
+			'class'       => [],
 		];
 		$allowed_html['option'] = [
 			'value'    => [],
@@ -246,6 +249,12 @@ function learn_press_pages_dropdown( $name, $selected = false, $args = array() )
 		$allowed_html['input']  = [
 			'type'        => [],
 			'placeholder' => [],
+			'name'        => [],
+			'class'       => [],
+		];
+		$allowed_html['div']    = [
+			'name'  => [],
+			'class' => [],
 		];
 
 		echo wp_kses( $output, $allowed_html );
@@ -365,8 +374,9 @@ function learn_press_field_question_duration( $args = array(), $question = null 
  * @param array $args
  *
  * @return string
+ * @deprecated 4.2.6.9.3
  */
-function learn_press_email_formats_dropdown( $args = array() ) {
+/*function learn_press_email_formats_dropdown( $args = array() ) {
 	$args = wp_parse_args(
 		$args,
 		array(
@@ -417,7 +427,7 @@ function learn_press_email_formats_dropdown( $args = array() ) {
 	}
 
 	return $output;
-}
+}*/
 
 /**
  * Return array of email formats.
@@ -516,126 +526,6 @@ if ( ! function_exists( 'learn_press_get_item_referral' ) ) {
 
 		return $affiliate_links[ $item_id ] ?? 'https://themeforest.net/user/thimpress/portfolio/';
 	}
-}
-
-/**
- * Display advertisement about related themes at the bottom of admin pages.
- *
- * @updated 12 Nov 2018 - Enable/Disable shuffle the list of themes
- *
- * @return bool|void
- */
-function learn_press_footer_advertisement() {
-	$admin_post_type = array(
-		'lp_course',
-		'lp_lesson',
-		'lp_quiz',
-		'lp_question',
-		'lp_order',
-	);
-
-	// And our admin pages
-	$pages = array(
-		'learnpress_page_learn-press-statistics',
-		'learnpress_page_learn-press-settings',
-		'learnpress_page_learn-press-tools',
-
-	);
-
-	$screen = get_current_screen();
-
-	if ( ! $screen ) {
-		return;
-	}
-
-	if ( ! ( ( in_array(
-		$screen->post_type,
-		$admin_post_type
-	) && $screen->base === 'edit' ) || ( in_array( $screen->id, $pages ) ) ) ) {
-		return;
-	}
-
-	$theme_ids     = learn_press_get_education_themes();
-	$current_theme = wp_get_theme();
-
-	$include = array_keys( $theme_ids );
-
-	$key = array_search( $current_theme->name, $theme_ids, true );
-
-	if ( false !== $key ) {
-		unset( $theme_ids[ $key ] );
-	}
-
-	/*$list_themes = (array) LP_Plugins_Helper::get_related_themes(
-		'education',
-		array(
-			'include' => $include,
-		)
-	);*/
-
-	if ( empty( $list_themes ) ) {
-		return;
-	}
-
-	// Disable shuffle themes for 3 days
-	$shuffle = LP_Settings::instance()->get( 'ad_shuffle_themes' );
-
-	if ( ! $shuffle ) {
-		if ( wp_next_scheduled( 'learn-press/schedule-enable-shuffle-themes' ) === false ) {
-			wp_schedule_single_event( time() + 3 * DAY_IN_SECONDS, 'learn-press/schedule-enable-shuffle-themes' );
-		}
-
-		// Keep the first theme always in #1 and shuffle other themes
-		$first_theme = array_shift( $list_themes );
-		shuffle( $list_themes );
-		array_unshift( $list_themes, $first_theme );
-	} else {
-		shuffle( $list_themes );
-	}
-	?>
-
-	<div id="learn-press-advertisement" class="learn-press-advertisement-slider">
-		<?php
-		foreach ( $list_themes as $theme ) {
-			if ( empty( $theme['url'] ) ) {
-				continue;
-			}
-
-			$url               = learn_press_get_item_referral( $theme['id'] );
-			$full_description  = learn_press_trim_content( $theme['description'] );
-			$short_description = learn_press_trim_content( $theme['description'], 75 );
-			$url_demo          = $theme['attributes'][4]['value'];
-			?>
-
-			<div id="thimpress-<?php echo esc_attr( $theme['id'] ); ?>" class="slide-item">
-				<div class="slide-thumbnail">
-					<a href="<?php echo esc_url_raw( $url ); ?>">
-						<img src="<?php echo esc_url_raw( $theme['previews']['landscape_preview']['landscape_url'] ); ?>"/>
-					</a>
-				</div>
-
-				<div class="slide-detail">
-					<h2><a href="<?php echo esc_url_raw( $url ); ?>"><?php echo esc_html( $theme['name'] ); ?></a></h2>
-					<p class="slide-description description-full">
-						<?php echo wp_kses_post( $full_description ); ?>
-					</p>
-
-					<p class="slide-description description-short">
-						<?php echo wp_kses_post( $short_description ); ?>
-					</p>
-
-					<p class="slide-controls">
-						<a href="<?php echo esc_url_raw( $url ); ?>" class="button button-primary"
-						   target="_blank"><?php esc_html_e( 'Get it now', 'learnpress' ); ?></a>
-						<a href="<?php echo esc_url_raw( $url_demo ); ?>" class="button"
-						   target="_blank"><?php esc_html_e( 'View Demo', 'learnpress' ); ?></a>
-					</p>
-				</div>
-			</div>
-
-		<?php } ?>
-	</div>
-	<?php
 }
 
 /**
@@ -740,8 +630,9 @@ function learn_press_get_courses_by_status( $status ) {
  * @param string
  *
  * @return int
+ * @deprecated 4.2.6.9.3
  */
-function learn_press_get_courses_by_price( $fee ) {
+/*function learn_press_get_courses_by_price( $fee ) {
 	global $wpdb;
 
 	$user_id = get_current_user_id();
@@ -766,7 +657,7 @@ function learn_press_get_courses_by_price( $fee ) {
 	);
 
 	return $courses;
-}
+}*/
 
 /**
  * Get data about students to render in chart
@@ -776,8 +667,9 @@ function learn_press_get_courses_by_price( $fee ) {
  * @param float $time_ago
  *
  * @return array
+ * @deprecated 4.2.6.9.3
  */
-function learn_press_get_chart_students( $from = null, $by = null, $time_ago = 0 ) {
+/*function learn_press_get_chart_students( $from = null, $by = null, $time_ago = 0 ) {
 	$labels   = array();
 	$datasets = array();
 
@@ -818,7 +710,7 @@ function learn_press_get_chart_students( $from = null, $by = null, $time_ago = 0
 		'labels'   => $labels,
 		'datasets' => $datasets,
 	);
-}
+}*/
 
 /**
  * Get data about students to render in chart
@@ -828,8 +720,9 @@ function learn_press_get_chart_students( $from = null, $by = null, $time_ago = 0
  * @param float $time_ago
  *
  * @return array
+ * @deprecated 4.2.6.9.3
  */
-function learn_press_get_chart_users( $from = null, $by = null, $time_ago = 0 ) {
+/*function learn_press_get_chart_users( $from = null, $by = null, $time_ago = 0 ) {
 	global $wpdb;
 
 	$labels   = array();
@@ -969,7 +862,7 @@ function learn_press_get_chart_users( $from = null, $by = null, $time_ago = 0 ) 
 		'datasets' => $datasets,
 		'sql'      => $query,
 	);
-}
+}*/
 
 
 /**
@@ -980,8 +873,9 @@ function learn_press_get_chart_users( $from = null, $by = null, $time_ago = 0 ) 
  * @param float $time_ago
  *
  * @return array
+ * @deprecated 4.2.6.9.3
  */
-function learn_press_get_chart_courses( $from = null, $by = null, $time_ago = 0 ) {
+/*function learn_press_get_chart_courses( $from = null, $by = null, $time_ago = 0 ) {
 	global $wpdb;
 
 	$labels   = array();
@@ -1173,7 +1067,7 @@ function learn_press_get_chart_courses( $from = null, $by = null, $time_ago = 0 
 		'datasets' => $datasets,
 		'sql'      => $query,
 	);
-}
+}*/
 
 
 /**
@@ -1184,8 +1078,9 @@ function learn_press_get_chart_courses( $from = null, $by = null, $time_ago = 0 
  * @param float $time_ago
  *
  * @return array
+ * @deprecated 4.2.6.9.3
  */
-function learn_press_get_chart_orders( $from = null, $by = null, $time_ago = 0 ) {
+/*function learn_press_get_chart_orders( $from = null, $by = null, $time_ago = 0 ) {
 	global $wpdb;
 	$sql_join = '';
 
@@ -1380,14 +1275,15 @@ function learn_press_get_chart_orders( $from = null, $by = null, $time_ago = 0 )
 		'datasets' => $datasets,
 		'sql'      => $query,
 	);
-}
+}*/
 
 /**
  * Get data about courses to render in the chart
  *
  * @return array
+ * @deprecated 4.2.6.9.3
  */
-function learn_press_get_chart_courses2() {
+/*function learn_press_get_chart_courses2() {
 	$labels = array(
 		__( 'Pending Courses/Publish Courses', 'learnpress' ),
 		__( 'Free Courses/Paid Courses', 'learnpress' ),
@@ -1414,7 +1310,7 @@ function learn_press_get_chart_courses2() {
 		'labels'   => $labels,
 		'datasets' => $datasets,
 	);
-}
+}*/
 
 /**
  * Get colors setting up by admin user
@@ -1559,33 +1455,6 @@ function learn_press_plugin_basename_from_slug( $slug ) {
 
 	return $slug;
 }
-
-/**
- * @deprecated 4.2.0
- */
-function learn_press_request_query( $vars = array() ) {
-	_deprecated_function( __FUNCTION__, '4.2.0' );
-	/*global $typenow, $wp_query, $wp_post_statuses;
-
-	if ( LP_ORDER_CPT === $typenow ) {
-		if ( ! isset( $vars['post_status'] ) ) {
-			$post_statuses = learn_press_get_order_statuses();
-
-			foreach ( $post_statuses as $status => $value ) {
-				if ( isset( $wp_post_statuses[ $status ] ) && false === $wp_post_statuses[ $status ]->show_in_admin_all_list ) {
-					unset( $post_statuses[ $status ] );
-				}
-			}
-
-			$vars['post_status'] = array_keys( $post_statuses );
-
-		}
-	}*/
-
-	return $vars;
-}
-
-//add_filter( 'request', 'learn_press_request_query', 0 );
 
 function _learn_press_reset_course_data() {
 	if ( empty( $_REQUEST['reset-course-data'] ) ) {
@@ -2338,156 +2207,17 @@ function learn_press_touch_time( $edit = 1, $for_post = 1, $tab_index = 0, $mult
 }
 
 /**
- * Filter to modal search items to void filter the posts by author.
- *
- * @param int|string $context_id
- * @param string     $context
- *
- * @return bool|int|string
- * @since 3.0.4
- */
-function learn_press_modal_search_items_context( $context_id, $context ) {
-	if ( 'order-items' === $context ) {
-		$context_id = false;
-	}
-
-	return $context_id;
-}
-
-add_filter( 'learn-press/modal-search-items/context-id', 'learn_press_modal_search_items_context', 10, 2 );
-
-/**
- * Sync post meta when saving post type.
- *
- * @param int $post_id
- *
- * @since 3.2.0
- * @editor tungnx
- * @modify 1.4.1 - comment - not use
- */
-/*function learn_press_maybe_sync_data( $post_id ) {
-	$post_type = get_post_type( $post_id );
-
-	switch ( $post_type ) {
-		case LP_COURSE_CPT:
-			LP_Repair_Database::instance()->sync_user_courses();
-			break;
-		case LP_LESSON_CPT:
-			break;
-		case LP_QUIZ_CPT:
-			break;
-		default:
-	}
-}*/
-
-//add_action( 'save_post', 'learn_press_maybe_sync_data' );
-
-/**
  * Return id of current screen.
  *
  * @return bool|string
  * @since 3.2.6
  */
 function learn_press_get_screen_id() {
+	_deprecated_function( __METHOD__, '4.2.3.6' );
 	$screen    = get_current_screen();
 	$screen_id = $screen ? $screen->id : false;
 
 	return $screen_id;
-}
-
-/**
- * Check if current screen is a page of LP or
- * editing post type of LP such as course, lesson, etc...
- *
- * @return bool
- * @since 3.2.6
- */
-/*
-function learn_press_is_admin_page() {
-	$screen_id     = learn_press_get_screen_id();
-	$is_learnpress = false;
-
-	$post_types = apply_filters(
-		'learn-press/admin-post-type-pages',
-		array( LP_COURSE_CPT, LP_QUIZ_CPT, LP_LESSON_CPT, LP_QUESTION_CPT, LP_ORDER_CPT, 'lp_cert', 'lp_assignment' )
-	);
-	foreach ( $post_types as $post_type ) {
-		if ( in_array( $screen_id, array( "edit-{$post_type}", $post_type ) ) ) {
-			$is_learnpress = true;
-			break;
-		}
-	}
-
-	if ( strpos( $screen_id, 'learnpress_page_' ) === 0 ) {
-		$is_learnpress = true;
-	}
-
-	return apply_filters( 'learn-press/is-admin-page', $is_learnpress, $screen_id );
-}*/
-
-/**
- * @deprecated 4.2.0
- */
-function learn_press_get_orders_status_chart_data() {
-	_deprecated_function( __FUNCTION__, '4.2.0' );
-	/*$data = array(
-		'type'    => 'pie',
-		'data'    => array(
-			'labels'   => array(),
-			'datasets' => array(
-				array(
-					'label'           => '# of Votes',
-					'data'            => array(),
-					'backgroundColor' => array(
-						'rgba(54, 162, 235, 0.2)',
-						'rgba(255, 206, 86, 0.2)',
-						'rgba(75, 192, 192, 0.2)',
-						'rgba(153, 102, 255, 0.2)',
-						'rgba(255, 159, 64, 0.2)',
-					),
-					'borderColor'     => array(
-						'rgba(54, 162, 235, 1)',
-						'rgba(255, 206, 86, 1)',
-						'rgba(75, 192, 192, 1)',
-						'rgba(153, 102, 255, 1)',
-						'rgba(255, 159, 64, 1)',
-					),
-					'borderWidth'     => 1,
-				),
-			),
-		),
-		'options' => array(
-			'scales' => array(
-				'yAxes' => array(
-					array(
-						'ticks' => array(
-							'beginAtZero' => true,
-						),
-					),
-				),
-			),
-		),
-	);
-
-	$order_statuses    = learn_press_get_order_statuses( true, true );
-	$specific_statuses = array( 'lp-completed', 'lp-failed' );
-
-	foreach ( $order_statuses as $status ) {
-		if ( ! in_array( $status, $specific_statuses ) ) {
-			$specific_statuses[] = $status;
-		}
-	}
-
-	$labels = learn_press_get_order_statuses();
-	$counts = learn_press_count_orders( array( 'status' => $specific_statuses ) );
-
-	foreach ( $counts as $k => $v ) {
-		$data['data']['labels'][]              = isset( $labels[ $k ] ) ? $labels[ $k ] : 'Untitled';
-		$data['data']['datasets'][0]['data'][] = $v;
-	}*/
-
-	//return $data;
-	return [];
 }
 
 require_once 'class-lp-post-type-actions.php';

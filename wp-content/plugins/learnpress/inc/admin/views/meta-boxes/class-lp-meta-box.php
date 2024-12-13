@@ -18,11 +18,14 @@ abstract class LP_Meta_Box {
 	public function __construct() {
 		$this->includes();
 
+		// @since 4.0.0
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
+		// @since 4.2.7
+		add_action( 'add_meta_boxes', array( $this, '_do_add_meta_boxes' ), 10, 2 );
 		add_action( 'save_post', array( $this, 'save_meta_boxes' ), 100, 2 );
 		add_action( 'learnpress_save_' . $this->post_type . '_metabox', array( $this, 'save' ) );
 
-		add_action( 'learnpress_save_lp_course_metabox', 'LP_Meta_Box_Course::save_eduma_child_metabox_v3', 10 );
+		//add_action( 'learnpress_save_lp_course_metabox', 'LP_Meta_Box_Course::save_eduma_child_metabox_v3', 10 );
 	}
 
 	// Include fields.
@@ -41,10 +44,43 @@ abstract class LP_Meta_Box {
 		include_once LP_PLUGIN_PATH . 'inc/admin/views/meta-boxes/fields/wysiwyg.php';
 		include_once LP_PLUGIN_PATH . 'inc/admin/views/meta-boxes/fields/repeater.php';
 		include_once LP_PLUGIN_PATH . 'inc/admin/views/meta-boxes/fields/autocomplete.php';
+		include_once LP_PLUGIN_PATH . 'inc/admin/views/meta-boxes/fields/materials.php';
 		include_once LP_PLUGIN_PATH . 'inc/admin/views/meta-boxes/lp-meta-box-functions.php';
 	}
 
-	public function add_meta_box() {}
+	public function add_meta_box() {
+		// Implement from child
+	}
+
+	/**
+	 * Handle call method add meta boxes
+	 *
+	 * @param $post_type
+	 * @param $post
+	 *
+	 * @return void
+	 * @since 4.2.7
+	 */
+	final function _do_add_meta_boxes( $post_type, $post ) {
+		if ( $post_type !== $this->post_type ) {
+			return;
+		}
+
+		$this->add_meta_boxes( $post );
+	}
+
+	/**
+	 * Method for add meta boxes
+	 *
+	 * @param $post
+	 *
+	 * @return void
+	 * @since 4.2.7
+	 */
+	public function add_meta_boxes( $post ) {
+		// Implement from child
+	}
+
 
 	public function metabox( $post_id ) {
 		return array();
@@ -90,6 +126,11 @@ abstract class LP_Meta_Box {
 
 		self::$saved_meta_boxes = true;
 
+		//TODO: Not apply for course,
+		// but on theme custom fields course is using this hook. Need change how to hook on theme.
+		/*if ( $post->post_type === LP_COURSE_CPT ) {
+			return;
+		}*/
 		do_action( 'learnpress_save_' . $post->post_type . '_metabox', $post_id, $post );
 	}
 }

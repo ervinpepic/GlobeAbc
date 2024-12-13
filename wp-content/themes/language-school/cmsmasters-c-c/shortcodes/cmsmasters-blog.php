@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.3.1
+ * @version 	1.3.3
  * 
  * Content Composer Posts Slider Shortcode
  * Created by CMSMasters
@@ -105,9 +105,9 @@ jQuery(document).ready(function () {
 						}
 						
 						
-						if (count($cat_array) == 1 && $categories != '') {
+						if (is_array($cat_array) && count($cat_array) == 1 && $categories != '') {
 							$cat_args['child_of'] = $categories;
-						} elseif (count($cat_array) > 1) {
+						} elseif (is_array($cat_array) && count($cat_array) > 1) {
 							$cat_args['include'] = $cat_array;
 						}
 						

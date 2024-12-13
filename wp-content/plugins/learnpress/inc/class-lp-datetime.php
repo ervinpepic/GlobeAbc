@@ -5,39 +5,33 @@
  */
 class LP_Datetime {
 	/**
-	 * @var string $format.
+	 * @var string $format .
 	 */
 	public static $format = 'Y-m-d H:i:s';
-
 	/**
-	 * @var object
+	 * Format date by config WP.
 	 */
-	protected static $gmt;
-
+	const I18N_FORMAT = 'i18n';
 	/**
-	 * @var object
+	 * Format date time by config WP.
 	 */
-	protected static $stz;
-
+	const I18N_FORMAT_HAS_TIME = 'i18n_has_time';
 	/**
-	 * @var DateTimeZone
+	 * Format date time Human.
 	 */
-	protected $tz;
-
+	const HUMAN_FORMAT = 'human';
 	/**
 	 * String date time.
 	 *
-	 * @var string $raw_date.
+	 * @var string $raw_date .
 	 */
 	protected $raw_date = null;
-
-	protected static $def_timezone = null;
 
 	/**
 	 * Constructor.
 	 *
 	 * @param string|int $date
-	 * @param mixed  $tz
+	 * @param mixed $tz
 	 *
 	 * @throws
 	 */
@@ -51,44 +45,6 @@ class LP_Datetime {
 		if ( empty( $this->raw_date ) ) {
 			$this->raw_date = current_time( 'mysql', 1 );
 		}
-
-		//date_default_timezone_set( 'UTC' );
-		//parent::__construct( $this->raw_date );
-		//$m = $this->format( 'm' );
-	}
-
-	/**
-	 * Get default timezone from param and wp settings
-	 *
-	 * @param mixed $tz
-	 *
-	 * @return DateTimeZone|null|string
-	 * @deprecated 4.1.7.3
-	 */
-	public static function get_default_timezone( $tz ) {
-		_deprecated_function( __METHOD__, '4.1.7.3' );
-		if ( empty( self::$def_timezone ) ) {
-			if ( $tz === null ) {
-				$tz = wp_timezone();
-			} elseif ( is_string( $tz ) && $tz ) {
-				$tz = new DateTimeZone( $tz );
-			}
-			self::$def_timezone = $tz;
-		}
-
-		return self::$def_timezone;
-	}
-
-	/**
-	 * Check if time is exceeded with current time
-	 *
-	 * using by Addon Content Drip.
-	 *
-	 * @since 3.0.1
-	 * @version 4.0.1
-	 */
-	public function is_exceeded(): bool {
-		return $this->getTimestamp() >= time();
 	}
 
 	/**
@@ -105,71 +61,6 @@ class LP_Datetime {
 	}
 
 	/**
-	 * @param string $name The name of the property.
-	 *
-	 * @return  mixed
-	 * @deprecated 4.1.7.3
-	 */
-	public function __get( $name ) {
-		_deprecated_function( __METHOD__, '4.1.7.3' );
-		/*$value = null;
-
-		switch ( $name ) {
-			case 'daysinmonth':
-				$value = $this->format( 't', true );
-				break;
-
-			case 'dayofweek':
-				$value = $this->format( 'N', true );
-				break;
-
-			case 'dayofyear':
-				$value = $this->format( 'z', true );
-				break;
-
-			case 'isleapyear':
-				$value = (bool) $this->format( 'L', true );
-				break;
-
-			case 'day':
-				$value = $this->format( 'd', true );
-				break;
-
-			case 'hour':
-				$value = $this->format( 'H', true );
-				break;
-
-			case 'minute':
-				$value = $this->format( 'i', true );
-				break;
-
-			case 'second':
-				$value = $this->format( 's', true );
-				break;
-
-			case 'month':
-				$value = $this->format( 'm', true );
-				break;
-
-			case 'ordinal':
-				$value = $this->format( 'S', true );
-				break;
-
-			case 'week':
-				$value = $this->format( 'W', true );
-				break;
-
-			case 'year':
-				$value = $this->format( 'Y', true );
-				break;
-
-			default:
-		}
-
-		return $value;*/
-	}
-
-	/**
 	 * @return  string  The date as a formatted string.
 	 */
 	public function __toString() {
@@ -179,14 +70,13 @@ class LP_Datetime {
 	/**
 	 * Gets the date as a formatted string.
 	 *
-	 * @param string  $format Set i18n to return date in local time.
-	 * @param boolean $local.
+	 * @param string $format Set i18n to return date in local time.
 	 *
-	 * @since 3.0.0
-	 * @version 4.0.1
 	 * @return string.
+	 * @version 4.0.2
+	 * @since 3.0.0
 	 */
-	public function format( string $format = '', bool $local = true ): string {
+	public function format( string $format = '' ): string {
 		$date_str = '';
 
 		if ( '0000-00-00 00:00:00' === $this->get_raw_date() ) {
@@ -198,12 +88,29 @@ class LP_Datetime {
 		}
 
 		switch ( $format ) {
-			case 'i18n':
-				$date_str = learn_press_date_i18n( $this->getTimestamp() );
+			case 'i18n': // Display format Date by Timezone of WP.
+				$time_stamp              = $this->getTimestamp(); // UTC+0 (GMT)
+				$time_stamp_by_time_zone = $time_stamp + get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
+				$date_format             = get_option( 'date_format' );
+				$date_str                = date_i18n( $date_format, $time_stamp_by_time_zone );
 				break;
-			/*case 'timestamp':
-				$date_str = $this->getTimestamp();
-				break;*/
+			case 'i18n_has_time': // Display format Date Time by Timezone of WP.
+				$date_time_format_wp     = apply_filters(
+					'learn-press/datetime/format/i18n_has_time',
+					get_option( 'date_format' ) . ' ' . get_option( 'time_format' )
+				);
+				$time_stamp              = $this->getTimestamp(); // UTC+0 (GMT)
+				$time_stamp_by_time_zone = $time_stamp + get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
+				$date_str                = apply_filters(
+					'learn-press/datetime/date/i18n_has_time',
+					sprintf(
+						'%s',
+						date_i18n( $date_time_format_wp, $time_stamp_by_time_zone )
+					),
+					$time_stamp,
+					$time_stamp_by_time_zone
+				);
+				break;
 			case 'human':
 				$time      = $this->getTimestamp();
 				$time_diff = time() - $time;
@@ -227,38 +134,91 @@ class LP_Datetime {
 	}
 
 	/**
-	 * @param boolean $hours True to return the value in hours.
+	 * Display date human time diff.
+	 * 1. Show number days, hours if >= 1 days
+	 * 2. Show number hours, seconds if >= 1 hours
+	 * 3. Show number seconds if < 1 hours
 	 *
-	 * @return float
-	 * @deprecated 4.1.7.3
-	 */
-	public function getOffset( $hours = false ) {
-		_deprecated_function( __METHOD__, '4.1.7.3' );
-		return $this->tz ? (float) $hours ? ( $this->tz->getOffset( $this ) / 3600 ) : $this->tz->getOffset( $this ) : 0;
-	}
-
-	/**
-	 * @param DateTimeZone $tz The new DateTimeZone object.
+	 * @param DateTime $date_start
+	 * @param DateTime $date_end
 	 *
-	 * @return void
-	 * @deprecated 4.1.7.3
+	 * @return string
+	 * @since 4.0.3
+	 * @version 1.0.2
 	 */
-	/*public function setTimezone( $tz ) {
-		_deprecated_function( __METHOD__, '4.1.7.3' );
-		$this->tz = $tz;
+	public static function format_human_time_diff( DateTime $date_start, DateTime $date_end ): string {
+		$diff = $date_end->diff( $date_start );
+		$week = floor( $diff->d / 7 );
 
-		parent::setTimezone( $tz );
-	}*/
+		$i18n_week   = self::get_string_plural_duration( $week, 'week' );
+		$i18n_day    = self::get_string_plural_duration( $diff->d, 'day' );
+		$i18n_hour   = self::get_string_plural_duration( $diff->h, 'hour' );
+		$i18n_minute = self::get_string_plural_duration( $diff->i, 'minute' );
+		$i18n_second = self::get_string_plural_duration( $diff->s, 'second' );
 
-	/**
-	 * @param boolean $local True to return the date string in the local time zone, false to return it in GMT.
-	 *
-	 * @return  string
-	 * @deprecated 4.1.7.3
-	 */
-	public function toISO8601( $local = true ) {
-		_deprecated_function( __METHOD__, '4.1.7.3' );
-		//return $this->format( DateTime::RFC3339, $local );
+		$format_date = '';
+		$string      = array(
+			'y' => '%y years',
+			'm' => '%m months',
+			'w' => '', // object don't have week, only add to custom week format
+			'd' => '%d days, %h hours',
+			'h' => '%h hours, %i minutes',
+			'i' => '%i minutes, %s seconds',
+			's' => $i18n_second,
+		);
+
+		foreach ( $string as $k => $v ) {
+			if ( isset( $diff->{$k} ) && $diff->{$k} > 0 ) {
+				if ( in_array( $k, array( 'y', 'm' ) ) ) {
+					$date        = new LP_Datetime( $date_end->getTimestamp() );
+					$format_date = $date->format( LP_Datetime::I18N_FORMAT_HAS_TIME );
+				} else {
+					switch ( $k ) {
+						case 'd':
+							$format_date = sprintf(
+								'%1$s, %2$s',
+								$i18n_day,
+								$i18n_hour
+							);
+							break;
+						case 'h':
+							$format_date = sprintf(
+								'%1$s, %2$s',
+								$i18n_hour,
+								$i18n_minute
+							);
+							break;
+						case 'i':
+							$format_date = sprintf(
+								'%1$s, %2$s',
+								$i18n_minute,
+								$i18n_second
+							);
+							break;
+						default:
+							$format_date = $v;
+							break;
+					}
+				}
+				break;
+			} elseif ( 'w' === $k && $week > 0 ) {
+				$day_remain  = $diff->d - $week * 7;
+				$format_date = sprintf(
+					'%1$s, %2$s',
+					$i18n_week,
+					self::get_string_plural_duration( $day_remain, 'day' )
+				);
+				break;
+			}
+		}
+
+		return apply_filters(
+			'learn-press/datetime/format_human_time_diff',
+			$format_date,
+			$diff,
+			$date_start,
+			$date_end
+		);
 	}
 
 	/**
@@ -266,9 +226,9 @@ class LP_Datetime {
 	 *
 	 * @param boolean $local True to return the date string in the local time zone, false to return it in GMT.
 	 *
-	 * @since 3.0.0
-	 * @version 4.0.1
 	 * @return  string
+	 * @version 4.0.1
+	 * @since 3.0.0
 	 */
 	public function toSql( bool $local = false ): string {
 		if ( $local ) {
@@ -276,27 +236,6 @@ class LP_Datetime {
 		}
 
 		return $this->format( 'mysql' );
-	}
-
-	/**
-	 * Consider the date is in GMT and convert to local time with
-	 * gmt_offset option of WP Core.
-	 *
-	 * @param string $format
-	 *
-	 * @return int|string
-	 * @since 4.0.0
-	 * @deprecated 4.1.7.3
-	 */
-	public function toLocal( $format = 'Y-m-d H:i:s' ) {
-		_deprecated_function( __METHOD__, '4.1.7.3' );
-		$time = $this->getTimestamp() + get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
-
-		if ( $format ) {
-			return date( $format, $time ); // phpcs:ignore
-		}
-
-		return $time;
 	}
 
 	/**
@@ -312,40 +251,15 @@ class LP_Datetime {
 	}
 
 	/**
-	 * Gets the date as an RFC 822 string.  IETF RFC 2822 supercedes RFC 822 and its definition
-	 * can be found at the IETF Web site.
-	 *
-	 * @param boolean $local True to return the date string in the local time zone, false to return it in GMT.
-	 *
-	 * @return  string
-	 * @deprecated 4.1.7.3
-	 */
-	public function toRFC822( $local = true ) {
-		_deprecated_function( __METHOD__, '4.1.7.3' );
-		return $this->format( DateTime::RFC2822, $local );
-	}
-
-	/**
-	 * Gets the date as UNIX time stamp.
-	 *
-	 * @return  integer  The date as a UNIX timestamp.
-	 * @deprecated 4.1.7.3
-	 */
-	public function toUnix() {
-		_deprecated_function( __METHOD__, '4.1.7.3' );
-		//return (int) parent::format( 'U' );
-	}
-
-	/**
 	 * Get timestamp of Date.
 	 *
 	 * @return int
 	 */
-	public function getTimestamp( $local = true ): int {
+	public function getTimestamp(): int {
 		try {
 			$date = new DateTime( $this->get_raw_date() );
 		} catch ( Throwable $e ) {
-			error_log( $e->getMessage() );
+			error_log( __METHOD__ . ': ' . $e->getMessage() );
 			$date = new DateTime();
 		}
 
@@ -353,56 +267,82 @@ class LP_Datetime {
 	}
 
 	/**
-	 * @deprecated 4.1.7.3
+	 * Get timestamp of Date in local time.
+	 * Note: timestamp before handle must timezone is GMT+0
+	 *
+	 * @return int
+	 * @since 4.2.7.3
 	 */
-	protected function setGMT( $local = false, $gmt = true ) {
-		_deprecated_function( __METHOD__, '4.1.7.3' );
-		/*if ( $gmt ) {
-			if ( $local == false && ! empty( self::$gmt ) ) {
-				parent::setTimezone( self::$gmt );
-			}
-		} else {
-			if ( $local == false && ! empty( $this->tz ) ) {
-				parent::setTimezone( $this->tz );
-			}
-		}*/
+	public function getTimestampLocal(): int {
+		return $this->getTimestamp() + get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
 	}
 
 	/**
-	 * @deprecated 4.1.7.3
-	 */
-	public static function getSqlNullDate() {
-		_deprecated_function( __METHOD__, '4.1.7.3' );
-		return '0000-00-00 00:00:00';
-	}
-
-	/**
-	 * Add X seconds into datetime of this object.
+	 * Get string plural duration.
 	 *
-	 * @param int $seconds
+	 * @param float $duration_number
+	 * @param string $duration_type
 	 *
-	 * @throws
-	 *
-	 * @since 3.3.0
-	 * @deprecated 4.1.7.3
+	 * @return string
+	 * @version 1.0.3
+	 * @since 4.2.3.5
 	 */
-	public function addDuration( $seconds ) {
-		_deprecated_function( __METHOD__, '4.1.7.3' );
-		$timestamp = $this->getTimestamp();
-		//parent::__construct( date( 'Y-m-d H:i:s', $timestamp + $seconds ), $this->tz ); // phpcs:ignore
-	}
-
-	/**
-	 * @deprecated 4.1.7.3
-	 */
-	public function getPeriod( $seconds, $local = true ) {
-		_deprecated_function( __METHOD__, '4.1.7.3' );
-		/*$timestamp = $this->getTimestamp( $local );
-
-		if ( ! is_numeric( $seconds ) ) {
-			$seconds = strtotime( $seconds ) - time();
+	public static function get_string_plural_duration( float $duration_number, string $duration_type = '' ): string {
+		switch ( strtolower( $duration_type ) ) {
+			case 'second':
+				$duration_str = sprintf(
+					_n( '%s Second', '%s Seconds', $duration_number, 'learnpress' ),
+					$duration_number
+				);
+				break;
+			case 'minute':
+				$duration_str = sprintf(
+					_n( '%s Minute', '%s Minutes', $duration_number, 'learnpress' ),
+					$duration_number
+				);
+				break;
+			case 'hour':
+				$duration_str = sprintf(
+					_n( '%s Hour', '%s Hours', $duration_number, 'learnpress' ),
+					$duration_number
+				);
+				break;
+			case 'day':
+				$duration_str = sprintf(
+					_n( '%s Day', '%s Days', $duration_number, 'learnpress' ),
+					$duration_number
+				);
+				break;
+			case 'week':
+				$duration_str = sprintf(
+					_n( '%s Week', '%s Weeks', $duration_number, 'learnpress' ),
+					$duration_number
+				);
+				break;
+			default:
+				$duration_str = $duration_number . ' ' . $duration_type;
 		}
 
-		return date( 'Y-m-d H:i:s', $timestamp + $seconds );*/
+		return apply_filters( 'learn-press/i18n/plural_duration', $duration_str, $duration_number, $duration_type );
+	}
+
+	/**
+	 * Get timezone string
+	 *
+	 * @return string
+	 * @since 4.2.7.2
+	 * @version 1.0.0
+	 */
+	public static function get_timezone_string(): string {
+		$wp_timezone = wp_timezone_string();
+		$is_utc      = (int) $wp_timezone !== 0;
+
+		if ( $is_utc ) {
+			$wp_timezone = sprintf( '%s %s', __( 'Timezone: UTC', 'learnpress' ), $wp_timezone );
+		} else {
+			$wp_timezone = sprintf( '%s %s', __( 'Timezone:', 'learnpress' ), $wp_timezone );
+		}
+
+		return $wp_timezone;
 	}
 }

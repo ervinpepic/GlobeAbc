@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version		1.1.7
+ * @version		1.3.4
  * 
  * CMSMasters Importer Init File
  * Created by CMSMasters
@@ -10,7 +10,7 @@
  */
 
 
-if (!class_exists('Cmsmasters_Demo_Content_Importer')) {
+if (!class_exists('Cmsmasters_Demo_Content_Importer') && class_exists( 'Cmsmasters_Theme_Importer' )) {
 
 class Cmsmasters_Demo_Content_Importer extends Cmsmasters_Theme_Importer {
 	private static $instance;

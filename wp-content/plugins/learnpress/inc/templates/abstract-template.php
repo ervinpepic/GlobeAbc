@@ -76,43 +76,47 @@ class LP_Abstract_Template {
 	public function remove( $tag, $function_to_remove, $priority = 10 ) {
 		global $wp_filter;
 
-		if ( is_array( $function_to_remove ) ) {
-			if ( empty( $wp_filter[ $tag ] ) ) {
-				return;
-			}
-
-			$callbacks = $wp_filter[ $tag ]->callbacks;
-			if ( ! $callbacks ) {
-				return;
-			}
-
-			$priorities = array_keys( $callbacks );
-
-			foreach ( $priorities as $priority1 ) {
-
-				if ( $priority !== '*' && $priority !== $priority1 ) {
-					continue;
+		try {
+			if ( is_array( $function_to_remove ) ) {
+				if ( empty( $wp_filter[ $tag ] ) ) {
+					return;
 				}
 
-				if ( empty( $callbacks[ $priority1 ] ) ) {
-					continue;
+				$callbacks = $wp_filter[ $tag ]->callbacks;
+				if ( ! $callbacks ) {
+					return;
 				}
 
-				foreach ( $callbacks[ $priority1 ] as $callback ) {
+				$priorities = array_keys( $callbacks );
 
-					if ( ! $callback['function'][0] instanceof LP_Template_Callback ) {
+				foreach ( $priorities as $priority1 ) {
+
+					if ( $priority !== '*' && $priority !== $priority1 ) {
 						continue;
 					}
 
-					if ( $callback['function'][0]->get_args() !== $function_to_remove[1] ) {
+					if ( empty( $callbacks[ $priority1 ] ) ) {
 						continue;
 					}
 
-					remove_action( $tag, $callback['function'], $priority1 );
-				}
-			}
+					foreach ( $callbacks[ $priority1 ] as $callback ) {
 
-			return;
+						if ( ! $callback['function'][0] instanceof LP_Template_Callback ) {
+							continue;
+						}
+
+						if ( $callback['function'][0]->get_args() !== $function_to_remove[1] ) {
+							continue;
+						}
+
+						remove_action( $tag, $callback['function'], $priority1 );
+					}
+				}
+
+				return;
+
+			}
+		} catch ( Throwable $e ) {
 
 		}
 
@@ -167,43 +171,45 @@ class LP_Abstract_Template {
 			return;
 		}
 
-		$callbacks = $wp_filter[ $tag ]->callbacks;
+		try {
+			$callbacks = $wp_filter[ $tag ]->callbacks;
 
-		if ( ! $callbacks ) {
-			return;
+			if ( ! $callbacks ) {
+				return;
+			}
+
+			$priorities = array_keys( $callbacks );
+
+			foreach ( $priorities as $priority1 ) {
+
+				if ( $priority !== '*' && $priority !== $priority1 ) {
+					continue;
+				}
+
+				if ( empty( $callbacks[ $priority1 ] ) ) {
+					continue;
+				}
+
+				foreach ( $callbacks[ $priority1 ] as $callback ) {
+
+					if ( ! $callback['function'][0] instanceof LP_Template_Callback ) {
+						continue;
+					}
+
+					if ( $callback['function'][1] !== 'callback' ) {
+						continue;
+					}
+
+					if ( $callback['function'][0]->get_template() !== $function ) {
+						continue;
+					}
+
+					remove_action( $tag, $callback['function'], $priority1 );
+				}
+			}
+		} catch ( Throwable $e ) {
+			error_log( __METHOD__ . ': ' . $e->getMessage() );
 		}
-
-		$priorities = array_keys( $callbacks );
-
-		foreach ( $priorities as $priority1 ) {
-
-			if ( $priority !== '*' && $priority !== $priority1 ) {
-				continue;
-			}
-
-			if ( empty( $callbacks[ $priority1 ] ) ) {
-				continue;
-			}
-
-			foreach ( $callbacks[ $priority1 ] as $callback ) {
-
-				if ( ! $callback['function'][0] instanceof LP_Template_Callback ) {
-					continue;
-				}
-
-				if ( $callback['function'][1] !== 'callback' ) {
-					continue;
-				}
-
-				if ( $callback['function'][0]->get_template() !== $function ) {
-					continue;
-				}
-
-				remove_action( $tag, $callback['function'], $priority1 );
-			}
-		}
-
-		return;
 	}
 
 	/**

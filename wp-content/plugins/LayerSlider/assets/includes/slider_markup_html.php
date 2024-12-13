@@ -59,6 +59,10 @@ if( ! empty( $embed['className'] ) ) {
 	$customClasses .= ' '.$embed['className'];
 }
 
+// v7.10.0: Class to control new user-select option
+if( empty( $slides['properties']['props']['noUserSelect']) ) {
+	$customClasses .= ' ls-selectable';
+}
 
 // Use srcset
 $useSrcset = (bool) get_option('ls_use_srcset', true );
@@ -118,31 +122,16 @@ if( isset( $slides['properties']['attrs']['performanceMode'] ) ) {
 $slides['properties']['attrs']['performanceMode'] = $performanceMode;
 
 
+
 // Project-level Google Fonts
 if( get_option('layerslider-google-fonts-enabled', true ) ) {
 
 	$slides = ls_merge_google_fonts( $slides );
 
-	// Load Google Fonts from Project
-	if( ! empty( $slides['googlefonts'] ) && is_array( $slides['googlefonts'] ) ) {
-		$fontFragments = [];
-		foreach( $slides['googlefonts'] as $font ) {
+	if( ! empty( $slides['googlefonts'] ) ) {
 
-			$fontName = explode( ':' , $font['param'] );
-			$fontName = urldecode( $fontName[0] );
-
-			// Prevent loading fonts that are already loaded from other sliders
-			if( ! in_array( $fontName, $GLOBALS['lsLoadedFonts'] ) ) {
-				$fontFragments[] = urlencode( $fontName ).':100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i';
-				$GLOBALS['lsLoadedFonts'][] = $fontName;
-			}
-		}
-
-		if( ! empty( $fontFragments ) ) {
-			$fontsURL = implode('%7C', $fontFragments);
-
-			$lsContainer[] = '<link href="https://fonts.googleapis.com/css?family='.$fontsURL.'" rel="stylesheet">';
-		}
+		$fontManager = new LS_GoogleFontsManager();
+		$lsContainer[] = $fontManager->getInlineStyle( $slides['googlefonts'] );
 	}
 }
 
@@ -208,11 +197,8 @@ if( $needsSceneWrapper ) {
 }
 
 
-
-
-
 // Start of slider container
-$lsContainer[] = '<div id="'.$sliderID.'" class="ls-wp-container fitvidsignore'.$customClasses.'" style="'.implode('', $sliderStyleAttr).'">';
+$lsContainer[] = '<div id="'.$sliderID.'" '.( ! empty( $sliderSlug ) ? 'data-ls-slug="'.$sliderSlug.'"' : '' ).' class="ls-wp-container fitvidsignore'.$customClasses.'" style="'.implode('', $sliderStyleAttr).'">';
 
 // Add slides
 if(!empty($slider['slides']) && is_array($slider['slides'])) {
@@ -409,7 +395,8 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 				// Premium layer content checks
 				if( ! $GLOBALS['lsIsActivatedSite'] ) {
 
-					if( $layer['props']['media'] === 'shape' ) {
+					// Protected layer types
+					if( in_array( $layer['props']['media'], ['shape', 'countdown', 'counter'] ) ) {
 						continue;
 					}
 
@@ -845,6 +832,81 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 					$layer['props']['styles']['clip-path'] = 'polygon('.$layer['props']['styles']['clip-path'].')';
 				}
 
+				// v7.12.0: Countdowns
+				if( $layer['props']['media'] === 'countdown' ) {
+
+					$countdownID = ! empty( $layer['props']['countdownID'] ) ? $layer['props']['countdownID'] : '';
+					$countdownData = ! empty( $slide['countdowns'][ $countdownID ] ) ? $slide['countdowns'][ $countdownID ] : (object)[];
+					$countdownComponent = ! empty( $layer['props']['countdownComponent'] ) ? $layer['props']['countdownComponent'] : 'days';
+					$useLeadingZeroes = isset( $layer['props']['countdownLeadingZeros'] ) ? $layer['props']['countdownLeadingZeros'] : false;
+
+					$layer['props']['html'] = $useLeadingZeroes ? '00' : '0';
+					$countdownStyles = [];
+
+					$innerAttributes['data-countdown'] = json_encode( array_merge( $countdownData, [
+						'component' => $countdownComponent,
+						'leadingZeros' => $useLeadingZeroes
+					]));
+
+					ls_apply_affix_properties( $layer['props'], $innerAttributes );
+				}
+
+
+				// v7.14.0: Counter
+				if( $layer['props']['media'] === 'counter') {
+					$counterStart = ! empty( $layer['props']['counterStart'] ) ? $layer['props']['counterStart'] : 0;
+					$counterEnd = ! empty( $layer['props']['counterEnd'] ) ? $layer['props']['counterEnd'] : 100;
+					$counterDecimals = ! empty( $layer['props']['counterDecimals'] ) ? $layer['props']['counterDecimals'] : '';
+					$counterDecimalSeparator = ! empty( $layer['props']['counterDecimalSeparator'] ) ? $layer['props']['counterDecimalSeparator'] : '.';
+					$counterThousandsSeparator = ! empty( $layer['props']['counterThousandsSeparator'] ) ? $layer['props']['counterThousandsSeparator'] : '';
+					$counterLeadingZeros = isset( $layer['props']['counterLeadingZeros'] ) ? $layer['props']['counterLeadingZeros'] : false;
+					$counterAnimationType = ! empty( $layer['props']['counterAnimationType'] ) ? $layer['props']['counterAnimationType'] : 'time';
+					$counterDuration = ! empty( $layer['props']['counterDuration'] ) ? $layer['props']['counterDuration'] : 2000;
+					$counterEasing = ! empty( $layer['props']['counterEasing'] ) ? $layer['props']['counterEasing'] : 'easeOutSine';
+					$counterStep = ! empty( $layer['props']['counterStep'] ) ? $layer['props']['counterStep'] : 1;
+					$counterStepDelay = ! empty( $layer['props']['counterStepDelay'] ) ? $layer['props']['counterStepDelay'] : 50;
+					$counterStartAt = ! empty( $layer['props']['counterStartAt'] ) ? $layer['props']['counterStartAt'] : 'transitioninstart';
+
+					// Auto-decide decimal places
+					if( empty( $counterDecimals ) && ( $counterDecimals !== 0 || $counterDecimals !== '0' ) ) {
+
+						$startDecimals = ls_get_decimal_places( $counterStart );
+						$endDecimals = ls_get_decimal_places( $counterEnd );
+						$stepDecimals = ls_get_decimal_places( $counterStep );
+
+						if( $counterAnimationType === 'step' ) {
+							$counterDecimals = max( $startDecimals, $endDecimals, $stepDecimals );
+						} else {
+							$counterDecimals = max( $startDecimals, $endDecimals );
+						}
+					}
+
+					$counterData = [
+						'type' => $counterAnimationType,
+						'start' => $counterStart,
+						'end' => $counterEnd,
+						'dp' => (int) $counterDecimals,
+						'ds' => $counterDecimalSeparator,
+						'ts' => $counterThousandsSeparator,
+						'lz' => $counterLeadingZeros,
+						'startAt' => $counterStartAt
+					];
+
+					if( $counterAnimationType === 'step' ) {
+						$counterData['step'] = $counterStep;
+						$counterData['stepDelay'] = $counterStepDelay;
+					} else {
+						$counterData['duration'] = $counterDuration;
+						$counterData['ease'] = $counterEasing;
+					}
+
+					$innerAttributes['data-counter'] = json_encode($counterData);
+					ls_apply_affix_properties( $layer['props'], $innerAttributes );
+
+					$formattedNumber = number_format( $counterEnd, (int) $counterDecimals, $counterDecimalSeparator, $counterThousandsSeparator );
+
+					$layer['props']['html'] = $formattedNumber;
+				}
 
 				$innerAttributes['style'] .= ls_array_to_attr($layer['props']['styles'], 'css');
 
@@ -914,6 +976,14 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 
 				if( ! empty( $layer['props']['media'] ) ) {
 					$inner->addClass('ls-'.$layer['props']['media'].'-layer');
+				}
+
+				if( ! empty( $layer['props']['userSelect'] ) ) {
+					if( $layer['props']['userSelect'] === 'none' ) {
+						$inner->addClass('ls-unselectable');
+					} else {
+						$inner->addClass('ls-selectable');
+					}
 				}
 
 				$lsMarkup[] = $el;

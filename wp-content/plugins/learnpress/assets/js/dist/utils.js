@@ -1395,7 +1395,6 @@ const _default = {
     }
     //}
   },
-
   blockContent() {
     if ($('#learn-press-block-content').length === 0) {
       $(LP.template('learn-press-template-block-content', {})).appendTo($('body'));
@@ -1529,8 +1528,7 @@ const _default = {
     }
     LP.Hook.doAction('learn_press_receive_message', data, target);
   },
-  camelCaseDashObjectKeys(obj) {
-    let deep = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+  camelCaseDashObjectKeys(obj, deep = true) {
     const self = LP;
     const isArray = function (a) {
       return Array.isArray(a);
@@ -1584,7 +1582,9 @@ $(document).ready(function () {
   setTimeout(function () {
     $('.learn-press-nav-tabs li.active:not(.default) a').trigger('click');
   }, 300);
-  $('body.course-item-popup').parent().css('overflow', 'hidden');
+
+  //$( 'body.course-item-popup' ).parent().css( 'overflow', 'hidden' );
+
   (function () {
     let timer = null,
       callback = function () {

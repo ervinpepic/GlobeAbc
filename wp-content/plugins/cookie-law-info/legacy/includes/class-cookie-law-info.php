@@ -73,7 +73,7 @@ class Cookie_Law_Info {
 		if ( defined( 'CLI_VERSION' ) ) {
 			$this->version = CLI_VERSION;
 		} else {
-			$this->version = '3.2.0';
+			$this->version = '3.2.8';
 		}
 		$this->plugin_name = 'cookie-law-info';
 
@@ -81,7 +81,7 @@ class Cookie_Law_Info {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-		$this->define_thrid_party_hooks();
+		$this->define_third_party_hooks();
 		add_action( 'admin_init', array( $this, 'start_migration' ) );
 		add_action( 'admin_notices', array( $this, 'migration_notice' ) );
 	}
@@ -148,6 +148,8 @@ class Cookie_Law_Info {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'third-party/class-cookie-law-info-third-party.php';
 
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-cookie-law-info-review-request.php';
+
 		$this->loader = new Cookie_Law_Info_Loader();
 
 	}
@@ -165,7 +167,7 @@ class Cookie_Law_Info {
 
 		$plugin_i18n = new Cookie_Law_Info_i18n();
 
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
+		$this->loader->add_action( 'init', $plugin_i18n, 'load_plugin_textdomain' );
 
 	}
 
@@ -227,7 +229,7 @@ class Cookie_Law_Info {
 	 * @since    1.7.2
 	 * @access   public
 	 */
-	public function define_thrid_party_hooks() {
+	public function define_third_party_hooks() {
 		$plugin_third_party = new Cookie_Law_Info_Third_Party();
 		$plugin_third_party->register_scripts();
 	}
@@ -977,7 +979,7 @@ class Cookie_Law_Info {
 			<h4><?php echo esc_html__( 'By migrating to the new and improved user interface, you can:', 'cookie-law-info' ); ?></h4>
 			<ul>
 				<li><?php echo esc_html__( 'Display the new cookie consent banner (compliant with the WCAG guidelines) on your website', 'cookie-law-info' ); ?></li>
-				<li><?php echo esc_html__( 'Access new free features (set consent expiration period, enable/disable prior consent, show/hide categories on the banner, light/dark/custom color scheme, privacy policy generator, etc.)', 'cookie-law-info' ); ?></li>
+				<li><?php echo esc_html__( 'Access new free features (set consent expiration period, enable/disable prior consent, show/hide categories on the banner, light/dark/custom colour scheme, privacy policy generator, etc.)', 'cookie-law-info' ); ?></li>
 				<li><?php echo esc_html__( 'Use the live preview feature to customize your banner while you are looking at it.', 'cookie-law-info' ); ?></li>
 				<li><?php echo esc_html__( 'Get access to additional free features such as cookie scan, consent log, etc. by connecting to the CookieYes web app (Optional)', 'cookie-law-info' ); ?></li>
 			</ul>

@@ -56,7 +56,7 @@ class LP_Meta_Box_Repeater_Field extends LP_Meta_Box_Field {
 	}
 
 	public function save( $post_id ) {
-		$data   = isset( $_POST[ $this->id ] ) ? wp_unslash( $_POST[ $this->id ] ) : array();
+		$data   = LP_Request::get_param( $this->id, $this->default ?? [], 'html' );
 		$output = array();
 
 		if ( ! empty( $data ) && is_array( $data ) ) {
@@ -75,6 +75,8 @@ class LP_Meta_Box_Repeater_Field extends LP_Meta_Box_Field {
 		}
 
 		update_post_meta( $post_id, $this->id, $output );
+
+		return $output;
 	}
 
 	public function repeater_html( $thepostid, $repeater, $is_attr = false, $key = 'lp_metabox_repeater_key' ) {
@@ -95,7 +97,7 @@ class LP_Meta_Box_Repeater_Field extends LP_Meta_Box_Field {
 				if ( isset( $this->extra['fields'] ) ) {
 					foreach ( $this->extra['fields'] as $field_key => $field ) {
 						$field->id             = $this->id . '[' . $key . '][' . $field_key . ']';
-						$field->extra['value'] = $is_attr ? '' : $repeater[ $field_key ];
+						$field->extra['value'] = $is_attr ? '' : ( $repeater[ $field_key ] ?? '' );
 						learn_press_echo_vuejs_write_on_php( $field->output( $thepostid ) );
 					}
 				}

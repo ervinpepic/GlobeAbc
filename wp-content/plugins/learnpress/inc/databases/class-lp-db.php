@@ -4,7 +4,7 @@
  *
  * @author tungnx
  * @since 3.2.7.5
- * @version 2.0.1
+ * @version 2.0.2
  */
 defined( 'ABSPATH' ) || exit();
 
@@ -13,9 +13,10 @@ defined( 'ABSPATH' ) || exit();
 class LP_Database {
 	private static $_instance;
 	public $wpdb, $tb_users;
+	public $tb_lp_courses;
 	public $tb_lp_user_items, $tb_lp_user_itemmeta;
 	public $tb_posts, $tb_postmeta, $tb_options;
-	public $tb_terms, $tb_term_relationships;
+	public $tb_terms, $tb_term_relationships, $tb_term_taxonomy;
 	public $tb_lp_order_items, $tb_lp_order_itemmeta;
 	public $tb_lp_sections, $tb_lp_section_items;
 	public $tb_lp_quiz_questions;
@@ -24,7 +25,9 @@ class LP_Database {
 	public $tb_lp_question_answermeta;
 	public $tb_lp_upgrade_db;
 	public $tb_lp_sessions;
-	private $collate         = '';
+	public $tb_lp_files;
+	public $tb_thim_cache;
+	private $collate = '';
 	public $max_index_length = '191';
 
 	protected function __construct() {
@@ -41,6 +44,8 @@ class LP_Database {
 		$this->tb_options                = $wpdb->options;
 		$this->tb_terms                  = $wpdb->terms;
 		$this->tb_term_relationships     = $wpdb->term_relationships;
+		$this->tb_term_taxonomy          = $wpdb->term_taxonomy;
+		$this->tb_lp_courses             = $prefix . 'learnpress_courses';
 		$this->tb_lp_user_items          = $prefix . 'learnpress_user_items';
 		$this->tb_lp_user_itemmeta       = $prefix . 'learnpress_user_itemmeta';
 		$this->tb_lp_order_items         = $prefix . 'learnpress_order_items';
@@ -53,6 +58,8 @@ class LP_Database {
 		$this->tb_lp_question_answermeta = $prefix . 'learnpress_question_answermeta';
 		$this->tb_lp_upgrade_db          = $prefix . 'learnpress_upgrade_db';
 		$this->tb_lp_sessions            = $prefix . 'learnpress_sessions';
+		$this->tb_lp_files               = $prefix . 'learnpress_files';
+		$this->tb_thim_cache             = $prefix . 'thim_cache';
 		$this->wpdb->hide_errors();
 		$this->set_collate();
 	}
@@ -171,7 +178,7 @@ class LP_Database {
 	 *
 	 * @throws Exception
 	 */
-	public function clone_table( string $name_table ):bool {
+	public function clone_table( string $name_table ): bool {
 		if ( ! current_user_can( ADMIN_ROLE ) ) {
 			throw new Exception( 'You don\'t have permission' );
 		}
@@ -299,7 +306,7 @@ class LP_Database {
 	 * Add Index of Table
 	 *
 	 * @param string $name_table .
-	 * @param array  $indexs.
+	 * @param array $indexs .
 	 *
 	 * @return bool|int
 	 * @throws Exception
@@ -474,10 +481,10 @@ class LP_Database {
 	 * because if want change value of "option_name" will error "database error Duplicate entry"
 	 * So before set must drop and add when done all
 	 *
-	 * @author tungnx
+	 * @throws Exception
 	 * @version 1.0.0
 	 * @since 4.0.3
-	 * @throws Exception
+	 * @author tungnx
 	 */
 	public function create_indexes_tb_options() {
 		$this->drop_indexs_table( $this->tb_options );
@@ -497,10 +504,10 @@ class LP_Database {
 	/**
 	 * Rename table
 	 *
-	 * @author tungnx
+	 * @throws Exception
 	 * @version 1.0.0
 	 * @since 4.0.3
-	 * @throws Exception
+	 * @author tungnx
 	 */
 	public function rename_table( string $name_table = '', string $new_name = '' ) {
 		if ( ! current_user_can( ADMIN_ROLE ) ) {
@@ -552,25 +559,37 @@ class LP_Database {
 	 * @param int $limit
 	 * @param int $total_rows
 	 *
-	 * @return false|float
+	 * @return int
 	 */
-	public static function get_total_pages( int $limit = 0, int $total_rows = 0 ) {
+	public static function get_total_pages( int $limit = 0, int $total_rows = 0 ): int {
 		if ( $limit == 0 ) {
 			return 0;
 		}
 
 		$total_pages = floor( $total_rows / $limit );
 		if ( $total_rows % $limit !== 0 ) {
-			$total_pages++;
+			$total_pages ++;
 		}
 
-		return $total_pages;
+		return (int) $total_pages;
+	}
+
+	/**
+	 * Get query string single row
+	 *
+	 * @since 4.2.5
+	 * @version 1.0.0
+	 */
+	public function get_query_single_row( LP_Filter &$filter ) {
+		$filter->limit               = 1;
+		$filter->return_string_query = true;
+		$filter->run_query_count     = false;
 	}
 
 	/**
 	 * Get result query
 	 *
-	 * @return array|null|int|string
+	 * @return array|object|null|int|string
 	 * @throws Exception
 	 * @author tungnx
 	 * @version 1.0.0
@@ -589,7 +608,7 @@ class LP_Database {
 		} elseif ( ! empty( $filter->fields ) ) {
 			// exclude more fields
 			if ( ! empty( $filter->exclude_fields ) ) {
-				foreach ( $filter->exclude_fields as  $field ) {
+				foreach ( $filter->exclude_fields as $field ) {
 					$index_field = array_search( $field, $filter->fields );
 					if ( $index_field ) {
 						unset( $filter->fields[ $index_field ] );
@@ -613,7 +632,7 @@ class LP_Database {
 		$GROUP_BY = '';
 		if ( $filter->group_by ) {
 			$GROUP_BY .= 'GROUP BY ' . $filter->group_by;
-			$GROUP_BY  = apply_filters( 'lp/query/group_by', $GROUP_BY, $filter );
+			$GROUP_BY = apply_filters( 'lp/query/group_by', $GROUP_BY, $filter );
 		}
 
 		// Order by
@@ -624,13 +643,13 @@ class LP_Database {
 				$filter->order = 'DESC';
 			}
 
-			$ORDER_BY .= 'ORDER BY ' . sanitize_sql_orderby( $filter->order_by ) . ' ' . $filter->order . ' ';
-			$ORDER_BY  = apply_filters( 'lp/query/order_by', $ORDER_BY, $filter );
+			$ORDER_BY .= 'ORDER BY ' . $filter->order_by . ' ' . $filter->order . ' ';
+			$ORDER_BY = apply_filters( 'lp/query/order_by', $ORDER_BY, $filter );
 		}
 
 		// Limit
 		$LIMIT = '';
-		if ( $filter->limit != -1 ) {
+		if ( $filter->limit != - 1 ) {
 			$filter->limit = absint( $filter->limit );
 			/*if ( $filter->limit > $filter->max_limit ) {
 				$filter->limit = $filter->max_limit;
@@ -668,7 +687,7 @@ class LP_Database {
 		if ( $filter->return_string_query ) {
 			return $query;
 		} elseif ( ! empty( $filter->union ) ) {
-			$query  = implode( ' UNION ', array_unique( $filter->union ) );
+			$query = implode( ' UNION ', array_unique( $filter->union ) );
 			$query .= $GROUP_BY;
 			$query .= $ORDER_BY;
 			$query .= $LIMIT;
@@ -719,7 +738,7 @@ class LP_Database {
 
 		// SET value
 		$SET = apply_filters( 'lp/query/update/set', $filter->set, $filter );
-		$SET = implode( ' ', array_unique( $SET ) );
+		$SET = implode( ',', array_unique( $SET ) );
 
 		// Where
 		$WHERE = array( 'WHERE 1=1' );
@@ -745,9 +764,9 @@ class LP_Database {
 	 *
 	 * @throws Exception
 	 * @since 4.1.7
-	 * @version 1.0.0
+	 * @version 1.0.1
 	 */
-	public function delete_execute( LP_Filter $filter ) {
+	public function delete_execute( LP_Filter $filter, string $table = '' ) {
 		$COLLECTION = $filter->collection;
 
 		// Where
@@ -756,10 +775,21 @@ class LP_Database {
 		$WHERE = apply_filters( 'lp/query/delete/where', $WHERE, $filter );
 		$WHERE = implode( ' ', array_unique( $WHERE ) );
 
+		// Join
+		$INNER_JOIN = array();
+		$INNER_JOIN = array_merge( $INNER_JOIN, $filter->join );
+		$INNER_JOIN = apply_filters( 'lp/query/delete/inner_join', $INNER_JOIN, $filter );
+		$INNER_JOIN = implode( ' ', array_unique( $INNER_JOIN ) );
+
 		$query = "
-			DELETE FROM $COLLECTION
+			DELETE $table FROM $COLLECTION
+			$INNER_JOIN
 			$WHERE
 		";
+
+		if ( $filter->return_string_query ) {
+			return $query;
+		}
 
 		$result = $this->wpdb->query( $query );
 

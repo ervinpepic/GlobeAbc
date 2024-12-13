@@ -220,12 +220,29 @@ if ( ! class_exists( 'LP_Question_Fill_In_Blanks' ) ) {
 			return $answers;
 		}
 
+		/**
+		 * Clear answer meta of the question
+		 *
+		 * @param $question_id
+		 *
+		 * @since 4.0.0
+		 * @version 1.0.1
+		 */
 		public function clear_question_answer_meta( $question_id ) {
-			$question = LP_Question::get_question( $question_id );
-			$answers  = $question->get_answers();
+			try {
+				$question = LP_Question::get_question( $question_id );
+				$answers  = $question->get_answers();
 
-			foreach ( $answers as $answer ) {
-				learn_press_delete_question_answer_meta( $answer->get_id(), '_blanks', '', true );
+				foreach ( $answers as $answer ) {
+					$answer_id          = $answer->get_id();
+					$lp_db              = LP_Database::getInstance();
+					$filter             = new LP_Question_Answermeta_Filter();
+					$filter->collection = $lp_db->tb_lp_question_answermeta;
+					$filter->where[]    = $lp_db->wpdb->prepare( "AND learnpress_question_answer_id = %s", $answer_id );
+					$lp_db->delete_execute( $filter );
+				}
+			} catch ( Throwable $e ) {
+				error_log( __METHOD__ . ': ' . $e->getMessage() );
 			}
 		}
 
@@ -384,13 +401,16 @@ if ( ! class_exists( 'LP_Question_Fill_In_Blanks' ) ) {
 				}
 			}
 
-			return $return;
+			$question = $this;
+			$data     = compact( 'user_answer', 'answers', 'question' );
+
+			return apply_filters( 'learn-press/question/fill-in-blank/check', $return, $data );
 		}
 
 		/**
 		 * Check answer fill in blank
 		 *
-		 * @param array     $blank
+		 * @param array $blank
 		 * @param $user_fill
 		 *
 		 * @return bool
@@ -437,7 +457,9 @@ if ( ! class_exists( 'LP_Question_Fill_In_Blanks' ) ) {
 					}
 			}
 
-			return $blank_correct;
+			$data = compact( 'blank', 'user_fill' );
+
+			return apply_filters( 'learn-press/question/fill-in-blank/check_answer', $blank_correct, $data );
 		}
 	}
 }

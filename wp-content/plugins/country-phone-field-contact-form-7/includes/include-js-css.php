@@ -85,38 +85,48 @@ function nb_cpf_embedCssJs() {
 						'.$defaultCountry.''.$onlyCountries.''.$preferredCountries.''.$excludeCountries.'
 					});
 					$(".wpcf7-phonetext").intlTelInput({
-						autoHideDialCode: false,
-						autoPlaceholder: "off",
+						autoHideDialCode: true,
+						autoPlaceholder: true,
 						nationalMode: '.$phone_nationalMode.',
-						separateDialCode: false,
+						separateDialCode: true,
 						hiddenInput: "full_number",
 						'.$phone_defaultCountry.''.$phone_onlyCountries.''.$phone_preferredCountries.''.$phone_excludeCountries.'	
 					});
 	
 					$(".wpcf7-phonetext").each(function () {
+
+						var dial_code = $(this).siblings(".flag-container").find(".selected-flag .selected-dial-code").text();
+
 						var hiddenInput = $(this).attr(\'name\');
 						//console.log(hiddenInput);
-						$("input[name="+hiddenInput+"-country-code]").val($(this).val());
+						$("input[name="+hiddenInput+"-country-code]").val(dial_code);
 					});
 					
 					$(".wpcf7-phonetext").on("countrychange", function() {
 						// do something with iti.getSelectedCountryData()
 						//console.log(this.value);
+						var dial_code = $(this).siblings(".flag-container").find(".selected-flag .selected-dial-code").text();
 						var hiddenInput = $(this).attr("name");
-						$("input[name="+hiddenInput+"-country-code]").val(this.value);
+						$("input[name="+hiddenInput+"-country-code]").val(dial_code);
 						
 					});';
 	
 					if(! isset($nb_cpf_settings_options['phone_nationalMode']) || isset($nb_cpf_settings_options['phone_nationalMode']) && $nb_cpf_settings_options['phone_nationalMode'] != 1){
 	
-						$custom_inline_js .= '$(".wpcf7-phonetext").on("keyup", function() {
-							var dial_code = $(this).siblings(".flag-container").find(".country-list li.active span.dial-code").text();
-							if(dial_code == "")
-							var dial_code = $(this).siblings(".flag-container").find(".country-list li.highlight span.dial-code").text();
+						$custom_inline_js .= '
+						$(".wpcf7-phonetext").on("keyup", function() {
+							var dial_code = $(this).siblings(".flag-container").find(".selected-flag .selected-dial-code").text();
+							
 							var value   = $(this).val();
-							console.log(dial_code, value);
-							$(this).val(dial_code + value.substring(dial_code.length));
-						 });';
+							//console.log(dial_code, value);
+							if(value == "+")
+								$(this).val("");
+							else if(value.indexOf("+") == "-1")
+								$(this).val(dial_code + value);
+							else if(value.indexOf("+") > 0)
+								$(this).val(dial_code + value.substring(dial_code.length));
+						});
+						';
 	
 					}
 	
@@ -134,8 +144,8 @@ function nb_cpf_embedCssJs() {
 				var ip_address = "";
 
 				jQuery.ajax({
-					//url: "https://ipwho.is/",
-					url: "https://reallyfreegeoip.org/json/",
+					url: "https://ipapi.co/json/",
+					//url: "https://reallyfreegeoip.org/json/",
 					success: function(response){
 						
 						//console.log(response);
@@ -152,10 +162,10 @@ function nb_cpf_embedCssJs() {
 							$custom_inline_js .= $onlyCountries.''.$preferredCountries.''.$excludeCountries.'
 							});
 							$(".wpcf7-phonetext").intlTelInput({
-								autoHideDialCode: false,
-								autoPlaceholder: "off",
+								autoHideDialCode: true,
+								autoPlaceholder: true,
 								nationalMode: '.$phone_nationalMode.',
-								separateDialCode: false,
+								separateDialCode: true,
 								hiddenInput: "full_number",';
 							$custom_inline_js .= isset( $nb_cpf_settings_options['phone_auto_select'] ) 
 							&& $nb_cpf_settings_options['phone_auto_select'] == 1 ?
@@ -166,26 +176,34 @@ function nb_cpf_embedCssJs() {
 							$(".wpcf7-phonetext").each(function () {
 								var hiddenInput = $(this).attr(\'name\');
 								//console.log(hiddenInput);
-								$("input[name="+hiddenInput+"-country-code]").val($(this).val());
+								var dial_code = $(this).siblings(".flag-container").find(".selected-flag .selected-dial-code").text();
+								$("input[name="+hiddenInput+"-country-code]").val(dial_code);
 							});
 							
 							$(".wpcf7-phonetext").on("countrychange", function() {
 								// do something with iti.getSelectedCountryData()
 								//console.log(this.value);
+								var dial_code = $(this).siblings(".flag-container").find(".selected-flag .selected-dial-code").text();
 								var hiddenInput = $(this).attr("name");
-								$("input[name="+hiddenInput+"-country-code]").val(this.value);
+								$("input[name="+hiddenInput+"-country-code]").val(dial_code);
 								
 							});';
 
 							if(! isset($nb_cpf_settings_options['phone_nationalMode']) || isset($nb_cpf_settings_options['phone_nationalMode']) && $nb_cpf_settings_options['phone_nationalMode'] != 1){
 
-								$custom_inline_js .= '$(".wpcf7-phonetext").on("keyup", function() {
-									var dial_code = $(this).siblings(".flag-container").find(".country-list li.active span.dial-code").text();
-									if(dial_code == "")
-									var dial_code = $(this).siblings(".flag-container").find(".country-list li.highlight span.dial-code").text();
+								$custom_inline_js .= '
+								
+								$(".wpcf7-phonetext").on("keyup", function() {
+									var dial_code = $(this).siblings(".flag-container").find(".selected-flag .selected-dial-code").text();
+									
 									var value   = $(this).val();
-									console.log(dial_code, value);
-									$(this).val(dial_code + value.substring(dial_code.length));
+									if(value == "+")
+										$(this).val("");
+									else if(value.indexOf("+") == "-1")
+										$(this).val(dial_code + value);
+									else if(value.indexOf("+") > 0)
+										$(this).val(dial_code + value.substring(dial_code.length));
+								
 								});';
 
 							}
@@ -216,17 +234,38 @@ function nb_cpf_embedCssJs() {
 
 	}else{ 
 
-		$custom_inline_js .= '
+	/*if(  isset( $nb_cpf_settings_options['phone_auto_select'] ) && $nb_cpf_settings_options['phone_auto_select'] == 1 ){
+		$phone_defaultCountry = 'initialCountry: "auto",
+			geoIpLookup: function(success, failure) {
+				fetch("https://ipapi.co/json")
+				.then(function(res) { return res.json(); })
+				.then(function(data) { success(data.country_code); })
+				.catch(function() { failure(); });
+			},';
+
+	}
+	if(isset( $nb_cpf_settings_options['country_auto_select'] ) && $nb_cpf_settings_options['country_auto_select'] == 1 ){
+		$defaultCountry = 'initialCountry: "auto",
+		geoIpLookup: function(success, failure) {
+			fetch("https://ipapi.co/json")
+			.then(function(res) { return res.json(); })
+			.then(function(data) { success(data.country_code); })
+			.catch(function() { failure(); });
+		},';
+
+	}*/
+
+	$custom_inline_js .= '
 		(function($) {
 			$(function() {
 				$(".wpcf7-countrytext").countrySelect({
 					'.$defaultCountry.''.$onlyCountries.''.$preferredCountries.''.$excludeCountries.'
 				});
 				$(".wpcf7-phonetext").intlTelInput({
-					autoHideDialCode: false,
-					autoPlaceholder: "off",
+					autoHideDialCode: true,
+					autoPlaceholder: true,
 					nationalMode: '.$phone_nationalMode.',
-					separateDialCode: false,
+					separateDialCode: true,
 					hiddenInput: "full_number",
 					'.$phone_defaultCountry.''.$phone_onlyCountries.''.$phone_preferredCountries.''.$phone_excludeCountries.'	
 				});
@@ -234,27 +273,35 @@ function nb_cpf_embedCssJs() {
 				$(".wpcf7-phonetext").each(function () {
 					var hiddenInput = $(this).attr(\'name\');
 					//console.log(hiddenInput);
-					$("input[name="+hiddenInput+"-country-code]").val($(this).val());
+					var dial_code = $(this).siblings(".flag-container").find(".selected-flag .selected-dial-code").text();
+					$("input[name="+hiddenInput+"-country-code]").val(dial_code);
 				});
 				
 				$(".wpcf7-phonetext").on("countrychange", function() {
 					// do something with iti.getSelectedCountryData()
 					//console.log(this.value);
 					var hiddenInput = $(this).attr("name");
-					$("input[name="+hiddenInput+"-country-code]").val(this.value);
+					var dial_code = $(this).siblings(".flag-container").find(".selected-flag .selected-dial-code").text();
+					$("input[name="+hiddenInput+"-country-code]").val(dial_code);
 					
 				});';
 
 				if(! isset($nb_cpf_settings_options['phone_nationalMode']) || isset($nb_cpf_settings_options['phone_nationalMode']) && $nb_cpf_settings_options['phone_nationalMode'] != 1){
 
-					$custom_inline_js .= '$(".wpcf7-phonetext").on("keyup", function() {
-						var dial_code = $(this).siblings(".flag-container").find(".country-list li.active span.dial-code").text();
-						if(dial_code == "")
-						var dial_code = $(this).siblings(".flag-container").find(".country-list li.highlight span.dial-code").text();
+					$custom_inline_js .= '
+					
+					var isMobile = /Android.+Mobile|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+					$(".wpcf7-phonetext").on("keyup", function() {
+						var dial_code = $(this).siblings(".flag-container").find(".selected-flag .selected-dial-code").text();
+						
 						var value   = $(this).val();
-						console.log(dial_code, value);
-						$(this).val(dial_code + value.substring(dial_code.length));
-					 });';
+						if(value == "+")
+							$(this).val("");
+						else if(value.indexOf("+") == "-1")
+							$(this).val(dial_code + value);
+						else if(value.indexOf("+") > 0)
+							$(this).val(dial_code + value.substring(dial_code.length));
+					});';
 
 				}
 
@@ -281,8 +328,8 @@ function nb_cpf_embedCssJs() {
 add_action( 'wp_enqueue_scripts', 'nb_cpf_embedCssJs' );
 
 
-add_action('wp_ajax_nopriv_auto_country_detection', 'nb_cpf_autoCountryDetection');
-add_action('wp_ajax_auto_country_detection', 'nb_cpf_autoCountryDetection' );
+//add_action('wp_ajax_nopriv_auto_country_detection', 'nb_cpf_autoCountryDetection');
+//add_action('wp_ajax_auto_country_detection', 'nb_cpf_autoCountryDetection' );
 
 function nb_cpf_autoCountryDetection(){
 

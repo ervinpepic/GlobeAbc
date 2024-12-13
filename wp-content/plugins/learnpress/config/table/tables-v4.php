@@ -152,5 +152,51 @@ return array(
 			KEY user_item_id (user_item_id)
 		) $collate;
 	",
+	$lp_db->tb_lp_files               => "
+		CREATE TABLE IF NOT EXISTS {$lp_db->tb_lp_files} (
+			file_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+			file_name varchar(191) NOT NULL DEFAULT '',
+			file_type varchar(10) NOT NULL DEFAULT '',
+			item_id bigint(20) unsigned NOT NULL DEFAULT '0',
+			item_type varchar(100) NOT NULL DEFAULT '',
+			method varchar(10) NOT NULL DEFAULT 'upload' CHECK ( method IN ( 'upload', 'external' ) ),
+			file_path varchar(255) NOT NULL DEFAULT '',
+			orders int(4) NOT NULL DEFAULT '0',
+			created_at datetime NULL DEFAULT NULL,
+			PRIMARY KEY (file_id),
+			KEY file_name (file_name),
+			KEY item_id (item_id),
+			KEY item_type (item_type)
+		) $collate;
+	",
+	$lp_db->tb_lp_courses             => "
+		CREATE TABLE IF NOT EXISTS {$lp_db->tb_lp_courses} (
+			ID bigint(20) unsigned NOT NULL,
+			json LONGTEXT NOT NULL,
+			price_to_sort FLOAT,
+			is_sale int(1) default 0,
+			post_author bigint unsigned,
+			post_date_gmt datetime,
+			post_content LONGTEXT,
+			post_title text not null,
+			post_status varchar(20) default 'publish' not null,
+			post_name varchar(200) default '',
+			menu_order int default 0,
+			lang varchar(20),
+			PRIMARY KEY (ID),
+			KEY post_title (post_title(191)),
+			KEY post_status (post_status),
+			KEY post_name (post_name),
+			KEY id_status (ID, post_status)
+		) $collate;
+	",
+	$lp_db->tb_thim_cache             => "
+		CREATE TABLE IF NOT EXISTS {$lp_db->tb_thim_cache} (
+			key_cache VARCHAR (191) NOT NULL UNIQUE,
+			value LONGTEXT NOT NULL,
+			expiration VARCHAR (191),
+			PRIMARY KEY (key_cache)
+		) $collate;
+	",
 );
 

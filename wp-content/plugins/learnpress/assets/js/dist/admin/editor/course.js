@@ -185,10 +185,9 @@ const CourseCurriculum = {
       console.error(error);
     });
   },
-  updateSectionItems(_ref, payload) {
-    let {
-      state
-    } = _ref;
+  updateSectionItems({
+    state
+  }, payload) {
     LP.Request({
       type: 'update-section-items',
       section_id: payload.section_id,
@@ -488,7 +487,8 @@ function HTTP(options) {
     payload.id = options.store.getters.id;
     payload.nonce = options.store.getters.nonce;
     payload['lp-ajax'] = options.store.getters.action;
-    payload.code = options.store.getters.code;
+    //payload.code = options.store.getters.code;
+
     $publishingAction.find('#publish').addClass('disabled');
     $publishingAction.find('.spinner').addClass('is-active');
     $publishingAction.addClass('code-' + payload.code);
@@ -691,7 +691,6 @@ const CourseCurriculum = {
     //section.items.push({id: data.item.id, title: data.item.title, type: 'empty-item'});
   }
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CourseCurriculum);
 
 /***/ }),
@@ -980,8 +979,6 @@ const $ = window.jQuery || jQuery;
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
 /*!***************************************************!*\
   !*** ./assets/src/apps/js/admin/editor/course.js ***!
   \***************************************************/
@@ -1012,8 +1009,6 @@ $(document).ready(function () {
     });
   }, 100);
 });
-})();
-
 /******/ })()
 ;
 //# sourceMappingURL=course.js.map

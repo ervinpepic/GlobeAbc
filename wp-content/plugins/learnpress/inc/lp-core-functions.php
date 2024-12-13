@@ -1786,6 +1786,17 @@ function learn_press_is_checkout() {
 	return apply_filters( 'learn-press/is-checkout', false );
 }
 
+function learn_press_is_instructors() {
+	$page_id = learn_press_get_page_id( 'instructors' );
+
+	if ( $page_id && is_page( $page_id ) ) {
+		return true;
+	}
+
+	return apply_filters( 'learn-press/is-instructor', false );
+}
+
+
 /**
  * Return register permalink
  *
@@ -1802,8 +1813,10 @@ function learn_press_get_register_url() {
  * @param string
  *
  * @return mixed
+ * @deprecated 4.2.5
  */
 function learn_press_add_notice( $message, $type = 'updated' ) {
+	_deprecated_function( __FUNCTION__, '4.2.5' );
 	LP_Admin_Notice::instance()->add( $message, $type );
 }
 
@@ -1829,7 +1842,7 @@ function learn_press_setcookie( string $name = '', string $value = '', int $expi
  */
 function learn_press_remove_cookie( string $name = '' ) {
 	if ( ! empty( $name ) ) {
-		setcookie( $name, '', time() - YEAR_IN_SECONDS, COOKIEPATH ? COOKIEPATH : '/', COOKIE_DOMAIN );
+		setcookie( $name, '', time() - YEAR_IN_SECONDS, COOKIEPATH ? COOKIEPATH : '/', COOKIE_DOMAIN, is_ssl(), true );
 	}
 
 	if ( array_key_exists( $name, $_COOKIE ) ) {
@@ -1891,46 +1904,52 @@ function learn_press_get_endpoint_url( $name, $value, $url ) {
 
 /**
  * Add all endpoints from settings to the pages.
+ * @deprecated 4.2.3
+ * @use LP_Query::add_rewrite_endpoints instead
  */
-function learn_press_add_endpoints() {
-	// Must LP_Profile::instance call on init, because it will add action hook to save data on Profile page
-	// If rewrite save data on Profile page, can remove it.
-	LP_Profile::instance( get_current_user_id() );
+//function learn_press_add_endpoints() {
+//	// Must LP_Profile::instance call on init, because it will add action hook to save data on Profile page
+//	// If rewrite save data on Profile page, can remove it.
+//	//LP_Profile::instance( get_current_user_id() );
+//
+//	$settings = LP_Settings::instance();
+//
+//	$endpoints = $settings->get_checkout_endpoints();
+//	if ( $endpoints ) {
+//		foreach ( $endpoints as $endpoint => $value ) {
+//			LearnPress::instance()->query_vars[ $endpoint ] = $value;
+//			add_rewrite_endpoint( $value, EP_PAGES );
+//		}
+//	}
+//
+//	$endpoints = $settings->get_profile_endpoints();
+//	if ( $endpoints ) {
+//		foreach ( $endpoints as $endpoint => $value ) {
+//			LearnPress::instance()->query_vars[ $endpoint ] = $value;
+//			add_rewrite_endpoint( $value, EP_PAGES );
+//		}
+//	}
+//
+//	$endpoints = $settings->get( 'quiz_endpoints' );
+//	if ( $endpoints ) {
+//		foreach ( $endpoints as $endpoint => $value ) {
+//			$endpoint                                       = preg_replace( '!_!', '-', $endpoint );
+//			LearnPress::instance()->query_vars[ $endpoint ] = $value;
+//			add_rewrite_endpoint(
+//				$value, /*EP_ROOT | */
+//				EP_PAGES
+//			);
+//		}
+//	}
+//}
 
-	$settings = LP_Settings::instance();
+//add_action( 'init', 'learn_press_add_endpoints' );
 
-	$endpoints = $settings->get_checkout_endpoints();
-	if ( $endpoints ) {
-		foreach ( $endpoints as $endpoint => $value ) {
-			LearnPress::instance()->query_vars[ $endpoint ] = $value;
-			add_rewrite_endpoint( $value, EP_PAGES );
-		}
-	}
-
-	$endpoints = $settings->get_profile_endpoints();
-	if ( $endpoints ) {
-		foreach ( $endpoints as $endpoint => $value ) {
-			LearnPress::instance()->query_vars[ $endpoint ] = $value;
-			add_rewrite_endpoint( $value, EP_PAGES );
-		}
-	}
-
-	$endpoints = $settings->get( 'quiz_endpoints' );
-	if ( $endpoints ) {
-		foreach ( $endpoints as $endpoint => $value ) {
-			$endpoint                                       = preg_replace( '!_!', '-', $endpoint );
-			LearnPress::instance()->query_vars[ $endpoint ] = $value;
-			add_rewrite_endpoint(
-				$value, /*EP_ROOT | */
-				EP_PAGES
-			);
-		}
-	}
-}
-
-add_action( 'init', 'learn_press_add_endpoints' );
-
+/**
+ * @deprecated 4.2.3
+ */
 function learn_press_is_yes( $value ) {
+	_deprecated_function( __FUNCTION__, '4.2.3' );
 	return ( $value === 1 ) || ( $value === '1' ) || ( $value == 'yes' ) || ( $value == true ) || ( $value == 'on' );
 }
 
@@ -1938,8 +1957,10 @@ function learn_press_is_yes( $value ) {
  * @param mixed $value
  *
  * @return bool
+ * @deprecated 4.2.3
  */
 function _is_false_value( $value ) {
+	_deprecated_function( __FUNCTION__, '4.2.3' );
 	if ( is_numeric( $value ) ) {
 		return $value == 0;
 	} elseif ( is_string( $value ) ) {
@@ -2057,6 +2078,7 @@ function learn_press_get_current_version() {
  *
  * @return mixed|string
  * @deprecated 4.2.2
+ * addon commission 4.0.2 still use this function
  */
 function learn_press_get_current_profile_tab( $default = true ) {
 	global $wp_query, $wp;
@@ -2569,6 +2591,7 @@ function learn_press_tooltip( $tooltip, $html = false ) {
  * @return array
  *
  * @since 3.0.0
+ * @deprecated 4.2.3
  */
 function learn_press_static_page_ids() {
 	$pages = LP_Object_Cache::get( 'static-page-ids', 'learn-press' );
@@ -2669,6 +2692,7 @@ function learn_press_sort_list_by_priority_callback( $a, $b ) {
  *
  * @return string
  * @since 3.0.0
+ * @deprcated 4.2.6 use LP_Datetime format instead
  */
 function learn_press_date_i18n( $timestamp = 0, string $format = '', bool $gmt = false ): string {
 	if ( ! $format ) {
@@ -2983,6 +3007,14 @@ function learn_press_get_question_support_feature( $feature ) {
 	return date( $format, $start + $duration );
 }*/
 
+/**
+ * LP Cookie
+ *
+ * @param $name
+ * @param $namespace
+ *
+ * @return mixed|null
+ */
 function learn_press_cookie_get( $name, $namespace = 'LP' ) {
 	if ( $namespace ) {
 		$cookie = ! empty( $_COOKIE[ $namespace ] ) ? (array) json_decode( LP_Helper::sanitize_params_submitted( stripslashes( $_COOKIE[ $namespace ] ), 'html' ) ) : array();

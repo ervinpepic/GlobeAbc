@@ -32,14 +32,14 @@ class LP_REST_Addon_Controller extends LP_Abstract_REST_Controller {
 				array(
 					'methods'             => WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'list_addons' ),
-					'permission_callback' => '__return_true',
+					'permission_callback' => [ $this, 'permission_callback' ],
 				),
 			),
 			'action' => array(
 				array(
 					'methods'             => WP_REST_Server::CREATABLE,
 					'callback'            => array( $this, 'action' ),
-					'permission_callback' => '__return_true',
+					'permission_callback' => [ $this, 'permission_callback' ],
 				),
 			),
 		);
@@ -48,7 +48,7 @@ class LP_REST_Addon_Controller extends LP_Abstract_REST_Controller {
 	}
 
 	public function permission_callback() {
-		return current_user_can( 'manage_options' );
+		return current_user_can( ADMIN_ROLE );
 	}
 
 	/**
@@ -66,19 +66,49 @@ class LP_REST_Addon_Controller extends LP_Abstract_REST_Controller {
 		try {
 			$params   = $request->get_params();
 			$lp_addon = LP_Manager_Addons::instance();
-			$res      = wp_remote_get( $lp_addon->url_list_addons );
+			$res      = wp_remote_get( $lp_addon->url_list_addons, [ 'timeout' => 30, ] );
 			if ( is_wp_error( $res ) ) {
 				throw new Exception( $res->get_error_message() );
 			}
 
-			$addons = json_decode( wp_remote_retrieve_body( $res ) );
-			if ( json_last_error() ) {
-				throw new Exception( json_last_error_msg() );
+			$addons = LP_Helper::json_decode( wp_remote_retrieve_body( $res ) );
+
+			// Get list addons purchased.
+			$addons_purchase = LP_Settings::get_option( $lp_addon->key_purchase_addons, [] );
+			if ( ! empty( $addons_purchase ) ) {
+				$args = [
+					'method'     => 'POST',
+					'body'       => [
+						'addons_purchase' => $addons_purchase,
+					],
+					'timeout'    => 30,
+					'user-agent' => site_url(),
+				];
+
+				$result = wp_remote_post( $lp_addon->link_addons_purchased, $args );
+				if ( is_wp_error( $result ) ) {
+					throw new Exception( $result->get_error_message() );
+				}
+
+				$data_str = wp_remote_retrieve_body( $result );
+				if ( preg_match( '/^Error.*/', $data_str ) ) {
+					throw new Exception( $data_str );
+				}
+
+				$data = LP_Helper::json_decode( $data_str );
+
+				foreach ( $addons as $key => $addon ) {
+					if ( isset( $data->{$key} ) ) {
+						$addons->{$key}->purchase_info = $data->{$key};
+					}
+				}
 			}
+			// End get list addons purchased.
 
 			if ( isset( $params['return_obj'] ) ) {
 				$response->status = 'success';
 				$response->data   = $addons;
+
 				return $response;
 			}
 
@@ -90,8 +120,7 @@ class LP_REST_Addon_Controller extends LP_Abstract_REST_Controller {
 			$response->status  = 'success';
 			$response->message = __( 'Get addons successfully', 'learnpress' );
 		} catch ( Throwable $e ) {
-			ob_end_clean();
-			error_log( $e->getMessage() );
+			error_log( __METHOD__ . ':' . $e->getMessage() );
 			$response->message = $e->getMessage();
 		}
 

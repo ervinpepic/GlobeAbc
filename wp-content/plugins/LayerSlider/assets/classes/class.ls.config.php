@@ -127,4 +127,8 @@ class LS_Config {
 	public static function getLicenseKey() {
 		return trim( get_option( 'layerslider-purchase-code', '' ) );
 	}
+
+	public static function isDevMode() {
+		return defined('LS_DEV_MODE') && LS_DEV_MODE;
+	}
 }

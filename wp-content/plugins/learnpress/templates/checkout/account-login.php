@@ -14,9 +14,14 @@ defined( 'ABSPATH' ) || exit();
 if ( is_user_logged_in() ) {
 	return;
 }
+
+$checked = 'checked="checked"';
+if ( ! is_user_logged_in() && LearnPress::instance()->checkout()->is_enable_guest_checkout() ) {
+	$checked = '';
+}
 ?>
 
-<input type="radio" id="checkout-account-switch-to-login" checked="checked" name="checkout-account-switch-form" value="login"/>
+<input type="radio" id="checkout-account-switch-to-login" <?php echo $checked ?> name="checkout-account-switch-form" value="login"/>
 <div id="checkout-account-login" class="lp-checkout-block left">
 
 	<h4><?php esc_html_e( 'Sign in', 'learnpress' ); ?></h4>
@@ -34,7 +39,7 @@ if ( is_user_logged_in() ) {
 
 	<?php do_action( 'learn-press/after-checkout-account-login-fields' ); ?>
 
-	<input type="hidden" name="learn-press-checkout-nonce" value="<?php echo wp_create_nonce( 'learn-press-checkout-login' ); ?>">
+<!--	<input type="hidden" name="learn-press-checkout-nonce" value="--><?php //echo wp_create_nonce( 'learn-press-checkout-login' ); ?><!--">-->
 	<p class="lp-checkout-remember">
 		<label>
 			<input type="checkbox" name="rememberme"/>
@@ -45,6 +50,11 @@ if ( is_user_logged_in() ) {
 			<?php esc_html_e( 'Lost password?', 'learnpress' ); ?>
 		</a>
 	</p>
+
+	<?php
+	// Add hook of WordPress
+	do_action( 'login_form' );
+	?>
 
 	<p class="lp-checkout-sign-up-link">
 		<?php if ( LearnPress::instance()->checkout()->is_enable_register() ) : ?>

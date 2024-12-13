@@ -108,7 +108,7 @@ function lsGetSwitchOptionField( $key, $default, $attrs = [] ) {
 	if( isset( LS_Config::$forced[ $key ] ) ) {
 		$help = sprintf(__('This setting is enforced by <b><i>%s</i></b> in order to maximize compatibility on your site.', 'LayerSlider'), LS_Config::$forcedBy[ $key ] );
 
-		$label .= ' ls-switch-disabled ls-switch-yellow data-help-delay="100" data-help="'.$help.'""';
+		$label .= ' ls-switch-disabled ls-switch-yellow" data-help-delay="100" data-help="'.$help.'""';
 
 		$attrs['disabled'] = 'disabled';
 	}
@@ -214,8 +214,12 @@ function lsGetInput($default, $current = null, $attrs = [], $return = false) {
 	$attributes['data-default'] = $default['value'];
 
 	if( empty( $attributes['placeholder'] ) ) {
-		//if( ! is_string( $default['value'] ) || ! empty( $default['value'] ) ) {
+
+		if( ! isset( $attributes['placeholder'] ) || $attributes['placeholder'] !== '0' ) {
 			$attributes['placeholder'] = $default['value'];
+		}
+		//if( ! is_string( $default['value'] ) || ! empty( $default['value'] ) ) {
+			// $attributes['placeholder'] = $default['value'];
 		//}
 	}
 

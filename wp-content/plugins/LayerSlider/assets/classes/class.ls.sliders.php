@@ -232,16 +232,23 @@ class LS_Sliders {
 		// Slider data
 		$data = !empty($data) ? $data : [
 			'properties' => [
+
 				'createdWith' => LS_PLUGIN_VERSION,
 				'sliderVersion' => LS_PLUGIN_VERSION,
+
 				'title' => $title,
+
 				'new' => true,
+
+				// v7.10.0: Prevent user selection on the entire project by default. This is
+				// only applied to newly created projects and we don't try to compare versions
+				// or anything like that. The actual default remained 'false' for backward compatibility.
+				'noUserSelect' => true
 			],
 			'layers' => [ [] ],
 		];
 
-		// Fix WP 4.2 issue with longer varchars
-		// than the column length
+		// Fix WP 4.2 issue with longer varchars than the column length
 		if(strlen($title) > 99) {
 			$title = substr($title, 0, (99-strlen($title)) );
 		}
@@ -905,7 +912,10 @@ class LS_Sliders {
 		// Get Sliders
 		global $wpdb;
 		$table = $wpdb->prefix.LS_DB_TABLE;
-		$result = $wpdb->get_row("SELECT * FROM $table WHERE id = '$id' ORDER BY id DESC LIMIT 1", ARRAY_A);
+		$result = $wpdb->get_row( $wpdb->prepare(
+			"SELECT * FROM $table WHERE id = %d ORDER BY id DESC LIMIT 1",
+			$id
+		), ARRAY_A );
 
 		// Check return value
 		if(!is_array($result)) { return false; }
@@ -962,14 +972,16 @@ class LS_Sliders {
 
 		// Check slug
 		if(empty($slug)) { return false; }
-			else { $slug = esc_sql($slug); }
 
 		// Get DB stuff
 		global $wpdb;
 		$table = $wpdb->prefix.LS_DB_TABLE;
 
 		// Make the call
-		$result = $wpdb->get_row("SELECT * FROM $table WHERE slug = '$slug' ORDER BY id DESC LIMIT 1", ARRAY_A);
+		$result = $wpdb->get_row( $wpdb->prepare(
+			"SELECT * FROM `$table` WHERE slug = %s ORDER BY id DESC LIMIT 1",
+			$slug
+		), ARRAY_A);
 
 		// Check return value
 		if(!is_array($result)) { return false; }

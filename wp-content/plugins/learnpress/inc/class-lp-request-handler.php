@@ -54,7 +54,7 @@ class LP_Request {
 	 * @return array|float|int|string
 	 */
 	public static function get_param( string $key, $default = '', string $sanitize_type = 'text', string $method = '' ) {
-		switch ( $method ) {
+		switch ( strtolower( $method ) ) {
 			case 'post':
 				$values = $_POST ?? [];
 				break;
@@ -207,7 +207,7 @@ class LP_Request {
 	}
 
 	public static function verify_nonce( $action, $nonce = '' ) {
-		return wp_verify_nonce( $nonce ? $nonce : self::get_string( "{$action}-nonce" ), $action );
+		return wp_verify_nonce( $nonce ? $nonce : self::get_param( "{$action}-nonce" ), $action );
 	}
 
 	public static function parse_action( $action ) {
@@ -303,6 +303,7 @@ class LP_Request {
 	 * @param string $env
 	 *
 	 * @return int
+	 * @deprecated
 	 */
 	public static function get_int( $var, $default = false, $env = 'request' ) {
 		return self::get( $var, $default, 'int', $env );
@@ -342,6 +343,7 @@ class LP_Request {
 	 * @param string $env
 	 *
 	 * @return string
+	 * @deprecated 4.2.7.4
 	 */
 	public static function get_string( $var, $default = false, $env = 'request' ) {
 		return self::get( $var, $default, 'string', $env );
@@ -511,13 +513,7 @@ class LP_Request {
 	}
 
 	public static function get_cookie( $name, $def = false, $global = false ) {
-		if ( $global ) {
-			return $_COOKIE[ $name ] ?? $def;
-		}
-
-		$cookie = isset( $_COOKIE['LP'] ) ? (array) json_decode( stripslashes( $_COOKIE['LP'] ) ) : array();
-
-		return $cookie[ $name ] ?? $def;
+		return $_COOKIE[ $name ] ?? $def;
 	}
 
 	/*public static function set_cookie( $name, $value, $expires = '', $domain = '', $path = '', $secure = false ) {
@@ -533,11 +529,3 @@ class LP_Request {
 }
 
 LP_Request::init();
-
-/**
- * @deprecated 4.1.7.3
- * using in the addon course review 4.0.3, wishlist 4.0.3
- */
-class LP_Request_Handler extends LP_Request {
-
-}

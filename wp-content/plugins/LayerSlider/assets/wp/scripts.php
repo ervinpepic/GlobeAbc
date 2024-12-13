@@ -413,7 +413,8 @@ function layerslider_enqueue_admin_res() {
 		wp_localize_script('ls-common', 'LS_l10n', $l10n_ls);
 		wp_localize_script('ls-common', 'LS_ENV', [
 			'base' => LS_PLUGIN_BASE,
-			'slug' => LS_PLUGIN_SLUG
+			'slug' => LS_PLUGIN_SLUG,
+			'devMode' => LS_Config::isDevMode()
 		]);
 
 		$section = ! empty( $_GET['section'] ) ? $_GET['section'] : false;
@@ -458,6 +459,13 @@ function layerslider_enqueue_admin_res() {
 			wp_enqueue_script('ls-dashboard', LS_ROOT_URL.'/static/admin/js/ls-dashboard.js', ['jquery'], LS_PLUGIN_VERSION, true );
 			wp_enqueue_script('layerslider', LS_ROOT_URL.'/static/layerslider/js/layerslider.kreaturamedia.jquery.js', ['jquery'], LS_PLUGIN_VERSION );
 			wp_enqueue_style('layerslider', LS_ROOT_URL.'/static/layerslider/css/layerslider.css', false, LS_PLUGIN_VERSION );
+
+			wp_localize_script('ls-dashboard', 'LS_AddonsMeta', [
+				'ajaxurl' => admin_url('admin-ajax.php'),
+				'settingsSaved' => __('Settings saved.', 'LayerSlider'),
+				'settingsError' => __('An error occurred while saving settings.', 'LayerSlider'),
+				'addonDisabled' => __('Add-on disabled.', 'LayerSlider'),
+			]);
 
 			ls_enqueue_font_library();
 
@@ -523,6 +531,8 @@ function ls_require_builder_assets() {
 	wp_register_script('ls-ui-overrides', LS_ROOT_URL.'/static/admin/js/jquery-ui-overrides.js', ['jquery', 'json2'], LS_PLUGIN_VERSION, true );
 	wp_register_script('ls-project-editor-search', LS_ROOT_URL.'/static/admin/js/ls-project-editor-search.js', ['jquery'], LS_PLUGIN_VERSION, true );
 	wp_register_script('ls-project-editor-buttons', LS_ROOT_URL.'/static/admin/js/ls-button-presets-min.js', ['jquery'], LS_PLUGIN_VERSION, true );
+	wp_register_script('ls-project-editor-countdowns', LS_ROOT_URL.'/static/admin/js/ls-countdown-presets-min.js', ['jquery'], LS_PLUGIN_VERSION, true );
+	wp_register_script('ls-project-editor-counter', LS_ROOT_URL.'/static/admin/js/ls-counter-presets-min.js', ['jquery'], LS_PLUGIN_VERSION, true );
 
 	wp_register_style('ls-project-editor', LS_ROOT_URL.'/static/admin/css/editor.css', false, LS_PLUGIN_VERSION );
 
@@ -533,6 +543,8 @@ function ls_require_builder_assets() {
 	wp_enqueue_script('ls-ui-overrides');
 	wp_enqueue_script('ls-project-editor-search');
 	wp_enqueue_script('ls-project-editor-buttons');
+	wp_enqueue_script('ls-project-editor-countdowns');
+	wp_enqueue_script('ls-project-editor-counter');
 	wp_enqueue_style('ls-project-editor');
 
 	// 3rd party: GSAP Morph SVG Plugin
@@ -586,30 +598,11 @@ function ls_load_google_fonts() {
 	}
 
 	// Get font list
-	$fonts = get_option('ls-google-fonts', []);
+	$fontList 		= get_option('ls-google-fonts', [] );
+	$fontManager 	= new LS_GoogleFontsManager( $fontList );
+	$fontStyles 	= $fontManager->getInlineStyle( get_option('ls-google-fonts', [] ) );
 
-	// Check fonts if any
-	if(!empty($fonts) && is_array($fonts)) {
-		$lsFonts = [];
-		foreach($fonts as $item) {
-			$fontParams = explode(':', $item['param']);
-			$fontName 	= urldecode( $fontParams[0] );
-			$GLOBALS['lsLoadedFonts'][] = $fontName;
-			$lsFonts[] = urlencode( $fontName ).':100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i';
-		}
-
-		if( ! empty( $lsFonts ) ) {
-			$lsFonts = implode('%7C', $lsFonts);
-			$query_args = [
-				'family' => $lsFonts
-			];
-
-			wp_enqueue_style('ls-google-fonts',
-				add_query_arg($query_args, "https://fonts.googleapis.com/css" ),
-				[], null
-			);
-		}
-	}
+	echo $fontStyles;
 }
 
 function ls_meta_generator() {

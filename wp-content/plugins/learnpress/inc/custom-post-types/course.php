@@ -7,6 +7,9 @@
  * @version 3.0.0
  */
 
+use LearnPress\Models\CourseModel;
+use LearnPress\Models\CoursePostModel;
+
 defined( 'ABSPATH' ) || exit();
 
 if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
@@ -34,71 +37,13 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 			add_action( 'init', array( $this, 'register_taxonomy' ) );
 			add_filter( 'posts_where_paged', array( $this, '_posts_where_paged_course_items' ), 10 );
 			add_filter( 'posts_join_paged', array( $this, '_posts_join_paged_course_items' ), 10 );
-
-			// Comment by tungnx
-			// add_action( 'learn-press/admin/after-enqueue-scripts', array( $this, 'data_course_editor' ) );
-			add_action( 'admin_enqueue_scripts', array( $this, 'add_script_data' ) );
-		}
-
-		public function add_script_data() {
-			global $post, $pagenow;
-
-			if ( empty( $post ) || ( get_post_type() !== $this->_post_type ) || ! in_array( $pagenow, array( 'post.php', 'post-new.php' ) ) ) {
-				return;
-			}
-
-			$course          = learn_press_get_course( $post->ID );
-			$hidden_sections = get_post_meta( $post->ID, '_admin_hidden_sections', true );
-
-			$data = apply_filters(
-				'learn-press/admin-localize-course-editor',
-				array(
-					'root'        => array(
-						'course_id'          => $post->ID,
-						'auto_draft'         => get_post_status( $post->ID ) == 'auto-draft',
-						'ajax'               => admin_url( 'index.php' ),
-						'disable_curriculum' => false,
-						'action'             => 'admin_course_editor',
-						'nonce'              => wp_create_nonce( 'learnpress_update_curriculum' ),
-					),
-					'chooseItems' => array(
-						'types'      => learn_press_course_get_support_item_types(),
-						'open'       => false,
-						'addedItems' => array(),
-						'items'      => array(),
-					),
-					'i18n'        => array(
-						'item'                   => __( 'item', 'learnpress' ),
-						'new_section_item'       => __( 'Create a new', 'learnpress' ),
-						'back'                   => __( 'Back', 'learnpress' ),
-						'selected_items'         => __( 'Selected items', 'learnpress' ),
-						'confirm_remove_item'    => __( 'Do you want to remove the "{{ITEM_NAME}}" item from the course?', 'learnpress' ),
-						'confirm_trash_item'     => __( 'Do you want to move the "{{ITEM_NAME}}" item to the trash?', 'learnpress' ),
-						'item_labels'            => array(
-							'singular' => __( 'Item', 'learnpress' ),
-							'plural'   => __( 'Items', 'learnpress' ),
-						),
-						'notice_sale_price'      => __( 'The course sale price must be less than the regular price', 'learnpress' ),
-						'notice_price'           => __( 'The course price must be greater than the sale price', 'learnpress' ),
-						'notice_sale_start_date' => __( 'The sale start date must be before the sale end date', 'learnpress' ),
-						'notice_sale_end_date'   => __( 'The sale end date must be after the sale start date', 'learnpress' ),
-						'notice_invalid_date'    => __( 'Invalid date', 'learnpress' ),
-					),
-					'sections'    => array(
-						'sections'        => $course->get_curriculum_raw(),
-						'hidden_sections' => ! empty( $hidden_sections ) ? $hidden_sections : array(),
-						'urlEdit'         => admin_url( 'post.php?action=edit&post=' ),
-					),
-				)
-			);
-
-			learn_press_admin_assets()->add_script_data( 'learn-press-admin-course-editor', $data );
+			add_action( 'clean_post_cache', [ $this, 'clear_cache' ] );
 		}
 
 		/**
 		 * Register course post type.
 		 */
-		public function args_register_post_type() : array {
+		public function args_register_post_type(): array {
 			$settings         = LP_Settings::instance();
 			$labels           = array(
 				'name'               => _x( 'Courses', 'Post Type General Name', 'learnpress' ),
@@ -219,32 +164,22 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 		}
 
 		/**
-		 * Load data for course editor.
-		 *
-		 * @since 3.0.0
-		 * @editor tungnx
-		 * @reason not use
-		 */
-		/*
-		public function data_course_editor() {
-			if ( LP_COURSE_CPT !== get_post_type() ) {
-				return;
-			}
-
-		}*/
-
-		/**
 		 * Delete course sections before delete course.
 		 *
 		 * @param int $post_id
+		 *
+		 * @throws Exception
+		 * @since modify 4.0.9
 		 * @since 3.0.0
 		 * @editor tungnx
-		 * @since modify 4.0.9
 		 */
 		public function before_delete( int $post_id ) {
-			// course curd
-			// $curd = new LP_Course_CURD();
-			// $curd->remove_course( $post_id );
+			// Delete course from table learnpress_courses
+			$courseModel = CourseModel::find( $post_id, true );
+			if ( $courseModel ) {
+				$courseModel->delete();
+			}
+
 			$course = learn_press_get_course( $post_id );
 			if ( ! $course ) {
 				return;
@@ -274,7 +209,7 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 			global $wpdb;
 
 			$course_id = $this->_filter_items_by_course();
-			if ( $course_id || ( LP_Request::get( 'orderby' ) == 'course-name' ) ) {
+			if ( $course_id || LP_Request::get_param( 'orderby' ) === 'course-name' ) {
 				$join .= " LEFT JOIN {$wpdb->prefix}learnpress_section_items si ON {$wpdb->posts}.ID = si.item_id";
 				$join .= " LEFT JOIN {$wpdb->prefix}learnpress_sections s ON s.section_id = si.section_id";
 				$join .= " LEFT JOIN {$wpdb->posts} c ON c.ID = s.section_course_id";
@@ -367,7 +302,7 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 			$order = $this->get_order_sort();
 			switch ( $this->get_order_by() ) {
 				case 'price':
-					$orderby = "pm_price.meta_value {$order}";
+					$orderby = "CAST(pm_price.meta_value AS UNSIGNED) {$order}";
 			}
 
 			return $orderby;
@@ -390,11 +325,11 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 		 *
 		 * @return void
 		 */
-		public function admin_editor() {
+		/*public function admin_editor() {
 			$course = LP_Course::get_course();
 
 			learn_press_admin_view( 'course/editor' );
-		}
+		}*/
 
 		/**
 		 * Delete all sections in a course and reset auto increment
@@ -495,8 +430,10 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 		/**
 		 * Print content for custom column
 		 *
-		 * @param string
-		 * @param int
+		 * @param string $column
+		 * @param int $post_id
+		 *
+		 * @throws Exception
 		 */
 		public function columns_content( $column, $post_id = 0 ) {
 			global $post;
@@ -516,7 +453,7 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 					if ( $number_sections ) {
 						$output     = sprintf( _n( '<strong>%d</strong> section', '<strong>%d</strong> sections', $number_sections, 'learnpress' ), $number_sections );
 						$html_items = array();
-						$post_types = get_post_types( null, 'objects' );
+						//$post_types = get_post_types( null, 'objects' );
 
 						foreach ( learn_press_get_course_item_types() as $item_type ) {
 							$count_item = $course->count_items( $item_type );
@@ -525,10 +462,19 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 								continue;
 							}
 
-							$post_type_object = $post_types[ $item_type ];
+							/*$post_type_object = $post_types[ $item_type ];
 							$singular_name    = $post_type_object->labels->singular_name;
 							$plural_name      = $post_type_object->label;
-							$html_items[]     = sprintf( _n( '<strong>%d</strong> ' . $singular_name, '<strong>%d</strong> ' . $plural_name, $count_item, 'learnpress' ), $count_item );
+							if ( $count_item > 1 || $count_item == 0 ) {
+								$label_item = $plural_name;
+							} else {
+								$label_item = $singular_name;
+							}*/
+							$html_items[] = sprintf(
+								'<strong>%1$d</strong> %2$s',
+								$count_item,
+								LP_Helper::get_i18n_string_plural( $count_item, $item_type, false )
+							);
 						}
 
 						$html_items = apply_filters( 'learn-press/course-count-items', $html_items );
@@ -554,7 +500,7 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 			}
 		}
 
-		public function meta_boxes() {
+		/*public function meta_boxes() {
 			return array(
 				'course-editor' => array(
 					'title'    => esc_html__( 'Curriculum', 'learnpress' ),
@@ -563,30 +509,145 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 					'priority' => 'high',
 				),
 			);
-		}
+		}*/
 
 		/**
 		 * Save course post
-		 * Should write run background if handle big and need more time
 		 *
-		 * @param int     $post_id
-		 * @param WP_Post $post
-		 * @since 4.0.9
-		 * @version 1.0.0
-		 * @editor tungnx
-		 * @see LP_Background_Single_Course::handle()
+		 * @param int $post_id
+		 * @param WP_Post|null $post
+		 * @param bool $is_update
+		 *
+		 * @since 4.2.6.9
+		 * @version 1.0.1
 		 */
-		public function save( int $post_id = 0, WP_Post $post = null ) {
-			// Save in background.
-			$bg = LP_Background_Single_Course::instance();
+		public function save_post( int $post_id, WP_Post $post = null, bool $is_update = false ) {
+			try {
+				$wp_screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+				// Save to table learnpress_courses
+				LP_Install::instance()->create_table_courses();
+				if ( empty( $post ) ) {
+					$post = get_post( $post_id );
+				}
 
-			$bg->data(
-				array(
-					'handle_name' => 'save_post',
-					'course_id'   => $post_id,
-					'data'        => $_POST ?? array(),
-				)
-			)->dispatch();
+				/*if ( $post->post_status === 'auto-draft' ) {
+					return;
+				}*/
+
+				$courseModel = CourseModel::find( $post_id, true );
+				if ( ! $courseModel ) {
+					$courseModel = new CourseModel( $post );
+				}
+
+				// Merge object post and courseModel
+				$new_obj     = (array) $post;
+				$old_obj     = (array) $courseModel;
+				$old_now     = array_merge( $old_obj, $new_obj );
+				$courseModel = new CourseModel( $old_now );
+
+				// Get all metadata of course
+				if ( $is_update && empty( $wp_screen ) ) {
+					$coursePost = new CoursePostModel( $courseModel );
+					$coursePost->get_all_metadata();
+					$courseModel->meta_data = $coursePost->meta_data;
+				}
+
+				// Save option single course
+				include_once LP_PLUGIN_PATH . 'inc/admin/class-lp-admin.php';
+				$lp_meta_box_course = new LP_Meta_Box_Course();
+				$ground_fields      = $lp_meta_box_course->metabox( $courseModel->ID );
+				// Save meta fields
+				foreach ( $ground_fields as $fields ) {
+					if ( ! isset( $fields['content'] ) ) {
+						continue;
+					}
+					foreach ( $fields['content'] as $meta_key => $option ) {
+						$option->id = $meta_key;
+						if ( ! $option instanceof LP_Meta_Box_Field ) {
+							continue;
+						}
+
+						if ( isset( $_POST[ $meta_key ] ) ) {
+							$value_saved = $option->save( $courseModel->ID );
+							if ( ! empty( $value_saved ) ) {
+								$courseModel->meta_data->{$meta_key} = $value_saved;
+							} else {
+								$courseModel->meta_data->{$meta_key} = get_post_meta( $courseModel->ID, $meta_key, true );
+							}
+						} elseif ( ! $is_update ) {
+							$courseModel->meta_data->{$meta_key} = $option->default ?? '';
+						} elseif ( ! empty( $wp_screen ) && LP_COURSE_CPT === $wp_screen->id ) {
+							$value_saved                         = $option->save( $courseModel->ID );
+							$courseModel->meta_data->{$meta_key} = $value_saved;
+						}
+					}
+				}
+
+				$this->save_price( $courseModel );
+				$courseModel->save();
+				// End save to table learnpress_courses
+
+				// Save extra info course
+				// Save in background.
+				$bg = LP_Background_Single_Course::instance();
+				$bg->data(
+					array(
+						'handle_name' => 'save_post',
+						'course_id'   => $post_id,
+						'data'        => $_POST ?? [],
+					)
+				)->dispatch();
+			} catch ( Throwable $e ) {
+				error_log( __METHOD__ . ' ' . $e->getMessage() );
+			}
+		}
+
+		/**
+		 * Save price course
+		 *
+		 * @return void
+		 */
+		protected function save_price( CourseModel &$courseObj ) {
+			$coursePost = new CoursePostModel( $courseObj );
+
+			$regular_price = $courseObj->get_regular_price();
+			$sale_price    = $courseObj->get_sale_price();
+			if ( (float) $regular_price < 0 ) {
+				$courseObj->meta_data->{CoursePostModel::META_KEY_REGULAR_PRICE} = '';
+				$regular_price = $courseObj->get_regular_price();
+			}
+
+			if ( $sale_price !== '' && (float) $sale_price > (float) $regular_price ) {
+				$courseObj->meta_data->{CoursePostModel::META_KEY_SALE_PRICE} = '';
+				$sale_price = $courseObj->get_sale_price();
+			}
+
+			// Save sale regular price and sale price to table postmeta
+			$coursePost->save_meta_value_by_key( CoursePostModel::META_KEY_REGULAR_PRICE, $regular_price );
+			$coursePost->save_meta_value_by_key( CoursePostModel::META_KEY_SALE_PRICE, $sale_price );
+
+			$has_sale = $courseObj->has_sale_price();
+			if ( $has_sale ) {
+				$courseObj->is_sale = 1;
+				$coursePost->save_meta_value_by_key( CoursePostModel::META_KEY_IS_SALE, 1 );
+			} else {
+				$courseObj->is_sale = 0;
+				delete_post_meta( $courseObj->get_id(), CoursePostModel::META_KEY_IS_SALE );
+			}
+
+			// Set price to sort on lists.
+			$courseObj->price_to_sort = $courseObj->get_price();
+			$coursePost->save_meta_value_by_key( CoursePostModel::META_KEY_PRICE, $courseObj->price_to_sort );
+		}
+
+		/**
+		 * Clear cache courses
+		 *
+		 * @return void
+		 */
+		public function clear_cache() {
+			$lp_cache_course = new LP_Courses_Cache( true );
+			$lp_cache_course->clear_cache_on_group( LP_Courses_Cache::KEYS_QUERY_COURSES_APP );
 		}
 
 		/**
@@ -604,6 +665,4 @@ if ( ! class_exists( 'LP_Course_Post_Type' ) ) {
 	}
 
 	$course_post_type = LP_Course_Post_Type::instance();
-
-	// $course_post_type->add_meta_box( 'course-editor', esc_html__( 'Curriculum', 'learnpress' ), 'admin_editor', 'normal', 'high' );
 }

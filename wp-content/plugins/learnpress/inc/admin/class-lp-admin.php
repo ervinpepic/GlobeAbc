@@ -28,7 +28,7 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 			add_action( 'delete_user', array( $this, 'delete_user_data' ) );
 			add_action( 'delete_user_form', array( $this, 'delete_user_form' ) );
 			add_action( 'wp_ajax_learn_press_rated', array( $this, 'rated' ) );
-			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+			add_action( 'all_admin_notices', array( $this, 'admin_notices' ), - 1 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'load_modal' ) );
 			add_filter( 'admin_body_class', array( $this, 'body_class' ) );
 			add_filter( 'manage_users_custom_column', array( $this, 'users_custom_column' ), 10, 3 );
@@ -45,7 +45,7 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 
 			add_filter( 'learn-press/modal-search-items-args', array( $this, 'filter_modal_search' ) );
 
-			add_filter(
+			/*add_filter(
 				'learn-press/dismissed-notice-response',
 				array(
 					$this,
@@ -53,7 +53,7 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 				),
 				10,
 				2
-			);
+			);*/
 
 			// get list items course of user | tungnx
 			add_action( 'pre_get_posts', array( $this, 'get_course_items_of_user_backend' ), 10 );
@@ -61,6 +61,19 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 
 			// Set link item course when edit on Backend | tungnx
 			add_filter( 'get_sample_permalink_html', array( $this, 'lp_course_set_link_item_backend' ), 10, 5 );
+
+			/*add_action(
+				'admin_init',
+				function () {
+					// From LP v4.2.3 temporary run create pages to add page instructors, single instructor for client upgrade LP.
+					// After a long time, will remove this code.
+					if ( is_admin() && ! defined( 'DOING_AJAX' ) ) {
+						LP_Install::create_pages();
+					}
+				}
+			);*/
+
+			add_filter( 'users_list_table_query_args', [ $this, 'exclude_temp_users' ] );
 		}
 
 		/**
@@ -71,9 +84,9 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 				LP_Modal_Search_Items::instance();
 			}
 
-			if ( in_array( get_post_type(), array( LP_ORDER_CPT ) ) ) {
+			/*if ( in_array( get_post_type(), array( LP_ORDER_CPT ) ) ) {
 				LP_Modal_Search_Users::instance();
-			}
+			}*/
 		}
 
 		/**
@@ -117,7 +130,7 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 				if ( $search ) {
 					foreach ( $search as $k => $v ) {
 						if ( in_array( $k, $active_plugins ) ) {
-							$count_activated ++;
+							++$count_activated;
 						}
 					}
 				}
@@ -304,10 +317,12 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 				);
 
 				$all_pages = array(
-					'courses'          => __( 'Courses', 'learnpress' ),
-					'profile'          => __( 'Profile', 'learnpress' ),
-					'checkout'         => __( 'Checkout', 'learnpress' ),
-					'become_a_teacher' => __( 'Become a Teacher', 'learnpress' ),
+					'courses'           => __( 'Courses', 'learnpress' ),
+					'instructors'       => __( 'Instructors', 'learnpress' ),
+					'single_instructor' => __( 'Single Instructors', 'learnpress' ),
+					'profile'           => __( 'Profile', 'learnpress' ),
+					'checkout'          => __( 'Checkout', 'learnpress' ),
+					'become_a_teacher'  => __( 'Become a Teacher', 'learnpress' ),
 				);
 
 				foreach ( $all_pages as $name => $title ) {
@@ -363,7 +378,7 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 		 * Display the page is assigned to LP Page.
 		 *
 		 * @param string $column_name
-		 * @param int    $post
+		 * @param int $post
 		 */
 		public function page_columns_content( $column_name, $post ) {
 			$pages = $this->_get_static_pages();
@@ -423,7 +438,7 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 		 * @return mixed
 		 */
 		public function get_pages_of_lp( $q ) {
-			if ( ! is_admin() ) {
+			if ( ! is_admin() || ! $q->is_main_query() ) {
 				return $q;
 			}
 
@@ -442,28 +457,60 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 		/**
 		 * Add actions to users list
 		 *
-		 * @param array   $actions
+		 * @param array $actions
 		 * @param WP_User $user
 		 *
 		 * @return mixed
 		 */
 		public function user_row_actions( $actions, $user ) {
-			$pending_request = LP_User_Factory::get_pending_requests();
+			$pending_request = self::get_pending_requests();
 			if ( LP_Request::get_string( 'lp-action' ) == 'pending-request' && $pending_request ) {
 				$actions = array();
+				$nonce   = 'nonce=' . wp_create_nonce( 'lp-action-permit-role-teacher' );
 				if ( in_array( $user->ID, $pending_request ) ) {
 					$actions['accept']      = sprintf(
-						'<a href="' . admin_url( 'users.php?lp-action=accept-request&user_id=' . $user->ID ) . '">%s</a>',
+						'<a href="%s">%s</a>',
+						admin_url( "users.php?lp-action=accept-request&user_id={$user->ID}&{$nonce}" ),
 						_x( 'Accept', 'pending-request', 'learnpress' )
 					);
 					$actions['delete deny'] = sprintf(
-						'<a class="submitdelete" href="' . admin_url( 'users.php?lp-action=deny-request&user_id=' . $user->ID ) . '">%s</a>',
+						'<a class="submitdelete" href="%s">%s</a>',
+						admin_url( "users.php?lp-action=deny-request&user_id={$user->ID}&{$nonce}" ),
 						_x( 'Deny', 'pending-request', 'learnpress' )
 					);
 				}
 			}
 
 			return $actions;
+		}
+
+		public function exclude_temp_users( $args ) {
+			if ( LP_Request::get_string( 'lp-action' ) == 'pending-request' ) {
+				$args['include'] = self::get_pending_requests();
+			}
+
+			return $args;
+		}
+
+		/**
+		 * Get pending requests be come a Teacher.
+		 *
+		 * @return array
+		 */
+		public static function get_pending_requests() {
+			global $wpdb;
+			$query = $wpdb->prepare(
+				"
+				SELECT ID
+				FROM {$wpdb->users} u
+				INNER JOIN {$wpdb->usermeta} um ON um.user_id = u.ID AND um.meta_key = %s
+				WHERE um.meta_value = %s
+				",
+				'_requested_become_teacher',
+				'yes'
+			);
+
+			return $wpdb->get_col( $query );
 		}
 
 		/**
@@ -477,13 +524,16 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 			}
 
 			$user_id = LP_Request::get_int( 'user_id' );
-
 			if ( ! $user_id || ! get_user_by( 'id', $user_id ) ) {
 				return;
 			}
 
-			$user_data = get_userdata( $user_id );
+			$nonce = LP_Request::get_param( 'nonce' );
+			if ( ! wp_verify_nonce( $nonce, 'lp-action-permit-role-teacher' ) ) {
+				return;
+			}
 
+			$user_data = get_userdata( $user_id );
 			if ( in_array( $action, array( 'accept-request', 'deny-request' ) ) ) {
 
 				delete_user_meta( $user_id, '_requested_become_teacher' );
@@ -505,7 +555,6 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 		}
 
 		public function users_custom_column( $content, $column_name, $user_id ) {
-
 		}
 
 		/**
@@ -516,7 +565,7 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 		 * @return mixed
 		 */
 		public function views_users( $views ) {
-			$pending_request = LP_User_Factory::get_pending_requests();
+			$pending_request = self::get_pending_requests();
 
 			if ( $pending_request ) {
 				if ( LP_Request::get_string( 'lp-action' ) == 'pending-request' ) {
@@ -679,13 +728,14 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 		/**
 		 * Send data to join newsletter or dismiss.
 		 *
-		 * @param array  $data
+		 * @param array $data
 		 * @param string $notice
 		 *
 		 * @return array
 		 * @since 3.0.10
+		 * @deprecated 4.2.3.1
 		 */
-		public function on_dismissed_notice_response( $data, $notice ) {
+		/*public function on_dismissed_notice_response( $data, $notice ) {
 			switch ( $notice ) {
 				case 'skip-setup-wizard':
 					delete_option( 'learn_press_install' );
@@ -734,7 +784,7 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 			}
 
 			return $data;
-		}
+		}*/
 
 		/**
 		 * Include all classes and functions used for admin
@@ -745,6 +795,7 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 			include_once 'lp-admin-actions.php';
 			require_once LP_PLUGIN_PATH . 'inc/background-process/class-lp-background-query-items.php';
 			include_once 'class-lp-admin-assets.php';
+			LP_Admin_Assets::instance();
 			include_once 'class-lp-admin-dashboard.php';
 			// include_once 'class-lp-admin-tools.php';
 			include_once 'class-lp-admin-ajax.php';
@@ -753,12 +804,13 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 			include_once 'helpers/class-lp-outdated-template-helper.php';
 			include_once 'helpers/class-lp-plugins-helper.php';
 			include_once 'class-lp-modal-search-items.php';
-			include_once 'class-lp-modal-search-users.php';
+			//include_once 'class-lp-modal-search-users.php';
 			include_once 'class-lp-setup-wizard.php';
 			// include_once 'class-lp-updater.php';
 			include_once 'class-lp-install-sample-data.php';
 			include_once 'class-lp-reset-data.php';
 			include_once LP_PLUGIN_PATH . 'inc/admin/views/meta-boxes/course/settings.php';
+			include_once LP_PLUGIN_PATH . 'inc/admin/views/meta-boxes/course/class-lp-meta-box-course-offline.php';
 			include_once LP_PLUGIN_PATH . 'inc/admin/views/meta-boxes/quiz/settings.php';
 			include_once LP_PLUGIN_PATH . 'inc/admin/views/meta-boxes/lesson/settings.php';
 			include_once LP_PLUGIN_PATH . 'inc/admin/views/meta-boxes/question/settings.php';
@@ -804,10 +856,10 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 		/**
 		 * Set link item of course when edit item on Backend
 		 *
-		 * @param string       $post_link
-		 * @param int          $post_id
-		 * @param string       $new_title
-		 * @param string       $new_slug
+		 * @param string $post_link
+		 * @param int $post_id
+		 * @param string $new_title
+		 * @param string $new_slug
 		 * @param WP_Post|null $post
 		 *
 		 * @return string
@@ -822,8 +874,7 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 					if ( $course_id_of_item ) {
 						$course = learn_press_get_course( $course_id_of_item );
 						if ( $course ) {
-							$link_item           = $course->get_item_link( $post->ID );
-							$link_item           = LP_Helper::handle_lp_permalink_structure( $link_item, get_post( $course_id_of_item ) );
+							$link_item           = urldecode( $course->get_item_link( $post->ID ) );
 							$post_slug           = $post->post_name;
 							$link_item_edit_slug = preg_replace( '/' . $post_slug . '$/', '', $link_item );
 
@@ -831,6 +882,7 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 							if ( $new_slug ) {
 								$post_slug = $new_slug;
 							}
+							$post_slug = urldecode( $post_slug );
 
 							$slug_arr   = explode( '/', $link_item_edit_slug );
 							$count_slug = count( $slug_arr );

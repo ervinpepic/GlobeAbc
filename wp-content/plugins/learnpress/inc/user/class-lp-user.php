@@ -90,7 +90,7 @@ class LP_User extends LP_Abstract_User {
 	/**
 	 * Check the user can access to an item inside course.
 	 *
-	 * @param int                                $item_id Course's item Id.
+	 * @param int $item_id Course's item Id.
 	 * @param LP_Model_User_Can_View_Course_Item $view Course Id.
 	 *
 	 * @author  tungnx
@@ -130,7 +130,6 @@ class LP_User extends LP_Abstract_User {
 	 * @param int $course_id .
 	 *
 	 * @return int
-	 * @throws Exception .
 	 * @since 4.0.0
 	 * @author tungnx
 	 */
@@ -195,6 +194,7 @@ class LP_User extends LP_Abstract_User {
 	 *
 	 * @param integer $course_id Course ID
 	 * @param boolean $return_bool
+	 *
 	 * @return bool|object
 	 * @editor tungnx
 	 * @since 4.1.2
@@ -234,7 +234,7 @@ class LP_User extends LP_Abstract_User {
 	 * @return bool
 	 * @throws Exception
 	 */
-	public function has_finished_course( int $course_id ) : bool {
+	public function has_finished_course( int $course_id ): bool {
 		$user_course = $this->get_course_data( $course_id );
 
 		return apply_filters( 'learn-press/user-has-finished-course', $user_course && $user_course->is_finished(), $this->get_id(), $course_id );
@@ -268,8 +268,9 @@ class LP_User extends LP_Abstract_User {
 	/**
 	 * Check user can enroll course
 	 *
-	 * @param int  $course_id
+	 * @param int $course_id
 	 * @param bool $return_bool
+	 *
 	 * @return mixed|object|bool
 	 */
 	public function can_enroll_course( int $course_id, bool $return_bool = true ) {
@@ -279,32 +280,50 @@ class LP_User extends LP_Abstract_User {
 		$output->message = '';
 
 		try {
+			$is_no_required_enroll = $course->get_data( 'no_required_enroll', 'no' ) === 'yes';
 			if ( ! $course ) {
+				$output->code = 'course_unavailable';
 				throw new Exception( esc_html__( 'No Course or User available', 'learnpress' ) );
 			}
 
 			if ( ! $course->is_publish() ) {
+				$output->code = 'course_not_publish';
 				throw new Exception( esc_html__( 'The course is not public', 'learnpress' ) );
 			}
 
-			if ( $course->get_external_link() && ! $this->has_purchased_course( $course_id ) ) {
-				throw new Exception( esc_html__( 'The course is external', 'learnpress' ) );
+			if ( $this->has_enrolled_course( $course_id ) ) {
+				$output->code = 'course_is_enrolled';
+				throw new Exception( esc_html__( 'This course is already enrolled.', 'learnpress' ) );
 			}
 
-			if ( ! $course->is_in_stock() ) {
+			if ( ! $course->is_in_stock_enroll() && ! $this->has_purchased_course( $course_id )
+				&& ! $this->has_enrolled_or_finished( $course_id ) && ! $is_no_required_enroll ) {
+				$output->code = 'course_out_of_stock';
 				throw new Exception( esc_html__( 'The course is full of students.', 'learnpress' ) );
 			}
 
-			if ( $course->is_no_required_enroll() ) {
-				throw new Exception( esc_html__( 'The course is not required to enroll.', 'learnpress' ) );
+			if ( $course->get_external_link()
+				&& ! $this->has_purchased_course( $course_id )
+				&& ! $course->is_offline() ) {
+				$output->code = 'course_is_external';
+				throw new Exception( esc_html__( 'The course is external', 'learnpress' ) );
 			}
 
-			if ( ! $course->is_free() && ! $this->has_purchased_course( $course_id ) ) {
+			if ( $this->can_retry_course( $course_id ) ) {
+				$output->code = 'course_can_retry';
+				throw new Exception( esc_html__( 'Course can retake.', 'learnpress' ) );
+			}
+
+			if ( $is_no_required_enroll && ! is_user_logged_in() ) {
+				$output->code = 'course_is_no_required_enroll_not_login';
+				throw new Exception(
+					esc_html__( 'Enrollment in the course is not mandatory. You can access course for learning now.', 'learnpress' )
+				);
+			}
+
+			if ( ! $course->is_free() && ! $is_no_required_enroll && ! $this->has_purchased_course( $course_id ) ) {
+				$output->code = 'course_is_not_purchased';
 				throw new Exception( esc_html__( 'The course is not purchased.', 'learnpress' ) );
-			}
-
-			if ( $this->has_enrolled_course( $course_id ) ) {
-				throw new Exception( esc_html__( 'This course is already enrolled.', 'learnpress' ) );
 			}
 		} catch ( \Throwable $th ) {
 			$output->check   = false;
@@ -322,90 +341,73 @@ class LP_User extends LP_Abstract_User {
 	 * Check can show purchase course button
 	 *
 	 * @param int $course_id
-	 * @return bool
-	 * @throws Exception
+	 *
+	 * @return bool|WP_Error
 	 * @author nhamdv
 	 * @editor tungnx
-	 * @modify 4.1.4
-	 * @version 1.0.3
+	 * @since 4.0.8
+	 * @version 1.0.6
 	 */
-	public function can_purchase_course( int $course_id = 0 ): bool {
+	public function can_purchase_course( int $course_id = 0 ) {
 		$can_purchase = true;
 		$course       = learn_press_get_course( $course_id );
+		$code_err     = '';
 
 		try {
-			if ( ! $course ) {
-				throw new Exception( 'Course is unavailable' );
-			}
-
-			if ( ! $course->is_publish() ) {
-				throw new Exception( 'Course is not publish' );
+			$can_enroll_course = $this->can_enroll_course( $course_id, false );
+			if ( ! $can_enroll_course->check &&
+				! in_array( $can_enroll_course->code, [ 'course_is_not_purchased', 'course_is_enrolled' ] ) ) {
+				$code_err = $can_enroll_course->code;
+				throw new Exception( $can_enroll_course->message );
 			}
 
 			if ( $course->is_free() ) {
-				throw new Exception( 'Course is free' );
-			}
-
-			if ( $course->get_external_link() ) {
-				throw new Exception( 'Course is type external, so can not purchase' );
+				$code_err = 'course_is_free';
+				throw new Exception( __( 'Course is free, so you can not purchase', 'learnpress' ) );
 			}
 
 			// Course is not require enrolling.
-			if ( $course->is_no_required_enroll() ) {
-				throw new Exception( 'Course is type no required enroll' );
-			}
-
-			if ( $this->can_retry_course( $course_id ) ) {
-				throw new Exception( 'Course is has retake' );
-			}
-
-			// If course is reached limitation.
-			if ( ! $course->is_in_stock() ) {
-				$message = apply_filters(
-					'learn-press/maximum-students-reach',
-					esc_html__( 'This course is out of stock', 'learnpress' )
+			// Not use $course->is_no_required_enroll() because it is not correct, it check with user logged.
+			if ( $course->get_data( 'no_required_enroll', 'no' ) === 'yes' ) {
+				$code_err = 'no_required_enroll';
+				throw new Exception(
+					__(
+						'Enrollment in the course is not mandatory. You can access materials for learning or to take quizzes now.',
+						'learnpress'
+					)
 				);
-
-				if ( $message ) {
-					learn_press_display_message( $message );
-				}
-
-				throw new Exception( $message );
 			}
 
 			// If the order contains course is processing
 			$order = $this->get_course_order( $course_id );
-			if ( $order && $order->get_status() === 'processing' ) {
-				$message = apply_filters(
-					'learn-press/order-processing-message',
-					__( 'Your order is waiting for processing', 'learnpress' )
-				);
-
-				if ( $message ) {
-					learn_press_display_message( $message );
-				}
-
-				throw new Exception( $message );
+			if ( $order && $order->get_status() === LP_ORDER_PROCESSING ) {
+				$code_err = 'order_processing';
+				throw new Exception( __( 'Your order is waiting for processing', 'learnpress' ) );
 			}
 
 			if ( $this->has_purchased_course( $course_id ) ) {
-				throw new Exception( 'Course is purchased' );
+				$code_err = 'course_purchased';
+				throw new Exception( __( 'Course is purchased', 'learnpress' ) );
 			}
 
 			$is_blocked_course  = 0 === $course->timestamp_remaining_duration();
 			$is_enrolled_course = $this->has_enrolled_course( $course_id );
-			$is_finished_course = $this->has_finished_course( $course_id );
-
 			if ( $course->allow_repurchase() ) {
 				if ( $is_enrolled_course && ! $is_blocked_course ) {
+					$code_err = 'course_is_enrolled';
 					throw new Exception( 'Course is enrolled' );
 				}
 			} else {
 				if ( $this->has_enrolled_or_finished( $course_id ) ) {
-					throw new Exception( 'Course is enrolled' );
+					$code_err = 'course_is_enrolled_or_finished';
+					throw new Exception( __( 'Course is enrolled or finished', 'learnpress' ) );
 				}
 			}
-		} catch ( Exception $e ) {
+		} catch ( Throwable $e ) {
+			$can_purchase = new WP_Error( $code_err, $e->getMessage() );
+		}
+
+		if ( $can_purchase instanceof WP_Error ) {
 			$can_purchase = false;
 		}
 
@@ -416,6 +418,7 @@ class LP_User extends LP_Abstract_User {
 	 * Check condition show finish course button
 	 *
 	 * @param $course
+	 *
 	 * @return array
 	 * @author nhamdv
 	 * @editor tungnx
@@ -481,8 +484,8 @@ class LP_User extends LP_Abstract_User {
 	/**
 	 * Start quiz for the user.
 	 *
-	 * @param int  $quiz_id
-	 * @param int  $course_id
+	 * @param int $quiz_id
+	 * @param int $course_id
 	 * @param bool $wp_error Optional. Whether to return a WP_Error on failure. Default false.
 	 *
 	 * @return LP_User_Item_Quiz|bool|WP_Error
@@ -490,12 +493,9 @@ class LP_User extends LP_Abstract_User {
 	 */
 	public function start_quiz( int $quiz_id, int $course_id = 0, bool $wp_error = false ) {
 		try {
-			$item_id = learn_press_get_request( 'lp-preview' );
-
-			if ( $item_id ) {
-				learn_press_add_message( __( 'You cannot start a quiz in preview mode.', 'learnpress' ), 'error' );
-				wp_safe_redirect( learn_press_get_preview_url( $item_id ) );
-				exit();
+			$item_is_preview = learn_press_get_request( 'lp-preview' );
+			if ( $item_is_preview ) {
+				throw new Exception( __( 'You cannot start a quiz in preview mode.', 'learnpress' ) );
 			}
 
 			// Validate course and quiz
@@ -508,7 +508,6 @@ class LP_User extends LP_Abstract_User {
 			}
 
 			$course = learn_press_get_course( $course_id );
-
 			// If user has already finished the course
 			if ( $this->has_finished_course( $course_id ) ) {
 				throw new Exception(
@@ -533,9 +532,9 @@ class LP_User extends LP_Abstract_User {
 					LP_QUIZ_HAS_STARTED_OR_COMPLETED
 				);
 			}
-			$user = learn_press_get_current_user();
 
-			if ( $user->is_guest() ) {
+			$user_current = learn_press_get_current_user();
+			if ( $user_current->is_guest() ) {
 				// if course required enroll => print message "You have to login for starting quiz"
 				if ( ! $course->is_no_required_enroll() ) {
 					throw new Exception( __( 'You have to log in to start the quiz.', 'learnpress' ), LP_REQUIRE_LOGIN );
@@ -548,7 +547,7 @@ class LP_User extends LP_Abstract_User {
 			 * @see learn_press_hk_before_start_quiz
 			 */
 			$can_start_quiz = apply_filters(
-				'learn-press/before-start-quiz',
+				'learn-press/can-start-quiz',
 				true,
 				$quiz_id,
 				$course_id,
@@ -570,7 +569,7 @@ class LP_User extends LP_Abstract_User {
 
 			// $return = $user_quiz->get_mysql_data();
 			$return = $user_quiz;
-		} catch ( Exception $ex ) {
+		} catch ( Throwable $ex ) {
 			$return = $wp_error ? new WP_Error( $ex->getCode(), $ex->getMessage() ) : false;
 		}
 
@@ -580,8 +579,8 @@ class LP_User extends LP_Abstract_User {
 	/**
 	 * Finish a quiz for the user and save all data needed
 	 *
-	 * @param int  $quiz_id
-	 * @param int  $course_id
+	 * @param int $quiz_id
+	 * @param int $course_id
 	 * @param bool $wp_error
 	 *
 	 * @return LP_User_Item_Quiz|bool|WP_Error
@@ -624,15 +623,16 @@ class LP_User extends LP_Abstract_User {
 	/**
 	 * Retake a quiz for the user
 	 *
-	 * @param int  $quiz_id
-	 * @param int  $course_id
+	 * @param int $quiz_id
+	 * @param int $course_id
 	 * @param bool $wp_error
 	 *
 	 * @return bool|WP_Error|LP_User_Item_Quiz
 	 *
 	 * @throws Exception
+	 * @deprecated 4.2.7.2
 	 */
-	public function retake_quiz( int $quiz_id, int $course_id, bool $wp_error = false ) {
+	/*public function retake_quiz( int $quiz_id, int $course_id, bool $wp_error = false ) {
 		$return = false;
 
 		try {
@@ -669,7 +669,7 @@ class LP_User extends LP_Abstract_User {
 			if ( ! $this->has_item_status( array( 'completed' ), $quiz_id, $course_id ) ) {
 				throw new Exception(
 					sprintf(
-						__( '%1$s::%2$s - The ser has not completed the quiz.', 'learnpress' ),
+						__( '%1$s::%2$s - The user has not completed the quiz.', 'learnpress' ),
 						__CLASS__,
 						__FUNCTION__
 					),
@@ -699,7 +699,7 @@ class LP_User extends LP_Abstract_User {
 		}
 
 		return $return;
-	}
+	}*/
 
 	/**
 	 * Get quiz's user learning or completed
@@ -786,5 +786,147 @@ class LP_User extends LP_Abstract_User {
 		}
 
 		return $flag;
+	}
+
+	/**
+	 * Get statistic info of student user
+	 *
+	 * @return array
+	 * @since 4.1.6
+	 * @version 1.0.0
+	 */
+	public function get_student_statistic(): array {
+		$user      = $this;
+		$statistic = array(
+			'enrolled_courses'   => 0,
+			'in_progress_course' => 0,
+			'finished_courses'   => 0,
+			'passed_courses'     => 0,
+			'failed_courses'     => 0,
+		);
+
+		try {
+			if ( ! $user ) {
+				throw new Exception( 'The user is invalid' );
+			}
+
+			$user_id          = $user->get_id();
+			$lp_user_items_db = LP_User_Items_DB::getInstance();
+
+			// Count status
+			$filter                 = new LP_User_Items_Filter();
+			$filter->user_id        = $user_id;
+			$count_status           = $lp_user_items_db->count_status_by_items( $filter );
+			$total_courses_enrolled = intval( $count_status->{LP_COURSE_PURCHASED} ?? 0 )
+				+ intval( $count_status->{LP_COURSE_ENROLLED} ?? 0 )
+				+ intval( $count_status->{LP_COURSE_FINISHED} ?? 0 );
+
+			$statistic['enrolled_courses']   = $total_courses_enrolled;
+			$statistic['in_progress_course'] = $count_status->{LP_COURSE_GRADUATION_IN_PROGRESS} ?? 0;
+			$statistic['finished_courses']   = $count_status->{LP_COURSE_FINISHED} ?? 0;
+			$statistic['passed_courses']     = $count_status->{LP_COURSE_GRADUATION_PASSED} ?? 0;
+			$statistic['failed_courses']     = $count_status->{LP_COURSE_GRADUATION_FAILED} ?? 0;
+		} catch ( Throwable $e ) {
+			error_log( __FUNCTION__ . ': ' . $e->getMessage() );
+		}
+
+		return apply_filters( 'lp/profile/student/statistic', $statistic, $this );
+	}
+
+	/**
+	 * Get statistic info of instructor user
+	 *
+	 * @param array $params
+	 *
+	 * @return array
+	 * @since 4.1.6
+	 * @version 1.0.1
+	 */
+	public function get_instructor_statistic( array $params = [] ): array {
+		$statistic = array(
+			'total_course'        => 0,
+			'published_course'    => 0,
+			'pending_course'      => 0,
+			'total_student'       => 0,
+			'student_completed'   => 0,
+			'student_in_progress' => 0,
+		);
+
+		try {
+			$user_id          = $this->get_id();
+			$lp_user_items_db = LP_User_Items_DB::getInstance();
+			$lp_course_db     = LP_Course_DB::getInstance();
+
+			if ( ! $this->can_create_course() ) {
+				throw new Exception( 'The user is not Instructor' );
+			}
+
+			// Count total user completed course of author
+			$filter_course                      = new LP_Course_Filter();
+			$filter_course->only_fields         = array( 'ID' );
+			$filter_course->post_author         = $user_id;
+			$filter_course->post_status         = 'publish';
+			$filter_course->return_string_query = true;
+			$query_courses_str                  = LP_Course_DB::getInstance()->get_courses( $filter_course );
+
+			$filter_count_users            = new LP_User_Items_Filter();
+			$filter_count_users->item_type = LP_COURSE_CPT;
+			$filter_count_users->where[]   = "AND item_id IN ({$query_courses_str})";
+			$count_student_has_status      = $lp_user_items_db->count_status_by_items( $filter_count_users );
+			// Count total user in progress course of author
+
+			// Get total users attend course of author
+			$filter_count_users                   = $lp_user_items_db->count_user_attend_courses_of_author( $user_id );
+			$count_users_attend_courses_of_author = $lp_user_items_db->get_user_courses( $filter_count_users );
+
+			// Get total courses publish of author
+			$filter_count_courses            = $lp_course_db->count_courses_of_author( $user_id, [ 'publish' ] );
+			$total_courses_publish_of_author = $lp_course_db->get_courses( $filter_count_courses );
+
+			// Get total courses of author
+			$filter_count_courses    = $lp_course_db->count_courses_of_author( $user_id );
+			$total_courses_of_author = $lp_course_db->get_courses( $filter_count_courses );
+
+			// Get total courses pending of author
+			$filter_count_courses            = $lp_course_db->count_courses_of_author( $user_id, [ 'pending' ] );
+			$total_courses_pending_of_author = $lp_course_db->get_courses( $filter_count_courses );
+
+			$statistic['total_course']        = $total_courses_of_author;
+			$statistic['published_course']    = $total_courses_publish_of_author;
+			$statistic['pending_course']      = $total_courses_pending_of_author;
+			$statistic['total_student']       = $count_users_attend_courses_of_author;
+			$statistic['student_completed']   = $count_student_has_status->{LP_COURSE_FINISHED} ?? 0;
+			$statistic['student_in_progress'] = $count_student_has_status->{LP_COURSE_GRADUATION_IN_PROGRESS} ?? 0;
+		} catch ( Throwable $e ) {
+			error_log( __FUNCTION__ . ': ' . $e->getMessage() );
+		}
+
+		return apply_filters( 'lp/profile/instructor/statistic', $statistic, $this );
+	}
+
+	/**
+	 * Get url instructor.
+	 *
+	 * @return string
+	 * @version 1.0.0
+	 * @since 4.2.3
+	 */
+	public function get_url_instructor(): string {
+		$single_instructor_link = '';
+
+		try {
+			$author_id = $this->get_id();
+			$author    = get_userdata( $author_id );
+			if ( ! $author ) {
+				return '';
+			}
+
+			$single_instructor_page_id = learn_press_get_page_id( 'single_instructor' );
+			$single_instructor_link    = trailingslashit( trailingslashit( get_page_link( $single_instructor_page_id ) ) . $author->user_nicename );
+		} catch ( Throwable $e ) {
+			error_log( __METHOD__ . ': ' . $e->getMessage() );
+		}
+
+		return $single_instructor_link;
 	}
 }

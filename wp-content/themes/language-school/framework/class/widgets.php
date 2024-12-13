@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.3.1
+ * @version 	1.3.3
  * 
  * Custom Theme Widgets
  * Created by CMSMasters
@@ -895,16 +895,20 @@ class WP_Widget_Custom_Posts_Tabs extends WP_Widget {
 	function update($new_instance, $old_instance) {
 		$new_instance = (array) $new_instance;
 		
-		$instance = array( 
-			'latest' => 0, 
-			'popular' => 0, 
-			'recent' => 0 
-		);
+		$instance['latest'] = 0;
+		$instance['popular'] = 0;
+		$instance['recent'] = 0;
 		
-		foreach ($instance as $field => $val) {
-			if (isset($new_instance[$field])) {
-				$instance[$field] = 1;
-			}
+		if ( $new_instance['latest'] ) {
+			$instance['latest'] = 1;
+		}
+		
+		if ( $new_instance['popular'] ) {
+			$instance['popular'] = 1;
+		}
+		
+		if ( $new_instance['recent'] ) {
+			$instance['recent'] = 1;
 		}
 		
 		if ($new_instance['latest'] == '' && $instance['popular'] == '' && $instance['recent'] == '') {

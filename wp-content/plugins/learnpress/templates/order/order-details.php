@@ -11,6 +11,9 @@
 
 defined( 'ABSPATH' ) || exit();
 
+/**
+ * @var LP_Order $order
+ */
 if ( ! isset( $order ) ) {
 	echo esc_html__( 'Invalid order', 'learnpress' );
 	return;
@@ -52,7 +55,7 @@ if ( ! isset( $order ) ) {
 					?>
 					<tr class="<?php echo esc_attr( apply_filters( 'learn-press/order/item-class', 'order-item', $item, $order ) ); ?>">
 						<td class="course-name">
-							<?php echo apply_filters( 'learn-press/order/item-name', sprintf( '%s', $item['name'] ), $item ); ?>
+							<?php echo apply_filters( 'learn-press/order/item-name', sprintf( '%s', $item['name'] ), $item, $order ); ?>
 						</td>
 						<td class="course-total">
 							<?php
@@ -74,7 +77,8 @@ if ( ! isset( $order ) ) {
 									esc_url_raw( get_permalink( $item['course_id'] ) ),
 									esc_html( $item['name'] )
 								),
-								$item
+								$item,
+								$order
 							);
 							?>
 						</td>
@@ -104,6 +108,9 @@ if ( ! isset( $order ) ) {
 			<th scope="row"><?php esc_html_e( 'Subtotal', 'learnpress' ); ?></th>
 			<td><?php echo esc_html( $order->get_formatted_order_subtotal() ); ?></td>
 		</tr>
+
+		<?php do_action( 'learn-press/order/items-table-foot', $order ); ?>
+
 		<tr>
 			<th scope="row"><?php esc_html_e( 'Total', 'learnpress' ); ?></th>
 			<td><?php echo esc_html( $order->get_formatted_order_total() ); ?></td>

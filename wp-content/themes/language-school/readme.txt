@@ -1,7 +1,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.3.1
+ * @version 	1.3.5
  * 
  * Theme Information
  * Created by CMSMasters
@@ -17,6 +17,69 @@ Theme Settings - Colors and click "Save" in any tab here.
 -----------------------------------------------------------------------
 				FILE LOGS
 -----------------------------------------------------------------------
+Version 1.3.5: files operations:
+
+	Theme Files edited:
+		language-school\changelog.txt
+		language-school\framework\admin\inc\admin-scripts.php
+		language-school\framework\admin\inc\js\wp-color-picker-alpha.js
+		language-school\framework\admin\inc\plugin-activator.php
+		language-school\framework\admin\inc\plugins\cmsmasters-content-composer.zip
+		language-school\framework\admin\inc\plugins\LayerSlider.zip
+		language-school\framework\admin\inc\plugins\revslider.zip
+		language-school\framework\admin\inc\plugins\timetable.zip
+		language-school\framework\admin\options\cmsmasters-theme-options.php
+		language-school\framework\admin\settings\cmsmasters-theme-settings.php
+		language-school\framework\function\template-functions.php
+		language-school\framework\function\theme-colored-categories.php
+		language-school\framework\function\theme-functions.php
+		language-school\readme.txt
+		language-school\style.css
+
+
+--------------------------------------
+Version 1.3.4: files operations:
+
+	Theme Files edited:
+		language-school\changelog.txt
+		language-school\framework\admin\inc\demo-content-importer.php
+		language-school\framework\admin\inc\plugin-activator.php
+		language-school\framework\admin\inc\plugins\cmsmasters-importer.zip
+		language-school\framework\admin\inc\plugins\LayerSlider.zip
+		language-school\framework\admin\inc\plugins\revslider.zip
+		language-school\framework\admin\inc\plugins\timetable.zip
+		language-school\readme.txt
+		language-school\style.css
+
+
+--------------------------------------
+Version 1.3.3: files operations:
+
+	Theme Files edited:
+		language-school\changelog.txt
+		language-school\cmsmasters-c-c\shortcodes\cmsmasters-blog.php
+		language-school\framework\admin\inc\plugin-activator.php
+		language-school\framework\admin\inc\plugins\LayerSlider.zip
+		language-school\framework\admin\inc\plugins\revslider.zip
+		language-school\framework\class\widgets.php
+		language-school\readme.txt
+		language-school\style.css
+
+
+--------------------------------------
+Version 1.3.2: files operations:
+
+	Theme Files edited:
+		language-school\changelog.txt
+		language-school\framework\admin\inc\plugin-activator.php
+		language-school\framework\admin\inc\plugins\cmsmasters-content-composer.zip
+		language-school\framework\admin\inc\plugins\LayerSlider.zip
+		language-school\framework\admin\inc\plugins\revslider.zip
+		language-school\readme.txt
+		language-school\style.css
+
+
+--------------------------------------
 Version 1.3.1: files operations:
 
 	Theme Files edited:

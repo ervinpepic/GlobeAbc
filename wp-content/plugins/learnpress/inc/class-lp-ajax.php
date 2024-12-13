@@ -1,4 +1,7 @@
 <?php
+
+use LearnPress\Helpers\Template;
+
 defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'LP_AJAX' ) ) {
@@ -66,7 +69,16 @@ if ( ! class_exists( 'LP_AJAX' ) ) {
 			LP_Forms_Handler::process_become_teacher();
 		}
 
+		/**
+		 * Recover order
+		 *
+		 * @since 4.0.0
+		 * @version 4.0.1
+		 * @return void
+		 */
 		public static function recover_order() {
+			$response = new LP_REST_Response();
+
 			if ( ! LP_Request::verify_nonce( 'recover-order' ) ) {
 				return;
 			}
@@ -75,58 +87,55 @@ if ( ! class_exists( 'LP_AJAX' ) ) {
 			$user_id   = get_current_user_id();
 			$order_key = LP_Request::get_string( 'order-key' );
 			$order     = $factory->recover( $order_key, $user_id );
-			$result    = array( 'result' => 'success' );
 
 			if ( is_wp_error( $order ) ) {
-				$result['message'] = $order->get_error_message();
-				$result['result']  = 'error';
+				$response->message = $order->get_error_message();
 			} else {
-				$result['message']  = sprintf(
+				$response->status   = 'success';
+				$response->message  = sprintf(
 					__( 'The order %s has been successfully recovered.', 'learnpress' ),
 					$order_key
 				);
-				$result['redirect'] = $order->get_view_order_url();
+				$response->data->redirect = $order->get_view_order_url();
 			}
 
-			$result = apply_filters( 'learn-press/order/recover-result', $result, $order_key, $user_id );
-
-			learn_press_maybe_send_json( $result );
-
-			if ( ! empty( $result['message'] ) ) {
-				learn_press_add_message( $result['message'] );
-			}
-
-			if ( ! empty( $result['redirect'] ) ) {
-				wp_redirect( $result['redirect'] );
-				exit();
-			}
+			wp_send_json( $response );
 		}
 
 		public static function checkout_user_email_exists() {
-			$email    = LP_Request::get_email( 'email' );
-			$response = array(
-				'exists' => 0,
-			);
+			$response = new LP_REST_Response();
 
-			if ( email_exists( $email ) ) {
-				$response['exists'] = $email;
-				$output             = '<div class="lp-guest-checkout-output">' . __(
-					'Your email already exists. Do you want to continue with this email?',
-					'learnpress'
-				) . '</div>';
-			} else {
-				$output = '<label class="lp-guest-checkout-output">
-					<input type="checkbox" name="checkout-email-option" value="new-account">
-				' . __(
-					'Create a new account with this email. The account information will be sent with this email.',
-					'learnpress'
-				) . '
-				</label>';
+			try {
+				$email             = LP_Request::get_email( 'email' );
+				$user_can_register = get_option( 'users_can_register' );
+				$html_wrapper      = [
+					'<label class="lp-guest-checkout-output">' => '</label>',
+				];
+
+				if ( email_exists( $email ) ) {
+					$output = __(
+						'Your email already exists. Do you want to continue with this email?',
+						'learnpress'
+					);
+				} elseif ( $user_can_register ) {
+					$output = sprintf(
+						'<input type="checkbox" name="checkout-email-option" value="new-account"> <span>%s</span>',
+						__(
+							'Create a new account with this email. The account information will be sent with this email.',
+							'learnpress'
+						)
+					);
+				} else {
+					$output = __( 'The system does not allow the creation of a new account, you must enter an existing account.', 'learnpress' );
+				}
+
+				$response->status        = 'success';
+				$response->data->content = Template::instance()->nest_elements( $html_wrapper, $output );
+			} catch ( Throwable $e ) {
+				$response->message = $e->getMessage();
 			}
 
-			$response['output'] = apply_filters( 'learnpress/guest_checkout_email_exist_output', $output, $email );
-
-			learn_press_maybe_send_json( $response );
+			wp_send_json( $response );
 		}
 
 		/**
@@ -160,10 +169,8 @@ if ( ! class_exists( 'LP_AJAX' ) ) {
 
 			if ( $finished ) {
 				learn_press_update_user_item_meta( $finished, 'finishing_type', 'click' );
-				learn_press_add_message( sprintf( __( 'You have finished this course "%s"', 'learnpress' ), $course->get_title() ) );
 				$response['result'] = 'success';
 			} else {
-				learn_press_add_message( __( 'Error! You cannot finish this course. Please contact your administrator for more information.', 'learnpress' ) );
 				$response['result'] = 'error';
 			}
 
@@ -185,9 +192,10 @@ if ( ! class_exists( 'LP_AJAX' ) ) {
 			);
 
 			try {
-				$nonce     = LP_Request::get_param( 'complete-lesson-nonce' );
-				$lesson_id = LP_Request::get_param( 'id', 0, 'int' );
-				$course_id = LP_Request::get_param( 'course_id', 0, 'int' );
+				$nonce        = LP_Request::get_param( 'complete-lesson-nonce' );
+				$lesson_id    = LP_Request::get_param( 'id', 0, 'int' );
+				$course_id    = LP_Request::get_param( 'course_id', 0, 'int' );
+				$item_id_next = LP_Request::get_param( 'item_id_next', 0, 'int' );
 
 				if ( ! wp_verify_nonce( $nonce, 'lesson-complete' ) ) {
 					throw new Exception( __( 'Error! Invalid lesson or failed security check.', 'learnpress' ) );
@@ -213,8 +221,12 @@ if ( ! class_exists( 'LP_AJAX' ) ) {
 					throw new Exception( 'Item is invalid!', 'learnpress' );
 				}
 
-				$result               = $user->complete_lesson( $lesson_id, $course_id );
-				$response['redirect'] = $course->get_item_link( $lesson_id );
+				$result = $user->complete_lesson( $lesson_id, $course_id );
+				if ( $item_id_next ) {
+					$response['redirect'] = $course->get_item_link( $item_id_next );
+				} else {
+					$response['redirect'] = $item->get_permalink();
+				}
 
 				if ( ! is_wp_error( $result ) ) {
 					if ( $course->get_next_item() ) {

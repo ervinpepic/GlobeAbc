@@ -1,12 +1,36 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.3.1
+ * @version 	1.3.5
  */
  
 -----------------------------------------------------------------------
 				CHANGELOG
 -----------------------------------------------------------------------
+Version 1.3.5:
+	
+	1. Fixed Security Vulnerabilities: Implemented additional escaping functions to prevent XSS and script injection attacks
+	2. Enhanced Attribute Escaping: Improved attribute escaping with esc_attr(), esc_html(), and esc_js() in HTML, CSS, and JavaScript 
+	3. Fixed social icons warning
+	4. Fixed Color Picker
+	5. Updated plugins
+--------------------------------------
+Version 1.3.4:
+	
+	1. Improved import of demo content
+	2. Updated plugins
+--------------------------------------
+Version 1.3.3:
+	
+	1. Fixed filter error
+	2. Fixed Posts Tabs widget checkboxes
+	3. Updated plugins
+--------------------------------------
+Version 1.3.2:
+	
+	1. Fixed fatal error in Masonry Blog when PHP 8 is used
+	2. Updated plugins
+--------------------------------------
 Version 1.3.1:
 	
 	1. Fixed header overlaps by default option

@@ -128,14 +128,6 @@ class LP_Jwt_Users_V1_Controller extends LP_REST_Jwt_Controller {
 	}
 
 	public function get_items_permissions_check( $request ) {
-		if ( ! empty( $request['roles'] ) && ! ( in_array( 'lp_teacher', $request['roles'] ) || in_array( 'subscriber', $request['roles'] ) ) && ! current_user_can( 'list_users' ) ) {
-			return new WP_Error(
-				'rest_user_cannot_view',
-				__( 'Sorry, you are not allowed to filter users by role.' ),
-				array( 'status' => rest_authorization_required_code() )
-			);
-		}
-
 		return true;
 	}
 
@@ -658,14 +650,13 @@ class LP_Jwt_Users_V1_Controller extends LP_REST_Jwt_Controller {
 		return $output;
 	}
 
-	public function get_course_tab_contents( $request ) {
+	public function get_course_tab_contents( $user, $request ) {
 		$output = array(
 			'enrolled' => array(),
 			'created'  => array(),
 		);
 
-		$profile          = learn_press_get_profile( $request['id'] );
-		$user             = learn_press_get_user( $request['id'] );
+		$profile          = learn_press_get_profile( $user->get_id() );
 		$filters_enrolled = array(
 			'all'         => 'all',
 			'finished'    => 'finished',
@@ -753,7 +744,7 @@ class LP_Jwt_Users_V1_Controller extends LP_REST_Jwt_Controller {
 	 *
 	 * @author Nhamdv <daonham@gmail.com>
 	 */
-	public function get_quiz_tab_contents( $request ) {
+	public function get_quiz_tab_contents( $user, $request ) {
 		$output = array();
 
 		$user_profile = learn_press_get_user( $request['id'] );
@@ -804,7 +795,7 @@ class LP_Jwt_Users_V1_Controller extends LP_REST_Jwt_Controller {
 	 *
 	 * @author Nhamdv <daonham95@gmail.com>
 	 */
-	public function get_order_content_tab( $request ) {
+	public function get_order_content_tab( $user, $request ) {
 		$output = array();
 
 		$profile = learn_press_get_profile( $request['id'] );
@@ -930,13 +921,29 @@ class LP_Jwt_Users_V1_Controller extends LP_REST_Jwt_Controller {
 		 */
 		$prepared_args = apply_filters( 'rest_user_query', $prepared_args, $request );
 
-		$query = new WP_User_Query( $prepared_args );
+		$users                      = array();
+		$lp_cache                   = new LP_Cache();
+		$key_cache_list_instructors = 'lp_get_instructors';
 
-		$users = array();
+		// Check cache with cache get instructors.
+		if ( isset( $prepared_args['role__in'] ) ) {
+			$users       = $lp_cache->get_cache( $key_cache_list_instructors );
+			$total_users = $lp_cache->get_cache( $key_cache_list_instructors . '/total' );
+		}
 
-		foreach ( $query->results as $user ) {
-			$data    = $this->prepare_item_for_response( $user, $request );
-			$users[] = $this->prepare_response_for_collection( $data );
+		if ( $users === false ) {
+			$query        = new WP_User_Query( $prepared_args );
+			$users_result = $query->get_results();
+			$total_users  = $query->get_total();
+
+			foreach ( $users_result as $user ) {
+				$data    = $this->prepare_item_for_response( $user, $request );
+				$users[] = $this->prepare_response_for_collection( $data );
+			}
+
+			// Set cache with cache get instructors.
+			$lp_cache->set_cache( $key_cache_list_instructors, $users );
+			$lp_cache->set_cache( $key_cache_list_instructors . '/total', $total_users );
 		}
 
 		$response = rest_ensure_response( $users );
@@ -946,8 +953,6 @@ class LP_Jwt_Users_V1_Controller extends LP_REST_Jwt_Controller {
 		$page     = ceil( ( ( (int) $prepared_args['offset'] ) / $per_page ) + 1 );
 
 		$prepared_args['fields'] = 'ID';
-
-		$total_users = $query->get_total();
 
 		if ( $total_users < 1 ) {
 			// Out-of-bounds, run the query again without LIMIT for total count.
@@ -1018,7 +1023,9 @@ class LP_Jwt_Users_V1_Controller extends LP_REST_Jwt_Controller {
 					$data['id'] = $user->ID;
 					break;
 				case 'username':
-					$data['username'] = $user->user_login;
+					if ( current_user_can( 'list_users' ) || current_user_can( 'edit_user', $user->ID ) ) {
+						$data['username'] = $user->user_login;
+					}
 					break;
 				case 'name':
 					$data['name'] = $user->display_name;
@@ -1030,7 +1037,9 @@ class LP_Jwt_Users_V1_Controller extends LP_REST_Jwt_Controller {
 					$data['last_name'] = $user->last_name;
 					break;
 				case 'email':
-					$data['email'] = $user->user_email;
+					if ( current_user_can( 'list_users' ) || current_user_can( 'edit_user', $user->ID ) ) {
+						$data['email'] = $user->user_email;
+					}
 					break;
 				case 'url':
 					$data['url'] = $user->user_url;
@@ -1095,12 +1104,14 @@ class LP_Jwt_Users_V1_Controller extends LP_REST_Jwt_Controller {
 		return learn_press_get_user_extra_profile_info( $user_id );
 	}
 
-	public function get_profile_avatar( $user_id ) {
+	/**
+	 * @since 4.1.4
+	 * @version 1.0.1
+	 */
+	public function get_profile_avatar( $user_id ): string {
 		$user = learn_press_get_user( $user_id );
 
-		$avatar = $user->get_upload_profile_src();
-
-		return ! empty( $avatar ) ? $avatar : '';
+		return $user->get_profile_avatar_url();
 	}
 
 	/**
@@ -1147,9 +1158,9 @@ class LP_Jwt_Users_V1_Controller extends LP_REST_Jwt_Controller {
 
 				$content = array(
 					'overview' => $this->get_overview_tab_contents( $user ),
-					'courses'  => $this->get_course_tab_contents( $request ),
-					'quizzes'  => $this->get_quiz_tab_contents( $request ),
-					'orders'   => $this->get_order_content_tab( $request ),
+					'courses'  => $this->get_course_tab_contents( $user, $request ),
+					'quizzes'  => $this->get_quiz_tab_contents( $user, $request ),
+					'orders'   => $this->get_order_content_tab( $user, $request ),
 				);
 
 				/**
@@ -1190,7 +1201,7 @@ class LP_Jwt_Users_V1_Controller extends LP_REST_Jwt_Controller {
 		$output = array();
 
 		if ( function_exists( 'lp_get_user_custom_register_fields' ) ) {
-			$custom_fields  = LP_Settings::instance()->get( 'register_profile_fields' );
+			$custom_fields  = LP_Profile::get_register_fields_custom();
 			$custom_profile = lp_get_user_custom_register_fields( $user->ID );
 
 			if ( $custom_fields ) {

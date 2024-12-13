@@ -1,6 +1,6 @@
+import { lpAjaxParseJsonOld } from '../utils';
 const $ = jQuery;
 const $doc = $( document );
-const $win = $( window );
 
 const makePaymentsSortable = function makePaymentsSortable() {
 	// Make payments sortable
@@ -29,6 +29,7 @@ const makePaymentsSortable = function makePaymentsSortable() {
 				data: {
 					'lp-ajax': 'update-payment-order',
 					order,
+					nonce: $( 'input[name=lp-settings-nonce]' ).val(),
 				},
 				success( response ) {
 				},
@@ -140,7 +141,7 @@ const lpMetaboxExtraInfo = () => {
 		return false;
 	} );
 
-	document.querySelectorAll( '.lp_course_extra_meta_box__fields' ).forEach( ( ele ) => {
+	/*document.querySelectorAll( '.lp_course_extra_meta_box__fields' ).forEach( ( ele ) => {
 		ele.addEventListener( 'keydown', ( e ) => {
 			const inputs = ele.querySelectorAll( '.lp_course_extra_meta_box__input' );
 
@@ -152,7 +153,7 @@ const lpMetaboxExtraInfo = () => {
 				return false;
 			}
 		} );
-	} );
+	} );*/
 
 	$( '.lp_course_extra_meta_box__fields' ).on( 'click', 'a.delete', function() {
 		$( this ).closest( '.lp_course_extra_meta_box__field' ).remove();
@@ -178,7 +179,7 @@ const lpMetaboxExtraInfo = () => {
 		return false;
 	} );
 
-	document.querySelectorAll( '.lp_course_faq_meta_box__fields' ).forEach( ( ele ) => {
+	/*document.querySelectorAll( '.lp_course_faq_meta_box__fields' ).forEach( ( ele ) => {
 		ele.addEventListener( 'keydown', ( e ) => {
 			const inputs = ele.querySelectorAll( '.lp_course_faq_meta_box__field input' );
 			const textareas = ele.querySelectorAll( '.lp_course_faq_meta_box__field textarea' );
@@ -191,7 +192,7 @@ const lpMetaboxExtraInfo = () => {
 				return false;
 			}
 		} );
-	} );
+	} );*/
 
 	$( '.lp_course_faq_meta_box__fields' ).on( 'click', 'a.delete', function() {
 		$( this ).closest( '.lp_course_faq_meta_box__field' ).remove();
@@ -483,7 +484,7 @@ const lpMetaboxCourseTabs = () => {
 };
 
 // use to show and hide field condition logic metabox.
-const lpMetaboxCondition = () => {
+/*const lpMetaboxCondition = () => {
 	const fields = document.querySelectorAll( '.lp-meta-box .form-field' );
 
 	fields.forEach( ( field ) => {
@@ -493,9 +494,9 @@ const lpMetaboxCondition = () => {
 			lpMetaboxConditionType( field, field.dataset.hide, 'hide' );
 		}
 	} );
-};
+};*/
 
-const lpMetaboxConditionType = ( field, conditions, typeCondition = 'show' ) => {
+/*const lpMetaboxConditionType = ( field, conditions, typeCondition = 'show' ) => {
 	const condition = JSON.parse( conditions ),
 		eles = document.querySelectorAll( `input[id^="${ condition[ 0 ] }"]` ),
 		logic = condition[ 1 ] === '=' ? '=' : '!=',
@@ -534,7 +535,7 @@ const lpMetaboxConditionType = ( field, conditions, typeCondition = 'show' ) => 
 			switchCase( type, ele, target );
 		} );
 	} );
-};
+};*/
 
 /** End Nhamdv code */
 
@@ -642,9 +643,10 @@ const togglePaymentStatus = function togglePaymentStatus( e ) {
 			'lp-ajax': 'update-payment-status',
 			status,
 			id: $row.data( 'payment' ),
+			nonce: $( 'input[name=lp-settings-nonce]' ).val(),
 		},
 		success( response ) {
-			response = LP.parseJSON( response );
+			response = lpAjaxParseJsonOld( response );
 			for ( const i in response ) {
 				$( '#payment-' + i + ' .status' ).toggleClass( 'enabled', response[ i ] );
 			}
@@ -660,10 +662,11 @@ const updateEmailStatus = function updateEmailStatus() {
 				'lp-ajax': 'update_email_status',
 				status: $( this ).parent().hasClass( 'enabled' ) ? 'no' : 'yes',
 				id: $( this ).data( 'id' ),
+				nonce: $( 'input[name=lp-settings-nonce]' ).val(),
 			},
 			dataType: 'text',
 			success: $.proxy( function( res ) {
-				res = LP.parseJSON( res );
+				res = lpAjaxParseJsonOld( res );
 				for ( const i in res ) {
 					$( '#email-' + i + ' .status' ).toggleClass( 'enabled', res[ i ] );
 				}
@@ -679,27 +682,26 @@ const lpMetaboxsalePriceDate = () => {
 	}
 
 	$( '.lp_sale_dates_fields' ).each( function() {
-		const $this = $( this );
-		const $wrap = $this.closest( 'div.lp-meta-box-course-panels' );
+		const wrap = $( this ).closest( '#price_course_data' );
 		let saleScheduleSet = false;
 
-		$this.find( 'input' ).each( function() {
+		$( this ).find( 'input' ).each( function() {
 			if ( '' !== $( this ).val() ) {
 				saleScheduleSet = true;
 			}
 		} );
 
 		if ( saleScheduleSet ) {
-			$wrap.find( '.lp_sale_price_schedule' ).hide();
-			$wrap.find( '.lp_sale_dates_fields' ).show();
+			wrap.find( '.lp_sale_price_schedule' ).hide();
+			wrap.find( '.lp_sale_dates_fields' ).show();
 		} else {
-			$wrap.find( '.lp_sale_price_schedule' ).show();
-			$wrap.find( '.lp_sale_dates_fields' ).hide();
+			wrap.find( '.lp_sale_price_schedule' ).show();
+			wrap.find( '.lp_sale_dates_fields' ).hide();
 		}
 	} );
 
 	$( '.lp-meta-box-course-panels' ).on( 'click', '.lp_sale_price_schedule', function() {
-		const wrap = $( this ).closest( 'div.lp-meta-box-course-panels' );
+		const wrap = $( this ).closest( '#price_course_data' );
 
 		$( this ).hide();
 
@@ -738,7 +740,7 @@ const lpMetaboxsalePriceDate = () => {
 		}
 	} );
 
-	const datePickerSelect = function( datepicker ) {
+	/*const datePickerSelect = function( datepicker ) {
 		const option = $( datepicker ).is( '#_lp_sale_start' ) ? 'minDate' : 'maxDate',
 			otherDateField = 'minDate' === option ? $( '#_lp_sale_end' ) : $( '#_lp_sale_start' ),
 			date = $( datepicker ).datetimepicker( 'getDate' );
@@ -761,7 +763,7 @@ const lpMetaboxsalePriceDate = () => {
 		$( this ).find( 'input' ).each( function() {
 			datePickerSelect( $( this ) );
 		} );
-	} );
+	} );*/
 };
 
 const lpHidePassingGrade = () => {
@@ -827,55 +829,13 @@ const toggleEmails = function toggleEmails( e ) {
 		url: '',
 		data: {
 			'lp-ajax': 'update_email_status',
+			nonce: $( 'input[name=lp-settings-nonce]' ).val(),
 			status,
 		},
 		success( response ) {
-			response = LP.parseJSON( response );
+			response = lpAjaxParseJsonOld( response );
 			for ( const i in response ) {
 				$( '#email-' + i + ' .status' ).toggleClass( 'enabled', response[ i ] );
-			}
-		},
-	} );
-};
-
-const importCourses = function importCourses() {
-	const $container = $( '#learn-press-install-sample-data-notice' ),
-		action = $( this ).attr( 'data-action' );
-	if ( ! action ) {
-		return;
-	}
-	e.preventDefault();
-
-	if ( action === 'yes' ) {
-		$container
-			.find( '.install-sample-data-notice' ).slideUp()
-			.siblings( '.install-sample-data-loading' ).slideDown();
-	} else {
-		$container.fadeOut();
-	}
-	$.ajax( {
-		url: ajaxurl,
-		dataType: 'html',
-		type: 'post',
-		data: {
-			action: 'learnpress_install_sample_data',
-			yes: action,
-		},
-		success( response ) {
-			response = LP.parseJSON( response );
-			if ( response.url ) {
-				$.ajax( {
-					url: response.url,
-					success() {
-						$container
-							.find( '.install-sample-data-notice' ).html( response.message ).slideDown()
-							.siblings( '.install-sample-data-loading' ).slideUp();
-					},
-				} );
-			} else {
-				$container
-					.find( '.install-sample-data-notice' ).html( response.message ).slideDown()
-					.siblings( '.install-sample-data-loading' ).slideUp();
 			}
 		},
 	} );
@@ -897,15 +857,31 @@ const onReady = function onReady() {
 	lpMetaboxExtraInfo();
 	lpHidePassingGrade();
 	lpGetFinalQuiz();
-	lpMetaboxCondition();
+	//lpMetaboxCondition();
 	lpMetaboxRepeaterField();
 
 	$( document )
 		.on( 'click', '.learn-press-payments .status .dashicons', togglePaymentStatus )
 		.on( 'click', '.change-email-status', updateEmailStatus )
 		.on( 'click', '.learn-press-filter-template', callbackFilterTemplates )
-		.on( 'click', '#learn-press-enable-emails, #learn-press-disable-emails', toggleEmails )
-		.on( 'click', '#learn-press-install-sample-data-notice a', importCourses );
+		.on( 'click', '#learn-press-enable-emails, #learn-press-disable-emails', toggleEmails );
 };
 
 $( document ).ready( onReady );
+
+// Events
+document.addEventListener( 'keydown', function( e ) {
+	const target = e.target;
+	if ( e.key === 'Enter' || e.keyCode === 13 ) {
+		// When enter on input on Extra information Options, blur it.
+		if ( target.classList.contains( 'lp_course_extra_meta_box__input' ) ) {
+			e.preventDefault();
+			target.blur();
+		} else if ( target.tagName === 'INPUT' ) {
+			if ( target.closest( '.lp_course_faq_meta_box__field' ) ) {
+				e.preventDefault();
+				target.blur();
+			}
+		}
+	}
+} );

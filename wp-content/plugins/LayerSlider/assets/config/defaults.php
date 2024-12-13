@@ -136,7 +136,7 @@ $lsDefaults = [
 			'value' => '',
 			'name' => __('Max-width', 'LayerSlider'),
 			'keys' => 'maxwidth',
-			'desc' => __('The maximum width your slider can take in pixels or percents when responsive mode is enabled.', 'LayerSlider'),
+			'desc' => __('The maximum width your slider can take. <br>Supported units: px, %, vw (percentage of viewport width).', 'LayerSlider'),
 			'attrs' => [
 				'placeholder' => '100%'
 			],
@@ -766,6 +766,17 @@ $lsDefaults = [
 			]
 		],
 
+		'globalBGFor' => [
+			'value' => 'project',
+			'name' => __('Apply Background To', 'LayerSlider'),
+			'keys' => 'globalBGFor',
+			'options' => [
+				'project' => 'Project canvas',
+				'scene' => 'Scene'
+			],
+			'desc' => __('Choose to which element you want to apply the background. The Scene option can be selected if the project uses a sticky or scroll behavior; otherwise, it defaults to the project canvas. The scene encompasses the project canvas but is larger and covers the entire scrollable area.', 'LayerSlider')
+		],
+
 
 		'globalBGColor' => [
 			'value' => '',
@@ -1024,7 +1035,7 @@ $lsDefaults = [
 			'value' => '',
 			'name' => __('Open By Click', 'LayerSlider'),
 			'keys' => 'popupShowOnClick',
-			'desc' => __('Enter a jQuery selector to open the Popup by clicking on the target element(s). Acting as a toggle, a secondary click will close the Popup. Leave this field empty if you don’t want to use this trigger.', 'LayerSlider')
+			'desc' => __('Enter a CSS selector to trigger the Popup when clicking a target element. Use a dot for class (e.g., .popup-trigger) or a hashtag for ID (e.g., #popup-button). The Popup will toggle open/close with repeated clicks. Leave blank if no trigger is needed.', 'LayerSlider')
 		],
 
 		'popupShowOnScroll' => [
@@ -1567,6 +1578,15 @@ $lsDefaults = [
 		// |  Misc  | //
 		// ========== //
 
+		'noUserSelect' => [
+			'value' => false,
+			'name' => __('Prevent Selection', 'LayerSlider'),
+			'keys' => 'noUserSelect',
+			'desc' => __('When turned on, this feature restricts the selection of text and other interface elements within your project. Selection can also be explicitly configured on individual layers as necessary.', 'LayerSlider'),
+			'props' => [
+				'meta' => true
+			]
+		],
 
 		'noContextMenu' => [
 			'value' => false,
@@ -2286,6 +2306,343 @@ $lsDefaults = [
 				'meta' => true
 			]
 		],
+
+		'affixBefore' => [
+			'value' => '',
+			'name' => __('Countdown Text Before', 'LayerSlider'),
+			'keys' => 'affixBefore',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'affixAfter' => [
+			'value' => '',
+			'name' => __('Countdown Text After', 'LayerSlider'),
+			'keys' => 'affixAfter',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'affixFloat' => [
+			'value' => false,
+			'name' => __('Free Floating', 'LayerSlider'),
+			'keys' => 'affixFloat',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'affixNewLine' => [
+			'value' => false,
+			'name' => __('New Line', 'LayerSlider'),
+			'keys' => 'affixNewLine',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'affixColor' => [
+			'value' => '',
+			'name' => __('Text Color', 'LayerSlider'),
+			'keys' => 'affixColor',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'affixFontSize' => [
+			'value' => 1,
+			'name' => __('Font Size', 'LayerSlider'),
+			'keys' => 'affixFontSize',
+			'attrs' => [
+				'type' => 'number',
+				'step' => 0.05,
+				'min' => 0.2
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'affixFontFamily' => [
+			'value' => '',
+			'name' => __('Font Family', 'LayerSlider'),
+			'keys' => 'affixFontFamily',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'affixFontWeight' => [
+			'value' => '',
+			'name' => __('Font Weight', 'LayerSlider'),
+			'keys' => 'affixFontWeight',
+			'attrs' => [
+				'min' => 100,
+				'max' => 900,
+				'step' => 100
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'affixHA' => [
+			'value' => 0,
+			'name' => __('Horizontal Adjusment', 'LayerSlider'),
+			'keys' => 'affixHA',
+			'attrs' => [
+				'type' => 'number',
+				'step' => 0.1,
+				'min' => 0
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'affixVA' => [
+			'value' => 0,
+			'name' => __('Vertical Adjustment', 'LayerSlider'),
+			'keys' => 'affixVA',
+			'attrs' => [
+				'type' => 'number',
+				'step' => 0.025
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'counterStart' => [
+			'value' => 0,
+			'name' => __('Starting Number', 'LayerSlider'),
+			'keys' => 'counterStart',
+			'attrs' => [
+				'type' => 'text'
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'counterEnd' => [
+			'value' => 100,
+			'name' => __('Ending Number', 'LayerSlider'),
+			'keys' => 'counterEnd',
+			'attrs' => [
+				'type' => 'text'
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'counterDecimals' => [
+			'value' => '',
+			'name' => __('Decimal Places', 'LayerSlider'),
+			'keys' => 'counterDecimals',
+			'attrs' => [
+				'type' => 'number',
+				'min' => 0,
+				'step' => 1,
+				'placeholder' => __('auto', 'LayerSlider')
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'counterDecimalSeparator' => [
+			'value' => '.',
+			'name' => __('Decimal Separator', 'LayerSlider'),
+			'keys' => 'counterDecimalSeparator',
+			'options' => [
+				'.' => __('Dot', 'LayerSlider'),
+				',' => __('Comma', 'LayerSlider')
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'counterThousandsSeparator' => [
+			'value' => '',
+			'name' => __('Thousand Separator', 'LayerSlider'),
+			'keys' => 'counterThousandsSeparator',
+			'options' => [
+				'' => __('None', 'LayerSlider'),
+				'.' => __('Dot', 'LayerSlider'),
+				',' => __('Comma', 'LayerSlider'),
+				' ' => __('Space', 'LayerSlider'),
+				'_' => __('Underscore', 'LayerSlider'),
+				'’' => __('Apostrophe', 'LayerSlider')
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'counterLeadingZeros' => [
+			'value' => false,
+			'name' => __('Leading Zeros', 'LayerSlider'),
+			'keys' => 'counterLeadingZeros',
+			'props' => [
+				'meta' => true,
+				'output' => true
+			]
+		],
+
+		'counterAnimationType' => [
+			'value' => 'time',
+			'name' => __('Animation Type', 'LayerSlider'),
+			'keys' => 'counterAnimationType',
+			'options' => [
+				'time' => __('Time-based', 'LayerSlider'),
+				'step' => __('Step-based', 'LayerSlider')
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'counterDuration' => [
+			'value' => 2000,
+			'name' => __('Duration', 'LayerSlider'),
+			'keys' => 'counterDuration',
+			'attrs' => [
+				'type' => 'number',
+				'step' => 100
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'counterStartAt' => [
+			'value' => 'transitioninstart',
+			'name' => __('Start When', 'LayerSlider'),
+			'keys' => 'counterStartAt',
+			'options' => [
+				'transitioninstart' => __('Opening Transition starts', 'LayerSlider'),
+				'transitioninend' => __('Opening Transition completes', 'LayerSlider')
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'counterEasing' => [
+			'value' => 'easeOutSine',
+			'name' => __('Timing Function', 'LayerSlider'),
+			'keys' => 'counterEasing',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+
+		'counterStep' => [
+			'value' => 1,
+			'name' => __('Step', 'LayerSlider'),
+			'keys' => 'counterStep',
+			'attrs' => [
+				'type' => 'number',
+				'step' => 1
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'counterStepDelay' => [
+			'value' => 50,
+			'name' => __('Step Delay', 'LayerSlider'),
+			'keys' => 'counterStepDelay',
+			'attrs' => [
+				'type' => 'number',
+				'min' => 1,
+				'step' => 10
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+
+
+		'countdownDueDate' => [
+			'value' => '',
+			'name' => __('Countdown Due Date', 'LayerSlider'),
+			'keys' => 'countdownDueDate',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'countdownID' => [
+			'value' => '',
+			'keys' => 'countdownID',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'countdownType' => [
+			'value' => false,
+			'name' => __('Countdown Day', 'LayerSlider'),
+			'keys' => 'countdownType',
+			'options' => [
+				'duedate' => __('Due Date', 'LayerSlider')
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'countdownRepeat' => [
+			'value' => '',
+			'name' => __('Countdown Repeat', 'LayerSlider'),
+			'keys' => 'countdownRepeat',
+			'options' => [
+				'' => 'None',
+				'daily' => __('Every Day', 'LayerSlider'),
+				'weekly' => __('Every Week', 'LayerSlider'),
+				'monthly' => __('Every Month', 'LayerSlider'),
+				'yearly' => __('Every Year', 'LayerSlider')
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'countdownComponent' => [
+			'value' => '',
+			'name' => __('Component', 'LayerSlider'),
+			'keys' => 'countdownComponent',
+			'options' => [
+				'days' => __('Days', 'LayerSlider'),
+				'hours' => __('Hours', 'LayerSlider'),
+				'minutes' => __('Minutes', 'LayerSlider'),
+				'seconds' => __('Seconds', 'LayerSlider')
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'countdownLeadingZeros' => [
+			'value' => true,
+			'name' => __('Use Leading Zeros', 'LayerSlider'),
+			'keys' => 'countdownLeadingZeros',
+			'props' => [
+				'meta' => true,
+				'output' => true
+			]
+		],
+
 
 		'actions' => [
 			'value' => '',
@@ -3479,7 +3836,7 @@ $lsDefaults = [
 		],
 
 		'hoverInEasing' => [
-			'value' => 'easeInOutQuint',
+			'value' => 'easeOutQuart',
 			'name' => __('Easing', 'LayerSlider'),
 			'keys' => 'hovereasingin'
 		],
@@ -4212,6 +4569,42 @@ $lsDefaults = [
 			]
 		],
 
+		'minWidth' => [
+			'value' => '',
+			'name' => __('Minimum Width', 'LayerSlider'),
+			'keys' => 'min-width',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'minHeight' => [
+			'value' => '',
+			'name' => __('Minimum Height', 'LayerSlider'),
+			'keys' => 'min-height',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'maxWidth' => [
+			'value' => '',
+			'name' => __('Maximum Width', 'LayerSlider'),
+			'keys' => 'max-width',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'maxHeight' => [
+			'value' => '',
+			'name' => __('Maximum Height', 'LayerSlider'),
+			'keys' => 'max-height',
+			'props' => [
+				'meta' => true
+			]
+		],
+
 		'top' => [
 			'value' => '',
 			'name' => __('Top', 'LayerSlider'),
@@ -4358,6 +4751,15 @@ $lsDefaults = [
 			'value' => '',
 			'name' => __('Box Shadow', 'LayerSlider'),
 			'keys' => 'box-shadow',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'textStroke' => [
+			'value' => '',
+			'name' => __('Text Stroke', 'LayerSlider'),
+			'keys' => '-webkit-text-stroke',
 			'props' => [
 				'meta' => true
 			]
@@ -4666,19 +5068,22 @@ $lsDefaults = [
 		'rotate' => [
 			'value' => 0,
 			'name' => __('Rotation', 'LayerSlider'),
-			'keys' => 'rotation'
+			'keys' => 'rotation',
+			'attrs' => ['type' => 'text']
 		],
 
 		'rotateX' => [
 			'value' => 0,
 			'name' => __('Rotation X', 'LayerSlider'),
-			'keys' => 'rotationX'
+			'keys' => 'rotationX',
+			'attrs' => ['type' => 'text']
 		],
 
 		'rotateY' => [
 			'value' => 0,
 			'name' => __('Rotation Y', 'LayerSlider'),
-			'keys' => 'rotationY'
+			'keys' => 'rotationY',
+			'attrs' => ['type' => 'text']
 		],
 
 		'scaleX' => [
@@ -4687,7 +5092,8 @@ $lsDefaults = [
 			'keys' => 'scaleX',
 			'attrs' => [
 				'step' => '0.1'
-			]
+			],
+			'attrs' => ['type' => 'text']
 		],
 
 		'scaleY' => [
@@ -4696,19 +5102,22 @@ $lsDefaults = [
 			'keys' => 'scaleY',
 			'attrs' => [
 				'step' => '0.1'
-			]
+			],
+			'attrs' => ['type' => 'text']
 		],
 
 		'skewX' => [
 			'value' => 0,
 			'name' => __('Skew X', 'LayerSlider'),
-			'keys' => 'skewX'
+			'keys' => 'skewX',
+			'attrs' => ['type' => 'text']
 		],
 
 		'skewY' => [
 			'value' => 0,
 			'name' => __('Skew Y', 'LayerSlider'),
-			'keys' => 'skewY'
+			'keys' => 'skewY',
+			'attrs' => ['type' => 'text']
 		],
 
 		'clip' => [
@@ -4776,7 +5185,8 @@ $lsDefaults = [
 			'options' => [
 				'' => __('Default', 'LayerSlider'),
 				'visible' => __('Visible', 'LayerSlider'),
-				'hidden' => __('Hidden', 'LayerSlider')
+				'hidden' => __('Hidden', 'LayerSlider'),
+				'auto' => __('Auto', 'LayerSlider')
 			]
 		],
 
@@ -4787,11 +5197,28 @@ $lsDefaults = [
 		],
 
 
-		'cursor' => [
+		'userSelect' => [
 			'value' => '',
+			'name' => 'userSelect',
+			'keys' => 'userSelect',
+			'options' => [
+				'' => __('Inherit', 'LayerSlider'),
+				'text' => __('Enabled', 'LayerSlider'),
+				'none' => __('Disabled', 'LayerSlider')
+			],
+			'props' => [
+				'meta' => true
+			]
+		],
+
+
+		'cursor' => [
+			'value' => 'layer-specific',
 			'name' => __('Mouse Cursor', 'LayerSlider'),
 			'keys' => 'cursor',
 			'options' => [
+				'layer-specific' => __('Layer-specific', 'LayerSlider'),
+				'ui-separator' => '–',
 				'auto' => __('Auto', 'LayerSlider'),
 				'default' => __('Default', 'LayerSlider'),
 				'pointer' => __('Pointer', 'LayerSlider'),

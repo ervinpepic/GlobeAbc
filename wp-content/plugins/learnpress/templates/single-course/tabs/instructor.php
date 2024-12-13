@@ -6,8 +6,10 @@
  *
  * @author   ThimPress
  * @package  Learnpress/Templates
- * @version  3.3.0
+ * @version  3.3.1
  */
+
+use LearnPress\TemplateHooks\Instructor\SingleInstructorTemplate;
 
 defined( 'ABSPATH' ) || exit();
 
@@ -16,9 +18,10 @@ if ( ! $course ) {
 	return;
 }
 /**
- * @var LP_User
+ * @var LP_User $instructor
  */
-$instructor = $course->get_instructor();
+$instructor               = $course->get_instructor();
+$singleInstructorTemplate = SingleInstructorTemplate::instance();
 ?>
 
 <div class="course-author">
@@ -28,18 +31,14 @@ $instructor = $course->get_instructor();
 	<div class="lp-course-author">
 		<div class="course-author__pull-left">
 			<?php echo wp_kses_post( $instructor->get_profile_picture() ); ?>
-
-			<?php $socials = $instructor->get_profile_socials( $instructor->get_id() ); ?>
-			<?php if ( $socials ) : ?>
-				<div class="author-socials">
-					<?php echo wp_kses_post( implode( '', $socials ) ); ?>
-				</div>
-			<?php endif; ?>
 		</div>
 
 		<div class="course-author__pull-right">
-			<div class="author-title"><?php echo wp_kses_post( $course->get_instructor_html() ); ?></div>
-			<div class="author-description margin-bottom">
+			<h4 class="author-title"><?php echo wp_kses_post( $course->get_instructor_html() ); ?></h4>
+			<?php
+				echo $singleInstructorTemplate->html_social( $instructor );
+			?>
+			<div class="author-description">
 
 				<?php
 				/**

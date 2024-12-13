@@ -6,6 +6,12 @@ foreach ( $currencies as $code => $name ) {
 	$currencies[ $code ] = sprintf( '%s (%s)', $name, $currency_symbol );
 }
 
+$data_struct_currency = [
+	'setting' => [
+		'plugins' => [],
+	],
+];
+
 return apply_filters(
 	'learn-press/general-settings-fields',
 	array(
@@ -19,6 +25,20 @@ return apply_filters(
 			'default' => '',
 			'type'    => 'pages-dropdown',
 			'value'   => learn_press_get_page_id( 'courses' ),
+		),
+		array(
+			'title'   => esc_html__( 'All instructors page', 'learnpress' ),
+			'id'      => 'instructors_page_id',
+			'default' => '',
+			'type'    => 'pages-dropdown',
+			'value'   => learn_press_get_page_id( 'instructors' ),
+		),
+		array(
+			'title'   => esc_html__( 'Single instructor page', 'learnpress' ),
+			'id'      => 'single_instructor_page_id',
+			'default' => '',
+			'type'    => 'pages-dropdown',
+			'value'   => learn_press_get_page_id( 'single_instructor' ),
 		),
 		array(
 			'title'   => esc_html__( 'Profile page', 'learnpress' ),
@@ -65,12 +85,13 @@ return apply_filters(
 			'desc'  => esc_html__( 'Setting up your currency unit and its formatting.', 'learnpress' ),
 		),
 		array(
-			'title'   => esc_html__( 'Currency', 'learnpress' ),
-			'id'      => 'currency',
-			'default' => 'USD',
-			'type'    => 'select',
-			'class'   => 'lp-select-2',
-			'options' => $currencies,
+			'title'             => esc_html__( 'Currency', 'learnpress' ),
+			'id'                => 'currency',
+			'default'           => 'USD',
+			'type'              => 'select',
+			'class'             => 'lp-tom-select',
+			'custom_attributes' => [ 'data-struct' => htmlentities2( json_encode( $data_struct_currency ) ) ],
+			'options'           => $currencies,
 		),
 		array(
 			'title'    => esc_html__( 'Currency position', 'learnpress' ),

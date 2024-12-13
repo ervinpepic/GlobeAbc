@@ -3,6 +3,11 @@ import { addQueryArgs } from '@wordpress/url';
 import lpModalOverlayCompleteItem from './show-lp-overlay-complete-item';
 import lpModalOverlay from '../utils/lp-modal-overlay';
 import courseCurriculumSkeleton from './single-curriculum/skeleton';
+import lpMaterialsLoad from './material';
+import TabsDragScroll from './tabs-scroll';
+import { lpSetLoadingEl } from '../../../js/utils.js';
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
 
 export default SingleCourse;
 
@@ -75,6 +80,8 @@ const enrollCourse = () => {
 	if ( formEnrolls.length > 0 ) {
 		formEnrolls.forEach( ( formEnroll ) => {
 			const submit = async ( id, btnEnroll ) => {
+				const status = 'error';
+
 				try {
 					const response = await wp.apiFetch( {
 						path: 'lp/v1/courses/enroll-course',
@@ -82,21 +89,31 @@ const enrollCourse = () => {
 						data: { id },
 					} );
 
-					btnEnroll.classList.remove( 'loading' );
-					btnEnroll.disabled = false;
-
 					const { status, data: { redirect }, message } = response;
 
-					if ( message && status ) {
-						btnEnroll.style.display = 'none';
-						formEnroll.innerHTML += `<div class="lp-enroll-notice ${ status }">${ message }</div>`;
+					if ( status === 'success' ) {
+						btnEnroll.remove();
+					} else {
+						lpSetLoadingEl( btnEnroll, 0 );
+						throw new Error( message );
+					}
 
+					if ( message && status ) {
+						formEnroll.innerHTML += `<div class="learn-press-message ${ status }">${ message }</div>`;
 						if ( redirect ) {
 							window.location.href = redirect;
 						}
 					}
 				} catch ( error ) {
-					form.innerHTML += `<div class="lp-enroll-notice error">${ error.message && error.message }</div>`;
+					Toastify( {
+						text: error.message,
+						gravity: lpData.toast.gravity, // `top` or `bottom`
+						position: lpData.toast.position, // `left`, `center` or `right`
+						className: `${ lpData.toast.classPrefix } ${ status }`,
+						close: lpData.toast.close == 1,
+						stopOnFocus: lpData.toast.stopOnFocus == 1,
+						duration: lpData.toast.duration,
+					} ).showToast();
 				}
 			};
 
@@ -104,8 +121,7 @@ const enrollCourse = () => {
 				event.preventDefault();
 				const id = formEnroll.querySelector( 'input[name=enroll-course]' ).value;
 				const btnEnroll = formEnroll.querySelector( 'button.button-enroll-course' );
-				btnEnroll.classList.add( 'loading' );
-				btnEnroll.disabled = true;
+				lpSetLoadingEl( btnEnroll, 1 );
 				submit( id, btnEnroll );
 			} );
 		} );
@@ -130,7 +146,7 @@ const purchaseCourse = () => {
 		forms.forEach( ( form ) => {
 			// Allow Repurchase.
 			const allowRepurchase = () => {
-				const continueRepurchases = document.querySelectorAll( '.lp_allow_repuchase_select' );
+				const continueRepurchases = document.querySelectorAll( '.lp_allow_repurchase_select' );
 
 				continueRepurchases.forEach( ( repurchase ) => {
 					const radios = repurchase.querySelectorAll( '[name=_lp_allow_repurchase_type]' );
@@ -140,11 +156,10 @@ const purchaseCourse = () => {
 							const repurchaseType = radios[ i ].value;
 							const id = form.querySelector( 'input[name=purchase-course]' ).value;
 
-							const btnBuynow = form.querySelector( 'button.button-purchase-course' );
-							btnBuynow.classList.add( 'loading' );
-							btnBuynow.disabled = true;
+							const btnBuyNow = form.querySelector( 'button.button-purchase-course' );
+							lpSetLoadingEl( btnBuyNow, 1 );
 
-							submit( id, btnBuynow, repurchaseType );
+							submit( id, btnBuyNow, repurchaseType );
 							break;
 						}
 					}
@@ -152,6 +167,8 @@ const purchaseCourse = () => {
 			};
 
 			const submit = async ( id, btn, repurchaseType = false ) => {
+				const status = 'error';
+
 				try {
 					const response = await wp.apiFetch( {
 						path: 'lp/v1/courses/purchase-course',
@@ -159,15 +176,21 @@ const purchaseCourse = () => {
 						data: { id, repurchaseType },
 					} );
 
-					if ( btn ) {
-						btn.classList.remove( 'loading' );
-						btn.disabled = false;
-					}
-
 					const { status, data: { redirect, type, html, titlePopup }, message } = response;
 
+					if ( status === 'success' ) {
+						if ( type === 'allow_repurchase' ) {
+							lpSetLoadingEl( btn, 0 );
+						} else {
+							btn.remove();
+						}
+					} else {
+						lpSetLoadingEl( btn, 0 );
+						throw new Error( message );
+					}
+
 					if ( type === 'allow_repurchase' && status === 'success' ) {
-						if ( ! form.querySelector( '.lp_allow_repuchase_select' ) ) {
+						if ( ! form.querySelector( '.lp_allow_repurchase_select' ) ) {
 							if ( ! lpModalOverlay.init() ) {
 								return;
 							}
@@ -185,14 +208,22 @@ const purchaseCourse = () => {
 							};
 						}
 					} else if ( message && status ) {
-						form.innerHTML += `<div class="lp-enroll-notice ${ status }">${ message }</div>`;
+						form.innerHTML += `<div class="learn-press-message ${ status }">${ message }</div>`;
 
 						if ( 'success' === status && redirect ) {
 							window.location.href = redirect;
 						}
 					}
 				} catch ( error ) {
-					form.innerHTML += `<div class="lp-enroll-notice error">${ error.message && error.message }</div>`;
+					Toastify( {
+						text: error.message,
+						gravity: lpData.toast.gravity, // `top` or `bottom`
+						position: lpData.toast.position, // `left`, `center` or `right`
+						className: `${ lpData.toast.classPrefix } ${ status }`,
+						close: lpData.toast.close == 1,
+						stopOnFocus: lpData.toast.stopOnFocus == 1,
+						duration: lpData.toast.duration,
+					} ).showToast();
 				}
 			};
 
@@ -200,9 +231,7 @@ const purchaseCourse = () => {
 				event.preventDefault();
 				const id = form.querySelector( 'input[name=purchase-course]' ).value;
 				const btn = form.querySelector( 'button.button-purchase-course' );
-				btn.classList.add( 'loading' );
-				btn.disabled = true;
-
+				lpSetLoadingEl( btn, 1 );
 				submit( id, btn );
 			} );
 		} );
@@ -240,7 +269,7 @@ const retakeCourse = () => {
 			} ).catch( ( err ) => {
 				elAjaxMessage.classList.add( 'error' );
 				elAjaxMessage.innerHTML = 'error: ' + err.message;
-			} ).then( ( ) => {
+			} ).then( () => {
 				elButtonRetakeCourse.classList.remove( 'loading' );
 				elButtonRetakeCourse.disabled = false;
 				elAjaxMessage.style.display = 'block';
@@ -307,25 +336,28 @@ const courseProgress = () => {
 
 const accordionExtraTab = () => {
 	const elements = document.querySelectorAll( '.course-extra-box' );
-
 	[ ...elements ].map( ( ele ) => {
 		const title = ele.querySelector( '.course-extra-box__title' );
+		ele.classList.remove( 'active' );
+		const content = ele.querySelector( '.course-extra-box__content' );
+		content.style.height = '0';
 
 		title.addEventListener( 'click', () => {
-			const panel = title.nextElementSibling;
-			const eleActive = document.querySelector( '.course-extra-box.active' );
+			const isActive = ele.classList.contains( 'active' );
 
-			if ( eleActive && ! ele.classList.contains( 'active' ) ) {
-				eleActive.classList.remove( 'active' );
-				eleActive.querySelector( '.course-extra-box__content' ).style.display = 'none';
-			}
+			[ ...elements ].forEach( ( otherEle ) => {
+				if ( otherEle !== ele ) {
+					otherEle.classList.remove( 'active' );
+					otherEle.querySelector( '.course-extra-box__content' ).style.height = '0';
+				}
+			} );
 
-			if ( ! ele.classList.contains( 'active' ) ) {
-				ele.classList.add( 'active' );
-				panel.style.display = 'block';
-			} else {
+			if ( isActive ) {
 				ele.classList.remove( 'active' );
-				panel.style.display = 'none';
+				content.style.height = '0';
+			} else {
+				ele.classList.add( 'active' );
+				content.style.height = content.scrollHeight + 'px';
 			}
 		} );
 	} );
@@ -333,8 +365,7 @@ const accordionExtraTab = () => {
 
 const courseContinue = () => {
 	const formContinue = document.querySelectorAll( 'form.continue-course' );
-
-	if ( formContinue != null && lpGlobalSettings.user_id > 0 ) {
+	if ( formContinue.length && lpData.user_id > 0 ) {
 		const getResponse = async ( ele ) => {
 			const response = await wp.apiFetch( {
 				path: 'lp/v1/courses/continue-course',
@@ -351,7 +382,7 @@ const courseContinue = () => {
 		getResponse( formContinue ).then( function( result ) {
 			if ( result.status === 'success' ) {
 				formContinue.forEach( ( form ) => {
-					form.style.display = 'block';
+					form.style.display = 'inline-block';
 					form.action = result.data;
 				} );
 			}
@@ -365,7 +396,7 @@ export {
 	enrollCourse,
 };
 
-$( window ).on( 'load', () => {
+document.addEventListener( 'DOMContentLoaded', function() {
 	const $popup = $( '#popup-course' );
 	let timerClearScroll;
 	const $curriculum = $( '#learn-press-course-curriculum' );
@@ -378,13 +409,16 @@ $( window ).on( 'load', () => {
 	courseProgress();
 	courseContinue();
 	lpModalOverlayCompleteItem.init();
+	lpMaterialsLoad();
 	//courseCurriculumSkeleton();
+	TabsDragScroll();
 } );
 
 const detectedElCurriculum = setInterval( function() {
 	const elementCurriculum = document.querySelector( '.learnpress-course-curriculum' );
 	if ( elementCurriculum ) {
 		courseCurriculumSkeleton();
+
 		clearInterval( detectedElCurriculum );
 	}
 }, 1 );

@@ -116,10 +116,10 @@ function nbcpf_phonetext_validation_filter( $result, $tag ) {
 	$extension = $_POST[$name.'-country-code'];
 
 	$value = isset( $_POST[$name] ) ? (string) wp_unslash($_POST[$name]) : '';
-    $value = str_replace($extension , '', str_replace(" ", "" , $value));
+    //$value = str_replace($extension , '', str_replace(" ", "" , $value));
     $str_array = str_split($value);
 
-	if ( ( $tag->is_required() && '' == $value ) || ($value == $extension)) {
+	if ( ( $tag->is_required() && ('' == $value || $extension == $value))) {
 		$result->invalidate( $tag, wpcf7_get_message( 'invalid_required' ) );
 	}
 	elseif ( $tag->has_option( 'numberonly') ) {

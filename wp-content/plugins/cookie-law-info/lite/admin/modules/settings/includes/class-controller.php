@@ -331,7 +331,7 @@ class Controller extends Cloud {
 		$data = array();
 		if ( ! $this->get_website_id() ) {
 			return new WP_Error(
-				'cky_invalide_website_id',
+				'cky_invalid_website_id',
 				__( 'Invalid Website ID', 'cookie-law-info' ),
 				array( 'status' => 404 )
 			);
@@ -358,6 +358,9 @@ class Controller extends Cloud {
 
 			$grace_period      = isset( $response['grace_period_ends_at'] ) ? strtotime( sanitize_text_field( $response['grace_period_ends_at'] ) ) : false;
 			$grace_period_ends = isset( $grace_period ) && is_int( $grace_period ) ? gmdate( 'F d, Y', $grace_period ) : '';
+
+			$pageview_reset_timestamp = isset( $response['pageviews']['ends_at'] ) ? strtotime( sanitize_text_field( $response['pageviews']['ends_at'] ) ) : false;
+			$pageview_reset_date = is_int( $pageview_reset_timestamp ) ? gmdate( 'F d, Y', $pageview_reset_timestamp ) : '';
 
 			$data = array(
 				'id'             => $this->get_website_id(),
@@ -418,6 +421,7 @@ class Controller extends Cloud {
 					'count'    => isset( $response['pageviews']['views'] ) ? absint( $response['pageviews']['views'] ) : 0,
 					'limit'    => isset( $response['pageviews']['views_limit'] ) ? absint( $response['pageviews']['views_limit'] ) : 25000,
 					'exceeded' => isset( $response['pageviews']['limit_exceeded'] ) && 1 === absint( $response['pageviews']['limit_exceeded'] ),
+					'ends_at'   => $pageview_reset_date,
 				),
 				'website'        => array(
 					'status'               => isset( $response['website_status'] ) ? sanitize_text_field( $response['website_status'] ) : 'active',

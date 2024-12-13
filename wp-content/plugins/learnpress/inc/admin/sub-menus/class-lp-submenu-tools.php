@@ -18,41 +18,15 @@ class LP_Submenu_Tools extends LP_Abstract_Submenu {
 			'learn-press/admin/tools-tabs',
 			array(
 				'course'          => __( 'Course Data', 'learnpress' ),
+				'assign_course'   => __( 'Assign/Unassigned Course', 'learnpress' ),
 				'database'        => __( 'Database', 'learnpress' ),
 				'template'        => __( 'Templates', 'learnpress' ),
 				'lp_beta_version' => __( 'LearnPress Beta Version', 'learnpress' ),
+				'cache'           => __( 'Cache', 'learnpress' ),
 			)
 		);
 
 		parent::__construct();
-		//$this->_process_actions();
-	}
-
-	/**
-	 * @deprecated 4.1.7.3
-	 */
-	protected function _process_actions() {
-		_deprecated_function( __METHOD__, '4.1.7.3' );
-		/*$has_action = true;
-		switch ( LP_Request::get( 'page' ) ) {
-			default:
-				$has_action = false;
-		}
-
-		$nonce = LP_Request::get( '_wpnonce' );
-
-		if ( LP_Request::get( 'generate-cron-url' ) && $nonce ) {
-			if ( wp_verify_nonce( $nonce ) ) {
-				delete_option( 'learnpress_cron_url_nonce' );
-
-				wp_redirect( esc_url_raw( remove_query_arg( array( 'generate-cron-url', '_wpnonce' ) ) ) );
-				die();
-			}
-		}
-
-		if ( $has_action ) {
-			die();
-		}*/
 	}
 
 	/**
@@ -97,6 +71,27 @@ class LP_Submenu_Tools extends LP_Abstract_Submenu {
 					'info'  => $lp_beta_version_info,
 				],
 			]
+		);
+	}
+
+	public function page_content_assign_course() {
+		learn_press_admin_view( 'tools/course/html-assign-course' );
+		learn_press_admin_view( 'tools/course/html-unassign-course' );
+	}
+
+	/**
+	 * Temporary, go to this page run clear all cache
+	 *
+	 * @since 4.2.5.4
+	 * @version 1.0.0
+	 */
+	public function page_content_cache() {
+		$lp_cache = new LP_Cache( true );
+		$lp_cache->clear_all();
+
+		echo sprintf(
+			'<form action="" method="post"><button class="button button-primary" type="submit">%s</button></form>',
+			__( 'Clear all cache', 'learnpress' )
 		);
 	}
 

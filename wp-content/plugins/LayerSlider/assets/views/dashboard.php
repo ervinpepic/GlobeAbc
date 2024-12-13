@@ -114,6 +114,14 @@
 	$lsStoreHasUpdate = ( ! empty($lsStoreData['last_updated']) && $lsStoreLastViewed <  $lsStoreData['last_updated'] );
 	//$lsStoreHasUpdate = true;
 
+	$lsAddonsHasUpdates = false;
+	$lsAddonsLastVersion = get_user_meta( $userID, 'ls-addons-last-version', true);
+	$lsAddonsLastVersion = empty( $lsAddonsLastVersion ) ? '1.0.0' : $lsAddonsLastVersion;
+
+	if( version_compare( $lsAddonsLastVersion, LS_ADDONS_VERSION, '<' ) ) {
+		$lsAddonsHasUpdates = true;
+	}
+
 
 	// Notifications panel contents
 	$bellNotifications = LS_Notifications::bellNotifications();
@@ -438,7 +446,7 @@
 							<ls-menu-item>
 								<ls-menu-icon><?= lsGetSVGIcon('layer-group') ?></ls-menu-icon>
 								<ls-menu-title><?= __('About LayerSlider', 'LayerSlider') ?></ls-menu-title>
-								<ls-menu-text><?= __('About the product & useful resources.') ?></ls-menu-text>
+								<ls-menu-text><?= __('About the product & useful resources.', 'LayerSlider') ?></ls-menu-text>
 								<a class="ls-menu-link" href="<?= admin_url('admin.php?page=layerslider&section=about') ?>"></a>
 							</ls-menu-item>
 						</ls-dropdown-menu>
@@ -492,24 +500,16 @@
 					</div>
 				</div>
 
-				<div class="ls-item">
-					<div class="ls-item-inner">
-						<a href="#" id="ls-addons-button">
-							<?= lsGetSVGIcon('award'); ?>
-							<div class="ls-tile-text"><?= __('Premium Benefits', 'LayerSlider') ?></div>
-						</a>
-					</div>
-				</div>
 
-				<!-- <div class="ls-item has-updates">
+				<div id="ls-addons-button" class="ls-item <?= $lsAddonsHasUpdates ? 'has-updates' : '' ?>">
 					<div class="ls-item-inner ls--anim-shine">
-						<a href="#" id="ls-addons-button">
+						<a href="#">
 							<?= lsGetSVGIcon('award'); ?>
 							<div class="ls-tile-text"><?= __('Add-Ons & Premium', 'LayerSlider') ?></div>
 						</a>
 					</div>
 					<lse-badge><?= __('NEW', 'LayerSlider') ?></lse-badge>
-				</div> -->
+				</div>
 
 
 			</div>

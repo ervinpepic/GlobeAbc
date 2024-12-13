@@ -1,6 +1,7 @@
 import SingleCurriculums from './single-curriculum/index';
 import lpModalOverlayCompleteItem from './show-lp-overlay-complete-item';
 import courseCurriculumSkeleton from './single-curriculum/skeleton';
+import lpMaterialsLoad from './material';
 
 export default SingleCurriculums;
 
@@ -14,6 +15,8 @@ export const init = () => {
 document.addEventListener( 'DOMContentLoaded', function( event ) {
 	LP.Hook.doAction( 'course-ready' );
 	lpModalOverlayCompleteItem.init();
+
+	lpMaterialsLoad();
 	//courseCurriculumSkeleton();
 	//init();
 } );

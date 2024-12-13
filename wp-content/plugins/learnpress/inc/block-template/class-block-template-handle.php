@@ -1,6 +1,6 @@
 <?php
 
-use LP\Helpers\Config;
+use LearnPress\Helpers\Config;
 
 /**
  * Class Block_Template_Handle
@@ -27,22 +27,6 @@ class Block_Template_Handle {
 		add_action( 'init', array( $this, 'register_tag_block' ) );
 		// Register block category
 		add_filter( 'block_categories_all', array( $this, 'add_block_category' ), 10, 2 );
-		// add_action( 'init', [ $this, 'register_block_learnpress_title_course' ] );
-	}
-
-	public function register_block_learnpress_title_course() {
-		register_block_type_from_metadata(
-			LP_PLUGIN_PATH . 'assets\src\js\admin\block\course\title\block.json',
-			array(
-				'render_callback' => [ $this, 'render_block_learnpress_title_course' ],
-			)
-		);
-	}
-
-	public function render_block_learnpress_title_course( $attributes, $content, $block ) {
-		// Debug::var_dump( $attributes );
-		// Debug::var_dump( $content );
-		var_dump( $block->context );
 	}
 
 	/**
@@ -61,7 +45,7 @@ class Block_Template_Handle {
 			wp_register_script(
 				$block_template->name, // Block name
 				$block_template->source_js, // Block script
-				array( 'wp-blocks', 'wp-editor' ), // Dependencies
+				array( 'wp-blocks' ), // Dependencies
 				uniqid() // Version
 			);
 
@@ -111,11 +95,14 @@ class Block_Template_Handle {
 
 			// Get block template if custom - save on table posts.
 			$block_custom = $this->is_custom_block_template( $template_type, $new->slug );
-
 			if ( $block_custom ) {
 				$new->is_custom = true;
 				$new->source    = 'custom';
-				$new->content   = _inject_theme_attribute_in_block_template_content( $block_custom->post_content );
+				if ( version_compare( get_bloginfo( 'version' ), '6.4-beta', '>=' ) ) {
+					$new->content = traverse_and_serialize_blocks( parse_blocks( $block_custom->post_content ) );
+				} else {
+					$new->content = _inject_theme_attribute_in_block_template_content( $block_custom->post_content );
+				}
 			}
 
 			if ( empty( $query ) ) { // For Admin and rest api call to this function, so $query is empty

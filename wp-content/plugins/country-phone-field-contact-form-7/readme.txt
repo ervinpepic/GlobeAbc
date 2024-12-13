@@ -1,9 +1,9 @@
 === Country & Phone Field Contact Form 7 ===
 Contributors: narinderbisht
 Donate link: https://www.paypal.com/paypalme/narinderbisht
-Tags: country dropdown, flags, phone extension, form, contact form, contact form 7, country dropdown plugin, international telephone input, Country & Phone Field, WordPress plugin
+Tags: contact form 7, country dropdown plugin, international telephone input, Country & Phone Field, WordPress plugin
 Requires at least: 6.0
-Tested up to: 6.3.2
+Tested up to: 6.7
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -203,3 +203,36 @@ Please use contact form 7 standard featured minlength and maxlength option. It w
 
 2.4.6
 * Tested on WordPress 6.3.2
+
+2.4.7
+* Tested on wordpress 6.5.3
+
+2.4.8
+* Fixed number of tags issues
+
+2.4.9
+* Add stable tag in readme file
+
+2.5.0
+* Fixed country dial code issue.
+
+2.5.1
+* Fixed country dial code dropdown issue fixed.
+
+2.5.2
+* Fixed phone dial code placeholder and remove dial code issue.
+
+2.5.3
+* Country dial code input debug.
+
+2.5.4
+* Phone input field validation bug fixed
+
+2.5.5
+* Phone input field autofill issue fixed.
+
+2.5.6
+* The auto country selection API URL was not working. So it has updated.
+
+2.5.7
+* Issue fixed with cors for IP fetch
