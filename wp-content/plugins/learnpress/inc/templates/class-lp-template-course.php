@@ -5,6 +5,7 @@ use LearnPress\Models\CourseModel;
 use LearnPress\Models\UserItems\UserCourseModel;
 use LearnPress\Models\UserModel;
 use LearnPress\TemplateHooks\Course\SingleCourseTemplate;
+use LearnPress\TemplateHooks\UserItem\UserCourseTemplate;
 
 /**
  * Class LP_Course_Template
@@ -39,6 +40,8 @@ class LP_Template_Course extends LP_Abstract_Template {
 	}
 
 	public function course_buttons() {
+		global $lp_user;
+		$lp_user = learn_press_get_current_user();
 		learn_press_get_template( 'single-course/buttons' );
 	}
 
@@ -156,7 +159,7 @@ class LP_Template_Course extends LP_Abstract_Template {
 
 		$courseModel     = CourseModel::find( $course->get_id(), true );
 		$can_purchase    = $courseModel->can_purchase( UserModel::find( $user->get_id(), true ) );
-		$userCourseModel = UserCourseModel::find( $user->get_id(), $course->get_id() );
+		$userCourseModel = UserCourseModel::find( $user->get_id(), $course->get_id(), true );
 		if ( get_current_user_id() ) {
 			if ( $userCourseModel ) {
 				if ( $userCourseModel->has_enrolled() ) {
@@ -180,13 +183,11 @@ class LP_Template_Course extends LP_Abstract_Template {
 	 * @version 4.0.2
 	 */
 	public function course_purchase_button( $course = null ) {
-		// Test
 		$singleCourseTemplate = SingleCourseTemplate::instance();
 		$course               = CourseModel::find( get_the_ID(), true );
 		$user                 = UserModel::find( get_current_user_id(), true );
 		echo $singleCourseTemplate->html_btn_purchase_course( $course, $user );
 		return;
-		// End test
 
 		$can_show = true;
 		if ( empty( $course ) ) {
@@ -253,13 +254,11 @@ class LP_Template_Course extends LP_Abstract_Template {
 	 * @version 4.0.3
 	 */
 	public function course_enroll_button( $course = null ) {
-		// Test
 		$singleCourseTemplate = SingleCourseTemplate::instance();
 		$course               = CourseModel::find( get_the_ID(), true );
 		$user                 = UserModel::find( get_current_user_id(), true );
 		echo $singleCourseTemplate->html_btn_enroll_course( $course, $user );
 		return;
-		// End test
 
 		$can_show = true;
 		$user     = learn_press_get_current_user();
@@ -389,25 +388,21 @@ class LP_Template_Course extends LP_Abstract_Template {
 	 *
 	 * @throws Exception
 	 * @modify 4.1.3.1
-	 * @version 4.0.3
+	 * @version 4.0.4
 	 * @since  4.0.0
 	 */
-	public function course_continue_button( $course = null ) {
-		$can_show = true;
-		$user     = learn_press_get_current_user();
-		if ( empty( $course ) ) {
-			$course = learn_press_get_course();
-		}
-
-		$courseModel = CourseModel::find( $course->get_id(), true );
-		$user_id     = $user->get_id();
+	public static function course_continue_button( $args = [] ) {
+		$course_id_param = $args['course-id'] ?? 0;
+		$course_id       = ! empty( $course_id_param ) ? $course_id_param : get_the_ID();
+		$courseModel     = CourseModel::find( $course_id, true );
+		$user_id         = get_current_user_id();
 
 		try {
-			if ( ! $user || ! $course ) {
+			if ( ! $user_id || ! $courseModel ) {
 				throw new Exception( 'User or Course not exists!' );
 			}
 
-			$userCourseModel = UserCourseModel::find( $user_id, $courseModel->get_id() );
+			$userCourseModel = UserCourseModel::find( $user_id, $courseModel->get_id(), true );
 			if ( ! $userCourseModel || ! $userCourseModel->has_enrolled() ) {
 				throw new Exception( 'User not enrolled course' );
 			}
@@ -425,22 +420,17 @@ class LP_Template_Course extends LP_Abstract_Template {
 			if ( $userCourseModel->timestamp_remaining_duration() === 0 ) {
 				throw new Exception( 'Course is blocked' );
 			}
+
+			$section = [
+				'start' => '<div>',
+				'link'  => UserCourseTemplate::instance()->html_btn_continue( $userCourseModel ),
+				'end'   => '</div>',
+			];
+
+			echo Template::combine_components( $section );
 		} catch ( Throwable $e ) {
-			$can_show = false;
+
 		}
-
-		$can_show = apply_filters( 'learnpress/course/template/button-continue/can-show', $can_show, $user, $course );
-
-		if ( ! $can_show ) {
-			return;
-		}
-
-		$args = array(
-			'user'   => $user,
-			'course' => $course,
-		);
-
-		learn_press_get_template( 'single-course/buttons/continue.php', $args );
 	}
 
 	public function course_finish_button( $course = null ) {
@@ -589,14 +579,47 @@ class LP_Template_Course extends LP_Abstract_Template {
 	 *
 	 * @since 4.1.6
 	 * @since 4.2.5.5 remove code load old template user for course curriculum load page instead of via AJAX.
-	 * @version 1.0.1
+	 * @version 1.0.2
 	 */
 	public function course_curriculum() {
+		/**
+		 * @var CourseModel $lpCourseModel
+		 */
+		global $lpCourseModel;
+		$courseModel = CourseModel::find( get_the_ID(), true );
+		if ( $lpCourseModel instanceof CourseModel ) {
+			$courseModel = $lpCourseModel;
+		}
+
+		$course_item = LP_Global::course_item();
+		$userModel   = UserModel::find( get_current_user_id(), true );
+
+		$singleCourseTemplate = SingleCourseTemplate::instance();
+		echo $singleCourseTemplate->html_curriculum( $courseModel, $userModel );
+	}
+
+	/**
+	 * Display course curriculum.
+	 *
+	 * @since 4.1.6
+	 * @since 4.2.5.5 remove code load old template user for course curriculum load page instead of via AJAX.
+	 * @version 1.0.2
+	 */
+	public function course_curriculum_bk() {
+		/**
+		 * @var CourseModel $lpCourseModel
+		 */
+		global $lpCourseModel;
 		$course_item = LP_Global::course_item();
 
 		if ( $course_item ) { // Check if current item is viewable
-			$item_id    = $course_item->get_id();
-			$section_id = LP_Section_DB::getInstance()->get_section_id_by_item_id( absint( $item_id ) );
+			$course_id = 0;
+			if ( $lpCourseModel ) {
+				$course_id = $lpCourseModel->get_id();
+			}
+
+			$item_id    = (int) $course_item->get_id();
+			$section_id = LP_Section_DB::getInstance()->get_section_id_by_item_id( $item_id, $course_id );
 		}
 		?>
 		<div class="learnpress-course-curriculum" data-section="<?php echo esc_attr( $section_id ?? '' ); ?>"
@@ -714,11 +737,11 @@ class LP_Template_Course extends LP_Abstract_Template {
 	/**
 	 * @deprecated 4.1.7.2
 	 */
-	public function item_quiz_content() {
+	/*public function item_quiz_content() {
 		$item = LP_Global::course_item();
 
 		learn_press_get_template( 'content-quiz/js.php' );
-	}
+	}*/
 
 	/**
 	 * @deprecated 4.1.7.2
@@ -1006,11 +1029,12 @@ class LP_Template_Course extends LP_Abstract_Template {
 			return;
 		}
 
-		$user = learn_press_get_current_user();
-
-		// if ( ! $user->is_admin() && ! $user->has_course_status( $course->get_id(), array( 'enrolled', 'finished' ) ) ) {
-		// return;
-		// }
+		$user                 = learn_press_get_current_user();
+		$user_can_view_course = $user->can_view_content_course( $course->get_id() );
+		$user_can_view_item   = $user->can_view_item( $item->get_id(), $user_can_view_course );
+		if ( ! $user_can_view_item->flag ) {
+			return;
+		}
 
 		if ( $item->setup_postdata() ) {
 

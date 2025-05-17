@@ -65,6 +65,8 @@ if ( ! class_exists( 'LP_Background_Single_Course' ) ) {
 		 * Save course via post data
 		 *
 		 * @throws Exception
+		 * @since 4.1.3
+		 * @version 1.0.3
 		 */
 		protected function save_post() {
 			if ( ! current_user_can( 'edit_lp_courses' ) ) {
@@ -83,11 +85,25 @@ if ( ! class_exists( 'LP_Background_Single_Course' ) ) {
 			$courseModel->get_author_model();
 			$courseModel->get_first_item_id();
 			$courseModel->get_total_items();
-			$courseModel->get_section_items();
+			$sections_items = $courseModel->get_section_items();
+			// Update for case data old, section_order and item_order begin = 0
+			$section_curd = new LP_Section_CURD( $courseModel->get_id() );
+			$section_ids  = LP_Database::get_values_by_key( $sections_items, 'section_id' );
+			$section_curd->update_sections_order( $section_ids );
+
+			foreach ( $sections_items as $section_items ) {
+				$section_curd->update_section_items( $section_items->section_id, $section_items->items );
+			}
+			// End
 			$courseModel->get_final_quiz();
 			$courseModel->get_categories();
 			$courseModel->get_tags();
-			$courseModel->get_image_url();
+			$size_img_setting = LP_Settings::get_option( 'course_thumbnail_dimensions', [] );
+			$size_img_send    = [
+				$size_img_setting['width'] ?? 500,
+				$size_img_setting['height'] ?? 300,
+			];
+			$courseModel->get_image_url( $size_img_send );
 			$courseModel->save();
 
 			//$this->save_extra_info();
@@ -97,7 +113,7 @@ if ( ! class_exists( 'LP_Background_Single_Course' ) ) {
 			// Old hook, addon wpml and assignment is using
 			do_action( 'lp/background/course/save', learn_press_get_course( $this->lp_course->get_id() ), $this->data );
 			// New hook from v4.2.6.9
-			do_action( 'learnPress/background/course/save', $this->lp_course, $this->data );
+			do_action( 'learnPress/background/course/save', $courseModel, $this->data );
 
 			/**
 			 * Clean cache courses
@@ -114,6 +130,8 @@ if ( ! class_exists( 'LP_Background_Single_Course' ) ) {
 			$lp_courses_cache = new LP_Courses_Cache( true );
 			$lp_courses_cache->clear_cache_on_group( LP_Courses_Cache::KEYS_COUNT_COURSES_FREE );
 			// End
+
+			$lp_courses_cache->clear_cache_on_group( LP_Courses_Cache::KEYS_QUERY_COURSES_APP );
 		}
 
 		/**
@@ -191,12 +209,12 @@ if ( ! class_exists( 'LP_Background_Single_Course' ) ) {
 			$sale_price    = $courseObj->get_sale_price();
 			if ( (float) $regular_price < 0 ) {
 				$courseObj->meta_data->{CoursePostModel::META_KEY_REGULAR_PRICE} = '';
-				$regular_price                                                   = $courseObj->get_regular_price();
+				$regular_price = $courseObj->get_regular_price();
 			}
 
 			if ( (float) $sale_price > (float) $regular_price ) {
 				$courseObj->meta_data->{CoursePostModel::META_KEY_SALE_PRICE} = '';
-				$sale_price                                                   = $courseObj->get_sale_price();
+				$sale_price = $courseObj->get_sale_price();
 			}
 
 			// Save sale regular price and sale price to table postmeta

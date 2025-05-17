@@ -1,7 +1,7 @@
 /**
  * @package 	WordPress Plugin
  * @subpackage 	CMSMasters Content Composer
- * @version		1.7.7
+ * @version		1.8.7
  * 
  * Visual Content Composer Schortcodes
  * Created by CMSMasters
@@ -103,7 +103,7 @@ var cmsmastersShortcodes = {
 			
 			// Google Font
 			font_family : { 
-				type : 		'select', 
+				type : 		'select_group', 
 				title : 	cmsmasters_shortcodes.heading_field_font_title, 
 				descr : 	'', 
 				def : 		'', 
@@ -444,6 +444,15 @@ var cmsmastersShortcodes = {
 		multiple : 	false, 
 		def : 		'', 
 		fields : { 
+			// Shortcode ID
+			shortcode_id : { 
+				type : 		'hidden', 
+				title : 	'', 
+				descr : 	'', 
+				def : 		'', 
+				required : 	false, 
+				width : 	'full' 
+			}, 
 			// Order By
 			orderby : { 
 				type : 		'select', 
@@ -711,7 +720,7 @@ var cmsmastersShortcodes = {
 			}, 
 			// Button Google Font
 			button_font_family : { 
-				type : 		'select', 
+				type : 		'select_group', 
 				title : 	cmsmasters_shortcodes.button_field_label_google_font_title, 
 				descr : 	cmsmasters_shortcodes.button_field_label_google_font_descr + " <br /><span>" + cmsmasters_shortcodes.note + ' ' + cmsmasters_shortcodes.button_field_label_google_font_descr_note + "</span>", 
 				def : 		'', 
@@ -2792,7 +2801,7 @@ var cmsmastersShortcodes = {
 			}, 
 			// Button Google Font
 			button_font_family : { 
-				type : 		'select', 
+				type : 		'select_group', 
 				title : 	cmsmasters_shortcodes.button_field_label_google_font_title, 
 				descr : 	cmsmasters_shortcodes.button_field_label_google_font_descr + " <br /><span>" + cmsmasters_shortcodes.note + ' ' + cmsmasters_shortcodes.button_field_label_google_font_descr_note + "</span>", 
 				def : 		'', 
@@ -3453,6 +3462,15 @@ var cmsmastersShortcodes = {
 		multiple : 	false, 
 		def : 		'', 
 		fields : { 
+			// Shortcode ID
+			shortcode_id : { 
+				type : 		'hidden', 
+				title : 	'', 
+				descr : 	'', 
+				def : 		'', 
+				required : 	false, 
+				width : 	'full' 
+			}, 
 			// Order By
 			orderby : { 
 				type : 		'select', 
@@ -4711,25 +4729,6 @@ var cmsmastersShortcodes = {
 		multiple : 	false, 
 		def : 		"", 
 		fields : { 
-			// Twitter Username
-			user : { 
-				type : 		'input', 
-				title : 	cmsmasters_shortcodes.twitter_field_username_title, 
-				descr : 	cmsmasters_shortcodes.twitter_field_username_descr, 
-				def : 		'', 
-				required : 	true, 
-				width : 	'half' 
-			}, 
-			// Tweets Number
-			count : { 
-				type : 		'input', 
-				title : 	cmsmasters_shortcodes.twitter_field_tweets_number_title, 
-				descr : 	cmsmasters_shortcodes.twitter_field_tweets_number_descr + "<br /><span>" + cmsmasters_shortcodes.note + ' ' + cmsmasters_shortcodes.value_number + ' ' + cmsmasters_shortcodes.twitter_field_tweets_number_descr_note + "</span>", 
-				def : 		'5', 
-				required : 	true, 
-				width : 	'number', 
-				min : 		'1' 
-			}, 
 			// Date visibility
 			date : { 
 				type : 		'checkbox', 
@@ -4741,39 +4740,6 @@ var cmsmastersShortcodes = {
 				choises : { 
 							'true' : 	cmsmasters_shortcodes.choice_enable 
 				} 
-			}, 
-			// Twitter Controls
-			control : { 
-				type : 		'checkbox', 
-				title : 	cmsmasters_shortcodes.twitter_field_slider_controls_title, 
-				descr : 	cmsmasters_shortcodes.twitter_field_slider_controls_descr, 
-				def : 		'true', 
-				required : 	false, 
-				width : 	'half', 
-				choises : { 
-							'true' : 	cmsmasters_shortcodes.choice_enable 
-				} 
-			}, 
-			// Twitter Autoplay
-			autoplay : { 
-				type : 		'checkbox', 
-				title : 	cmsmasters_shortcodes.autoplay, 
-				descr : 	cmsmasters_shortcodes.twitter_field_slider_autoplay_descr, 
-				def : 		'true', 
-				required : 	false, 
-				width : 	'half', 
-				choises : { 
-							'true' : 	cmsmasters_shortcodes.choice_enable 
-				} 
-			}, 
-			// Twitter Speed
-			speed : { 
-				type : 		'input', 
-				title : 	cmsmasters_shortcodes.pause_time, 
-				descr : 	cmsmasters_shortcodes.twitter_field_slider_speed_descr + "<br /><span>" + cmsmasters_shortcodes.note + ' ' + cmsmasters_shortcodes.twitter_field_slider_speed_descr_note + "</span>", 
-				def : 		'3', 
-				required : 	false, 
-				width : 	'small'
 			}, 
 			// CSS3 Animation
 			animation : { 
@@ -5349,7 +5315,7 @@ if (cmsmasters_composer_paypal_donations() === 'true') {
 			}, 
 			// Button Google Font
 			button_font_family : { 
-				type : 		'select', 
+				type : 		'select_group', 
 				title : 	cmsmasters_shortcodes.button_field_label_google_font_title, 
 				descr : 	cmsmasters_shortcodes.button_field_label_google_font_descr + " <br /><span>" + cmsmasters_shortcodes.note + ' ' + cmsmasters_shortcodes.button_field_label_google_font_descr_note + "</span>", 
 				def : 		'', 
@@ -7281,7 +7247,7 @@ var cmsmastersMultipleShortcodes = {
 			}, 
 			// Button Google Font
 			button_font_family : { 
-				type : 		'select', 
+				type : 		'select_group', 
 				title : 	cmsmasters_shortcodes.button_field_label_google_font_title, 
 				descr : 	cmsmasters_shortcodes.button_field_label_google_font_descr + " <br /><span>" + cmsmasters_shortcodes.note + ' ' + cmsmasters_shortcodes.button_field_label_google_font_descr_note + "</span>", 
 				def : 		'', 

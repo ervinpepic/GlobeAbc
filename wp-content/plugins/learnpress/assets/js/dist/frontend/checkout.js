@@ -14,6 +14,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   listenElementViewed: () => (/* binding */ listenElementViewed),
 /* harmony export */   lpAddQueryArgs: () => (/* binding */ lpAddQueryArgs),
 /* harmony export */   lpAjaxParseJsonOld: () => (/* binding */ lpAjaxParseJsonOld),
+/* harmony export */   lpClassName: () => (/* binding */ lpClassName),
 /* harmony export */   lpFetchAPI: () => (/* binding */ lpFetchAPI),
 /* harmony export */   lpGetCurrentURLNoParam: () => (/* binding */ lpGetCurrentURLNoParam),
 /* harmony export */   lpOnElementReady: () => (/* binding */ lpOnElementReady),
@@ -324,13 +325,13 @@ window.lpCheckout = {
       success: response => {
         response = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.lpAjaxParseJsonOld)(response);
         const {
-          messages,
+          message,
           result
         } = response;
-        if ('success' !== result) {
-          window.lpCheckout.showErrors(formCheckout, 'error', messages);
-        } else {
+        if (response.redirect) {
           window.location.href = response.redirect;
+        } else if ('success' !== result) {
+          window.lpCheckout.showErrors(formCheckout, 'error', message);
         }
       },
       error: error => {
@@ -412,11 +413,13 @@ window.lpCheckout = {
     }, 500);
   },
   removeMessage: () => {
-    const lpMessage = document.querySelector('.learn-press-message');
-    if (!lpMessage) {
+    const lpMessages = document.querySelectorAll('.learn-press-message');
+    if (!lpMessages) {
       return;
     }
-    lpMessage.remove();
+    lpMessages.forEach(el => {
+      el.remove();
+    });
   },
   showErrors: (form, status, message) => {
     const mesHtml = `<div class="learn-press-message ${status}">${message}</div>`;

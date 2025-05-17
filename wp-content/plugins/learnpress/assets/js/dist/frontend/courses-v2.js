@@ -16,31 +16,37 @@ __webpack_require__.r(__webpack_exports__);
  * List API on backend
  *
  * @since 4.2.6
- * @version 1.0.0
+ * @version 1.0.1
  */
 
 const lplistAPI = {};
+let lp_rest_url;
 if ('undefined' !== typeof lpDataAdmin) {
+  lp_rest_url = lpDataAdmin.lp_rest_url;
   lplistAPI.admin = {
     apiAdminNotice: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/admin-notices',
     apiAdminOrderStatic: lpDataAdmin.lp_rest_url + 'lp/v1/orders/statistic',
     apiAddons: lpDataAdmin.lp_rest_url + 'lp/v1/addon/all',
-    apiAddonAction: lpDataAdmin.lp_rest_url + 'lp/v1/addon/action',
+    apiAddonAction: lpDataAdmin.lp_rest_url + 'lp/v1/addon/action-n',
     apiAddonsPurchase: lpDataAdmin.lp_rest_url + 'lp/v1/addon/info-addons-purchase',
     apiSearchCourses: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/search-course',
     apiSearchUsers: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/search-user',
     apiAssignUserCourse: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/assign-user-course',
-    apiUnAssignUserCourse: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/unassign-user-course',
-    apiAJAX: lpDataAdmin.lp_rest_url + 'lp/v1/load_content_via_ajax/'
+    apiUnAssignUserCourse: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/unassign-user-course'
   };
 }
 if ('undefined' !== typeof lpData) {
+  lp_rest_url = lpData.lp_rest_url;
   lplistAPI.frontend = {
     apiWidgets: lpData.lp_rest_url + 'lp/v1/widgets/api',
     apiCourses: lpData.lp_rest_url + 'lp/v1/courses/archive-course',
     apiAJAX: lpData.lp_rest_url + 'lp/v1/load_content_via_ajax/',
     apiProfileCoverImage: lpData.lp_rest_url + 'lp/v1/profile/cover-image'
   };
+}
+if (lp_rest_url) {
+  lplistAPI.apiAJAX = lp_rest_url + 'lp/v1/load_content_via_ajax/';
+  lplistAPI.apiCourses = lp_rest_url + 'lp/v1/courses/';
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (lplistAPI);
 
@@ -58,6 +64,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   listenElementViewed: () => (/* binding */ listenElementViewed),
 /* harmony export */   lpAddQueryArgs: () => (/* binding */ lpAddQueryArgs),
 /* harmony export */   lpAjaxParseJsonOld: () => (/* binding */ lpAjaxParseJsonOld),
+/* harmony export */   lpClassName: () => (/* binding */ lpClassName),
 /* harmony export */   lpFetchAPI: () => (/* binding */ lpFetchAPI),
 /* harmony export */   lpGetCurrentURLNoParam: () => (/* binding */ lpGetCurrentURLNoParam),
 /* harmony export */   lpOnElementReady: () => (/* binding */ lpOnElementReady),
@@ -320,7 +327,6 @@ document.addEventListener('change', function (e) {
 });
 document.addEventListener('click', function (e) {
   const target = e.target;
-  window.lpCoursesList.clickNumberPage(e, target);
   window.lpCoursesList.LoadMore(e, target);
 });
 document.addEventListener('keyup', function (e) {
@@ -332,6 +338,12 @@ document.addEventListener('submit', function (e) {
 
   //window.lpCourseList.searchCourse( e, target );
 });
+(0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.lpOnElementReady)('.course-filter-btn-mobile', function (el) {
+  const widgetCourseFilter = document.querySelector('.widget_course_filter');
+  if (!widgetCourseFilter) {
+    el.remove();
+  }
+});
 let timeOutSearch;
 window.lpCoursesList = (() => {
   const classListCourse = '.lp-list-courses-no-css';
@@ -341,77 +353,6 @@ window.lpCoursesList = (() => {
   const classLoading = '.lp-loading-no-css';
   const urlCurrent = (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.lpGetCurrentURLNoParam)();
   return {
-    clickNumberPage: (e, target) => {
-      const btnNumber = target.closest('.page-numbers:not(.disabled)');
-      if (!btnNumber) {
-        return;
-      }
-      const elLPTarget = btnNumber.closest(`${classLPTarget}`);
-      if (!elLPTarget) {
-        return;
-      }
-      const dataObj = JSON.parse(elLPTarget.dataset.send);
-      const dataSend = {
-        ...dataObj
-      };
-      if (!dataSend.args.hasOwnProperty('paged')) {
-        dataSend.args.paged = 1;
-      }
-
-      // If no load ajax, will return.
-      if (dataSend.args.courses_load_ajax === 0) {
-        return;
-      }
-      e.preventDefault();
-      if (btnNumber.classList.contains('prev')) {
-        dataSend.args.paged--;
-      } else if (btnNumber.classList.contains('next')) {
-        dataSend.args.paged++;
-      } else {
-        dataSend.args.paged = btnNumber.textContent;
-      }
-      elLPTarget.dataset.send = JSON.stringify(dataSend);
-
-      // Set url params to reload page.
-      // Todo: need check allow set url params.
-      lpData.urlParams.paged = dataSend.args.paged;
-      window.history.pushState({}, '', (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.lpAddQueryArgs)(urlCurrent, lpData.urlParams));
-      // End.
-
-      // Show loading
-      const elLoading = elLPTarget.closest('div:not(.lp-target)').querySelector('.lp-loading-change');
-      if (elLoading) {
-        elLoading.style.display = 'block';
-      }
-      // End
-
-      // Scroll to archive element
-      const elLPTargetY = elLPTarget.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({
-        top: elLPTargetY
-      });
-      const callBack = {
-        success: response => {
-          //console.log( 'response', response );
-          const {
-            status,
-            message,
-            data
-          } = response;
-          elLPTarget.innerHTML = data.content || '';
-        },
-        error: error => {
-          console.log(error);
-        },
-        completed: () => {
-          //console.log( 'completed' );
-          if (elLoading) {
-            elLoading.style.display = 'none';
-          }
-        }
-      };
-      window.lpAJAXG.fetchAPI(_api__WEBPACK_IMPORTED_MODULE_0__["default"].frontend.apiAJAX, dataSend, callBack);
-    },
     LoadMore: (e, target) => {
       const btnLoadMore = target.closest(`.${classLoadMore + ':not(.disabled)'}`);
       if (!btnLoadMore) {
@@ -469,7 +410,7 @@ window.lpCoursesList = (() => {
           btnLoadMore.classList.remove('disabled');
         }
       };
-      window.lpAJAXG.fetchAPI(_api__WEBPACK_IMPORTED_MODULE_0__["default"].frontend.apiAJAX, dataSend, callBack);
+      window.lpAJAXG.fetchAJAX(dataSend, callBack);
     },
     LoadInfinite: () => {
       // When see element, will call API to load more items.
@@ -526,13 +467,19 @@ window.lpCoursesList = (() => {
             elLoading.classList.remove('disabled');
           }
         };
-        window.lpAJAXG.fetchAPI(_api__WEBPACK_IMPORTED_MODULE_0__["default"].frontend.apiAJAX, dataSend, callBack);
+        window.lpAJAXG.fetchAJAX(dataSend, callBack);
       };
 
       // Listen el courses load infinite have just created.
       (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.listenElementCreated)(node => {
         if (node.classList.contains('courses-load-infinite-no-css')) {
           (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.listenElementViewed)(node, callBackAfterSeeItem);
+        } else if (node.classList.contains('wp-block-learnpress-list-courses')) {
+          // For block Gutenberg
+          const elInfinite = node.querySelector('.courses-load-infinite-no-css');
+          if (elInfinite) {
+            (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.listenElementViewed)(elInfinite, callBackAfterSeeItem);
+          }
         }
       });
 
@@ -596,7 +543,7 @@ window.lpCoursesList = (() => {
           }
         }
       };
-      window.lpAJAXG.fetchAPI(_api__WEBPACK_IMPORTED_MODULE_0__["default"].frontend.apiAJAX, dataSend, callBack);
+      window.lpAJAXG.fetchAJAX(dataSend, callBack);
     },
     onChangeTypeLayout: (e, target) => {
       if ('lp-switch-layout-btn' !== target.getAttribute('name')) {
@@ -660,7 +607,7 @@ window.lpCoursesList = (() => {
               //console.log( 'completed' );
             }
           };
-          window.lpAJAXG.fetchAPI(_api__WEBPACK_IMPORTED_MODULE_0__["default"].frontend.apiAJAX, dataSend, callBack);
+          window.lpAJAXG.fetchAJAX(dataSend, callBack);
         }, 800);
       }
     }

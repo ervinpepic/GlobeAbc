@@ -462,6 +462,17 @@ if ( ! class_exists( 'LP_Course' ) ) {
 				// Delete on tb lp_user_items
 				$filter_delete                = new LP_User_Items_Filter();
 				$filter_delete->user_item_ids = $user_item_ids_concat;
+				$user_items_rs                = $lp_user_items_db->get_user_items( $filter_delete );
+
+				// For each to clear cache
+				foreach ( $user_items_rs as $user_item ) {
+					$lp_user_items_cache = new LP_User_Items_Cache();
+					$key_one             = "userItemModel/find/{$user_item->user_id}/{$user_item->item_id}/{$user_item->item_type}";
+					$key_two             = "userItemModel/find/{$user_item->user_id}/{$user_item->item_id}/{$user_item->item_type}/{$user_item->ref_id}/{$user_item->ref_type}";
+					$lp_user_items_cache->clear( $key_one );
+					$lp_user_items_cache->clear( $key_two );
+				}
+
 				$lp_user_items_db->remove_user_item_ids( $filter_delete );
 
 				// Delete user_itemmeta
@@ -660,15 +671,8 @@ if ( ! class_exists( 'LP_Course' ) ) {
 				$filter  = apply_filters( 'lp/courses/filter', $filter );
 				$courses = LP_Course_DB::getInstance()->get_courses( $filter, $total_rows );
 
-				//              $lp_courses_cache->set_cache( $key_cache, json_encode( $courses ) );
-				//              $lp_courses_cache->set_cache( $key_cache_total_rows, $total_rows );
-				//
-				//              /**
-				//               * Save key cache to array to clear
-				//               * @see LP_Background_Single_Course::save_post() - clear cache when save post
-				//               */
-				//              $lp_courses_cache->save_cache_keys_query_courses( $key_cache );
-				//              $lp_courses_cache->save_cache_keys( LP_Courses_Cache::KEYS_QUERY_TOTAL_COURSES, $key_cache_total_rows );
+				//$lp_courses_cache->set_cache( $key_cache, json_encode( $courses ) );
+				//$lp_courses_cache->set_cache( $key_cache_total_rows, $total_rows );
 			} catch ( Throwable $e ) {
 				$courses = [];
 				error_log( __FUNCTION__ . ': ' . $e->getMessage() );

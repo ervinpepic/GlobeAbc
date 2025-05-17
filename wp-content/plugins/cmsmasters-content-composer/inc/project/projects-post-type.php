@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress Plugin
  * @subpackage 	CMSMasters Content Composer
- * @version		1.8.2
+ * @version		1.8.4
  * 
  * Projects Post Type
  * Created by CMSMasters
@@ -16,11 +16,23 @@ class Cmsmasters_Projects {
 		
 		$portfolio_project_settings_array = get_option('cmsmasters_options_' . $current_theme . '_single_project');
 		
-		$portfolio_project_slug = $portfolio_project_settings_array[$current_theme . '_portfolio_project_slug'];
+		$portfolio_project_slug = 'project';
+		$portfolio_pj_categs_slug = 'pj-categs';
+		$portfolio_pj_tags_slug = 'pj-tags';
 		
-		$portfolio_pj_categs_slug = $portfolio_project_settings_array[$current_theme . '_portfolio_pj_categs_slug'];
-		
-		$portfolio_pj_tags_slug = $portfolio_project_settings_array[$current_theme . '_portfolio_pj_tags_slug'];
+		if ( is_array( $portfolio_project_settings_array ) && ! empty( $portfolio_project_settings_array ) ) {
+			if ( ! empty( $portfolio_project_settings_array[$current_theme . '_portfolio_project_slug'] ) ) {
+				$portfolio_project_slug = $portfolio_project_settings_array[$current_theme . '_portfolio_project_slug'];
+			}
+			
+			if ( ! empty( $portfolio_project_settings_array[$current_theme . '_portfolio_pj_categs_slug'] ) ) {
+				$portfolio_pj_categs_slug = $portfolio_project_settings_array[$current_theme . '_portfolio_pj_categs_slug'];
+			}
+			
+			if ( ! empty( $portfolio_project_settings_array[$current_theme . '_portfolio_pj_tags_slug'] ) ) {
+				$portfolio_pj_tags_slug = $portfolio_project_settings_array[$current_theme . '_portfolio_pj_tags_slug'];
+			}
+		}
 		
 		
 		$project_labels = apply_filters('cmsmasters_project_labels_filter', array( 
@@ -64,7 +76,7 @@ class Cmsmasters_Projects {
 				'post-formats' 
 			), 
 			'rewrite' => array( 
-				'slug' => 			(isset($portfolio_project_slug) && $portfolio_project_slug != '') ? $portfolio_project_slug : 'project', 
+				'slug' => 			$portfolio_project_slug, 
 				'with_front' => 	true 
 			),
 		);
@@ -88,7 +100,7 @@ class Cmsmasters_Projects {
 			'hierarchical' => 		true, 
 			'labels' => 			$pj_categs_labels, 
 			'rewrite' => array( 
-				'slug' => 			(isset($portfolio_pj_categs_slug) && $portfolio_pj_categs_slug != '') ? $portfolio_pj_categs_slug : 'pj-categs', 
+				'slug' => 			$portfolio_pj_categs_slug, 
 				'with_front' => 	true 
 			),
 			'show_in_rest'          => true,
@@ -108,7 +120,7 @@ class Cmsmasters_Projects {
 			'hierarchical' => 		false, 
 			'labels' => 			$pj_tags_labels, 
 			'rewrite' => array( 
-				'slug' => 			(isset($portfolio_pj_tags_slug) && $portfolio_pj_tags_slug != '') ? $portfolio_pj_tags_slug : 'pj-tags', 
+				'slug' => 			$portfolio_pj_tags_slug, 
 				'with_front' => 	true 
 			),
 			'show_in_rest' =>		true,

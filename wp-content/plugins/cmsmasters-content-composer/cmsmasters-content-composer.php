@@ -3,7 +3,7 @@
 Plugin Name: CMSMasters Content Composer
 Plugin URI: //cmsmasters.net/
 Description: CMSMasters Content Composer created by <a href="//cmsmasters.net/" title="CMSMasters">CMSMasters</a> team. Content Composer plugin create custom visual editor with shortcodes & settings integrated to WordPress default content editor for new <a href="//themeforest.net/user/cmsmasters/portfolio" title="cmsmasters">cmsmasters</a> WordPress themes.
-Version: 1.8.3
+Version: 1.9.0
 Author: cmsmasters
 Author URI: //cmsmasters.net/
 */
@@ -31,7 +31,7 @@ Author URI: //cmsmasters.net/
 
 class Cmsmasters_Content_Composer { 
 	function __construct() { 
-		define('CMSMASTERS_CONTENT_COMPOSER_VERSION', '1.8.3');
+		define('CMSMASTERS_CONTENT_COMPOSER_VERSION', '1.9.0');
 		
 		define('CMSMASTERS_CONTENT_COMPOSER_FILE', __FILE__);
 		
@@ -65,8 +65,6 @@ class Cmsmasters_Content_Composer {
 		
 		require_once(CMSMASTERS_CONTENT_COMPOSER_PATH . 'inc/like/likes-post-type.php');
 		
-		require_once(CMSMASTERS_CONTENT_COMPOSER_PATH . 'inc/twitter/twitteroauth.php');
-		
 		
 		global $pagenow;
 		
@@ -78,6 +76,13 @@ class Cmsmasters_Content_Composer {
 			'profile', 
 			'events' 
 		);
+		
+		if (
+			isset( get_option( 'timetable_events_settings' )['slug'] ) &&
+			'' !== get_option( 'timetable_events_settings' )['slug']
+		) {
+			array_push( $gutenberg_allow_posttype, get_option( 'timetable_events_settings' )['slug'] );
+		}
 		
 		
 		if (
@@ -1011,20 +1016,8 @@ class Cmsmasters_Content_Composer {
 		/* Start cmsmasters_twitter Translations */
 		
 			'twitter_title' =>									__('Twitter Stripe', 'cmsmasters_content_composer'),
-			'twitter_field_username_title' =>					__('Twitter Username', 'cmsmasters_content_composer'),
-			'twitter_field_username_descr' =>					__('Enter your Twitter username', 'cmsmasters_content_composer'),
-			'twitter_field_tweets_number_title' =>				__('Tweets Number', 'cmsmasters_content_composer'),
-			'twitter_field_tweets_number_descr' =>				__("Enter the number of latest tweets you'd like to display", 'cmsmasters_content_composer'),
-			'twitter_field_tweets_number_descr_note' =>			__('(5 - if empty)', 'cmsmasters_content_composer'),
 			'twitter_field_tweets_date_title' =>				__('Date visibility', 'cmsmasters_content_composer'),
 			'twitter_field_tweets_date_descr' =>				__('Show or hide tweet date', 'cmsmasters_content_composer'),
-			'twitter_field_slider_controls_title' =>			__('Slider Controls', 'cmsmasters_content_composer'),
-			'twitter_field_slider_controls_descr' =>			__('If checked, enable tweets slider controls', 'cmsmasters_content_composer'),
-			
-			'twitter_field_slider_autoplay_descr' =>			__('Animate next tweet automatically', 'cmsmasters_content_composer'),
-			
-			'twitter_field_slider_speed_descr' =>				__('Time before next slide will appear', 'cmsmasters_content_composer'),
-			'twitter_field_slider_speed_descr_note' =>			__('If empty - 3', 'cmsmasters_content_composer'),
 			
 		/* Finish cmsmasters_twitter Translations */
 		
@@ -1647,6 +1640,8 @@ class Cmsmasters_Content_Composer {
 			'update' => 				__('Update', 'cmsmasters_content_composer'), 
 			'remove' => 				__('Remove', 'cmsmasters_content_composer'), 
 			'deselect' => 				__('Deselect', 'cmsmasters_content_composer'), 
+			'local_fonts' => 			__('Local Fonts', 'cmsmasters-content-composer'), 
+			'google_web_fonts' => 		__('Google Web Fonts', 'cmsmasters-content-composer'), 
 			'add_media' => 				__('Add Media', 'cmsmasters_content_composer'), 
 			'shcd_settings' => 			__('Shortcode Settings', 'cmsmasters_content_composer'), 
 			'shcd_choose' => 			__('Choose Shortcode', 'cmsmasters_content_composer'), 

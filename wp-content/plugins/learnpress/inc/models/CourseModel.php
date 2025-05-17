@@ -7,7 +7,7 @@
  * Another fields for query list courses faster
  *
  * @package LearnPress/Classes
- * @version 1.0.2
+ * @version 1.0.3
  * @since 4.2.6.9
  */
 
@@ -15,17 +15,23 @@ namespace LearnPress\Models;
 
 use Exception;
 use LearnPress\Models\UserItems\UserCourseModel;
+use LP_Admin_Editor_Course;
 use LP_Course_Cache;
 use LP_Course_DB;
 use LP_Course_Item;
 use LP_Course_JSON_DB;
 use LP_Course_JSON_Filter;
+use LP_Database;
 use LP_Datetime;
 use LP_Helper;
+use LP_Lesson;
+use LP_Post_Type_Filter;
+use LP_Section_CURD;
 use LP_Settings;
 use stdClass;
 use Throwable;
 use WP_Error;
+use WP_Post;
 
 class CourseModel {
 	/**
@@ -77,11 +83,11 @@ class CourseModel {
 	 * @var stdClass all meta data
 	 */
 	public $meta_data = null;
-	public $image_url = '';
+	public $image_url = null;
 	public $permalink = '';
 	public $categories;
 	public $tags;
-	private $price             = 0; // Not save in database, must auto reload calculate
+	private $price; // Not save in database, must auto reload calculate
 	private $passing_condition = '';
 	public $post_excerpt       = '';
 	/**
@@ -150,18 +156,19 @@ class CourseModel {
 	 * Get image url
 	 * if not check get from Post
 	 *
+	 * @param string|int[] $size
+	 *
 	 * @return string
-	 * @throws Exception
+	 * @since 4.2.6.9
+	 * @version 1.0.1
 	 */
-	public function get_image_url(): string {
-		$image_url = '';
-
-		if ( ! empty( $this->image_url ) ) {
+	public function get_image_url( $size = 'post-thumbnail' ): string {
+		if ( isset( $this->image_url ) ) {
 			return $this->image_url;
 		}
 
 		$post      = new CoursePostModel( $this );
-		$image_url = $post->get_image_url();
+		$image_url = $post->get_image_url( $size );
 
 		$this->image_url = $image_url;
 
@@ -237,9 +244,9 @@ class CourseModel {
 	 * @return float
 	 */
 	public function get_price(): float {
-		if ( ! empty( $this->price ) ) {
+		/*if ( ! empty( $this->price ) ) {
 			return $this->price;
-		}
+		}*/
 
 		if ( $this->has_sale_price() ) {
 			$price = $this->get_sale_price();
@@ -247,7 +254,8 @@ class CourseModel {
 			$price = $this->get_regular_price();
 		}
 
-		$this->price = (float) $price;
+		$this->price                                        = (float) $price;
+		$this->meta_data->{CoursePostModel::META_KEY_PRICE} = (float) $price;
 
 		return apply_filters( 'learnPress/course/price', (float) $price, $this->get_id() );
 	}
@@ -373,6 +381,17 @@ class CourseModel {
 	}
 
 	/**
+	 * Check option "Block course when finished" enable.
+	 *
+	 * @return bool
+	 * @since 4.2.7.6
+	 * @version 1.0.0
+	 */
+	public function enable_block_when_finished(): bool {
+		return $this->get_meta_value_by_key( CoursePostModel::META_KEY_BLOCK_FINISH, 'no' ) === 'yes';
+	}
+
+	/**
 	 * Get first item of course
 	 *
 	 * @return int
@@ -411,6 +430,19 @@ class CourseModel {
 	}
 
 	/**
+	 * Get total sections of course
+	 *
+	 * @return int
+	 * @since 4.2.7.6
+	 * @version 1.0.0
+	 */
+	public function get_total_sections(): int {
+		$section_items = $this->get_section_items();
+
+		return count( $section_items );
+	}
+
+	/**
 	 * Get total items of course
 	 *
 	 * @return array
@@ -430,14 +462,40 @@ class CourseModel {
 	}
 
 	/**
+	 * Get section id of item
+	 *
+	 * @param int $item_id
+	 *
+	 * @return int
+	 * @since 4.2.8
+	 * @version 1.0.0
+	 */
+	public function get_section_of_item( int $item_id ): int {
+		$section_id = 0;
+
+		$section_items = $this->get_section_items();
+		foreach ( $section_items as $section ) {
+			foreach ( $section->items as $item ) {
+				$item_id_check = (int) ( $item->item_id ?? $item->id ?? 0 );
+				if ( $item_id_check === $item_id ) {
+					$section_id = $section->section_id ?? $section->id ?? 0;
+					break;
+				}
+			}
+		}
+
+		return (int) $section_id;
+	}
+
+	/**
 	 * Get course Evaluation type.
 	 *
 	 * @return string
 	 * @since 4.2.7.3
-	 * @version 1.0.0
+	 * @version 1.0.1
 	 */
 	public function get_evaluation_type(): string {
-		return (float) $this->get_meta_value_by_key( CoursePostModel::META_KEY_Evaluation_TYPE, 'evaluate_lesson' );
+		return $this->get_meta_value_by_key( CoursePostModel::META_KEY_EVALUATION_TYPE, 'evaluate_lesson' );
 	}
 
 	/**
@@ -503,10 +561,10 @@ class CourseModel {
 	 *
 	 * @return array
 	 * @since 4.1.6.9
-	 * @version 1.0.2
+	 * @version 1.0.4
 	 * @author tungnx
 	 */
-	public function get_sections_and_items_course_from_db_and_sort(): array {
+	private function get_sections_and_items_course_from_db_and_sort(): array {
 		$sections_items = [];
 		$course_id      = $this->get_id();
 		$lp_course_db   = LP_Course_DB::getInstance();
@@ -518,14 +576,32 @@ class CourseModel {
 			$index_items_last       = $count_items - 1;
 			$section_current        = 0;
 
+			/**
+			 * @var $section_order_plus int
+			 * @var $item_order_plus int
+			 * To fixed case: section order start from 0, item order start from 0
+			 */
+			$section_order_plus = 0;
+			$item_order_plus    = 0;
 			foreach ( $sections_items_results as $index => $sections_item ) {
-				$section_new      = $sections_item->section_id;
-				$section_order    = $sections_item->section_order;
-				$item             = new stdClass();
-				$item->id         = $sections_item->item_id;
-				$item->item_id    = $sections_item->item_id;
-				$item->order      = $sections_item->item_order;
-				$item->item_order = $sections_item->item_order;
+				$section_new   = $sections_item->section_id;
+				$section_order = (int) $sections_item->section_order;
+				if ( $index === 0 && $section_order === 0 ) {
+					$section_order_plus = 1;
+				}
+
+				$section_order += $section_order_plus;
+				$item           = new stdClass();
+				$item->id       = $sections_item->item_id;
+				$item->item_id  = $sections_item->item_id;
+				$item_order     = (int) $sections_item->item_order;
+				if ( $index === 0 && $item_order === 0 ) {
+					$item_order_plus = 1;
+				}
+
+				$item_order      += $item_order_plus;
+				$item->order      = $item_order;
+				$item->item_order = $item_order;
 				$item->type       = $sections_item->item_type;
 				$item->item_type  = $sections_item->item_type;
 				$item_tmp         = LP_Course_Item::get_item( $item->id );
@@ -551,7 +627,7 @@ class CourseModel {
 						usort(
 							$sections_items[ $section_current ]->items,
 							function ( $item1, $item2 ) {
-								return $item1->order - $item2->order;
+								return $item1->item_order - $item2->item_order;
 							}
 						);
 					}
@@ -559,13 +635,13 @@ class CourseModel {
 					$section_current = $section_new;
 				}
 
-				$sections_items[ $section_new ]->items[ $item->id ] = $item;
+				$sections_items[ $section_new ]->items[ $item->item_id ] = $item;
 
 				if ( $index_items_last === $index ) {
 					usort(
 						$sections_items[ $section_current ]->items,
 						function ( $item1, $item2 ) {
-							return $item1->order - $item2->order;
+							return $item1->item_order - $item2->item_order;
 						}
 					);
 				}
@@ -595,7 +671,7 @@ class CourseModel {
 			usort(
 				$sections_items,
 				function ( $section1, $section2 ) {
-					return $section1->order - $section2->order;
+					return $section1->section_order - $section2->section_order;
 				}
 			);
 		} catch ( Throwable $e ) {
@@ -673,18 +749,14 @@ class CourseModel {
 	 *
 	 * @return false|mixed
 	 * @since 4.2.6.9
-	 * @version 1.0.0
+	 * @version 1.0.1
 	 */
 	public function get_meta_value_by_key( string $key, $default_value = false ) {
-		if ( ! empty( $this->meta_data ) && isset( $this->meta_data->{$key} ) ) {
-			$value = $this->meta_data->{$key};
+		if ( $this->meta_data instanceof stdClass && isset( $this->meta_data->{$key} ) ) {
+			$value = maybe_unserialize( $this->meta_data->{$key} );
 		} else {
 			$coursePost = new CoursePostModel( $this );
-			$value      = $coursePost->get_meta_value_by_key( $key );
-		}
-
-		if ( empty( $value ) ) {
-			$value = $default_value;
+			$value      = $coursePost->get_meta_value_by_key( $key, $default_value );
 		}
 
 		$this->meta_data->{$key} = $value;
@@ -751,13 +823,16 @@ class CourseModel {
 	 * @move from LP_Abstract_Course
 	 *
 	 * @param int $item_id
+	 * @param string $item_type
 	 *
-	 * @since 3.0.0
-	 * @version 1.0.1
 	 * @return string
+	 * @since 3.0.0
+	 * @version 1.0.2
 	 */
-	public function get_item_link( int $item_id ): string {
-		$item_type        = get_post_type( $item_id );
+	public function get_item_link( int $item_id, string $item_type = '' ): string {
+		if ( empty( $item_type ) ) {
+			$item_type = get_post_type( $item_id );
+		}
 		$course_permalink = trailingslashit( $this->get_permalink() );
 		$item_slug        = get_post_field( 'post_name', $item_id );
 
@@ -830,18 +905,21 @@ class CourseModel {
 
 	/**
 	 * Count total items in Course
+	 * item_type empty will return all items if exists.
 	 *
-	 * @param $item_type
+	 * @param string $item_type
 	 *
 	 * @return int
 	 * @since 4.2.7.3
-	 * @version 1.0.0
+	 * @version 1.0.1
 	 */
-	public function count_items( $item_type ): int {
+	public function count_items( string $item_type = '' ): int {
 		$count = 0;
 
 		$total_items = $this->get_total_items();
-		if ( isset( $total_items->{$item_type} ) ) {
+		if ( empty( $item_type ) ) {
+			$count = $total_items->count_items ?? 0;
+		} elseif ( isset( $total_items->{$item_type} ) ) {
 			return $total_items->{$item_type};
 		}
 
@@ -866,7 +944,7 @@ class CourseModel {
 	 *
 	 * @return bool|WP_Error
 	 * @since 4.2.7.3
-	 * @version 1.0.0
+	 * @version 1.0.1
 	 */
 	public function can_enroll( $user ) {
 		$can_enroll = true;
@@ -921,7 +999,9 @@ class CourseModel {
 
 				}
 			} else {
-				if ( ! empty( $this->get_external_link() ) && ! $userCourseModel && ! $this->is_offline() ) {
+				if ( ! empty( $this->get_external_link() )
+					&& ( ! $userCourseModel || $userCourseModel->get_status() === LP_USER_COURSE_CANCEL )
+					&& ! $this->is_offline() ) {
 					$error_code = 'course_is_external';
 					throw new Exception( __( 'The course is external', 'learnpress' ) );
 				}
@@ -1056,31 +1136,79 @@ class CourseModel {
 	}
 
 	/**
+	 * Check user is author or co-in of course.
+	 *
+	 * @param UserModel $userModel
+	 *
+	 * @return bool
+	 * @since 4.2.7.6
+	 * @version 1.0.0
+	 */
+	public function check_user_is_author( UserModel $userModel ): bool {
+		$is_author = false;
+
+		if ( $userModel->get_id() === $this->post_author ) {
+			$is_author = true;
+		}
+
+		return apply_filters( 'learn-press/course/is-author', $is_author, $this, $userModel );
+	}
+
+	/**
+	 * Get item model assigned to this course
+	 *
+	 * @return mixed|false|null|WP_Post
+	 * @since v4.2.7.6
+	 * @version 1.0.1
+	 */
+	public function get_item_model( int $item_id, string $item_type ) {
+		try {
+			$item = false;
+
+			switch ( $item_type ) {
+				case LP_LESSON_CPT:
+					$item = LessonPostModel::find( $item_id, true );
+					break;
+				case LP_QUIZ_CPT:
+					$item = QuizPostModel::find( $item_id, true );
+					break;
+				case LP_QUESTION_CPT:
+					break;
+				default:
+					$item = apply_filters( 'learn-press/course/get-item-model', $item, $item_id, $item_type, $this );
+					break;
+			}
+
+			// If not defined class, get post default
+			if ( ! $item ) {
+				$filter            = new LP_Post_Type_Filter();
+				$filter->ID        = $item_id;
+				$filter->post_type = $item_type;
+				$item              = PostModel::get_item_model_from_db( $filter );
+			}
+		} catch ( Exception $e ) {
+			error_log( __METHOD__ . ': ' . $e->getMessage() );
+		}
+
+		return $item;
+	}
+
+	/**
 	 * Get item model if query success.
 	 * If not exists, return false.
 	 * If exists, return PostModel.
 	 *
 	 * @param LP_Course_JSON_Filter $filter
-	 * @param bool $check_cache
 	 *
 	 * @return CourseModel|false|static
+	 * @since 4.2.6.9
+	 * @version 1.0.2
 	 */
-	public static function get_item_model_from_db( LP_Course_JSON_Filter $filter, bool $check_cache = false ) {
+	public static function get_item_model_from_db( LP_Course_JSON_Filter $filter ) {
 		$course_model = false;
 
 		try {
 			$filter->only_fields = [ 'json', 'post_content' ];
-			// Load cache
-			if ( $check_cache ) {
-
-				$key_cache       = "course-model/{$filter->ID}/" . md5( json_encode( $filter ) );
-				$lp_course_cache = new LP_Course_Cache();
-				$course_model    = $lp_course_cache->get_cache( $key_cache );
-
-				if ( $course_model instanceof CourseModel ) {
-					return $course_model;
-				}
-			}
 
 			$course_rs = self::get_course_from_db( $filter );
 			if ( $course_rs instanceof stdClass && isset( $course_rs->json ) ) {
@@ -1227,6 +1355,7 @@ class CourseModel {
 	 *
 	 * @return array
 	 * @since 4.2.7.4
+	 * @version 1.0.1
 	 */
 	public static function item_types_support(): array {
 		$item_types = [
@@ -1234,6 +1363,14 @@ class CourseModel {
 			LP_QUIZ_CPT,
 		];
 
-		return apply_filters( 'learn-press/course/item-types-support', $item_types );
+		// Hook old
+		if ( has_filter( 'learn-press/course-item-type' ) ) {
+			$item_types = apply_filters( 'learn-press/course-item-type', $item_types );
+		}
+
+		$item_types = apply_filters( 'learn-press/course/item-types-support', $item_types );
+
+		// set types unique
+		return array_unique( $item_types );
 	}
 }

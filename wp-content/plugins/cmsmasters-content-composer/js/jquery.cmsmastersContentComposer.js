@@ -1,7 +1,7 @@
 /**
  * @package 	WordPress Plugin
  * @subpackage 	CMSMasters Content Composer
- * @version		1.8.2
+ * @version		1.8.7
  * 
  * Visual Content Composer jQuery Plugin
  * Created by CMSMasters
@@ -613,18 +613,30 @@
 						if (!ui.draggable.hasClass('iris-square-value')) {
 							if (event.originalEvent.type === 'mouseup') {
 								if (ui.draggable.hasClass('cmsmasters_row')) {
-									var rowAttrs = '';
+									var rowAttrs = '',
+										columnAttrs = '';
 									
 									
 									for (var k in cmsmastersRow.fields) {
 										if (cmsmastersRow.fields[k].def !== '') {
 											rowAttrs += ' data-' + k + '="' + cmsmastersRow.fields[k].def + '"';
+										} else if (k === 'shortcode_id') {
+											rowAttrs += ' data-' + k + '="' + privateMethods.getUniqID() + '"';
+										}
+									}
+									
+									
+									for (var k in cmsmastersColumn.fields) {
+										if (cmsmastersColumn.fields[k].def !== '') {
+											columnAttrs += ' data-' + k + '="' + cmsmastersColumn.fields[k].def + '"';
+										} else if (k === 'shortcode_id') {
+											columnAttrs += ' data-' + k + '="' + privateMethods.getUniqID() + '"';
 										}
 									}
 									
 									
 									ui.draggable.html('<div class="cmsmasters_row cmsmasters_dropped hideEl"' + rowAttrs + '>' + 
-										'<div class="cmsmasters_column one_first" data-width="1/1"></div>' + 
+										'<div class="cmsmasters_column one_first" data-width="1/1"' + columnAttrs + '></div>' + 
 									'</div>');
 									
 									
@@ -664,6 +676,7 @@
 									var out = '', 
 										attrs = '', 
 										rowAttrs = '', 
+										columnAttrs = '', 
 										shcdContField = cmsmastersShortcodes[ui.draggable.data('shortcode')].content, 
 										shcdDef = (ui.draggable.data('pair') && shcdContField) ? cmsmastersShortcodes[ui.draggable.data('shortcode')].fields[shcdContField].def : false, 
 										shcdDefNew = '';
@@ -677,11 +690,12 @@
 									
 									
 									for (var k in cmsmastersShortcodes[ui.draggable.data('shortcode')].fields) {
-										if ( 
-											cmsmastersShortcodes[ui.draggable.data('shortcode')].content !== k && 
-											cmsmastersShortcodes[ui.draggable.data('shortcode')].fields[k].def !== '' 
-										) {
-											attrs += ' ' + k + '="' + cmsmastersShortcodes[ui.draggable.data('shortcode')].fields[k].def + '"';
+										if (cmsmastersShortcodes[ui.draggable.data('shortcode')].content !== k) { 
+											if (cmsmastersShortcodes[ui.draggable.data('shortcode')].fields[k].def !== '') {
+												attrs += ' ' + k + '="' + cmsmastersShortcodes[ui.draggable.data('shortcode')].fields[k].def + '"';
+											} else if (k === 'shortcode_id') {
+												attrs += ' ' + k + '="' + privateMethods.getUniqID() + '"';
+											}
 										}
 									}
 									
@@ -689,12 +703,23 @@
 									for (var k in cmsmastersRow.fields) {
 										if (cmsmastersRow.fields[k].def !== '') {
 											rowAttrs += ' data-' + k + '="' + cmsmastersRow.fields[k].def + '"';
+										} else if (k === 'shortcode_id') {
+											rowAttrs += ' data-' + k + '="' + privateMethods.getUniqID() + '"';
+										}
+									}
+									
+									
+									for (var k in cmsmastersColumn.fields) {
+										if (cmsmastersColumn.fields[k].def !== '') {
+											columnAttrs += ' data-' + k + '="' + cmsmastersColumn.fields[k].def + '"';
+										} else if (k === 'shortcode_id') {
+											columnAttrs += ' data-' + k + '="' + privateMethods.getUniqID() + '"';
 										}
 									}
 									
 									
 									out += '<div class="cmsmasters_row cmsmasters_dropped hideEl"' + rowAttrs + '>' + 
-										'<div class="cmsmasters_column one_first" data-width="1/1">' + 
+										'<div class="cmsmasters_column one_first" data-width="1/1"' + columnAttrs + '>' + 
 											'<div class="' + ui.draggable.data('shortcode') + '">' + 
 												'<div class="innerContent">' + 
 													((ui.draggable.data('pair') && typeof cmsmastersShortcodes[ui.draggable.data('shortcode')].visual === 'string') ? ((shcdDefNew !== '') ? shcdDefNew : shcdDef) : '<span class="cmsmastersShortcodeTitle ' + cmsmastersShortcodes[ui.draggable.data('shortcode')].icon + '">' + cmsmastersShortcodes[ui.draggable.data('shortcode')].title + '</span>') + 
@@ -828,6 +853,7 @@
 								var out = '', 
 									attrs = '', 
 									rowAttrs = '', 
+									columnAttrs = '', 
 									shcdContField = cmsmastersShortcodes[ui.draggable.data('shortcode')].content, 
 									shcdDef = (ui.draggable.data('pair') && shcdContField) ? cmsmastersShortcodes[ui.draggable.data('shortcode')].fields[shcdContField].def : false, 
 									shcdDefNew = '';
@@ -841,11 +867,12 @@
 								
 								
 								for (var k in cmsmastersShortcodes[ui.draggable.data('shortcode')].fields) {
-									if ( 
-										cmsmastersShortcodes[ui.draggable.data('shortcode')].content !== k && 
-										cmsmastersShortcodes[ui.draggable.data('shortcode')].fields[k].def !== '' 
-									) {
-										attrs += ' ' + k + '="' + cmsmastersShortcodes[ui.draggable.data('shortcode')].fields[k].def + '"';
+									if (cmsmastersShortcodes[ui.draggable.data('shortcode')].content !== k) {
+										if (cmsmastersShortcodes[ui.draggable.data('shortcode')].fields[k].def !== '') {
+											attrs += ' ' + k + '="' + cmsmastersShortcodes[ui.draggable.data('shortcode')].fields[k].def + '"';
+										} else if (k === 'shortcode_id') {
+											attrs += ' ' + k + '="' + privateMethods.getUniqID() + '"';
+										}
 									}
 								}
 								
@@ -853,6 +880,17 @@
 								for (var k in cmsmastersRow.fields) {
 									if (cmsmastersRow.fields[k].def !== '') {
 										rowAttrs += ' data-' + k + '="' + cmsmastersRow.fields[k].def + '"';
+									} else if (k === 'shortcode_id') {
+										rowAttrs += ' data-' + k + '="' + privateMethods.getUniqID() + '"';
+									}
+								}
+								
+								
+								for (var k in cmsmastersColumn.fields) {
+									if (cmsmastersColumn.fields[k].def !== '') {
+										columnAttrs += ' data-' + k + '="' + cmsmastersColumn.fields[k].def + '"';
+									} else if (k === 'shortcode_id') {
+										columnAttrs += ' data-' + k + '="' + privateMethods.getUniqID() + '"';
 									}
 								}
 								
@@ -1126,7 +1164,8 @@
 			}, 
 			addShortcode : function (shcd, col, prepend) { 
 				var out = '', 
-					rowAttrs = '';
+					rowAttrs = '',
+					columnAttrs = '';
 				
 				
 				for (var k in cmsmastersRow.fields) {
@@ -1136,9 +1175,21 @@
 				}
 				
 				
+				for (var k in cmsmastersColumn.fields) {
+					if (cmsmastersColumn.fields[k].def !== '') {
+						columnAttrs += ' data-' + k + '="' + cmsmastersColumn.fields[k].def + '"';
+					}
+				}
+				
+				
+				rowAttrs += ' data-shortcode_id="' + privateMethods.getUniqID() + '"';
+				
+				columnAttrs += ' data-shortcode_id="' + privateMethods.getUniqID() + '"';
+				
+				
 				if (shcd === 'cmsmasters_row') {
 					out = '<div class="cmsmasters_row hideEl"' + rowAttrs + '>' + 
-						'<div class="cmsmasters_column one_first" data-width="1/1"></div>' + 
+						'<div class="cmsmasters_column one_first" data-width="1/1"' + columnAttrs + '></div>' + 
 					'</div>';
 				} else {
 					var attrs = '', 
@@ -1164,9 +1215,12 @@
 					}
 					
 					
+					attrs += ' shortcode_id="' + privateMethods.getUniqID() + '"';
+					
+					
 					if (!col) {
 						out = '<div class="cmsmasters_row hideEl"' + rowAttrs + '>' + 
-							'<div class="cmsmasters_column one_first" data-width="1/1">' + 
+							'<div class="cmsmasters_column one_first" data-width="1/1"' + columnAttrs + '>' + 
 								'<div class="' + shcd + '">' + 
 									'<div class="innerContent">' + 
 										((cmsmastersShortcodes[shcd].pair && typeof cmsmastersShortcodes[shcd].visual === 'string') ? ((shcdDefVisual !== '') ? shcdDefVisual : shcdDef) : '<span class="cmsmastersShortcodeTitle ' + cmsmastersShortcodes[shcd].icon + '">' + cmsmastersShortcodes[shcd].title + '</span>') + 
@@ -1279,7 +1333,7 @@
 				
 				if (colCount < rWidthArrayLength) {
 					for (var j = 0, jlength = rWidthArrayLength - colCount; j < jlength; j += 1) {
-						extraCols += '<div class="cmsmasters_column ' + privateMethods.converWidth(rWidthArray[colCount + j]) + '" data-width="' + rWidthArray[colCount + j] + '">' + 
+						extraCols += '<div class="cmsmasters_column ' + privateMethods.converWidth(rWidthArray[colCount + j]) + '" data-width="' + rWidthArray[colCount + j] + '" data-shortcode_id="' + privateMethods.getUniqID() + '">' + 
 							'<div class="innerHead">' + 
 								'<span>' + rWidthArray[colCount + j] + '</span>' + 
 								'<a href="#" class="cmsmastersAddBut admin-icon-add" title="' + cmsmasters_composer.add_shortcode + '"></a>' + 
@@ -1342,6 +1396,25 @@
 			}, 
 			copyElement : function (el) { 
 				var elClone = el.clone().addClass('hideEl');
+				
+				
+				if (elClone.hasClass('cmsmasters_row')) {
+					elClone.attr('data-shortcode_id', privateMethods.getUniqID());
+					
+					elClone.find('.cmsmasters_column').each(function () {
+						$(this).attr('data-shortcode_id', privateMethods.getUniqID());
+					} );
+				}
+				
+				
+				elClone.find('.innerCode').each(function () {
+					var newID = $(this).html().replace(/shortcode_id=["'][^"']+["']/g, function() {
+						return 'shortcode_id="' + privateMethods.getUniqID() + '"';
+					} );
+					
+					
+					$(this).html(newID);
+				} );
 				
 				
 				el.after(elClone);
@@ -1569,6 +1642,19 @@
 							
 							setTimeout(function () { 
 								var elNew = obj.methods.el.find('> div.cmsmasters_row.hideEl');
+								
+								
+								elNew.each(function () {
+									$(this).attr('data-shortcode_id', privateMethods.getUniqID());
+									
+									
+									$(this).find('.innerCode').each(function () { 
+										var newID = $(this).html().replace(/shortcode_id=["'][^"']+["']/g, 'shortcode_id="' + privateMethods.getUniqID() + '"');
+										
+										
+										$(this).html(newID);
+									} );
+								} );
 								
 								
 								elNew.addClass('showEl');
@@ -1896,6 +1982,9 @@
 				
 				
 				return width;
+			}, 
+			getUniqID : function () { 
+				return Math.random().toString(36).substr(3, 10);
 			}
 		};
 		

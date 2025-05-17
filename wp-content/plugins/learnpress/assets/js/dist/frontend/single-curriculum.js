@@ -12,11 +12,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ lpMaterialsLoad)
 /* harmony export */ });
-/* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/url */ "@wordpress/url");
-/* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_url__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
-/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1__);
-
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0__);
 
 function lpMaterialsLoad() {
   // console.log('loaded');
@@ -33,11 +30,13 @@ function lpMaterialsLoad() {
   const getResponse = async (ele, page = 1) => {
     const course_id = parseInt(ele.dataset.courseId),
       item_id = parseInt(ele.dataset.itemId);
+    const elListMaterial = ele.closest('.lp-list-material');
     const elementMaterial = ele.querySelector('.course-material-table');
     const loadMoreBtn = document.querySelector('.lp-loadmore-material');
     const elListItems = document.querySelector('.lp-list-material');
+    const elSkeleton = ele.querySelector('.lp-skeleton-animation');
     try {
-      const response = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
+      const response = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()({
         path: `lp/v1/material/by-item`,
         data: {
           course_id,
@@ -51,13 +50,14 @@ function lpMaterialsLoad() {
         status,
         message
       } = response;
+      if (elSkeleton) {
+        elSkeleton.remove();
+      }
       if (status !== 'success') {
-        return console.log(message);
+        elListMaterial.insertAdjacentHTML('beforeend', message);
+        return;
       }
       if (data.items && data.items.length > 0) {
-        if (ele.querySelector('.lp-skeleton-animation')) {
-          ele.querySelector('.lp-skeleton-animation').remove();
-        }
         elementMaterial.style.display = 'table';
         elementMaterial.querySelector('tbody').insertAdjacentHTML('beforeend', data.items);
       } else {
@@ -122,7 +122,12 @@ const lpModalOverlayCompleteItem = {
         const form = e.target.closest('form');
         _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elLPOverlay.show();
         _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].setTitleModal(form.dataset.title);
-        _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].setContentModal('<div class="pd-2em">' + form.dataset.confirm + '</div>');
+        // ESC html
+        const div = document.createElement('div');
+        div.appendChild(document.createTextNode(form.dataset.confirm));
+        const contentModal = div.innerHTML;
+        // End ESC html
+        _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].setContentModal('<div class="pd-2em">' + contentModal + '</div>');
         _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].callBackYes = () => {
           form.submit();
         };

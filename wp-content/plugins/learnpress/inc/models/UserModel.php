@@ -1,19 +1,21 @@
 <?php
+namespace LearnPress\Models;
 
 /**
  * Class UserModel
  *
- * @version 1.0.0
+ * @version 1.0.1
  * @since 4.2.6.9
  */
 
-namespace LearnPress\Models;
-
 use Exception;
 use LearnPress\Models\UserItems\UserCourseModel;
+use LearnPress\Models\UserItems\UserItemModel;
+use LearnPress\Models\UserItems\UserQuizModel;
 use LP_Cache;
 use LP_Course_DB;
 use LP_Course_Filter;
+use LP_Database;
 use LP_Profile;
 use LP_User;
 use LP_User_DB;
@@ -312,10 +314,20 @@ class UserModel {
 	/**
 	 * Get display name
 	 *
+	 * Hook from function get_the_author_meta of WP
+	 *
 	 * @return string
+	 * @uses get_the_author_meta
+	 * @version 1.0.1
+	 * @since 4.2.7
 	 */
 	public function get_display_name(): string {
-		return $this->display_name ?? '';
+		return apply_filters(
+			'get_the_author_display_name',
+			$this->display_name,
+			$this->get_id(),
+			$this->get_id()
+		);
 	}
 
 	/**
@@ -350,13 +362,14 @@ class UserModel {
 	 *
 	 * @return string
 	 * @since 4.2.7.2
-	 * @version 1.0.0
+	 * @version 1.0.1
 	 */
 	public function get_avatar_url(): string {
 		$avatar_url = $this->get_upload_avatar_src();
 		if ( empty( $avatar_url ) ) {
 			// Get form Gravatar.
 			$args       = learn_press_get_avatar_thumb_size();
+			$args       = apply_filters( 'learn-press/gravatar/args', $args );
 			$avatar_url = get_avatar_url( $this->get_id(), $args );
 			// If not exists, get default avatar.
 			if ( empty( $avatar_url ) ) {
@@ -399,16 +412,14 @@ class UserModel {
 	 * Get links socials of use on Profile page
 	 * Icon is svg
 	 *
-	 * @param int $user_id
-	 *
 	 * @move from LP_Abstract_User
 	 * @return array
 	 * @since 4.2.3
-	 * @version 1.0.0
+	 * @version 1.0.1
 	 */
-	public function get_profile_social( int $user_id = 0 ): array {
+	public function get_profile_social(): array {
 		$socials    = array();
-		$extra_info = learn_press_get_user_extra_profile_info( $user_id );
+		$extra_info = learn_press_get_user_extra_profile_info( $this->get_id() );
 
 		if ( $extra_info ) {
 			foreach ( $extra_info as $k => $v ) {
@@ -523,7 +534,7 @@ class UserModel {
 	 *
 	 * @return array
 	 * @since 4.1.6
-	 * @version 1.0.1
+	 * @version 1.0.5
 	 */
 	public function get_instructor_statistic( array $params = [] ): array {
 		$statistic = array(
@@ -536,6 +547,12 @@ class UserModel {
 		);
 
 		try {
+			$key_cache_first = "instructor/{$this->get_id()}/statistic";
+			$statistic_cache = LP_Cache::cache_load_first( 'get', $key_cache_first );
+			if ( $statistic_cache !== false ) {
+				return $statistic_cache;
+			}
+
 			$user_id          = $this->get_id();
 			$lp_user_items_db = LP_User_Items_DB::getInstance();
 			$lp_course_db     = LP_Course_DB::getInstance();
@@ -544,7 +561,7 @@ class UserModel {
 			$filter_course                      = new LP_Course_Filter();
 			$filter_course->only_fields         = array( 'ID' );
 			$filter_course->post_author         = $user_id;
-			$filter_course->post_status         = 'publish';
+			$filter_course->post_status         = [ 'publish', 'private' ];
 			$filter_course->return_string_query = true;
 			$query_courses_str                  = LP_Course_DB::getInstance()->get_courses( $filter_course );
 
@@ -576,10 +593,46 @@ class UserModel {
 			$statistic['total_student']       = $count_users_attend_courses_of_author;
 			$statistic['student_completed']   = $count_student_has_status->{LP_COURSE_FINISHED} ?? 0;
 			$statistic['student_in_progress'] = $count_student_has_status->{LP_COURSE_GRADUATION_IN_PROGRESS} ?? 0;
+
+			// Set cache first.
+			LP_Cache::cache_load_first( 'set', $key_cache_first, $statistic );
 		} catch ( Throwable $e ) {
 			error_log( __FUNCTION__ . ': ' . $e->getMessage() );
 		}
 
 		return apply_filters( 'lp/profile/instructor/statistic', $statistic, $this );
+	}
+
+	/**
+	 * Check user is instructor or not.
+	 *
+	 * @return bool
+	 * @since 4.2.7.6
+	 * @version 1.0.0
+	 */
+	public function is_instructor(): bool {
+		return user_can( $this->get_id(), LP_TEACHER_ROLE ) || user_can( $this->get_id(), 'administrator' );
+	}
+
+	/**
+	 * Get quizzes attend of user.
+	 *
+	 * @param LP_User_Items_Filter $filter
+	 * @param int $total_rows
+	 *
+	 * @return array|int|string|null
+	 * @throws Exception
+	 * @since 4.2.8.2
+	 * @version 1.0.0
+	 */
+	public function get_quizzes_attend( LP_User_Items_Filter $filter, int &$total_rows = 0 ) {
+		$lp_db_user_items  = LP_User_Items_DB::getInstance();
+		$filter->order_by  = 'user_item_id';
+		$filter->order     = 'DESC';
+		$filter->user_id   = $this->get_id();
+		$filter->item_type = LP_QUIZ_CPT;
+		$filter->ref_type  = LP_COURSE_CPT;
+
+		return $lp_db_user_items->get_user_items( $filter, $total_rows );
 	}
 }

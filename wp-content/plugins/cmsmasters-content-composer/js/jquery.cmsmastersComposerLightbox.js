@@ -1,7 +1,7 @@
 /**
  * @package 	WordPress Plugin
  * @subpackage 	CMSMasters Content Composer
- * @version		1.8.2
+ * @version		1.9.0
  * 
  * Visual Content Composer Lightbox jQuery Plugin
  * Created by CMSMasters
@@ -488,6 +488,11 @@
 					
 					
 					break;
+				case 'hidden':
+					fieldContent += '<input type="hidden" id="' + key + '_' + obj.methods.uniqID + '" name="' + key + '_' + obj.methods.uniqID + '" value="' + val + '"' + ((field.required) ? ' aria-required="true"' : '') + ' />';
+					
+					
+					break;
 				case 'range':
 					fieldContent += '<input type="range" id="' + key + '_' + obj.methods.uniqID + '" name="' + key + '_' + obj.methods.uniqID + '" value="' + val + '"' + ((field.required) ? ' aria-required="true"' : '') + ((field.min) ? ' min="' + field.min + '"' : '') + ((field.max) ? ' max="' + field.max + '"' : '') + ((field.step) ? ' step="' + field.step + '"' : '') + ' />' + 
 					'<input type="text" id="' + key + '_' + obj.methods.uniqID + '_number" name="' + key + '_' + obj.methods.uniqID + '_number" value="' + val + '" readonly="readonly" />';
@@ -513,6 +518,29 @@
 					
 					for (var k in field.choises) {
 						fieldContent += '<option value="' + k + '"' + ((((val !== '') ? val.toString() : field.def) === k) ? ' selected="selected"' : '') + '>' + field.choises[k] + '</option>';
+					}
+					
+					
+					fieldContent += '</select>';
+					
+					
+					break;
+				case 'select_group':
+					fieldContent += '<select id="' + key + '_' + obj.methods.uniqID + '" name="' + key + '_' + obj.methods.uniqID + '"' + ((field.required) ? ' aria-required="true"' : '') + '>';
+					
+
+					for (var k in field.choises) {
+						if (k === '') {
+							fieldContent += '<option value="' + k + '"' + ((((val !== '') ? val.toString() : field.def) === k) ? ' selected="selected"' : '') + '>' + field.choises[k] + '</option>';
+						} else {
+							fieldContent += '<optgroup label="' + (k === 'local' ? cmsmasters_lightbox.local_fonts : cmsmasters_lightbox.google_web_fonts) + '">';
+							
+							for (var font in field.choises[k]) {
+								fieldContent += '<option value="' + font + '"' + ((((val !== '') ? val.toString() : field.def) === font) ? ' selected="selected"' : '') + '>' + field.choises[k][font] + '</option>';
+							}
+							
+							fieldContent += '</optgroup>';
+						}
 					}
 					
 					
@@ -603,7 +631,7 @@
 						new_alpha = (val !== '') ? arr_val[1] : ((field.def !== '') ? def_val[1] : '100');
 					
 					
-					fieldContent += '<input type="text" id="' + key + '_' + obj.methods.uniqID + '" name="' + key + '_' + obj.methods.uniqID + '" value="' + new_color + '" class="cmsmasters_color_field" data-default-color="' + ((field.def !== '') ? def_val[0] : '') + '" data-alpha="true" data-reset-alpha="true" />';
+					fieldContent += '<input type="text" id="' + key + '_' + obj.methods.uniqID + '" name="' + key + '_' + obj.methods.uniqID + '" value="' + new_color + '" class="cmsmasters_color_field" data-default-color="' + ((field.def !== '') ? def_val[0] : '') + '" data-alpha-enabled="true" data-alpha-reset="true" />';
 					
 					
 					obj.methods.eventsArray.push('color');
@@ -886,7 +914,7 @@
 				
 				
 				obj.methods.body.find('#cmsmastersBox_' + id).find('.cmsmastersBoxContInMid > div').each(function () { 
-					if ($(this).is(':visible')) {
+					if ($(this).is(':visible') || $(this).data('type') === 'hidden') {
 						var fieldID = $(this).data('id'), 
 							fieldName = fieldID.replace('_' + id, '');
 						
@@ -1071,6 +1099,13 @@
 							
 							
 							break;
+						case 'hidden':
+							if ($(this).find('> .cmsmasters_field #' + fieldID).val() !== '') {
+								attrs[fieldName] = $(this).find('> .cmsmasters_field #' + fieldID).val();
+							}
+							
+							
+							break;
 						default:
 							if (link) {
 								attrs[fieldName] = fieldName + '{' + $(this).find('> .cmsmasters_field #' + fieldID).val() + '}';
@@ -1191,6 +1226,8 @@
 				}, 150);
 			}, 
 			closeLightbox : function (id) { 
+				obj.methods.body.find('#' + id + ' .cmsmasters_color_field').wpColorPicker('close');
+
 				if (obj.methods.body.find('#' + id).find('.cmsmastersBoxContInMid .mceIframeContainer').length > 0) {
 					tinyMCE.get(tinyMCE.activeEditor.editorId).focus();
 					
@@ -1599,6 +1636,14 @@
 								}
 							}
 						} );
+					} else if (fieldType === 'hidden') {
+						for (var x in dependFields[k]) {
+							if (fieldParent.find('input[name="' + k + '"]').val() === x) {
+								for (var i = 0, ilength = dependFields[k][x].length; i < ilength; i += 1) {
+									lightbox.find('div[data-id="' + dependFields[k][x][i] + '"]').slideDown('fast');
+								}
+							}
+						}
 					}
 				}
 			}, 
@@ -1634,6 +1679,9 @@
 								}
 								
 								
+								attrs += ' shortcode_id="' + privateMethods.getAttrUniqID() + '"';
+								
+								
 								contentPart = cmsmastersEditorShortcodes[shcd].pair ? cmsmastersEditorShortcodes[shcd].def + '[/' + shcd + ']' : '';
 							} else {
 								for (var k in cmsmastersShortcodes[shcd].fields) {
@@ -1644,6 +1692,9 @@
 										attrs += ' ' + k + '="' + cmsmastersShortcodes[shcd].fields[k].def + '"';
 									}
 								}
+								
+								
+								attrs += ' shortcode_id="' + privateMethods.getAttrUniqID() + '"';
 								
 								
 								contentPart = cmsmastersShortcodes[shcd].pair ? cmsmastersShortcodes[shcd].def + '[/' + shcd + ']' : '';
@@ -1789,6 +1840,9 @@
 						}
 						
 						
+						attrs += ' shortcode_id="' + privateMethods.getAttrUniqID() + '"';
+						
+						
 						val = '[' + shcd + attrs + ']' + (cmsmastersMultipleShortcodes[shcd].pair ? cmsmastersMultipleShortcodes[shcd].def + '[/' + shcd + ']' : '');
 						
 						
@@ -1813,13 +1867,16 @@
 					// Edit Element
 					$('#cmsmastersBox_' + obj.methods.uniqID + ' .cmsmasters_multiple_fields').on('click', '> div > .innerContent', function () { 
 						var shcd = $('#cmsmastersBox_' + obj.methods.uniqID).data('shortcode').slice(0, -1), 
-							elObj = {};
+							elObj = {}, 
+							newCode = $(this).parent().find('.innerCode').html().replace(/shortcode_id=["'][^"']+["']/g, function () { 
+								return 'shortcode_id="' + privateMethods.getAttrUniqID() + '"';
+							} );
 						
 						
 						elObj = { 
 							type : 		shcd, 
 							index : 	$(this).parent().index(), 
-							content : 	$(this).parent().find('.innerCode').html(), 
+							content : 	newCode, 
 							multiple : 	true 
 						};
 						
@@ -2288,6 +2345,9 @@
 					
 					$('#cmsmastersBox_' + id + ' .cmsmasters_link_value').val(newText.slice(0, -2));
 				}, 150);
+			}, 
+			getAttrUniqID : function () { 
+				return Math.random().toString(36).substr(3, 10);
 			} 
 		};
 		

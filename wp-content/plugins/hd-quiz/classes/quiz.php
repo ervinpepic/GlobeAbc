@@ -43,7 +43,7 @@ class _hdq_quiz
 	{
 		$fields = '[
 	{
-		"label": "' . trim(__("Results", "hd-quiz")) . '",
+		"label": "' . esc_attr(trim(__("Results", "hd-quiz"))) . '",
 		"id": "Results",
 		"children": [
 			{				
@@ -85,13 +85,41 @@ class _hdq_quiz
 						"type": "radio"
 					},
 					{ "id": "quiz_pass_content", "label": "Quiz pass content", "media": "yes", "default": "", "required": "", "tooltip": "This content will show once the quiz has been completed and the user has passed the quiz", "description": "", "type": "editor" },
-					{ "id": "quiz_fail_content", "label": "Quiz fail content", "media": "yes", "default": "", "required": "", "tooltip": "This content will show once the quiz has been completed and the user has failed the quiz", "description": "", "type": "editor" }
+					{ "id": "quiz_fail_content", "label": "Quiz fail content", "media": "yes", "default": "", "required": "", "tooltip": "This content will show once the quiz has been completed and the user has failed the quiz", "description": "", "type": "editor" },
+					{
+						"id": "quiz_redirect_url",
+						"label": "Quiz redirect URL",
+						"placeholder": "",
+						"type": "website",
+						"description": "If you want to automatically redirect to another page on quiz completion."
+					},
+					{
+						"id": "quiz_redirect_delay",
+						"label": "Quiz redirect delay",
+						"default": "0",
+						"tooltip": "",
+						"description": "How many seconds to wait after results to redirect.",
+						"placeholder": "",
+						"attributes": [
+							{
+								"name": "min",
+								"value": 0
+							},
+							{
+								"name": "max",
+								"value": 100
+							}
+						],
+						"prefix": "",
+						"postfix": "seconds",
+						"type": "integer"
+					}
 				]
 			}
 		]
 	},
 	{
-		"label": "' . trim(__("Marking", "hd-quiz")) . '",
+		"label": "' . esc_attr(trim(__("Marking", "hd-quiz"))) . '",
 		"id": "Marking",
 		"children": [
 			{
@@ -169,7 +197,7 @@ class _hdq_quiz
 		]
 	},
 	{
-		"label": "' . trim(__("Timer", "hd-quiz")) . '",
+		"label": "' . esc_attr(trim(__("Timer", "hd-quiz"))) . '",
 		"id": "Timer",
 		"children": [
 			{ "content": "If the timer is enabled, the quiz will be hidden behind a \"START QUIZ\" button. You can rename this button from the HD Quiz -> About / Options page", "type": "content" },
@@ -206,7 +234,7 @@ class _hdq_quiz
 		]
 	},
 	{
-		"label": "' . trim(__("Advanced", "hd-quiz")) . '",
+		"label": "' . esc_attr(trim(__("Advanced", "hd-quiz"))) . '",
 		"id": "Advanced",
 		"children": [
             { "content": "If you are having trouble with either the Randomization options, or the Pool of Questions, make sure you do not have page caching enabled on the pages with quizzes. Your caching solution is creating a static version of the quiz once, and loading that same order each time.", "type": "content" },
@@ -290,7 +318,7 @@ class _hdq_quiz
 						"id": "rename_quiz",
 						"label": "Rename quiz",
 						"required": true,
-						"default": "' . addslashes($this->quiz_name) . '",
+						"default": "' . esc_attr(trim($this->quiz_name)) . '",
 						"placeholder": "",
 						"type": "text"
 					}
@@ -302,7 +330,21 @@ class _hdq_quiz
 ';
 
 		$data = json_decode($fields, true);
-
+		if ($data === null) {
+			$data = json_decode('[
+	{
+		"label": "Error",
+		"id": "Results",
+		"children": [
+			{
+				"type": "content",
+				"content": "There was an issue decoding the JSON string for these quiz settings. This is usually caused by use of an invalid character in one of the settings. Please <a href = \"https://hdplugins.com/forum/hd-quiz-support/\" target = \"_blank\">request support</a> for help and provide useful information such as what language you are using, or if you can think of anything special might have done to trigger this."
+			}
+		]
+	}
+]
+', true);
+		}
 		$fields = array();
 		foreach ($data as $k => $tab) {
 			$fields[$tab["id"]] = $tab;
@@ -316,7 +358,7 @@ class _hdq_quiz
 	{
 		$fields = '[
 	{
-		"label": "' . trim(__("Results", "hd-quiz")) . '",
+		"label": "' . esc_attr(trim(__("Results", "hd-quiz"))) . '",
 		"id": "Results",
 		"children": [
 			{ "content": "This is a brand new quiz type. New options and features will be added to it as development continues.\nPlease feel free to contact me on the HDPlugins support forum to provide any feedback.\n\nEach answer will award points towards one of these outcomes. The outcome with the highest score will be the final result. In the event that multiple outcomes are possible (a tie), the first possible outcome will be the final result.", "type": "content" },
@@ -324,7 +366,7 @@ class _hdq_quiz
 		]
 	},
 	{
-		"label": "' . trim(__("Advanced", "hd-quiz")) . '",
+		"label": "' . esc_attr(trim(__("Advanced", "hd-quiz"))) . '",
 		"id": "Advanced",
 		"children": [
 			{
@@ -378,10 +420,60 @@ class _hdq_quiz
 						"type": "radio"
 					},
 					{
+						"id": "force_answers",
+						"label": "Force users to answer all questions",
+						"required": "",
+						"default": "",
+						"tooltip": "",
+						"description": "This will check to make sure that all questions have been answered before submission. <small><strong>NOTE:</strong> will not work with timer-per-question. If user does not answer in time, that question is marked as incorrect.</small>",
+						"placeholder": "",
+						"options": [{ "label": "Yes", "value": "yes" }],
+						"type": "radio"
+					},
+					{
+						"id": "hide_questions_after_completion",
+						"label": "Hide questions after quiz completion",
+						"required": "",
+						"default": "",
+						"tooltip": "",
+						"description": "This will automatically hide the questions once a quiz has been completed so that only the results are shown.",
+						"placeholder": "",
+						"options": [{ "label": "Yes", "value": "yes" }],
+						"type": "radio"
+					},
+					{
+						"id": "quiz_redirect_url",
+						"label": "Quiz redirect URL",
+						"placeholder": "",
+						"type": "website",
+						"description": "If you want to automatically redirect to another page on quiz completion."
+					},
+					{
+						"id": "quiz_redirect_delay",
+						"label": "Quiz redirect delay",
+						"default": "0",
+						"tooltip": "",
+						"description": "How many seconds to wait after results to redirect.",
+						"placeholder": "",
+						"attributes": [
+							{
+								"name": "min",
+								"value": 0
+							},
+							{
+								"name": "max",
+								"value": 100
+							}
+						],
+						"prefix": "",
+						"postfix": "seconds",
+						"type": "integer"
+					},					
+					{
 						"id": "rename_quiz",
 						"label": "Rename quiz",
 						"required": true,
-						"default": "' . $this->quiz_name . '",						
+						"default": "' . esc_attr(trim($this->quiz_name)) . '",					
 						"placeholder": "",
 						"type": "text"
 					}
@@ -449,15 +541,16 @@ class _hdq_quiz
 				if (is_array($data[$k]["value"])) {
 					$data[$k]["value"] = $data[$k]["value"][0];
 				}
+				$data[$k]["value"] = $data[$k]["value"];
 				$data_clean[$setting] = array("value" => $data[$k]["value"]);
 			}
 		}
 		return $data_clean;
 	}
 
-	private function validateAccess($data)
+	private function validateAccess()
 	{
-		if (!current_user_can("manage_options")) {
+		if (!current_user_can("publish_posts")) {
 			// must be author. make sure Ids match
 			$author_id = intval(get_term_meta($this->quiz_id, "hdq_author_id", true));
 			$user_id = get_current_user_id();
@@ -574,7 +667,7 @@ class _hdq_quiz
 			return $res;
 		}
 
-		$res = $this->validateAccess($data);
+		$res = $this->validateAccess();
 		if ($res !== false) {
 			return $res;
 		}

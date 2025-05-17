@@ -1,8 +1,10 @@
 import API from '../api';
-import { lpAddQueryArgs, lpFetchAPI, lpGetCurrentURLNoParam } from '../utils';
+import { lpAddQueryArgs, lpFetchAPI, lpGetCurrentURLNoParam, lpShowHideEl } from '../utils.js';
 
 const classCourseFilter = 'lp-form-course-filter';
 const classProcessing = 'processing';
+const classShowCourseFilterMobile = 'show-lp-course-filter-mobile';
+const withHandleForMobile = 991;
 
 // Events
 // Submit form filter
@@ -24,11 +26,30 @@ document.addEventListener( 'click', function( e ) {
 		window.lpCourseFilter.reset( target );
 	}
 
+	if ( target.closest( '.lp-form-course-filter__close' ) ) {
+		e.preventDefault();
+		const body = document.querySelector( 'body' );
+		body.classList.remove( `${ classShowCourseFilterMobile }` );
+	}
+
 	// Show/hide search suggest result
 	window.lpCourseFilter.showHideSearchResult( target );
 
 	// Click field
 	window.lpCourseFilter.triggerInputChoice( target );
+
+	// Click btn filter mobile
+	window.lpCourseFilter.clickBtnFilterMobile( target );
+
+	// Out click courses filter.
+	if ( ! target.closest( `.${ classCourseFilter }` ) &&
+		! target.closest( '.course-filter-btn-mobile' ) ) {
+		const body = document.querySelector( 'body' );
+		if ( window.outerWidth <= withHandleForMobile &&
+			body.classList.contains( `${ classShowCourseFilterMobile }` ) ) {
+			body.classList.remove( `${ classShowCourseFilterMobile }` );
+		}
+	}
 } );
 
 // Search course suggest
@@ -187,8 +208,17 @@ window.lpCourseFilter = {
 
 				if ( data && status === 'success' ) {
 					widgetForm.innerHTML = data;
+
+					const elBtnDone = widgetForm.querySelector( '.course-filter-submit.lp-btn-done' );
+					if ( elBtnDone ) {
+						if ( window.outerWidth <= 991 ) {
+							lpShowHideEl( elBtnDone, 1 );
+						} else {
+							lpShowHideEl( elBtnDone, 0 );
+						}
+					}
 				} else if ( message ) {
-					parent.insertAdjacentHTML( 'afterbegin', `<div class="lp-ajax-message error" style="display:block">${ message }</div>` );
+					console.error( message );
 				}
 			},
 			error: ( error ) => {
@@ -196,7 +226,7 @@ window.lpCourseFilter = {
 			},
 			completed: () => {
 				const timeOutDone = setInterval( () => {
-					if ( ! elListCourseTarget.classList.contains( classProcessing ) ) {
+					if ( elListCourseTarget && ! elListCourseTarget.classList.contains( classProcessing ) ) {
 						clearInterval( timeOutDone );
 						elLoadingChange.style.display = 'none';
 						parent.classList.remove( classProcessing );
@@ -266,6 +296,7 @@ window.lpCourseFilter = {
 			if ( elListCourseTarget.classList.contains( classProcessing ) ) {
 				return;
 			}
+
 			elListCourseTarget.classList.add( classProcessing );
 			const elLPTarget = elListCourseTarget.querySelector( '.lp-target' );
 			const dataObj = JSON.parse( elLPTarget.dataset.send );
@@ -289,6 +320,9 @@ window.lpCourseFilter = {
 				}
 			}
 			// End.
+
+			// Set count fields selected
+			dataSend.args.count_fields_selected = window.lpCourseFilter.countFieldsSelected( form );
 
 			dataSend.args.paged = 1;
 			elLPTarget.dataset.send = JSON.stringify( dataSend );
@@ -321,7 +355,16 @@ window.lpCourseFilter = {
 				},
 			};
 
-			window.lpAJAXG.fetchAPI( urlFetch, dataSend, callBack );
+			window.lpAJAXG.fetchAJAX( dataSend, callBack );
+
+			// Scroll to archive element
+			if ( window.outerWidth <= withHandleForMobile ) {
+				elListCourseTarget.scrollIntoView( { behavior: 'smooth' } );
+
+				// Hide widget course filter
+				const body = document.querySelector( 'body' );
+				body.classList.remove( `${ classShowCourseFilterMobile }` );
+			}
 		} else {
 			const courseUrl = lpData.urlParams.page_term_url || lpData.courses_url || '';
 			const url = new URL( courseUrl );
@@ -372,11 +415,31 @@ window.lpCourseFilter = {
 			elResult.style.display = 'block';
 		}
 	},
+	countFieldsSelected: ( form ) => {
+		const elCountFieldsSelected = document.querySelector( '.course-filter-count-fields-selected' );
+
+		if ( ! elCountFieldsSelected ) {
+			return;
+		}
+
+		const fieldsSelected = form.querySelectorAll( 'input:checked' );
+
+		let countStr = '';
+		if ( fieldsSelected.length ) {
+			countStr = `(${ fieldsSelected.length })`;
+		}
+
+		elCountFieldsSelected.innerHTML = countStr;
+
+		return countStr;
+	},
 	triggerInputChoice: ( target ) => {
 		const elField = target.closest( `.lp-course-filter__field` );
 		if ( ! elField ) {
 			return;
 		}
+
+		const elForm = elField.closest( `.${ classCourseFilter }` );
 
 		if ( target.tagName === 'INPUT' ) {
 			const elOptionWidget = elField.closest( 'div[data-widget]' );
@@ -393,12 +456,26 @@ window.lpCourseFilter = {
 				}
 
 				// Filter courses
-				const form = elField.closest( `.${ classCourseFilter }` );
-				const btnSubmit = form.querySelector( '.course-filter-submit' );
-				btnSubmit.click();
+				// Check on mobile will not filter when click field
+				if ( window.outerWidth > withHandleForMobile ) {
+					const form = elField.closest( `.${ classCourseFilter }` );
+					window.lpCourseFilter.submit( form );
+				}
 			}
 		} else {
 			elField.querySelector( 'input' ).click();
 		}
+
+		// Set count fields selected
+		window.lpCourseFilter.countFieldsSelected( elForm );
+	},
+	clickBtnFilterMobile: ( target ) => {
+		const elBtnFilterMobile = target.closest( '.course-filter-btn-mobile' );
+		if ( ! elBtnFilterMobile ) {
+			return;
+		}
+
+		const body = document.querySelector( 'body' );
+		body.classList.toggle( `${ classShowCourseFilterMobile }` );
 	},
 };

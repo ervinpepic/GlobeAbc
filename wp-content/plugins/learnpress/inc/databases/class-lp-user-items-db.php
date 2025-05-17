@@ -1,5 +1,8 @@
 <?php
 
+use LearnPress\Models\CourseModel;
+use LearnPress\Models\UserItems\UserItemModel;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
@@ -8,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class LP_User_Items_DB
  *
  * @since 3.2.8.6
- * @version 1.0.3
+ * @version 1.0.5
  * @author tungnx
  */
 class LP_User_Items_DB extends LP_Database {
@@ -102,7 +105,7 @@ class LP_User_Items_DB extends LP_Database {
 	 * @return array|null|int|string
 	 * @throws Exception
 	 * @since 4.1.6.9
-	 * @version 1.0.3
+	 * @version 1.0.4
 	 */
 	public function get_user_items( LP_User_Items_Filter $filter, int &$total_rows = 0 ) {
 		$filter->fields = array_merge( $filter->all_fields, $filter->fields );
@@ -125,6 +128,12 @@ class LP_User_Items_DB extends LP_Database {
 
 		if ( ! empty( $filter->user_item_id ) ) {
 			$filter->where[] = $this->wpdb->prepare( 'AND ui.user_item_id = %d', $filter->user_item_id );
+		}
+
+		// Get by user_item_ids
+		if ( ! empty( $filter->user_item_ids ) ) {
+			$user_item_ids_format = LP_Helper::db_format_array( $filter->user_item_ids );
+			$filter->where[]      = $this->wpdb->prepare( 'AND ui.user_item_id IN (' . $user_item_ids_format . ')', $filter->user_item_ids );
 		}
 
 		if ( $filter->user_id !== false ) {
@@ -365,7 +374,7 @@ class LP_User_Items_DB extends LP_Database {
 	 *
 	 * @author tungnx
 	 * @since 4.1.5
-	 * @version 1.0.1
+	 * @version 1.0.2
 	 * @return object|null
 	 * @throws Exception
 	 */
@@ -381,6 +390,7 @@ class LP_User_Items_DB extends LP_Database {
 			$filter_user_attend_courses                      = new LP_User_Items_Filter();
 			$filter_user_attend_courses->only_fields         = array( 'MAX(ui.user_item_id) AS user_item_id' );
 			$filter_user_attend_courses->where[]             = $this->wpdb->prepare( 'AND ui.user_id = %s', $filter->user_id );
+			$filter_user_attend_courses->where[]             = $this->wpdb->prepare( 'AND ui.status != %s', UserItemModel::STATUS_CANCEL );
 			$filter_user_attend_courses->group_by            = 'ui.item_id';
 			$filter_user_attend_courses->return_string_query = true;
 			$query_get_course_attend                         = $this->get_user_courses( $filter_user_attend_courses );
@@ -699,6 +709,10 @@ class LP_User_Items_DB extends LP_Database {
 					LP_COURSE_CPT,
 				]
 			);
+			// Clear userCourseModel cache.
+			$key_cache         = "userCourseModel/find/{$user_id}/{$course_id}/" . LP_COURSE_CPT;
+			$lpUserCourseCache = new LP_Cache();
+			$lpUserCourseCache->clear( $key_cache );
 
 			do_action( 'learn-press/user-item-old/delete', $user_id, $course_id );
 		} catch ( Throwable $e ) {
@@ -741,7 +755,7 @@ class LP_User_Items_DB extends LP_Database {
 	 * @return null|object
 	 */
 	public function count_items_of_course_with_status( LP_User_Items_Filter $filter ) {
-		$item_types       = learn_press_get_course_item_types();
+		$item_types       = CourseModel::item_types_support();
 		$count_item_types = count( $item_types );
 		$i                = 0;
 
@@ -776,50 +790,18 @@ class LP_User_Items_DB extends LP_Database {
 	 * Get quizzes of user
 	 *
 	 * @param LP_User_Items_Filter $filter
+	 * @param int $total_rows
 	 *
-	 * @return null|object
+	 * @return array|int|string|null
 	 * @throws Exception
+	 * @since 4.1.4.1
+	 * @version 1.0.1
 	 */
-	public function get_user_quizzes( LP_User_Items_Filter $filter ) {
-		$offset = ( absint( $filter->page ) - 1 ) * $filter->limit;
+	public function get_user_quizzes( LP_User_Items_Filter $filter, int &$total_rows = 0 ) {
+		$filter->item_type = LP_QUIZ_CPT;
+		$filter->ref_type  = LP_COURSE_CPT;
 
-		$WHERE = '';
-
-		if ( ! empty( $filter->graduation ) ) {
-			$WHERE .= $this->wpdb->prepare( 'AND graduation = %s ', $filter->graduation );
-		}
-
-		if ( ! empty( $filter->status ) ) {
-			$WHERE .= $this->wpdb->prepare( 'AND status = %s ', $filter->status );
-		}
-
-		$query = $this->wpdb->prepare(
-			"SELECT * FROM $this->tb_lp_user_items
-			WHERE user_item_id IN (
-				SELECT DISTINCT MAX(user_item_id)
-				FROM $this->tb_lp_user_items
-				WHERE user_id = %d
-				AND item_type = %s
-				AND status IN (%s, %s)
-				GROUP BY item_id
-			)
-			$WHERE
-			ORDER BY user_item_id DESC
-			LIMIT %d, %d
-			",
-			$filter->user_id,
-			LP_QUIZ_CPT,
-			LP_ITEM_STARTED,
-			LP_ITEM_COMPLETED,
-			$offset,
-			$filter->limit
-		);
-
-		$result = $this->wpdb->get_results( $query );
-
-		$this->check_execute_has_error();
-
-		return $result;
+		return $this->get_user_items( $filter, $total_rows );
 	}
 
 	/**
@@ -854,14 +836,14 @@ class LP_User_Items_DB extends LP_Database {
 	 *
 	 * @return LP_User_Items_Filter
 	 * @since 4.1.6
-	 * @version 1.0.0
+	 * @version 1.0.1
 	 * @throws Exception
 	 */
 	public function count_user_attend_courses_of_author( int $author_id ): LP_User_Items_Filter {
 		$filter_course                      = new LP_Course_Filter();
 		$filter_course->only_fields         = array( 'ID' );
 		$filter_course->post_author         = $author_id;
-		$filter_course->post_status         = 'publish';
+		$filter_course->post_status         = [ 'publish', 'private' ];
 		$filter_course->return_string_query = true;
 		$query_courses_str                  = LP_Course_DB::getInstance()->get_courses( $filter_course );
 

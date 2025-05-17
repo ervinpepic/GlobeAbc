@@ -6,7 +6,13 @@
  */
 
 import API from '../api';
-import { lpAddQueryArgs, lpGetCurrentURLNoParam, listenElementViewed, listenElementCreated } from '../utils.js';
+import {
+	lpAddQueryArgs,
+	lpGetCurrentURLNoParam,
+	listenElementViewed,
+	listenElementCreated,
+	lpOnElementReady,
+} from '../utils.js';
 
 if ( 'undefined' === typeof lpData ) {
 	console.log( 'lpData is undefined' );
@@ -22,7 +28,6 @@ document.addEventListener( 'change', function( e ) {
 document.addEventListener( 'click', function( e ) {
 	const target = e.target;
 
-	window.lpCoursesList.clickNumberPage( e, target );
 	window.lpCoursesList.LoadMore( e, target );
 } );
 
@@ -37,6 +42,13 @@ document.addEventListener( 'submit', function( e ) {
 	//window.lpCourseList.searchCourse( e, target );
 } );
 
+lpOnElementReady( '.course-filter-btn-mobile', function( el ) {
+	const widgetCourseFilter = document.querySelector( '.widget_course_filter' );
+	if ( ! widgetCourseFilter ) {
+		el.remove();
+	}
+} );
+
 let timeOutSearch;
 window.lpCoursesList = ( () => {
 	const classListCourse = '.lp-list-courses-no-css';
@@ -46,76 +58,6 @@ window.lpCoursesList = ( () => {
 	const classLoading = '.lp-loading-no-css';
 	const urlCurrent = lpGetCurrentURLNoParam();
 	return {
-		clickNumberPage: ( e, target ) => {
-			const btnNumber = target.closest( '.page-numbers:not(.disabled)' );
-			if ( ! btnNumber ) {
-				return;
-			}
-
-			const elLPTarget = btnNumber.closest( `${ classLPTarget }` );
-			if ( ! elLPTarget ) {
-				return;
-			}
-
-			const dataObj = JSON.parse( elLPTarget.dataset.send );
-			const dataSend = { ...dataObj };
-			if ( ! dataSend.args.hasOwnProperty( 'paged' ) ) {
-				dataSend.args.paged = 1;
-			}
-
-			// If no load ajax, will return.
-			if ( dataSend.args.courses_load_ajax === 0 ) {
-				return;
-			}
-
-			e.preventDefault();
-
-			if ( btnNumber.classList.contains( 'prev' ) ) {
-				dataSend.args.paged--;
-			} else if ( btnNumber.classList.contains( 'next' ) ) {
-				dataSend.args.paged++;
-			} else {
-				dataSend.args.paged = btnNumber.textContent;
-			}
-
-			elLPTarget.dataset.send = JSON.stringify( dataSend );
-
-			// Set url params to reload page.
-			// Todo: need check allow set url params.
-			lpData.urlParams.paged = dataSend.args.paged;
-			window.history.pushState( {}, '', lpAddQueryArgs( urlCurrent, lpData.urlParams ) );
-			// End.
-
-			// Show loading
-			const elLoading = elLPTarget.closest( 'div:not(.lp-target)' ).querySelector( '.lp-loading-change' );
-			if ( elLoading ) {
-				elLoading.style.display = 'block';
-			}
-			// End
-
-			// Scroll to archive element
-			const elLPTargetY = elLPTarget.getBoundingClientRect().top + window.scrollY;
-			window.scrollTo( { top: elLPTargetY } );
-
-			const callBack = {
-				success: ( response ) => {
-					//console.log( 'response', response );
-					const { status, message, data } = response;
-					elLPTarget.innerHTML = data.content || '';
-				},
-				error: ( error ) => {
-					console.log( error );
-				},
-				completed: () => {
-					//console.log( 'completed' );
-					if ( elLoading ) {
-						elLoading.style.display = 'none';
-					}
-				},
-			};
-
-			window.lpAJAXG.fetchAPI( API.frontend.apiAJAX, dataSend, callBack );
-		},
 		LoadMore: ( e, target ) => {
 			const btnLoadMore = target.closest( `.${ classLoadMore + ':not(.disabled)' }` );
 			if ( ! btnLoadMore ) {
@@ -176,7 +118,7 @@ window.lpCoursesList = ( () => {
 				},
 			};
 
-			window.lpAJAXG.fetchAPI( API.frontend.apiAJAX, dataSend, callBack );
+			window.lpAJAXG.fetchAJAX( dataSend, callBack );
 		},
 		LoadInfinite: () => {
 			// When see element, will call API to load more items.
@@ -233,13 +175,18 @@ window.lpCoursesList = ( () => {
 					},
 				};
 
-				window.lpAJAXG.fetchAPI( API.frontend.apiAJAX, dataSend, callBack );
+				window.lpAJAXG.fetchAJAX( dataSend, callBack );
 			};
 
 			// Listen el courses load infinite have just created.
 			listenElementCreated( ( node ) => {
 				if ( node.classList.contains( 'courses-load-infinite-no-css' ) ) {
 					listenElementViewed( node, callBackAfterSeeItem );
+				} else if ( node.classList.contains( 'wp-block-learnpress-list-courses' ) ) { // For block Gutenberg
+					const elInfinite = node.querySelector( '.courses-load-infinite-no-css' );
+					if ( elInfinite ) {
+						listenElementViewed( elInfinite, callBackAfterSeeItem );
+					}
 				}
 			} );
 
@@ -301,7 +248,7 @@ window.lpCoursesList = ( () => {
 				},
 			};
 
-			window.lpAJAXG.fetchAPI( API.frontend.apiAJAX, dataSend, callBack );
+			window.lpAJAXG.fetchAJAX( dataSend, callBack );
 		},
 		onChangeTypeLayout: ( e, target ) => {
 			if ( 'lp-switch-layout-btn' !== target.getAttribute( 'name' ) ) {
@@ -365,7 +312,7 @@ window.lpCoursesList = ( () => {
 						},
 					};
 
-					window.lpAJAXG.fetchAPI( API.frontend.apiAJAX, dataSend, callBack );
+					window.lpAJAXG.fetchAJAX( dataSend, callBack );
 				}, 800 );
 			}
 		},

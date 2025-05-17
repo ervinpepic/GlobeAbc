@@ -96,6 +96,11 @@ class LP_Query {
 				);
 			}
 		}
+
+		// Code temporary to fix 404 of order receiver page
+		if ( LP_Page_Controller::is_page_checkout() ) {
+			flush_rewrite_rules();
+		}
 	}
 
 	/**
@@ -163,6 +168,11 @@ class LP_Query {
 			$rules['instructor']['no_name']  = [
 				"^{$instructor_slug}/?$" =>
 					'index.php?page_id=' . $single_instructor_page_id . '&is_single_instructor=1&paged=$matches[2]',
+			];
+
+			// For handle request lp-ajax
+			$rules['lp-ajax'][] = [
+				'^lp-ajax-handle/?$' => 'index.php',
 			];
 
 			$rules = apply_filters( 'learn-press/rewrite/rules', $rules );
@@ -286,10 +296,32 @@ class LP_Query {
 	 *
 	 * @return mixed|array
 	 * @since 4.2.2
-	 * @version 1.0.1
+	 * @version 1.0.3
 	 * @see get_option() hook in this function.
 	 */
 	public function update_option_rewrite_rules( $wp_rules ) {
+		// Check it is called from WP_Rewrite class
+		$debug_backtrace = debug_backtrace();
+
+		// Find call from WP_Rewrite class
+		$found = false;
+		foreach ( $debug_backtrace as $trace ) {
+			if ( isset( $trace['class'] ) && $trace['class'] == WP_Rewrite::class ) {
+				$found = true;
+				break;
+			}
+		}
+
+		if ( ! $found ) {
+			return $wp_rules;
+		}
+
+		/*static $handled = false;
+		if ( $handled ) {
+			return $wp_rules;
+		}
+		$handled = true;*/
+
 		if ( ! is_array( $wp_rules ) ) {
 			return $wp_rules;
 		}

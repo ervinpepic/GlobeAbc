@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '27ae168cf53fc104a83f6279edca13f2697976e2',
+        'reference' => 'c413f4eb2be5528bc804fbbb4dbb54cef1f55a10',
         'name' => 'learnpress/learnpress',
         'dev' => true,
     ),
@@ -25,7 +25,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '27ae168cf53fc104a83f6279edca13f2697976e2',
+            'reference' => 'c413f4eb2be5528bc804fbbb4dbb54cef1f55a10',
             'dev_requirement' => false,
         ),
         'phpcompatibility/php-compatibility' => array(
@@ -56,12 +56,12 @@
             'dev_requirement' => true,
         ),
         'squizlabs/php_codesniffer' => array(
-            'pretty_version' => '3.11.1',
-            'version' => '3.11.1.0',
+            'pretty_version' => '3.11.2',
+            'version' => '3.11.2.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../squizlabs/php_codesniffer',
             'aliases' => array(),
-            'reference' => '19473c30efe4f7b3cd42522d0b2e6e7f243c6f87',
+            'reference' => '1368f4a58c3c52114b86b1abe8f4098869cb0079',
             'dev_requirement' => true,
         ),
         'wp-coding-standards/wpcs' => array(

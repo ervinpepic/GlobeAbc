@@ -81,11 +81,12 @@ window.lpCheckout = {
 		const callBack = {
 			success: ( response ) => {
 				response = lpAjaxParseJsonOld( response );
-				const { messages, result } = response;
-				if ( 'success' !== result ) {
-					window.lpCheckout.showErrors( formCheckout, 'error', messages );
-				} else {
+				const { message, result } = response;
+
+				if ( response.redirect ) {
 					window.location.href = response.redirect;
+				} else if ( 'success' !== result ) {
+					window.lpCheckout.showErrors( formCheckout, 'error', message );
 				}
 			},
 			error: ( error ) => {
@@ -177,12 +178,15 @@ window.lpCheckout = {
 		}, 500 );
 	},
 	removeMessage: () => {
-		const lpMessage = document.querySelector( '.learn-press-message' );
+		const lpMessages = document.querySelectorAll( '.learn-press-message' );
 
-		if ( ! lpMessage ) {
+		if ( ! lpMessages ) {
 			return;
 		}
-		lpMessage.remove();
+
+		lpMessages.forEach( ( el ) => {
+			el.remove();
+		} );
 	},
 	showErrors: ( form, status, message ) => {
 		const mesHtml = `<div class="learn-press-message ${ status }">${ message }</div>`;

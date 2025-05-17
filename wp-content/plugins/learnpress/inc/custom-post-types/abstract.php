@@ -400,19 +400,15 @@ abstract class LP_Abstract_Post_Type {
 
 		if ( $this->course_of_item_trashed ) {
 			// Save course when item assign on course is trashed
-			$course_id   = $this->course_of_item_trashed;
+			$course_id = $this->course_of_item_trashed;
 			LP_Course_Post_Type::instance()->save_post( $course_id, null, true );
 			$this->course_of_item_trashed = 0;
 		}
 	}
 
 	public function column_instructor( $post_id = 0 ) {
-		global $post;
-
-		$user_id = get_the_author_meta( 'ID' );
-		if ( ! $user_id ) {
-			return;
-		}
+		$post    = get_post( $post_id );
+		$user_id = $post->post_author;
 
 		$user = UserModel::find( $user_id, true );
 		if ( ! $user ) {
@@ -424,10 +420,17 @@ abstract class LP_Abstract_Post_Type {
 			'author'    => $user_id,
 		);
 
-		$author_link = esc_url_raw( add_query_arg( $args, 'edit.php' ) );
+		$author_link  = esc_url_raw( add_query_arg( $args, 'edit.php' ) );
+		$userTemplate = new UserTemplate();
 		echo sprintf(
 			'<span class="post-author">%s<a href="%s">%s</a></span>',
-			UserTemplate::instance()->html_avatar( $user, [ 'width' => 32, 'height' => 32 ] ),
+			$userTemplate->html_avatar(
+				$user,
+				[
+					'width'  => 32,
+					'height' => 32,
+				]
+			),
 			$author_link,
 			get_the_author()
 		);
@@ -711,10 +714,13 @@ abstract class LP_Abstract_Post_Type {
 	public function _check_post(): bool {
 		global $pagenow, $post_type;
 
-		if ( ! is_admin() || ( ! in_array( $pagenow, array(
+		if ( ! is_admin() || ( ! in_array(
+			$pagenow,
+			array(
 				'edit.php',
-				'post.php'
-			) ) ) || ( $this->_post_type != $post_type ) ) {
+				'post.php',
+			)
+		) ) || ( $this->_post_type != $post_type ) ) {
 			return false;
 		}
 
@@ -745,7 +751,7 @@ abstract class LP_Abstract_Post_Type {
 			}
 
 			if ( ! current_user_can( ADMIN_ROLE ) &&
-				 get_current_user_id() !== (int) $post->post_author ) {
+				get_current_user_id() !== (int) $post->post_author ) {
 				$can_save = false;
 			}
 
@@ -1038,7 +1044,7 @@ abstract class LP_Abstract_Post_Type {
 
 			$preview_permalink = learn_press_get_preview_url( $post->ID );
 
-			$preview_link                      = sprintf( ' <a target="_blank" href="%s">%s</a>', esc_url_raw( $preview_permalink ), sprintf( '%s %s', __( 'Preview', 'learnpress' ), $post_type_object->labels->singular_name ) );
+			$preview_link                       = sprintf( ' <a target="_blank" href="%s">%s</a>', esc_url_raw( $preview_permalink ), sprintf( '%s %s', __( 'Preview', 'learnpress' ), $post_type_object->labels->singular_name ) );
 			$messages[ $this->_post_type ][8]  .= $preview_link;
 			$messages[ $this->_post_type ][10] .= $preview_link;
 		}

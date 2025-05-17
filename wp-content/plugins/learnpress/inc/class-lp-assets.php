@@ -31,7 +31,7 @@ class LP_Assets extends LP_Abstract_Assets {
 	protected function _get_styles(): array {
 		$is_rtl = is_rtl() ? '-rtl' : '';
 
-		return apply_filters(
+		$styles = apply_filters(
 			'learn-press/frontend-default-styles',
 			array(
 				'learnpress'         => new LP_Asset_Key(
@@ -69,6 +69,30 @@ class LP_Assets extends LP_Abstract_Assets {
 				),
 			)
 		);
+
+		if ( wp_is_block_theme() ) {
+			if ( LP_Page_Controller::is_page_courses() ) {
+				unset( $styles['learnpress'] );
+			}
+
+			if ( LP_Page_Controller::is_page_single_course() ) {
+				global $post;
+				setup_postdata( $post );
+				$course_item = LP_Global::course_item();
+				if ( ! $course_item ) {
+					unset( $styles['learnpress'] );
+				}
+			}
+
+			$styles['learnpress-block'] = new LP_Asset_Key(
+				self::url( 'css/learnpress-block' . $is_rtl . self::$_min_assets . '.css' ),
+				array(),
+				array(),
+				0
+			);
+		}
+
+		return $styles;
 	}
 
 	/**
@@ -112,10 +136,12 @@ class LP_Assets extends LP_Abstract_Assets {
 				'i18n_place_order'   => esc_html__( 'Place order', 'learnpress' ),
 			),
 			'lp-profile'  => array(
-				'text_upload'  => __( 'Upload', 'learnpress' ),
-				'text_replace' => __( 'Replace', 'learnpress' ),
-				'text_remove'  => __( 'Remove', 'learnpress' ),
-				'text_save'    => __( 'Save', 'learnpress' ),
+				'text_upload'       => __( 'Upload', 'learnpress' ),
+				'text_replace'      => __( 'Replace', 'learnpress' ),
+				'text_remove'       => __( 'Remove', 'learnpress' ),
+				'text_save'         => __( 'Save', 'learnpress' ),
+				'avatar_dimensions' => learn_press_get_avatar_thumb_size(),
+				'default_avatar'    => get_avatar_url( get_current_user_id() ),
 			),
 			'lp-quiz'     => learn_press_single_quiz_args(),
 		];
@@ -152,6 +178,7 @@ class LP_Assets extends LP_Abstract_Assets {
 				'lp_version'        => LearnPress::instance()->version,
 				'lp_rest_load_ajax' => get_rest_url( null, 'lp/v1/load_content_via_ajax/' ),
 				'ajaxUrl'           => admin_url( 'admin-ajax.php' ),
+				'lpAjaxUrl'         => LP_Settings::url_handle_lp_ajax(),
 				'coverImageRatio'   => $aspectRatio,
 				'toast'             => [
 					'gravity'     => 'bottom',
@@ -268,6 +295,15 @@ class LP_Assets extends LP_Abstract_Assets {
 					'',
 					[ 'strategy' => 'defer' ]
 				),
+				'lp-curriculum'        => new LP_Asset_Key(
+					self::url( 'js/dist/frontend/curriculum' . self::$_min_assets . '.js' ),
+					[],
+					array( LP_PAGE_SINGLE_COURSE_CURRICULUM, LP_PAGE_SINGLE_COURSE ),
+					0,
+					0,
+					'',
+					[ 'strategy' => 'async' ]
+				),
 				'lp-quiz'              => new LP_Asset_Key(
 					self::url( 'js/dist/frontend/quiz' . self::$_min_assets . '.js' ),
 					array_merge(
@@ -336,10 +372,7 @@ class LP_Assets extends LP_Abstract_Assets {
 				),
 				'lp-profile'           => new LP_Asset_Key(
 					self::url( 'js/dist/frontend/profile' . self::$_min_assets . '.js' ),
-					array_merge(
-						$wp_js,
-						array( 'wp-i18n', 'lp-utils' )
-					),
+					[],
 					array( LP_PAGE_PROFILE ),
 					0,
 					0,
@@ -348,7 +381,7 @@ class LP_Assets extends LP_Abstract_Assets {
 				),
 				'lp-widgets'           => new LP_Asset_Key(
 					self::url( 'js/dist/frontend/widgets' . self::$_min_assets . '.js' ),
-					[],
+					[ 'lp-course-filter' ],
 					array(),
 					1,
 					0,
@@ -369,9 +402,9 @@ class LP_Assets extends LP_Abstract_Assets {
 					array(),
 					array(),
 					1,
-					1,
+					0,
 					'',
-					[ 'strategy' => 'defer' ]
+					[ 'strategy' => 'async' ]
 				),
 			)
 		);
@@ -418,10 +451,7 @@ class LP_Assets extends LP_Abstract_Assets {
 	 */
 	public function load_scripts_on_head() {
 		LP_Helper::print_inline_script_tag( 'lpData', $this->localize_data_global(), [ 'id' => 'lpData' ] );
-
-		if ( LP_Page_Controller::is_page_courses() ) {
-			LP_Helper::print_inline_script_tag( 'lpSettingCourses', $this->localize_data_courses(), [ 'id' => 'lpSettingCourses' ] );
-		}
+		LP_Helper::print_inline_script_tag( 'lpSettingCourses', $this->localize_data_courses(), [ 'id' => 'lpSettingCourses' ] );
 	}
 
 	/**
@@ -429,10 +459,10 @@ class LP_Assets extends LP_Abstract_Assets {
 	 * @return void
 	 */
 	public function load_styles_on_head() {
-		$max_width         = LP_Settings::get_option( 'width_container', '1290px' );
+		$max_width         = esc_html( LP_Settings::get_option( 'width_container', '1290px' ) );
 		$padding_container = apply_filters( 'learn-press/container-padding-width', '1rem' );
-		$primary_color     = LP_Settings::get_option( 'primary_color' );
-		$secondary_color   = LP_Settings::get_option( 'secondary_color' );
+		$primary_color     = esc_html( LP_Settings::get_option( 'primary_color' ) );
+		$secondary_color   = esc_html( LP_Settings::get_option( 'secondary_color' ) );
 		?>
 		<style id="learn-press-custom-css">
 			:root {
@@ -466,7 +496,7 @@ class LP_Assets extends LP_Abstract_Assets {
 		}
 
 		echo '<div class="lp-overlay" style="display: none">';
-		apply_filters( 'learnpress/modal-dialog', learn_press_get_template( 'global/lp-modal-overlay' ) );
+		learn_press_get_template( 'global/lp-modal-overlay' );
 		echo '</div>';
 	}
 
@@ -493,4 +523,3 @@ function learn_press_assets() {
 }
 
 learn_press_assets();
-

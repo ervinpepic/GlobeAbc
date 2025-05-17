@@ -13,6 +13,7 @@ use LearnPress\Models\UserItems\UserCourseModel;
 use LearnPress\Models\UserItems\UserItemModel;
 use LearnPress\Models\UserModel;
 use LearnPress\TemplateHooks\Course\ListCoursesTemplate;
+use LearnPress\TemplateHooks\Course\SingleCourseTemplate;
 
 class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 	/**
@@ -29,6 +30,14 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 	 */
 	public function register_routes() {
 		$this->routes = array(
+			''                       => array(
+				array(
+					'methods'             => WP_REST_Server::ALLMETHODS,
+					'callback'            => array( $this, 'get_courses' ),
+					'permission_callback' => '__return_true',
+					'args'                => array(),
+				),
+			),
 			'purchase-course'        => array(
 				array(
 					'methods'             => WP_REST_Server::CREATABLE,
@@ -118,6 +127,65 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 	}
 
 	/**
+	 * Get list courses, return JSON data, not to handle HTML
+	 *
+	 * @param WP_REST_Request $request
+	 *
+	 * @return LP_REST_Response
+	 * @since 4.2.8.2
+	 * @version 1.0.0
+	 */
+	public function get_courses( WP_REST_Request $request ): LP_REST_Response {
+		$response = new LP_REST_Response();
+
+		try {
+			$filter     = new LP_Course_Filter();
+			$params     = $request->get_params();
+			$total_rows = 0;
+
+			Courses::handle_params_for_query_courses( $filter, $params );
+			$filter->only_fields = [ 'ID' ];
+			$coursesRs           = Courses::get_courses( $filter, $total_rows );
+
+			$courses              = [];
+			$singleCourseTemplate = SingleCourseTemplate::instance();
+			foreach ( $coursesRs as $course ) {
+				$courseModel = CourseModel::find( $course->ID, true );
+				if ( ! $courseModel ) {
+					continue;
+				}
+
+				$courseItem              = new stdClass();
+				$courseItem->ID          = $course->ID;
+				$courseItem->description = $singleCourseTemplate->html_short_description( $courseModel, 15 );
+				$courseItem->price       = $singleCourseTemplate->html_price( $courseModel );
+				$courseItem->title       = $courseModel->get_title();
+				$courseItem->student     = $singleCourseTemplate->html_count_student( $courseModel );
+				$courseItem->lesson      = $singleCourseTemplate->html_count_item( $courseModel, LP_LESSON_CPT );
+				$courseItem->duration    = $singleCourseTemplate->html_duration( $courseModel );
+				$courseItem->quiz        = $singleCourseTemplate->html_count_item( $courseModel, LP_QUIZ_CPT );
+				$courseItem->level       = $singleCourseTemplate->html_level( $courseModel );
+				$courseItem->image       = $singleCourseTemplate->html_image( $courseModel );
+				$courseItem->instructor  = $singleCourseTemplate->html_instructor( $courseModel, false, [ 'is_link' => 'false' ] );
+				$courseItem->category    = $singleCourseTemplate->html_categories( $courseModel );
+				$courseItem->button      = __( 'Read more', 'learnpress' );
+
+				$courses[] = apply_filters( 'lp/rest-api/frontend/course/archive_course/courses', $courseItem, $courseModel );
+			}
+
+			$response->status            = 'success';
+			$response->data->courses     = $courses;
+			$response->data->total       = $total_rows;
+			$response->data->page        = $filter->page;
+			$response->data->total_pages = LP_Database::get_total_pages( $filter->limit, $total_rows );
+		} catch ( Throwable $e ) {
+			$response->message = $e->getMessage();
+		}
+
+		return apply_filters( 'lp/rest-api/frontend/course/archive_course/response', $response );
+	}
+
+	/**
 	 * Get list courses
 	 *
 	 * @param WP_REST_Request $request
@@ -135,14 +203,14 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 			Courses::handle_params_for_query_courses( $filter, $request->get_params() );
 
 			// Check is in category page.
-			if ( ! empty( $request->get_param( 'page_term_id_current' ) ) &&
+			/*if ( ! empty( $request->get_param( 'page_term_id_current' ) ) &&
 				empty( $request->get_param( 'term_id' ) ) ) {
 				$filter->term_ids[] = $request->get_param( 'page_term_id_current' );
 			} // Check is in tag page.
 			elseif ( ! empty( $request->get_param( 'page_tag_id_current' ) ) &&
 					empty( $request->get_param( 'tag_id' ) ) ) {
 				$filter->tag_ids[] = $request->get_param( 'page_tag_id_current' );
-			}
+			}*/
 
 			$total_rows = 0;
 			$filter     = apply_filters( 'lp/api/courses/filter', $filter, $request );
@@ -327,7 +395,7 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 					$cart->empty_cart();
 				}
 
-				$cart_id = $cart->add_to_cart( $course_id, 1, array() );
+				$cart_id = $cart->add_to_cart( $course_id );
 				if ( ! $cart_id ) {
 					throw new Exception( esc_html__( 'Error: The course cannot be added to the cart.', 'learnpress' ) );
 				}
@@ -350,9 +418,10 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 				$first_item_id            = $course->get_first_item_id();
 				$response->data->redirect = $first_item_id ? $course->get_item_link( $first_item_id ) : get_the_permalink( $course->get_id() );
 			} else {
+				$redirect_url = LP_Page_Controller::get_link_page( 'checkout', [], true );
 				$redirect_url = apply_filters(
 					'learnpress/rest-api/courses/enroll/redirect',
-					learn_press_get_page_link( 'checkout' ),
+					$redirect_url,
 					$course_id
 				);
 
@@ -462,9 +531,10 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 				learn_press_update_user_item_meta( $userCourse->get_user_item_id(), '_lp_allow_repurchase_type', $allow_repurchase_type );
 			}
 
+			$redirect_url = LP_Page_Controller::get_link_page( 'checkout', [], true );
 			$redirect_url = apply_filters(
 				'learnpress/rest-api/courses/purchase/redirect',
-				learn_press_get_page_link( 'checkout' ),
+				$redirect_url,
 				$course_id,
 				$cart_id
 			);
@@ -504,52 +574,32 @@ class LP_REST_Courses_Controller extends LP_Abstract_REST_Controller {
 				throw new Exception( __( 'Invalid params', 'learnpress' ) );
 			}
 
-			$course = learn_press_get_course( $course_id );
-
-			if ( ! $course ) {
+			$courseModel = CourseModel::find( $course_id, true );
+			if ( ! $courseModel ) {
 				throw new Exception( __( 'Invalid course', 'learnpress' ) );
 			}
 
-			$user = learn_press_get_current_user();
-
-			// if ( ! is_user_logged_in() ) {
-			// throw new Exception( esc_html__( 'Please login!', 'learnpress' ) );
-			// }
-
-			$can_retry = $user->can_retry_course( $course_id );
-
-			if ( ! $can_retry ) {
-				throw new Exception( __( 'You can\'t retry the course', 'learnpress' ) );
+			$userModel = UserModel::find( get_current_user_id(), true );
+			if ( ! $userModel ) {
+				throw new Exception( __( 'Invalid user', 'learnpress' ) );
 			}
 
-			$user_course_data = $user->get_course_data( $course_id );
-			if ( ! $user_course_data ) {
-				throw new Exception( __( 'Invalid course data of user', 'learnpress' ) );
+			$userCourseModel = UserCourseModel::find( $userModel->get_id(), $courseModel->get_id(), true );
+			if ( ! $userCourseModel ) {
+				throw new Exception( __( 'Invalid user course', 'learnpress' ) );
 			}
 
-			// Up retaken.
-			$user_course_data->increase_retake_count();
-
-			// Set status, start_time, end_time of course to enrol.
-			$user_course_data->set_status( LP_COURSE_ENROLLED )
-							->set_start_time( time() )
-							->set_end_time()
-							->set_graduation( LP_COURSE_GRADUATION_IN_PROGRESS )
-							->update();
-
-			// Remove items' course user learned.
-			$filter_remove            = new LP_User_Items_Filter();
-			$filter_remove->parent_id = $user_course_data->get_user_item_id();
-			$filter_remove->user_id   = $user_course_data->get_user_id();
-			$filter_remove->limit     = - 1;
-			LP_User_Items_DB::getInstance()->remove_items_of_user_course( $filter_remove );
-
-			// Create new result in table learnpress_user_item_results.
-			LP_User_Items_Result_DB::instance()->insert( $user_course_data->get_user_item_id() );
+			$userCourseModel->handle_retake();
+			$item_continue = $userCourseModel->get_item_continue();
+			if ( $item_continue ) {
+				$link_continue = $courseModel->get_item_link( $item_continue->ID );
+			} else {
+				$link_continue = $courseModel->get_permalink();
+			}
 
 			$response->status             = 'success';
 			$response->message            = esc_html__( 'Now you can begin this course', 'learnpress' );
-			$response->data->url_redirect = $course->get_redirect_url_after_enroll();
+			$response->data->url_redirect = $link_continue;
 		} catch ( Exception $e ) {
 			$response->message = $e->getMessage();
 		}

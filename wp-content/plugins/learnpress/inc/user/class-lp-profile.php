@@ -3,6 +3,7 @@
 use LearnPress\Helpers\Config;
 use LearnPress\Models\Courses;
 use LearnPress\Models\UserItems\UserCourseModel;
+use LearnPress\Models\UserItems\UserItemModel;
 use LearnPress\TemplateHooks\Profile\ProfileOrdersTemplate;
 
 defined( 'ABSPATH' ) || exit;
@@ -683,12 +684,18 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 				case 'purchased':
 					// $query = $this->_curd->query_purchased_courses( $this->get_user_data( 'id' ), $args );
 					$filter              = new LP_User_Items_Filter();
-					$filter->only_fields = array( 'DISTINCT (item_id) AS item_id' );
+					$filter->only_fields = array( 'DISTINCT (item_id) AS item_id', 'ui.user_item_id' );
 					$filter->field_count = 'ui.item_id';
 					$filter->user_id     = $this->get_user_data( 'id' );
+					$filter->order_by    = 'ui.user_item_id';
+					$filter->order       = 'DESC';
 					$status              = $args['status'] ?? '';
 					if ( $status != LP_COURSE_FINISHED ) {
 						$filter->graduation = $status;
+						$filter->where[]    = $lp_user_items_db->wpdb->prepare(
+							"AND ui.status != '%s'",
+							UserItemModel::STATUS_CANCEL
+						);
 					} else {
 						$filter->status = $status;
 					}

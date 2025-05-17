@@ -56,6 +56,7 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 				'lp_version'               => LP()->version,
 				'lp_rest_url'              => get_rest_url(),
 				'lp_rest_load_ajax'        => get_rest_url( null, 'lp/v1/load_content_via_ajax/' ),
+				'lpAjaxUrl'                => LP_Settings::url_handle_lp_ajax(),
 				'nonce'                    => wp_create_nonce( 'wp_rest' ),
 				'courses_url'              => learn_press_get_page_link( 'courses' ),
 				'urlParams'                => lp_archive_skeleton_get_args(),
@@ -64,6 +65,14 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 				],
 				'current_screen'           => $screen ? $screen->id : '',
 				'show_search_author_field' => empty( $html_search_author_field ) ? 0 : $html_search_author_field,
+				'toast'                    => [
+					'gravity'     => 'bottom',
+					'position'    => 'center',
+					'duration'    => 3000,
+					'close'       => 1,
+					'stopOnFocus' => 1,
+					'classPrefix' => 'lp-toast',
+				],
 			]
 		);
 	}
@@ -364,11 +373,28 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 					[],
 					0,
 					0,
-					'1.0.2',
+					'1.0.4',
 					[ 'strategy' => 'async' ]
 				),
 			)
 		);
+
+		/*$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+		if ( $screen && $screen->id === 'site-editor' ) {
+			$scripts['editor-check'] = new LP_Asset_Key(
+				self::url( 'js/dist/gutenberg/editor-check' . self::$_min_assets . '.js' ),
+				array(
+					'wp-data',
+					'wp-edit-post',
+					'wp-editor',
+				),
+				[],
+				0,
+				0,
+				'1.0.0',
+				[ 'strategy' => 'defer' ]
+			);
+		}*/
 
 		return $scripts;
 	}
@@ -469,12 +495,12 @@ class LP_Admin_Assets extends LP_Abstract_Assets {
 		global $post, $pagenow;
 
 		if ( empty( $post ) || ( get_post_type() !== LP_COURSE_CPT ) || ! in_array(
-				$pagenow,
-				array(
-					'post.php',
-					'post-new.php',
-				)
-			) ) {
+			$pagenow,
+			array(
+				'post.php',
+				'post-new.php',
+			)
+		) ) {
 			return [];
 		}
 

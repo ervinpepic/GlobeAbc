@@ -58,7 +58,7 @@ class Courses {
 		$lp_courses_cache_keys->save_cache_keys_count_courses_free( $key_cache );
 		LP_Cache::cache_load_first( 'set', $key_cache, $count );
 
-		return $count;
+		return (int) $count;
 	}
 
 	/**
@@ -68,7 +68,7 @@ class Courses {
 	 * @param LP_Course_Filter $filter
 	 *
 	 * @return void
-	 * @version 1.0.1
+	 * @version 1.0.3
 	 * @since 4.2.3.3 move from class LP_Course
 	 */
 	public static function handle_params_for_query_courses( LP_Course_Filter &$filter, array $param = [] ) {
@@ -144,23 +144,44 @@ class Courses {
 		// Sort by level
 		$levels_str = LP_Helper::sanitize_params_submitted( urldecode( $param['c_level'] ?? '' ) );
 		if ( ! empty( $levels_str ) ) {
-			$levels_str     = str_replace( 'all', '', $levels_str );
-			$levels         = explode( ',', $levels_str );
+			$levels = explode( ',', $levels_str );
+			if ( in_array( 'all', $levels ) ) {
+				$levels[] = '';
+			}
 			$filter->levels = $levels;
+		}
+
+		// Sort by type (oline/offline)
+		$course_type = LP_Helper::sanitize_params_submitted( urldecode( $param['c_type'] ?? '' ) );
+		if ( ! empty( $course_type ) ) {
+			$course_type = explode( ',', $course_type );
+			if ( in_array( 'online', $course_type ) && in_array( 'offline', $course_type ) ) {
+				$filter->type = 'all';
+			} else {
+				$filter->type = $course_type[0];
+			}
+		}
+
+		// Check is in category page.
+		if ( ! empty( $param['page_term_id_current'] ) && empty( $param['term_id'] ) ) {
+			$filter->term_ids[] = $param['page_term_id_current'];
+		} // Check is in tag page.
+		elseif ( ! empty( $param['page_tag_id_current'] ) && empty( $param['tag_id'] ) ) {
+			$filter->tag_ids[] = $param['page_tag_id_current'];
 		}
 
 		// Find by category
 		$term_ids_str = LP_Helper::sanitize_params_submitted( urldecode( $param['term_id'] ?? '' ) );
 		if ( ! empty( $term_ids_str ) ) {
 			$term_ids         = explode( ',', $term_ids_str );
-			$filter->term_ids = $term_ids;
+			$filter->term_ids = array_merge( $filter->term_ids, $term_ids );
 		}
 
 		// Find by tag
 		$tag_ids_str = LP_Helper::sanitize_params_submitted( urldecode( $param['tag_id'] ?? '' ) );
 		if ( ! empty( $tag_ids_str ) ) {
 			$tag_ids         = explode( ',', $tag_ids_str );
-			$filter->tag_ids = $tag_ids;
+			$filter->tag_ids = array_merge( $filter->tag_ids, $tag_ids );
 		}
 
 		// Order by
@@ -192,43 +213,13 @@ class Courses {
 	 *
 	 * @return object|null|string|int
 	 * @author tungnx
-	 * @version 1.0.0
+	 * @version 1.0.1
 	 * @sicne 4.1.5
 	 */
 	public static function get_courses( LP_Course_Filter $filter, int &$total_rows = 0 ) {
 		$lp_course_db = LP_Course_DB::getInstance();
 
 		try {
-			// Sort by
-			$filter->sort_by = (array) $filter->sort_by;
-			foreach ( $filter->sort_by as $sort_by ) {
-				$filter_tmp                      = clone $filter;
-				$filter_tmp->only_fields         = array( 'DISTINCT(ID)' );
-				$filter_tmp->return_string_query = true;
-
-				switch ( $sort_by ) {
-					case 'on_sale':
-						$filter_tmp = $lp_course_db->get_courses_sort_by_sale( $filter_tmp );
-						break;
-					case 'on_free':
-						$filter_tmp = $lp_course_db->get_courses_sort_by_free( $filter_tmp );
-						break;
-					case 'on_paid':
-						$filter_tmp = $lp_course_db->get_courses_sort_by_paid( $filter_tmp );
-						break;
-					case 'on_feature':
-						$filter_tmp = $lp_course_db->get_courses_sort_by_feature( $filter_tmp );
-						break;
-					default:
-						$filter_tmp = apply_filters( 'lp/courses/filter/sort_by/' . $sort_by, $filter_tmp );
-						break;
-				}
-
-				$query_courses_str = $lp_course_db->get_courses( $filter_tmp );
-
-				$filter->where[] = "AND ID IN ({$query_courses_str})";
-			}
-
 			// Order by
 			switch ( $filter->order_by ) {
 				case 'price':
@@ -258,6 +249,36 @@ class Courses {
 				default:
 					$filter = apply_filters( 'lp/courses/filter/order_by/' . $filter->order_by, $filter );
 					break;
+			}
+
+			// Sort by
+			$filter->sort_by = (array) $filter->sort_by;
+			foreach ( $filter->sort_by as $sort_by ) {
+				$filter_tmp                      = clone $filter;
+				$filter_tmp->only_fields         = array( 'DISTINCT(ID)' );
+				$filter_tmp->return_string_query = true;
+
+				switch ( $sort_by ) {
+					case 'on_sale':
+						$filter_tmp = $lp_course_db->get_courses_sort_by_sale( $filter_tmp );
+						break;
+					case 'on_free':
+						$filter_tmp = $lp_course_db->get_courses_sort_by_free( $filter_tmp );
+						break;
+					case 'on_paid':
+						$filter_tmp = $lp_course_db->get_courses_sort_by_paid( $filter_tmp );
+						break;
+					case 'on_feature':
+						$filter_tmp = $lp_course_db->get_courses_sort_by_feature( $filter_tmp );
+						break;
+					default:
+						$filter_tmp = apply_filters( 'lp/courses/filter/sort_by/' . $sort_by, $filter_tmp );
+						break;
+				}
+
+				$query_courses_str = $lp_course_db->get_courses( $filter_tmp );
+
+				$filter->where[] = "AND ID IN ({$query_courses_str})";
 			}
 
 			// Query get results

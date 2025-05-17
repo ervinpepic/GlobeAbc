@@ -337,6 +337,7 @@ class Buttons extends _wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Component 
       } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.select)('learnpress/modal');
       if ('no' === confirm((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Are you sure you want to retake the quiz?', 'learnpress'), this.startQuiz)) {
         !isOpen() && btn && btn.removeAttribute('disabled');
+        btn.classList.remove('loading');
         return;
       }
     }
@@ -706,7 +707,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_1__);
 
 /**
- * Quizz Content.
+ * Quiz Content.
  * Edit: Use React hook.
  *
  * @author nhamdv - ThimPress
@@ -1414,15 +1415,14 @@ const Result = () => {
       }
     }
     const item = [...document.querySelectorAll('#popup-header .items-progress')][0];
-    const elCurriculumSections = document.querySelector('.curriculum-sections');
-    if (item && elCurriculumSections) {
+    if (item) {
       const totalItems = item.dataset.totalItems;
       const itemCompleted = item.querySelector('.items-completed');
       const elProgress = item.querySelector('.learn-press-progress__active');
       if (itemCompleted) {
         // const number = parseInt( itemCompleted.textContent );
 
-        const allItemCompleted = document.querySelectorAll('#popup-sidebar .course-curriculum .course-item.status-completed');
+        const allItemCompleted = document.querySelectorAll('#popup-sidebar .course-curriculum .course-item__status .completed');
         itemCompleted.textContent = parseInt(allItemCompleted.length);
 
         // Set progress
@@ -3004,7 +3004,12 @@ const lpModalOverlayCompleteItem = {
         const form = e.target.closest('form');
         _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].elLPOverlay.show();
         _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].setTitleModal(form.dataset.title);
-        _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].setContentModal('<div class="pd-2em">' + form.dataset.confirm + '</div>');
+        // ESC html
+        const div = document.createElement('div');
+        div.appendChild(document.createTextNode(form.dataset.confirm));
+        const contentModal = div.innerHTML;
+        // End ESC html
+        _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].setContentModal('<div class="pd-2em">' + contentModal + '</div>');
         _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__["default"].callBackYes = () => {
           form.submit();
         };

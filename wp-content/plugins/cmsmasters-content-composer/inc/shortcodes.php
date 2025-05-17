@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress Plugin
  * @subpackage 	CMSMasters Content Composer
- * @version		1.8.1
+ * @version		1.8.8
  * 
  * CMSMasters Custom Shortcodes
  * Created by CMSMasters
@@ -122,10 +122,14 @@ public function __construct() {
 	add_shortcode('cmsmasters_timetable', array($this, 'cmsmasters_timetable'));
 	
 	add_action('after_setup_theme', array($this, 'cmsmasters_add_custom_shortcodes'));
+	
+	
+	add_action('save_post', array($this, 'cmsmasters_shortcodes_styles_save'));
 }
 
 
-function cmsmasters_add_custom_shortcodes() {
+
+public function cmsmasters_add_custom_shortcodes() {
 	$cmsmasters_custom_shortcodes = array();
 	
 	$cmsmasters_custom_shortcodes = apply_filters('cmsmasters_custom_shortcodes_filter', $cmsmasters_custom_shortcodes);
@@ -135,6 +139,28 @@ function cmsmasters_add_custom_shortcodes() {
 		foreach ($cmsmasters_custom_shortcodes as $cmsmasters_custom_shortcode) {
 			add_shortcode($cmsmasters_custom_shortcode, $cmsmasters_custom_shortcode);
 		}
+	}
+}
+
+
+
+public function cmsmasters_shortcodes_styles_save($post_id) {
+	$post_object = get_post($post_id);
+	
+	$local_fonts_meta = '';
+	
+	preg_match_all("/cmsmasters_local_font_start=(.*)=cmsmasters_local_font_end/", do_shortcode($post_object->post_content), $local_fonts);
+	
+	
+	foreach ($local_fonts[1] as $local_fonts_part) {
+		$local_fonts_meta .= $local_fonts_part . '|';
+	}
+	
+	
+	if (empty($local_fonts_meta)) {
+		delete_post_meta($post_id, 'cmsmasters_shortcodes_local_fonts');
+	} else {
+		update_post_meta($post_id, 'cmsmasters_shortcodes_local_fonts', $local_fonts_meta);
 	}
 }
 
@@ -190,7 +216,7 @@ public function cmsmasters_row($atts, $content = null) {
 		$data_bg_img != '' || 
 		$data_bg_color != '' 
 	) {
-		$out_style .= '#cmsmasters_row_' . $unique_id . ' { ';
+		$out_style .= '#cmsmasters_row_' . esc_attr($unique_id) . ' { ';
 		
 		
 		if ($data_bg_color != '') {
@@ -205,11 +231,11 @@ public function cmsmasters_row($atts, $content = null) {
 			$new_bg_src = wp_get_attachment_image_src($new_bg_img[0], 'full');
 			
 			
-			$out_style .= "\n\t" . 'background-image: url(' . $new_bg_src[0] . '); ' . 
-			"\n\t" . 'background-position: ' . $data_bg_position . '; ' . 
-			"\n\t" . 'background-repeat: ' . $data_bg_repeat . '; ' . 
-			"\n\t" . 'background-attachment: ' . $data_bg_attachment . '; ' . 
-			"\n\t" . 'background-size: ' . $data_bg_size . '; ' . 
+			$out_style .= "\n\t" . 'background-image: url(' . esc_url(($new_bg_src ? $new_bg_src[0] : '' )) . '); ' . 
+			"\n\t" . 'background-position: ' . esc_attr($data_bg_position) . '; ' . 
+			"\n\t" . 'background-repeat: ' . esc_attr($data_bg_repeat) . '; ' . 
+			"\n\t" . 'background-attachment: ' . esc_attr($data_bg_attachment) . '; ' . 
+			"\n\t" . 'background-size: ' . esc_attr($data_bg_size) . '; ' . 
 			(($data_bg_attachment == 'fixed' && preg_match('/Safari/', $_SERVER['HTTP_USER_AGENT'])) ? "\n\t" . 'position: static; ' : '');
 		}
 		
@@ -219,21 +245,21 @@ public function cmsmasters_row($atts, $content = null) {
 	
 	
 	if ($data_padding_top != '') {
-		$out_style .= '#cmsmasters_row_' . $unique_id . ' .cmsmasters_row_outer_parent { ' . 
-			"\n\t" . 'padding-top: ' . $data_padding_top . 'px; ' . 
+		$out_style .= '#cmsmasters_row_' . esc_attr($unique_id) . ' .cmsmasters_row_outer_parent { ' . 
+			"\n\t" . 'padding-top: ' . esc_attr($data_padding_top) . 'px; ' . 
 		"\n" . '} ' . "\n\n";
 	}
 	
 	
 	if ($data_padding_bottom != '') {
-		$out_style .= '#cmsmasters_row_' . $unique_id . ' .cmsmasters_row_outer_parent { ' . 
-			"\n\t" . 'padding-bottom: ' . $data_padding_bottom . 'px; ' . 
+		$out_style .= '#cmsmasters_row_' . esc_attr($unique_id) . ' .cmsmasters_row_outer_parent { ' . 
+			"\n\t" . 'padding-bottom: ' . esc_attr($data_padding_bottom) . 'px; ' . 
 		"\n" . '} ' . "\n\n";
 	}
 	
 	
 	if ($data_color_overlay != '') {
-		$out_style .= '#cmsmasters_row_' . $unique_id . ' .cmsmasters_row_overlay { ' .
+		$out_style .= '#cmsmasters_row_' . esc_attr($unique_id) . ' .cmsmasters_row_overlay { ' .
 			"\n\t" . cmsmasters_color_css('background-color', $data_color_overlay) . 
 		"\n" . '} ' . "\n\n";
 	}
@@ -241,15 +267,15 @@ public function cmsmasters_row($atts, $content = null) {
 	
 	if ($data_width == 'fullwidth') {
 		if ($data_padding_left != '') {
-			$out_style_content .= '#cmsmasters_row_' . $unique_id . ' .cmsmasters_row_inner.cmsmasters_row_fullwidth { ' . 
-				"\n\t" . 'padding-left:' . $data_padding_left . '%; ' . 
+			$out_style_content .= '#cmsmasters_row_' . esc_attr($unique_id) . ' .cmsmasters_row_inner.cmsmasters_row_fullwidth { ' . 
+				"\n\t" . 'padding-left:' . esc_attr($data_padding_left) . '%; ' . 
 			"\n" . '} ' . "\n";
 		}
 		
 		
 		if ($data_padding_right != '') {
-			$out_style_content .= '#cmsmasters_row_' . $unique_id . ' .cmsmasters_row_inner.cmsmasters_row_fullwidth { ' . 
-				"\n\t" . 'padding-right:' . $data_padding_right . '%; ' . 
+			$out_style_content .= '#cmsmasters_row_' . esc_attr($unique_id) . ' .cmsmasters_row_inner.cmsmasters_row_fullwidth { ' . 
+				"\n\t" . 'padding-right:' . esc_attr($data_padding_right) . '%; ' . 
 			"\n" . '} ' . "\n";
 		}
 	}
@@ -261,18 +287,18 @@ public function cmsmasters_row($atts, $content = null) {
 			($data_bot_style != '' && $data_bot_style == 'zigzag')
 		) {
 			$out_style .= "
-			#cmsmasters_row_{$unique_id}.cmsmasters_row_top_zigzag:before, 
-			#cmsmasters_row_{$unique_id}.cmsmasters_row_bot_zigzag:after {
-				background-image: -webkit-linear-gradient(135deg, {$data_bg_color} 25%, transparent 25%), 
-						-webkit-linear-gradient(45deg, {$data_bg_color} 25%, transparent 25%);
-				background-image: -moz-linear-gradient(135deg, {$data_bg_color} 25%, transparent 25%), 
-						-moz-linear-gradient(45deg, {$data_bg_color} 25%, transparent 25%);
-				background-image: -ms-linear-gradient(135deg, {$data_bg_color} 25%, transparent 25%), 
-						-ms-linear-gradient(45deg, {$data_bg_color} 25%, transparent 25%);
-				background-image: -o-linear-gradient(135deg, {$data_bg_color} 25%, transparent 25%), 
-						-o-linear-gradient(45deg, {$data_bg_color} 25%, transparent 25%);
-				background-image: linear-gradient(315deg, {$data_bg_color} 25%, transparent 25%), 
-						linear-gradient(45deg, {$data_bg_color} 25%, transparent 25%);
+			#cmsmasters_row_" . esc_attr($unique_id) . ".cmsmasters_row_top_zigzag:before, 
+			#cmsmasters_row_" . esc_attr($unique_id) . ".cmsmasters_row_bot_zigzag:after {
+				background-image: -webkit-linear-gradient(135deg, " . esc_attr($data_bg_color) . " 25%, transparent 25%), 
+						-webkit-linear-gradient(45deg, " . esc_attr($data_bg_color) . " 25%, transparent 25%);
+				background-image: -moz-linear-gradient(135deg, " . esc_attr($data_bg_color) . " 25%, transparent 25%), 
+						-moz-linear-gradient(45deg, " . esc_attr($data_bg_color) . " 25%, transparent 25%);
+				background-image: -ms-linear-gradient(135deg, " . esc_attr($data_bg_color) . " 25%, transparent 25%), 
+						-ms-linear-gradient(45deg, " . esc_attr($data_bg_color) . " 25%, transparent 25%);
+				background-image: -o-linear-gradient(135deg, " . esc_attr($data_bg_color) . " 25%, transparent 25%), 
+						-o-linear-gradient(45deg, " . esc_attr($data_bg_color) . " 25%, transparent 25%);
+				background-image: linear-gradient(315deg, " . esc_attr($data_bg_color) . " 25%, transparent 25%), 
+						linear-gradient(45deg, " . esc_attr($data_bg_color) . " 25%, transparent 25%);
 			}";
 		}
 	}
@@ -281,10 +307,10 @@ public function cmsmasters_row($atts, $content = null) {
 	$out_style_finish = '</style>';
 	
 	
-	$out_start = '<div id="cmsmasters_row_' . $unique_id . '" class="cmsmasters_row cmsmasters_color_scheme_' . $data_color . 
-	(($data_classes != '') ? ' ' . $data_classes : '') . 
-	($data_top_style != '' ? ' cmsmasters_row_top_' . $data_top_style : '') . 
-	($data_bot_style != '' ? ' cmsmasters_row_bot_' . $data_bot_style : '');
+	$out_start = '<div id="cmsmasters_row_' . esc_attr($unique_id) . '" class="cmsmasters_row cmsmasters_color_scheme_' . esc_attr($data_color) . 
+	(($data_classes != '') ? ' ' . esc_attr($data_classes) : '') . 
+	($data_top_style != '' ? ' cmsmasters_row_top_' . esc_attr($data_top_style) : '') . 
+	($data_bot_style != '' ? ' cmsmasters_row_bot_' . esc_attr($data_bot_style) : '');
 	
 		if ($data_width == 'fullwidth') {
 			$out_start .= ' cmsmasters_row_fullwidth';
@@ -293,10 +319,10 @@ public function cmsmasters_row($atts, $content = null) {
 		}
 		
 	$out_start .= '"' . 
-	(($data_bg_parallax != '') ? ' data-stellar-background-ratio="' . $data_bg_parallax_ratio . '"' : '') . 
+	(($data_bg_parallax != '') ? ' data-stellar-background-ratio="' . esc_attr($data_bg_parallax_ratio) . '"' : '') . 
 	'>' . "\n" . 
 		'<div' . 
-		(($data_id != '') ? ' id="' . $data_id . '"' : '') . 
+		(($data_id != '') ? ' id="' . esc_attr($data_id) . '"' : '') . 
 		' class="cmsmasters_row_outer_parent">' . "\n" . 
 			(($data_color_overlay != '') ? '<div class="cmsmasters_row_overlay"></div>' . "\n" : '') . 
 			'<div class="cmsmasters_row_outer">' . "\n";
@@ -366,11 +392,11 @@ public function cmsmasters_column($atts, $content = null) {
 	}
 	
 	
-    return cmsmasters_divpdel('<div class="cmsmasters_column ' . $new_width . 
-	(($data_classes != '') ? ' ' . $data_classes : '') . 
+    return cmsmasters_divpdel('<div class="cmsmasters_column ' . esc_attr($new_width) . 
+	(($data_classes != '') ? ' ' . esc_attr($data_classes) : '') . 
 	'"' . 
-	(($data_animation != '') ? ' data-animation="' . $data_animation . '"' : '') . 
-	(($data_animation != '' && $data_animation_delay != '') ? ' data-delay="' . $data_animation_delay . '"' : '') . 
+	(($data_animation != '') ? ' data-animation="' . esc_attr($data_animation) . '"' : '') . 
+	(($data_animation != '' && $data_animation_delay != '') ? ' data-delay="' . esc_attr($data_animation_delay) . '"' : '') . 
 	'>' . "\n" . 
 		do_shortcode(wpautop($content, false)) . 
 	'</div>' . "\n");
@@ -390,10 +416,10 @@ public function cmsmasters_text($atts, $content = null) {
 	
 	
     return cmsmasters_divpdel('<div class="cmsmasters_text' . 
-	(($classes != '') ? ' ' . $classes : '') . 
+	(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 	'"' . 
-	(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-	(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+	(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+	(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 	'>' . "\n" . 
 		do_shortcode(wpautop($content)) . 
 	'</div>' . "\n");
@@ -452,7 +478,7 @@ public function cmsmasters_notice($atts, $content = null) {
 	
 	if ($type == 'cmsmasters_notice_custom') {
 		$out .= '<style type="text/css"> ' . "\n" . 
-			'#cmsmasters_notice_' . $unique_id . ' { ' . 
+			'#cmsmasters_notice_' . esc_attr($unique_id) . ' { ' . 
 				"\n\t" . cmsmasters_color_css('background-color', $bg_color) . 
 				"\n\t" . cmsmasters_color_css('border-color', $bd_color) . 
 				"\n\t" . cmsmasters_color_css('color', $color) . 
@@ -464,12 +490,12 @@ public function cmsmasters_notice($atts, $content = null) {
 	}
 	
 	
-    $out .= '<div id="cmsmasters_notice_' . $unique_id . '" class="cmsmasters_notice ' . $type . 
-	(($icon != '') ? ' ' . $icon : '') . 
-	(($classes != '') ? ' ' . $classes : '') . 
+    $out .= '<div id="cmsmasters_notice_' . esc_attr($unique_id) . '" class="cmsmasters_notice ' . esc_attr($type) . 
+	(($icon != '') ? ' ' . esc_attr($icon) : '') . 
+	(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 	'"' . 
-	(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-	(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+	(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+	(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 	'>' . "\n" . 
 		(($close != '') ? '<a href="#" class="notice_close cmsmasters_theme_icon_cancel"></a>' : '') . 
 		cmsmasters_divpdel('<div class="notice_content">' . "\n" . 
@@ -563,15 +589,23 @@ public function cmsmasters_icon_box($atts, $content = null) {
 	$unique_id = strtr($unique_id, '.', '_');
 	
 	
+	$local_fonts = '';
+	
 	if ($button_font_family != '') {
 		$font_family_array = str_replace('+', ' ', explode(':', $button_font_family));
 		
-		$font_family_name = "'" . $font_family_array[0] . "'";
 		
-		$font_family_url = str_replace('+', ' ', $button_font_family);
-		
-		
-		cmsmasters_theme_google_font($font_family_url, $font_family_array[0]);
+		if (is_numeric($font_family_array[0])) {
+			$font_family_name = "'" . $font_family_array[1] . "'";
+			
+			if (is_admin()) {
+				$local_fonts .= 'cmsmasters_local_font_start=' . $button_font_family . '=cmsmasters_local_font_end';
+			}
+		} else {
+			$font_family_name = "'" . $font_family_array[0] . "'";
+			
+			cmsmasters_theme_google_font($button_font_family, $button_font_family);
+		}
 	}
 	
 	
@@ -600,21 +634,21 @@ public function cmsmasters_icon_box($atts, $content = null) {
 	
 	
 	$out = '<style type="text/css"> ' . "\n" . 
-		'#cmsmasters_icon_box_' . $unique_id . ' { ' . 
-			(($box_border_width != '') ? "\n\t" . 'border-width:' . $box_border_width . 'px; ' : '') . 
-			(((int) $box_border_radius > 0) ? "\n\t" . '-webkit-border-radius:' . $box_border_radius . '; ' . "\n\t" . 'border-radius:' . $box_border_radius . '; ' : '') . 
+		'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' { ' . 
+			(($box_border_width != '') ? "\n\t" . 'border-width:' . esc_attr($box_border_width) . 'px; ' : '') . 
+			(((int) $box_border_radius > 0) ? "\n\t" . '-webkit-border-radius:' . esc_attr($box_border_radius) . '; ' . "\n\t" . 'border-radius:' . esc_attr($box_border_radius) . '; ' : '') . 
 			(($box_color != '') ? "\n\t" . cmsmasters_color_css('color', $box_color) : '') . 
 			(($box_bg_color != '') ? "\n\t" . cmsmasters_color_css('background-color', $box_bg_color) : '') . 
 			(($box_bd_color != '') ? "\n\t" . cmsmasters_color_css('border-color', $box_bd_color) : '') . 
 		"\n" . '} ' . "\n\n" . 
-		'#cmsmasters_icon_box_' . $unique_id . ':before, ' . "\n" . 
-		'#cmsmasters_icon_box_' . $unique_id . ' .icon_box_heading:before { ' . 
-			"\n\t" . 'font-size:' . $box_icon_size . 'px; ' . 
-			"\n\t" . 'line-height:' . ((int) $box_icon_space - ((int) $box_icon_border_width * 2)) . 'px; ' . 
-			"\n\t" . 'width:' . $box_icon_space . 'px; ' . 
-			"\n\t" . 'height:' . $box_icon_space . 'px; ' . 
-			"\n\t" . 'border-width:' . $box_icon_border_width . 'px; ' . 
-			(((int) $box_icon_border_radius > 0) ? "\n\t" . '-webkit-border-radius:' . $box_icon_border_radius . '; ' . "\n\t" . 'border-radius:' . $box_icon_border_radius . '; ' : '') . 
+		'#cmsmasters_icon_box_' . esc_attr($unique_id) . ':before, ' . "\n" . 
+		'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .icon_box_heading:before { ' . 
+			"\n\t" . 'font-size:' . esc_attr($box_icon_size) . 'px; ' . 
+			"\n\t" . 'line-height:' . esc_attr(((int) $box_icon_space - ((int) $box_icon_border_width * 2))) . 'px; ' . 
+			"\n\t" . 'width:' . esc_attr($box_icon_space) . 'px; ' . 
+			"\n\t" . 'height:' . esc_attr($box_icon_space) . 'px; ' . 
+			"\n\t" . 'border-width:' . esc_attr($box_icon_border_width) . 'px; ' . 
+			(((int) $box_icon_border_radius > 0) ? "\n\t" . '-webkit-border-radius:' . esc_attr($box_icon_border_radius) . '; ' . "\n\t" . 'border-radius:' . esc_attr($box_icon_border_radius) . '; ' : '') . 
 			(($box_icon_color != '') ? "\n\t" . cmsmasters_color_css('color', $box_icon_color) : '') . 
 			(($box_icon_bg_color != '') ? "\n\t" . cmsmasters_color_css('background-color', $box_icon_bg_color) : '') . 
 			(($box_icon_bd_color != '') ? "\n\t" . cmsmasters_color_css('border-color', $box_icon_bd_color) : '') . 
@@ -628,94 +662,94 @@ public function cmsmasters_icon_box($atts, $content = null) {
 			((int) $box_border_width > 0) 
 		) 
 	) {
-		$out .= '#cmsmasters_icon_box_' . $unique_id . '.cmsmasters_icon_heading_left, ' . "\n" . 
-		'#cmsmasters_icon_box_' . $unique_id . '.cmsmasters_icon_top, ' . "\n" . 
-		'#cmsmasters_icon_box_' . $unique_id . '.cmsmasters_icon_box_left_top { ' . 
+		$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . '.cmsmasters_icon_heading_left, ' . "\n" . 
+		'#cmsmasters_icon_box_' . esc_attr($unique_id) . '.cmsmasters_icon_top, ' . "\n" . 
+		'#cmsmasters_icon_box_' . esc_attr($unique_id) . '.cmsmasters_icon_box_left_top { ' . 
 			"\n\t" . 'padding:30px 20px; ' . 
 		'} ' . "\n\n" . 
-		'#cmsmasters_icon_box_' . $unique_id . '.cmsmasters_icon_top:before { ' . 
+		'#cmsmasters_icon_box_' . esc_attr($unique_id) . '.cmsmasters_icon_top:before { ' . 
 			"\n\t" . 'top:30px;' . 
 		'} ' . "\n\n";
 	}
 	
 	
 	if ($box_color != '') {
-		$out .= '#cmsmasters_icon_box_' . $unique_id . ' a:not(.cmsmasters_button), ' . "\n" . 
-		'#cmsmasters_icon_box_' . $unique_id . ' a:not(.cmsmasters_button):hover, ' . "\n" . 
-		'#cmsmasters_icon_box_' . $unique_id . ' h1, ' . "\n" . 
-		'#cmsmasters_icon_box_' . $unique_id . ' h2, ' . "\n" . 
-		'#cmsmasters_icon_box_' . $unique_id . ' h3, ' . "\n" . 
-		'#cmsmasters_icon_box_' . $unique_id . ' h4, ' . "\n" . 
-		'#cmsmasters_icon_box_' . $unique_id . ' h5, ' . "\n" . 
-		'#cmsmasters_icon_box_' . $unique_id . ' h6 { ' . 
+		$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . ' a:not(.cmsmasters_button), ' . "\n" . 
+		'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' a:not(.cmsmasters_button):hover, ' . "\n" . 
+		'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' h1, ' . "\n" . 
+		'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' h2, ' . "\n" . 
+		'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' h3, ' . "\n" . 
+		'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' h4, ' . "\n" . 
+		'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' h5, ' . "\n" . 
+		'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' h6 { ' . 
 			"\n\t" . cmsmasters_color_css('color', $box_color) . 
 		'} ' . "\n\n" . 
-		'#cmsmasters_icon_box_' . $unique_id . ' a:not(.cmsmasters_button) { ' . "\n" . 
+		'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' a:not(.cmsmasters_button) { ' . "\n" . 
 			"\n\t" . 'text-decoration:underline;' . 
 		'} ' . "\n\n" . 
-		'#cmsmasters_icon_box_' . $unique_id . ' a:not(.cmsmasters_button):hover { ' . "\n" . 
+		'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' a:not(.cmsmasters_button):hover { ' . "\n" . 
 			"\n\t" . 'text-decoration:none;' . 
 		'} ' . "\n\n";
 	}
 	
 	
 	if ($box_type == 'cmsmasters_icon_top' || $box_type == 'cmsmasters_icon_box_top') {
-		$out .= '#cmsmasters_icon_box_' . $unique_id . ' { ' . 
-			"\n\t" . 'padding-top:' . ((int) $box_icon_space + 30) . 'px; ' . 
+		$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . ' { ' . 
+			"\n\t" . 'padding-top:' . esc_attr(((int) $box_icon_space + 30)) . 'px; ' . 
 		'} ' . "\n\n" . 
-		'#cmsmasters_icon_box_' . $unique_id . ':before, ' . "\n" . 
-		'#cmsmasters_icon_box_' . $unique_id . ' .icon_box_heading:before { ' . 
-			"\n\t" . 'margin-left:-' . ((int) $box_icon_space / 2) . 'px; ' . 
+		'#cmsmasters_icon_box_' . esc_attr($unique_id) . ':before, ' . "\n" . 
+		'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .icon_box_heading:before { ' . 
+			"\n\t" . 'margin-left:-' . esc_attr(((int) $box_icon_space / 2)) . 'px; ' . 
 		"\n\t" . '} ' . "\n\n";
 	}
 	
 	
 	if ($box_type == 'cmsmasters_icon_top') {
-		$out .= '#cmsmasters_icon_box_' . $unique_id . '.cmsmasters_icon_top { ' . 
-			"\n\t" . 'padding-top:' . ((int) $box_icon_space + 60) . 'px; ' . 
+		$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . '.cmsmasters_icon_top { ' . 
+			"\n\t" . 'padding-top:' . esc_attr(((int) $box_icon_space + 60)) . 'px; ' . 
 		"\n\t" . '} ' . "\n\n";
 	}
 	
 	
 	if ($box_type == 'cmsmasters_icon_box_top') {
-		$out .= '#cmsmasters_icon_box_' . $unique_id . '.cmsmasters_icon_box_top { ' . 
-			"\n\t" . 'padding-top:' . ((int) $box_icon_space - ((int) $box_icon_space / 2) + 30) . 'px; ' . 
-			"\n\t" . 'margin-top:' . ((int) $box_icon_space / 2) . 'px; ' . 
+		$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . '.cmsmasters_icon_box_top { ' . 
+			"\n\t" . 'padding-top:' . esc_attr(((int) $box_icon_space - ((int) $box_icon_space / 2) + 30)) . 'px; ' . 
+			"\n\t" . 'margin-top:' . esc_attr(((int) $box_icon_space / 2)) . 'px; ' . 
 		"\n\t" . '} ' . "\n\n" . 
-		'#cmsmasters_icon_box_' . $unique_id . '.cmsmasters_icon_box_top:before { ' . 
-			"\n\t" . 'top:-' . ((int) $box_icon_space / 2) . 'px; ' . 
+		'#cmsmasters_icon_box_' . esc_attr($unique_id) . '.cmsmasters_icon_box_top:before { ' . 
+			"\n\t" . 'top:-' . esc_attr(((int) $box_icon_space / 2)) . 'px; ' . 
 		"\n\t" . '} ' . "\n\n";
 	}
 	
 	
 	if ($box_type == 'cmsmasters_icon_box_left' || $box_type == 'cmsmasters_icon_box_left_top') {
 		if (!is_rtl()) {
-			$out .= '#cmsmasters_icon_box_' . $unique_id . '.cmsmasters_icon_box_left, ' . "\n" . 
-			'#cmsmasters_icon_box_' . $unique_id . '.cmsmasters_icon_box_left_top { ' . 
-				"\n\t" . 'padding-left:' . ((int) $box_icon_space - ((int) $box_icon_space / 2) + 30) . 'px; ' . 
-				"\n\t" . 'margin-left:' . ((int) $box_icon_space / 2) . 'px; ' . 
+			$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . '.cmsmasters_icon_box_left, ' . "\n" . 
+			'#cmsmasters_icon_box_' . esc_attr($unique_id) . '.cmsmasters_icon_box_left_top { ' . 
+				"\n\t" . 'padding-left:' . esc_attr(((int) $box_icon_space - ((int) $box_icon_space / 2) + 30)) . 'px; ' . 
+				"\n\t" . 'margin-left:' . esc_attr(((int) $box_icon_space / 2)) . 'px; ' . 
 			"\n\t" . '} ' . "\n\n" . 
-			'#cmsmasters_icon_box_' . $unique_id . '.cmsmasters_icon_box_left:before, ' . "\n" . 
-			'#cmsmasters_icon_box_' . $unique_id . '.cmsmasters_icon_box_left_top:before { ' . 
-				"\n\t" . 'left:-' . ((int) $box_icon_space / 2) . 'px; ' . 
+			'#cmsmasters_icon_box_' . esc_attr($unique_id) . '.cmsmasters_icon_box_left:before, ' . "\n" . 
+			'#cmsmasters_icon_box_' . esc_attr($unique_id) . '.cmsmasters_icon_box_left_top:before { ' . 
+				"\n\t" . 'left:-' . esc_attr(((int) $box_icon_space / 2)) . 'px; ' . 
 			"\n\t" . '} ' . "\n\n";
 		} else {
-			$out .= '#cmsmasters_icon_box_' . $unique_id . '.cmsmasters_icon_box_left, ' . "\n" . 
-			'#cmsmasters_icon_box_' . $unique_id . '.cmsmasters_icon_box_left_top { ' . 
-				"\n\t" . 'padding-right:' . ((int) $box_icon_space - ((int) $box_icon_space / 2) + 30) . 'px; ' . 
-				"\n\t" . 'margin-right:' . ((int) $box_icon_space / 2) . 'px; ' . 
+			$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . '.cmsmasters_icon_box_left, ' . "\n" . 
+			'#cmsmasters_icon_box_' . esc_attr($unique_id) . '.cmsmasters_icon_box_left_top { ' . 
+				"\n\t" . 'padding-right:' . esc_attr(((int) $box_icon_space - ((int) $box_icon_space / 2) + 30)) . 'px; ' . 
+				"\n\t" . 'margin-right:' . esc_attr(((int) $box_icon_space / 2)) . 'px; ' . 
 			"\n\t" . '} ' . "\n\n" . 
-			'#cmsmasters_icon_box_' . $unique_id . '.cmsmasters_icon_box_left:before, ' . "\n" . 
-			'#cmsmasters_icon_box_' . $unique_id . '.cmsmasters_icon_box_left_top:before { ' . 
-				"\n\t" . 'right:-' . ((int) $box_icon_space / 2) . 'px; ' . 
+			'#cmsmasters_icon_box_' . esc_attr($unique_id) . '.cmsmasters_icon_box_left:before, ' . "\n" . 
+			'#cmsmasters_icon_box_' . esc_attr($unique_id) . '.cmsmasters_icon_box_left_top:before { ' . 
+				"\n\t" . 'right:-' . esc_attr(((int) $box_icon_space / 2)) . 'px; ' . 
 			"\n\t" . '} ' . "\n\n";
 		}
 	}
 	
 	
 	if ($box_type == 'cmsmasters_icon_box_left') {
-		$out .= '#cmsmasters_icon_box_' . $unique_id . '.cmsmasters_icon_box_left:before { ' . 
-			"\n\t" . 'margin-top:-' . ((int) $box_icon_space / 2) . 'px; ' . 
+		$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . '.cmsmasters_icon_box_left:before { ' . 
+			"\n\t" . 'margin-top:-' . esc_attr(((int) $box_icon_space / 2)) . 'px; ' . 
 		"\n\t" . '} ' . "\n\n";
 	}
 	
@@ -730,12 +764,12 @@ public function cmsmasters_icon_box($atts, $content = null) {
 			) 
 		) 
 	) {
-		$out .= '#cmsmasters_icon_box_' . $unique_id . '.cmsmasters_icon_box_left_top { ' . 
-			"\n\t" . 'padding-top:' . ((int) $box_icon_space - ((int) $box_icon_space / 2)) . 'px; ' . 
-			"\n\t" . 'margin-top:' . $box_icon_space . 'px; ' . 
+		$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . '.cmsmasters_icon_box_left_top { ' . 
+			"\n\t" . 'padding-top:' . esc_attr(((int) $box_icon_space - ((int) $box_icon_space / 2))) . 'px; ' . 
+			"\n\t" . 'margin-top:' . esc_attr($box_icon_space) . 'px; ' . 
 		"\n\t" . '} ' . "\n\n" . 
-		'#cmsmasters_icon_box_' . $unique_id . '.cmsmasters_icon_box_left_top:before { ' . 
-			"\n\t" . 'margin-top:-' . ((int) $box_icon_space / 2) . 'px; ' . 
+		'#cmsmasters_icon_box_' . esc_attr($unique_id) . '.cmsmasters_icon_box_left_top:before { ' . 
+			"\n\t" . 'margin-top:-' . esc_attr(((int) $box_icon_space / 2)) . 'px; ' . 
 		"\n\t" . '} ' . "\n\n";
 	}
 	
@@ -755,21 +789,21 @@ public function cmsmasters_icon_box($atts, $content = null) {
 		}
 		
 		
-		$out .= '#cmsmasters_icon_box_' . $unique_id . (($box_type != 'cmsmasters_icon_heading_left') ? ':before' : '.cmsmasters_icon_heading_left .icon_box_heading:before') . ' { ' . 
-			"\n\t" . 'background-image:url(' . $image_url . '); ' . 
+		$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . (($box_type != 'cmsmasters_icon_heading_left') ? ':before' : '.cmsmasters_icon_heading_left .icon_box_heading:before') . ' { ' . 
+			"\n\t" . 'background-image:url(' . esc_url($image_url) . '); ' . 
 		"\n" . '} ' . "\n";
 	}
 	
 	
 	if ($box_icon_type == 'number') {
-		$out .= '#cmsmasters_icon_box_' . $unique_id . (($box_type != 'cmsmasters_icon_heading_left') ? ':before' : '.cmsmasters_icon_heading_left .icon_box_heading:before') . ' { ' . 
-			"\n\t" . "content:'" . $box_icon_number . "'; " . 
+		$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . (($box_type != 'cmsmasters_icon_heading_left') ? ':before' : '.cmsmasters_icon_heading_left .icon_box_heading:before') . ' { ' . 
+			"\n\t" . "content:'" . esc_attr($box_icon_number) . "'; " . 
 		"\n" . '} ' . "\n";
 	}
 	
 	
 	if ($button_show == 'true') {
-		$out .= '#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button:before { ' . 
+		$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button:before { ' . 
 			"\n\t" . 'margin-right:' . (($button_title != '') ? '.5em; ' : '0;') . 
 			"\n\t" . 'margin-left:0; ' . 
 			"\n\t" . 'vertical-align:baseline; ' . 
@@ -777,23 +811,23 @@ public function cmsmasters_icon_box($atts, $content = null) {
 		
 		
 		if ($button_custom_styles == 'true') {
-			$out .= '#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button { ' . 
+			$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button { ' . 
 				(($button_font_family != '') ? "\n\t" . 'font-family:' . str_replace('+', ' ', $font_family_name) . '; ' : '') . 
-				(($button_font_size != '') ? "\n\t" . 'font-size:' . $button_font_size . 'px; ' : '') . 
-				(($button_line_height != '') ? "\n\t" . 'line-height:' . $button_line_height . 'px; ' : '') . 
-				(($button_font_weight != '') ? "\n\t" . 'font-weight:' . $button_font_weight . '; ' : '') . 
-				(($button_font_style != '') ? "\n\t" . 'font-style:' . $button_font_style . '; ' : '') . 
-				(($button_padding_hor != '') ? "\n\t" . 'padding-right:' . $button_padding_hor . 'px; ' : '') . 
-				(($button_padding_hor != '') ? "\n\t" . 'padding-left:' . $button_padding_hor . 'px; ' : '') . 
-				(($button_border_width != '') ? "\n\t" . 'border-width:' . $button_border_width . 'px; ' : '') . 
-				(($button_border_style != '') ? "\n\t" . 'border-style:' . $button_border_style . '; ' : '') . 
-				(($button_border_radius != '') ? "\n\t" . '-webkit-border-radius:' . $button_border_radius . '; ' . "\n\t" . 'border-radius:' . $button_border_radius . '; ' : '') . 
+				(($button_font_size != '') ? "\n\t" . 'font-size:' . esc_attr($button_font_size) . 'px; ' : '') . 
+				(($button_line_height != '') ? "\n\t" . 'line-height:' . esc_attr($button_line_height) . 'px; ' : '') . 
+				(($button_font_weight != '') ? "\n\t" . 'font-weight:' . esc_attr($button_font_weight) . '; ' : '') . 
+				(($button_font_style != '') ? "\n\t" . 'font-style:' . esc_attr($button_font_style) . '; ' : '') . 
+				(($button_padding_hor != '') ? "\n\t" . 'padding-right:' . esc_attr($button_padding_hor) . 'px; ' : '') . 
+				(($button_padding_hor != '') ? "\n\t" . 'padding-left:' . esc_attr($button_padding_hor) . 'px; ' : '') . 
+				(($button_border_width != '') ? "\n\t" . 'border-width:' . esc_attr($button_border_width) . 'px; ' : '') . 
+				(($button_border_style != '') ? "\n\t" . 'border-style:' . esc_attr($button_border_style) . '; ' : '') . 
+				(($button_border_radius != '') ? "\n\t" . '-webkit-border-radius:' . esc_attr($button_border_radius) . '; ' . "\n\t" . 'border-radius:' . esc_attr($button_border_radius) . '; ' : '') . 
 				(($button_bg_color != '') ? "\n\t" . cmsmasters_color_css('background-color', $button_bg_color) : '') . 
 				(($button_text_color != '') ? "\n\t" . cmsmasters_color_css('color', $button_text_color) : '') . 
 				(($button_border_color != '') ? "\n\t" . cmsmasters_color_css('border-color', $button_border_color) : '') . 
 			"\n" . '} ' . "\n";
 			
-			$out .= '#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button:hover { ' . 
+			$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button:hover { ' . 
 				(($button_bg_color_h != '') ? "\n\t" . cmsmasters_color_css('background-color', $button_bg_color_h) : '') . 
 				(($button_text_color_h != '') ? "\n\t" . cmsmasters_color_css('color', $button_text_color_h) : '') . 
 				(($button_border_color_h != '') ? "\n\t" . cmsmasters_color_css('border-color', $button_border_color_h) : '') . 
@@ -811,25 +845,25 @@ public function cmsmasters_icon_box($atts, $content = null) {
 					$button_style == 'cmsmasters_but_bg_expand_diag' 
 				) {
 					if ($button_bg_color != '') {
-						$out .= '#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_left:hover, ' . 
-						'#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_right:hover, ' . 
-						'#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_top:hover, ' . 
-						'#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_bottom:hover, ' . 
-						'#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_expand_vert:hover, ' . 
-						'#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_expand_hor:hover, ' . 
-						'#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_expand_diag:hover { ' . 
+						$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_left:hover, ' . 
+						'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_right:hover, ' . 
+						'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_top:hover, ' . 
+						'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_bottom:hover, ' . 
+						'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_expand_vert:hover, ' . 
+						'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_expand_hor:hover, ' . 
+						'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_expand_diag:hover { ' . 
 							"\n\t" . cmsmasters_color_css('background-color', $button_bg_color) . 
 						"\n" . '} ' . "\n";
 					}
 					
 					if ($button_bg_color_h != '') {
-						$out .= '#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_left:after, ' . 
-						'#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_right:after, ' . 
-						'#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_top:after, ' . 
-						'#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_bottom:after, ' . 
-						'#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_expand_vert:after, ' . 
-						'#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_expand_hor:after, ' . 
-						'#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_expand_diag:after { ' . 
+						$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_left:after, ' . 
+						'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_right:after, ' . 
+						'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_top:after, ' . 
+						'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_bottom:after, ' . 
+						'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_expand_vert:after, ' . 
+						'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_expand_hor:after, ' . 
+						'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_expand_diag:after { ' . 
 							"\n\t" . cmsmasters_color_css('background-color', $button_bg_color_h) . 
 						"\n" . '} ' . "\n";
 					}
@@ -845,51 +879,51 @@ public function cmsmasters_icon_box($atts, $content = null) {
 					$but_icon_pad = ($button_padding_hor != '' ? $button_padding_hor : '20') + ($button_line_height != '' ? $button_line_height : '40');
 					
 					if ($button_padding_hor != '' || $button_line_height != '') {
-						$out .= '#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_dark_bg, ' . 
-						'#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_light_bg, ' . 
-						'#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_divider, ' .  
-						'#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse { ' . 
-							"\n\t" . 'padding-left:' . $but_icon_pad . 'px; ' . 
+						$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_dark_bg, ' . 
+						'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_light_bg, ' . 
+						'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_divider, ' .  
+						'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse { ' . 
+							"\n\t" . 'padding-left:' . esc_attr($but_icon_pad) . 'px; ' . 
 						"\n" . '} ' . "\n";
 						
-						$out .= '#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_dark_bg:before, ' . 
-						'#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_light_bg:before, ' . 
-						'#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_divider:before, ' . 
-						'#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse:before, ' . 
-						'#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_dark_bg:after, ' . 
-						'#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_light_bg:after, ' . 
-						'#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_divider:after, ' . 
-						'#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse:after { ' . 
-							"\n\t" . 'width:' . $button_line_height . 'px; ' . 
+						$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_dark_bg:before, ' . 
+						'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_light_bg:before, ' . 
+						'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_divider:before, ' . 
+						'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse:before, ' . 
+						'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_dark_bg:after, ' . 
+						'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_light_bg:after, ' . 
+						'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_divider:after, ' . 
+						'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse:after { ' . 
+							"\n\t" . 'width:' . esc_attr($button_line_height) . 'px; ' . 
 						"\n" . '} ' . "\n";
 					}
 					
 					
 					if ($button_border_color != '' || $button_border_color_h != '') {
-						$out .= '#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_divider:after { ' . 
+						$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_divider:after { ' . 
 							"\n\t" . cmsmasters_color_css('border-color', $button_border_color) . 
 						"\n" . '} ' . "\n";
 						
-						$out .= '#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_divider:hover:after { ' . 
+						$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_divider:hover:after { ' . 
 							"\n\t" . cmsmasters_color_css('border-color', $button_border_color_h) . 
 						"\n" . '} ' . "\n";
 					}
 					
 					
 					if ($button_style == 'cmsmasters_but_icon_inverse') {
-						$out .= '#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse:before { ' . 
+						$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse:before { ' . 
 							(($button_text_color_h != '') ? "\n\t" . cmsmasters_color_css('color', $button_text_color_h) : '') . 
 						"\n" . '} ' . "\n";
 					
-						$out .= '#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse:after { ' . 
+						$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse:after { ' . 
 							(($button_bg_color_h != '') ? "\n\t" . cmsmasters_color_css('background-color', $button_bg_color_h) : '') . 
 						"\n" . '} ' . "\n";
 						
-						$out .= '#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse:hover:before { ' . 
+						$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse:hover:before { ' . 
 							(($button_text_color != '') ? "\n\t" . cmsmasters_color_css('color', $button_text_color) : '') . 
 						"\n" . '} ' . "\n";
 						
-						$out .= '#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse:hover:after { ' . 
+						$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse:hover:after { ' . 
 							(($button_bg_color != '') ? "\n\t" . cmsmasters_color_css('background-color', $button_bg_color) : '') . 
 						"\n" . '} ' . "\n";
 					}
@@ -901,27 +935,27 @@ public function cmsmasters_icon_box($atts, $content = null) {
 					$button_style == 'cmsmasters_but_icon_slide_right' 
 				) {
 					if ($button_padding_hor != '') {
-						$out .= '#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_slide_left, ' . 
-						'#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_slide_right { ' . 
-							"\n\t" . 'padding-left:' . ($button_padding_hor * 2) . 'px; ' . 
-							"\n\t" . 'padding-right:' . ($button_padding_hor * 2) . 'px; ' . 
+						$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_slide_left, ' . 
+						'#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_slide_right { ' . 
+							"\n\t" . 'padding-left:' . esc_attr($button_padding_hor * 2) . 'px; ' . 
+							"\n\t" . 'padding-right:' . esc_attr($button_padding_hor * 2) . 'px; ' . 
 						"\n" . '} ' . "\n";
 						
-						$out .= '#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_slide_left:before { ' . 
-							"\n\t" . 'width:' . ($button_padding_hor * 2) . 'px; ' . 
-							"\n\t" . 'left:-' . ($button_padding_hor * 2) . 'px; ' . 
+						$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_slide_left:before { ' . 
+							"\n\t" . 'width:' . esc_attr($button_padding_hor * 2) . 'px; ' . 
+							"\n\t" . 'left:-' . esc_attr($button_padding_hor * 2) . 'px; ' . 
 						"\n" . '} ' . "\n";
 						
-						$out .= '#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_slide_left:hover:before { ' . 
+						$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_slide_left:hover:before { ' . 
 							"\n\t" . 'left:0; ' . 
 						"\n" . '} ' . "\n";
 						
-						$out .= '#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_slide_right:before { ' . 
-							"\n\t" . 'width:' . ($button_padding_hor * 2) . 'px; ' . 
-							"\n\t" . 'right:-' . ($button_padding_hor * 2) . 'px; ' . 
+						$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_slide_right:before { ' . 
+							"\n\t" . 'width:' . esc_attr($button_padding_hor * 2) . 'px; ' . 
+							"\n\t" . 'right:-' . esc_attr($button_padding_hor * 2) . 'px; ' . 
 						"\n" . '} ' . "\n";
 						
-						$out .= '#cmsmasters_icon_box_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_slide_right:hover:before { ' . 
+						$out .= '#cmsmasters_icon_box_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_slide_right:hover:before { ' . 
 							"\n\t" . 'right:0; ' . 
 						"\n" . '} ' . "\n";
 					}
@@ -929,25 +963,29 @@ public function cmsmasters_icon_box($atts, $content = null) {
 			}
 		}
 	}
+
+
+	$out .= '</style>' . "\n";
 	
+
+	$out .= $local_fonts;
 	
+
 	$box_icon = ($box_icon_type == 'icon') ? $box_icon : '';
 	
 	
-	$out .= '</style>' . "\n" . 
-	'<div id="cmsmasters_icon_box_' . $unique_id . '" class="cmsmasters_icon_box ' . $box_type . ' box_icon_type_' . $box_icon_type . 
-	(($box_type != 'cmsmasters_icon_heading_left') ? ' ' . $box_icon : '') . 
-	(($classes != '') ? ' ' . $classes : '') . 
+	$out .= '<div id="cmsmasters_icon_box_' . esc_attr($unique_id) . '" class="cmsmasters_icon_box ' . esc_attr($box_type) . ' box_icon_type_' . $box_icon_type . 
+	(($box_type != 'cmsmasters_icon_heading_left') ? ' ' . esc_attr($box_icon) : '') . 
+	(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 	'"' . 
-	(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-	(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+	(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+	(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 	'>' . "\n" . 
 		'<div class="icon_box_inner">' . "\n";
 			
 			
 			if ($title != '') {
-				$out .= '<' . $heading_type . ' class="icon_box_heading' . (($box_type == 'cmsmasters_icon_heading_left') ? ' ' . $box_icon  . '' : '') . '">' . $title . '</' . $heading_type . '>' . "\n";
-			
+				$out .= '<' . esc_attr($heading_type) . ' class="icon_box_heading' . (($box_type == 'cmsmasters_icon_heading_left') ? ' ' . esc_attr($box_icon)  . '' : '') . '">' . esc_html($title) . '</' . esc_attr($heading_type) . '>' . "\n";
 			}
 			
 			
@@ -957,12 +995,12 @@ public function cmsmasters_icon_box($atts, $content = null) {
 			
 			
 			if ($button_show == 'true') {
-				$out .= '<a href="' . $button_link . '" class="cmsmasters_button icon_box_button' . 
-				(($button_style != '') ? ' cmsmasters_but_clear_styles ' . $button_style : '') . 
-				(($button_icon != '') ? ' ' . $button_icon : '') . 
+				$out .= '<a href="' . esc_url($button_link) . '" class="cmsmasters_button icon_box_button' . 
+				(($button_style != '') ? ' cmsmasters_but_clear_styles ' . esc_attr($button_style) : '') . 
+				(($button_icon != '') ? ' ' . esc_attr($button_icon) : '') . 
 				'"' . 
 				(($button_target == 'blank') ? ' target="_blank"' : '') . 
-				'><span>' . $button_title . '</span></a>' . "\n";
+				'><span>' . esc_html($button_title) . '</span></a>' . "\n";
 			}
 			
 			
@@ -1040,10 +1078,10 @@ public function cmsmasters_featured_block($atts, $content = null) {
 		$fb_bg_color != '' || 
 		$bg_img != '' 
 	) {
-		$out .= '#cmsmasters_fb_' . $unique_id . ' { ' . 
-			(($top_padding != '') ? "\n\t" . 'padding-top:' . $top_padding . 'px; ' : '') . 
-			(($bottom_padding != '') ? "\n\t" . 'padding-bottom:' . $bottom_padding . 'px; ' : '') . 
-			(($border_radius != '') ? "\n\t" . '-webkit-border-radius:' . $border_radius . '; ' . "\n\t" . 'border-radius:' . $border_radius . '; ' : '') . 
+		$out .= '#cmsmasters_fb_' . esc_attr($unique_id) . ' { ' . 
+			(($top_padding != '') ? "\n\t" . 'padding-top:' . esc_attr($top_padding) . 'px; ' : '') . 
+			(($bottom_padding != '') ? "\n\t" . 'padding-bottom:' . esc_attr($bottom_padding) . 'px; ' : '') . 
+			(($border_radius != '') ? "\n\t" . '-webkit-border-radius:' . esc_attr($border_radius) . '; ' . "\n\t" . 'border-radius:' . esc_attr($border_radius) . '; ' : '') . 
 			(($box_shadow != '') ? "\n\t" . '-webkit-box-shadow:' . esc_attr($box_shadow) . '; ' . "\n\t" . '-moz-box-shadow:' . esc_attr($box_shadow) . '; ' . "\n\t" . 'box-shadow:' . esc_attr($box_shadow) . ';' : '') .
 			(($fb_bg_color != '') ? "\n\t" . cmsmasters_color_css('background-color', $fb_bg_color) : '');
 		
@@ -1055,11 +1093,11 @@ public function cmsmasters_featured_block($atts, $content = null) {
 			$new_bg_src = wp_get_attachment_image_src($new_bg_img[0], 'full');
 			
 			
-			$out .= "\n\t" . 'background-image: url(' . $new_bg_src[0] . '); ' . 
-			"\n\t" . 'background-position: ' . $bg_position . '; ' . 
-			"\n\t" . 'background-repeat: ' . $bg_repeat . '; ' . 
-			"\n\t" . 'background-attachment: ' . $bg_attachment . '; ' . 
-			"\n\t" . 'background-size: ' . $bg_size . '; ' . 
+			$out .= "\n\t" . 'background-image: url(' . esc_url($new_bg_src[0]) . '); ' . 
+			"\n\t" . 'background-position: ' . esc_attr($bg_position) . '; ' . 
+			"\n\t" . 'background-repeat: ' . esc_attr($bg_repeat) . '; ' . 
+			"\n\t" . 'background-attachment: ' . esc_attr($bg_attachment) . '; ' . 
+			"\n\t" . 'background-size: ' . esc_attr($bg_size) . '; ' . 
 			(($bg_attachment == 'fixed' && preg_match('/Safari/', $_SERVER['HTTP_USER_AGENT'])) ? "\n\t" . 'position: static; ' : '');
 		}
 		
@@ -1068,24 +1106,24 @@ public function cmsmasters_featured_block($atts, $content = null) {
 	}
 	
 	
-	$out .= '#cmsmasters_fb_' . $unique_id . ' .featured_block_inner { ' . 
-			"\n\t" . 'width: ' . $text_width . '%; ' . 
-			"\n\t" . 'padding: ' . $text_padding . '; ' . 
-			"\n\t" . 'text-align: ' . $text_align . '; ' . 
-			(($text_position == 'center') ? "\n\t" . 'margin:0 auto; ' : "\n\t" . 'float:' . $text_position . '; ') . 
+	$out .= '#cmsmasters_fb_' . esc_attr($unique_id) . ' .featured_block_inner { ' . 
+			"\n\t" . 'width: ' . esc_attr($text_width) . '%; ' . 
+			"\n\t" . 'padding: ' . esc_attr($text_padding) . '; ' . 
+			"\n\t" . 'text-align: ' . esc_attr($text_align) . '; ' . 
+			(($text_position == 'center') ? "\n\t" . 'margin:0 auto; ' : "\n\t" . 'float:' . esc_attr($text_position) . '; ') . 
 			(($color_overlay != '') ? "\n\t" . cmsmasters_color_css('background-color', $color_overlay) : '') . 
 		"\n" . '} ' . "\n\n" . 
-		'#cmsmasters_fb_' . $unique_id . ' .featured_block_text { ' . 
-			"\n\t" . 'text-align: ' . $text_align . '; ' . 
+		'#cmsmasters_fb_' . esc_attr($unique_id) . ' .featured_block_text { ' . 
+			"\n\t" . 'text-align: ' . esc_attr($text_align) . '; ' . 
 		"\n" . '} ' . "\n\n" . 
 	'</style>';
 	
 	
-    $out .= '<div id="cmsmasters_fb_' . $unique_id . '" class="cmsmasters_featured_block' . 
-	(($classes != '') ? ' ' . $classes : '') . 
+    $out .= '<div id="cmsmasters_fb_' . esc_attr($unique_id) . '" class="cmsmasters_featured_block' . 
+	(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 	'"' . 
-	(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-	(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+	(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+	(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 	'>' . "\n" . 
 		'<div class="featured_block_inner">' . "\n" . 
 			cmsmasters_divpdel('<div class="featured_block_text">' . 
@@ -1162,57 +1200,68 @@ public function cmsmasters_custom_heading($atts, $content = null) {
 	$unique_id = strtr($unique_id, '.', '_');
 	
 	
+	$local_fonts = '';
+
 	if ($font_family != '') {
 		$font_family_array = str_replace('+', ' ', explode(':', $font_family));
 		
-		$font_family_name = "'" . $font_family_array[0] . "'";
 		
-		$font_family_url = str_replace('+', ' ', $font_family);
-		
-		
-		cmsmasters_theme_google_font($font_family_url, $font_family_array[0]);
+		if (is_numeric($font_family_array[0])) {
+			$font_family_name = "'" . $font_family_array[1] . "'";
+			
+			if (is_admin()) {
+				$local_fonts .= 'cmsmasters_local_font_start=' . $font_family . '=cmsmasters_local_font_end';
+			}
+		} else {
+			$font_family_name = "'" . $font_family_array[0] . "'";
+			
+			cmsmasters_theme_google_font($font_family, $font_family);
+		}
 	}
 	
 	
 	$out = '<style type="text/css"> ' . "\n" . 
-		'#cmsmasters_heading_' . $unique_id . ' { ' . 
-			"\n\t" . 'text-align:' . $text_align . '; ' . 
-			"\n\t" . 'margin-top:' . $margin_top . 'px; ' . 
-			"\n\t" . 'margin-bottom:' . $margin_bottom . 'px; ' . 
+		'#cmsmasters_heading_' . esc_attr($unique_id) . ' { ' . 
+			"\n\t" . 'text-align:' . esc_attr($text_align) . '; ' . 
+			"\n\t" . 'margin-top:' . esc_attr($margin_top) . 'px; ' . 
+			"\n\t" . 'margin-bottom:' . esc_attr($margin_bottom) . 'px; ' . 
 		"\n" . '} ' . "\n\n" . 
-		'#cmsmasters_heading_' . $unique_id . ' .cmsmasters_heading { ' . 
-			"\n\t" . 'text-align:' . $text_align . '; ' . 
+		'#cmsmasters_heading_' . esc_attr($unique_id) . ' .cmsmasters_heading { ' . 
+			"\n\t" . 'text-align:' . esc_attr($text_align) . '; ' . 
 			(($bg_color != '') ? "\n\t" . cmsmasters_color_css('background-color', $bg_color) : '') . 
 			(($bg_color != '') ? "\n\t" . 'padding-left:1em; ' : '') . 
 			(($bg_color != '') ? "\n\t" . 'padding-right:1em; ' : '') . 
 			(($divider != '' && $text_align != 'left') ? "\n\t" . 'margin-left:1em; ' : '') . 
 			(($divider != '' && $text_align != 'right') ? "\n\t" . 'margin-right:1em; ' : '') . 
-			(($border_radius != '') ? "\n\t" . '-webkit-border-radius:' . $border_radius . '; ' . "\n\t" . 'border-radius:' . $border_radius . '; ' : '') . 
+			(($border_radius != '') ? "\n\t" . '-webkit-border-radius:' . esc_attr($border_radius) . '; ' . "\n\t" . 'border-radius:' . esc_attr($border_radius) . '; ' : '') . 
 		"\n" . '} ' . "\n\n" . 
-		'#cmsmasters_heading_' . $unique_id . ' .cmsmasters_heading, ' . 
-		'#cmsmasters_heading_' . $unique_id . ' .cmsmasters_heading a { ' . 
+		'#cmsmasters_heading_' . esc_attr($unique_id) . ' .cmsmasters_heading, ' . 
+		'#cmsmasters_heading_' . esc_attr($unique_id) . ' .cmsmasters_heading a { ' . 
 			(($font_family != '') ? "\n\t" . 'font-family:' . $font_family_name . '; ' : '') . 
-			(($font_size != '' && $font_size != '0') ? "\n\t" . 'font-size:' . $font_size . 'px; ' : '') . 
-			(($line_height != '' && $line_height != '0') ? "\n\t" . 'line-height:' . $line_height . 'px; ' : '') . 
-			"\n\t" . 'font-weight:' . $font_weight . '; ' . 
-			"\n\t" . 'font-style:' . $font_style . '; ' . 
+			(($font_size != '' && $font_size != '0') ? "\n\t" . 'font-size:' . esc_attr($font_size) . 'px; ' : '') . 
+			(($line_height != '' && $line_height != '0') ? "\n\t" . 'line-height:' . esc_attr($line_height) . 'px; ' : '') . 
+			"\n\t" . 'font-weight:' . esc_attr($font_weight) . '; ' . 
+			"\n\t" . 'font-style:' . esc_attr($font_style) . '; ' . 
 			(($color != '') ? "\n\t" . cmsmasters_color_css('color', $color) : '') . 
 		"\n" . '} ' . "\n\n" . 
-		'#cmsmasters_heading_' . $unique_id . ' .cmsmasters_heading_divider { ' . 
-			(($divider != '') ? "\n\t" . 'border-bottom-width:' . $divider_height . 'px; ' : '') . 
-			(($divider != '') ? "\n\t" . 'border-bottom-style:' . $divider_style . '; ' : '') . 
+		'#cmsmasters_heading_' . esc_attr($unique_id) . ' .cmsmasters_heading_divider { ' . 
+			(($divider != '') ? "\n\t" . 'border-bottom-width:' . esc_attr($divider_height) . 'px; ' : '') . 
+			(($divider != '') ? "\n\t" . 'border-bottom-style:' . esc_attr($divider_style) . '; ' : '') . 
 			(($divider != '' && $divider_color != '') ? "\n\t" . cmsmasters_color_css('border-bottom-color', $divider_color) : '') . 
-			(($divider != '') ? "\n\t" . 'margin-top:-' . round((int) $divider_height / 2) . 'px; ' : '') . 
+			(($divider != '') ? "\n\t" . 'margin-top:-' . esc_attr(round((int) $divider_height / 2)) . 'px; ' : '') . 
 		"\n" . '} ' . "\n\n" . 
 	'</style>' . "\n";
 	
+
+	$out .= $local_fonts;
 	
-	$out .= '<div id="cmsmasters_heading_' . $unique_id . '" class="cmsmasters_heading_wrap cmsmasters_heading_align_' . $text_align . 
-	(($divider != '') ? ' cmsmasters_heading_divider_' . $divider_type : '') . 
-	(($classes != '') ? ' ' . $classes : '') . 
+	
+	$out .= '<div id="cmsmasters_heading_' . esc_attr($unique_id) . '" class="cmsmasters_heading_wrap cmsmasters_heading_align_' . esc_attr($text_align) . 
+	(($divider != '') ? ' cmsmasters_heading_divider_' . esc_attr($divider_type) : '') . 
+	(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 	'"' . 
-	(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-	(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+	(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+	(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 	'>' . "\n\t";
 	
 	
@@ -1221,14 +1270,14 @@ public function cmsmasters_custom_heading($atts, $content = null) {
 	}
 	
 	
-	$out .= '<' . $type . ' class="cmsmasters_heading' . 
-	(($icon != '' && $link == '') ? ' ' . $icon : '') . 
+	$out .= '<' . esc_attr($type) . ' class="cmsmasters_heading' . 
+	(($icon != '' && $link == '') ? ' ' . esc_attr($icon) : '') . 
 	'">';
 	
 	
 	if ($link != '') {
-		$out .= '<a href="' . $link . '"' . 
-		(($icon != '') ? ' class="' . $icon . '"' : '') . 
+		$out .= '<a href="' . esc_url($link) . '"' . 
+		(($icon != '') ? ' class="' . esc_attr($icon) . '"' : '') . 
 		(($target == 'blank') ? ' target="_blank"' : '') . 
 		'>';
 	}
@@ -1242,7 +1291,7 @@ public function cmsmasters_custom_heading($atts, $content = null) {
 	}
 	
 	
-	$out .= '</' . $type . '>' . "\n";
+	$out .= '</' . esc_attr($type) . '>' . "\n";
 	
 	
 	if ($divider != '' && $text_align != 'right') {
@@ -1293,8 +1342,8 @@ public function cmsmasters_dropcap($atts, $content = null) {
 	extract(shortcode_atts($new_atts, $atts));
 	
 	
-	$out = '<div class="cmsmasters_dropcap ' . $type . 
-	(($classes != '') ? ' ' . $classes : '') . 
+	$out = '<div class="cmsmasters_dropcap ' . esc_attr($type) . 
+	(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 	'">' . $content . '</div>';
 	
 	
@@ -1358,21 +1407,21 @@ public function cmsmasters_toggles($atts, $content = null) {
 	
 	if ($sort == 'true') {
 		$toggles_filter = '<div class="cmsmasters_toggles_filter">' . "\n\t" . 
-			'<a href="#" data-key="all" title="' . __('All', 'cmsmasters_content_composer') . '" class="current_filter">' . __('All', 'cmsmasters_content_composer') . '</a>' . "\n";
+			'<a href="#" data-key="all" title="' . esc_attr__('All', 'cmsmasters_content_composer') . '" class="current_filter">' . esc_html__('All', 'cmsmasters_content_composer') . '</a>' . "\n";
 		
 		foreach ($this->toggles_atts['sort_toggles'] as $sort_toggle_key => $sort_toggle_value) {
-			$toggles_filter .= "\t" . ' / <a href="#" data-key="' . $sort_toggle_key . '" title="' . $sort_toggle_value . '">' . $sort_toggle_value . '</a>' . "\n";
+			$toggles_filter .= "\t" . ' / <a href="#" data-key="' . esc_attr($sort_toggle_key) . '" title="' . esc_attr($sort_toggle_value) . '">' . esc_html($sort_toggle_value) . '</a>' . "\n";
 		}
 		
 		$toggles_filter .= '</div>';
 	}
 	
 	
-	return '<div class="cmsmasters_toggles toggles_mode_' . $mode . 
-	(($classes != '') ? ' ' . $classes : '') . 
+	return '<div class="cmsmasters_toggles toggles_mode_' . esc_attr($mode) . 
+	(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 	'"' . 
-	(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-	(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+	(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+	(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 	'>' . 
 		$toggles_filter . "\n" . 
 		$toggles . 
@@ -1384,7 +1433,7 @@ public function cmsmasters_toggles($atts, $content = null) {
  */
 public function cmsmasters_toggle($atts, $content = null) {
     $new_atts = apply_filters('cmsmasters_toggle_atts_filter', array( 
-		'title' => 		__('Title', 'cmsmasters_content_composer'), 
+		'title' => 		esc_html__('Title', 'cmsmasters_content_composer'), 
 		'tags' => 		'', 
 		'classes' => 	'' 
     ) );
@@ -1430,7 +1479,7 @@ public function cmsmasters_toggle($atts, $content = null) {
 	
 	$out = '<div class="cmsmasters_toggle_wrap' . 
 	(($this->toggles_atts['toggle_active'] == $this->toggles_atts['toggle_counter']) ? ' current_toggle' : '') . 
-	(($classes != '') ? ' ' . $classes : '') . 
+	(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 	'" data-tags="all ';
 	
 	
@@ -1451,7 +1500,7 @@ public function cmsmasters_toggle($atts, $content = null) {
 				'<span class="cmsmasters_toggle_plus_hor"></span>' . "\n" . 
 				'<span class="cmsmasters_toggle_plus_vert"></span>' . "\n" . 
 			'</span>' . "\n" . 
-			'<a href="#">' . $title . '</a>' . "\n" . 
+			'<a href="#">' . esc_html($title) . '</a>' . "\n" . 
 		'</div>' . "\n" . 
 		'<div class="cmsmasters_toggle">' . "\n" . 
 			cmsmasters_divpdel('<div class="cmsmasters_toggle_inner">' . "\n" . 
@@ -1520,12 +1569,12 @@ public function cmsmasters_tabs($atts, $content = null) {
 	
 	
 	$out = (($this->tabs_atts['style_tab'] != '') ? '<style type="text/css"> ' . $this->tabs_atts['style_tab'] . '</style> ' . "\n" : '') . 
-	'<div class="cmsmasters_tabs tabs_mode_' . $mode . 
-	(($mode == 'tour') ? ' ' . 'tabs_pos_' . $position : '') . 
-	(($classes != '') ? ' ' . $classes : '') . 
+	'<div class="cmsmasters_tabs tabs_mode_' . esc_attr($mode) . 
+	(($mode == 'tour') ? ' ' . 'tabs_pos_' . esc_attr($position) : '') . 
+	(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 	'"' . 
-	(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-	(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+	(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+	(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 	'>' . "\n" . 
 		'<ul class="cmsmasters_tabs_list">' . "\n" . 
 			$this->tabs_atts['out_tabs'] . 
@@ -1544,7 +1593,7 @@ public function cmsmasters_tabs($atts, $content = null) {
  */
 public function cmsmasters_tab($atts, $content = null) {
     $new_atts = apply_filters('cmsmasters_tab_atts_filter', array( 
-		'title' => 			__('Title', 'cmsmasters_content_composer'), 
+		'title' => 			esc_html__('Title', 'cmsmasters_content_composer'), 
 		'custom_colors' => 	'', 
 		'bg_color' => 		'', 
 		'icon' => 			'', 
@@ -1584,28 +1633,28 @@ public function cmsmasters_tab($atts, $content = null) {
 	$this->tabs_atts['tab_counter']++;
 	
 	if ($custom_colors == 'true') { 
-		$this->tabs_atts['style_tab'] .= "\n" . '#cmsmasters_tabs_list_item_' . $unique_id . ' a:hover,' . 
-		'#cmsmasters_tabs_list_item_' . $unique_id . '.current_tab a { ' . 
+		$this->tabs_atts['style_tab'] .= "\n" . '#cmsmasters_tabs_list_item_' . esc_attr($unique_id) . ' a:hover,' . 
+		'#cmsmasters_tabs_list_item_' . esc_attr($unique_id) . '.current_tab a { ' . 
 			"\n\t" . cmsmasters_color_css('background-color', $bg_color) . 
 			"\n\t" . cmsmasters_color_css('border-color', $bg_color) . 
 		"\n" . '} ' . "\n";
 	}
 	
 	
-	$this->tabs_atts['out_tabs'] .= '<li id="cmsmasters_tabs_list_item_' . $unique_id . '" class="cmsmasters_tabs_list_item' . 
+	$this->tabs_atts['out_tabs'] .= '<li id="cmsmasters_tabs_list_item_' . esc_attr($unique_id) . '" class="cmsmasters_tabs_list_item' . 
 	(($this->tabs_atts['tab_active'] == $this->tabs_atts['tab_counter']) ? ' current_tab' : '') . 
 	'">' . "\n" . 
 		'<a href="#"' . 
-		(($icon != '') ? ' class="' . $icon . '"' : '') . 
+		(($icon != '') ? ' class="' . esc_attr($icon) . '"' : '') . 
 		'>' . "\n" . 
-			'<span>' . $title . '</span>' . "\n" . 
+			'<span>' . esc_html($title) . '</span>' . "\n" . 
 		'</a>' . "\n" . 
 	'</li>';
 	
 	
-	return '<div id="cmsmasters_tab_' . $unique_id . '" class="cmsmasters_tab' . 
+	return '<div id="cmsmasters_tab_' . esc_attr($unique_id) . '" class="cmsmasters_tab' . 
 	(($this->tabs_atts['tab_active'] == $this->tabs_atts['tab_counter']) ? ' active_tab' : '') . 
-	(($classes != '') ? ' ' . $classes : '') . 
+	(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 	'">' . "\n" . 
 		cmsmasters_divpdel('<div class="cmsmasters_tab_inner">' . "\n" . 
 			do_shortcode(wpautop($content)) . 
@@ -1684,69 +1733,69 @@ public function cmsmasters_icon_list_items($atts, $content = null) {
 	
 	if ($this->icon_list_items_atts['list_type'] == 'block') {
 		if ($icon_type != 'icon' && $icon_type != 'image') {
-			$this->icon_list_items_atts['style_item'] .= '#cmsmasters_icon_list_items_' . $unique_id . ' { ' . 
-				"\n\t" . 'counter-reset:counter_' . $unique_id . '; ' . 
+			$this->icon_list_items_atts['style_item'] .= '#cmsmasters_icon_list_items_' . esc_attr($unique_id) . ' { ' . 
+				"\n\t" . 'counter-reset:counter_' . esc_attr($unique_id) . '; ' . 
 			"\n" . '} ' . "\n\n" . 
-			'#cmsmasters_icon_list_items_' . $unique_id . ' .cmsmasters_icon_list_item { ' . 
-				"\n\t" . 'counter-increment:counter_' . $unique_id . '; ' . 
+			'#cmsmasters_icon_list_items_' . esc_attr($unique_id) . ' .cmsmasters_icon_list_item { ' . 
+				"\n\t" . 'counter-increment:counter_' . esc_attr($unique_id) . '; ' . 
 			"\n" . '} ' . "\n\n" . 
-			'#cmsmasters_icon_list_items_' . $unique_id . ' .cmsmasters_icon_list_item .cmsmasters_icon_list_icon:before { ' . 
-				"\n\t" . 'content:counter(counter_' . $unique_id . ', ' . $icon_type . '); ' . 
+			'#cmsmasters_icon_list_items_' . esc_attr($unique_id) . ' .cmsmasters_icon_list_item .cmsmasters_icon_list_icon:before { ' . 
+				"\n\t" . 'content:counter(counter_' . esc_attr($unique_id) . ', ' . esc_attr($icon_type) . '); ' . 
 			"\n" . '} ' . "\n";
 		}
 		
 		
 		if ($position == 'left') {
-			$this->icon_list_items_atts['style_item'] .= "\n" . '#cmsmasters_icon_list_items_' . $unique_id . '.cmsmasters_icon_list_items .cmsmasters_icon_list_item:before { ' . 
-				"\n\t" . 'left:' . (((int) $icon_space / 2) - (((int) $unifier_width != 0) ? ($unifier_width / 2) : 0)) . 'px; ' . 
-				"\n\t" . 'top:' . $icon_space  . 'px; ' . 
+			$this->icon_list_items_atts['style_item'] .= "\n" . '#cmsmasters_icon_list_items_' . esc_attr($unique_id) . '.cmsmasters_icon_list_items .cmsmasters_icon_list_item:before { ' . 
+				"\n\t" . 'left:' . esc_attr((((int) $icon_space / 2) - (((int) $unifier_width != 0) ? ($unifier_width / 2) : 0))) . 'px; ' . 
+				"\n\t" . 'top:' . esc_attr($icon_space)  . 'px; ' . 
 			"\n" . '} ' . "\n";
 		} else {
-			$this->icon_list_items_atts['style_item'] .= '#cmsmasters_icon_list_items_' . $unique_id . '.cmsmasters_icon_list_pos_right .cmsmasters_icon_list_item:before { ' . 
+			$this->icon_list_items_atts['style_item'] .= '#cmsmasters_icon_list_items_' . esc_attr($unique_id) . '.cmsmasters_icon_list_pos_right .cmsmasters_icon_list_item:before { ' . 
 				"\n\t" . 'left:auto; ' . 
-				"\n\t" . 'right:' . (((int) $icon_space / 2) - (((int) $unifier_width != 0) ? ($unifier_width / 2) : 0)) . 'px; ' . 
-				"\n\t" . 'top:' . $icon_space  . 'px; ' . 
+				"\n\t" . 'right:' . esc_attr((((int) $icon_space / 2) - (((int) $unifier_width != 0) ? ($unifier_width / 2) : 0))) . 'px; ' . 
+				"\n\t" . 'top:' . esc_attr($icon_space)  . 'px; ' . 
 			"\n" . '} ' . "\n";
 		}
 		
 		
-		$this->icon_list_items_atts['style_item'] .= '#cmsmasters_icon_list_items_' . $unique_id . '.cmsmasters_icon_list_type_block .cmsmasters_icon_list_item:before { ' . 
-			"\n\t" . 'width:' . $unifier_width . 'px; ' . 
+		$this->icon_list_items_atts['style_item'] .= '#cmsmasters_icon_list_items_' . esc_attr($unique_id) . '.cmsmasters_icon_list_type_block .cmsmasters_icon_list_item:before { ' . 
+			"\n\t" . 'width:' . esc_attr($unifier_width) . 'px; ' . 
 		"\n" . '} ' . "\n\n" . 
-		'#cmsmasters_icon_list_items_' . $unique_id . ' .cmsmasters_icon_list_icon { ' . 
-			"\n\t" . 'width:' . $icon_space . 'px; ' . 
-			"\n\t" . 'height:' . $icon_space . 'px; ' . 
-			"\n\t" . '-webkit-border-radius:' . $border_radius . '; ' . 
-			"\n\t" . 'border-radius:' . $border_radius . '; ' . 
+		'#cmsmasters_icon_list_items_' . esc_attr($unique_id) . ' .cmsmasters_icon_list_icon { ' . 
+			"\n\t" . 'width:' . esc_attr($icon_space) . 'px; ' . 
+			"\n\t" . 'height:' . esc_attr($icon_space) . 'px; ' . 
+			"\n\t" . '-webkit-border-radius:' . esc_attr($border_radius) . '; ' . 
+			"\n\t" . 'border-radius:' . esc_attr($border_radius) . '; ' . 
 		"\n" . '} ' . "\n\n" . 
-		'#cmsmasters_icon_list_items_' . $unique_id . ' .cmsmasters_icon_list_icon:before { ' . 
-			"\n\t" . 'font-size:' . $icon_size . 'px; ' . 
-			"\n\t" . 'line-height:' . $icon_space . 'px; ' . 
+		'#cmsmasters_icon_list_items_' . esc_attr($unique_id) . ' .cmsmasters_icon_list_icon:before { ' . 
+			"\n\t" . 'font-size:' . esc_attr($icon_size) . 'px; ' . 
+			"\n\t" . 'line-height:' . esc_attr($icon_space) . 'px; ' . 
 		"\n" . '} ' . "\n\n" . 
-		'#cmsmasters_icon_list_items_' . $unique_id . ' .cmsmasters_icon_list_icon:after { ' . 
-			"\n\t" . 'border-width:' . $border_width . 'px; ' . 
-			"\n\t" . 'width:' . ((int) $icon_space + 2) . 'px; ' . 
-			"\n\t" . 'height:' . ((int) $icon_space + 2) . 'px; ' . 
-			"\n\t" . '-webkit-border-radius:' . $border_radius . '; ' . 
-			"\n\t" . 'border-radius:' . $border_radius . '; ' . 
+		'#cmsmasters_icon_list_items_' . esc_attr($unique_id) . ' .cmsmasters_icon_list_icon:after { ' . 
+			"\n\t" . 'border-width:' . esc_attr($border_width) . 'px; ' . 
+			"\n\t" . 'width:' . esc_attr(((int) $icon_space + 2)) . 'px; ' . 
+			"\n\t" . 'height:' . esc_attr(((int) $icon_space + 2)) . 'px; ' . 
+			"\n\t" . '-webkit-border-radius:' . esc_attr($border_radius) . '; ' . 
+			"\n\t" . 'border-radius:' . esc_attr($border_radius) . '; ' . 
 		"\n" . '} ' . "\n";
 	} else {
-		$this->icon_list_items_atts['style_item'] .= '#cmsmasters_icon_list_items_' . $unique_id . ' { ' . 
-			"\n\t" . 'padding-left:' . ((int) $icon_size + 20) . 'px; ' . 
+		$this->icon_list_items_atts['style_item'] .= '#cmsmasters_icon_list_items_' . esc_attr($unique_id) . ' { ' . 
+			"\n\t" . 'padding-left:' . esc_attr(((int) $icon_size + 20)) . 'px; ' . 
 		"\n" . '} ' . "\n\n" . 
-		'#cmsmasters_icon_list_items_' . $unique_id . ' .cmsmasters_icon_list_item:before { ' . 
-			"\n\t" . 'font-size:' . $icon_size . 'px; ' . 
-			"\n\t" . 'left:-' . ((int) $icon_size + 20) . 'px; ' . 
+		'#cmsmasters_icon_list_items_' . esc_attr($unique_id) . ' .cmsmasters_icon_list_item:before { ' . 
+			"\n\t" . 'font-size:' . esc_attr($icon_size) . 'px; ' . 
+			"\n\t" . 'left:-' . esc_attr(((int) $icon_size + 20)) . 'px; ' . 
 		"\n" . '} ' . "\n";
 		
 		
 		if ($item_height != '') {
-			$this->icon_list_items_atts['style_item'] .= '#cmsmasters_icon_list_items_' . $unique_id . ' .cmsmasters_icon_list_item { ' . 
-				"\n\t" . 'line-height:' . $item_height . 'px; ' . 
+			$this->icon_list_items_atts['style_item'] .= '#cmsmasters_icon_list_items_' . esc_attr($unique_id) . ' .cmsmasters_icon_list_item { ' . 
+				"\n\t" . 'line-height:' . esc_attr($item_height) . 'px; ' . 
 				"\n\t" . 'padding:0; ' . 
 			"\n" . '} ' . "\n\n" . 
-			'#cmsmasters_icon_list_items_' . $unique_id . ' .cmsmasters_icon_list_item:before { ' . 
-				"\n\t" . 'line-height:' . $item_height . 'px; ' . 
+			'#cmsmasters_icon_list_items_' . esc_attr($unique_id) . ' .cmsmasters_icon_list_item:before { ' . 
+				"\n\t" . 'line-height:' . esc_attr($item_height) . 'px; ' . 
 				"\n\t" . 'top:0; ' . 
 			"\n" . '} ' . "\n";
 		}
@@ -1757,12 +1806,12 @@ public function cmsmasters_icon_list_items($atts, $content = null) {
 	
 	
 	$out = '<style type="text/css"> ' . $this->icon_list_items_atts['style_item'] . '</style> ' . "\n" . 
-	'<ul id="cmsmasters_icon_list_items_' . $unique_id . '" class="cmsmasters_icon_list_items cmsmasters_icon_list_type_' . $type . ' cmsmasters_icon_list_pos_' . $position . ' cmsmasters_color_type_' . $items_color_type . 
+	'<ul id="cmsmasters_icon_list_items_' . esc_attr($unique_id) . '" class="cmsmasters_icon_list_items cmsmasters_icon_list_type_' . esc_attr($type) . ' cmsmasters_icon_list_pos_' . esc_attr($position) . ' cmsmasters_color_type_' . esc_attr($items_color_type) . 
 	(($icon_type != 'icon' && $icon_type != 'image') ? ' cmsmasters_icon_list_icon_type_number' : '') . 
-	(($classes != '') ? ' ' . $classes : '') . 
+	(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 	'"' . 
-	(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-	(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+	(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+	(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 	'>' . 
 		$this->icon_list_items_atts['out_inner'] . 
 	'</ul>';
@@ -1778,7 +1827,7 @@ public function cmsmasters_icon_list_item($atts, $content = null) {
     $new_atts = apply_filters('cmsmasters_icon_list_item_atts_filter', array( 
 		'icon' => 			'', 
 		'image' => 			'', 
-		'title' => 			__('Title', 'cmsmasters_content_composer'), 
+		'title' => 			esc_html__('Title', 'cmsmasters_content_composer'), 
 		'color' => 			'', 
 		'classes' => 		'' 
     ) );
@@ -1839,63 +1888,63 @@ public function cmsmasters_icon_list_item($atts, $content = null) {
 			}
 			
 			
-			$this->icon_list_items_atts['style_item'] .= "\n" . '.cmsmasters_icon_list_items #cmsmasters_icon_list_item_' . $unique_id . '.cmsmasters_icon_type_image .cmsmasters_icon_list_icon { ' . 
-				"\n\t" . 'background-image:url(' . $image_url . '); ' . 
+			$this->icon_list_items_atts['style_item'] .= "\n" . '.cmsmasters_icon_list_items #cmsmasters_icon_list_item_' . esc_attr($unique_id) . '.cmsmasters_icon_type_image .cmsmasters_icon_list_icon { ' . 
+				"\n\t" . 'background-image:url(' . esc_url($image_url) . '); ' . 
 			"\n" . '} ' . "\n";
 		}
 		
 		
 		if ($this->icon_list_items_atts['list_items_color_type'] == 'border') {
 			if ($color != '') {
-				$this->icon_list_items_atts['style_item'] .= "\n" . '.cmsmasters_icon_list_items.cmsmasters_color_type_border #cmsmasters_icon_list_item_' . $unique_id . ' .cmsmasters_icon_list_icon:after { ' . 
+				$this->icon_list_items_atts['style_item'] .= "\n" . '.cmsmasters_icon_list_items.cmsmasters_color_type_border #cmsmasters_icon_list_item_' . esc_attr($unique_id) . ' .cmsmasters_icon_list_icon:after { ' . 
 					"\n\t" . cmsmasters_color_css('border-color', $color) . 
 				"\n" . '} ' . "\n";
 			}
 			
 			
-			$this->icon_list_items_atts['style_item'] .= "\n" . '.cmsmasters_icon_list_items.cmsmasters_color_type_border #cmsmasters_icon_list_item_' . $unique_id . ':hover .cmsmasters_icon_list_icon:after { ' . 
+			$this->icon_list_items_atts['style_item'] .= "\n" . '.cmsmasters_icon_list_items.cmsmasters_color_type_border #cmsmasters_icon_list_item_' . esc_attr($unique_id) . ':hover .cmsmasters_icon_list_icon:after { ' . 
 				"\n\t" . 'border-color:transparent; ' . 
 				"\n\t" . 'border-width:0; ' . 
 			"\n" . '} ' . "\n";
 		} elseif ($this->icon_list_items_atts['list_items_color_type'] == 'bg') {
 			if ($color != '') {
-				$this->icon_list_items_atts['style_item'] .= "\n" . '.cmsmasters_icon_list_items.cmsmasters_color_type_bg #cmsmasters_icon_list_item_' . $unique_id . ' .cmsmasters_icon_list_icon { ' . 
+				$this->icon_list_items_atts['style_item'] .= "\n" . '.cmsmasters_icon_list_items.cmsmasters_color_type_bg #cmsmasters_icon_list_item_' . esc_attr($unique_id) . ' .cmsmasters_icon_list_icon { ' . 
 					"\n\t" . cmsmasters_color_css('background-color', $color) . 
 				"\n" . '} ' . "\n";
 			}
 			
 			
-			$this->icon_list_items_atts['style_item'] .= "\n" . '.cmsmasters_icon_list_items.cmsmasters_color_type_bg #cmsmasters_icon_list_item_' . $unique_id . ':hover .cmsmasters_icon_list_icon:after { ' . 
+			$this->icon_list_items_atts['style_item'] .= "\n" . '.cmsmasters_icon_list_items.cmsmasters_color_type_bg #cmsmasters_icon_list_item_' . esc_attr($unique_id) . ':hover .cmsmasters_icon_list_icon:after { ' . 
 				"\n\t" . 'border-color:transparent; ' . 
 				"\n\t" . 'border-width:0; ' . 
 			"\n" . '} ' . "\n";
 		} elseif ($this->icon_list_items_atts['list_items_color_type'] == 'icon') {
 			if ($color != '') {
-				$this->icon_list_items_atts['style_item'] .= "\n" . '.cmsmasters_icon_list_items.cmsmasters_color_type_icon #cmsmasters_icon_list_item_' . $unique_id . ' .cmsmasters_icon_list_icon:before { ' . 
+				$this->icon_list_items_atts['style_item'] .= "\n" . '.cmsmasters_icon_list_items.cmsmasters_color_type_icon #cmsmasters_icon_list_item_' . esc_attr($unique_id) . ' .cmsmasters_icon_list_icon:before { ' . 
 					"\n\t" . cmsmasters_color_css('color', $color) . 
 				"\n" . '} ' . "\n\n" . 
-				'.cmsmasters_icon_list_items.cmsmasters_color_type_icon #cmsmasters_icon_list_item_' . $unique_id . ':hover .cmsmasters_icon_list_icon { ' . 
+				'.cmsmasters_icon_list_items.cmsmasters_color_type_icon #cmsmasters_icon_list_item_' . esc_attr($unique_id) . ':hover .cmsmasters_icon_list_icon { ' . 
 					"\n\t" . cmsmasters_color_css('background-color', $color) . 
 				"\n" . '} ' . "\n";
 			}
 			
 			
-			$this->icon_list_items_atts['style_item'] .= "\n" . '.cmsmasters_icon_list_items.cmsmasters_color_type_icon #cmsmasters_icon_list_item_' . $unique_id . ':hover .cmsmasters_icon_list_icon:before { ' . 
+			$this->icon_list_items_atts['style_item'] .= "\n" . '.cmsmasters_icon_list_items.cmsmasters_color_type_icon #cmsmasters_icon_list_item_' . esc_attr($unique_id) . ':hover .cmsmasters_icon_list_icon:before { ' . 
 				"\n\t" . 'color:inherit; ' . 
 			"\n" . '} ' . "\n";
 		}
 		
 		
-		$this->icon_list_items_atts['out_inner'] .= '<li id="cmsmasters_icon_list_item_' . $unique_id . '" class="cmsmasters_icon_list_item' . 
+		$this->icon_list_items_atts['out_inner'] .= '<li id="cmsmasters_icon_list_item_' . esc_attr($unique_id) . '" class="cmsmasters_icon_list_item' . 
 		(($this->icon_list_items_atts['list_icon_type'] == 'image') ? ' cmsmasters_icon_type_image' : '') . 
-		(($classes != '') ? ' ' . $classes : '') . 
+		(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 		'">' . "\n" . 
 			'<div class="cmsmasters_icon_list_item_inner">' . "\n" . 
 				'<div class="cmsmasters_icon_list_icon_wrap">' . "\n" . 
-					'<span class="cmsmasters_icon_list_icon ' . $icon . '"></span>' . "\n" . 
+					'<span class="cmsmasters_icon_list_icon ' . esc_attr($icon) . '"></span>' . "\n" . 
 				'</div>' . "\n" . 
 				'<div class="cmsmasters_icon_list_item_content">' . "\n" . 
-					'<' . $this->icon_list_items_atts['list_heading'] . ' class="cmsmasters_icon_list_item_title">' . $title . '</' . $this->icon_list_items_atts['list_heading'] . '>' . "\n" . 
+					'<' . esc_attr($this->icon_list_items_atts['list_heading']) . ' class="cmsmasters_icon_list_item_title">' . esc_html($title) . '</' . esc_attr($this->icon_list_items_atts['list_heading']) . '>' . "\n" . 
 					cmsmasters_divpdel('<div class="cmsmasters_icon_list_item_text">' . "\n" . 
 						do_shortcode(wpautop($content)) . 
 					'</div>' . "\n") . 
@@ -1904,15 +1953,15 @@ public function cmsmasters_icon_list_item($atts, $content = null) {
 		'</li>';
 	} else {
 		if ($color != '') {
-			$this->icon_list_items_atts['style_item'] .= "\n" . '.cmsmasters_icon_list_items #cmsmasters_icon_list_item_' . $unique_id . ':before { ' . 
+			$this->icon_list_items_atts['style_item'] .= "\n" . '.cmsmasters_icon_list_items #cmsmasters_icon_list_item_' . esc_attr($unique_id) . ':before { ' . 
 				"\n\t" . cmsmasters_color_css('color', $color) . 
 			"\n" . '} ' . "\n";
 		}
 		
 		
-		$this->icon_list_items_atts['out_inner'] .= '<li id="cmsmasters_icon_list_item_' . $unique_id . '" class="cmsmasters_icon_list_item ' . $icon . 
-		(($classes != '') ? ' ' . $classes : '') . 
-		'">' . $title . '</li>';
+		$this->icon_list_items_atts['out_inner'] .= '<li id="cmsmasters_icon_list_item_' . esc_attr($unique_id) . '" class="cmsmasters_icon_list_item ' . esc_attr($icon) . 
+		(($classes != '') ? ' ' . esc_attr($classes) : '') . 
+		'">' . esc_html($title) . '</li>';
 	}
 }
 
@@ -1989,11 +2038,11 @@ public function cmsmasters_stats($atts, $content = null) {
 	
 	
 	return '<style type="text/css"> ' . $this->stats_atts['style_stats'] . '</style> ' . "\n" . 
-	'<div class="cmsmasters_stats stats_mode_' . $mode . ' stats_type_' . $type . 
-	(($classes != '') ? ' ' . $classes : '') . 
+	'<div class="cmsmasters_stats stats_mode_' . esc_attr($mode) . ' stats_type_' . esc_attr($type) . 
+	(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 	'"' . 
-	(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-	(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+	(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+	(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 	'>' . 
 		$stats . 
 	'</div>';
@@ -2042,38 +2091,38 @@ public function cmsmasters_stat($atts, $content = null) {
 	
 	
 	if ($this->stats_atts['stats_mode'] == 'bars') {
-		$this->stats_atts['style_stats'] .= "\n" . '.cmsmasters_stats.shortcode_animated #cmsmasters_stat_' . $unique_id . '.cmsmasters_stat { ' . 
-			"\n\t" . (($this->stats_atts['stats_type'] == 'horizontal') ? 'width' : 'height') . ':' . $progress . '%; ' . 
+		$this->stats_atts['style_stats'] .= "\n" . '.cmsmasters_stats.shortcode_animated #cmsmasters_stat_' . esc_attr($unique_id) . '.cmsmasters_stat { ' . 
+			"\n\t" . (($this->stats_atts['stats_type'] == 'horizontal') ? 'width' : 'height') . ':' . esc_attr($progress) . '%; ' . 
 		"\n" . '} ' . "\n\n" . 
-		'#cmsmasters_stat_' . $unique_id . ' .cmsmasters_stat_inner { ' . 
+		'#cmsmasters_stat_' . esc_attr($unique_id) . ' .cmsmasters_stat_inner { ' . 
 			(($color != '') ? "\n\t" . cmsmasters_color_css('background-color', $color) : '') . 
 		"\n" . '} ' . "\n";
 	}
 	
 	
-	return '<div class="cmsmasters_stat_wrap' . (($this->stats_atts['stats_mode'] == 'circles' || ($this->stats_atts['stats_mode'] == 'bars' && $this->stats_atts['stats_type'] == 'vertical')) ? $this->stats_atts['stats_count'] : '') . '">' . "\n" . 
+	return '<div class="cmsmasters_stat_wrap' . (($this->stats_atts['stats_mode'] == 'circles' || ($this->stats_atts['stats_mode'] == 'bars' && $this->stats_atts['stats_type'] == 'vertical')) ? esc_attr($this->stats_atts['stats_count']) : '') . '">' . "\n" . 
 		(($this->stats_atts['stats_mode'] == 'bars' && $this->stats_atts['stats_type'] == 'vertical') ? '<div class="cmsmasters_stat_container">' . "\n" : '') . 
-			'<div id="cmsmasters_stat_' . $unique_id . '" class="cmsmasters_stat' . 
-			(($classes != '') ? ' ' . $classes : '') . 
+			'<div id="cmsmasters_stat_' . esc_attr($unique_id) . '" class="cmsmasters_stat' . 
+			(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 			(($content == '' && $icon == '') ? ' stat_only_number' : '') . 
 			(($content != '' && $icon != '') ? ' stat_has_titleicon' : '') . '"' . 
-			' data-percent="' . $progress . '"' . 
-			(($this->stats_atts['stats_mode'] == 'circles' && $color != '') ? ' data-bar-color="' . $color . '"' : '') . 
+			' data-percent="' . esc_attr($progress) . '"' . 
+			(($this->stats_atts['stats_mode'] == 'circles' && $color != '') ? ' data-bar-color="' . esc_attr($color) . '"' : '') . 
 			'>' . "\n" . 
 				'<div class="cmsmasters_stat_inner' . 
-				(($icon != '') ? ' ' . $icon : '') . 
+				(($icon != '') ? ' ' . esc_attr($icon) : '') . 
 				'">' . "\n" . 
-					(($content != '' && $this->stats_atts['stats_mode'] == 'bars' && $this->stats_atts['stats_type'] == 'horizontal') ? '<span class="cmsmasters_stat_title">' . $content . '</span>' . "\n" : '') . 
+					(($content != '' && $this->stats_atts['stats_mode'] == 'bars' && $this->stats_atts['stats_type'] == 'horizontal') ? '<span class="cmsmasters_stat_title">' . esc_html($content) . '</span>' . "\n" : '') . 
 					'<span class="cmsmasters_stat_counter_wrap">' . "\n" . 
-						'<span class="cmsmasters_stat_counter">' . (($this->stats_atts['stats_mode'] == 'bars') ? $progress : '0') . '</span>' . 
+						'<span class="cmsmasters_stat_counter">' . (($this->stats_atts['stats_mode'] == 'bars') ? esc_html($progress) : '0') . '</span>' . 
 						'<span class="cmsmasters_stat_units">%</span>' . "\n" . 
 					'</span>' . "\n" . 
-					(($content != '' && $this->stats_atts['stats_mode'] == 'circles') ? '<span class="cmsmasters_stat_title">' . $content . '</span>' . "\n" : '') . 
+					(($content != '' && $this->stats_atts['stats_mode'] == 'circles') ? '<span class="cmsmasters_stat_title">' . esc_html($content) . '</span>' . "\n" : '') . 
 				'</div>' . "\n" . 
 			'</div>' . "\n" . 
 		(($this->stats_atts['stats_mode'] == 'bars' && $this->stats_atts['stats_type'] == 'vertical') ? '</div>' . "\n" : '') . 
-		(($content != '' && $this->stats_atts['stats_mode'] == 'bars' && $this->stats_atts['stats_type'] == 'vertical') ? '<span class="cmsmasters_stat_title">' . $content . '</span>' . "\n" : '') . 
-		(($subtitle != '') ? '<span class="cmsmasters_stat_subtitle">' . $subtitle . '</span>' . "\n" : '') . 
+		(($content != '' && $this->stats_atts['stats_mode'] == 'bars' && $this->stats_atts['stats_type'] == 'vertical') ? '<span class="cmsmasters_stat_title">' . esc_html($content) . '</span>' . "\n" : '') . 
+		(($subtitle != '') ? '<span class="cmsmasters_stat_subtitle">' . esc_html($subtitle) . '</span>' . "\n" : '') . 
 	'</div>';
 }
 
@@ -2146,25 +2195,25 @@ public function cmsmasters_counters($atts, $content = null) {
 	}
 	
 	
-	$this->counters_atts['style_counters'] = "\n" . '#cmsmasters_counters_' . $unique_id . ' .cmsmasters_counter.counter_has_icon .cmsmasters_counter_inner, ' . "\n" . 
-	'#cmsmasters_counters_' . $unique_id . ' .cmsmasters_counter.counter_has_icon .cmsmasters_counter_inner, ' . 
-	'#cmsmasters_counters_' . $unique_id . ' .cmsmasters_counter.counter_has_image .cmsmasters_counter_inner { ' . 
-		"\n\t" . 'padding-' . (($type == 'horizontal') ? ((is_rtl()) ? 'right' : 'left') : 'top') . ':' . ((int) $icon_space + 10) . 'px; ' . 
+	$this->counters_atts['style_counters'] = "\n" . '#cmsmasters_counters_' . esc_attr($unique_id) . ' .cmsmasters_counter.counter_has_icon .cmsmasters_counter_inner, ' . "\n" . 
+	'#cmsmasters_counters_' . esc_attr($unique_id) . ' .cmsmasters_counter.counter_has_icon .cmsmasters_counter_inner, ' . 
+	'#cmsmasters_counters_' . esc_attr($unique_id) . ' .cmsmasters_counter.counter_has_image .cmsmasters_counter_inner { ' . 
+		"\n\t" . 'padding-' . (($type == 'horizontal') ? ((is_rtl()) ? 'right' : 'left') : 'top') . ':' . esc_attr(((int) $icon_space + 10)) . 'px; ' . 
 	"\n" . '} ' . "\n\n" . 
-	'#cmsmasters_counters_' . $unique_id . '.counters_type_vertical .cmsmasters_counter .cmsmasters_counter_inner:before { ' . 
-		"\n\t" . 'margin-' . ((is_rtl()) ? 'right' : 'left') . ':-' . ((int) $icon_space / 2) . 'px; ' . 
+	'#cmsmasters_counters_' . esc_attr($unique_id) . '.counters_type_vertical .cmsmasters_counter .cmsmasters_counter_inner:before { ' . 
+		"\n\t" . 'margin-' . ((is_rtl()) ? 'right' : 'left') . ':-' . esc_attr(((int) $icon_space / 2)) . 'px; ' . 
 	"\n" . '} ' . "\n\n" . 
-	'#cmsmasters_counters_' . $unique_id . '.counters_type_horizontal .cmsmasters_counter .cmsmasters_counter_inner .cmsmasters_counter_counter_wrap { ' . 
-		"\n\t" . 'line-height:' . $icon_space . 'px; ' . 
+	'#cmsmasters_counters_' . esc_attr($unique_id) . '.counters_type_horizontal .cmsmasters_counter .cmsmasters_counter_inner .cmsmasters_counter_counter_wrap { ' . 
+		"\n\t" . 'line-height:' . esc_attr($icon_space) . 'px; ' . 
 	"\n" . '} ' . "\n\n" . 
-	'#cmsmasters_counters_' . $unique_id . ' .cmsmasters_counter .cmsmasters_counter_inner:before { ' . 
-		"\n\t" . 'font-size:' . $icon_size . 'px; ' . 
-		"\n\t" . 'line-height:' . ((int) $icon_space - ((int) $icon_border_width * 2)) . 'px; ' . 
-		"\n\t" . 'width:' . $icon_space . 'px; ' . 
-		"\n\t" . 'height:' . $icon_space . 'px; ' . 
-		"\n\t" . 'border-width:' . $icon_border_width . 'px; ' . 
-		(((int) $icon_border_radius > 0) ? "\n\t" . '-webkit-border-radius:' . $icon_border_radius . '; ' : '') . 
-		(((int) $icon_border_radius > 0) ? "\n\t" . 'border-radius:' . $icon_border_radius . '; ' : '') . 
+	'#cmsmasters_counters_' . esc_attr($unique_id) . ' .cmsmasters_counter .cmsmasters_counter_inner:before { ' . 
+		"\n\t" . 'font-size:' . esc_attr($icon_size) . 'px; ' . 
+		"\n\t" . 'line-height:' . esc_attr(((int) $icon_space - ((int) $icon_border_width * 2))) . 'px; ' . 
+		"\n\t" . 'width:' . esc_attr($icon_space) . 'px; ' . 
+		"\n\t" . 'height:' . esc_attr($icon_space) . 'px; ' . 
+		"\n\t" . 'border-width:' . esc_attr($icon_border_width) . 'px; ' . 
+		(((int) $icon_border_radius > 0) ? "\n\t" . '-webkit-border-radius:' . esc_attr($icon_border_radius) . '; ' : '') . 
+		(((int) $icon_border_radius > 0) ? "\n\t" . 'border-radius:' . esc_attr($icon_border_radius) . '; ' : '') . 
 	"\n" . '} ' . "\n\n";
 	
 	
@@ -2172,11 +2221,11 @@ public function cmsmasters_counters($atts, $content = null) {
 	
 	
 	return '<style type="text/css"> ' . $this->counters_atts['style_counters'] . '</style> ' . "\n" . 
-	'<div id="cmsmasters_counters_' . $unique_id . '" class="cmsmasters_counters counters_type_' . $type . 
-	(($classes != '') ? ' ' . $classes : '') . 
+	'<div id="cmsmasters_counters_' . esc_attr($unique_id) . '" class="cmsmasters_counters counters_type_' . esc_attr($type) . 
+	(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 	'"' . 
-	(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-	(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+	(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+	(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 	'>' . 
 		$counters . 
 	'</div>';
@@ -2231,7 +2280,7 @@ public function cmsmasters_counter($atts, $content = null) {
 	$unique_id = strtr($unique_id, '.', '_');
 	
 	
-	$this->counters_atts['style_counters'] .= "\n" . '#cmsmasters_counter_' . $unique_id . ' .cmsmasters_counter_inner:before { ' . 
+	$this->counters_atts['style_counters'] .= "\n" . '#cmsmasters_counter_' . esc_attr($unique_id) . ' .cmsmasters_counter_inner:before { ' . 
 		(($icon_color != '') ? "\n\t" . cmsmasters_color_css('color', $icon_color) : '') . 
 		(($icon_bg_color != '') ? "\n\t" . cmsmasters_color_css('background-color', $icon_bg_color) : '') . 
 		(($icon_bd_color != '') ? "\n\t" . cmsmasters_color_css('border-color', $icon_bd_color) : '') . 
@@ -2254,26 +2303,26 @@ public function cmsmasters_counter($atts, $content = null) {
 		}
 		
 		
-		$this->counters_atts['style_counters'] .= '#cmsmasters_counter_' . $unique_id . ' .cmsmasters_counter_inner:before { ' . 
+		$this->counters_atts['style_counters'] .= '#cmsmasters_counter_' . esc_attr($unique_id) . ' .cmsmasters_counter_inner:before { ' . 
 			"\n\t" . "content:''; " . 
-			"\n\t" . 'background-image:url(' . $image_url . '); ' . 
+			"\n\t" . 'background-image:url(' . esc_url($image_url) . '); ' . 
 		"\n" . '} ' . "\n";
 	}
 	
 	
 	if ($color != '') {
-		$this->counters_atts['style_counters'] .= '#cmsmasters_counter_' . $unique_id . ' .cmsmasters_counter_counter { ' . 
+		$this->counters_atts['style_counters'] .= '#cmsmasters_counter_' . esc_attr($unique_id) . ' .cmsmasters_counter_counter { ' . 
 			"\n\t" . cmsmasters_color_css('color', $color) . 
 		"\n" . '} ' . "\n";
 	}
 	
 	
-	return '<div class="cmsmasters_counter_wrap' . $this->counters_atts['counters_count'] . '">' . "\n" . 
-		'<div id="cmsmasters_counter_' . $unique_id . '" class="cmsmasters_counter' . 
+	return '<div class="cmsmasters_counter_wrap' . esc_attr($this->counters_atts['counters_count']) . '">' . "\n" . 
+		'<div id="cmsmasters_counter_' . esc_attr($unique_id) . '" class="cmsmasters_counter' . 
 		(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 		(($icon_type == 'icon' && $icon != '') ? ' counter_has_icon' : '') . 
 		(($icon_type == 'image' && $image != '') ? ' counter_has_image' : '') . 
-		'" data-percent="' . $value . '">' . "\n" . 
+		'" data-percent="' . esc_attr($value) . '">' . "\n" . 
 			'<div class="cmsmasters_counter_inner' . 
 			(($icon != '') ? ' ' . esc_attr($icon) : '') . 
 			'">' . "\n" . 
@@ -2282,9 +2331,9 @@ public function cmsmasters_counter($atts, $content = null) {
 					'<span class="cmsmasters_counter_counter">0</span>' . 
 					'<span class="cmsmasters_counter_suffix">' . esc_html($value_suffix) . '</span>' . "\n" . 
 				'</span>' . "\n" . 
-				(($content != '') ? '<span class="cmsmasters_counter_title">' . $content . '</span>' . "\n" : '') . 
+				(($content != '') ? '<span class="cmsmasters_counter_title">' . esc_html($content) . '</span>' . "\n" : '') . 
 			'</div>' . "\n" . 
-			(($subtitle != '') ? '<span class="cmsmasters_counter_subtitle">' . $subtitle . '</span>' . "\n" : '') . 
+			(($subtitle != '') ? '<span class="cmsmasters_counter_subtitle">' . esc_html($subtitle) . '</span>' . "\n" : '') . 
 		'</div>' . "\n" . 
 	'</div>';
 }
@@ -2339,25 +2388,25 @@ public function cmsmasters_embed($atts, $content = null) {
 	
 	if ($wrap != '') {
 		$shcd_out .= '[cmsmasters_video_wrap' . 
-		(($width != '') ? ' width="' . $width . '"' : '') . 
-		(($animation != '') ? ' animation="' . $animation . '"' : '') . 
-		(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
-		(($classes != '') ? ' classes="' . $classes . '"' : '') . 
+		(($width != '') ? ' width="' . esc_attr($width) . '"' : '') . 
+		(($animation != '') ? ' animation="' . esc_attr($animation) . '"' : '') . 
+		(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
+		(($classes != '') ? ' classes="' . esc_attr($classes) . '"' : '') . 
 		']';
 	} else {
 		$shcd_out .= '<div class="cmsmasters_embed_wrap' . 
-		(($classes != '') ? ' ' . $classes : '') . 
+		(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 		'"' . 
-		(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-		(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+		(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+		(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 		'>' . "\n";
 	}
 	
 	
 	$shcd_out .= $wp_embed->run_shortcode('[embed' . 
-	(($width != '') ? ' width="' . $width . '"' : '') . 
-	(($height != '') ? ' height="' . $height . '"' : '') . 
-	']' . $link . '[/embed]');
+	(($width != '') ? ' width="' . esc_attr($width) . '"' : '') . 
+	(($height != '') ? ' height="' . esc_attr($height) . '"' : '') . 
+	']' . esc_url($link) . '[/embed]');
 	
 	
 	if ($wrap != '') {
@@ -2484,17 +2533,17 @@ public function cmsmasters_videos($atts, $content = null) {
 	
 	if ($wrap != '') {
 		$out .= '[cmsmasters_video_wrap' . 
-		(($width != '') ? ' width="' . $width . '"' : '') . 
-		(($animation != '') ? ' animation="' . $animation . '"' : '') . 
-		(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
-		(($classes != '') ? ' classes="' . $classes . '"' : '') . 
+		(($width != '') ? ' width="' . esc_attr($width) . '"' : '') . 
+		(($animation != '') ? ' animation="' . esc_attr($animation) . '"' : '') . 
+		(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
+		(($classes != '') ? ' classes="' . esc_attr($classes) . '"' : '') . 
 		']';
 	} else {
 		$out .= '<div class="cmsmasters_video' . 
-		(($classes != '') ? ' ' . $classes : '') . 
+		(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 		'"' . 
-		(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-		(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+		(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+		(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 		'>' . "\n";
 	}
 	
@@ -2563,18 +2612,18 @@ public function cmsmasters_video_wrap($atts, $content = null) {
 	
 	if ($width != '') {
 		$out .= '<style type="text/css"> ' . "\n" . 
-			'#cmsmasters_video_wrap_' . $unique_id . ' { ' . 
-				"\n\t" . 'max-width:' . $width . 'px; ' . 
+			'#cmsmasters_video_wrap_' . esc_attr($unique_id) . ' { ' . 
+				"\n\t" . 'max-width:' . esc_attr($width) . 'px; ' . 
 			"\n" . '} ' . "\n" . 
 		'</style>';
 	}
 	
 	
-    $out .= cmsmasters_divpdel('<div id="cmsmasters_video_wrap_' . $unique_id . '" class="cmsmasters_video_wrap' . 
-	(($classes != '') ? ' ' . $classes : '') . 
+    $out .= cmsmasters_divpdel('<div id="cmsmasters_video_wrap_' . esc_attr($unique_id) . '" class="cmsmasters_video_wrap' . 
+	(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 	'"' . 
-	(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-	(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+	(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+	(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 	'>' . "\n" . 
 		do_shortcode(wpautop($content)) . 
 	'</div>' . "\n");
@@ -2665,10 +2714,10 @@ public function cmsmasters_audios($atts, $content = null) {
 	
 	
 	return '<div class="cmsmasters_audio' . 
-	(($classes != '') ? ' ' . $classes : '') . 
+	(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 	'"' . 
-	(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-	(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+	(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+	(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 	'>' . "\n" . 
 		wp_audio_shortcode($attrs) . 
 	'</div>';
@@ -2771,7 +2820,7 @@ public function cmsmasters_tr($atts, $content = null) {
 	
 	
 	$out .= '<tr' . 
-		(($type != '') ? ' class="cmsmasters_table_row_' . $type . '"' : '') . 
+		(($type != '') ? ' class="cmsmasters_table_row_' . esc_attr($type) . '"' : '') . 
 	'>' . 
 		do_shortcode($content) . 
 	'</tr>';
@@ -2823,7 +2872,7 @@ public function cmsmasters_td($atts, $content = null) {
 	
 	
 	return '<' . (($type == 'header') ? 'th' : 'td') . 
-	(($align != '') ? ' class="cmsmasters_table_cell_align' . $align . '"' : '') . 
+	(($align != '') ? ' class="cmsmasters_table_cell_align' . esc_attr($align) . '"' : '') . 
 	'>' . 
 		do_shortcode($content) . 
 	'</' . (($type == 'header') ? 'th' : 'td') . '>';
@@ -2877,19 +2926,19 @@ public function cmsmasters_divider($atts, $content = null) {
 	
 	
 	$out = '<style type="text/css"> ' . "\n" . 
-		'#cmsmasters_divider_' . $unique_id . ' { ' . 
-			"\n\t" . 'border-bottom-width:' . $height . 'px; ' . 
-			"\n\t" . 'border-bottom-style:' . $style . '; ' . 
-			"\n\t" . 'padding-top:' . $margin_top . 'px; ' . 
-			"\n\t" . 'margin-bottom:' . $margin_bottom . 'px; ' . 
+		'#cmsmasters_divider_' . esc_attr($unique_id) . ' { ' . 
+			"\n\t" . 'border-bottom-width:' . esc_attr($height) . 'px; ' . 
+			"\n\t" . 'border-bottom-style:' . esc_attr($style) . '; ' . 
+			"\n\t" . 'padding-top:' . esc_attr($margin_top) . 'px; ' . 
+			"\n\t" . 'margin-bottom:' . esc_attr($margin_bottom) . 'px; ' . 
 			(($color != '') ? "\n\t" . cmsmasters_color_css('border-bottom-color', $color) : '') . 
 		"\n" . '} ' . "\n" . 
 	'</style>' . "\n";
 	
 	
-	$out .= '<div id="cmsmasters_divider_' . $unique_id . '" class="' . 
-	(($height < 1) ? 'cl' : 'cmsmasters_divider cmsmasters_divider_width_' . $width . ' cmsmasters_divider_pos_' . $position) . 
-	(($classes != '') ? ' ' . $classes : '') . 
+	$out .= '<div id="cmsmasters_divider_' . esc_attr($unique_id) . '" class="' . 
+	(($height < 1) ? 'cl' : 'cmsmasters_divider cmsmasters_divider_width_' . esc_attr($width) . ' cmsmasters_divider_pos_' . esc_attr($position)) . 
+	(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 	'"></div>';
 	
 	
@@ -2940,10 +2989,10 @@ public function cmsmasters_contact_form($atts, $content = null) {
 	
 	
     $out = '<div class="cmsmasters_contact_form' . 
-	(($classes != '') ? ' ' . $classes : '') . 
+	(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 	'"' . 
-	(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-	(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+	(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+	(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 	'>';
 	
 	
@@ -2951,7 +3000,7 @@ public function cmsmasters_contact_form($atts, $content = null) {
 		$cf7_array = explode('{|}', $form_cf7);
 		
 		
-		$out .= do_shortcode('[contact-form-7 id="' . $cf7_array[0] . '" title="' . stripslashes($cf7_array[1]) . '"]');
+		$out .= do_shortcode('[contact-form-7 id="' . esc_attr($cf7_array[0]) . '" title="' . stripslashes($cf7_array[1]) . '"]');
 	} elseif ($form_plugin == 'cfb' && $form_cfb != '' && $email_cfb != '') {
 		$out .= do_shortcode('[cmsmasters_contact_form_sc formname="' . esc_attr($form_cfb) . '" email="' . esc_attr($email_cfb) . '" fromname="' . esc_attr($email_from_name_cfb) . '"]');
 	}
@@ -3003,14 +3052,14 @@ public function cmsmasters_slider($atts, $content = null) {
 	
 	
     $out = '<div class="cmsmasters_slider' . 
-	(($classes != '') ? ' ' . $classes : '') . 
+	(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 	'">';
 	
 	
 	if ($slider_plugin == 'layer' && $slider_layer != '') {
-		$out .= do_shortcode('[layerslider id="' . $slider_layer . '"]');
+		$out .= do_shortcode('[layerslider id="' . esc_attr($slider_layer) . '"]');
 	} elseif ($slider_plugin == 'rev' && $slider_rev != '') {
-		$out .= do_shortcode('[rev_slider alias="' . $slider_rev . '"]');
+		$out .= do_shortcode('[rev_slider alias="' . esc_attr($slider_rev) . '"]');
 	}
 	
 	
@@ -3094,12 +3143,12 @@ public function cmsmasters_clients($atts, $content = null) {
 	do_shortcode($content);
 	
 	$out = '<style type="text/css"> ' . "\n" . 
-		'#cmsmasters_clients_' . $unique_id . ' .cmsmasters_clients_item { ' . 
-			'height:' . $height . 'px; ' .  
-			'line-height:' . $height . 'px; ' .  
+		'#cmsmasters_clients_' . esc_attr($unique_id) . ' .cmsmasters_clients_item { ' . 
+			'height:' . esc_attr($height) . 'px; ' .  
+			'line-height:' . esc_attr($height) . 'px; ' .  
 		'} ' . "\n" . 
-		'#cmsmasters_clients_' . $unique_id . ' .cmsmasters_clients_item a { ' . 
-			'line-height:' . $height . 'px; ' .  
+		'#cmsmasters_clients_' . esc_attr($unique_id) . ' .cmsmasters_clients_item a { ' . 
+			'line-height:' . esc_attr($height) . 'px; ' .  
 		'} ' . "\n" . 
 	'</style>' . "\n";
 	
@@ -3107,13 +3156,13 @@ public function cmsmasters_clients($atts, $content = null) {
 	if ($layout == 'slider') {
 		$out .= '<script type="text/javascript">' . 
 			'jQuery(document).ready(function () { ' . 
-				'jQuery("#cmsmasters_clients_' . $unique_id . '").owlCarousel( { ' . 
+				'jQuery("#cmsmasters_clients_' . esc_js($unique_id) . '").owlCarousel( { ' . 
 					'singleItem : false, ' . 
-					'items : ' . $columns . ', ' . 
+					'items : ' . esc_js($columns) . ', ' . 
 					'itemsDesktopSmall : [768,2], ' . 
 					'itemsTablet: [540,1], ' . 
-					'slideSpeed : ' . ($speed * 1000) . ', ' . 
-					'paginationSpeed : ' . ($speed * 1000) . ', ' . 
+					'slideSpeed : ' . esc_js($speed * 1000) . ', ' . 
+					'paginationSpeed : ' . esc_js($speed * 1000) . ', ' . 
 					'autoPlay : ' . (($autoplay != 'true') ? 'false' : 'true') . ', ' . 
 					'stopOnHover: true, ' . 
 					'pagination : ' . (($slides_control != 'true') ? 'false' : 'true') . ', ' . 
@@ -3126,11 +3175,11 @@ public function cmsmasters_clients($atts, $content = null) {
 			'} );' . 
 		'</script>' . "\n" . 
 		'<div class="cmsmasters_clients_slider_wrap"' . 
-		(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-		(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+		(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+		(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 		'>' . "\n" . 
-			'<div id="cmsmasters_clients_' . $unique_id . '" class="cmsmasters_clients_slider cmsmasters_owl_slider owl-carousel' . 
-			(($classes != '') ? ' ' . $classes : '') . 
+			'<div id="cmsmasters_clients_' . esc_attr($unique_id) . '" class="cmsmasters_clients_slider cmsmasters_owl_slider owl-carousel' . 
+			(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 			'"' . 
 			'>' . "\n" . 
 			$this->clients_atts['client_out'] . 
@@ -3138,11 +3187,11 @@ public function cmsmasters_clients($atts, $content = null) {
 		'</div>' . "\n";
 	} else {
 		$out .= '<div class="cmsmasters_clients_grid_wrap"' . 
-		(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-		(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+		(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+		(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 		'>' . "\n" . 
-		'<div id="cmsmasters_clients_' . $unique_id . '" class="cmsmasters_clients_grid' . ' ' . $clients_col . 
-		(($classes != '') ? ' ' . $classes : '') . 
+		'<div id="cmsmasters_clients_' . esc_attr($unique_id) . '" class="cmsmasters_clients_grid' . ' ' . esc_attr($clients_col) . 
+		(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 		'">' . "\n" . 
 		'<div class="cmsmasters_clients_items slides">' . "\n" . 
 			$this->clients_atts['client_out'] . 
@@ -3194,7 +3243,7 @@ public function cmsmasters_client($atts, $content = null) {
 	$counter = 0;
 	
 	if ($content == null) {
-		$content = __('Name', 'cmsmasters_content_composer');
+		$content = esc_html__('Name', 'cmsmasters_content_composer');
 	}
 	
 	
@@ -3203,17 +3252,17 @@ public function cmsmasters_client($atts, $content = null) {
 		
 		if ($link != '') {
 			$this->clients_atts['client_out'] .= '<div class="cmsmasters_clients_item item' . 
-			(($classes != '') ? ' ' . $classes : '') . 
+			(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 			'">' . "\n" . 
-				'<a href="' . (($link != '') ? '' . $link : '') . '"' . (($target == 'blank') ? ' target="_blank"' : '') . '>' .  
-					'<img src="' . $client_logo[0] . '" alt="' . $content . '" title="' . $content . '" />' . 
+				'<a href="' . (($link != '') ? '' . esc_url($link) : '') . '"' . (($target == 'blank') ? ' target="_blank"' : '') . '>' .  
+					'<img src="' . esc_url($client_logo[0]) . '" alt="' . esc_attr($content) . '" title="' . esc_attr($content) . '" />' . 
 				'</a>' . "\n" . 
 			'</div>' . "\n";
 		} else {
 			$this->clients_atts['client_out'] .= '<div class="cmsmasters_clients_item item' . 
-			(($classes != '') ? ' ' . $classes : '') . 
+			(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 			'">' . "\n" . 
-				'<img src="' . $client_logo[0] . '" alt="' . $content . '" title="' . $content . '" />' . "\n" .
+				'<img src="' . esc_url($client_logo[0]) . '" alt="' . esc_attr($content) . '" title="' . esc_attr($content) . '" />' . "\n" .
 			'</div>' . "\n";
 		}
 	}
@@ -3284,15 +3333,23 @@ public function cmsmasters_button($atts, $content = null) {
 	$unique_id = strtr($unique_id, '.', '_');
 	
 	
+	$local_fonts = '';
+	
 	if ($button_font_family != '') {
 		$font_family_array = str_replace('+', ' ', explode(':', $button_font_family));
 		
-		$font_family_name = "'" . $font_family_array[0] . "'";
 		
-		$font_family_url = str_replace('+', ' ', $button_font_family);
-		
-		
-		cmsmasters_theme_google_font($font_family_url, $font_family_array[0]);
+		if (is_numeric($font_family_array[0])) {
+			$font_family_name = "'" . $font_family_array[1] . "'";
+			
+			if (is_admin()) {
+				$local_fonts .= 'cmsmasters_local_font_start=' . $button_font_family . '=cmsmasters_local_font_end';
+			}
+		} else {
+			$font_family_name = "'" . $font_family_array[0] . "'";
+			
+			cmsmasters_theme_google_font($button_font_family, $button_font_family);
+		}
 	}
 	
 	
@@ -3324,33 +3381,33 @@ public function cmsmasters_button($atts, $content = null) {
 	
 	
 	$out .= '<style type="text/css">' . "\n" . 
-		'#cmsmasters_button_' . $unique_id . ' { ' . 
-			"\n\t" . (($button_text_align == 'center') ? 'text-align' : 'float') . ':' . $button_text_align . '; ' . 
+		'#cmsmasters_button_' . esc_attr($unique_id) . ' { ' . 
+			"\n\t" . (($button_text_align == 'center') ? 'text-align' : 'float') . ':' . esc_attr($button_text_align) . '; ' . 
 		"\n" . '} ' . "\n\n" . 
-		'#cmsmasters_button_' . $unique_id . ' .cmsmasters_button:before { ' . 
+		'#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button:before { ' . 
 			"\n\t" . 'margin-right:' . (($content != null) ? '.5em; ' : '0;') . 
 			"\n\t" . 'margin-left:0; ' . 
 			"\n\t" . 'vertical-align:baseline; ' . 
 		"\n" . '} ' . "\n\n";
 		
 		if ($button_custom_styles == 'true') {
-			$out .= '#cmsmasters_button_' . $unique_id . ' .cmsmasters_button { ' . 
+			$out .= '#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button { ' . 
 				(($button_font_family != '') ? "\n\t" . 'font-family:' . str_replace('+', ' ', $font_family_name) . '; ' : '') . 
-				(($button_font_size != '') ? "\n\t" . 'font-size:' . $button_font_size . 'px; ' : '') . 
-				(($button_line_height != '') ? "\n\t" . 'line-height:' . $button_line_height . 'px; ' : '') . 
-				(($button_font_weight != '') ? "\n\t" . 'font-weight:' . $button_font_weight . '; ' : '') . 
-				(($button_font_style != '') ? "\n\t" . 'font-style:' . $button_font_style . '; ' : '') . 
-				(($button_padding_hor != '') ? "\n\t" . 'padding-right:' . $button_padding_hor . 'px; ' : '') . 
-				(($button_padding_hor != '') ? "\n\t" . 'padding-left:' . $button_padding_hor . 'px; ' : '') . 
-				(($button_border_width != '') ? "\n\t" . 'border-width:' . $button_border_width . 'px; ' : '') . 
-				(($button_border_style != '') ? "\n\t" . 'border-style:' . $button_border_style . '; ' : '') . 
-				(($button_border_radius != '') ? "\n\t" . '-webkit-border-radius:' . $button_border_radius . '; ' . "\n\t" . 'border-radius:' . $button_border_radius . '; ' : '') . 
+				(($button_font_size != '') ? "\n\t" . 'font-size:' . esc_attr($button_font_size) . 'px; ' : '') . 
+				(($button_line_height != '') ? "\n\t" . 'line-height:' . esc_attr($button_line_height) . 'px; ' : '') . 
+				(($button_font_weight != '') ? "\n\t" . 'font-weight:' . esc_attr($button_font_weight) . '; ' : '') . 
+				(($button_font_style != '') ? "\n\t" . 'font-style:' . esc_attr($button_font_style) . '; ' : '') . 
+				(($button_padding_hor != '') ? "\n\t" . 'padding-right:' . esc_attr($button_padding_hor) . 'px; ' : '') . 
+				(($button_padding_hor != '') ? "\n\t" . 'padding-left:' . esc_attr($button_padding_hor) . 'px; ' : '') . 
+				(($button_border_width != '') ? "\n\t" . 'border-width:' . esc_attr($button_border_width) . 'px; ' : '') . 
+				(($button_border_style != '') ? "\n\t" . 'border-style:' . esc_attr($button_border_style) . '; ' : '') . 
+				(($button_border_radius != '') ? "\n\t" . '-webkit-border-radius:' . esc_attr($button_border_radius) . '; ' . "\n\t" . 'border-radius:' . esc_attr($button_border_radius) . '; ' : '') . 
 				(($button_bg_color != '') ? "\n\t" . cmsmasters_color_css('background-color', $button_bg_color) : '') . 
 				(($button_text_color != '') ? "\n\t" . cmsmasters_color_css('color', $button_text_color) : '') . 
 				(($button_border_color != '') ? "\n\t" . cmsmasters_color_css('border-color', $button_border_color) : '') . 
 			"\n" . '} ' . "\n";
 			
-			$out .= '#cmsmasters_button_' . $unique_id . ' .cmsmasters_button:hover { ' . 
+			$out .= '#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button:hover { ' . 
 				(($button_bg_color_h != '') ? "\n\t" . cmsmasters_color_css('background-color', $button_bg_color_h) : '') . 
 				(($button_text_color_h != '') ? "\n\t" . cmsmasters_color_css('color', $button_text_color_h) : '') . 
 				(($button_border_color_h != '') ? "\n\t" . cmsmasters_color_css('border-color', $button_border_color_h) : '') . 
@@ -3369,25 +3426,25 @@ public function cmsmasters_button($atts, $content = null) {
 				$button_style == 'cmsmasters_but_bg_expand_diag' 
 			) {
 				if ($button_bg_color != '') {
-					$out .= '#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_left:hover, ' . 
-					'#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_right:hover, ' . 
-					'#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_top:hover, ' . 
-					'#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_bottom:hover, ' . 
-					'#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_expand_vert:hover, ' . 
-					'#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_expand_hor:hover, ' . 
-					'#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_expand_diag:hover { ' . 
+					$out .= '#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_left:hover, ' . 
+					'#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_right:hover, ' . 
+					'#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_top:hover, ' . 
+					'#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_bottom:hover, ' . 
+					'#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_expand_vert:hover, ' . 
+					'#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_expand_hor:hover, ' . 
+					'#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_expand_diag:hover { ' . 
 						"\n\t" . cmsmasters_color_css('background-color', $button_bg_color) . 
 					"\n" . '} ' . "\n";
 				}
 				
 				if ($button_bg_color_h != '') {
-					$out .= '#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_left:after, ' . 
-					'#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_right:after, ' . 
-					'#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_top:after, ' . 
-					'#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_bottom:after, ' . 
-					'#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_expand_vert:after, ' . 
-					'#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_expand_hor:after, ' . 
-					'#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_expand_diag:after { ' . 
+					$out .= '#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_left:after, ' . 
+					'#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_right:after, ' . 
+					'#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_top:after, ' . 
+					'#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_bottom:after, ' . 
+					'#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_expand_vert:after, ' . 
+					'#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_expand_hor:after, ' . 
+					'#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_expand_diag:after { ' . 
 						"\n\t" . cmsmasters_color_css('background-color', $button_bg_color_h) . 
 					"\n" . '} ' . "\n";
 				}
@@ -3403,51 +3460,51 @@ public function cmsmasters_button($atts, $content = null) {
 				$but_icon_pad = ($button_padding_hor != '' ? $button_padding_hor : '20') + ($button_line_height != '' ? $button_line_height : '40');
 				
 				if ($button_padding_hor != '' || $button_line_height != '') {
-					$out .= '#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_dark_bg, ' . 
-					'#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_light_bg, ' . 
-					'#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_divider, ' .  
-					'#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse { ' . 
-						"\n\t" . 'padding-left:' . $but_icon_pad . 'px; ' . 
+					$out .= '#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_dark_bg, ' . 
+					'#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_light_bg, ' . 
+					'#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_divider, ' .  
+					'#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse { ' . 
+						"\n\t" . 'padding-left:' . esc_attr($but_icon_pad) . 'px; ' . 
 					"\n" . '} ' . "\n";
 					
-					$out .= '#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_dark_bg:before, ' . 
-					'#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_light_bg:before, ' . 
-					'#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_divider:before, ' . 
-					'#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse:before, ' . 
-					'#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_dark_bg:after, ' . 
-					'#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_light_bg:after, ' . 
-					'#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_divider:after, ' . 
-					'#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse:after { ' . 
-						"\n\t" . 'width:' . $button_line_height . 'px; ' . 
+					$out .= '#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_dark_bg:before, ' . 
+					'#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_light_bg:before, ' . 
+					'#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_divider:before, ' . 
+					'#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse:before, ' . 
+					'#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_dark_bg:after, ' . 
+					'#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_light_bg:after, ' . 
+					'#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_divider:after, ' . 
+					'#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse:after { ' . 
+						"\n\t" . 'width:' . esc_attr($button_line_height) . 'px; ' . 
 					"\n" . '} ' . "\n";
 				}
 				
 				
 				if ($button_border_color != '' || $button_border_color_h != '') {
-					$out .= '#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_divider:after { ' . 
+					$out .= '#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_divider:after { ' . 
 						"\n\t" . cmsmasters_color_css('border-color', $button_border_color) . 
 					"\n" . '} ' . "\n";
 					
-					$out .= '#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_divider:hover:after { ' . 
+					$out .= '#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_divider:hover:after { ' . 
 						"\n\t" . cmsmasters_color_css('border-color', $button_border_color_h) . 
 					"\n" . '} ' . "\n";
 				}
 				
 				
 				if ($button_style == 'cmsmasters_but_icon_inverse') {
-					$out .= '#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse:before { ' . 
+					$out .= '#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse:before { ' . 
 						(($button_text_color_h != '') ? "\n\t" . cmsmasters_color_css('color', $button_text_color_h) : '') . 
 					"\n" . '} ' . "\n";
 				
-					$out .= '#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse:after { ' . 
+					$out .= '#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse:after { ' . 
 						(($button_bg_color_h != '') ? "\n\t" . cmsmasters_color_css('background-color', $button_bg_color_h) : '') . 
 					"\n" . '} ' . "\n";
 					
-					$out .= '#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse:hover:before { ' . 
+					$out .= '#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse:hover:before { ' . 
 						(($button_text_color != '') ? "\n\t" . cmsmasters_color_css('color', $button_text_color) : '') . 
 					"\n" . '} ' . "\n";
 					
-					$out .= '#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse:hover:after { ' . 
+					$out .= '#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse:hover:after { ' . 
 						(($button_bg_color != '') ? "\n\t" . cmsmasters_color_css('background-color', $button_bg_color) : '') . 
 					"\n" . '} ' . "\n";
 				}
@@ -3459,33 +3516,36 @@ public function cmsmasters_button($atts, $content = null) {
 				$button_style == 'cmsmasters_but_icon_slide_right' 
 			) {
 				if ($button_padding_hor != '') {
-					$out .= '#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_slide_left, ' . 
-					'#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_slide_right { ' . 
-						"\n\t" . 'padding-left:' . ($button_padding_hor * 2) . 'px; ' . 
-						"\n\t" . 'padding-right:' . ($button_padding_hor * 2) . 'px; ' . 
+					$out .= '#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_slide_left, ' . 
+					'#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_slide_right { ' . 
+						"\n\t" . 'padding-left:' . esc_attr($button_padding_hor * 2) . 'px; ' . 
+						"\n\t" . 'padding-right:' . esc_attr($button_padding_hor * 2) . 'px; ' . 
 					"\n" . '} ' . "\n";
 					
-					$out .= '#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_slide_left:before { ' . 
-						"\n\t" . 'width:' . ($button_padding_hor * 2) . 'px; ' . 
-						"\n\t" . 'left:-' . ($button_padding_hor * 2) . 'px; ' . 
+					$out .= '#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_slide_left:before { ' . 
+						"\n\t" . 'width:' . esc_attr($button_padding_hor * 2) . 'px; ' . 
+						"\n\t" . 'left:-' . esc_attr($button_padding_hor * 2) . 'px; ' . 
 					"\n" . '} ' . "\n";
 					
-					$out .= '#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_slide_left:hover:before { ' . 
+					$out .= '#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_slide_left:hover:before { ' . 
 						"\n\t" . 'left:0; ' . 
 					"\n" . '} ' . "\n";
 					
-					$out .= '#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_slide_right:before { ' . 
-						"\n\t" . 'width:' . ($button_padding_hor * 2) . 'px; ' . 
-						"\n\t" . 'right:-' . ($button_padding_hor * 2) . 'px; ' . 
+					$out .= '#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_slide_right:before { ' . 
+						"\n\t" . 'width:' . esc_attr($button_padding_hor * 2) . 'px; ' . 
+						"\n\t" . 'right:-' . esc_attr($button_padding_hor * 2) . 'px; ' . 
 					"\n" . '} ' . "\n";
 					
-					$out .= '#cmsmasters_button_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_slide_right:hover:before { ' . 
+					$out .= '#cmsmasters_button_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_slide_right:hover:before { ' . 
 						"\n\t" . 'right:0; ' . 
 					"\n" . '} ' . "\n";
 				}
 			}
 		}
 	$out .= '</style>' . "\n";
+	
+	
+	$out .= $local_fonts;
 	
 	
 	if ($button_type == 'donation') {
@@ -3502,16 +3562,16 @@ public function cmsmasters_button($atts, $content = null) {
 	}
 	
 	
-	$out .= '<div id="cmsmasters_button_' . $unique_id . '" class="button_wrap">' . 
-		'<a href="' . $link . '" class="cmsmasters_button' . 
-		(($button_style != '') ? ' cmsmasters_but_clear_styles ' . $button_style : '') . 
-		(($button_icon != '') ? ' ' . $button_icon : '') . 
-		(($classes != '') ? ' ' . $classes : '') . 
+	$out .= '<div id="cmsmasters_button_' . esc_attr($unique_id) . '" class="button_wrap">' . 
+		'<a href="' . esc_url($link) . '" class="cmsmasters_button' . 
+		(($button_style != '') ? ' cmsmasters_but_clear_styles ' . esc_attr($button_style) : '') . 
+		(($button_icon != '') ? ' ' . esc_attr($button_icon) : '') . 
+		(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 		'"' . 
-		(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-		(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+		(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+		(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 		(($button_target == 'blank') ? ' target="_blank"' : '') . 
-		'><span>' . $content . '</span></a>' . 
+		'><span>' . esc_html($content) . '</span></a>' . 
 	'</div>' . "\n";
 	
 	
@@ -3572,18 +3632,18 @@ public function cmsmasters_simple_icon($atts, $content = null) {
 	
 	
 	$out = '<style type="text/css"> ' . "\n" . 
-		'#cmsmasters_icon_' . $unique_id . ' { ' . 
-			"\n\t" . 'display:' . $display . '; ' . 
-			"\n\t" . 'text-align:' . $text_align . '; ' . 
+		'#cmsmasters_icon_' . esc_attr($unique_id) . ' { ' . 
+			"\n\t" . 'display:' . esc_attr($display) . '; ' . 
+			"\n\t" . 'text-align:' . esc_attr($text_align) . '; ' . 
 		'} ' . "\n\n" . 
-		'#cmsmasters_icon_' . $unique_id . ' .cmsmasters_simple_icon { ' . 
-			"\n\t" . 'border-width:' . $border_width . 'px; ' . 
-			"\n\t" . 'width:' . $space . 'px; ' . 
-			"\n\t" . 'height:' . $space . 'px; ' . 
-			"\n\t" . 'font-size:' . $size . 'px; ' . 
-			"\n\t" . 'line-height:' . ((int) $space - ((int) $border_width * 2)) . 'px; ' . 
-			"\n\t" . 'text-align:' . $text_align . '; ' . 
-			(($border_radius != '') ? "\n\t" . '-webkit-border-radius:' . $border_radius . '; ' . "\n\t" . 'border-radius:' . $border_radius . '; ' : '') . 
+		'#cmsmasters_icon_' . esc_attr($unique_id) . ' .cmsmasters_simple_icon { ' . 
+			"\n\t" . 'border-width:' . esc_attr($border_width) . 'px; ' . 
+			"\n\t" . 'width:' . esc_attr($space) . 'px; ' . 
+			"\n\t" . 'height:' . esc_attr($space) . 'px; ' . 
+			"\n\t" . 'font-size:' . esc_attr($size) . 'px; ' . 
+			"\n\t" . 'line-height:' . esc_attr(((int) $space - ((int) $border_width * 2))) . 'px; ' . 
+			"\n\t" . 'text-align:' . esc_attr($text_align) . '; ' . 
+			(($border_radius != '') ? "\n\t" . '-webkit-border-radius:' . esc_attr($border_radius) . '; ' . "\n\t" . 'border-radius:' . esc_attr($border_radius) . '; ' : '') . 
 			(($color != '') ? "\n\t" . cmsmasters_color_css('color', $color) : '') . 
 			(($bg_color != '') ? "\n\t" . cmsmasters_color_css('background-color', $bg_color) : '') . 
 			(($bd_color != '') ? "\n\t" . cmsmasters_color_css('border-color', $bd_color) : '') . 
@@ -3591,14 +3651,14 @@ public function cmsmasters_simple_icon($atts, $content = null) {
 	'</style>' . "\n";
 	
 	
-    $out .= '<div id="cmsmasters_icon_' . $unique_id . '" class="cmsmasters_icon_wrap">' . 
-		(($link != '') ? '<a href="' . $link . '"' . (($target == 'blank') ? ' target="_blank"' : '') . '>' : '') . 
+    $out .= '<div id="cmsmasters_icon_' . esc_attr($unique_id) . '" class="cmsmasters_icon_wrap">' . 
+		(($link != '') ? '<a href="' . esc_url($link) . '"' . (($target == 'blank') ? ' target="_blank"' : '') . '>' : '') . 
 			'<span class="cmsmasters_simple_icon' . 
-			(($icon != '') ? ' ' . $icon : '') . 
-			(($content != '') ? ' ' . $content : '') . 
+			(($icon != '') ? ' ' . esc_attr($icon) : '') . 
+			(($content != '') ? ' ' . esc_attr($content) : '') . 
 			'"' . 
-			(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-			(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+			(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+			(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 			'></span>' . 
 		(($link != '') ? '</a>' : '') . 
 	'</div>' . "\n";
@@ -3685,31 +3745,31 @@ public function cmsmasters_image($atts, $content = null) {
 			
 			
 			if ($link != '') {
-				$out .= '<div class="cmsmasters_img ' . $img_align . 
+				$out .= '<div class="cmsmasters_img ' . esc_attr($img_align) . 
 				(($caption != '') ? ' with_caption' : '') . 
-				(($classes != '') ? ' ' . $classes : '') . 
+				(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 				'"' . 
-				(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-				(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+				(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+				(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 				'>' . "\n" . 
-					'<a href="' . $link . '"' . 
+					'<a href="' . esc_url($link) . '"' . 
 					(($lightbox == 'true') ? ' rel="ilightbox"' : '') . 
 					(($target == 'true') ? ' target="_blank"' : '') . 
 					'>' . 
-						'<img src="' . $new_image[0] . '"' . ($new_image_alt != '' ? ' alt="' . esc_attr($new_image_alt) . '"' : '') . ' />' . 
+						'<img src="' . esc_url($new_image[0]) . '"' . ($new_image_alt != '' ? ' alt="' . esc_attr($new_image_alt) . '"' : '') . ' />' . 
 					'</a>' . "\n" . 
-					(($caption != '') ? '<p class="cmsmasters_img_caption">' . $caption . '</p>' : '') . 
+					(($caption != '') ? '<p class="cmsmasters_img_caption">' . esc_html($caption) . '</p>' : '') . 
 				'</div>' . "\n";
 			} else {
-				$out .= '<div class="cmsmasters_img ' . $img_align . 
+				$out .= '<div class="cmsmasters_img ' . esc_attr($img_align) . 
 				(($caption != '') ? ' with_caption' : '') . 
-				(($classes != '') ? ' ' . $classes : '') . 
+				(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 				'"' . 
-				(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-				(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+				(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+				(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 				'>' . "\n" . 
-					'<img src="' . $new_image[0] . '"' . ($new_image_alt != '' ? ' alt="' . esc_attr($new_image_alt) . '"' : '') . ' />' . "\n" . 
-					(($caption != '') ? '<p class="cmsmasters_img_caption">' . $caption . '</p>' : '') . 
+					'<img src="' . esc_url($new_image[0]) . '"' . ($new_image_alt != '' ? ' alt="' . esc_attr($new_image_alt) . '"' : '') . ' />' . "\n" . 
+					(($caption != '') ? '<p class="cmsmasters_img_caption">' . esc_html($caption) . '</p>' : '') . 
 				'</div>' . "\n";
 			}
 			
@@ -3813,22 +3873,22 @@ public function cmsmasters_gallery($atts, $content = null) {
 		if ($layout == 'hover') {
 			$out .= '<script type="text/javascript">' . 
 					'jQuery(document).ready(function () { ' . 
-						'jQuery("#cmsmasters_hover_slider_' . $unique_id . '").cmsmastersHoverSlider( { ' . 
-							'sliderBlock : "#cmsmasters_hover_slider_' . $unique_id . '", ' . 
+						'jQuery("#cmsmasters_hover_slider_' . esc_js($unique_id) . '").cmsmastersHoverSlider( { ' . 
+							'sliderBlock : "#cmsmasters_hover_slider_' . esc_js($unique_id) . '", ' . 
 							'sliderItems : ".cmsmasters_hover_slider_items", ' . 
 							'thumbWidth : "100", ' . 
 							'thumbHeight : "60", ' . 
-							'activeSlide : ' . $hover_active . ', ' . 
-							'pauseTime : ' . ($hover_pause * 1000) . ', ' . 
-							'pauseOnHover : ' . $hover_pause_on_hover . ' ' . 
+							'activeSlide : ' . esc_js($hover_active) . ', ' . 
+							'pauseTime : ' . esc_js($hover_pause * 1000) . ', ' . 
+							'pauseOnHover : ' . esc_js($hover_pause_on_hover) . ' ' . 
 						'} );' . 
 					'} );' . 
 				'</script>' . 
-			'<div id="cmsmasters_hover_slider_' . $unique_id . '" class="cmsmasters_hover_slider' . 
-			(($classes != '') ? ' ' . $classes : '') . 
+			'<div id="cmsmasters_hover_slider_' . esc_attr($unique_id) . '" class="cmsmasters_hover_slider' . 
+			(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 			'"' . 
-			(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-			(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+			(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+			(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 			'>' . "\n" . 
 			'<ul class="cmsmasters_hover_slider_items">' . "\n";
 			
@@ -3844,21 +3904,21 @@ public function cmsmasters_gallery($atts, $content = null) {
 			$out .= '</ul>' . "\n" . 
 			'</div>' . "\n";
 		} elseif ($layout == 'slider') {
-			$out .= '<div class="cmsmasters_content_slider_wrap" style="max-width:' . $slider_size . 'px;"' . 
-			(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-			(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+			$out .= '<div class="cmsmasters_content_slider_wrap" style="max-width:' . esc_attr($slider_size) . 'px;"' . 
+			(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+			(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 			'>' . "\n" . 
 				'<script type="text/javascript">' . 
 					'jQuery(document).ready(function () { ' . 
-						'jQuery("#cmsmasters_slider_' . $unique_id . '.cmsmasters_content_slider").owlCarousel( { ' . 
+						'jQuery("#cmsmasters_slider_' . esc_js($unique_id) . '.cmsmasters_content_slider").owlCarousel( { ' . 
 							'singleItem : true, ' . 
 							(($slider_effect == 'slide') ? 'transitionStyle: false, ' : 'transitionStyle: "fade", ') . 
 							(($slider_rewind != 'true') ? 'rewindNav: false, ' : '') . 
-							'rewindSpeed : ' . $slider_rewind_speed . ', ' . 
-							'slideSpeed : ' . $slider_animation_speed . ', ' . 
+							'rewindSpeed : ' . esc_js($slider_rewind_speed) . ', ' . 
+							'slideSpeed : ' . esc_js($slider_animation_speed) . ', ' . 
 							'autoHeight : true, ' . 
-							'paginationSpeed : 	' . $slider_animation_speed . ', ' . 
-							(($slider_autoplay != 'true') ? 'autoPlay : false, ' : 'autoPlay : ' . ($slider_slideshow_speed * 1000) . ',') . 
+							'paginationSpeed : 	' . esc_js($slider_animation_speed) . ', ' . 
+							(($slider_autoplay != 'true') ? 'autoPlay : false, ' : 'autoPlay : ' . esc_js($slider_slideshow_speed * 1000) . ',') . 
 							(($slider_pause_on_hover == 'true') ? 'stopOnHover: true, ' : '') . 
 							(($slider_nav_control != 'true') ? 'pagination: false, ' : '') . 
 							(($slider_nav_arrow == 'true') ? 'navigation : true, ' : '') . 
@@ -3869,8 +3929,8 @@ public function cmsmasters_gallery($atts, $content = null) {
 						'} );' . 
 					'} );' . 
 				'</script>' . "\n" . 
-				'<div id="cmsmasters_slider_' . $unique_id . '" class="cmsmasters_content_slider cmsmasters_owl_slider owl-carousel' . 
-				(($classes != '') ? ' ' . $classes : '') . 
+				'<div id="cmsmasters_slider_' . esc_attr($unique_id) . '" class="cmsmasters_content_slider cmsmasters_owl_slider owl-carousel' . 
+				(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 				'">' . "\n";
 			
 			
@@ -3883,7 +3943,7 @@ public function cmsmasters_gallery($atts, $content = null) {
 			$out .= '</div>' . "\n" . 
 			'</div>' . "\n";
 		} else {
-			$gallery_more_text = ($gallery_more_text != '') ? $gallery_more_text : __('Load More', 'cmsmasters_content_composer');
+			$gallery_more_text = ($gallery_more_text != '') ? $gallery_more_text : esc_html__('Load More', 'cmsmasters_content_composer');
 			
 			$out_gallery_items = '';
 			
@@ -3902,7 +3962,7 @@ public function cmsmasters_gallery($atts, $content = null) {
 					'<figure>';
 						
 						if ($gallery_links != 'none') {
-							$gallery_item .= '<a'. (($gallery_links == 'blank') ? ' target="_blank"' : '') . ' href="' . $image_src[0] . '"' . (($gallery_links == 'lightbox') ? ' rel="ilightbox[' . $unique_id . ']"' : '') . '>';
+							$gallery_item .= '<a'. (($gallery_links == 'blank') ? ' target="_blank"' : '') . ' href="' . esc_url($image_src[0]) . '"' . (($gallery_links == 'lightbox') ? ' rel="ilightbox[' . esc_attr($unique_id) . ']"' : '') . '>';
 						}
 						
 						$gallery_item .= wp_get_attachment_image(strstr($image, '|', true), $image_size_gallery);
@@ -3933,11 +3993,11 @@ public function cmsmasters_gallery($atts, $content = null) {
 			}
 			
 			
-			$out .= '<div id="cmsmasters_gallery_' . $unique_id . '" class="cmsmasters_gallery_wrap' . 
-			(($classes != '') ? ' ' . $classes : '') . 
+			$out .= '<div id="cmsmasters_gallery_' . esc_attr($unique_id) . '" class="cmsmasters_gallery_wrap' . 
+			(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 			'"' . 
-			(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-			(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+			(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+			(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 			'>';
 			
 			
@@ -3950,18 +4010,18 @@ public function cmsmasters_gallery($atts, $content = null) {
 			
 			
 			$out .= "<style type=\"text/css\">
-				#cmsmasters_gallery_{$unique_id} .cmsmasters_gallery {
-					margin:0 0 0 -{$gallery_padding}px;
+				#cmsmasters_gallery_" . esc_attr($unique_id) . " .cmsmasters_gallery {
+					margin:0 0 0 -" . esc_attr($gallery_padding) . "px;
 				}
 				
-				#cmsmasters_gallery_{$unique_id} .cmsmasters_gallery .cmsmasters_gallery_item {
-					padding:0 0 {$gallery_padding}px {$gallery_padding}px;
+				#cmsmasters_gallery_" . esc_attr($unique_id) . " .cmsmasters_gallery .cmsmasters_gallery_item {
+					padding:0 0 " . esc_attr($gallery_padding) . "px " . esc_attr($gallery_padding) . "px;
 				}
 			</style>";
 			
 			
 			$out .= '<ul class="cmsmasters_gallery' . 
-				(($gallery_columns != '') ? ' cmsmasters_' . $gallery_columns : '') . 
+				(($gallery_columns != '') ? ' cmsmasters_' . esc_attr($gallery_columns) : '') . 
 				' cmsmasters_more_items_loader' . 
 			'">' . 
 				$out_gallery_items . 
@@ -3971,8 +4031,8 @@ public function cmsmasters_gallery($atts, $content = null) {
 			if ($gallery_arr != '') {
 				$out .= '<div class="cmsmasters_wrap_more_items">' . 
 					'<div class="cmsmasters_more_gallery_items cmsmasters_wrap_items_loader">' . 
-						'<a href="javascript:void(0);" class="cmsmasters_button cmsmasters_gallery_items_loader cmsmasters_items_loader">' . 
-							'<span>' . $gallery_more_text . '</span>' . 
+						'<a href="' . esc_js("javascript:void(0)") . '" class="cmsmasters_button cmsmasters_gallery_items_loader cmsmasters_items_loader">' . 
+							'<span>' . esc_html($gallery_more_text) . '</span>' . 
 						'</a>' . 
 					'</div>' . 
 				'</div>';
@@ -3982,16 +4042,16 @@ public function cmsmasters_gallery($atts, $content = null) {
 			$out .= "<script type=\"text/javascript\">
 				jQuery(document).ready(function () {
 					(function ($) {
-						if ($('#cmsmasters_gallery_{$unique_id}').find('.cmsmasters_gallery_item').length == '0') {
+						if ($('#cmsmasters_gallery_" . esc_js($unique_id) . "').find('.cmsmasters_gallery_item').length == '0') {
 							return false;
 						}
 						
 						
 						startGallery( 
-							'" . $unique_id . "', 
-							'" . $gallery_type . "', 
-							'" . ($gallery_count != '' ? $gallery_count : 'false') . "', 
-							" . ($gallery_arr != '' ? "[{$gallery_arr}]" : "'false'") . " 
+							'" . esc_js($unique_id) . "', 
+							'" . esc_js($gallery_type) . "', 
+							'" . ($gallery_count != '' ? esc_js($gallery_count) : 'false') . "', 
+							" . ($gallery_arr != '' ? "[{$gallery_arr}]" : "'false'") . "
 						);
 					} )(jQuery);
 				} );
@@ -4081,14 +4141,14 @@ public function cmsmasters_quotes($atts, $content = null) {
 	
 	if ($this->quotes_atts['quote_mode'] == 'slider') {
 		$quotes_out .= '<div class="cmsmasters_quotes_slider_wrap"' . 
-		(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-		(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+		(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+		(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 		'>' . "\n" . 
 			'<script type="text/javascript">' . 
 				'jQuery(document).ready(function () { ' . 
-					'jQuery("#cmsmasters_quotes_slider_' . $unique_id . '").owlCarousel( { ' . 
+					'jQuery("#cmsmasters_quotes_slider_' . esc_js($unique_id) . '").owlCarousel( { ' . 
 						'singleItem : true, ' . 
-						(($speed == 0) ? 'autoPlay : false, ' : 'autoPlay : ' . ($speed * 1000) . ',') . 
+						(($speed == 0) ? 'autoPlay : false, ' : 'autoPlay : ' . esc_js($speed * 1000) . ',') . 
 						'stopOnHover: true, ' . 
 						'pagination: true, ' . 
 						'navigation : true, ' . 
@@ -4099,18 +4159,18 @@ public function cmsmasters_quotes($atts, $content = null) {
 					'} );' . 
 				'} );' . 
 			'</script>' . "\n" . 
-			'<div id="cmsmasters_quotes_slider_' . $unique_id . '" class="cmsmasters_quotes cmsmasters_quotes_slider cmsmasters_owl_slider owl-carousel' . 
-			(($classes != '') ? ' ' . $classes : '') . 
+			'<div id="cmsmasters_quotes_slider_' . esc_attr($unique_id) . '" class="cmsmasters_quotes cmsmasters_quotes_slider cmsmasters_owl_slider owl-carousel' . 
+			(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 			'">' . "\n" . 
 				$quote_out . 
 			'</div>' . "\n" . 
 		'</div>';
 	} else {
-		$quotes_out .= '<div class="cmsmasters_quotes cmsmasters_quotes_grid ' . $new_columns . 
-		(($classes != '') ? ' ' . $classes : '') . 
+		$quotes_out .= '<div class="cmsmasters_quotes cmsmasters_quotes_grid ' . esc_attr($new_columns) . 
+		(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 		'"' . 
-		(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-		(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+		(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+		(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 		'>' . "\n" . 
 			'<span class="cmsmasters_quotes_vert"><span></span></span>' . 
 			'<div class="cmsmasters_quotes_list">' . "\n" . 
@@ -4164,7 +4224,7 @@ public function cmsmasters_quote($atts, $content = null) {
 	
 	
 	if ($content == null || $content == "<br />\n") {
-		$this->quotes_atts['quote_content'] = __('Enter quote text here', 'cmsmasters_content_composer');
+		$this->quotes_atts['quote_content'] = esc_html__('Enter quote text here', 'cmsmasters_content_composer');
 	} else {
 		$this->quotes_atts['quote_content'] = $content;
 	}
@@ -4189,7 +4249,7 @@ public function cmsmasters_quote($atts, $content = null) {
 	
 	
 	$quote_out .= '<div class="cmsmasters_quote' . 
-		(($classes != '') ? ' ' . $classes : '') . 
+		(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 	'">' . "\n" . 
 	
 		cmsmasters_composer_ob_load_template('framework/post-type/quote/' . $this->quotes_atts['quote_mode'] . '.php', $this->quotes_atts) . 
@@ -4264,11 +4324,11 @@ public function cmsmasters_pricing_table_items($atts, $content = null) {
 	
 	
 	$out .= (($this->pricing_table_items_atts['style_pricing'] != '') ? '<style type="text/css">' . "\n" . $this->pricing_table_items_atts['style_pricing'] . '</style> ' . "\n" : '') . 
-	'<div class="cmsmasters_pricing_table' . ' ' . $price_columns . 
-	(($classes != '') ? ' ' . $classes : '') . 
+	'<div class="cmsmasters_pricing_table' . ' ' . esc_attr($price_columns) . 
+	(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 	'"' . 
-	(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-	(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+	(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+	(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 	'>' . "\n" . 
 		$price_out . 
 	'</div>' . "\n";
@@ -4346,15 +4406,23 @@ public function cmsmasters_pricing_table_item($atts, $content = null) {
 	$unique_id = strtr($unique_id, '.', '_');
 	
 	
+	$local_fonts = '';
+	
 	if ($button_font_family != '') {
 		$font_family_array = str_replace('+', ' ', explode(':', $button_font_family));
 		
-		$font_family_name = "'" . $font_family_array[0] . "'";
 		
-		$font_family_url = str_replace('+', ' ', $button_font_family);
-		
-		
-		cmsmasters_theme_google_font($font_family_url, $font_family_array[0]);
+		if (is_numeric($font_family_array[0])) {
+			$font_family_name = "'" . $font_family_array[1] . "'";
+			
+			if (is_admin()) {
+				$local_fonts .= 'cmsmasters_local_font_start=' . $button_font_family . '=cmsmasters_local_font_end';
+			}
+		} else {
+			$font_family_name = "'" . $font_family_array[0] . "'";
+			
+			cmsmasters_theme_google_font($button_font_family, $button_font_family);
+		}
 	}
 	
 	
@@ -4387,19 +4455,19 @@ public function cmsmasters_pricing_table_item($atts, $content = null) {
 	
 	if ($best == 'true') {
 		if ($best_bg_color != '') {
-			$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . $unique_id . ' { ' . 
+			$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' { ' . 
 				"\n\t" . cmsmasters_color_css('background-color', $best_bg_color) . 
 			"\n" . '} ' . "\n";
 		}
 		
 		
 		if ($best_text_color != '') {
-			$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . $unique_id . ' .pricing_title, ' . 
-			'#cmsmasters_pricing_item_' . $unique_id . ' .pricing_title *, ' . 
-			'#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_price_wrap, ' . 
-			'#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_price_wrap *, ' . 
-			'#cmsmasters_pricing_item_' . $unique_id . ' .feature_list, ' . 
-			'#cmsmasters_pricing_item_' . $unique_id . ' .feature_list * { ' . 
+			$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .pricing_title, ' . 
+			'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .pricing_title *, ' . 
+			'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_price_wrap, ' . 
+			'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_price_wrap *, ' . 
+			'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .feature_list, ' . 
+			'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .feature_list * { ' . 
 				"\n\t" . cmsmasters_color_css('color', $best_text_color) . 
 			"\n" . '} ' . "\n";
 		}
@@ -4407,30 +4475,30 @@ public function cmsmasters_pricing_table_item($atts, $content = null) {
 	
 	
 	if ($button_show == 'true') {
-		$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button:before { ' . 
+		$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button:before { ' . 
 			"\n\t" . 'margin-right:' . (($button_title != '') ? '.5em; ' : '0;') . 
 			"\n\t" . 'margin-left:0; ' . 
 			"\n\t" . 'vertical-align:baseline; ' . 
 		"\n" . '} ' . "\n\n";
 	
 		if ($button_custom_styles == 'true') {
-			$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button { ' . 
+			$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button { ' . 
 				(($button_font_family != '') ? "\n\t" . 'font-family:' . str_replace('+', ' ', $font_family_name) . '; ' : '') . 
-				(($button_font_size != '') ? "\n\t" . 'font-size:' . $button_font_size . 'px; ' : '') . 
-				(($button_line_height != '') ? "\n\t" . 'line-height:' . $button_line_height . 'px; ' : '') . 
-				(($button_font_weight != '') ? "\n\t" . 'font-weight:' . $button_font_weight . '; ' : '') . 
-				(($button_font_style != '') ? "\n\t" . 'font-style:' . $button_font_style . '; ' : '') . 
-				(($button_padding_hor != '') ? "\n\t" . 'padding-right:' . $button_padding_hor . 'px; ' : '') . 
-				(($button_padding_hor != '') ? "\n\t" . 'padding-left:' . $button_padding_hor . 'px; ' : '') . 
-				(($button_border_width != '') ? "\n\t" . 'border-width:' . $button_border_width . 'px; ' : '') . 
-				(($button_border_style != '') ? "\n\t" . 'border-style:' . $button_border_style . '; ' : '') . 
-				(($button_border_radius != '') ? "\n\t" . '-webkit-border-radius:' . $button_border_radius . '; ' . "\n\t" . 'border-radius:' . $button_border_radius . '; ' : '') . 
+				(($button_font_size != '') ? "\n\t" . 'font-size:' . esc_attr($button_font_size) . 'px; ' : '') . 
+				(($button_line_height != '') ? "\n\t" . 'line-height:' . esc_attr($button_line_height) . 'px; ' : '') . 
+				(($button_font_weight != '') ? "\n\t" . 'font-weight:' . esc_attr($button_font_weight) . '; ' : '') . 
+				(($button_font_style != '') ? "\n\t" . 'font-style:' . esc_attr($button_font_style) . '; ' : '') . 
+				(($button_padding_hor != '') ? "\n\t" . 'padding-right:' . esc_attr($button_padding_hor) . 'px; ' : '') . 
+				(($button_padding_hor != '') ? "\n\t" . 'padding-left:' . esc_attr($button_padding_hor) . 'px; ' : '') . 
+				(($button_border_width != '') ? "\n\t" . 'border-width:' . esc_attr($button_border_width) . 'px; ' : '') . 
+				(($button_border_style != '') ? "\n\t" . 'border-style:' . esc_attr($button_border_style) . '; ' : '') . 
+				(($button_border_radius != '') ? "\n\t" . '-webkit-border-radius:' . esc_attr($button_border_radius) . '; ' . "\n\t" . 'border-radius:' . esc_attr($button_border_radius) . '; ' : '') . 
 				(($button_bg_color != '') ? "\n\t" . cmsmasters_color_css('background-color', $button_bg_color) : '') . 
 				(($button_text_color != '') ? "\n\t" . cmsmasters_color_css('color', $button_text_color) : '') . 
 				(($button_border_color != '') ? "\n\t" . cmsmasters_color_css('border-color', $button_border_color) : '') . 
 			"\n" . '} ' . "\n";
 			
-			$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button:hover { ' . 
+			$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button:hover { ' . 
 				(($button_bg_color_h != '') ? "\n\t" . cmsmasters_color_css('background-color', $button_bg_color_h) : '') . 
 				(($button_text_color_h != '') ? "\n\t" . cmsmasters_color_css('color', $button_text_color_h) : '') . 
 				(($button_border_color_h != '') ? "\n\t" . cmsmasters_color_css('border-color', $button_border_color_h) : '') . 
@@ -4449,25 +4517,25 @@ public function cmsmasters_pricing_table_item($atts, $content = null) {
 				$button_style == 'cmsmasters_but_bg_expand_diag' 
 			) {
 				if ($button_bg_color != '') {
-					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_left:hover, ' . 
-					'#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_right:hover, ' . 
-					'#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_top:hover, ' . 
-					'#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_bottom:hover, ' . 
-					'#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_expand_vert:hover, ' . 
-					'#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_expand_hor:hover, ' . 
-					'#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_expand_diag:hover { ' . 
+					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_left:hover, ' . 
+					'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_right:hover, ' . 
+					'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_top:hover, ' . 
+					'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_bottom:hover, ' . 
+					'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_expand_vert:hover, ' . 
+					'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_expand_hor:hover, ' . 
+					'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_expand_diag:hover { ' . 
 						"\n\t" . cmsmasters_color_css('background-color', $button_bg_color) . 
 					"\n" . '} ' . "\n";
 				}
 				
 				if ($button_bg_color_h != '') {
-					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_left:after, ' . 
-					'#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_right:after, ' . 
-					'#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_top:after, ' . 
-					'#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_bottom:after, ' . 
-					'#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_expand_vert:after, ' . 
-					'#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_expand_hor:after, ' . 
-					'#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_expand_diag:after { ' . 
+					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_left:after, ' . 
+					'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_right:after, ' . 
+					'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_top:after, ' . 
+					'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_bottom:after, ' . 
+					'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_expand_vert:after, ' . 
+					'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_expand_hor:after, ' . 
+					'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_expand_diag:after { ' . 
 						"\n\t" . cmsmasters_color_css('background-color', $button_bg_color_h) . 
 					"\n" . '} ' . "\n";
 				}
@@ -4483,51 +4551,51 @@ public function cmsmasters_pricing_table_item($atts, $content = null) {
 				$but_icon_pad = ($button_padding_hor != '' ? $button_padding_hor : '20') + ($button_line_height != '' ? $button_line_height : '40');
 				
 				if ($button_padding_hor != '' || $button_line_height != '') {
-					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_dark_bg, ' . 
-					'#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_light_bg, ' . 
-					'#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_divider, ' .  
-					'#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse { ' . 
-						"\n\t" . 'padding-left:' . $but_icon_pad . 'px; ' . 
+					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_dark_bg, ' . 
+					'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_light_bg, ' . 
+					'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_divider, ' .  
+					'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse { ' . 
+						"\n\t" . 'padding-left:' . esc_attr($but_icon_pad) . 'px; ' . 
 					"\n" . '} ' . "\n";
 					
-					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_dark_bg:before, ' . 
-					'#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_light_bg:before, ' . 
-					'#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_divider:before, ' . 
-					'#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse:before, ' . 
-					'#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_dark_bg:after, ' . 
-					'#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_light_bg:after, ' . 
-					'#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_divider:after, ' . 
-					'#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse:after { ' . 
-						"\n\t" . 'width:' . $button_line_height . 'px; ' . 
+					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_dark_bg:before, ' . 
+					'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_light_bg:before, ' . 
+					'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_divider:before, ' . 
+					'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse:before, ' . 
+					'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_dark_bg:after, ' . 
+					'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_light_bg:after, ' . 
+					'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_divider:after, ' . 
+					'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse:after { ' . 
+						"\n\t" . 'width:' . esc_attr($button_line_height) . 'px; ' . 
 					"\n" . '} ' . "\n";
 				}
 				
 				
 				if ($button_border_color != '' || $button_border_color_h != '') {
-					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_divider:after { ' . 
+					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_divider:after { ' . 
 						"\n\t" . cmsmasters_color_css('border-color', $button_border_color) . 
 					"\n" . '} ' . "\n";
 					
-					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_divider:hover:after { ' . 
+					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_divider:hover:after { ' . 
 						"\n\t" . cmsmasters_color_css('border-color', $button_border_color_h) . 
 					"\n" . '} ' . "\n";
 				}
 				
 				
 				if ($button_style == 'cmsmasters_but_icon_inverse') {
-					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse:before { ' . 
+					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse:before { ' . 
 						(($button_text_color_h != '') ? "\n\t" . cmsmasters_color_css('color', $button_text_color_h) : '') . 
 					"\n" . '} ' . "\n";
 				
-					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse:after { ' . 
+					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse:after { ' . 
 						(($button_bg_color_h != '') ? "\n\t" . cmsmasters_color_css('background-color', $button_bg_color_h) : '') . 
 					"\n" . '} ' . "\n";
 					
-					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse:hover:before { ' . 
+					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse:hover:before { ' . 
 						(($button_text_color != '') ? "\n\t" . cmsmasters_color_css('color', $button_text_color) : '') . 
 					"\n" . '} ' . "\n";
 					
-					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse:hover:after { ' . 
+					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse:hover:after { ' . 
 						(($button_bg_color != '') ? "\n\t" . cmsmasters_color_css('background-color', $button_bg_color) : '') . 
 					"\n" . '} ' . "\n";
 				}
@@ -4539,27 +4607,27 @@ public function cmsmasters_pricing_table_item($atts, $content = null) {
 				$button_style == 'cmsmasters_but_icon_slide_right' 
 			) {
 				if ($button_padding_hor != '') {
-					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_slide_left, ' . 
-					'#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_slide_right { ' . 
-						"\n\t" . 'padding-left:' . ($button_padding_hor * 2) . 'px; ' . 
-						"\n\t" . 'padding-right:' . ($button_padding_hor * 2) . 'px; ' . 
+					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_slide_left, ' . 
+					'#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_slide_right { ' . 
+						"\n\t" . 'padding-left:' . esc_attr(($button_padding_hor * 2)) . 'px; ' . 
+						"\n\t" . 'padding-right:' . esc_attr(($button_padding_hor * 2)) . 'px; ' . 
 					"\n" . '} ' . "\n";
 					
-					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_slide_left:before { ' . 
-						"\n\t" . 'width:' . ($button_padding_hor * 2) . 'px; ' . 
-						"\n\t" . 'left:-' . ($button_padding_hor * 2) . 'px; ' . 
+					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_slide_left:before { ' . 
+						"\n\t" . 'width:' . esc_attr(($button_padding_hor * 2)) . 'px; ' . 
+						"\n\t" . 'left:-' . esc_attr(($button_padding_hor * 2)) . 'px; ' . 
 					"\n" . '} ' . "\n";
 					
-					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_slide_left:hover:before { ' . 
+					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_slide_left:hover:before { ' . 
 						"\n\t" . 'left:0; ' . 
 					"\n" . '} ' . "\n";
 					
-					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_slide_right:before { ' . 
-						"\n\t" . 'width:' . ($button_padding_hor * 2) . 'px; ' . 
-						"\n\t" . 'right:-' . ($button_padding_hor * 2) . 'px; ' . 
+					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_slide_right:before { ' . 
+						"\n\t" . 'width:' . esc_attr(($button_padding_hor * 2)) . 'px; ' . 
+						"\n\t" . 'right:-' . esc_attr(($button_padding_hor * 2)) . 'px; ' . 
 					"\n" . '} ' . "\n";
 					
-					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_slide_right:hover:before { ' . 
+					$this->pricing_table_items_atts['style_pricing'] .= '#cmsmasters_pricing_item_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_slide_right:hover:before { ' . 
 						"\n\t" . 'right:0; ' . 
 					"\n" . '} ' . "\n";
 				}
@@ -4568,20 +4636,23 @@ public function cmsmasters_pricing_table_item($atts, $content = null) {
 	}
 	
 	
-	$price_out = '<div id="cmsmasters_pricing_item_' . $unique_id . '" class="cmsmasters_pricing_item' . 
+	$price_out = $local_fonts;
+	
+	
+	$price_out .= '<div id="cmsmasters_pricing_item_' . esc_attr($unique_id) . '" class="cmsmasters_pricing_item' . 
 	(($best == 'true') ? ' pricing_best' : '') . 
-	(($classes != '') ? ' ' . $classes : '') . 
+	(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 	'"' . 
-	(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-	(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+	(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+	(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 	'>' . "\n" . 
 		'<div class="cmsmasters_pricing_item_inner">' . "\n" . 
-			'<h3 class="pricing_title">' . $content . '</h3>' . "\n" . 
+			'<h3 class="pricing_title">' . esc_html($content) . '</h3>' . "\n" . 
 			'<div class="cmsmasters_price_wrap">' . "\n" . 
-			'<span class="cmsmasters_currency">' . $currency . '</span>' . "\n" . 
-			'<span class="cmsmasters_price">' . $price . '</span>' . "\n" . 
-			(($coins != '') ? '<span class="cmsmasters_coins">.' . $coins . '</span>' . "\n" : '') . 
-			(($period != '') ? '<br /><span class="cmsmasters_period">' . $period . '</span>' . "\n" : '') . 
+			'<span class="cmsmasters_currency">' . esc_html($currency) . '</span>' . "\n" . 
+			'<span class="cmsmasters_price">' . esc_html($price) . '</span>' . "\n" . 
+			(($coins != '') ? '<span class="cmsmasters_coins">.' . esc_html($coins) . '</span>' . "\n" : '') . 
+			(($period != '') ? '<br /><span class="cmsmasters_period">' . esc_html($period) . '</span>' . "\n" : '') . 
 			'</div>' . "\n";
 			
 			
@@ -4600,9 +4671,9 @@ public function cmsmasters_pricing_table_item($atts, $content = null) {
 					$feature_atts = preg_replace('/^icon\{([^\}]*)\}/','$1', $feature_atts);
 					
 					$price_out .= '<li>' . 
-					((isset($feature_atts[2]) && $feature_atts[2] != '') ? '<span class="feature_icon ' . $feature_atts[2] . '">' : '') . 
-					((isset($feature_atts[1]) && $feature_atts[1] != '') ? '<a href="' . $feature_atts[1] . '" class="feature_link">' : '') . 
-					$feature_atts[0] . 
+					((isset($feature_atts[2]) && $feature_atts[2] != '') ? '<span class="feature_icon ' . esc_attr($feature_atts[2]) . '">' : '') . 
+					((isset($feature_atts[1]) && $feature_atts[1] != '') ? '<a href="' . esc_url($feature_atts[1]) . '" class="feature_link">' : '') . 
+					esc_html($feature_atts[0]) . 
 					((isset($feature_atts[1]) && $feature_atts[1] != '') ? '</a>' : '') . 
 					((isset($feature_atts[2]) && $feature_atts[2] != '') ? '</span>' : '') . 
 					'</li>' . "\n";
@@ -4614,12 +4685,12 @@ public function cmsmasters_pricing_table_item($atts, $content = null) {
 			
 			
 			if ($button_show == 'true') {
-				$price_out .= '<a href="' . $button_link . '" class="cmsmasters_button' . 
-				(($button_style != '') ? ' cmsmasters_but_clear_styles ' . $button_style : '') . 
-				(($button_icon != '') ? ' ' . $button_icon : '') . 
+				$price_out .= '<a href="' . esc_url($button_link) . '" class="cmsmasters_button' . 
+				(($button_style != '') ? ' cmsmasters_but_clear_styles ' . esc_attr($button_style) : '') . 
+				(($button_icon != '') ? ' ' . esc_attr($button_icon) : '') . 
 				'"' . 
 				(($button_target == 'blank') ? ' target="_blank"' : '') . 
-				'><span>' . $button_title . '</span></a>' . "\n";
+				'><span>' . esc_html($button_title) . '</span></a>' . "\n";
 			}
 		
 		$price_out .= '</div>' . "\n" . 
@@ -4698,30 +4769,30 @@ public function cmsmasters_google_map_markers($atts, $content = null) {
 	
 	
 	$maps_out = (($height_type == 'fixed') ? '<style type="text/css">' . "\n" . 
-		'#google_map_' . $unique_id . '{' . "\n\t" . 
-			'height: ' . $height . 'px;' . "\n" . 
+		'#google_map_' . esc_attr($unique_id) . '{' . "\n\t" . 
+			'height: ' . esc_attr($height) . 'px;' . "\n" . 
 		'}' . "\n" . 
 	'</style>' . "\n" : '') . 
     '<script type="text/javascript">' . 
         'jQuery(document).ready(function () { ' . 
-            'jQuery("#google_map_' . $unique_id . '").gMap( { ';
+            'jQuery("#google_map_' . esc_js($unique_id) . '").gMap( { ';
 				if ($address_type == 'address') {
-					$maps_out .= 'address: "' . $address . '", ' ;
+					$maps_out .= 'address: "' . esc_js($address) . '", ' ;
 				} else {
-					$maps_out .= (($latitude != '') ? 'latitude: ' . $latitude . ',' : '') . 
-					(($longitude != '') ? 'longitude: ' . $longitude . ',' : '');
+					$maps_out .= (($latitude != '') ? 'latitude: ' . esc_js($latitude) . ',' : '') . 
+					(($longitude != '') ? 'longitude: ' . esc_js($longitude) . ',' : '');
 				}
-				$maps_out .= 'maptype: "' . $type . '", ' . 
-				'zoom: ' . $zoom . ', ' . 
-				(($scroll_wheel == 'true') ? 'scrollwheel: ' . $scroll_wheel  . ', ' : '') . 
-				(($double_click_zoom == 'true') ? 'doubleClickZoom: ' . $double_click_zoom  . ', ' : '') . 
+				$maps_out .= 'maptype: "' . esc_js($type) . '", ' . 
+				'zoom: ' . esc_js($zoom) . ', ' . 
+				(($scroll_wheel == 'true') ? 'scrollwheel: ' . esc_js($scroll_wheel)  . ', ' : '') . 
+				(($double_click_zoom == 'true') ? 'doubleClickZoom: ' . esc_js($double_click_zoom)  . ', ' : '') . 
 				'controls: {' . 
-					(($pan_control == 'true') ? 'panControl: ' . $pan_control  . ', ' : '') . 
-					(($zoom_control == 'true') ? 'zoomControl: ' . $zoom_control  . ', ' : '') . 
-					(($map_type_control == 'true') ? 'mapTypeControl: ' . $map_type_control  . ', ' : '') . 
-					(($scale_control == 'true') ? 'scaleControl: ' . $scale_control  . ', ' : '') . 
-					(($street_view_control == 'true') ? 'streetViewControl: ' . $street_view_control  . ', ' : '') . 
-					(($overview_map_control == 'true') ? 'overviewMapControl: ' . $overview_map_control  . ', ' : '') . 
+					(($pan_control == 'true') ? 'panControl: ' . esc_js($pan_control)  . ', ' : '') . 
+					(($zoom_control == 'true') ? 'zoomControl: ' . esc_js($zoom_control)  . ', ' : '') . 
+					(($map_type_control == 'true') ? 'mapTypeControl: ' . esc_js($map_type_control)  . ', ' : '') . 
+					(($scale_control == 'true') ? 'scaleControl: ' . esc_js($scale_control)  . ', ' : '') . 
+					(($street_view_control == 'true') ? 'streetViewControl: ' . esc_js($street_view_control)  . ', ' : '') . 
+					(($overview_map_control == 'true') ? 'overviewMapControl: ' . esc_js($overview_map_control)  . ', ' : '') . 
 				'},';
 				$maps_out .= 'markers: [' . 
 					$this->google_map_markers_atts['map_out'] . 
@@ -4730,11 +4801,11 @@ public function cmsmasters_google_map_markers($atts, $content = null) {
         ' } );' . 
     '</script>' . "\n" . 
 	cmsmasters_divpdel((($height_type != 'fixed') ? '<div class="resizable_block">' . "\n" : '') . 
-		'<div id="google_map_' . $unique_id . '" class="google_map' . 
-		(($classes != '') ? ' ' . $classes : '') . 
+		'<div id="google_map_' . esc_attr($unique_id) . '" class="google_map' . 
+		(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 		'"' . 
-		(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-		(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+		(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+		(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 		'></div>' . "\n" . 
 	(($height_type != 'fixed') ? '</div>' . "\n" : ''));
 	
@@ -4784,10 +4855,10 @@ public function cmsmasters_google_map_marker($atts, $content = null) {
 	
 	
 	if ($address_type == 'address') { 
-		$this->google_map_markers_atts['map_out'] .= 'address: "' . $address . '",'; 
+		$this->google_map_markers_atts['map_out'] .= 'address: "' . esc_js($address) . '",'; 
 	} elseif  ($address_type == 'coordinates') { 
-		$this->google_map_markers_atts['map_out'] .= 'latitude: ' . $latitude . ',' . 
-		'longitude: ' . $longitude . ',';
+		$this->google_map_markers_atts['map_out'] .= 'latitude: ' . esc_js($latitude) . ',' . 
+		'longitude: ' . esc_js($longitude) . ',';
 	} 
 	
 	
@@ -4864,7 +4935,7 @@ public function cmsmasters_social($atts, $content = null) {
 		
 		if ($pinterest == 'true') {
 			$out .= '<div class="share_wrap">' . "\n" . 
-				'<a href="https://www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" data-pin-custom="true" class="button cmsmasters_pinterest_button cmsmasters-icon-pinterest">' . esc_html__('Pinterest', 'cmsmasters-content-composer') . '</a>' . "\n" . 
+				'<a href="https://www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" data-pin-custom="true" class="button cmsmasters_pinterest_button cmsmasters-icon-pinterest">' . esc_html__('Pinterest', 'cmsmasters_content_composer') . '</a>' . "\n" . 
 			'</div>' . "\n";
 		}
 		
@@ -4896,7 +4967,7 @@ public function cmsmasters_html($atts, $content = null) {
 	
 	if ($content != null ) {
 		$out .= cmsmasters_divpdel('<div class="custom_html' . 
-		(($classes != '') ? ' ' . $classes : '') . 
+		(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 		'">' . "\n" . 
 		wpautop(base64_decode($content)) . 
 		'</div>' . "\n");
@@ -4922,7 +4993,7 @@ public function cmsmasters_js($atts, $content = null) {
 	
 	if ($content != null ) {
 		$out .= '<div class="custom_js' . 
-		(($classes != '') ? ' ' . $classes : '') . 
+		(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 		'">' . "\n" . 
 		'<script type="text/javascript">' . "\n" . 
 			base64_decode($content) . 
@@ -4950,7 +5021,7 @@ public function cmsmasters_css($atts, $content = null) {
 	
 	if ($content != null ) {
 		$out .= '<div class="custom_css' . 
-		(($classes != '') ? ' ' . $classes : '') . 
+		(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 		'">' . "\n" . 
 		'<style type="text/css">' . "\n" . 
 			base64_decode($content) . 
@@ -5019,8 +5090,8 @@ public function cmsmasters_sidebar($atts, $content = null) {
 	}
 	
 	if ($sidebar != '') {
-		$out = '<div class="cmsmasters_sidebar ' . $layout_sidebar . 
-		(($classes != '') ? ' ' . $classes : '') . 
+		$out = '<div class="cmsmasters_sidebar ' . esc_attr($layout_sidebar) . 
+		(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 		'">' . 
 		get_dynamic_sidebar($sidebar);
 		
@@ -5039,12 +5110,8 @@ public function cmsmasters_sidebar($atts, $content = null) {
  */
 public function cmsmasters_twitter($atts, $content = null) { 
     $new_atts = apply_filters('cmsmasters_twitter_atts_filter', array( 
-		'user' => 				'', 
-		'count' => 				'', 
+		'shortcode_id' => 		'', 
 		'date' => 				'', 
-		'control' => 			'', 
-		'autoplay' => 			'', 
-		'speed' => 				'1', 
 		'animation' => 			'', 
 		'animation_delay' => 	'', 
 		'classes' => 			'' 
@@ -5075,63 +5142,36 @@ public function cmsmasters_twitter($atts, $content = null) {
 	
 	extract(shortcode_atts($new_atts, $atts));
 	
+	$unique_id = $shortcode_id;
 	
-	$out = '';
-	
-	
-	$unique_id = uniqid('', true);
-	$unique_id = strtr($unique_id, '.', '_');
-	
-	
-	if ($user != '') {
-		$out .= '<div class="cmsmasters_twitter_wrap">' . 
-			'<div>' . 
-				'<script type="text/javascript">' . 
-					'jQuery(document).ready(function () { ' . 
-						'jQuery("#cmsmasters_twitter_' . $unique_id . '").owlCarousel( { ' . 
-							'singleItem : true, ' . 
-							'transitionStyle: "fade", ' . 
-							'stopOnHover: true, ' . 
-							'pagination: true, ' . 
-							(($control == 'true') ? 'navigation : true, ' : '') . 
-							(($autoplay != 'true') ? 'autoPlay : false, ' : 'autoPlay : ' . ($speed * 1000) . ',') . 
-							'navigationText : 	[ ' . 
-								'"<span class=\"cmsmasters_prev_arrow\"><span></span></span>", ' . 
-								'"<span class=\"cmsmasters_next_arrow\"><span></span></span>" ' . 
-							'] ' . 
-						'} );' . 
-					'} );' . 
-				'</script>' . 
-			'</div>' . "\n" . 
-			'<div class="cmsmasters_theme_icon_user_twitter twr_icon"></div>' . "\n" . 
-			'<div id="cmsmasters_twitter_' . $unique_id . '" class="owl-carousel cmsmasters_owl_slider cmsmasters_twitter' . 
-			(($classes != '') ? ' ' . $classes : '') . 
-			'"' . 
-			(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-			(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
-			'>' . "\n";
+	$out = '<div class="cmsmasters_twitter_wrap' . (($classes != '') ? ' ' . esc_attr($classes) : '') . '"' . 
+		(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+		(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
+	'>' . 
+		'<div class="cmsmasters_theme_icon_user_twitter twr_icon"></div>' . "\n" . 
+		"<div" . 
+			" id=\"cmsmasters_twitter_" . esc_attr($unique_id) . "\"" . 
+			" class=\"cmsmasters_twitter\"" . 
+		">";
+			$tweets = cmsmasters_get_tweets();
 			
-				$tweets = cmsmasters_get_tweets($user, $count);
-				
-				if ($tweets != '') {
-					foreach ($tweets as $t) {
-						$out .= '<div class="cmsmasters_twitter_item">' . "\n" . 
-							(($date == 'true') ? '<abbr title="" class="published">' . human_time_diff( $t['time'], current_time('timestamp') ) . ' ' . __('ago', 'cmsmasters_content_composer') . '</abbr>' : '') . 
-							'<span class="cmsmasters_twitter_item_content">' . "\n" . $t['text'] . '</span>' . "\n" . 
-						'</div>' . "\n";
-					}
-				} else {
-					echo '<div class="cmsmasters_notice cmsmasters_notice_error cmsmasters_theme_icon_cancel">' . "\n" . 
-						'<div class="notice_content">' . "\n" . 
-							'<p>' . __('Please add your Twitter API keys', 'cmsmasters_content_composer') . ', ' . '<a target="_blank" href="//cmsmasters.net/twitter-functionality/">' . __('read more how', 'cmsmasters_content_composer') . '</a></p>' . "\n" . 
-						'</div>' . "\n" . 
+			if (!empty($tweets)) {
+				foreach ($tweets as $t) {
+					$out .= '<div class="cmsmasters_twitter_item">' . "\n" . 
+						(($date == 'true') ? '<abbr title="" class="published">' . human_time_diff( $t['time'], current_time('timestamp') ) . ' ' . esc_html__('ago', 'cmsmasters_content_composer') . '</abbr>' : '') . 
+						'<span class="cmsmasters_twitter_item_content">' . "\n" . $t['text'] . '</span>' . "\n" . 
 					'</div>' . "\n";
 				}
+			} else {
+				$out .= '<div class="cmsmasters_notice cmsmasters_notice_error cmsmasters_theme_icon_cancel">' . "\n" . 
+					'<div class="notice_content">' . "\n" . 
+						'<p>' . esc_html__('Please add your Twitter API keys', 'cmsmasters_content_composer') . ', ' . '<a target="_blank" href="http://cmsmasters.net/twitter-functionality/">' . esc_html__('read more how', 'cmsmasters_content_composer') . '</a></p>' . "\n" . 
+					'</div>' . "\n" . 
+				'</div>' . "\n";
+			}
 			
-			$out .= '</div>' . 
-		'</div>';
-	}
-	
+		$out .= '</div>' . 
+	'</div>';
 	
 	return $out;
 }
@@ -5248,14 +5288,14 @@ public function cmsmasters_posts_slider($atts, $content = null) {
 	if ($query->have_posts()) : 
 		
 		$out .= "<div class=\"cmsmasters_posts_slider" . 
-			(($classes != '') ? ' ' . $classes : '') . 
+			(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 		"\" " . 
-			(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-			(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+			(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+			(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 		">
 			<script type=\"text/javascript\">
 				jQuery(document).ready(function () { 
-					var container = jQuery('.cmsmasters_slider_{$unique_id}');
+					var container = jQuery('.cmsmasters_slider_" . esc_js($unique_id) . "');
 						containerWidth = container.width(), 
 						firstPost = container.find('article'), 
 						postMinWidth = Number(firstPost.css('minWidth').replace('px', '')), 
@@ -5264,22 +5304,22 @@ public function cmsmasters_posts_slider($atts, $content = null) {
 						postOneColumns = (postMinWidth * 2) - 1; 
 					
 					
-					jQuery('.cmsmasters_slider_{$unique_id}').owlCarousel( {
-						items : {$columns}, 
+					jQuery('.cmsmasters_slider_" . esc_js($unique_id) . "').owlCarousel( {
+						items : " . esc_js($columns) . ", 
 						itemsDesktop : false,
 						itemsDesktopSmall : [postThreeColumns," . (($columns > 3) ? '3' : $columns) . "], 
-						itemsTablet : [postTwoColumns," . (($columns > 2) ? '2' : $columns) . "], 
+						itemsTablet : [postTwoColumns," . (($columns > 2) ? '2' : esc_js($columns)) . "], 
 						itemsMobile : [postOneColumns,1], 
 						transitionStyle : false, 
 						rewindNav : true, 
 						slideSpeed : 200, 
 						paginationSpeed : 800, 
 						rewindSpeed : 1000, " . 
-						(($pause == '0') ? 'autoPlay : false, ' : 'autoPlay : ' . ($pause * 1000) . ', ') . 
+						(($pause == '0') ? 'autoPlay : false, ' : 'autoPlay : ' . esc_js($pause * 1000) . ', ') . 
 						"stopOnHover : true, 
 						autoHeight : true, 
 						addClassActive : true, 
-						responsiveBaseWidth : '.cmsmasters_slider_{$unique_id}', 
+						responsiveBaseWidth : '.cmsmasters_slider_" . esc_js($unique_id) . "', 
 						pagination : false, 
 						navigation : true, 
 						navigationText : [ " . 
@@ -5289,9 +5329,9 @@ public function cmsmasters_posts_slider($atts, $content = null) {
 					} );
 				} );
 			</script>
-			<div id=\"cmsmasters_owl_carousel_{$unique_id}\" class=\"" . 
+			<div id=\"cmsmasters_owl_carousel_" . esc_attr($unique_id) . "\" class=\"" . 
 				'cmsmasters_owl_slider ' . 
-				'cmsmasters_slider_' . $unique_id . '">';
+				'cmsmasters_slider_' . esc_attr($unique_id) . '">';
 				
 				
 				if ($post_type == 'post') {
@@ -5357,6 +5397,7 @@ public $blog_atts;
 
 public function cmsmasters_blog($atts, $content = null) {
 	$new_atts = apply_filters('cmsmasters_blog_atts_filter', array( 
+		'shortcode_id' => 		'', 
 		'orderby' => 			'date', 
 		'order' => 				'DESC', 
 		'count' => 				'1000', 
@@ -5408,16 +5449,16 @@ public function cmsmasters_blog($atts, $content = null) {
 	);
 	
 	
-	$more_text = ($more_text != '') ? $more_text : __('Load More Posts', 'cmsmasters_content_composer');
+	$more_text = ($more_text != '') ? $more_text : esc_html__('Load More Posts', 'cmsmasters_content_composer');
 	
 	
-	$filter_text = ($filter_text != '') ? $filter_text : __('Filter', 'cmsmasters_content_composer');
+	$filter_text = ($filter_text != '') ? $filter_text : esc_html__('Filter', 'cmsmasters_content_composer');
 	
 	
-	$filter_cats_text = ($filter_cats_text != '') ? $filter_cats_text : __('All Categories', 'cmsmasters_content_composer');
+	$filter_cats_text = ($filter_cats_text != '') ? $filter_cats_text : esc_html__('All Categories', 'cmsmasters_content_composer');
 	
 	
-	$out = "<div class=\"cmsmasters_wrap_blog entry-summary\" id=\"blog_{$unique_id}\">";
+	$out = "<div class=\"cmsmasters_wrap_blog entry-summary\" id=\"blog_" . esc_attr($unique_id) . "\">";
 	
 	
 	if ( 
@@ -5435,21 +5476,21 @@ public function cmsmasters_blog($atts, $content = null) {
 		$out .= "<script type=\"text/javascript\">
 jQuery(document).ready(function () {
 	(function ($) {
-		if ($('#blog_{$unique_id}').find('article').length == '0') {
+		if ($('#blog_" . esc_js($unique_id) . "').find('article').length == '0') {
 			return false;
 		}
 		
 		
 		startBlog( 
-			'" . $unique_id . "', 
-			'" . $layout . "', 
-			'" . $layout_mode . "', 
+			'" . esc_js($unique_id) . "', 
+			'" . esc_js($layout) . "', 
+			'" . esc_js($layout_mode) . "', 
 			'" . CMSMASTERS_CONTENT_COMPOSER_URL . "', 
-			'" . $orderby . "', 
-			'" . $order . "', 
-			'" . $count . "', 
-			'" . $categories . "', 
-			'" . $metadata . "' 
+			'" . esc_js($orderby) . "', 
+			'" . esc_js($order) . "', 
+			'" . esc_js($count) . "', 
+			'" . esc_js($categories) . "', 
+			'" . esc_js($metadata) . "' 
 		);
 	} )(jQuery);
 } );
@@ -5462,12 +5503,12 @@ jQuery(document).ready(function () {
 					<span class=\"cmsmasters_post_filter_loader cmsmasters_items_filter_loader\"></span>
 					<div class=\"cmsmasters_post_filter_block cmsmasters_items_filter_block\">
 						<a class=\"cmsmasters_post_filter_but cmsmasters_items_filter_but cmsmasters_theme_icon_resp_nav button\">
-							<span>" . $filter_text . "</span>
+							<span>" . esc_html($filter_text) . "</span>
 						</a>
 						<ul class=\"cmsmasters_post_filter_list cmsmasters_items_filter_list\">
 							<li class=\"current\">
-								<a class=\"button\" data-filter=\"article.post\"  title=\"" . $filter_cats_text . "\" href=\"javascript:void(0);\">
-									<span>" . $filter_cats_text . "</span>
+								<a class=\"button\" data-filter=\"article.post\"  title=\"" . esc_attr($filter_cats_text) . "\" href=\"" . esc_js("javascript:void(0)") . "\">
+									<span>" . esc_html($filter_cats_text) . "</span>
 								</a>
 							</li>";
 							
@@ -5491,9 +5532,9 @@ jQuery(document).ready(function () {
 							}
 							
 							
-							if (count($cat_array) == 1 && $categories != '') {
+							if (is_array($cat_array) && count($cat_array) == 1 && $categories != '') {
 								$cat_args['child_of'] = $categories;
-							} elseif (count($cat_array) > 1) {
+							} elseif (is_array($cat_array) && count($cat_array) > 1) {
 								$cat_args['include'] = $cat_array;
 							}
 							
@@ -5504,8 +5545,8 @@ jQuery(document).ready(function () {
 							if (is_array($post_categs) && !empty($post_categs)) {
 								foreach ($post_categs as $post_categ) {
 									$out .= "<li>
-										<a class=\"button\" href=\"#\" data-filter=\"article.post[data-category~='{$post_categ->slug}']\" title=\"{$post_categ->name}\">
-											<span>{$post_categ->name}</span>
+										<a class=\"button\" href=\"#\" data-filter=\"article.post[data-category~='" . esc_attr($post_categ->slug) . "']\" title=\"" . esc_attr($post_categ->name) . "\">
+											<span>" . esc_html($post_categ->name) . "</span>
 										</a>
 									</li>";
 								}
@@ -5519,10 +5560,10 @@ jQuery(document).ready(function () {
 	}
 	
 	$out .= '<div class="blog ' . 
-		$layout . 
-		(($layout_mode !== '') ? ' ' . $layout_mode : '') . 
-		(($columns !== '') ? ' cmsmasters_' . $columns : '') . 
-		(($classes !== '') ? ' ' . $classes : '') . 
+		esc_attr($layout) . 
+		(($layout_mode !== '') ? ' ' . esc_attr($layout_mode) : '') . 
+		(($columns !== '') ? ' cmsmasters_' . esc_attr($columns) : '') . 
+		(($classes !== '') ? ' ' . esc_attr($classes) : '') . 
 	'">';
 	
 	
@@ -5546,16 +5587,19 @@ jQuery(document).ready(function () {
 	
 	
 	if ($pagination == 'pagination') {
-		if (get_query_var('paged')) { 
-			$paged = get_query_var('paged'); 
-		} elseif (get_query_var('page')) { 
-			$paged = get_query_var('page'); 
-		} else { 
-			$paged = 1; 
+		if ( empty( $shortcode_id ) ) {
+			if (get_query_var('paged')) { 
+				$paged = get_query_var('paged'); 
+			} elseif (get_query_var('page')) { 
+				$paged = get_query_var('page'); 
+			} else { 
+				$paged = 1; 
+			}
+			
+			$args['paged'] = $paged;
+		} else {
+			$args['paged'] = absint( empty( $_GET["cmsmasters-{$shortcode_id}-page"] ) ? 1 : $_GET["cmsmasters-{$shortcode_id}-page"] );
 		}
-		
-		
-		$args['paged'] = $paged;
 	}
 	
 	
@@ -5611,11 +5655,11 @@ jQuery(document).ready(function () {
 		$out .= '<div class="cmsmasters_wrap_more_posts cmsmasters_wrap_more_items">';
 		
 			if ($pagination == 'pagination' && $query->max_num_pages > 1) {
-				$out .= cmsmasters_pagination($query->max_num_pages);
+				$out .= cmsmasters_pagination($query->max_num_pages, $shortcode_id);
 			} elseif ($pagination == 'more' && $query->found_posts > $count) {
 				$out .= "<div class=\"cmsmasters_wrap_post_loader cmsmasters_wrap_items_loader\">
-					<a href=\"javascript:void(0);\" class=\"cmsmasters_button cmsmasters_post_loader cmsmasters_items_loader\">
-						<span>" . $more_text . "</span>
+					<a href=\"" . esc_js("javascript:void(0)") . "\" class=\"cmsmasters_button cmsmasters_post_loader cmsmasters_items_loader\">
+						<span>" . esc_html($more_text) . "</span>
 					</a>
 				</div>";
 			}
@@ -5641,6 +5685,7 @@ public $portfolio_atts;
 
 public function cmsmasters_portfolio($atts, $content = null) {
 	$new_atts = apply_filters('cmsmasters_portfolio_atts_filter', array( 
+		'shortcode_id' => 		'', 
 		'orderby' => 			'date', 
 		'order' => 				'DESC', 
 		'count' => 				'1000', 
@@ -5705,36 +5750,36 @@ public function cmsmasters_portfolio($atts, $content = null) {
 	);
 	
 	
-	$more_text = ($more_text != '') ? $more_text : __('Load More Projects', 'cmsmasters_content_composer');
+	$more_text = ($more_text != '') ? $more_text : esc_html__('Load More Projects', 'cmsmasters_content_composer');
 	
-	$filter_text = ($filter_text != '') ? $filter_text : __('Filter', 'cmsmasters_content_composer');
+	$filter_text = ($filter_text != '') ? $filter_text : esc_html__('Filter', 'cmsmasters_content_composer');
 	
-	$filter_cats_text = ($filter_cats_text != '') ? $filter_cats_text : __('All Categories', 'cmsmasters_content_composer');
+	$filter_cats_text = ($filter_cats_text != '') ? $filter_cats_text : esc_html__('All Categories', 'cmsmasters_content_composer');
 	
-	$sorting_name_text = ($sorting_name_text != '') ? $sorting_name_text : __('Name', 'cmsmasters_content_composer');
+	$sorting_name_text = ($sorting_name_text != '') ? $sorting_name_text : esc_html__('Name', 'cmsmasters_content_composer');
 	
-	$sorting_date_text = ($sorting_date_text != '') ? $sorting_date_text : __('Date', 'cmsmasters_content_composer');
+	$sorting_date_text = ($sorting_date_text != '') ? $sorting_date_text : esc_html__('Date', 'cmsmasters_content_composer');
 	
 	
-	$out = "<div class=\"cmsmasters_wrap_portfolio entry-summary\" id=\"portfolio_{$unique_id}\">
+	$out = "<div class=\"cmsmasters_wrap_portfolio entry-summary\" id=\"portfolio_" . esc_attr($unique_id) . "\">
 <script type=\"text/javascript\">
 jQuery(document).ready(function () {
 	(function ($) {
-		if ($('#portfolio_{$unique_id}').find('article').length == '0') {
+		if ($('#portfolio_" . esc_js($unique_id) . "').find('article').length == '0') {
 			return false;
 		}
 		
 	
 		startPortfolio( 
-			'" . $unique_id . "', 
-			'" . $layout . "', 
-			'" . $layout_mode . "', 
+			'" . esc_js($unique_id) . "', 
+			'" . esc_js($layout) . "', 
+			'" . esc_js($layout_mode) . "', 
 			'" . CMSMASTERS_CONTENT_COMPOSER_URL . "', 
-			'" . $orderby . "', 
-			'" . $order . "', 
-			'" . $count . "', 
-			'" . $categories . "', 
-			'" . $metadata . "' 
+			'" . esc_js($orderby) . "', 
+			'" . esc_js($order) . "', 
+			'" . esc_js($count) . "', 
+			'" . esc_js($categories) . "', 
+			'" . esc_js($metadata) . "' 
 		);
 	} )(jQuery);
 } );
@@ -5749,17 +5794,17 @@ jQuery(document).ready(function () {
 				
 				if ($sorting != '') {
 					$out .= "<div class=\"cmsmasters_project_sort_block cmsmasters_items_sort_block\">
-						<a href=\"#\" name=\"project_name\" title=\"" . $sorting_name_text . "\" class=\"button cmsmasters_project_sort_but cmsmasters_items_sort_but cmsmasters_theme_icon_slide_bottom" . 
+						<a href=\"#\" name=\"project_name\" title=\"" . esc_attr($sorting_name_text) . "\" class=\"button cmsmasters_project_sort_but cmsmasters_items_sort_but cmsmasters_theme_icon_slide_bottom" . 
 						(($orderby == 'name') ? " current" . 
 						(($order == 'DESC') ? " reversed" : "") : "") . 
 						"\">
-							<span>" . $sorting_name_text . "</span>
+							<span>" . esc_html($sorting_name_text) . "</span>
 						</a>
-						<a href=\"#\" name=\"project_date\" title=\"" . $sorting_date_text . "\" class=\"button cmsmasters_project_sort_but cmsmasters_items_sort_but cmsmasters_theme_icon_slide_bottom" . 
+						<a href=\"#\" name=\"project_date\" title=\"" . esc_attr($sorting_date_text) . "\" class=\"button cmsmasters_project_sort_but cmsmasters_items_sort_but cmsmasters_theme_icon_slide_bottom" . 
 						(($orderby == 'date') ? " current" . 
 						(($order == 'DESC') ? " reversed" : "") : "") . 
 						"\">
-							<span>" . $sorting_date_text . "</span>
+							<span>" . esc_html($sorting_date_text) . "</span>
 						</a>
 					</div>";
 				}
@@ -5768,12 +5813,12 @@ jQuery(document).ready(function () {
 				if ($filter != '') {
 					$out .= "<div class=\"cmsmasters_project_filter_block cmsmasters_items_filter_block\">
 						<a class=\"cmsmasters_project_filter_but cmsmasters_items_filter_but cmsmasters_theme_icon_resp_nav button\">
-							<span>" . $filter_text . "</span>
+							<span>" . esc_html($filter_text) . "</span>
 						</a>
 						<ul class=\"cmsmasters_project_filter_list cmsmasters_items_filter_list\">
 							<li class=\"current\">
-								<a class=\"button\" data-filter=\"article.project\"  title=\"" . $filter_cats_text . "\" href=\"javascript:void(0);\">
-									<span>" . $filter_cats_text . "</span>
+								<a class=\"button\" data-filter=\"article.project\"  title=\"" . esc_attr($filter_cats_text) . "\" href=\"" . esc_js("javascript:void(0)") . "\">
+									<span>" . esc_html($filter_cats_text) . "</span>
 								</a>
 							</li>";
 							
@@ -5806,8 +5851,8 @@ jQuery(document).ready(function () {
 							if (is_array($project_categs) && !empty($project_categs)) {
 								foreach ($project_categs as $project_categ) {
 									$out .= "<li>
-										<a class=\"button\" href=\"#\" data-filter=\"article.project[data-category~='{$project_categ->slug}']\" title=\"{$project_categ->name}\">
-											<span>{$project_categ->name}</span>
+										<a class=\"button\" href=\"#\" data-filter=\"article.project[data-category~='" . esc_attr($project_categ->slug) . "']\" title=\"" . esc_attr($project_categ->name) . "\">
+											<span>" . esc_html($project_categ->name) . "</span>
 										</a>
 									</li>";
 								}
@@ -5821,9 +5866,9 @@ jQuery(document).ready(function () {
 		</div>";
 	}
 	
-	$out .= '<div class="portfolio ' . $layout . ' ' . $gap . '_gap ' . $layout_mode . 
-		(($layout != 'puzzle') ? ' cmsmasters_' . $columns : '') . 
-		(($classes != '') ? ' ' . $classes : '') . 
+	$out .= '<div class="portfolio ' . esc_attr($layout) . ' ' . esc_attr($gap) . '_gap ' . esc_attr($layout_mode) . 
+		(($layout != 'puzzle') ? ' cmsmasters_' . esc_attr($columns) : '') . 
+		(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 	'">';
 	
 	
@@ -5857,16 +5902,19 @@ jQuery(document).ready(function () {
 	
 	
 	if ($pagination == 'pagination') {
-		if (get_query_var('paged')) { 
-			$paged = get_query_var('paged'); 
-		} elseif (get_query_var('page')) { 
-			$paged = get_query_var('page'); 
-		} else { 
-			$paged = 1; 
+		if ( empty( $shortcode_id ) ) {
+			if (get_query_var('paged')) { 
+				$paged = get_query_var('paged'); 
+			} elseif (get_query_var('page')) { 
+				$paged = get_query_var('page'); 
+			} else { 
+				$paged = 1; 
+			}
+			
+			$args['paged'] = $paged;
+		} else {
+			$args['paged'] = absint( empty( $_GET["cmsmasters-{$shortcode_id}-page"] ) ? 1 : $_GET["cmsmasters-{$shortcode_id}-page"] );
 		}
-		
-		
-		$args['paged'] = $paged;
 	}
 	
 	
@@ -5916,11 +5964,11 @@ jQuery(document).ready(function () {
 		$out .= '<div class="cmsmasters_wrap_more_projects cmsmasters_wrap_more_items">';
 		
 			if ($pagination == 'pagination' && $query->max_num_pages > 1) {
-				$out .= cmsmasters_pagination($query->max_num_pages);
+				$out .= cmsmasters_pagination($query->max_num_pages, $shortcode_id);
 			} elseif ($pagination == 'more' && $query->found_posts > $count) {
 				$out .= "<div class=\"cmsmasters_wrap_project_loader cmsmasters_wrap_items_loader\">
-					<a href=\"javascript:void(0);\" class=\"cmsmasters_button cmsmasters_project_loader cmsmasters_items_loader\">
-						<span>" . $more_text . "</span>
+					<a href=\"" . esc_js("javascript:void(0)") . "\" class=\"cmsmasters_button cmsmasters_project_loader cmsmasters_items_loader\">
+						<span>" . esc_html($more_text) . "</span>
 					</a>
 				</div>";
 			}
@@ -6022,11 +6070,11 @@ public function cmsmasters_profiles($atts, $content = null) {
 	
 	if ($query->have_posts()) :
 		
-		$out .= '<div id="' . $unique_id . '" class="cmsmasters_profile ' . $layout . 
-			(($classes != '') ? ' ' . $classes : '') . 
+		$out .= '<div id="' . esc_attr($unique_id) . '" class="cmsmasters_profile ' . $layout . 
+			(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 			'"' . 
-			(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-			(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+			(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+			(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 		'>' . "\n";
 		
 		
@@ -6095,12 +6143,12 @@ public function cmsmasters_products($atts, $content = null) {
 	extract(shortcode_atts($new_atts, $atts));
 	
 	
-    $out = '<div class="cmsmasters_products_shortcode' . ' cmsmasters_' . $products_shortcode . 
-	(($classes != '') ? ' ' . $classes : '') . 
+    $out = '<div class="cmsmasters_products_shortcode cmsmasters_' . esc_attr($products_shortcode) . 
+	(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 	'">';
 	
 	
-	$out .= do_shortcode('[' . $products_shortcode . ' ' . (($products_shortcode != 'best_selling_products' && $products_shortcode != 'top_rated_products') ? 'orderby="' . $orderby . '" order="' . $order . '" ' : '') . 'limit="' . $count . '" columns="' . $columns . '"]');
+	$out .= do_shortcode('[' . esc_attr($products_shortcode) . ' ' . (($products_shortcode != 'best_selling_products' && $products_shortcode != 'top_rated_products') ? 'orderby="' . esc_attr($orderby) . '" order="' . esc_attr($order) . '" ' : '') . 'limit="' . esc_attr($count) . '" columns="' . esc_attr($columns) . '"]');
 	
 	
 	$out .= '</div>';
@@ -6150,11 +6198,11 @@ public function cmsmasters_selected_products($atts, $content = null) {
 	
 	
     $out = '<div class="cmsmasters_selected_products_shortcode' . 
-	(($classes != '') ? ' ' . $classes : '') . 
+	(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 	'">';
 	
 	
-	$out .= do_shortcode('[products orderby="' . $orderby . '" order="' . $order . '" columns="' . $columns . '" ids="' . $ids . '"]');
+	$out .= do_shortcode('[products orderby="' . esc_attr($orderby) . '" order="' . esc_attr($order) . '" columns="' . esc_attr($columns) . '" ids="' . esc_attr($ids) . '"]');
 	
 	
 	$out .= '</div>';
@@ -6231,15 +6279,23 @@ public function cmsmasters_paypal_donations($atts, $content = null) {
 	$unique_id = strtr($unique_id, '.', '_');
 	
 	
+	$local_fonts = '';
+	
 	if ($button_font_family != '') {
 		$font_family_array = str_replace('+', ' ', explode(':', $button_font_family));
 		
-		$font_family_name = "'" . $font_family_array[0] . "'";
 		
-		$font_family_url = str_replace('+', ' ', $button_font_family);
-		
-		
-		cmsmasters_theme_google_font($font_family_url, $font_family_array[0]);
+		if (is_numeric($font_family_array[0])) {
+			$font_family_name = "'" . $font_family_array[1] . "'";
+			
+			if (is_admin()) {
+				$local_fonts .= 'cmsmasters_local_font_start=' . $button_font_family . '=cmsmasters_local_font_end';
+			}
+		} else {
+			$font_family_name = "'" . $font_family_array[0] . "'";
+			
+			cmsmasters_theme_google_font($button_font_family, $button_font_family);
+		}
 	}
 	
 	
@@ -6271,33 +6327,33 @@ public function cmsmasters_paypal_donations($atts, $content = null) {
 	
 	
 	$out .= '<style type="text/css">' . "\n" . 
-		'#cmsmasters_paypal_donations_' . $unique_id . ' { ' . 
-			"\n\t" . 'text-align:' . $button_text_align . '; ' . 
+		'#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' { ' . 
+			"\n\t" . 'text-align:' . esc_attr($button_text_align) . '; ' . 
 		"\n" . '} ' . "\n\n" . 
-		'#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button:before { ' . 
+		'#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button:before { ' . 
 			"\n\t" . 'margin-right:' . (($button_title != '') ? '.5em; ' : '0;') . 
 			"\n\t" . 'margin-left:0; ' . 
 			"\n\t" . 'vertical-align:baseline; ' . 
 		"\n" . '} ' . "\n\n";
 		
 		if ($button_custom_styles == 'true') {
-			$out .= '#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button { ' . 
+			$out .= '#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button { ' . 
 				(($button_font_family != '') ? "\n\t" . 'font-family:' . str_replace('+', ' ', $font_family_name) . '; ' : '') . 
-				(($button_font_size != '') ? "\n\t" . 'font-size:' . $button_font_size . 'px; ' : '') . 
-				(($button_line_height != '') ? "\n\t" . 'line-height:' . $button_line_height . 'px; ' : '') . 
-				(($button_font_weight != '') ? "\n\t" . 'font-weight:' . $button_font_weight . '; ' : '') . 
-				(($button_font_style != '') ? "\n\t" . 'font-style:' . $button_font_style . '; ' : '') . 
-				(($button_padding_hor != '') ? "\n\t" . 'padding-right:' . $button_padding_hor . 'px; ' : '') . 
-				(($button_padding_hor != '') ? "\n\t" . 'padding-left:' . $button_padding_hor . 'px; ' : '') . 
-				(($button_border_width != '') ? "\n\t" . 'border-width:' . $button_border_width . 'px; ' : '') . 
-				(($button_border_style != '') ? "\n\t" . 'border-style:' . $button_border_style . '; ' : '') . 
-				(($button_border_radius != '') ? "\n\t" . '-webkit-border-radius:' . $button_border_radius . '; ' . "\n\t" . 'border-radius:' . $button_border_radius . '; ' : '') . 
+				(($button_font_size != '') ? "\n\t" . 'font-size:' . esc_attr($button_font_size) . 'px; ' : '') . 
+				(($button_line_height != '') ? "\n\t" . 'line-height:' . esc_attr($button_line_height) . 'px; ' : '') . 
+				(($button_font_weight != '') ? "\n\t" . 'font-weight:' . esc_attr($button_font_weight) . '; ' : '') . 
+				(($button_font_style != '') ? "\n\t" . 'font-style:' . esc_attr($button_font_style) . '; ' : '') . 
+				(($button_padding_hor != '') ? "\n\t" . 'padding-right:' . esc_attr($button_padding_hor) . 'px; ' : '') . 
+				(($button_padding_hor != '') ? "\n\t" . 'padding-left:' . esc_attr($button_padding_hor) . 'px; ' : '') . 
+				(($button_border_width != '') ? "\n\t" . 'border-width:' . esc_attr($button_border_width) . 'px; ' : '') . 
+				(($button_border_style != '') ? "\n\t" . 'border-style:' . esc_attr($button_border_style) . '; ' : '') . 
+				(($button_border_radius != '') ? "\n\t" . '-webkit-border-radius:' . esc_attr($button_border_radius) . '; ' . "\n\t" . 'border-radius:' . esc_attr($button_border_radius) . '; ' : '') . 
 				(($button_bg_color != '') ? "\n\t" . cmsmasters_color_css('background-color', $button_bg_color) : '') . 
 				(($button_text_color != '') ? "\n\t" . cmsmasters_color_css('color', $button_text_color) : '') . 
 				(($button_border_color != '') ? "\n\t" . cmsmasters_color_css('border-color', $button_border_color) : '') . 
 			"\n" . '} ' . "\n";
 			
-			$out .= '#cmsmasters_paypal_donations_' . $unique_id . ' form:hover + .cmsmasters_button { ' . 
+			$out .= '#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' form:hover + .cmsmasters_button { ' . 
 				(($button_bg_color_h != '') ? "\n\t" . cmsmasters_color_css('background-color', $button_bg_color_h) : '') . 
 				(($button_text_color_h != '') ? "\n\t" . cmsmasters_color_css('color', $button_text_color_h) : '') . 
 				(($button_border_color_h != '') ? "\n\t" . cmsmasters_color_css('border-color', $button_border_color_h) : '') . 
@@ -6316,25 +6372,25 @@ public function cmsmasters_paypal_donations($atts, $content = null) {
 				$button_style == 'cmsmasters_but_bg_expand_diag' 
 			) {
 				if ($button_bg_color != '') {
-					$out .= '#cmsmasters_paypal_donations_' . $unique_id . ' form:hover + .cmsmasters_button.cmsmasters_but_bg_slide_left, ' . 
-					'#cmsmasters_paypal_donations_' . $unique_id . ' form:hover + .cmsmasters_button.cmsmasters_but_bg_slide_right, ' . 
-					'#cmsmasters_paypal_donations_' . $unique_id . ' form:hover + .cmsmasters_button.cmsmasters_but_bg_slide_top, ' . 
-					'#cmsmasters_paypal_donations_' . $unique_id . ' form:hover + .cmsmasters_button.cmsmasters_but_bg_slide_bottom, ' . 
-					'#cmsmasters_paypal_donations_' . $unique_id . ' form:hover + .cmsmasters_button.cmsmasters_but_bg_expand_vert, ' . 
-					'#cmsmasters_paypal_donations_' . $unique_id . ' form:hover + .cmsmasters_button.cmsmasters_but_bg_expand_hor, ' . 
-					'#cmsmasters_paypal_donations_' . $unique_id . ' form:hover + .cmsmasters_button.cmsmasters_but_bg_expand_diag { ' . 
+					$out .= '#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' form:hover + .cmsmasters_button.cmsmasters_but_bg_slide_left, ' . 
+					'#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' form:hover + .cmsmasters_button.cmsmasters_but_bg_slide_right, ' . 
+					'#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' form:hover + .cmsmasters_button.cmsmasters_but_bg_slide_top, ' . 
+					'#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' form:hover + .cmsmasters_button.cmsmasters_but_bg_slide_bottom, ' . 
+					'#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' form:hover + .cmsmasters_button.cmsmasters_but_bg_expand_vert, ' . 
+					'#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' form:hover + .cmsmasters_button.cmsmasters_but_bg_expand_hor, ' . 
+					'#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' form:hover + .cmsmasters_button.cmsmasters_but_bg_expand_diag { ' . 
 						"\n\t" . cmsmasters_color_css('background-color', $button_bg_color) . 
 					"\n" . '} ' . "\n";
 				}
 				
 				if ($button_bg_color_h != '') {
-					$out .= '#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_left:after, ' . 
-					'#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_right:after, ' . 
-					'#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_top:after, ' . 
-					'#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_slide_bottom:after, ' . 
-					'#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_expand_vert:after, ' . 
-					'#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_expand_hor:after, ' . 
-					'#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_bg_expand_diag:after { ' . 
+					$out .= '#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_left:after, ' . 
+					'#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_right:after, ' . 
+					'#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_top:after, ' . 
+					'#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_slide_bottom:after, ' . 
+					'#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_expand_vert:after, ' . 
+					'#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_expand_hor:after, ' . 
+					'#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_bg_expand_diag:after { ' . 
 						"\n\t" . cmsmasters_color_css('background-color', $button_bg_color_h) . 
 					"\n" . '} ' . "\n";
 				}
@@ -6350,51 +6406,51 @@ public function cmsmasters_paypal_donations($atts, $content = null) {
 				$but_icon_pad = ($button_padding_hor != '' ? $button_padding_hor : '20') + ($button_line_height != '' ? $button_line_height : '40');
 				
 				if ($button_padding_hor != '' || $button_line_height != '') {
-					$out .= '#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_dark_bg, ' . 
-					'#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_light_bg, ' . 
-					'#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_divider, ' .  
-					'#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse { ' . 
-						"\n\t" . 'padding-left:' . $but_icon_pad . 'px; ' . 
+					$out .= '#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_dark_bg, ' . 
+					'#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_light_bg, ' . 
+					'#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_divider, ' .  
+					'#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse { ' . 
+						"\n\t" . 'padding-left:' . esc_attr($but_icon_pad) . 'px; ' . 
 					"\n" . '} ' . "\n";
 					
-					$out .= '#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_dark_bg:before, ' . 
-					'#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_light_bg:before, ' . 
-					'#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_divider:before, ' . 
-					'#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse:before, ' . 
-					'#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_dark_bg:after, ' . 
-					'#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_light_bg:after, ' . 
-					'#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_divider:after, ' . 
-					'#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse:after { ' . 
-						"\n\t" . 'width:' . $button_line_height . 'px; ' . 
+					$out .= '#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_dark_bg:before, ' . 
+					'#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_light_bg:before, ' . 
+					'#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_divider:before, ' . 
+					'#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse:before, ' . 
+					'#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_dark_bg:after, ' . 
+					'#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_light_bg:after, ' . 
+					'#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_divider:after, ' . 
+					'#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse:after { ' . 
+						"\n\t" . 'width:' . esc_attr($button_line_height) . 'px; ' . 
 					"\n" . '} ' . "\n";
 				}
 				
 				
 				if ($button_border_color != '' || $button_border_color_h != '') {
-					$out .= '#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_divider:after { ' . 
+					$out .= '#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_divider:after { ' . 
 						"\n\t" . cmsmasters_color_css('border-color', $button_border_color) . 
 					"\n" . '} ' . "\n";
 					
-					$out .= '#cmsmasters_paypal_donations_' . $unique_id . ' form:hover + .cmsmasters_button.cmsmasters_but_icon_divider:after { ' . 
+					$out .= '#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' form:hover + .cmsmasters_button.cmsmasters_but_icon_divider:after { ' . 
 						"\n\t" . cmsmasters_color_css('border-color', $button_border_color_h) . 
 					"\n" . '} ' . "\n";
 				}
 				
 				
 				if ($button_style == 'cmsmasters_but_icon_inverse') {
-					$out .= '#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse:before { ' . 
+					$out .= '#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse:before { ' . 
 						(($button_text_color_h != '') ? "\n\t" . cmsmasters_color_css('color', $button_text_color_h) : '') . 
 					"\n" . '} ' . "\n";
 				
-					$out .= '#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_inverse:after { ' . 
+					$out .= '#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_inverse:after { ' . 
 						(($button_bg_color_h != '') ? "\n\t" . cmsmasters_color_css('background-color', $button_bg_color_h) : '') . 
 					"\n" . '} ' . "\n";
 					
-					$out .= '#cmsmasters_paypal_donations_' . $unique_id . ' form:hover + .cmsmasters_button.cmsmasters_but_icon_inverse:before { ' . 
+					$out .= '#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' form:hover + .cmsmasters_button.cmsmasters_but_icon_inverse:before { ' . 
 						(($button_text_color != '') ? "\n\t" . cmsmasters_color_css('color', $button_text_color) : '') . 
 					"\n" . '} ' . "\n";
 					
-					$out .= '#cmsmasters_paypal_donations_' . $unique_id . ' form:hover + .cmsmasters_button.cmsmasters_but_icon_inverse:after { ' . 
+					$out .= '#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' form:hover + .cmsmasters_button.cmsmasters_but_icon_inverse:after { ' . 
 						(($button_bg_color != '') ? "\n\t" . cmsmasters_color_css('background-color', $button_bg_color) : '') . 
 					"\n" . '} ' . "\n";
 				}
@@ -6406,27 +6462,27 @@ public function cmsmasters_paypal_donations($atts, $content = null) {
 				$button_style == 'cmsmasters_but_icon_slide_right' 
 			) {
 				if ($button_padding_hor != '') {
-					$out .= '#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_slide_left, ' . 
-					'#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_slide_right { ' . 
-						"\n\t" . 'padding-left:' . ($button_padding_hor * 2) . 'px; ' . 
-						"\n\t" . 'padding-right:' . ($button_padding_hor * 2) . 'px; ' . 
+					$out .= '#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_slide_left, ' . 
+					'#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_slide_right { ' . 
+						"\n\t" . 'padding-left:' . esc_attr($button_padding_hor * 2) . 'px; ' . 
+						"\n\t" . 'padding-right:' . esc_attr($button_padding_hor * 2) . 'px; ' . 
 					"\n" . '} ' . "\n";
 					
-					$out .= '#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_slide_left:before { ' . 
-						"\n\t" . 'width:' . ($button_padding_hor * 2) . 'px; ' . 
-						"\n\t" . 'left:-' . ($button_padding_hor * 2) . 'px; ' . 
+					$out .= '#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_slide_left:before { ' . 
+						"\n\t" . 'width:' . esc_attr($button_padding_hor * 2) . 'px; ' . 
+						"\n\t" . 'left:-' . esc_attr($button_padding_hor * 2) . 'px; ' . 
 					"\n" . '} ' . "\n";
 					
-					$out .= '#cmsmasters_paypal_donations_' . $unique_id . ' form:hover + .cmsmasters_button.cmsmasters_but_icon_slide_left:before { ' . 
+					$out .= '#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' form:hover + .cmsmasters_button.cmsmasters_but_icon_slide_left:before { ' . 
 						"\n\t" . 'left:0; ' . 
 					"\n" . '} ' . "\n";
 					
-					$out .= '#cmsmasters_paypal_donations_' . $unique_id . ' .cmsmasters_button.cmsmasters_but_icon_slide_right:before { ' . 
-						"\n\t" . 'width:' . ($button_padding_hor * 2) . 'px; ' . 
-						"\n\t" . 'right:-' . ($button_padding_hor * 2) . 'px; ' . 
+					$out .= '#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' .cmsmasters_button.cmsmasters_but_icon_slide_right:before { ' . 
+						"\n\t" . 'width:' . esc_attr($button_padding_hor * 2) . 'px; ' . 
+						"\n\t" . 'right:-' . esc_attr($button_padding_hor * 2) . 'px; ' . 
 					"\n" . '} ' . "\n";
 					
-					$out .= '#cmsmasters_paypal_donations_' . $unique_id . ' form:hover + .cmsmasters_button.cmsmasters_but_icon_slide_right:before { ' . 
+					$out .= '#cmsmasters_paypal_donations_' . esc_attr($unique_id) . ' form:hover + .cmsmasters_button.cmsmasters_but_icon_slide_right:before { ' . 
 						"\n\t" . 'right:0; ' . 
 					"\n" . '} ' . "\n";
 				}
@@ -6434,26 +6490,30 @@ public function cmsmasters_paypal_donations($atts, $content = null) {
 		}
 	$out .= '</style>' . "\n";
 	
+	
+	$out .= $local_fonts;
+	
+
 	$options = get_option(PayPalDonations::OPTION_DB_KEY);
 	
 	if ( $options ) {
-		$out .= '<div id="cmsmasters_paypal_donations_' . $unique_id . '" class="cmsmasters_paypal_donations_wrap">' . "\n" . 
+		$out .= '<div id="cmsmasters_paypal_donations_' . esc_attr($unique_id) . '" class="cmsmasters_paypal_donations_wrap">' . "\n" . 
 			'<div class="cmsmasters_paypal_donations">' . "\n" . 
 				do_shortcode('[paypal-donation' . 
-					($amount != '' ? ' amount="' . $amount . '"' : '') . 
-					($purpose != '' ? ' purpose="' . $purpose . '"' : '') . 
-					($reference != '' ? ' reference="' . $reference . '"' : '') . 
+					($amount != '' ? ' amount="' . esc_attr($amount) . '"' : '') . 
+					($purpose != '' ? ' purpose="' . esc_attr($purpose) . '"' : '') . 
+					($reference != '' ? ' reference="' . esc_attr($reference) . '"' : '') . 
 				']') . 
 				
 				'<span class="cmsmasters_button' . 
-				(($button_style != '') ? ' cmsmasters_but_clear_styles ' . $button_style : '') . 
-				(($button_icon != '') ? ' ' . $button_icon : '') . 
-				(($classes != '') ? ' ' . $classes : '') . 
+				(($button_style != '') ? ' cmsmasters_but_clear_styles ' . esc_attr($button_style) : '') . 
+				(($button_icon != '') ? ' ' . esc_attr($button_icon) : '') . 
+				(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 				'"' . 
-				(($animation != '') ? ' data-animation="' . $animation . '"' : '') . 
-				(($animation != '' && $animation_delay != '') ? ' data-delay="' . $animation_delay . '"' : '') . 
+				(($animation != '') ? ' data-animation="' . esc_attr($animation) . '"' : '') . 
+				(($animation != '' && $animation_delay != '') ? ' data-delay="' . esc_attr($animation_delay) . '"' : '') . 
 				'>' . 
-					'<span>' . $button_title . '</span>' . 
+					'<span>' . esc_html($button_title) . '</span>' . 
 				'</span>' . 
 			'</div>' . "\n" . 
 		'</div>' . "\n";
@@ -6581,190 +6641,190 @@ public function cmsmasters_timetable($atts, $content = null) {
 	$unique_id = strtr($unique_id, '.', '_');
 	
 	
-    $out = '<div id="cmsmasters_timetable_shortcode_' . $unique_id . '" class="cmsmasters_timetable_shortcode' . 
-	(($classes != '') ? ' ' . $classes : '') . 
+    $out = '<div id="cmsmasters_timetable_shortcode_' . esc_attr($unique_id) . '" class="cmsmasters_timetable_shortcode' . 
+	(($classes != '') ? ' ' . esc_attr($classes) : '') . 
 	'">';
 	
 	$out .= "
 	<style type=\"text/css\">
-		#cmsmasters_timetable_shortcode_{$unique_id} .tabs_box_navigation .tabs_box_navigation_selected {
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tabs_box_navigation .tabs_box_navigation_selected {
 			" . cmsmasters_color_css('color', $box_txt_color) . "
 			" . cmsmasters_color_css('background-color', $box_bg_color) . "
 		}
 		
-		#cmsmasters_timetable_shortcode_{$unique_id} .tabs_box_navigation .tabs_box_navigation_selected .sub-menu {
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tabs_box_navigation .tabs_box_navigation_selected .sub-menu {
 			" . cmsmasters_color_css('background-color', $row1_bg_color) . "
 		}
 		
-		#cmsmasters_timetable_shortcode_{$unique_id} .tabs_box_navigation .tabs_box_navigation_selected .sub-menu li a {
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tabs_box_navigation .tabs_box_navigation_selected .sub-menu li a {
 			" . cmsmasters_color_css('color', $row1_txt_color) . "
 		}
 		
-		#cmsmasters_timetable_shortcode_{$unique_id} .tabs_box_navigation .tabs_box_navigation_selected .sub-menu li a:hover, 
-		#cmsmasters_timetable_shortcode_{$unique_id} .tabs_box_navigation .tabs_box_navigation_selected .sub-menu li.selected a {
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tabs_box_navigation .tabs_box_navigation_selected .sub-menu li a:hover, 
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tabs_box_navigation .tabs_box_navigation_selected .sub-menu li.selected a {
 			" . cmsmasters_color_css('color', $box_bg_color) . "
 		}
 		
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_tabs_navigation li a {
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_tabs_navigation li a {
 			" . cmsmasters_color_css('color', $row2_txt_color) . "
 			" . cmsmasters_color_css('border-color', $row1_bg_color) . "
 		}
 		
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_tabs_navigation li a:hover,
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_tabs_navigation li a.selected,
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_tabs_navigation li.ui-tabs-active a {
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_tabs_navigation li a:hover,
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_tabs_navigation li a.selected,
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_tabs_navigation li.ui-tabs-active a {
 			" . cmsmasters_color_css('border-color', $box_bg_color) . "
 		}
 		
 		
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable tr.row_gray {
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable tr.row_gray {
 			" . cmsmasters_color_css('color', $row1_txt_color) . "
 			" . cmsmasters_color_css('background-color', $row1_bg_color) . "
 		}
 		
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable tr {
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable tr {
 			" . cmsmasters_color_css('color', $row2_txt_color) . "
 			" . cmsmasters_color_css('background-color', $row2_bg_color) . "
 		}
 		
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .event {
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .event {
 			" . cmsmasters_color_css('background-color', $box_bg_color) . "
 		}
 		
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .event hr {
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .event hr {
 			" . cmsmasters_color_css('background-color', $box_txt_color) . "
 		}
 		
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .event_container, 
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .tt_single_event {
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .event_container, 
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .tt_single_event {
 			" . cmsmasters_color_css('background-color', $box_bg_color) . "
 		}
 		
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .event_container:hover, 
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .tt_single_event:hover, 
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .tt_tooltip_content {
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .event_container:hover, 
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .tt_single_event:hover, 
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .tt_tooltip_content {
 			" . cmsmasters_color_css('background-color', $box_hover_bg_color) . "
 		}
 		
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .tt_single_event .event_container, 
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .tt_single_event .event_container:hover {
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .tt_single_event .event_container, 
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .tt_single_event .event_container:hover {
 			background-color:transparent;
 			color:inherit;
 		}
 		
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .tt_tooltip_arrow {
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .tt_tooltip_arrow {
 			" . cmsmasters_color_css('border-color', $box_hover_bg_color) . "
 		}
 		
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .event_container, 
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .tt_single_event, 
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .event_container a, 
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .tt_single_event a {
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .event_container, 
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .tt_single_event, 
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .event_container a, 
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .tt_single_event a {
 			" . cmsmasters_color_css('color', $box_txt_color) . "
 		}
 		
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .event_container:hover, 
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .event_container:hover a, 
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .tt_single_event:hover, 
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .tt_single_event:hover a, 
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .tt_tooltip_content, 
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .tt_tooltip_content a {
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .event_container:hover, 
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .event_container:hover a, 
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .tt_single_event:hover, 
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .tt_single_event:hover a, 
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .tt_tooltip_content, 
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .tt_tooltip_content a {
 			" . cmsmasters_color_css('color', $box_hover_txt_color) . "
 		}
 		
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .event_container .hours, 
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .tt_single_event .hours {
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .event_container .hours, 
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .tt_single_event .hours {
 			" . cmsmasters_color_css('color', $box_hours_txt_color) . "
 		}
 		
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .event_container:hover .hours, 
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .tt_single_event:hover .hours {
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .event_container:hover .hours, 
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .tt_single_event:hover .hours {
 			" . cmsmasters_color_css('color', $box_hours_hover_txt_color) . "
 		}
 		
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .event_container .available_slots, 
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .event_container .available_slots span {
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .event_container .available_slots, 
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .event_container .available_slots span {
 			" . cmsmasters_color_css('color', $available_slots_color) . "
 		}
 		
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .event_container:hover .available_slots, 
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .event_container:hover .available_slots span, 
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .tt_single_event:hover .available_slots, 
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable .tt_single_event:hover .available_slots span, 
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable.use_colors ul.tt_items_list li:hover .available_slots, 
-		#cmsmasters_timetable_shortcode_{$unique_id} .tt_timetable.use_colors ul.tt_items_list li:hover .available_slots span {
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .event_container:hover .available_slots, 
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .event_container:hover .available_slots span, 
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .tt_single_event:hover .available_slots, 
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable .tt_single_event:hover .available_slots span, 
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable.use_colors ul.tt_items_list li:hover .available_slots, 
+		#cmsmasters_timetable_shortcode_" . esc_attr($unique_id) . " .tt_timetable.use_colors ul.tt_items_list li:hover .available_slots span {
 			" . cmsmasters_color_css('color', $box_hover_txt_color . ' !important') . "
 		}
 	</style>";
 	
 	
 	$out_timetable = do_shortcode('[tt_timetable' . 
-		($event != '' ? ' event="' . $event . '"' : '') . 
-		($event_category != '' ? ' event_category="' . $event_category . '"' : '') . 
-		($hour_category != '' ? ' hour_category="' . $hour_category . '"' : '') . 
-		($columns != '' ? ' columns="' . $columns . '"' : '') . 
-		' measure="' . $measure . '"' . 
-		' filter_style="' . $filter_style . '"' . 
-		' filter_kind="' . $filter_kind . '"' . 
-		' filter_label="' . $filter_label . '"' . 
-		' filter_label_2="' . $filter_label_2 . '"' . 
-		($time_format == 'custom' ? ($time_format_custom != '' ? ' time_format="' . $time_format_custom . '"' : '') : ' time_format="' . $time_format . '"') . 
-		' hide_all_events_view="' . $hide_all_events_view . '"' . 
-		' hide_hours_column="' . $hide_hours_column . '"' . 
-		' show_end_hour="' . $show_end_hour . '"' . 
-		' event_layout="' . $event_layout . '"' . 
-		' hide_empty="' . $hide_empty . '"' . 
-		' disable_event_url="' . $disable_event_url . '"' . 
-		' text_align="' . $text_align . '"' . 
-		($id != '' ? ' id="' . $id . '"' : '') . 
-		(($row_height != '' && $row_height != '0') ? ' row_height="' . $row_height . '"' : '') . 
-		' desktop_list_view="' . $desktop_list_view . '"' . 
-		' event_description_responsive="' . $event_description_responsive . '"' . 
-		' collapse_event_hours_responsive="' . $collapse_event_hours_responsive . '"' . 
-		' colors_responsive_mode="' . $colors_responsive_mode . '"' . 
-		' export_to_pdf_button="' . $export_to_pdf_button . '"' . 
-		' generate_pdf_label="' . $generate_pdf_label . '"' . 
-		' show_booking_button="' . $show_booking_button . '"' . 
-		' show_available_slots="' . $show_available_slots . '"' . 
-		' available_slots_singular_label="' . $available_slots_singular_label . '"' . 
-		' available_slots_plural_label="' . $available_slots_plural_label . '"' . 
-		' default_booking_view="' . $default_booking_view . '"' . 
-		' allow_user_booking="' . $allow_user_booking . '"' . 
-		' allow_guest_booking="' . $allow_guest_booking . '"' . 
-		' show_guest_name_field="' . $show_guest_name_field . '"' . 
-		' guest_name_field_required="' . $guest_name_field_required . '"' . 
-		' show_guest_phone_field="' . $show_guest_phone_field . '"' . 
-		' guest_phone_field_required="' . $guest_phone_field_required . '"' . 
-		' show_guest_message_field="' . $show_guest_message_field . '"' . 
-		' guest_message_field_required="' . $guest_message_field_required . '"' . 
-		' booking_label="' . $booking_label . '"' . 
-		' booked_label="' . $booked_label . '"' . 
-		' unavailable_label="' . $unavailable_label . '"' . 
-		' booking_popup_label="' . $booking_popup_label . '"' . 
-		' login_popup_label="' . $login_popup_label . '"' . 
-		' cancel_popup_label="' . $cancel_popup_label . '"' . 
-		' continue_popup_label="' . $continue_popup_label . '"' . 
-		' terms_checkbox="' . $terms_checkbox . '"' . 
-		' terms_message="' . $terms_message . '"' . 
+		($event != '' ? ' event="' . esc_attr($event) . '"' : '') . 
+		($event_category != '' ? ' event_category="' . esc_attr($event_category) . '"' : '') . 
+		($hour_category != '' ? ' hour_category="' . esc_attr($hour_category) . '"' : '') . 
+		($columns != '' ? ' columns="' . esc_attr($columns) . '"' : '') . 
+		' measure="' . esc_attr($measure) . '"' . 
+		' filter_style="' . esc_attr($filter_style) . '"' . 
+		' filter_kind="' . esc_attr($filter_kind) . '"' . 
+		' filter_label="' . esc_attr($filter_label) . '"' . 
+		' filter_label_2="' . esc_attr($filter_label_2) . '"' . 
+		($time_format == 'custom' ? ($time_format_custom != '' ? ' time_format="' . esc_attr($time_format_custom) . '"' : '') : ' time_format="' . esc_attr($time_format) . '"') . 
+		' hide_all_events_view="' . esc_attr($hide_all_events_view) . '"' . 
+		' hide_hours_column="' . esc_attr($hide_hours_column) . '"' . 
+		' show_end_hour="' . esc_attr($show_end_hour) . '"' . 
+		' event_layout="' . esc_attr($event_layout) . '"' . 
+		' hide_empty="' . esc_attr($hide_empty) . '"' . 
+		' disable_event_url="' . esc_attr($disable_event_url) . '"' . 
+		' text_align="' . esc_attr($text_align) . '"' . 
+		($id != '' ? ' id="' . esc_attr($id) . '"' : '') . 
+		(($row_height != '' && $row_height != '0') ? ' row_height="' . esc_attr($row_height) . '"' : '') . 
+		' desktop_list_view="' . esc_attr($desktop_list_view) . '"' . 
+		' event_description_responsive="' . esc_attr($event_description_responsive) . '"' . 
+		' collapse_event_hours_responsive="' . esc_attr($collapse_event_hours_responsive) . '"' . 
+		' colors_responsive_mode="' . esc_attr($colors_responsive_mode) . '"' . 
+		' export_to_pdf_button="' . esc_attr($export_to_pdf_button) . '"' . 
+		' generate_pdf_label="' . esc_attr($generate_pdf_label) . '"' . 
+		' show_booking_button="' . esc_attr($show_booking_button) . '"' . 
+		' show_available_slots="' . esc_attr($show_available_slots) . '"' . 
+		' available_slots_singular_label="' . esc_attr($available_slots_singular_label) . '"' . 
+		' available_slots_plural_label="' . esc_attr($available_slots_plural_label) . '"' . 
+		' default_booking_view="' . esc_attr($default_booking_view) . '"' . 
+		' allow_user_booking="' . esc_attr($allow_user_booking) . '"' . 
+		' allow_guest_booking="' . esc_attr($allow_guest_booking) . '"' . 
+		' show_guest_name_field="' . esc_attr($show_guest_name_field) . '"' . 
+		' guest_name_field_required="' . esc_attr($guest_name_field_required) . '"' . 
+		' show_guest_phone_field="' . esc_attr($show_guest_phone_field) . '"' . 
+		' guest_phone_field_required="' . esc_attr($guest_phone_field_required) . '"' . 
+		' show_guest_message_field="' . esc_attr($show_guest_message_field) . '"' . 
+		' guest_message_field_required="' . esc_attr($guest_message_field_required) . '"' . 
+		' booking_label="' . esc_attr($booking_label) . '"' . 
+		' booked_label="' . esc_attr($booked_label) . '"' . 
+		' unavailable_label="' . esc_attr($unavailable_label) . '"' . 
+		' booking_popup_label="' . esc_attr($booking_popup_label) . '"' . 
+		' login_popup_label="' . esc_attr($login_popup_label) . '"' . 
+		' cancel_popup_label="' . esc_attr($cancel_popup_label) . '"' . 
+		' continue_popup_label="' . esc_attr($continue_popup_label) . '"' . 
+		' terms_checkbox="' . esc_attr($terms_checkbox) . '"' . 
+		' terms_message="' . esc_attr($terms_message) . '"' . 
 		" booking_popup_message='" . do_shortcode(urldecode($booking_popup_message)) . "'" . 
 		" booking_popup_thank_you_message='" . do_shortcode(urldecode($booking_popup_thank_you_message)) . "'" . 
-		' box_bg_color="' . $box_bg_color . '"' . 
-		' box_hover_bg_color="' . $box_hover_bg_color . '"' . 
-		' box_txt_color="' . $box_txt_color . '"' . 
-		' box_hover_txt_color="' . $box_hover_txt_color . '"' . 
-		' box_hours_txt_color="' . $box_hours_txt_color . '"' . 
-		' box_hours_hover_txt_color="' . $box_hours_hover_txt_color . '"' . 
-		' row1_color="' . $row1_bg_color . '"' . 
-		' row2_color="' . $row2_bg_color . '"' . 
-		' booking_text_color="' . $booking_text_color . '"' . 
-		' booking_bg_color="' . $booking_bg_color . '"' . 
-		' booking_hover_text_color="' . $booking_hover_text_color . '"' . 
-		' booking_hover_bg_color="' . $booking_hover_bg_color . '"' . 
-		' booked_text_color="' . $booked_text_color . '"' . 
-		' booked_bg_color="' . $booked_bg_color . '"' . 
-		' unavailable_text_color="' . $unavailable_text_color . '"' . 
-		' unavailable_bg_color="' . $unavailable_bg_color . '"' . 
-		' available_slots_color="' . $available_slots_color . '"' . 
+		' box_bg_color="' . esc_attr($box_bg_color) . '"' . 
+		' box_hover_bg_color="' . esc_attr($box_hover_bg_color) . '"' . 
+		' box_txt_color="' . esc_attr($box_txt_color) . '"' . 
+		' box_hover_txt_color="' . esc_attr($box_hover_txt_color) . '"' . 
+		' box_hours_txt_color="' . esc_attr($box_hours_txt_color) . '"' . 
+		' box_hours_hover_txt_color="' . esc_attr($box_hours_hover_txt_color) . '"' . 
+		' row1_color="' . esc_attr($row1_bg_color) . '"' . 
+		' row2_color="' . esc_attr($row2_bg_color) . '"' . 
+		' booking_text_color="' . esc_attr($booking_text_color) . '"' . 
+		' booking_bg_color="' . esc_attr($booking_bg_color) . '"' . 
+		' booking_hover_text_color="' . esc_attr($booking_hover_text_color) . '"' . 
+		' booking_hover_bg_color="' . esc_attr($booking_hover_bg_color) . '"' . 
+		' booked_text_color="' . esc_attr($booked_text_color) . '"' . 
+		' booked_bg_color="' . esc_attr($booked_bg_color) . '"' . 
+		' unavailable_text_color="' . esc_attr($unavailable_text_color) . '"' . 
+		' unavailable_bg_color="' . esc_attr($unavailable_bg_color) . '"' . 
+		' available_slots_color="' . esc_attr($available_slots_color) . '"' . 
 		' filter_color=""' . 
 	']');
 	

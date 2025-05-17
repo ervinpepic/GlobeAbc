@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress Plugin
  * @subpackage 	CMSMasters Content Composer
- * @version		1.8.2
+ * @version		1.8.4
  * 
  * Profiles Post Type
  * Created by CMSMasters
@@ -16,9 +16,18 @@ class Cmsmasters_Profiles {
 		
 		$profile_post_settings_array = get_option('cmsmasters_options_' . $current_theme . '_single_profile');
 		
-		$profile_post_slug = $profile_post_settings_array[$current_theme . '_profile_post_slug'];
+		$profile_post_slug = 'profile';
+		$profile_pl_categs_slug = 'pl-categs';
 		
-		$profile_pl_categs_slug = $profile_post_settings_array[$current_theme . '_profile_pl_categs_slug'];
+		if ( is_array( $profile_post_settings_array ) && ! empty( $profile_post_settings_array ) ) {
+			if ( ! empty( $profile_post_settings_array[$current_theme . '_profile_post_slug'] ) ) {
+				$profile_post_slug = $profile_post_settings_array[$current_theme . '_profile_post_slug'];
+			}
+			
+			if ( ! empty( $profile_post_settings_array[$current_theme . '_profile_pl_categs_slug'] ) ) {
+				$profile_pl_categs_slug = $profile_post_settings_array[$current_theme . '_profile_pl_categs_slug'];
+			}
+		}
 		
 		
 		$profile_labels = apply_filters('cmsmasters_profile_labels_filter', array( 
@@ -60,7 +69,7 @@ class Cmsmasters_Profiles {
 				'page-attributes' 
 			), 
 			'rewrite' => array( 
-				'slug' => 			(isset($profile_post_slug) && $profile_post_slug != '') ? $profile_post_slug : 'profile', 
+				'slug' => 			$profile_post_slug, 
 				'with_front' => 	true 
 			) 
 		);
@@ -84,7 +93,7 @@ class Cmsmasters_Profiles {
 			'hierarchical' => 		true, 
 			'labels' => 			$pl_categs_labels, 
 			'rewrite' => array( 
-				'slug' => 			(isset($profile_pl_categs_slug) && $profile_pl_categs_slug != '') ? $profile_pl_categs_slug : 'pl-categs', 
+				'slug' => 			$profile_pl_categs_slug, 
 				'with_front' => 	true 
 			),
 			'show_in_rest' =>		true,

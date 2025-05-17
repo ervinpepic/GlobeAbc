@@ -1,4 +1,4 @@
-import { lpFetchAPI } from '../utils';
+import { lpFetchAPI, lpShowHideEl } from '../utils.js';
 import API from '../api';
 
 function widgetRestAPI() {
@@ -36,6 +36,15 @@ function widgetRestAPI() {
 				} else if ( message ) {
 					ele.insertAdjacentHTML( 'afterbegin', `<div class="lp-ajax-message error" style="display:block">${ message }</div>` );
 				}
+
+				const elBtnDone = ele.querySelector( '.course-filter-submit.lp-btn-done' );
+				if ( elBtnDone ) {
+					if ( window.outerWidth <= 991 ) {
+						lpShowHideEl( elBtnDone, 1 );
+					} else {
+						lpShowHideEl( elBtnDone, 0 );
+					}
+				}
 			},
 			error: ( error ) => {
 
@@ -45,6 +54,13 @@ function widgetRestAPI() {
 				const elSkeleton = ele.querySelector( '.lp-skeleton-animation' );
 				if ( elSkeleton ) {
 					elSkeleton.remove();
+				}
+
+				// Set temporary count course fields filter selected
+				const classCourseFilter = 'lp-form-course-filter';
+				const courseFilter = document.querySelector( `.${ classCourseFilter }` );
+				if ( courseFilter ) {
+					window.lpCourseFilter.countFieldsSelected( courseFilter );
 				}
 			},
 		};

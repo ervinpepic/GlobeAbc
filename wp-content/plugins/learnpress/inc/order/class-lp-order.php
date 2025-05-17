@@ -333,6 +333,7 @@ if ( ! class_exists( 'LP_Order' ) ) {
 
 		/**
 		 * Set order status.
+		 * $new_status shouldn't have prefix 'lp-'
 		 *
 		 * @param string $new_status
 		 * @param string $note - Optional. Note for changing status.
@@ -902,7 +903,7 @@ if ( ! class_exists( 'LP_Order' ) ) {
 		 * @return array|mixed
 		 */
 		public function get_payment_method_title() {
-			return $this->get_data( 'payment_method_title', '' );
+			return esc_html( $this->get_data( 'payment_method_title', '' ) );
 		}
 
 		public function get_view_order_url() {

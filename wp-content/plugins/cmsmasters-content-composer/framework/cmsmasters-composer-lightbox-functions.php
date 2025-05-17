@@ -285,24 +285,55 @@ function cmsmasters_composer_rev_slider() {
 
 
 function cmsmasters_composer_fonts() {
-	$out = "\n" . '<script type="text/javascript"> ' . "\n" . 
-	'/* <![CDATA[ */' . "\n\t" . 
-		'function cmsmasters_composer_fonts() { ' . "\n\t\t" . 
-			'return { ' . "\n";
-	
-	
-	foreach (cmsmasters_google_fonts_list() as $key => $value) {
-		$out .= "\t\t\t\"" . $key . "\" : \"" . $value . "\", \n";
-	}
-	
-	
-	$out = substr($out, 0, -3);
-	
-	
-	$out .= "\n\t\t" . '}; ' . "\n\t" . 
-		'} ' . "\n" . 
-	'/* ]]> */' . "\n" . 
-	'</script>' . "\n\n";
+	$out = "<script type=\"text/javascript\">
+	/* <![CDATA[ */
+		function cmsmasters_composer_fonts() {
+			return {";
+				
+				$cmsmasters_fonts_list = cmsmasters_fonts_list();
+				
+				$font_none = array_shift($cmsmasters_fonts_list);
+				
+				$out .= "'':'{$font_none}'";
+				
+				
+				if (!empty($cmsmasters_fonts_list['local'])) {
+					$out .= ", 'local':{";
+						
+						$local_fonts = array();
+						
+						foreach ($cmsmasters_fonts_list['local'] as $key => $value) {
+							$local_fonts[] = "'{$key}':'{$value}'";
+						}
+						
+						$local_fonts = implode(', ', $local_fonts);
+
+						$out .= $local_fonts;
+						
+					$out .= "}";
+				}
+				
+
+				if (!empty($cmsmasters_fonts_list['web'])) {
+					$out .= ", 'web':{";
+
+						$google_fonts = array();
+						
+						foreach ($cmsmasters_fonts_list['web'] as $key => $value) {
+							$google_fonts[] = "'{$key}':'{$value}'";
+						}
+						
+						$google_fonts = implode(', ', $google_fonts);
+
+						$out .= $google_fonts;
+						
+					$out .= "}";
+				}
+				
+			$out .= "}
+		}
+	/* ]]> */
+	</script>";
 	
 	
 	echo $out;

@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress Plugin
  * @subpackage 	CMSMasters Content Composer
- * @version		1.7.4
+ * @version		1.8.6
  * 
  * Content Composer Gutenberg
  * Created by CMSMasters
@@ -26,6 +26,7 @@ class Cmsmasters_Gutenberg {
 	
 	public function cmsmasters_gutenberg_post_type_filter($args, $post_type) {
 		if (
+			isset($args['public']) &&
 			$args['public'] == true && 
 			(
 				!isset($args['show_in_rest']) || 

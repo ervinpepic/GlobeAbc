@@ -3,7 +3,7 @@ $currencies = learn_press_currencies();
 
 foreach ( $currencies as $code => $name ) {
 	$currency_symbol     = learn_press_get_currency_symbol( $code );
-	$currencies[ $code ] = sprintf( '%s (%s)', $name, $currency_symbol );
+	$currencies[ $code ] = sprintf( '%s (%s) - %s', $name, $currency_symbol, $code );
 }
 
 $data_struct_currency = [
@@ -55,14 +55,14 @@ return apply_filters(
 			'value'   => learn_press_get_page_id( 'checkout' ),
 		),
 		array(
-			'title'   => esc_html__( 'Become instructors page', 'learnpress' ),
+			'title'   => esc_html__( 'Become an instructors page', 'learnpress' ),
 			'id'      => 'become_a_teacher_page_id',
 			'default' => '',
 			'type'    => 'pages-dropdown',
 			'value'   => learn_press_get_page_id( 'become_a_teacher' ),
 		),
 		array(
-			'title'   => esc_html__( 'Terms and conditions', 'learnpress' ),
+			'title'   => esc_html__( 'Terms and conditions page', 'learnpress' ),
 			'id'      => 'term_conditions_page_id',
 			'default' => '',
 			'type'    => 'pages-dropdown',
@@ -144,6 +144,13 @@ return apply_filters(
 			'title'   => esc_html__( 'Instructor registration', 'learnpress' ),
 			'desc'    => esc_html__( 'Enable the option in all registration forms.', 'learnpress' ),
 			'id'      => 'instructor_registration',
+			'default' => 'no',
+			'type'    => 'checkbox',
+		),
+		array(
+			'title'   => esc_html__( 'Store IP Guest to handle checkout', 'learnpress' ),
+			'desc'    => esc_html__( 'Enable the option, IP of client is identifier user instead $_COOKIE', 'learnpress' ),
+			'id'      => 'store_ip_customer_session',
 			'default' => 'no',
 			'type'    => 'checkbox',
 		),

@@ -545,7 +545,7 @@ function learn_press_setup_user() {
 	$GLOBALS['lp_user'] = learn_press_get_current_user();
 }
 
-add_action( 'init', 'learn_press_setup_user', 1000 );
+//add_action( 'init', 'learn_press_setup_user', 1000 );
 
 /**
  * Display a message immediately with out push into queue
@@ -1054,8 +1054,11 @@ function learn_press_admin_view( $name, $args = array(), $include_once = false, 
 if ( ! function_exists( 'learn_press_is_404' ) ) {
 	/**
 	 * Set header is 404
+	 * @deprecated 4.2.8
 	 */
 	function learn_press_is_404() {
+		_deprecated_function( __FUNCTION__, '4.2.8', 'LP_Page_Controller::set_page_404' );
+		return;
 		global $wp_query;
 		$wp_query->set_404();
 		status_header( 404 );
@@ -1065,8 +1068,12 @@ if ( ! function_exists( 'learn_press_is_404' ) ) {
 if ( ! function_exists( 'learn_press_404_page' ) ) {
 	/**
 	 * Display 404 page
+	 *
+	 * @deprecated 4.2.8
 	 */
 	function learn_press_404_page() {
+		_deprecated_function( __FUNCTION__, '4.2.8', 'LP_Page_Controller::set_page_404' );
+		return;
 		learn_press_is_404();
 	}
 }
@@ -1199,39 +1206,53 @@ function learn_press_comments_template_query_args( $comment_args ) {
 
 	return $comment_args;
 }
+add_filter( 'comments_template_query_args', 'learn_press_comments_template_query_args' );
 
-if ( ! function_exists( 'learn_press_filter_get_comments_number' ) ) {
-	function learn_press_filter_get_comments_number( $count, $post_id = 0 ) {
-		global $wpdb;
+function learn_press_comment_form_logged_in( $html_login ) {
+	if ( get_post_type() == LP_COURSE_CPT || get_post_type() == LP_LESSON_CPT ) {
+		$html_login = '';
+	}
 
-		if ( ! $post_id ) {
-			$post_id = learn_press_get_course_id();
-		}
+	return $html_login;
+}
+add_filter( 'comment_form_logged_in', 'learn_press_comment_form_logged_in' );
 
+function learn_press_comment_form_defaults( $defaults ) {
+	if ( get_post_type() == LP_COURSE_CPT || get_post_type() == LP_LESSON_CPT ) {
+		$defaults['comment_notes_before'] = '';
+	}
+
+	return $defaults;
+}
+add_filter( 'comment_form_defaults', 'learn_press_comment_form_defaults' );
+
+function learn_press_filter_get_comments_number( $count, $post_id = 0 ) {
+	global $wpdb;
+
+	if ( ! $post_id ) {
+		$post_id = get_the_ID();
 		if ( ! $post_id ) {
 			return $count;
 		}
-
-		if ( get_post_type( $post_id ) == LP_COURSE_CPT ) {
-			$sql = $wpdb->prepare(
-				' SELECT count(*) '
-				. " FROM {$wpdb->comments} "
-				. ' WHERE comment_post_ID = %d '
-				. ' AND comment_approved = 1 '
-				. ' AND comment_type != %s ',
-				$post_id,
-				'review'
-			);
-
-			$count = $wpdb->get_var( $sql );
-
-			// @since 3.0.0
-			$count = apply_filters( 'learn-press/course-comments-number', $count, $post_id );
-		}
-
-		return $count;
 	}
+
+	if ( get_post_type( $post_id ) == LP_COURSE_CPT ) {
+		$sql = $wpdb->prepare(
+			' SELECT count(*) '
+			. " FROM {$wpdb->comments} "
+			. ' WHERE comment_post_ID = %d '
+			. ' AND comment_approved = 1 '
+			. ' AND comment_type != %s ',
+			$post_id,
+			'review'
+		);
+
+		$count = $wpdb->get_var( $sql );
+	}
+
+	return $count;
 }
+add_filter( 'get_comments_number', 'learn_press_filter_get_comments_number' );
 
 /**
  * Add custom classes to body tag class name
@@ -1521,7 +1542,7 @@ function lp_course_level() {
 	return apply_filters(
 		'lp/template/function/course/level',
 		array(
-			''             => esc_html__( 'All levels', 'learnpress' ),
+			'all'          => esc_html__( 'All levels', 'learnpress' ),
 			'beginner'     => esc_html__( 'Beginner', 'learnpress' ),
 			'intermediate' => esc_html__( 'Intermediate', 'learnpress' ),
 			'expert'       => esc_html__( 'Expert', 'learnpress' ),
