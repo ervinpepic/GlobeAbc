@@ -16,7 +16,7 @@ __webpack_require__.r(__webpack_exports__);
  * List API on backend
  *
  * @since 4.2.6
- * @version 1.0.1
+ * @version 1.0.2
  */
 
 const lplistAPI = {};
@@ -24,28 +24,27 @@ let lp_rest_url;
 if ('undefined' !== typeof lpDataAdmin) {
   lp_rest_url = lpDataAdmin.lp_rest_url;
   lplistAPI.admin = {
-    apiAdminNotice: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/admin-notices',
-    apiAdminOrderStatic: lpDataAdmin.lp_rest_url + 'lp/v1/orders/statistic',
-    apiAddons: lpDataAdmin.lp_rest_url + 'lp/v1/addon/all',
-    apiAddonAction: lpDataAdmin.lp_rest_url + 'lp/v1/addon/action-n',
-    apiAddonsPurchase: lpDataAdmin.lp_rest_url + 'lp/v1/addon/info-addons-purchase',
-    apiSearchCourses: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/search-course',
-    apiSearchUsers: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/search-user',
-    apiAssignUserCourse: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/assign-user-course',
-    apiUnAssignUserCourse: lpDataAdmin.lp_rest_url + 'lp/v1/admin/tools/unassign-user-course'
+    apiAdminNotice: lp_rest_url + 'lp/v1/admin/tools/admin-notices',
+    apiAdminOrderStatic: lp_rest_url + 'lp/v1/orders/statistic',
+    apiAddons: lp_rest_url + 'lp/v1/addon/all',
+    apiAddonAction: lp_rest_url + 'lp/v1/addon/action-n',
+    apiAddonsPurchase: lp_rest_url + 'lp/v1/addon/info-addons-purchase',
+    apiSearchCourses: lp_rest_url + 'lp/v1/admin/tools/search-course',
+    apiSearchUsers: lp_rest_url + 'lp/v1/admin/tools/search-user',
+    apiAssignUserCourse: lp_rest_url + 'lp/v1/admin/tools/assign-user-course',
+    apiUnAssignUserCourse: lp_rest_url + 'lp/v1/admin/tools/unassign-user-course'
   };
 }
 if ('undefined' !== typeof lpData) {
   lp_rest_url = lpData.lp_rest_url;
   lplistAPI.frontend = {
-    apiWidgets: lpData.lp_rest_url + 'lp/v1/widgets/api',
-    apiCourses: lpData.lp_rest_url + 'lp/v1/courses/archive-course',
-    apiAJAX: lpData.lp_rest_url + 'lp/v1/load_content_via_ajax/',
-    apiProfileCoverImage: lpData.lp_rest_url + 'lp/v1/profile/cover-image'
+    apiWidgets: lp_rest_url + 'lp/v1/widgets/api',
+    apiCourses: lp_rest_url + 'lp/v1/courses/archive-course',
+    apiAJAX: lp_rest_url + 'lp/v1/load_content_via_ajax/',
+    apiProfileCoverImage: lp_rest_url + 'lp/v1/profile/cover-image'
   };
 }
 if (lp_rest_url) {
-  lplistAPI.apiAJAX = lp_rest_url + 'lp/v1/load_content_via_ajax/';
   lplistAPI.apiCourses = lp_rest_url + 'lp/v1/courses/';
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (lplistAPI);
@@ -69,7 +68,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   lpGetCurrentURLNoParam: () => (/* binding */ lpGetCurrentURLNoParam),
 /* harmony export */   lpOnElementReady: () => (/* binding */ lpOnElementReady),
 /* harmony export */   lpSetLoadingEl: () => (/* binding */ lpSetLoadingEl),
-/* harmony export */   lpShowHideEl: () => (/* binding */ lpShowHideEl)
+/* harmony export */   lpShowHideEl: () => (/* binding */ lpShowHideEl),
+/* harmony export */   toggleCollapse: () => (/* binding */ toggleCollapse)
 /* harmony export */ });
 /**
  * Utils functions
@@ -82,7 +82,10 @@ __webpack_require__.r(__webpack_exports__);
  */
 const lpClassName = {
   hidden: 'lp-hidden',
-  loading: 'loading'
+  loading: 'loading',
+  elCollapse: 'lp-collapse',
+  elSectionToggle: '.lp-section-toggle',
+  elTriggerToggle: '.lp-trigger-toggle'
 };
 const lpFetchAPI = (url, data = {}, functions = {}) => {
   if ('function' === typeof functions.before) {
@@ -237,6 +240,37 @@ const lpSetLoadingEl = (el, status) => {
     el.classList.remove(lpClassName.loading);
   } else {
     el.classList.add(lpClassName.loading);
+  }
+};
+
+// Toggle collapse section
+const toggleCollapse = (e, target, elTriggerClassName = '', elsExclude = [], callback) => {
+  if (!elTriggerClassName) {
+    elTriggerClassName = lpClassName.elTriggerToggle;
+  }
+
+  // Exclude elements, which should not trigger the collapse toggle
+  if (elsExclude && elsExclude.length > 0) {
+    for (const elExclude of elsExclude) {
+      if (target.closest(elExclude)) {
+        return;
+      }
+    }
+  }
+  const elTrigger = target.closest(elTriggerClassName);
+  if (!elTrigger) {
+    return;
+  }
+
+  //console.log( 'elTrigger', elTrigger );
+
+  const elSectionToggle = elTrigger.closest(`${lpClassName.elSectionToggle}`);
+  if (!elSectionToggle) {
+    return;
+  }
+  elSectionToggle.classList.toggle(`${lpClassName.elCollapse}`);
+  if ('function' === typeof callback) {
+    callback(elSectionToggle);
   }
 };
 
@@ -517,10 +551,7 @@ window.lpCoursesList = (() => {
       // End.
 
       // Show loading
-      const elLoading = elLPTarget.closest('div:not(.lp-target)').querySelector('.lp-loading-change');
-      if (elLoading) {
-        elLoading.style.display = 'block';
-      }
+      window.lpAJAXG.showHideLoading(elLPTarget, 1);
       // End
 
       const callBack = {
@@ -538,9 +569,7 @@ window.lpCoursesList = (() => {
         },
         completed: () => {
           //console.log( 'completed' );
-          if (elLoading) {
-            elLoading.style.display = 'none';
-          }
+          window.lpAJAXG.showHideLoading(elLPTarget, 0);
         }
       };
       window.lpAJAXG.fetchAJAX(dataSend, callBack);

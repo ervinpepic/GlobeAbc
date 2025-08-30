@@ -74,6 +74,10 @@ if ( ! class_exists( 'WFACP_Divi_Template' ) ) {
 			add_action( 'wfacp_before_step_next_button_two_step', [ $this, 'display_button_icon_step_2' ] );
 
 			add_action( 'wfacp_after_checkout_page_found', [ $this, 'maybe_unset_mini_cart_block_scripts' ] );
+
+
+
+
 		}
 
 
@@ -1204,6 +1208,28 @@ if ( ! class_exists( 'WFACP_Divi_Template' ) ) {
 			if ( WFACP_Common::is_theme_builder() ) {
 				WFACP_Common::remove_actions( 'wp_print_footer_scripts', 'Automattic\WooCommerce\Blocks\BlockTypes\MiniCart', 'print_lazy_load_scripts' );
 			}
+		}
+
+		public function enable_order_field_collapsed_by_default( $device = 'desktop' ) {
+			$field_key = 'enable_order_field_collapsed';
+
+			if ( $device === 'tablet' ) {
+				$field_key .= '_tablet';
+			} elseif ( $device === 'mobile' ) {
+				$field_key .= '_phone';
+			}
+
+			if ( isset( $this->form_data[ $field_key ] ) && 'on' == $this->form_data[ $field_key ] ) {
+				return true;
+			}
+
+			return false;
+		}
+		public function should_hide_order_summary_by_default() {
+			// Check if any device has collapsed enabled
+			return $this->enable_order_field_collapsed_by_default( 'desktop' ) ||
+			       $this->enable_order_field_collapsed_by_default( 'tablet' ) ||
+			       $this->enable_order_field_collapsed_by_default( 'mobile' );
 		}
 
 	}

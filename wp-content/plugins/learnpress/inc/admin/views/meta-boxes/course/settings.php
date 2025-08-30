@@ -3,6 +3,8 @@
 use LearnPress\Helpers\Config;
 use LearnPress\Models\CourseModel;
 use LearnPress\Models\CoursePostModel;
+use LearnPress\TemplateHooks\Course\AdminEditCurriculumTemplate;
+use LearnPress\TemplateHooks\TemplateAJAX;
 
 class LP_Meta_Box_Course extends LP_Meta_Box {
 	/**
@@ -496,7 +498,8 @@ class LP_Meta_Box_Course extends LP_Meta_Box {
 		return apply_filters(
 			'lp/course/meta-box/fields/author',
 			array(
-				'post_author' => new LP_Meta_Box_Select_Field(
+				// Not use key 'post_author' on single edit course, it special key of WP, Gutenberg save will not submit this key.
+				'_post_author' => new LP_Meta_Box_Select_Field(
 					esc_html__( 'Author', 'learnpress' ),
 					'',
 					$author_id,
@@ -696,7 +699,15 @@ class LP_Meta_Box_Course extends LP_Meta_Box {
 	 * @return void
 	 */
 	public function admin_editor() {
-		learn_press_admin_view( 'course/editor' );
+		global $post;
+
+		$course_id   = $post->ID;
+		$courseModel = CourseModel::find( $course_id, true );
+		if ( ! $courseModel instanceof CourseModel ) {
+			return;
+		}
+
+		do_action( 'learn-press/admin/edit-curriculum/layout', $courseModel );
 	}
 
 	/*public function save( $post_id ) {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2018 ServMask Inc.
+ * Copyright (C) 2014-2025 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,6 +15,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
+ * Attribution: This code is part of the All-in-One WP Migration plugin, developed by
+ *
  * ███████╗███████╗██████╗ ██╗   ██╗███╗   ███╗ █████╗ ███████╗██╗  ██╗
  * ██╔════╝██╔════╝██╔══██╗██║   ██║████╗ ████║██╔══██╗██╔════╝██║ ██╔╝
  * ███████╗█████╗  ██████╔╝██║   ██║██╔████╔██║███████║███████╗█████╔╝
@@ -23,18 +25,31 @@
  * ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'Kangaroos cannot jump here' );
+}
+
 class Ai1wm_Import_Mu_Plugins {
 
 	public static function execute( $params ) {
 
 		// Set progress
-		Ai1wm_Status::info( __( 'Activating mu-plugins...', AI1WM_PLUGIN_NAME ) );
+		Ai1wm_Status::info( __( 'Activating mu-plugins...', 'all-in-one-wp-migration' ) );
 
 		$exclude_files = array(
 			AI1WM_MUPLUGINS_NAME . DIRECTORY_SEPARATOR . AI1WM_ENDURANCE_PAGE_CACHE_NAME,
 			AI1WM_MUPLUGINS_NAME . DIRECTORY_SEPARATOR . AI1WM_ENDURANCE_PHP_EDGE_NAME,
 			AI1WM_MUPLUGINS_NAME . DIRECTORY_SEPARATOR . AI1WM_ENDURANCE_BROWSER_CACHE_NAME,
 			AI1WM_MUPLUGINS_NAME . DIRECTORY_SEPARATOR . AI1WM_GD_SYSTEM_PLUGIN_NAME,
+			AI1WM_MUPLUGINS_NAME . DIRECTORY_SEPARATOR . AI1WM_WP_STACK_CACHE_NAME,
+			AI1WM_MUPLUGINS_NAME . DIRECTORY_SEPARATOR . AI1WM_WP_COMSH_LOADER_NAME,
+			AI1WM_MUPLUGINS_NAME . DIRECTORY_SEPARATOR . AI1WM_WP_COMSH_HELPER_NAME,
+			AI1WM_MUPLUGINS_NAME . DIRECTORY_SEPARATOR . AI1WM_WP_ENGINE_SYSTEM_PLUGIN_NAME,
+			AI1WM_MUPLUGINS_NAME . DIRECTORY_SEPARATOR . AI1WM_WPE_SIGN_ON_PLUGIN_NAME,
+			AI1WM_MUPLUGINS_NAME . DIRECTORY_SEPARATOR . AI1WM_WP_ENGINE_SECURITY_AUDITOR_NAME,
+			AI1WM_MUPLUGINS_NAME . DIRECTORY_SEPARATOR . AI1WM_WP_CERBER_SECURITY_NAME,
+			AI1WM_MUPLUGINS_NAME . DIRECTORY_SEPARATOR . AI1WM_SQLITE_DATABASE_INTEGRATION_NAME,
+			AI1WM_MUPLUGINS_NAME . DIRECTORY_SEPARATOR . AI1WM_SQLITE_DATABASE_ZERO_NAME,
 		);
 
 		// Open the archive file for reading
@@ -47,7 +62,7 @@ class Ai1wm_Import_Mu_Plugins {
 		$archive->close();
 
 		// Set progress
-		Ai1wm_Status::info( __( 'Done activating mu-plugins.', AI1WM_PLUGIN_NAME ) );
+		Ai1wm_Status::info( __( 'Mu-plugins activated.', 'all-in-one-wp-migration' ) );
 
 		return $params;
 	}

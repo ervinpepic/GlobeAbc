@@ -278,9 +278,11 @@ if ( ! class_exists( 'WFFN_Tracking_SiteWide' ) ) {
 
 		public function track_event_data() {
 
-			$pixel          = $this->admin_general_settings->get_option( 'fb_pixel_key' );
-			$ga             = $this->admin_general_settings->get_option( 'ga_key' );
-			$gad            = $this->admin_general_settings->get_option( 'gad_key' );
+
+			$pixel          = false !== $this->is_fb_pixel() ? $this->is_fb_pixel() : '';
+			$ga             = false !== $this->ga_code() ? $this->ga_code() : '';
+			$gad            = false !== $this->gad_code() ? $this->gad_code() : '';
+			$gad_labels     = $this->admin_general_settings->get_option( 'gad_addtocart_global_conversion_label' );
 			$tiktok         = $this->admin_general_settings->get_option( 'tiktok_pixel' );
 			$pinterest      = $this->admin_general_settings->get_option( 'pint_key' );
 			$pint_event     = $this->admin_general_settings->get_option( 'is_pint_page_view_global' );
@@ -316,6 +318,7 @@ if ( ! class_exists( 'WFFN_Tracking_SiteWide' ) ) {
 				],
 				'gad'            => [
 					'id'       => $gad,
+					'labels'   => $gad_labels,
 					'settings' => [
 						'page_view' => $gad_event,
 					],
@@ -347,7 +350,9 @@ if ( ! class_exists( 'WFFN_Tracking_SiteWide' ) ) {
 					'data'     => []
 				],
 				'ajax_endpoint'  => admin_url( 'admin-ajax.php' ),
+				'restUrl'        => rest_url() . 'wffn/front',
 				'pending_events' => $this->pending_events,
+				'is_ajax_mode'   => true,
 				'should_render'  => apply_filters( 'wffn_allow_site_wide_tracking_js', true ),
 				'is_delay'       => 0,
 
@@ -407,7 +412,10 @@ if ( ! class_exists( 'WFFN_Tracking_SiteWide' ) ) {
 				return false;
 			}
 
-			wp_enqueue_script( 'wffn-tracking', plugin_dir_url( WFFN_PLUGIN_FILE ) . 'assets/' . $live_or_dev . '/js/tracks' . $suffix . '.js', [ 'jquery' ], WFFN_VERSION_DEV, array( 'is_footer' => false, 'strategy' => 'defer') );
+			wp_enqueue_script( 'wffn-tracking', plugin_dir_url( WFFN_PLUGIN_FILE ) . 'assets/' . $live_or_dev . '/js/tracks' . $suffix . '.js', [ 'jquery' ], WFFN_VERSION_DEV, array(
+				'is_footer' => false,
+				'strategy'  => 'defer'
+			) );
 			wp_localize_script( 'wffn-tracking', 'wffnTracking', $this->track_event_data() );
 
 		}

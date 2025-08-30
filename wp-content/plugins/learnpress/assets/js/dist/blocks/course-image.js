@@ -18,6 +18,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
+
 
 
 
@@ -32,10 +35,154 @@ const edit = props => {
     lpCourseData
   } = context;
   const courseImage = lpCourseData?.image || '<div className="course-img"><img src="https://placehold.co/500x300?text=Course+Image"/></div>';
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  const sizeOption = [{
+    label: 'Thumbnail',
+    value: 'thumbnail'
+  }, {
+    label: 'Medium',
+    value: 'medium'
+  }, {
+    label: 'Large',
+    value: 'large'
+  }, {
+    label: 'Full',
+    value: 'full'
+  }, {
+    label: 'Custom',
+    value: 'custom'
+  }];
+  const getStyledCourseImage = () => {
+    if (lpCourseData?.image && attributes.size === 'custom' && attributes.customWidth === 500 && attributes.customHeight === 300) {
+      return lpCourseData?.image;
+    }
+    let width = 2560;
+    let height = 2560;
+    if (attributes.size === 'thumbnail') {
+      width = 150;
+      height = 150;
+    }
+    if (attributes.size === 'medium') {
+      width = 300;
+      height = 300;
+    }
+    if (attributes.size === 'large') {
+      width = 1024;
+      height = 724;
+    }
+    if (attributes.size === 'full') {
+      width = 2560;
+      height = 2560;
+    }
+    if (attributes.size === 'custom') {
+      if (attributes.customWidth && attributes.customWidth > 0) {
+        width = attributes.customWidth;
+      }
+      if (attributes.customHeight && attributes.customHeight > 0) {
+        height = attributes.customHeight;
+      }
+      if (attributes.customWidth == 0) {
+        width = 2560;
+      }
+      if (attributes.customHeight == 0) {
+        width = 2560;
+      }
+    }
+    return `<div class="course-img"><img src="https://placehold.co/${width}x${height}?text=Course+Image" alt="course thumbnail placeholder"</div>`;
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Settings', 'learnpress')
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.SelectControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Size', 'learnpress'),
+    value: props.attributes.size,
+    options: sizeOption,
+    onChange: value => {
+      if (value !== 'custom') {
+        setAttributes({
+          customWidth: 500,
+          customHeight: 300
+        });
+      }
+      setAttributes({
+        size: value
+      });
+    }
+  }), props.attributes.size === 'custom' ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    style: {
+      display: 'flex',
+      gap: '12px'
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.__experimentalInputControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Width', 'learnpress'),
+    type: "number",
+    min: 0,
+    style: {
+      flex: 1
+    },
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Auto', 'learnpress'),
+    suffix: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      style: {
+        marginRight: '8px'
+      }
+    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('px', 'learnpress')),
+    value: props.attributes.customWidth,
+    onChange: value => {
+      const numValue = parseInt(value, 10);
+      if (!isNaN(Number(numValue)) && numValue >= 0) {
+        setAttributes({
+          customWidth: Number(numValue)
+        });
+      } else {
+        setAttributes({
+          customWidth: 500
+        });
+      }
+    }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.__experimentalInputControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Height', 'learnpress'),
+    type: "number",
+    min: 0,
+    style: {
+      flex: 1
+    },
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Auto', 'learnpress'),
+    suffix: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      style: {
+        marginRight: '8px'
+      }
+    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('px', 'learnpress')),
+    value: props.attributes.customHeight,
+    onChange: value => {
+      const numValue = parseInt(value, 10);
+      if (!isNaN(Number(numValue)) && numValue >= 0) {
+        setAttributes({
+          customHeight: Number(numValue)
+        });
+      } else {
+        setAttributes({
+          customHeight: 300
+        });
+      }
+    }
+  })) : '', (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ToggleControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Make the image a link', 'learnpress'),
+    checked: props.attributes.isLink ? true : false,
+    onChange: value => {
+      props.setAttributes({
+        isLink: value ? true : false
+      });
+    }
+  }), props.attributes.isLink ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ToggleControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Open is new tab', 'learnpress'),
+    checked: props.attributes.target ? true : false,
+    onChange: value => {
+      props.setAttributes({
+        target: value ? true : false
+      });
+    }
+  }) : '')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...blockProps,
     dangerouslySetInnerHTML: {
-      __html: courseImage
+      __html: getStyledCourseImage() || courseImage
     }
   })));
 };
@@ -84,7 +231,10 @@ const checkTemplatesCanLoadBlock = (templates, metadata, callBack) => {
     const metaDataNew = {
       ...metadata
     };
-    const store = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.select)('core/editor');
+    const store = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.select)('core/editor') || null;
+    if (!store || typeof store.getCurrentPostId !== 'function' || !store.getCurrentPostId()) {
+      return;
+    }
     const currentPostId = store.getCurrentPostId();
     if (currentPostId === null) {
       return;
@@ -141,6 +291,16 @@ module.exports = window["wp"]["blocks"];
 
 /***/ }),
 
+/***/ "@wordpress/components":
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["components"];
+
+/***/ }),
+
 /***/ "@wordpress/data":
 /*!******************************!*\
   !*** external ["wp","data"] ***!
@@ -167,7 +327,7 @@ module.exports = window["wp"]["i18n"];
   \***************************************************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"learnpress/course-image","title":"Course Image","category":"learnpress-course-elements","icon":"format-image","description":"Renders template Image Course PHP templates.","textdomain":"learnpress","keywords":["image single course","learnpress"],"ancestor":["learnpress/single-course","learnpress/course-item-template"],"usesContext":["lpCourseData"],"supports":{"multiple":true,"html":false,"shadow":true,"__experimentalBorder":{"color":true,"radius":true,"width":true,"__experimentalDefaultControls":{"width":false,"color":false,"radius":false}}}}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"learnpress/course-image","title":"Course Image","category":"learnpress-course-elements","icon":"format-image","description":"Renders template Image Course PHP templates.","textdomain":"learnpress","keywords":["image single course","learnpress"],"ancestor":["learnpress/single-course","learnpress/course-item-template"],"usesContext":["lpCourseData"],"attributes":{"isLink":{"type":"boolean","default":true},"target":{"type":"boolean","default":false},"size":{"type":"string","default":"custom"},"customWidth":{"type":"number","default":500},"customHeight":{"type":"number","default":300}},"supports":{"multiple":true,"html":false,"shadow":true,"__experimentalBorder":{"color":true,"radius":true,"width":true,"__experimentalDefaultControls":{"width":false,"color":false,"radius":false}}}}');
 
 /***/ })
 
@@ -259,7 +419,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const templatesName = ['learnpress/learnpress//single-lp_course'];
+const templatesName = ['learnpress/learnpress//single-lp_course', 'learnpress/learnpress//single-lp_course-offline'];
 (0,_utilBlock_js__WEBPACK_IMPORTED_MODULE_4__.checkTemplatesCanLoadBlock)(templatesName, _block_json__WEBPACK_IMPORTED_MODULE_2__, metadataNew => {
   (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__.registerBlockType)(metadataNew.name, {
     ...metadataNew,

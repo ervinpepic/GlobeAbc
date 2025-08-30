@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.3.5
+ * @version 	1.3.8
  * 
  * Theme Functions
  * Created by CMSMasters
@@ -640,11 +640,13 @@ add_action('widgets_init', 'language_school_the_widgets_init');
 
 
 /* Register Theme Navigations */
-register_nav_menus(array( 
-    'primary' => 	esc_html__('Primary Navigation', 'language-school'), 
-    'footer' => 	esc_html__('Footer Navigation', 'language-school'), 
-	'top_line' => 	esc_html__('Top Line Navigation', 'language-school') 
-));
+add_action('after_setup_theme', function() {
+	register_nav_menus(array( 
+		'primary' => 	esc_html__('Primary Navigation', 'language-school'), 
+		'footer' => 	esc_html__('Footer Navigation', 'language-school'), 
+		'top_line' => 	esc_html__('Top Line Navigation', 'language-school') 
+	));
+});
 
 
 
@@ -822,24 +824,26 @@ if (function_exists('add_theme_support')) {
 	));
 	
 	
-	$thumbnail_list = cmsmasters_image_thumbnail_list();
-	
-	
-	if (!isset($content_width)) {
-		$content_width = $thumbnail_list['cmsmasters-full-thumb']['width'];
-	}
-	
-	
-	set_post_thumbnail_size($thumbnail_list['post-thumbnail']['width'], $thumbnail_list['post-thumbnail']['height'], $thumbnail_list['post-thumbnail']['crop']);
-	
-	
-	if (function_exists('add_image_size')) {
-		foreach ($thumbnail_list as $key => $image_size) {
-			if ($key != 'post-thumbnail') {
-				add_image_size($key, $image_size['width'], $image_size['height'], (isset($image_size['crop']) ? isset($image_size['crop']) : false));
+	add_action('after_setup_theme', function() {
+		$thumbnail_list = cmsmasters_image_thumbnail_list();
+		
+		
+		if (!isset($content_width)) {
+			$content_width = $thumbnail_list['cmsmasters-full-thumb']['width'];
+		}
+		
+		
+		set_post_thumbnail_size($thumbnail_list['post-thumbnail']['width'], $thumbnail_list['post-thumbnail']['height'], $thumbnail_list['post-thumbnail']['crop']);
+		
+		
+		if (function_exists('add_image_size')) {
+			foreach ($thumbnail_list as $key => $image_size) {
+				if ($key != 'post-thumbnail') {
+					add_image_size($key, $image_size['width'], $image_size['height'], (isset($image_size['crop']) ? isset($image_size['crop']) : false));
+				}
 			}
 		}
-	}
+	});
 	
 	
 	add_filter('image_size_names_choose', 'language_school_select_image_size');

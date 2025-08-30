@@ -2,18 +2,24 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+/**
+ * plugin name Klaviyo by Klaviyo, Inc. (3.3.5)
+ * Plugin URI: https://wordpress.org/plugins/klaviyo/
+ */
 if ( ! class_exists( 'WFACP_Compatibility_With_Klaviyo' ) ) {
-	/**
-	 * plugin name Klaviyo by Klaviyo, Inc. (3.3.5)
-	 * Plugin URI: https://wordpress.org/plugins/klaviyo/
-	 */
 	#[AllowDynamicProperties]
 	class WFACP_Compatibility_With_Klaviyo {
 
 		private $billing_new_fields = [
 			'kl_newsletter_checkbox',
+			'billing_kl_newsletter_checkbox',
+			'billing_kl_sms_consent_checkbox',
 			'kl_sms_consent_checkbox',
+
 		];
+
+		private $sms_consent_text = false;
 
 		private $klavio_settings = [];
 
@@ -49,9 +55,8 @@ if ( ! class_exists( 'WFACP_Compatibility_With_Klaviyo' ) ) {
 
 
 			add_action( 'wfacp_after_checkout_page_found', [ $this, 'remove_other_action' ] );
-			add_action( 'wfacp_divider_billing_end', [ $this, 'kl_sms_consent' ], 99999 );
+			add_action( 'wfacp_after_kl_sms_consent_checkbox_field', [ $this, 'kl_sms_consent' ] );
 		}
-
 
 		public function add_field() {
 
@@ -82,14 +87,10 @@ if ( ! class_exists( 'WFACP_Compatibility_With_Klaviyo' ) ) {
 
 		public function add_fields( $fields ) {
 
-			if ( ! version_compare( WooCommerceKlaviyo::getVersion(), '2.4.0', '<=' ) ) {
-				return $fields;
-			}
-
 
 			$fields['kl_newsletter_checkbox'] = [
 				'type'          => 'checkbox',
-				'default'       => true,
+				'default'       => 0,
 				'label'         => __( 'Klaviyo', 'woocommerce-klaviyo' ),
 				'validate'      => [],
 				'id'            => 'kl_newsletter_checkbox',
@@ -105,14 +106,13 @@ if ( ! class_exists( 'WFACP_Compatibility_With_Klaviyo' ) ) {
 			}
 			$fields['kl_sms_consent_checkbox'] = [
 				'type'          => 'checkbox',
-				'default'       => true,
+				'default'       => 0,
 				'label'         => __( 'Subscribe to SMS updates', 'woocommerce-klaviyo' ),
 				'validate'      => [],
 				'id'            => 'kl_sms_consent_checkbox',
 				'required'      => false,
 				'wrapper_class' => [],
 				'class'         => [ 'kl_sms_consent_checkbox_field' ],
-				'description'   => $settings['klaviyo_sms_consent_disclosure_text'],
 			];
 
 
@@ -130,6 +130,7 @@ if ( ! class_exists( 'WFACP_Compatibility_With_Klaviyo' ) ) {
 				return;
 			}
 			$klaviyo_settings = get_option( 'klaviyo_settings' );
+
 			if ( ! empty( $klaviyo_settings['klaviyo_newsletter_list_id'] ) ) {
 				remove_action( 'woocommerce_checkout_before_terms_and_conditions', 'checkout_additional_checkboxes' );
 			}
@@ -142,14 +143,15 @@ if ( ! class_exists( 'WFACP_Compatibility_With_Klaviyo' ) ) {
 			}
 
 			$klaviyo_settings = get_option( 'klaviyo_settings' );
-
-
 			if ( $key == 'kl_newsletter_checkbox' && ! empty( $klaviyo_settings['klaviyo_newsletter_text'] ) ) {
 				$args['label'] = $klaviyo_settings['klaviyo_newsletter_text'];
 			}
 
-			if ( $key == 'kl_sms_consent_checkbox' && ! empty( $klaviyo_settings['klaviyo_sms_consent_text'] ) ) {
-				$args['label'] = $klaviyo_settings['klaviyo_sms_consent_text'];
+			if ( $key == 'kl_sms_consent_checkbox' ) {
+				$args['label'] = ! empty( $klaviyo_settings['klaviyo_sms_consent_text'] ) ? $klaviyo_settings['klaviyo_sms_consent_text'] : $args['label'];
+				if ( isset( $args['description'] ) ) {
+					$args['description']='';
+				}
 			}
 
 
@@ -218,11 +220,16 @@ if ( ! class_exists( 'WFACP_Compatibility_With_Klaviyo' ) ) {
 				return '';
 			}
 
+			if ( ! is_array( $this->klavio_settings ) || count( $this->klavio_settings ) == 0 ) {
+				return '';
+			}
+
 			$kl_fields = [];
 
 
 			if ( $key == 'billing_kl_newsletter_checkbox' && function_exists( 'kl_checkbox_custom_checkout_field' ) ) {
 				$tmpfield = kl_checkbox_custom_checkout_field( [] );
+
 				if ( isset( $tmpfield['billing']['kl_newsletter_checkbox'] ) ) {
 					$kl_fields['kl_newsletter_checkbox'] = $tmpfield['billing']['kl_newsletter_checkbox'];
 				}
@@ -234,11 +241,29 @@ if ( ! class_exists( 'WFACP_Compatibility_With_Klaviyo' ) ) {
 					$kl_fields['kl_sms_consent_checkbox'] = $tmpfield['billing']['kl_sms_consent_checkbox'];
 				}
 			}
+			$template = wfacp_template();
+			if ( ! $template instanceof WFACP_Template_Common ) {
+				return $field;
+			}
 
-
+			$checkout = WC()->checkout();
 			if ( count( $kl_fields ) > 0 ) {
+				$kl_sms_consent_checkbox = false;
 				foreach ( $kl_fields as $i => $kl_field ) {
-					woocommerce_form_field( $i, $kl_field );
+					if ( ! isset( $template->already_printed_fields[ $i ] ) ) {
+
+						if ( $i === 'kl_sms_consent_checkbox' ) {
+							$kl_sms_consent_checkbox = true;
+						}
+						$field_value = $checkout->get_value( $i );
+						wfacp_form_field( $i, $kl_field, $field_value );
+						$template->already_printed_fields[ $i ] = 'yes';
+					}
+
+
+				}
+				if ( $kl_sms_consent_checkbox ) {
+					add_action( 'wfacp_divider_billing_end', [ $this, 'kl_sms_consent' ], 99999 );
 				}
 			}
 
@@ -256,9 +281,13 @@ if ( ! class_exists( 'WFACP_Compatibility_With_Klaviyo' ) ) {
 			if ( ! function_exists( 'kl_sms_compliance_text' ) || ! is_array( $this->klavio_settings ) || count( $this->klavio_settings ) <= 0 ) {
 				return;
 			}
+			if($this->sms_consent_text==true){
+				return;
+			}
 
 
 			if ( isset( $this->klavio_settings['klaviyo_sms_subscribe_checkbox'] ) && ! empty( $this->klavio_settings['klaviyo_sms_subscribe_checkbox'] ) && isset( $this->klavio_settings['klaviyo_sms_list_id'] ) && ! empty( $this->klavio_settings['klaviyo_sms_list_id'] ) ) {
+				$this->sms_consent_text=true;
 				echo '<p class="kl_sms_compliance_text form-row wfacp-form-control-wrapper wfacp-col-full kl_sms_consent_checkbox_field ">';
 				kl_sms_compliance_text();
 				echo '</p>';

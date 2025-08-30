@@ -5,6 +5,7 @@ namespace LearnPress\Gutenberg;
 use LearnPress\Gutenberg\Blocks\AbstractBlockType;
 use LearnPress\Gutenberg\Templates\AbstractBlockTemplate;
 use LearnPress\Gutenberg\Templates\SingleCourseItemBlockTemplate;
+use LearnPress\Gutenberg\Templates\SingleCourseOfflineBlockTemplate;
 use LearnPress\Helpers\Config;
 use LearnPress\Helpers\Singleton;
 use LearnPress\Helpers\Template;
@@ -38,6 +39,26 @@ class GutenbergHandleMain {
 		add_filter( 'pre_get_block_file_template', array( $this, 'edit_block_file_template' ), 10, 3 );
 		// Register block category
 		add_filter( 'block_categories_all', array( $this, 'add_block_category' ), 10, 2 );
+		// Fixed case code block of WooCommerce run on screen list Order is error.
+		add_filter(
+			'current_theme_supports-block-templates',
+			function ( $flag ) {
+				if ( ! is_admin() ) {
+					return $flag;
+				}
+
+				if ( ! function_exists( 'get_current_screen' ) ) {
+					return $flag;
+				}
+
+				$wp_screen = get_current_screen();
+				if ( $wp_screen->id === 'edit-lp_order' ) {
+					$flag = false;
+				}
+
+				return $flag;
+			}
+		);
 	}
 
 	/**
@@ -61,7 +82,7 @@ class GutenbergHandleMain {
 		/**
 		 * @var AbstractBlockType[] $blocks
 		 */
-		$blocks           = Config::instance()->get( 'block-elements', 'gutenberg' );
+		$blocks = Config::instance()->get( 'block-elements', 'gutenberg' );
 		//$template_current = $this->get_edit_template();
 
 		foreach ( $blocks as $block_template ) {
@@ -154,7 +175,30 @@ class GutenbergHandleMain {
 		}
 		// End check course item.
 
-		wp_enqueue_script( 'editor-check' );
+		// Check is course offline.
+		if ( ! is_admin() ) {
+			global $wp;
+			$object = get_queried_object();
+			if ( $object && isset( $object->ID ) ) {
+				$courseModel = CourseModel::find( $object->ID, true );
+				if ( $courseModel && $courseModel->is_offline() ) {
+					$singleCourseOfflineBlockTemplate = new SingleCourseOfflineBlockTemplate();
+					$block_custom                     = $this->is_custom_block_template( $template_type, $singleCourseOfflineBlockTemplate->slug );
+					if ( $block_custom ) {
+						$singleCourseOfflineBlockTemplate->is_custom = true;
+						$singleCourseOfflineBlockTemplate->source    = 'custom';
+						$singleCourseOfflineBlockTemplate->content   = traverse_and_serialize_blocks( parse_blocks( $block_custom->post_content ) );
+					}
+
+					$singleCourseOfflineBlockTemplate->slug = 'single-lp_course';
+					$query_result[]                         = $singleCourseOfflineBlockTemplate;
+					return $query_result;
+				}
+			}
+		}
+		// End check course offline.
+
+		// wp_enqueue_script( 'editor-check' );
 
 		/**
 		 * @var AbstractBlockTemplate[] $lp_block_templates
@@ -343,6 +387,17 @@ class GutenbergHandleMain {
 				'description' => __( 'List Course Learnpress - layout grid', 'learnpress' ),
 				'categories'  => array( 'learnpress-patterns' ),
 				'content'     => $grid_course_pattern,
+			)
+		);
+
+		$single_instructor_pattern = file_get_contents( Template::instance( false )->get_frontend_template_type_block( 'patterns/single-instructor-pattern.html' ) );
+		register_block_pattern(
+			'learnpress/single-instructor-pattern',
+			array(
+				'title'       => __( 'Single Instructor', 'learnpress' ),
+				'description' => __( 'Single Instructor Learnpress', 'learnpress' ),
+				'categories'  => array( 'learnpress-patterns' ),
+				'content'     => $single_instructor_pattern,
 			)
 		);
 	}

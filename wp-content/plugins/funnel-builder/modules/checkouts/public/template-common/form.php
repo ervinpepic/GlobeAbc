@@ -9,6 +9,7 @@ $checkout = WC()->checkout();
 if ( apply_filters( 'wfacp_skip_form_printing', false ) ) {
 	return;
 }
+
 do_action( 'wfacp_outside_header' );
 if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_required() && ! is_user_logged_in() ) {
 	do_action( 'wfacp_woocommerce_checkout_must_be_logged_in' );
@@ -43,6 +44,7 @@ if ( $is_global_checkout_f === true ) {
 	$form_class[] = "wfacp_global_checkout_wrap";
 }
 $is_theme_builder = WFACP_Common::is_theme_builder();
+
 ?>
     <div class="wfacp_main_form woocommerce <?php echo implode( ' ', $form_class ); ?>">
 		<?php $payment_needed   = false;
@@ -55,7 +57,7 @@ $is_theme_builder = WFACP_Common::is_theme_builder();
 		$have_shipping_address  = $instance->have_shipping_address();
 		$have_billing_address   = $instance->have_billing_address();
 		$shipping_billing_index = $instance->get_shipping_billing_index();
-		$already_form_field     = [];
+		$instance->already_printed_fields = [];
 		if ( ! $is_theme_builder ) {
 			do_action( 'woocommerce_before_checkout_form_cart_notices' );
 			do_action( 'woocommerce_check_cart_items' );
@@ -195,8 +197,13 @@ $is_theme_builder = WFACP_Common::is_theme_builder();
 											$counterInnerFields = 1;
 											foreach ( $fields as $field ) {
 												$payment_needed = true;
-												$key            = isset( $field['id'] ) ? $field['id'] : '';
-												$field          = apply_filters( 'wfacp_forms_field', $field, $key );
+
+												if ( isset( $field['external_field_name'] ) && ! empty( $field['external_field_name'] ) && ( $field['id'] !== $field['external_field_name'] ) ) {
+													$key = isset( $field['external_field_name'] ) ? $field['external_field_name'] : '';
+												} else {
+													$key = isset( $field['id'] ) ? $field['id'] : '';
+												}
+												$field = apply_filters( 'wfacp_forms_field', $field, $key );
 												if ( empty( $field ) ) {
 													continue;
 												}
@@ -218,7 +225,7 @@ $is_theme_builder = WFACP_Common::is_theme_builder();
 												$field_value = $checkout->get_value( $key );
 												$field_value = apply_filters( 'wfacp_default_values', $field_value, $key, $field );
 												if ( in_array( $key, [ 'billing_same_as_shipping', 'shipping_same_as_billing' ] ) ) {
-													$field_value = null;
+													$field_value = apply_filters( 'wfacp_check_different_shipping', null, $key, $field );
 												}
 												do_action( 'wfacp_before_' . $key . '_field', $key, $field, $field_value );
 												if ( ! is_null( $field_value ) && '' !== $field_value ) {
@@ -232,10 +239,10 @@ $is_theme_builder = WFACP_Common::is_theme_builder();
 													}
 												}
 
-												// Allow Blank key. We add Divider (Div wrapper for address field ) when form is not saved & served directly then address field wrapper div not closed
-												if ( ! isset( $already_form_field[ $key ] ) || empty( $key ) ) {
+// Allow Blank key. We add Divider (Div wrapper for address field ) when form is not saved & served directly then address field wrapper div not closed
+												if ( ! isset( $instance->already_printed_fields[ $key ] ) || empty( $key ) ) {
 													wfacp_form_field( $key, $field, $field_value );
-													$already_form_field[ $key ] = 'yes';
+													$instance->already_printed_fields[ $key ] = 'yes';
 												}
 
 
@@ -279,27 +286,7 @@ $is_theme_builder = WFACP_Common::is_theme_builder();
 					echo( "<div id='ship-to-different-address'><input id='ship-to-different-address-checkbox' class='ship_to_different_address' type='checkbox' name='ship_to_different_address' style='display:none' " . esc_attr( $is_checked ) . " ></div>" );
 				}
 				do_action( 'wfacp_after_checkout_form_fields', $checkout );
-				if ( function_exists( 'wc_get_container' ) && class_exists( '\Automattic\WooCommerce\Internal\Orders\OrderAttributionController' ) && class_exists( 'Automattic\WooCommerce\Internal\Features\FeaturesController' ) && $container = wc_get_container() ) {
-					$order_attribute_instance = $container->get( \Automattic\WooCommerce\Internal\Orders\OrderAttributionController::class );
-					if ( $order_attribute_instance instanceof \Automattic\WooCommerce\Internal\Orders\OrderAttributionController ) {
-						$feature_enabled = $container->get( Automattic\WooCommerce\Internal\Features\FeaturesController::class );
-						if ( $feature_enabled->feature_is_enabled( 'order_attribution' ) ) {
-							if ( method_exists( $order_attribute_instance, 'stamp_html_element' ) ) {
-								$order_attribute_instance->stamp_html_element();
-							} else {
-								if ( method_exists( $order_attribute_instance, 'get_fields' ) ) {
-									foreach ( $order_attribute_instance->get_fields() as $field ) {
-										printf( '<input type="hidden" name="%s" form="wfacp_checkout_form" value="" />', esc_attr( $order_attribute_instance->get_prefixed_field( $field ) ) );
-									}
-								} elseif ( method_exists( $order_attribute_instance, 'get_field_names' ) ) {
-									foreach ( $order_attribute_instance->get_field_names() as $field ) {
-										printf( '<input type="hidden" name="%s" form="wfacp_checkout_form" value="" />', esc_attr( $order_attribute_instance->get_prefixed_field_name( $field ) ) );
-									}
-								}
-							}
-						}
-					}
-				}
+
 				?>
             </form>
 			<?php do_action( 'woocommerce_after_checkout_form', $checkout );

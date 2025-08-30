@@ -15,6 +15,7 @@ namespace LearnPress\Models;
 
 use Exception;
 use LearnPress\Models\UserItems\UserCourseModel;
+use LearnPress\Models\UserItems\UserItemModel;
 use LP_Admin_Editor_Course;
 use LP_Course_Cache;
 use LP_Course_DB;
@@ -160,12 +161,17 @@ class CourseModel {
 	 *
 	 * @return string
 	 * @since 4.2.6.9
-	 * @version 1.0.1
+	 * @version 1.0.2
 	 */
 	public function get_image_url( $size = 'post-thumbnail' ): string {
-		if ( isset( $this->image_url ) ) {
+		/**
+		 * Comment code isset( $this->image_url )
+		 * To apply for many size on a course
+		 * To apply cache need handle cache before, where set size for image.
+		 */
+		/*if ( isset( $this->image_url ) ) {
 			return $this->image_url;
-		}
+		}*/
 
 		$post      = new CoursePostModel( $this );
 		$image_url = $post->get_image_url( $size );
@@ -357,7 +363,7 @@ class CourseModel {
 	 * @return bool
 	 */
 	public function is_free(): bool {
-		return apply_filters( 'learnPress/course/is-free', $this->get_price() == 0, $this );
+		return $this->get_price() == 0;
 	}
 
 	/**
@@ -746,17 +752,18 @@ class CourseModel {
 	 *
 	 * @param string $key
 	 * @param mixed|false $default_value
+	 * @param bool $single
 	 *
 	 * @return false|mixed
 	 * @since 4.2.6.9
-	 * @version 1.0.1
+	 * @version 1.0.2
 	 */
-	public function get_meta_value_by_key( string $key, $default_value = false ) {
+	public function get_meta_value_by_key( string $key, $default_value = false, bool $single = true ) {
 		if ( $this->meta_data instanceof stdClass && isset( $this->meta_data->{$key} ) ) {
 			$value = maybe_unserialize( $this->meta_data->{$key} );
 		} else {
 			$coursePost = new CoursePostModel( $this );
-			$value      = $coursePost->get_meta_value_by_key( $key, $default_value );
+			$value      = $coursePost->get_meta_value_by_key( $key, $default_value, $single );
 		}
 
 		$this->meta_data->{$key} = $value;
@@ -1000,7 +1007,7 @@ class CourseModel {
 				}
 			} else {
 				if ( ! empty( $this->get_external_link() )
-					&& ( ! $userCourseModel || $userCourseModel->get_status() === LP_USER_COURSE_CANCEL )
+					&& ( ! $userCourseModel || $userCourseModel->get_status() === UserItemModel::STATUS_CANCEL )
 					&& ! $this->is_offline() ) {
 					$error_code = 'course_is_external';
 					throw new Exception( __( 'The course is external', 'learnpress' ) );
@@ -1138,16 +1145,17 @@ class CourseModel {
 	/**
 	 * Check user is author or co-in of course.
 	 *
-	 * @param UserModel $userModel
+	 * @param UserModel|false $userModel
 	 *
 	 * @return bool
 	 * @since 4.2.7.6
-	 * @version 1.0.0
+	 * @version 1.0.1
 	 */
-	public function check_user_is_author( UserModel $userModel ): bool {
+	public function check_user_is_author( $userModel ): bool {
 		$is_author = false;
 
-		if ( $userModel->get_id() === $this->post_author ) {
+		if ( $userModel instanceof UserModel
+			&& $userModel->get_id() === $this->post_author ) {
 			$is_author = true;
 		}
 
@@ -1232,8 +1240,14 @@ class CourseModel {
 	 * @param bool $check_cache
 	 *
 	 * @return false|CourseModel|static
+	 * @since 4.2.6.9
+	 * @version 1.0.2
 	 */
 	public static function find( int $course_id, bool $check_cache = false ) {
+		if ( ! $course_id ) {
+			return false;
+		}
+
 		$filter_course     = new LP_Course_JSON_Filter();
 		$filter_course->ID = $course_id;
 		$key_cache         = "courseModel/find/id/{$course_id}";
@@ -1346,6 +1360,10 @@ class CourseModel {
 		$key_cache       = "courseModel/find/id/{$this->ID}";
 		$lp_course_cache = new LP_Course_Cache();
 		$lp_course_cache->clear( $key_cache );
+
+		// Clear cache image urls, store with many sizes
+		$img_urls_key_cache = "image_urls/{$this->ID}";
+		$lp_course_cache->clear_cache_on_group( $img_urls_key_cache );
 	}
 
 	/**
@@ -1372,5 +1390,31 @@ class CourseModel {
 
 		// set types unique
 		return array_unique( $item_types );
+	}
+
+	/**
+	 * Get label of item type
+	 *
+	 * @param string $item_type
+	 *
+	 * @return string
+	 * @since 4.2.8.6
+	 * @version 1.0.0
+	 */
+	public static function item_types_label( string $item_type = '' ): string {
+		switch ( $item_type ) {
+			case LP_LESSON_CPT:
+				$label = __( 'Lesson', 'learnpress' );
+				break;
+			case LP_QUIZ_CPT:
+				$label = __( 'Quiz', 'learnpress' );
+				break;
+			default:
+				$label = ucfirst( strtolower( str_replace( [ 'lp_', '_' ], '', $item_type ) ) );
+				$label = apply_filters( 'learn-press/course/item-type-label', $label, $item_type );
+				break;
+		}
+
+		return $label;
 	}
 }

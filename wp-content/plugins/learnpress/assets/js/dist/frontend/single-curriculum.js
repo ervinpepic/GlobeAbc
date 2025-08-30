@@ -12,79 +12,43 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ lpMaterialsLoad)
 /* harmony export */ });
-/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
-/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _js_utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../js/utils.js */ "./assets/src/js/utils.js");
 
 function lpMaterialsLoad() {
-  // console.log('loaded');
-  const Sekeleton = () => {
-    const elementSkeleton = document.querySelector('.lp-material-skeleton');
-    if (!elementSkeleton) {
-      return;
-    }
-    const loadMoreBtn = elementSkeleton.querySelector('.lp-loadmore-material');
-    elementSkeleton.querySelector('.course-material-table').style.display = 'none';
-    loadMoreBtn.style.display = 'none';
-    getResponse(elementSkeleton);
-  };
-  const getResponse = async (ele, page = 1) => {
-    const course_id = parseInt(ele.dataset.courseId),
-      item_id = parseInt(ele.dataset.itemId);
-    const elListMaterial = ele.closest('.lp-list-material');
-    const elementMaterial = ele.querySelector('.course-material-table');
-    const loadMoreBtn = document.querySelector('.lp-loadmore-material');
-    const elListItems = document.querySelector('.lp-list-material');
-    const elSkeleton = ele.querySelector('.lp-skeleton-animation');
-    try {
-      const response = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()({
-        path: `lp/v1/material/by-item`,
-        data: {
-          course_id,
-          item_id,
-          page
-        },
-        method: 'POST'
-      });
-      const {
-        data,
-        status,
-        message
-      } = response;
-      if (elSkeleton) {
-        elSkeleton.remove();
-      }
-      if (status !== 'success') {
-        elListMaterial.insertAdjacentHTML('beforeend', message);
-        return;
-      }
-      if (data.items && data.items.length > 0) {
-        elementMaterial.style.display = 'table';
-        elementMaterial.querySelector('tbody').insertAdjacentHTML('beforeend', data.items);
-      } else {
-        elListItems.innerHTML = message;
-      }
-      if (data.load_more) {
-        loadMoreBtn.style.display = 'inline-block';
-        loadMoreBtn.setAttribute('page', page + 1);
-        if (loadMoreBtn.classList.contains('loading')) {
-          loadMoreBtn.classList.remove('loading');
-        }
-      } else {
-        loadMoreBtn.style.display = 'none';
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-  Sekeleton();
   document.addEventListener('click', function (e) {
     const target = e.target;
     if (target.classList.contains('lp-loadmore-material')) {
-      const elementSkeleton = document.querySelector('.lp-material-skeleton');
-      const page = parseInt(target.getAttribute('page'));
-      target.classList.add('loading');
-      getResponse(elementSkeleton, page);
-      // target.classList.remove( 'loading' );
+      const loadMoreButton = target;
+      const lpTarget = target.closest('.lp-target');
+      const dataSend = window.lpAJAXG.getDataSetCurrent(lpTarget);
+      dataSend.args.paged++;
+      _js_utils_js__WEBPACK_IMPORTED_MODULE_0__.lpSetLoadingEl(loadMoreButton, 1);
+      const callBack = {
+        success: response => {
+          const {
+            status,
+            message,
+            data
+          } = response;
+          if (status === 'success') {
+            const tableBody = lpTarget.querySelector('table.course-material-table tbody');
+            tableBody.insertAdjacentHTML('beforeend', data.content);
+            if (data.paged === data.total_pages) {
+              loadMoreButton.remove();
+            }
+            window.lpAJAXG.setDataSetCurrent(lpTarget, dataSend);
+          } else {
+            console.error(message);
+          }
+        },
+        error: error => {
+          console.error(error);
+        },
+        completed: () => {
+          _js_utils_js__WEBPACK_IMPORTED_MODULE_0__.lpSetLoadingEl(loadMoreButton, 0);
+        }
+      };
+      window.lpAJAXG.fetchAJAX(dataSend, callBack);
     }
   });
 }
@@ -491,40 +455,44 @@ const Sidebar = () => {
     } else {
       elSidebarToggle.removeAttribute('checked');
     }
-    document.querySelector('#popup-course').addEventListener('click', e => {
-      if (e.target.id === 'sidebar-toggle') {
-        LP.Cookies.set('sidebar-toggle', e.target.checked ? true : false);
-        toggleSidebar(LP.Cookies.get('sidebar-toggle'));
-      }
-    });
   }
   // End editor by tungnx
 
-  const $curriculum = $('#learn-press-course-curriculum');
-  $curriculum.find('.section-desc').each((i, el) => {
-    const a = $('<span class="show-desc"></span>').on('click', () => {
-      b.toggleClass('c');
-    });
-    const b = $(el).siblings('.section-title').append(a);
-  });
-  $('.section').each(function () {
-    const $section = $(this),
-      $toggle = $section.find('.section-left');
-    $toggle.on('click', function () {
-      const isClose = $section.toggleClass('closed').hasClass('closed');
-      const sections = LP.Cookies.get('closed-section-' + lpGlobalSettings.post_id) || [];
-      const sectionId = parseInt($section.data('section-id'));
-      const at = sections.findIndex(id => {
-        return id == sectionId;
-      });
-      if (isClose) {
-        sections.push(parseInt($section.data('section-id')));
-      } else {
-        sections.splice(at, 1);
-      }
-      LP.Cookies.remove('closed-section-(.*)');
-      LP.Cookies.set('closed-section-' + lpGlobalSettings.post_id, [...new Set(sections)]);
-    });
+  // Code for old curriculum
+  /*const $curriculum = $( '#learn-press-course-curriculum' );
+  $curriculum.find( '.section-desc' ).each( ( i, el ) => {
+  	const a = $( '<span class="show-desc"></span>' ).on( 'click', () => {
+  		b.toggleClass( 'c' );
+  	} );
+  	const b = $( el ).siblings( '.section-title' ).append( a );
+  } );*/
+
+  // Code for old curriculum
+  /*$( '.section' ).each( function() {
+  	const $section = $( this ),
+  		$toggle = $section.find( '.section-left' );
+  		$toggle.on( 'click', function() {
+  		const isClose = $section.toggleClass( 'closed' ).hasClass( 'closed' );
+  		const sections = LP.Cookies.get( 'closed-section-' + lpGlobalSettings.post_id ) || [];
+  		const sectionId = parseInt( $section.data( 'section-id' ) );
+  		const at = sections.findIndex( ( id ) => {
+  			return id == sectionId;
+  		} );
+  			if ( isClose ) {
+  			sections.push( parseInt( $section.data( 'section-id' ) ) );
+  		} else {
+  			sections.splice( at, 1 );
+  		}
+  			LP.Cookies.remove( 'closed-section-(.*)' );
+  		LP.Cookies.set( 'closed-section-' + lpGlobalSettings.post_id, [ ...new Set( sections ) ] );
+  	} );
+  } );*/
+
+  document.addEventListener('click', e => {
+    if (e.target.id === 'sidebar-toggle') {
+      LP.Cookies.set('sidebar-toggle', e.target.checked ? true : false);
+      toggleSidebar(LP.Cookies.get('sidebar-toggle'));
+    }
   });
 };
 
@@ -596,400 +564,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /***/ }),
 
-/***/ "./assets/src/apps/js/frontend/single-curriculum/scrolltoitem.js":
-/*!***********************************************************************!*\
-  !*** ./assets/src/apps/js/frontend/single-curriculum/scrolltoitem.js ***!
-  \***********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _utils_lp_modal_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/lp-modal-overlay */ "./assets/src/apps/js/utils/lp-modal-overlay.js");
-
-const $ = jQuery;
-const scrollToItemCurrent = {
-  init() {
-    this.scrollToItemViewing = function () {
-      const elItemViewing = $('.viewing-course-item');
-      if (elItemViewing.length) {
-        const elCourseCurriculumn = $('#learn-press-course-curriculum');
-        const heightCourseItemContentHeader = $('#popup-sidebar').outerHeight();
-        const heightSectionTitle = $('.section-title').outerHeight();
-        const heightSectionHeader = $('.section-header').outerHeight();
-        const regex = new RegExp('^viewing-course-item-([0-9].*)');
-        const classList = elItemViewing.attr('class');
-        const classArr = classList.split(/\s+/);
-        let idItem = 0;
-        $.each(classArr, function (i, className) {
-          const compare = regex.exec(className);
-          if (compare) {
-            idItem = compare[1];
-            return false;
-          }
-        });
-        if (0 === idItem) {
-          return;
-        }
-        const elItemCurrent = $('.course-item-' + idItem);
-        elItemCurrent.addClass('current');
-        const offSetTop = elItemCurrent.offset().top;
-        const offset = elItemCurrent.offset().top - elCourseCurriculumn.offset().top + elCourseCurriculumn.scrollTop();
-        elCourseCurriculumn.animate({
-          scrollTop: LP.Hook.applyFilters('scroll-item-current', offset - heightSectionHeader)
-        }, 800);
-      }
-    };
-    this.scrollToItemViewing();
-  }
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (scrollToItemCurrent);
-
-/***/ }),
-
-/***/ "./assets/src/apps/js/frontend/single-curriculum/skeleton.js":
-/*!*******************************************************************!*\
-  !*** ./assets/src/apps/js/frontend/single-curriculum/skeleton.js ***!
-  \*******************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ courseCurriculumSkeleton)
-/* harmony export */ });
-/* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/url */ "@wordpress/url");
-/* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_url__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _scrolltoitem__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./scrolltoitem */ "./assets/src/apps/js/frontend/single-curriculum/scrolltoitem.js");
-/* harmony import */ var _components_search__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/search */ "./assets/src/apps/js/frontend/single-curriculum/components/search.js");
-// Rest API load content in Tab Curriculum - Nhamdv.
-
-//import apiFetch from '@wordpress/api-fetch';
-
-
-function courseCurriculumSkeleton(courseID = '') {
-  let idItemViewing = 0;
-  const elItemViewing = document.querySelector('.viewing-course-item');
-  if (elItemViewing) {
-    const regex = new RegExp('^viewing-course-item-([0-9].*)');
-    const classList = elItemViewing.classList;
-    classList.forEach(function (className) {
-      const compare = regex.exec(className);
-      if (compare) {
-        idItemViewing = compare[1];
-        return false;
-      }
-    });
-  }
-  let isLoadingItems = false;
-  let isLoadingSections = false;
-  const Sekeleton = () => {
-    const elementCurriculum = document.querySelector('.learnpress-course-curriculum');
-    if (!elementCurriculum) {
-      return;
-    }
-    getResponse(elementCurriculum);
-  };
-  const getResponse = async ele => {
-    const skeleton = ele.querySelector('.lp-skeleton-animation');
-    const itemID = ele.dataset.id;
-    const sectionID = ele.dataset.section;
-    try {
-      const page = 1;
-      let url = lpData.lp_rest_url + 'lp/v1/lazy-load/course-curriculum/';
-      url = (0,_wordpress_url__WEBPACK_IMPORTED_MODULE_0__.addQueryArgs)(url, {
-        courseId: courseID || lpGlobalSettings.post_id || '',
-        page,
-        sectionID: sectionID || '',
-        idItemViewing
-      });
-      let paramsFetch = {};
-      if (0 !== parseInt(lpData.user_id)) {
-        paramsFetch = {
-          headers: {
-            'X-WP-Nonce': lpData.nonce
-          }
-        };
-      }
-      let response = await fetch(url, {
-        method: 'GET',
-        ...paramsFetch
-      });
-      response = await response.json();
-      const {
-        data,
-        status,
-        message
-      } = response;
-      const section_ids = data.section_ids;
-      if (status === 'error') {
-        throw new Error(message || 'Error');
-      }
-      const returnData = data.content;
-      if (sectionID) {
-        if (section_ids && !section_ids.includes(sectionID)) {
-          const response2 = await getResponsive('', page + 1, sectionID);
-          if (response2) {
-            const {
-              data2,
-              pages2,
-              page2
-            } = response2;
-            await parseContentItems({
-              ele,
-              returnData,
-              sectionID,
-              itemID,
-              data2,
-              pages2,
-              page2
-            });
-          }
-        } else {
-          await parseContentItems({
-            ele,
-            returnData,
-            sectionID,
-            itemID
-          });
-        }
-      } else {
-        returnData && ele.insertAdjacentHTML('beforeend', returnData);
-      }
-    } catch (error) {
-      ele.insertAdjacentHTML('beforeend', `<div class="lp-ajax-message error" style="display:block">${error.message || 'Error: Query lp/v1/lazy-load/course-curriculum'}</div>`);
-    }
-    skeleton && skeleton.remove();
-    (0,_components_search__WEBPACK_IMPORTED_MODULE_2__.searchCourseContent)();
-  };
-  const parseContentItems = async ({
-    ele,
-    returnData,
-    sectionID,
-    itemID,
-    data2,
-    pages2,
-    page2
-  }) => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(returnData, 'text/html');
-    if (data2) {
-      const sections = doc.querySelector('.curriculum-sections');
-      const loadMoreBtn = doc.querySelector('.curriculum-more__button');
-      if (loadMoreBtn) {
-        if (pages2 <= page2) {
-          loadMoreBtn.remove();
-        } else {
-          loadMoreBtn.dataset.page = page2;
-        }
-      }
-      sections.insertAdjacentHTML('beforeend', data2);
-    }
-    const section = doc.querySelector(`[data-section-id="${sectionID}"]`);
-    if (section) {
-      const items = section.querySelectorAll('.course-item');
-      const item_ids = [...items].map(item => item.dataset.id);
-      const sectionContent = section.querySelector('.section-content');
-      const itemLoadMore = section.querySelector('.section-item__loadmore');
-      if (itemID && !item_ids.includes(itemID)) {
-        const responseItem = await getResponsiveItem('', 2, sectionID, itemID);
-        const {
-          data3,
-          pages3,
-          paged3,
-          page
-        } = responseItem;
-        if (pages3 <= paged3 || pages3 <= page) {
-          itemLoadMore.remove();
-        } else {
-          itemLoadMore.dataset.page = page;
-        }
-        if (data3 && sectionContent) {
-          sectionContent.insertAdjacentHTML('beforeend', data3);
-        }
-      }
-    }
-    ele.insertAdjacentHTML('beforeend', doc.body.innerHTML);
-    _scrolltoitem__WEBPACK_IMPORTED_MODULE_1__["default"].init();
-  };
-  const getResponsiveItem = async (returnData, paged, sectionID, itemID) => {
-    let url = lpData.lp_rest_url + 'lp/v1/lazy-load/course-curriculum-items/';
-    url = (0,_wordpress_url__WEBPACK_IMPORTED_MODULE_0__.addQueryArgs)(url, {
-      sectionId: sectionID || '',
-      page: paged
-    });
-    let paramsFetch = {};
-    if (0 !== parseInt(lpData.user_id)) {
-      paramsFetch = {
-        headers: {
-          'X-WP-Nonce': lpData.nonce
-        }
-      };
-    }
-    let response = await fetch(url, {
-      method: 'GET',
-      ...paramsFetch
-    });
-    response = await response.json();
-    const {
-      data,
-      status,
-      pages,
-      message
-    } = response;
-    const {
-      page
-    } = data;
-    let item_ids;
-    if (status === 'success') {
-      const dataTmp = data.content;
-      item_ids = data.item_ids;
-      returnData += dataTmp;
-      if (sectionID && item_ids && itemID && !item_ids.includes(itemID)) {
-        return getResponsiveItem(returnData, paged + 1, sectionID, itemID);
-      }
-    }
-    isLoadingItems = false;
-    return {
-      data3: returnData,
-      pages3: pages || data.pages,
-      status3: status,
-      message3: message,
-      page: page || 0
-    };
-  };
-  const getResponsive = async (returnData, page, sectionID) => {
-    let url = lpData.lp_rest_url + 'lp/v1/lazy-load/course-curriculum/';
-    url = (0,_wordpress_url__WEBPACK_IMPORTED_MODULE_0__.addQueryArgs)(url, {
-      courseId: courseID || lpGlobalSettings.post_id || '',
-      page,
-      sectionID: sectionID || '',
-      loadMore: true
-    });
-    let paramsFetch = {};
-    if (0 !== parseInt(lpData.user_id)) {
-      paramsFetch = {
-        headers: {
-          'X-WP-Nonce': lpData.nonce
-        }
-      };
-    }
-    let response = await fetch(url, {
-      method: 'GET',
-      ...paramsFetch
-    });
-    response = await response.json();
-    const {
-      data,
-      status,
-      message
-    } = response;
-    const returnDataTmp = data.content;
-    const section_ids = data.section_ids;
-    const pages = data.pages;
-    if (status === 'success') {
-      returnData += returnDataTmp;
-      if (sectionID && section_ids && section_ids.length > 0 && !section_ids.includes(sectionID)) {
-        return getResponsive(returnData, page + 1, sectionID);
-      }
-    }
-    isLoadingSections = false;
-    return {
-      data2: returnData,
-      pages2: pages || data.pages,
-      page2: page,
-      status2: status,
-      message2: message
-    };
-  };
-  Sekeleton();
-  document.addEventListener('click', e => {
-    const sectionBtns = document.querySelectorAll('.section-item__loadmore');
-    [...sectionBtns].map(async sectionBtn => {
-      if (sectionBtn.contains(e.target) && !isLoadingItems) {
-        isLoadingItems = true;
-        const sectionItem = sectionBtn.parentNode;
-        const sectionId = sectionItem.getAttribute('data-section-id');
-        const sectionContent = sectionItem.querySelector('.section-content');
-        const paged = parseInt(sectionBtn.dataset.page);
-        sectionBtn.classList.add('loading');
-        try {
-          const response = await getResponsiveItem('', paged + 1, sectionId, '');
-          const {
-            data3,
-            pages3,
-            status3,
-            message3
-          } = response;
-          if (status3 === 'error') {
-            throw new Error(message3 || 'Error');
-          }
-          if (pages3 <= paged + 1) {
-            sectionBtn.remove();
-          } else {
-            sectionBtn.dataset.page = paged + 1;
-          }
-          sectionContent.insertAdjacentHTML('beforeend', data3);
-        } catch (e) {
-          sectionContent.insertAdjacentHTML('beforeend', `<div class="lp-ajax-message error" style="display:block">${e.message || 'Error: Query lp/v1/lazy-load/course-curriculum'}</div>`);
-        }
-        sectionBtn.classList.remove('loading');
-        (0,_components_search__WEBPACK_IMPORTED_MODULE_2__.searchCourseContent)();
-      }
-    });
-
-    // Load more Sections
-    const moreSections = document.querySelectorAll('.curriculum-more__button');
-    [...moreSections].map(async moreSection => {
-      if (moreSection.contains(e.target) && !isLoadingSections) {
-        isLoadingSections = true;
-        const paged = parseInt(moreSection.dataset.page);
-        const sections = moreSection.parentNode.parentNode.querySelector('.curriculum-sections');
-        if (paged && sections) {
-          moreSection.classList.add('loading');
-          try {
-            const response2 = await getResponsive('', paged + 1, '');
-            const {
-              data2,
-              pages2,
-              status2,
-              message2
-            } = response2;
-            if (status2 === 'error') {
-              throw new Error(message2 || 'Error');
-            }
-            if (pages2 <= paged + 1) {
-              moreSection.remove();
-            } else {
-              moreSection.dataset.page = paged + 1;
-            }
-            sections.insertAdjacentHTML('beforeend', data2);
-          } catch (e) {
-            sections.insertAdjacentHTML('beforeend', `<div class="lp-ajax-message error" style="display:block">${e.message || 'Error: Query lp/v1/lazy-load/course-curriculum'}</div>`);
-          }
-          moreSection.classList.remove('loading');
-          (0,_components_search__WEBPACK_IMPORTED_MODULE_2__.searchCourseContent)();
-        }
-      }
-    });
-
-    // Show/Hide accordion
-    if (document.querySelector('.learnpress-course-curriculum')) {
-      const sections = document.querySelectorAll('.section');
-      [...sections].map(section => {
-        if (section.contains(e.target)) {
-          const toggle = section.querySelector('.section-left');
-          toggle.contains(e.target) && section.classList.toggle('closed');
-        }
-      });
-    }
-  });
-}
-
-/***/ }),
-
 /***/ "./assets/src/apps/js/utils/lp-modal-overlay.js":
 /*!******************************************************!*\
   !*** ./assets/src/apps/js/utils/lp-modal-overlay.js ***!
@@ -1057,6 +631,233 @@ const lpModalOverlay = {
 
 /***/ }),
 
+/***/ "./assets/src/js/utils.js":
+/*!********************************!*\
+  !*** ./assets/src/js/utils.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   listenElementCreated: () => (/* binding */ listenElementCreated),
+/* harmony export */   listenElementViewed: () => (/* binding */ listenElementViewed),
+/* harmony export */   lpAddQueryArgs: () => (/* binding */ lpAddQueryArgs),
+/* harmony export */   lpAjaxParseJsonOld: () => (/* binding */ lpAjaxParseJsonOld),
+/* harmony export */   lpClassName: () => (/* binding */ lpClassName),
+/* harmony export */   lpFetchAPI: () => (/* binding */ lpFetchAPI),
+/* harmony export */   lpGetCurrentURLNoParam: () => (/* binding */ lpGetCurrentURLNoParam),
+/* harmony export */   lpOnElementReady: () => (/* binding */ lpOnElementReady),
+/* harmony export */   lpSetLoadingEl: () => (/* binding */ lpSetLoadingEl),
+/* harmony export */   lpShowHideEl: () => (/* binding */ lpShowHideEl),
+/* harmony export */   toggleCollapse: () => (/* binding */ toggleCollapse)
+/* harmony export */ });
+/**
+ * Utils functions
+ *
+ * @param url
+ * @param data
+ * @param functions
+ * @since 4.2.5.1
+ * @version 1.0.3
+ */
+const lpClassName = {
+  hidden: 'lp-hidden',
+  loading: 'loading',
+  elCollapse: 'lp-collapse',
+  elSectionToggle: '.lp-section-toggle',
+  elTriggerToggle: '.lp-trigger-toggle'
+};
+const lpFetchAPI = (url, data = {}, functions = {}) => {
+  if ('function' === typeof functions.before) {
+    functions.before();
+  }
+  fetch(url, {
+    method: 'GET',
+    ...data
+  }).then(response => response.json()).then(response => {
+    if ('function' === typeof functions.success) {
+      functions.success(response);
+    }
+  }).catch(err => {
+    if ('function' === typeof functions.error) {
+      functions.error(err);
+    }
+  }).finally(() => {
+    if ('function' === typeof functions.completed) {
+      functions.completed();
+    }
+  });
+};
+
+/**
+ * Get current URL without params.
+ *
+ * @since 4.2.5.1
+ */
+const lpGetCurrentURLNoParam = () => {
+  let currentUrl = window.location.href;
+  const hasParams = currentUrl.includes('?');
+  if (hasParams) {
+    currentUrl = currentUrl.split('?')[0];
+  }
+  return currentUrl;
+};
+const lpAddQueryArgs = (endpoint, args) => {
+  const url = new URL(endpoint);
+  Object.keys(args).forEach(arg => {
+    url.searchParams.set(arg, args[arg]);
+  });
+  return url;
+};
+
+/**
+ * Listen element viewed.
+ *
+ * @param el
+ * @param callback
+ * @since 4.2.5.8
+ */
+const listenElementViewed = (el, callback) => {
+  const observerSeeItem = new IntersectionObserver(function (entries) {
+    for (const entry of entries) {
+      if (entry.isIntersecting) {
+        callback(entry);
+      }
+    }
+  });
+  observerSeeItem.observe(el);
+};
+
+/**
+ * Listen element created.
+ *
+ * @param callback
+ * @since 4.2.5.8
+ */
+const listenElementCreated = callback => {
+  const observerCreateItem = new MutationObserver(function (mutations) {
+    mutations.forEach(function (mutation) {
+      if (mutation.addedNodes) {
+        mutation.addedNodes.forEach(function (node) {
+          if (node.nodeType === 1) {
+            callback(node);
+          }
+        });
+      }
+    });
+  });
+  observerCreateItem.observe(document, {
+    childList: true,
+    subtree: true
+  });
+  // End.
+};
+
+/**
+ * Listen element created.
+ *
+ * @param selector
+ * @param callback
+ * @since 4.2.7.1
+ */
+const lpOnElementReady = (selector, callback) => {
+  const element = document.querySelector(selector);
+  if (element) {
+    callback(element);
+    return;
+  }
+  const observer = new MutationObserver((mutations, obs) => {
+    const element = document.querySelector(selector);
+    if (element) {
+      obs.disconnect();
+      callback(element);
+    }
+  });
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true
+  });
+};
+
+// Parse JSON from string with content include LP_AJAX_START.
+const lpAjaxParseJsonOld = data => {
+  if (typeof data !== 'string') {
+    return data;
+  }
+  const m = String.raw({
+    raw: data
+  }).match(/<-- LP_AJAX_START -->(.*)<-- LP_AJAX_END -->/s);
+  try {
+    if (m) {
+      data = JSON.parse(m[1].replace(/(?:\r\n|\r|\n)/g, ''));
+    } else {
+      data = JSON.parse(data);
+    }
+  } catch (e) {
+    data = {};
+  }
+  return data;
+};
+
+// status 0: hide, 1: show
+const lpShowHideEl = (el, status = 0) => {
+  if (!el) {
+    return;
+  }
+  if (!status) {
+    el.classList.add(lpClassName.hidden);
+  } else {
+    el.classList.remove(lpClassName.hidden);
+  }
+};
+
+// status 0: hide, 1: show
+const lpSetLoadingEl = (el, status) => {
+  if (!el) {
+    return;
+  }
+  if (!status) {
+    el.classList.remove(lpClassName.loading);
+  } else {
+    el.classList.add(lpClassName.loading);
+  }
+};
+
+// Toggle collapse section
+const toggleCollapse = (e, target, elTriggerClassName = '', elsExclude = [], callback) => {
+  if (!elTriggerClassName) {
+    elTriggerClassName = lpClassName.elTriggerToggle;
+  }
+
+  // Exclude elements, which should not trigger the collapse toggle
+  if (elsExclude && elsExclude.length > 0) {
+    for (const elExclude of elsExclude) {
+      if (target.closest(elExclude)) {
+        return;
+      }
+    }
+  }
+  const elTrigger = target.closest(elTriggerClassName);
+  if (!elTrigger) {
+    return;
+  }
+
+  //console.log( 'elTrigger', elTrigger );
+
+  const elSectionToggle = elTrigger.closest(`${lpClassName.elSectionToggle}`);
+  if (!elSectionToggle) {
+    return;
+  }
+  elSectionToggle.classList.toggle(`${lpClassName.elCollapse}`);
+  if ('function' === typeof callback) {
+    callback(elSectionToggle);
+  }
+};
+
+
+/***/ }),
+
 /***/ "react":
 /*!************************!*\
   !*** external "React" ***!
@@ -1065,17 +866,6 @@ const lpModalOverlay = {
 
 "use strict";
 module.exports = window["React"];
-
-/***/ }),
-
-/***/ "@wordpress/api-fetch":
-/*!**********************************!*\
-  !*** external ["wp","apiFetch"] ***!
-  \**********************************/
-/***/ ((module) => {
-
-"use strict";
-module.exports = window["wp"]["apiFetch"];
 
 /***/ }),
 
@@ -1178,38 +968,41 @@ var __webpack_exports__ = {};
   \**********************************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   init: () => (/* binding */ init)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _single_curriculum_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./single-curriculum/index */ "./assets/src/apps/js/frontend/single-curriculum/index.js");
-/* harmony import */ var _show_lp_overlay_complete_item__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./show-lp-overlay-complete-item */ "./assets/src/apps/js/frontend/show-lp-overlay-complete-item.js");
-/* harmony import */ var _single_curriculum_skeleton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./single-curriculum/skeleton */ "./assets/src/apps/js/frontend/single-curriculum/skeleton.js");
-/* harmony import */ var _material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./material */ "./assets/src/apps/js/frontend/material.js");
+/* harmony import */ var _single_curriculum_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./single-curriculum/index */ "./assets/src/apps/js/frontend/single-curriculum/index.js");
+/* harmony import */ var _show_lp_overlay_complete_item__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./show-lp-overlay-complete-item */ "./assets/src/apps/js/frontend/show-lp-overlay-complete-item.js");
+/* harmony import */ var _material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./material */ "./assets/src/apps/js/frontend/material.js");
 
 
+//import courseCurriculumSkeleton from './single-curriculum/skeleton';
 
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_single_curriculum_index__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
+// Comment code use for old curriculum
+/*export const init = () => {
+	wp.element.render(
+		<SingleCurriculums />,
+		document.getElementById( 'learn-press-course-curriculum' )
+	);
+};*/
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_single_curriculum_index__WEBPACK_IMPORTED_MODULE_1__["default"]);
-const init = () => {
-  wp.element.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_single_curriculum_index__WEBPACK_IMPORTED_MODULE_1__["default"], null), document.getElementById('learn-press-course-curriculum'));
-};
 document.addEventListener('DOMContentLoaded', function (event) {
-  LP.Hook.doAction('course-ready');
-  _show_lp_overlay_complete_item__WEBPACK_IMPORTED_MODULE_2__["default"].init();
-  (0,_material__WEBPACK_IMPORTED_MODULE_4__["default"])();
+  //LP.Hook.doAction( 'course-ready' );
+  _show_lp_overlay_complete_item__WEBPACK_IMPORTED_MODULE_1__["default"].init();
+  (0,_material__WEBPACK_IMPORTED_MODULE_2__["default"])();
   //courseCurriculumSkeleton();
   //init();
 });
-const detectedElCurriculum = setInterval(function () {
-  const elementCurriculum = document.querySelector('.learnpress-course-curriculum');
-  if (elementCurriculum) {
-    (0,_single_curriculum_skeleton__WEBPACK_IMPORTED_MODULE_3__["default"])();
-    clearInterval(detectedElCurriculum);
-  }
-}, 1);
+
+// Comment code use for old curriculum
+/*const detectedElCurriculum = setInterval( function() {
+	const elementCurriculum = document.querySelector( '.learnpress-course-curriculum' );
+	if ( elementCurriculum ) {
+		courseCurriculumSkeleton();
+		clearInterval( detectedElCurriculum );
+	}
+}, 1 );*/
 })();
 
 /******/ })()

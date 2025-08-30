@@ -21,7 +21,10 @@ if ( ! class_exists( 'WFACP_admin' ) ) {
 		protected function __construct() {
 			$this->current_section = __DIR__ . '/views/sections/design.php';
 			$this->wfacp_id        = WFACP_Common::get_id();
-			add_action( 'admin_init', [ $this, 'show_post_not_exist' ], 1 );
+			if ( isset( $_GET['page'] ) && 'wfacp' == $_GET['page'] && isset( $_GET['wfacp_id'] ) && $_GET['wfacp_id'] > 0 ) {
+
+				add_action( 'admin_init', [ $this, 'show_post_not_exist' ], 1 );
+			}
 			add_action( 'admin_head', array( $this, 'hide_from_menu' ) );
 			add_action( 'admin_menu', [ $this, 'register_admin_menu' ], 90 );
 			add_action( 'admin_menu', [ $this, 'remove_page_attributes' ], 90 );
@@ -34,7 +37,10 @@ if ( ! class_exists( 'WFACP_admin' ) ) {
 			 * Admin enqueue scripts
 			 */
 			add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_assets' ], 99 );
-			add_action( 'admin_enqueue_scripts', array( $this, 'maybe_register_breadcrumbs' ), 10 );
+			if ( WFACP_Common::is_load_admin_assets( 'builder' ) ) {
+
+				add_action( 'admin_enqueue_scripts', array( $this, 'maybe_register_breadcrumbs' ), 10 );
+			}
 			/**
 			 * Admin customizer enqueue scripts
 			 */
@@ -42,19 +48,21 @@ if ( ! class_exists( 'WFACP_admin' ) ) {
 
 			add_filter( 'woocommerce_billing_fields', [ $this, 'add_css_ready_classes' ] );
 			add_filter( 'woocommerce_shipping_fields', [ $this, 'add_css_ready_classes' ] );
-			add_action( 'admin_menu', [ $this, 'set_section' ] );
+			if ( WFACP_Common::get_id() > 0 && isset( $_GET['section'] ) ) {
 
+				add_action( 'admin_menu', [ $this, 'set_section' ] );
+			}
 			add_action( 'woocommerce_admin_order_data_after_order_details', [ $this, 'show_advanced_field_order' ] );
 
-
-			add_action( 'in_admin_header', [ $this, 'maybe_remove_all_notices_on_page' ] );
-
+			if ( isset( $_GET['page'] ) && 'wfacp' == $_GET['page'] ) {
+				add_action( 'in_admin_header', [ $this, 'maybe_remove_all_notices_on_page' ] );
+			}
 			add_action( 'in_admin_header', [ $this, 'restrict_notices_display' ] );
 
 			add_filter( 'wfacp_builder_merge_field_arguments', [ $this, 'wfacp_builder_merge_field_arguments' ], 10, 4 );
-
-			add_action( 'admin_print_styles', [ $this, 'remove_theme_css_and_scripts' ], 100 );
-
+			if ( WFACP_Common::is_builder()) {
+				add_action( 'admin_print_styles', [ $this, 'remove_theme_css_and_scripts' ], 100 );
+			}
 			$post_type = WFACP_Common::get_post_type_slug();
 			add_action( 'add_meta_boxes_' . $post_type, [ $this, 'add_meta_boxes_for_shortcodes' ], 10, 2 );
 			add_filter( 'wfacp_checkout_post_list', [ $this, 'append_checkout_post_list' ] );
@@ -71,7 +79,6 @@ if ( ! class_exists( 'WFACP_admin' ) ) {
 			add_filter( 'bwf_enable_ecommerce_integration_fb_checkout', '__return_true' );
 			add_filter( 'bwf_enable_ecommerce_integration_ga_checkout', '__return_true' );
 			add_filter( 'bwf_enable_ga4', '__return_true' );
-			add_filter( 'admin_footer_text', array( $this, 'admin_footer_text' ), 1 );
 
 			/*** bwf general setting ***/
 			add_filter( 'bwf_general_settings_link', function () {
@@ -115,7 +122,7 @@ if ( ! class_exists( 'WFACP_admin' ) ) {
 		 * Check if its our builder page and registered required nodes to prepare a breadcrumb
 		 */
 		public function maybe_register_breadcrumbs() {
-			if ( WFACP_Common::is_load_admin_assets( 'builder' ) ) {
+			
 				/**
 				 * Only register primary node if not added yet
 				 */
@@ -130,12 +137,10 @@ if ( ! class_exists( 'WFACP_admin' ) ) {
 					'link'  => '',
 					'class' => 'wfacp_page_title'
 				) );
-			}
-
+		
 		}
 
 		public function set_section() {
-			if ( WFACP_Common::get_id() > 0 && isset( $_GET['section'] ) ) {
 
 				$this->current_page = filter_input( INPUT_GET, 'section', FILTER_UNSAFE_RAW );
 				if ( file_exists( __DIR__ . '/views/sections/' . $this->current_page . '.php' ) ) {
@@ -143,7 +148,7 @@ if ( ! class_exists( 'WFACP_admin' ) ) {
 				}
 				$this->current_section = apply_filters( 'wfacp_builder_pages_path', $this->current_section, $this->current_page, $this );
 
-			}
+
 
 		}
 
@@ -802,41 +807,41 @@ if ( ! class_exists( 'WFACP_admin' ) ) {
 								[ 'id' => 'bold', 'name' => 'Bold' ],
 							],
 
-						'model' => 'wfacp_form_section_embed_forms_2_btn_order-place_btn_font_weight'
-					],
-					[
-						'type'         => "select",
-						'label'        => __( 'Width', 'woofunnels-aero-checkout' ),
-						'styleClasses' => 'wfacp_design_setting_50',
-						'default'      => 'normal',
-						'values'       => [
-							[ 'id' => '100', 'name' => 'Full Width' ],
-							[ 'id' => 'initial', 'name' => 'Normal' ],
+							'model' => 'wfacp_form_section_embed_forms_2_btn_order-place_btn_font_weight'
 						],
-						'model'        => 'wfacp_form_section_embed_forms_2_btn_order-place_width'
-					],
-					[
-						'type'          => "select",
-						'label'         => __( 'Alignment', 'woofunnels-aero-checkout' ),
-						'styleClasses'  => 'wfacp_design_setting_50',
-						'default'       => 'left',
-						'selectOptions' => [ 'hideNoneSelectedText' => false ],
-						'values'        => [
-							[ 'id' => 'left', 'name' => 'left' ],
-							[ 'id' => 'center', 'name' => 'center' ],
-							[ 'id' => 'right', 'name' => 'Right' ],
+						[
+							'type'         => "select",
+							'label'        => __( 'Width', 'woofunnels-aero-checkout' ),
+							'styleClasses' => 'wfacp_design_setting_50',
+							'default'      => 'normal',
+							'values'       => [
+								[ 'id' => '100', 'name' => 'Full Width' ],
+								[ 'id' => 'initial', 'name' => 'Normal' ],
+							],
+							'model'        => 'wfacp_form_section_embed_forms_2_btn_order-place_width'
 						],
-						'model'         => 'wfacp_form_section_embed_forms_2_btn_order-place_talign'
-					],
-					[
-						'type'          => "select",
-						'label'         => __( 'Sticky on Mobile', 'woofunnels-aero-checkout' ),
-						'styleClasses'  => 'wfacp_design_setting_50',
-						'selectOptions' => [ 'hideNoneSelectedText' => false ],
-						'default'       => 'no_sticky',
-						'values'        => [
-							[ 'id' => 'yes_sticky', 'name' => __( 'Yes', 'funnel-builder' ) ],
-							[ 'id' => 'no_sticky', 'name' => __( 'No', 'funnel-builder' ) ],
+						[
+							'type'          => "select",
+							'label'         => __( 'Alignment', 'woofunnels-aero-checkout' ),
+							'styleClasses'  => 'wfacp_design_setting_50',
+							'default'       => 'left',
+							'selectOptions' => [ 'hideNoneSelectedText' => false ],
+							'values'        => [
+								[ 'id' => 'left', 'name' => 'left' ],
+								[ 'id' => 'center', 'name' => 'center' ],
+								[ 'id' => 'right', 'name' => 'Right' ],
+							],
+							'model'         => 'wfacp_form_section_embed_forms_2_btn_order-place_talign'
+						],
+						[
+							'type'          => "select",
+							'label'         => __( 'Sticky on Mobile', 'woofunnels-aero-checkout' ),
+							'styleClasses'  => 'wfacp_design_setting_50',
+							'selectOptions' => [ 'hideNoneSelectedText' => false ],
+							'default'       => 'no_sticky',
+							'values'        => [
+								[ 'id' => 'yes_sticky', 'name' => __( 'Yes', 'funnel-builder' ) ],
+								[ 'id' => 'no_sticky', 'name' => __( 'No', 'funnel-builder' ) ],
 
 							],
 							'model'         => 'wfacp_form_section_embed_forms_2_btn_order-place_make_button_sticky_on_mobile'
@@ -1360,6 +1365,21 @@ if ( ! class_exists( 'WFACP_admin' ) ) {
 					];
 				}
 
+			}
+
+			if ( get_option( 'woocommerce_ship_to_countries' ) == 'disabled' ) {
+				$msg = sprintf( __( "<a href='%s' target='_blank'>Shipping Location</a> is disabled. Please replace Shipping Address with Billing Address field or enable Shipping Location.", 'woofunnels-aero-checkout' ), admin_url( 'admin.php?page=wc-settings' ) );
+				$aero_messages[] = [
+					'message'       => $msg,
+					'id'            => 'shipping_address',
+					'show'          => 'yes',
+					'dismissible'   => false,
+					'reverse_check' => true,
+					'is_global'     => false,
+					'type'          => 'wfacp_error',
+					'call_back'     => '',
+					'key'           => 'wfacp_wc_ship_to_countries_notice_error'
+				];
 			}
 
 			$aero_messages[] = [
@@ -2131,15 +2151,13 @@ if ( ! class_exists( 'WFACP_admin' ) ) {
 		}
 
 		public function show_post_not_exist() {
-			if ( isset( $_GET['page'] ) && 'wfacp' == $_GET['page'] && isset( $_GET['wfacp_id'] ) && $_GET['wfacp_id'] > 0 ) {
-
 
 				$wfacp_id = filter_input( INPUT_GET, 'wfacp_id', FILTER_UNSAFE_RAW );
 				$post     = get_post( $wfacp_id );
 				if ( is_null( $post ) || $post->post_type != WFACP_Common::get_post_type_slug() ) {
 					wp_die( __( 'You attempted to edit an item that doesn&#8217;t exist. Perhaps it was deleted?' ) );
 				}
-			}
+
 		}
 
 		function get_advanced_field() {
@@ -2181,18 +2199,7 @@ if ( ! class_exists( 'WFACP_admin' ) ) {
 			return $pages;
 		}
 
-		public function admin_footer_text( $footer_text ) {
 
-			if ( isset( $_GET['page'] ) && $_GET['page'] == 'wfacp' ) {
-				$user = WFACP_Core()->role->user_access( 'checkout', 'read' );
-				if ( false === $user ) {
-					return $footer_text;
-				}
-				$footer_text = __( 'Over 648+ 5 star reviews show that FunnelKit users trust our top-rated support for their online business. Do you need help? <a href="https://funnelkit.com/support/?utm_source=WordPress&utm_medium=Footer+Checkout&utm_campaign=fb+lite+plugin" target="_blank"><b>Contact FunnelKit Support</b></a>', 'funnel-builder' );
-			}
-
-			return $footer_text;
-		}
 
 
 		/**

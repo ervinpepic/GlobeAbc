@@ -385,12 +385,8 @@ class LP_Page_Controller {
 			$user = learn_press_get_current_user();
 
 			// If item name is set in query vars
-			if ( ! is_numeric( $vars['course-item'] ) ) {
-				$item_type = $vars['item-type'];
-				$post_item = learn_press_get_post_by_name( $vars['course-item'], $item_type );
-			} else {
-				$post_item = get_post( absint( $vars['course-item'] ) );
-			}
+			$item_type = $vars['item-type'];
+			$post_item = learn_press_get_post_by_name( $vars['course-item'], $item_type );
 
 			if ( ! $post_item ) {
 				return $post;
@@ -990,7 +986,7 @@ class LP_Page_Controller {
 
 		$page_profile_option = untrailingslashit( $link_page );
 		$page_profile_option = str_replace( '/', '\/', $page_profile_option );
-		$pattern             = '/' . $page_profile_option . '/';
+		$pattern             = "/^$page_profile_option/";
 		if ( preg_match( $pattern, LP_Helper::getUrlCurrent() ) ) {
 			return true;
 		}

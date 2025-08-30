@@ -181,7 +181,10 @@ const checkTemplatesCanLoadBlock = (templates, metadata, callBack) => {
     const metaDataNew = {
       ...metadata
     };
-    const store = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.select)('core/editor');
+    const store = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.select)('core/editor') || null;
+    if (!store || typeof store.getCurrentPostId !== 'function' || !store.getCurrentPostId()) {
+      return;
+    }
     const currentPostId = store.getCurrentPostId();
     if (currentPostId === null) {
       return;
@@ -397,7 +400,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const templatesName = ['learnpress/learnpress//single-lp_course'];
+const templatesName = ['learnpress/learnpress//single-lp_course', 'learnpress/learnpress//single-lp_course-offline'];
 
 /**
  * Check if the block can load in the template editor: single-lp_course.

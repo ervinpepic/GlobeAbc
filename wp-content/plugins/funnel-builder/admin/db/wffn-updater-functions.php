@@ -10,12 +10,13 @@ if ( ! function_exists( 'wffn_handle_store_checkout_config' ) ) {
 		}
 
 		/** Remove _is_global meta if any funnel exists */
-		$sql_query     = "SELECT bwf_funnel_id as id FROM {table_name_meta} WHERE meta_key = '_is_global'";
+		global $wpdb;
+		$sql_query     = $wpdb->prepare( "SELECT bwf_funnel_id as id FROM {table_name_meta} WHERE meta_key = %s",'_is_global' );
 		$found_funnels = WFFN_Core()->get_dB()->get_results( $sql_query );
 		if ( is_array( $found_funnels ) && count( $found_funnels ) > 0 && isset( $found_funnels[0]['id'] ) && absint( $found_funnels[0]['id'] ) > 0 ) {
 			foreach ( $found_funnels as $funnel ) {
 				if ( isset( $funnel['id'] ) ) {
-					$del_query = "DELETE FROM {table_name_meta} WHERE bwf_funnel_id = " . $funnel['id'] . " AND meta_key = '_is_global'";
+					$del_query = $wpdb->prepare( "DELETE FROM {table_name_meta} WHERE bwf_funnel_id = %d AND meta_key = '_is_global'", $funnel['id'] );
 					WFFN_Core()->get_dB()->delete_multiple( $del_query );
 				}
 			}
@@ -42,7 +43,7 @@ if ( ! function_exists( 'wffn_handle_store_checkout_config' ) ) {
 
 		WFFN_Common::update_store_checkout_meta( $get_funnel_id, 1 );
 
-		/** we need to remove the old settings here since we are usinng filter for frontend execution
+		/** we need to remove the old settings here since we are using filter for frontend execution
 		 * If the settings exists then the current setup will always show
 		 */
 
@@ -77,7 +78,6 @@ if ( ! function_exists( 'wffn_alter_conversion_table' ) ) {
 			return;
 		}
 
-		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		$sql_query = "
 				ALTER TABLE {$table_name}
 				ADD `checkout_total` double DEFAULT 0 NOT NULL AFTER value,
@@ -197,7 +197,53 @@ if ( ! function_exists( 'wffn_alter_conversion_table_add_source' ) ) {
 
 	}
 }
+if ( ! function_exists( 'wffn_add_order_number_column_in_conversion_table' ) ) {
 
+	function wffn_add_order_number_column_in_conversion_table() {
+		try {
+			if ( ! class_exists( 'WooFunnels_Create_DB_Tables' ) || ! method_exists( 'WooFunnels_Create_DB_Tables', 'maybe_table_created_current_version' ) ) {
+				return;
+			}
+			/**
+			 * no need for alter table if table create in current version
+			 */
+			$created_tables = WooFunnels_Create_DB_Tables::get_instance()->maybe_table_created_current_version();
+			$conv_table     = BWF_Ecomm_Tracking_Common::get_instance()->conversion_table_name();
+			if ( is_array( $created_tables ) && in_array( $conv_table, $created_tables, true ) ) {
+				return;
+			}
+
+			global $wpdb;
+
+			$conv_table = BWF_Ecomm_Tracking_Common::get_instance()->conversion_table_name();
+			$table_name = $wpdb->prefix . $conv_table;
+			$is_col     = $wpdb->get_col( $wpdb->prepare( "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = %s AND table_name = %s AND column_name = 'order_number'", $wpdb->dbname, $table_name ) );
+
+			/**
+			 * Check if column already exists
+			 */
+			if ( ! empty( $is_col ) ) {
+				WFFN_Core()->logger->log( __FUNCTION__ . ' order_number column already exists ', 'wffn', true );
+				return;
+			}
+
+			$sql_query = "
+				ALTER TABLE {$table_name}
+				ADD `order_number` varchar(100) DEFAULT '' NOT NULL COMMENT 'stores sequential/custom order number',
+				ADD INDEX `order_number` (`order_number`)";
+
+			$wpdb->query( $sql_query ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+
+			if ( $wpdb->last_error ) {
+				WFFN_Core()->logger->log( __FUNCTION__ . ' Database error during adding order_number column: ' . $wpdb->last_error, 'wffn', true );
+			} else {
+				WFFN_Core()->logger->log( __FUNCTION__ . ' Successfully added order_number column to conversion table.', 'wffn', true );
+			}
+		} catch ( Exception|Error $e ) {
+			WFFN_Core()->logger->log( __FUNCTION__ . ' error during adding order_number column in conversion table: ' . $e->getMessage(), 'wffn', true );
+		}
+	}
+}
 
 if ( ! function_exists( 'wffn_update_migrate_data_for_currency_switcher' ) ) {
 	/**
@@ -301,7 +347,7 @@ if ( ! function_exists( 'wffn_update_email_default_settings' ) ) {
 		);
 
 
-		$users         = get_users( array( 'role' => 'administrator' ) );
+		$users         = get_users( array( 'role' => 'administrator', 'number' => 10 ) );
 		$user_selector = array();
 
 		foreach ( $users as $user ) {
@@ -335,10 +381,7 @@ if ( ! function_exists( 'wffn_set_default_value_in_autoload_option' ) ) {
 				BWF_Admin_General_Settings::get_instance()->update_global_settings_fields( array( 'fb_pixel_key' => '' ) );
 			}
 
-			$global_funnel_id = get_option( '_bwf_global_funnel' );
-			if ( empty( $global_funnel_id ) && $global_funnel_id !== 0 ) {
-				update_option( '_bwf_global_funnel', 0, true );
-			}
+			
 
 			/**
 			 * Update notice option on onload
@@ -411,5 +454,26 @@ if ( ! function_exists( 'wffn_cleanup_data_for_conversion' ) ) {
 			WFFN_Core()->logger->log( 'Recurring schedule for fk_optimize_conversion_table_analytics.', 'wffn_ay', true );
 		}
 
+	}
+}
+
+if ( ! function_exists( 'wffn_detect_and_set_default_page_builder' ) ) {
+	/**
+	 * Detect and set default page builder during database upgrade
+	 *
+	 * @return void
+	 */
+	function wffn_detect_and_set_default_page_builder() {
+		try {
+			if ( class_exists( 'WFFN_Core' ) && method_exists( WFFN_Core()->admin, 'detect_and_set_default_page_builder' ) ) {
+				WFFN_Core()->admin->detect_and_set_default_page_builder();
+				BWF_Logger::get_instance()->log( 'Page builder detection completed during database upgrade', 'wffn_page_builder_detection' );
+			}
+		} catch ( \Throwable $e ) {
+			BWF_Logger::get_instance()->log( 
+				sprintf( 'Error during page builder detection in database upgrade: %s', $e->getMessage() ), 
+				'wffn_page_builder_detection' 
+			);
+		}
 	}
 }

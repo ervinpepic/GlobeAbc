@@ -1,4 +1,4 @@
-/******/ (() => { // webpackBootstrap
+/******/ (function() { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
@@ -6,16 +6,13 @@
 /*!*****************************************!*\
   !*** ./assets/src/apps/js/admin/api.js ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
 /**
  * List API on backend
  */
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+/* harmony default export */ __webpack_exports__["default"] = ({
   apiAdminNotice: lpGlobalSettings.rest + 'lp/v1/admin/tools/admin-notices',
   apiAdminOrderStatic: lpGlobalSettings.rest + 'lp/v1/orders/statistic',
   apiAddons: lpGlobalSettings.rest + 'lp/v1/addon/all',
@@ -51,38 +48,21 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
+/******/ 	!function() {
 /******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = (exports) => {
+/******/ 		__webpack_require__.r = function(exports) {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
-/******/ 	})();
+/******/ 	}();
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
+!function() {
 /*!**************************************************!*\
   !*** ./assets/src/apps/js/admin/pages/addons.js ***!
   \**************************************************/
@@ -106,11 +86,13 @@ let elNotifyActionWrapper;
 const isHandling = [];
 
 // API get list addons.
-const getAddons = function () {
-  let set = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+const getAddons = (set = '') => {
   const params = tab ? `?tab=${tab}` : `?${set}`;
   fetch(_api__WEBPACK_IMPORTED_MODULE_0__["default"].apiAddons + params, {
-    method: 'GET'
+    method: 'GET',
+    headers: {
+      'X-WP-Nonce': lpGlobalSettings.nonce
+    }
   }).then(res => res.json()).then(res => {
     // console.log(data);
     const {
@@ -138,7 +120,8 @@ const addonsAction = (data, callBack) => {
   fetch(_api__WEBPACK_IMPORTED_MODULE_0__["default"].apiAddonAction, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'X-WP-Nonce': lpGlobalSettings.nonce
     },
     body: JSON.stringify({
       ...data
@@ -403,8 +386,7 @@ document.addEventListener('input', e => {
     }
   }
 });
-})();
-
+}();
 /******/ })()
 ;
 //# sourceMappingURL=addons.js.map

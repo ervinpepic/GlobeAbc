@@ -24,7 +24,7 @@ $info['Drop-in'] = $roc->object_cache_dropin_exists()
 
 $info['Disabled'] = $disabled ? 'Yes' : 'No';
 
-if ( $dropin && ! $disabled ) {
+if ( $dropin && ! $disabled && class_exists('WP_Object_Cache') ) {
     $info[ 'Ping' ] = $wp_object_cache->diagnostics['ping'] ?? false;
 
     try {
@@ -63,6 +63,9 @@ $info['Filesystem'] = is_wp_error( $filesystem ) ? $filesystem->get_error_messag
 if ( $dropin && ! $disabled ) {
     $info['Global Prefix'] = wp_json_encode( $wp_object_cache->global_prefix );
     $info['Blog Prefix'] = wp_json_encode( $wp_object_cache->blog_prefix );
+    $info['Timeout'] = $wp_object_cache->diagnostics['timeout'] ?? false;
+    $info['Read Timeout'] = $wp_object_cache->diagnostics['read_timeout'] ?? false;
+    $info['Retry Interval'] = $wp_object_cache->diagnostics['retry_interval'] ?? false;
 }
 
 $constants = [

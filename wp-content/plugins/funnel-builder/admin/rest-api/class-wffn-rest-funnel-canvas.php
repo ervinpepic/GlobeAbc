@@ -174,6 +174,11 @@ if ( ! class_exists( 'WFFN_REST_Funnel_Canvas' ) ) {
 			global $wpdb;
 			$data = [];
 
+			/**
+			 * Few third party plugins come in a way & customize our meta-query to get the variant IDs so we need to remove all filters associated to avoid these scenarios
+			 */
+			remove_all_filters('pre_get_posts');
+
 			$defult_args = array(
 				'views'           => 0,
 				'conversions'     => 0,
@@ -206,7 +211,7 @@ if ( ! class_exists( 'WFFN_REST_Funnel_Canvas' ) ) {
 			 */
 			$view_type    = "type = 2 OR type = 4 OR type = 5 OR type = 8 OR type = 10";
 			$convert_type = "type = 3 OR type = 11";
-			$view_query   = "SELECT object_id, SUM(CASE WHEN " . $view_type . " THEN `no_of_sessions` END) AS `views` ,SUM(CASE WHEN " . $convert_type . " THEN `no_of_sessions` END) AS `converted` FROM  " . $wpdb->prefix . 'wfco_report_views' . "  WHERE object_id IN(" . $step_ids . ") GROUP BY object_id ORDER BY object_id ASC";
+			$view_query   = "SELECT object_id, SUM(CASE WHEN " . $view_type . " THEN `no_of_sessions` END) AS `views` ,SUM(CASE WHEN " . $convert_type . " THEN `no_of_sessions` END) AS `converted` FROM  " . $wpdb->prefix . 'wfco_report_views' . "  WHERE object_id IN(" . esc_sql( $step_ids ) . ") GROUP BY object_id ORDER BY object_id ASC";
 			$get_views    = $wpdb->get_results( $view_query, ARRAY_A ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 			if ( method_exists( 'WFFN_Common', 'maybe_wpdb_error' ) ) {
 				$db_error = WFFN_Common::maybe_wpdb_error( $wpdb );
@@ -221,7 +226,8 @@ if ( ! class_exists( 'WFFN_REST_Funnel_Canvas' ) ) {
 				foreach ( $get_views as $view_data ) {
 					if ( isset( $data[ $view_data['object_id'] ] ) ) {
 						$data[ $view_data['object_id'] ]['views']           = is_null( $view_data['views'] ) ? 0 : intval( $view_data['views'] );
-						$data[ $view_data['object_id'] ]['conversions']     = is_null( $view_data['converted'] ) ? 0 : intval( $view_data['converted'] );
+						$data[ $view_data['object_id'] ]['conversions']     += empty( $view_data['converted'] ) ? 0 : intval( $view_data['converted'] );
+						$data[ $view_data['object_id'] ]['revenue']         += empty( $view_data['revenue'] ) ? 0 : floatval( number_format( $view_data['revenue'], 2, '.', '' ) );
 						$data[ $view_data['object_id'] ]['conversion_rate'] = $this->get_percentage( $data[ $view_data['object_id'] ]['views'], $data[ $view_data['object_id'] ]['conversions'] );
 					}
 				}
@@ -239,8 +245,8 @@ if ( ! class_exists( 'WFFN_REST_Funnel_Canvas' ) ) {
 						foreach ( $get_all_data['variants'][ $control_id ] as $v ) {
 							if ( isset( $data[ $v ] ) ) {
 								$data[ $control_id ]['views']           = $data[ $control_id ]['views'] + $data[ $v ]['views'];
-								$data[ $control_id ]['conversions']     = $data[ $control_id ]['conversions'] + $data[ $v ]['conversions'];
-								$data[ $control_id ]['revenue']         = floatval( number_format( $data[ $control_id ]['revenue'] + $data[ $v ]['revenue'], 2, '.', '' ) );
+								$data[ $control_id ]['conversions']     += $data[ $v ]['conversions'];
+								$data[ $control_id ]['revenue']         += $data[ $v ]['revenue'];
 								$data[ $control_id ]['conversion_rate'] = $this->get_percentage( $data[ $control_id ]['views'], $data[ $control_id ]['conversions'] );
 								unset( $data[ $v ] );
 							}
@@ -266,7 +272,7 @@ if ( ! class_exists( 'WFFN_REST_Funnel_Canvas' ) ) {
 				'variants' => []
 			];
 			if ( class_exists( 'WFFN_Pro_Core' ) ) {
-				$op_ids = array_keys( $data['steps'], 'optin' );
+				$op_ids = array_keys( $data['steps'], 'optin', true );
 				foreach ( $op_ids as $op_id ) {
 					$op_step = WFFN_Pro_Core()->steps->get_integration_object( 'optin' );
 					if ( $op_step instanceof WFFN_Pro_Step ) {
@@ -280,7 +286,7 @@ if ( ! class_exists( 'WFFN_REST_Funnel_Canvas' ) ) {
 					}
 				}
 
-				$opt_ids = array_keys( $data['steps'], 'optin_ty' );
+				$opt_ids = array_keys( $data['steps'], 'optin_ty', true );
 				foreach ( $opt_ids as $opt_id ) {
 					$opt_step = WFFN_Pro_Core()->steps->get_integration_object( 'optin_ty' );
 					if ( $opt_step instanceof WFFN_Pro_Step ) {
@@ -294,7 +300,7 @@ if ( ! class_exists( 'WFFN_REST_Funnel_Canvas' ) ) {
 					}
 				}
 
-				$lp_ids = array_keys( $data['steps'], 'landing' );
+				$lp_ids = array_keys( $data['steps'], 'landing', true );
 				foreach ( $lp_ids as $lp_id ) {
 					$lp_step = WFFN_Pro_Core()->steps->get_integration_object( 'landing' );
 					if ( $lp_step instanceof WFFN_Pro_Step ) {
@@ -308,7 +314,7 @@ if ( ! class_exists( 'WFFN_REST_Funnel_Canvas' ) ) {
 					}
 				}
 
-				$ch_ids = array_keys( $data['steps'], 'wc_checkout' );
+				$ch_ids = array_keys( $data['steps'], 'wc_checkout', true );
 				foreach ( $ch_ids as $ch_id ) {
 					$ch_step = WFFN_Pro_Core()->steps->get_integration_object( 'wc_checkout' );
 					if ( $ch_step instanceof WFFN_Pro_Step ) {
@@ -322,7 +328,7 @@ if ( ! class_exists( 'WFFN_REST_Funnel_Canvas' ) ) {
 					}
 				}
 
-				$ty_ids = array_keys( $data['steps'], 'wc_thankyou' );
+				$ty_ids = array_keys( $data['steps'], 'wc_thankyou', true );
 				foreach ( $ty_ids as $ty_id ) {
 					$ty_step = WFFN_Pro_Core()->steps->get_integration_object( 'wc_thankyou' );
 					if ( $ty_step instanceof WFFN_Pro_Step ) {
@@ -336,7 +342,7 @@ if ( ! class_exists( 'WFFN_REST_Funnel_Canvas' ) ) {
 					}
 				}
 
-				$ob_ids = array_keys( $data['steps'], 'wc_order_bump' );
+				$ob_ids = array_keys( $data['steps'], 'wc_order_bump', true );
 				foreach ( $ob_ids as $ob_id ) {
 					$ob_step = WFFN_Pro_Core()->substeps->get_integration_object( 'wc_order_bump' );
 					if ( $ob_step instanceof WFFN_Pro_Substep ) {
@@ -351,7 +357,7 @@ if ( ! class_exists( 'WFFN_REST_Funnel_Canvas' ) ) {
 				}
 
 				if ( class_exists( 'WFOCU_Common' ) ) {
-					$of_ids = array_keys( $data['steps'], 'offer' );
+					$of_ids = array_keys( $data['steps'], 'offer', true );
 					foreach ( $of_ids as $of_id ) {
 						$of_variants = $this->maybe_get_offer_ab_variants( $of_id );
 						if ( is_array( $of_variants ) && count( $of_variants ) > 0 ) {
@@ -383,11 +389,11 @@ if ( ! class_exists( 'WFFN_REST_Funnel_Canvas' ) ) {
 			/**
 			 * get optin converted data
 			 */
-			$optin_ids = array_keys( $steps, 'optin' );
+			$optin_ids = array_keys( $steps, 'optin', true );
 			if ( count( $optin_ids ) > 0 ) {
 				$optin_ids = implode( ',', $optin_ids );
 
-				$optin_sql        = "SELECT step_id as 'object_id', COUNT(id) as 'converted', 0 as 'revenue' FROM " . $wpdb->prefix . 'bwf_optin_entries' . "  WHERE step_id IN(" . $optin_ids . ") GROUP BY step_id";
+				$optin_sql        = "SELECT step_id as 'object_id', COUNT(id) as 'converted', 0 as 'revenue' FROM " . $wpdb->prefix . 'bwf_optin_entries' . "  WHERE step_id IN(" . esc_sql( $optin_ids ) . ") GROUP BY step_id";
 				$get_optin_record = $wpdb->get_results( $optin_sql, ARRAY_A ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
 				$db_error = WFFN_Common::maybe_wpdb_error( $wpdb );
@@ -401,10 +407,10 @@ if ( ! class_exists( 'WFFN_REST_Funnel_Canvas' ) ) {
 			/**
 			 * get checkout converted and revenue data
 			 */
-			$checkout_ids = array_keys( $steps, 'wc_checkout' );
+			$checkout_ids = array_keys( $steps, 'wc_checkout', true );
 			if ( count( $checkout_ids ) > 0 ) {
-				$checkout_ids = implode( ',', $checkout_ids );
-				$aero_sql     = "SELECT wfacp_id as 'object_id', COUNT(ID) as 'converted', SUM(total_revenue) as 'revenue' FROM " . $wpdb->prefix . 'wfacp_stats' . " WHERE wfacp_id IN(" . $checkout_ids . ")  GROUP BY wfacp_id";
+				$checkout_ids        = implode( ',', $checkout_ids );
+				$aero_sql            = "SELECT conv.step_id AS 'object_id', conv.source_id AS 'source_id', COUNT( conv.step_id ) AS 'converted', SUM(conv.checkout_total) AS 'revenue' FROM " . $wpdb->prefix . 'bwf_conversion_tracking' . "  AS conv WHERE type=2 AND conv.step_id IN(" . esc_sql( $checkout_ids ) . ") GROUP BY conv.step_id, conv.source_id";
 
 				$get_checkout_record = $wpdb->get_results( $aero_sql, ARRAY_A );//phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
@@ -420,7 +426,7 @@ if ( ! class_exists( 'WFFN_REST_Funnel_Canvas' ) ) {
 			/**
 			 * get offer view, converted and revenue data
 			 */
-			$offer_ids = array_keys( $steps, 'offer' );
+			$offer_ids = array_keys( $steps, 'offer', true );
 			if ( count( $offer_ids ) > 0 ) {
 				$offer_ids = implode( ',', $offer_ids );
 
@@ -440,13 +446,33 @@ if ( ! class_exists( 'WFFN_REST_Funnel_Canvas' ) ) {
 			/**
 			 * get bump view, converted and revenue data
 			 */
-			$bump_ids = array_keys( $steps, 'wc_order_bump' );
+			$bump_ids = array_keys( $steps, 'wc_order_bump', true );
 			if ( count( $bump_ids ) > 0 ) {
-				$bump_ids = implode( ',', $bump_ids );
+				$get_bump_record = array();
+				
+				// Query each bump ID separately since they're stored in JSON fields
+				foreach ( $bump_ids as $bump_id ) {
+					$bump_sql = $wpdb->prepare( 
+						"SELECT %d as 'object_id', 
+						COUNT(CASE WHEN conv.bump_total > 0 AND (conv.bump_accepted LIKE %s OR conv.bump_rejected LIKE %s) THEN 1 END) AS `converted`, 
+						COUNT(CASE WHEN (conv.bump_accepted LIKE %s OR conv.bump_rejected LIKE %s) THEN 1 END) as views, 
+						SUM(CASE WHEN (conv.bump_accepted LIKE %s OR conv.bump_rejected LIKE %s) THEN conv.bump_total ELSE 0 END) as 'revenue' 
+						FROM " . $wpdb->prefix . 'bwf_conversion_tracking' . " AS conv 
+						WHERE conv.type = 2", 
+						$bump_id,
+						'%' . $wpdb->esc_like( $bump_id ) . '%',
+						'%' . $wpdb->esc_like( $bump_id ) . '%',
+						'%' . $wpdb->esc_like( $bump_id ) . '%',
+						'%' . $wpdb->esc_like( $bump_id ) . '%',
+						'%' . $wpdb->esc_like( $bump_id ) . '%',
+						'%' . $wpdb->esc_like( $bump_id ) . '%'
+					);
 
-				$bump_sql = "SELECT bump.bid as 'object_id', COUNT(CASE WHEN converted = 1 THEN 1 END) AS `converted`, COUNT(bump.ID) as views, SUM(bump.total) as 'revenue' FROM " . $wpdb->prefix . 'wfob_stats' . " AS bump WHERE bump.bid IN ( " . $bump_ids . " ) GROUP BY bump.bid";
-
-				$get_bump_record = $wpdb->get_results( $bump_sql, ARRAY_A ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+					$bump_result = $wpdb->get_results( $bump_sql, ARRAY_A ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+					if ( !empty( $bump_result ) ) {
+						$get_bump_record[] = $bump_result[0];
+					}
+				}
 
 				$db_error = WFFN_Common::maybe_wpdb_error( $wpdb );
 				if ( true === $db_error['db_error'] ) {
@@ -462,9 +488,13 @@ if ( ! class_exists( 'WFFN_REST_Funnel_Canvas' ) ) {
 				foreach ( $converted_data as $item ) {
 					if ( isset( $data[ $item['object_id'] ] ) ) {
 						$data[ $item['object_id'] ]['views']           = empty( $item['views'] ) ? $data[ $item['object_id'] ]['views'] : intval( $item['views'] );
-						$data[ $item['object_id'] ]['conversions']     = empty( $item['converted'] ) ? $data[ $item['object_id'] ]['conversions'] : intval( $item['converted'] );
-						$data[ $item['object_id'] ]['revenue']         = empty( $item['revenue'] ) ? $data[ $item['object_id'] ]['revenue'] : floatval( number_format( $item['revenue'], 2, '.', '' ) );
+						$data[ $item['object_id'] ]['conversions']     += empty( $item['converted'] ) ? 0 : intval( $item['converted'] );
+						$data[ $item['object_id'] ]['revenue']         += empty( $item['revenue'] ) ? 0 : floatval( number_format( $item['revenue'], 2, '.', '' ) );
 						$data[ $item['object_id'] ]['conversion_rate'] = $this->get_percentage( $data[ $item['object_id'] ]['views'], $data[ $item['object_id'] ]['conversions'] );
+
+						if(isset($item['source_id']) && array_key_exists($item['source_id'], $data)) {
+							$data[ $item['source_id'] ]['revenue'] = $data[ $item['source_id'] ]['revenue'] + (empty( $item['revenue'] ) ? $data[ $item['object_id'] ]['revenue'] : floatval( number_format( $item['revenue'], 2, '.', '' ) ));
+						}
 					}
 				}
 			}
@@ -869,7 +899,21 @@ if ( ! class_exists( 'WFFN_REST_Funnel_Canvas' ) ) {
 			if ( ! class_exists( 'WFOB_Core' ) || version_compare( WFOB_VERSION, '1.8,1', '<=' ) ) {
 				return $data;
 			}
-			$get_query = "SELECT COUNT(CASE WHEN converted = 1 THEN 1 END) AS `converted`, COUNT(bump.ID) as viewed, SUM(bump.total) as 'revenue' FROM " . $wpdb->prefix . 'wfob_stats' . " AS bump WHERE bump.bid = " . $step_id . " ORDER BY bump.bid ASC";
+			
+			$get_query = $wpdb->prepare( 
+				"SELECT 
+				COUNT(CASE WHEN conv.bump_total > 0 AND (conv.bump_accepted LIKE %s OR conv.bump_rejected LIKE %s) THEN 1 END) AS `converted`, 
+				COUNT(CASE WHEN (conv.bump_accepted LIKE %s OR conv.bump_rejected LIKE %s) THEN 1 END) as viewed, 
+				SUM(CASE WHEN (conv.bump_accepted LIKE %s OR conv.bump_rejected LIKE %s) THEN conv.bump_total ELSE 0 END) as 'revenue' 
+				FROM " . $wpdb->prefix . 'bwf_conversion_tracking' . " AS conv 
+				WHERE conv.type = 2", 
+				'%' . $wpdb->esc_like( $step_id ) . '%',
+				'%' . $wpdb->esc_like( $step_id ) . '%',
+				'%' . $wpdb->esc_like( $step_id ) . '%',
+				'%' . $wpdb->esc_like( $step_id ) . '%',
+				'%' . $wpdb->esc_like( $step_id ) . '%',
+				'%' . $wpdb->esc_like( $step_id ) . '%'
+			);
 
 			$get_data = $wpdb->get_row( $get_query, ARRAY_A ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 			if ( method_exists( 'WFFN_Common', 'maybe_wpdb_error' ) ) {

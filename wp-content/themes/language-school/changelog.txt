@@ -1,12 +1,23 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.3.7
+ * @version 	1.3.9
  */
  
 -----------------------------------------------------------------------
 				CHANGELOG
 -----------------------------------------------------------------------
+Version 1.3.9:
+	
+	1. Fixed Security Vulnerabilities
+	2. Fixed the events calendar month view
+	3. Updated plugins
+--------------------------------------
+Version 1.3.8:
+	
+	1. Applied a fix for the notice caused by the new WordPress version
+	2. Updated plugins
+--------------------------------------
 Version 1.3.7:
 	
 	1. Updated plugins

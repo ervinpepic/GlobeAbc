@@ -2,16 +2,19 @@
  * Load all you need via AJAX
  *
  * @since 4.2.5.7
- * @version 1.0.5
+ * @version 1.0.9
  */
 
-import { lpAddQueryArgs, lpFetchAPI, listenElementCreated, lpOnElementReady, lpGetCurrentURLNoParam } from './utils.js';
-import API from './api.js';
+import {
+	lpAddQueryArgs,
+	lpFetchAPI,
+	listenElementCreated,
+	lpOnElementReady,
+	lpGetCurrentURLNoParam,
+	lpShowHideEl,
+} from './utils.js';
 
 // Handle general parameter in the Frontend and Backend
-const apiData = API.admin || API.frontend;
-const urlAPI = apiData?.apiAJAX || '';
-
 let lpSettings = {};
 if ( 'undefined' !== typeof lpDataAdmin ) {
 	lpSettings = lpDataAdmin;
@@ -53,16 +56,22 @@ const lpAJAX = ( () => {
 
 			lpFetchAPI( url, option, callBack );
 		},
-		fetchAJAX: ( params, callBack, urlAjax = '' ) => {
-			// Call via ajax.
-			urlAjax = urlAjax || lpSettings.lpAjaxUrl;
-			if ( params.args.id_url ) {
+		fetchAJAX: ( params, callBack ) => {
+			let urlAjax = lpSettings.lpAjaxUrl;
+
+			// Set param id_url for identify.
+			if ( params.hasOwnProperty( 'args' ) && params.args.hasOwnProperty( 'id_url' ) ) {
 				urlAjax = lpAddQueryArgs( urlAjax, { id_url: params.args.id_url } );
+			}
+			// Set param lang here if exits, for detect translate
+			if ( lpSettings.urlParams.hasOwnProperty( 'lang' ) ) {
+				urlAjax = lpAddQueryArgs( urlAjax, { lang: lpSettings.urlParams.lang } );
 			}
 
 			const formData = new FormData();
+			const action = params.hasOwnProperty( 'action' ) ? params.action : 'load_content_via_ajax';
 			formData.append( 'nonce', lpSettings.nonce );
-			formData.append( 'lp-load-ajax', 'load_content_via_ajax' );
+			formData.append( 'lp-load-ajax', action );
 			formData.append( 'data', JSON.stringify( params ) );
 			const dataSend = {
 				method: 'POST',
@@ -83,12 +92,6 @@ const lpAJAX = ( () => {
 			if ( elements.length ) {
 				elements.forEach( ( element ) => {
 					//console.log( 'Element handing', element );
-					element.classList.add( 'loaded' );
-					let url = urlAPI;
-					if ( lpSettings.urlParams.hasOwnProperty( 'lang' ) ) {
-						url = lpAddQueryArgs( url, { lang: lpSettings.urlParams.lang } );
-					}
-
 					const elTarget = element.querySelector( `${ classLPTarget }` );
 					if ( ! elTarget ) {
 						return;
@@ -112,6 +115,8 @@ const lpAJAX = ( () => {
 							console.log( error );
 						},
 						completed: () => {
+							wp.hooks.doAction( 'lp-ajax-completed', element, dataSend );
+							window.lpAJAXG.getElements();
 							//console.log( 'completed' );
 							if ( elLoadingFirst ) {
 								elLoadingFirst.remove();
@@ -119,11 +124,9 @@ const lpAJAX = ( () => {
 						},
 					};
 
-					// Call via API
-					//window.lpAJAXG.fetchAPI( url, dataSend, callBack );
-
 					// Call via AJAX
 					window.lpAJAXG.fetchAJAX( dataSend, callBack );
+					element.classList.add( 'loaded' );
 				} );
 			}
 		},
@@ -138,35 +141,37 @@ const lpAJAX = ( () => {
 				return;
 			}
 
+			e.preventDefault();
+
 			const dataObj = JSON.parse( elLPTarget.dataset.send );
 			const dataSend = { ...dataObj };
 			if ( ! dataSend.args.hasOwnProperty( 'paged' ) ) {
 				dataSend.args.paged = 1;
 			}
 
-			e.preventDefault();
-
 			if ( btnNumber.classList.contains( 'prev' ) ) {
 				dataSend.args.paged--;
 			} else if ( btnNumber.classList.contains( 'next' ) ) {
 				dataSend.args.paged++;
 			} else {
-				dataSend.args.paged = btnNumber.textContent;
+				const pagedNumber = parseInt( btnNumber.textContent );
+				if ( isNaN( pagedNumber ) || pagedNumber < 1 ) {
+					return;
+				}
+
+				dataSend.args.paged = pagedNumber;
 			}
 
 			elLPTarget.dataset.send = JSON.stringify( dataSend );
 
 			// Set url params to reload page.
 			// Todo: need check allow set url params.
-			lpData.urlParams.paged = dataSend.args.paged;
-			window.history.pushState( {}, '', lpAddQueryArgs( urlCurrent, lpData.urlParams ) );
+			lpSettings.urlParams.paged = dataSend.args.paged;
+			window.history.pushState( {}, '', lpAddQueryArgs( urlCurrent, lpSettings.urlParams ) );
 			// End.
 
 			// Show loading
-			const elLoading = elLPTarget.closest( `div:not(${ classLPTarget })` ).querySelector( '.lp-loading-change' );
-			if ( elLoading ) {
-				elLoading.style.display = 'block';
-			}
+			window.lpAJAXG.showHideLoading( elLPTarget, 1 );
 			// End
 
 			// Scroll to archive element
@@ -184,13 +189,23 @@ const lpAJAX = ( () => {
 				},
 				completed: () => {
 					//console.log( 'completed' );
-					if ( elLoading ) {
-						elLoading.style.display = 'none';
-					}
+					window.lpAJAXG.showHideLoading( elLPTarget, 0 );
 				},
 			};
 
 			window.lpAJAXG.fetchAJAX( dataSend, callBack );
+		},
+		getDataSetCurrent: ( elLPTarget ) => {
+			return JSON.parse( elLPTarget.dataset.send );
+		},
+		setDataSetCurrent: ( elLPTarget, dataSend ) => {
+			return elLPTarget.dataset.send = JSON.stringify( dataSend );
+		},
+		showHideLoading: ( elLPTarget, status ) => {
+			const elLoading = elLPTarget.closest( `div:not(${ classLPTarget })` ).querySelector( '.lp-loading-change' );
+			if ( elLoading ) {
+				lpShowHideEl( elLoading, status );
+			}
 		},
 	};
 } );

@@ -10,7 +10,9 @@ if ( ! class_exists( 'WFFN_Module_Common' ) ) {
 		public function __construct() {
 
 			add_action( 'wp_enqueue_scripts', array( $this, 'remove_conflicted_themes_styles' ), 9999 );
-			add_action( 'wp_print_scripts', array( $this, 'print_custom_css_in_head' ), 1000 );
+			if ( ! is_admin() ) {
+				add_action( 'wp_print_scripts', array( $this, 'print_custom_css_in_head' ), 1000 );
+			}
 			add_action( 'wp_footer', array( $this, 'print_custom_js_in_footer' ) );
 			add_filter( 'bwf_general_settings_default_config', array( $this, 'migrate_modify_allowed_theme_settings' ) );
 
@@ -265,7 +267,6 @@ if ( ! class_exists( 'WFFN_Module_Common' ) ) {
 			$is_updated = false;
 			$db_options = get_option( 'bwf_gen_config', [] );
 
-
 			if ( ! empty( $db_options ) && isset( $db_options['allow_theme_css'] ) ) {
 				return $is_updated;
 			}
@@ -279,7 +280,7 @@ if ( ! class_exists( 'WFFN_Module_Common' ) ) {
 
 			$general_settings = BWF_Admin_General_Settings::get_instance();
 
-			if ( function_exists( 'WFFN_Core' ) && ( in_array( get_template(), $allowed_themes, true ) || WFFN_Core()->page_builders->is_divi_theme_enabled() ) ) {
+			if ( function_exists( 'WFFN_Core' ) && ( ( is_array( $allowed_themes ) && in_array( get_template(), $allowed_themes, true ) ) || WFFN_Core()->page_builders->is_divi_theme_enabled() ) ) {
 				$db_options['allow_theme_css'] = array(
 					'wfacp_checkout',
 					'wffn_ty',
@@ -290,7 +291,7 @@ if ( ! class_exists( 'WFFN_Module_Common' ) ) {
 
 				$is_updated = true;
 			}
-			if ( function_exists( 'WFFN_Core' ) && (in_array( get_template(), $allowed_for_upsells_themes, true ) || WFFN_Core()->page_builders->is_divi_theme_enabled()) ) {
+			if ( function_exists( 'WFFN_Core' ) && (is_array( $allowed_for_upsells_themes ) && in_array( get_template(), $allowed_for_upsells_themes, true ) || WFFN_Core()->page_builders->is_divi_theme_enabled() ) ) {
 				if ( ! empty( $db_options['allow_theme_css'] ) ) {
 					$db_options['allow_theme_css'][] = 'wfocu_offer';
 				} else {

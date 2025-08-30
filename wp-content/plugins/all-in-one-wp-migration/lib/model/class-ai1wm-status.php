@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2018 ServMask Inc.
+ * Copyright (C) 2014-2025 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,6 +15,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
+ * Attribution: This code is part of the All-in-One WP Migration plugin, developed by
+ *
  * ███████╗███████╗██████╗ ██╗   ██╗███╗   ███╗ █████╗ ███████╗██╗  ██╗
  * ██╔════╝██╔════╝██╔══██╗██║   ██║████╗ ████║██╔══██╗██╔════╝██║ ██╔╝
  * ███████╗█████╗  ██████╔╝██║   ██║██╔████╔██║███████║███████╗█████╔╝
@@ -22,6 +24,10 @@
  * ███████║███████╗██║  ██║ ╚████╔╝ ██║ ╚═╝ ██║██║  ██║███████║██║  ██╗
  * ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'Kangaroos cannot jump here' );
+}
 
 class Ai1wm_Status {
 
@@ -37,11 +43,15 @@ class Ai1wm_Status {
 		self::log( array( 'type' => 'download', 'message' => $message ) );
 	}
 
+	public static function disk_space_confirm( $message ) {
+		self::log( array( 'type' => 'disk_space_confirm', 'message' => $message ) );
+	}
+
 	public static function confirm( $message ) {
 		self::log( array( 'type' => 'confirm', 'message' => $message ) );
 	}
 
-	public static function done( $title, $message ) {
+	public static function done( $title, $message = null ) {
 		self::log( array( 'type' => 'done', 'title' => $title, 'message' => $message ) );
 	}
 
@@ -51,6 +61,14 @@ class Ai1wm_Status {
 
 	public static function progress( $percent ) {
 		self::log( array( 'type' => 'progress', 'percent' => $percent ) );
+	}
+
+	public static function backup_is_encrypted( $error ) {
+		self::log( array( 'type' => 'backup_is_encrypted', 'error' => $error ) );
+	}
+
+	public static function server_cannot_decrypt( $message ) {
+		self::log( array( 'type' => 'server_cannot_decrypt', 'message' => $message ) );
 	}
 
 	public static function log( $data ) {

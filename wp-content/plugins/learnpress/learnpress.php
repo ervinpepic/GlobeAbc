@@ -4,7 +4,7 @@
  * Plugin URI: http://thimpress.com/learnpress
  * Description: LearnPress is a WordPress complete solution for creating a Learning Management System (LMS). It can help you to create courses, lessons and quizzes.
  * Author: ThimPress
- * Version: 4.2.8.4
+ * Version: 4.2.9
  * Author URI: http://thimpress.com
  * Requires at least: 6.0
  * Requires PHP: 7.0
@@ -14,20 +14,25 @@
  * @package LearnPress
  */
 
+use LearnPress\Ajax\EditQuestionAjax;
+use LearnPress\Ajax\EditQuizAjax;
 use LearnPress\Ajax\LessonAjax;
 use LearnPress\Ajax\LoadContentViaAjax;
+use LearnPress\Background\LPBackgroundTrigger;
 use LearnPress\ExternalPlugin\Elementor\LPElementor;
 use LearnPress\ExternalPlugin\RankMath\LPRankMath;
 use LearnPress\ExternalPlugin\YoastSeo\LPYoastSeo;
 use LearnPress\Gutenberg\GutenbergHandleMain;
+use LearnPress\Ajax\EditCurriculumAjax;
 use LearnPress\Models\CourseModel;
 use LearnPress\Models\UserModel;
 use LearnPress\Shortcodes\Course\FilterCourseShortcode;
-
-//use LearnPress\Shortcodes\Course\ListCourseRecentShortcode;
 use LearnPress\Shortcodes\ListInstructorsShortcode;
 use LearnPress\Shortcodes\SingleInstructorShortcode;
 use LearnPress\Shortcodes\CourseMaterialShortcode;
+use LearnPress\TemplateHooks\Admin\AdminEditQizTemplate;
+use LearnPress\TemplateHooks\Admin\AdminEditQuestionTemplate;
+use LearnPress\TemplateHooks\Course\AdminEditCurriculumTemplate;
 use LearnPress\TemplateHooks\Course\FilterCourseTemplate;
 use LearnPress\TemplateHooks\Course\ListCoursesRelatedTemplate;
 use LearnPress\TemplateHooks\Course\ListCoursesTemplate;
@@ -141,15 +146,6 @@ if ( ! class_exists( 'LearnPress' ) ) {
 
 				// Must handle in hook init of WordPress, when loaded plugins, theme, user.
 				add_action( 'init', [ $this, 'lp_main_handle' ], - 1000 );
-
-				add_action(
-					'init',
-					function () {
-						// Handle lp ajax.
-						LoadContentViaAjax::catch_lp_ajax();
-						LessonAjax::catch_lp_ajax();
-					}
-				);
 
 				// hooks .
 				$this->hooks();
@@ -274,6 +270,7 @@ if ( ! class_exists( 'LearnPress' ) ) {
 			include_once 'inc/Filters/class-lp-section-filter.php';
 			include_once 'inc/Filters/class-lp-section-items-filter.php';
 			include_once 'inc/Filters/class-lp-question-filter.php';
+			include_once 'inc/Filters/class-lp-quiz-filter.php';
 			include_once 'inc/Filters/class-lp-user-items-filter.php';
 			include_once 'inc/Filters/class-lp-user-item-meta-filter.php';
 			include_once 'inc/Filters/class-lp-quiz-filter.php';
@@ -327,6 +324,10 @@ if ( ! class_exists( 'LearnPress' ) ) {
 			FilterCourseTemplate::instance();
 			ProfileQuizzesTemplate::instance();
 
+			// Admin template hooks.
+			AdminEditCurriculumTemplate::instance();
+			AdminEditQizTemplate::instance();
+			AdminEditQuestionTemplate::instance();
 			CourseMaterialTemplate::instance();
 
 			// Models
@@ -350,12 +351,12 @@ if ( ! class_exists( 'LearnPress' ) ) {
 			include_once 'inc/cache/class-lp-user-items-cache.php';
 
 			// Background processes.
+			LPBackgroundTrigger::instance();
 			include_once 'inc/libraries/wp-background-process/wp-background-processing.php';
 			include_once 'inc/background-process/abstract-lp-async-request.php';
 			//include_once 'inc/background-process/abstract-lp-async-task.php';
 			include_once 'inc/background-process/class-lp-background-single-course.php';
 			include_once 'inc/background-process/class-lp-background-single-email.php';
-			include_once 'inc/background-process/class-lp-background-thim-cache.php';
 
 			// Assets object
 			include_once 'inc/class-lp-asset-key.php';
@@ -578,6 +579,14 @@ if ( ! class_exists( 'LearnPress' ) ) {
 				// let third parties know that we're ready .
 				do_action( 'learn-press/ready' );
 
+				// For addon sorting choice old <= v4.0.1
+				if ( class_exists( 'LP_Addon_Sorting_Choice_Preload' ) ) {
+					if ( version_compare( LP_ADDON_SORTING_CHOICE_VER, '4.0.1', '<=' ) ) {
+						$lp_addon_sorting_choice = new LP_Addon_Sorting_Choice();
+						$lp_addon_sorting_choice->init();
+					}
+				}
+
 				/**
 				 * Init gateways, to load all payment gateways, catch callback.
 				 * Must be call after learn-press/ready to register hook of addon.
@@ -647,6 +656,22 @@ if ( ! class_exists( 'LearnPress' ) ) {
 		 * Initial common hooks
 		 */
 		public function hooks() {
+			/**
+			 * Handle lp ajax.
+			 * Set priority after register_post_type to register capabilities for post type of LP.
+			 */
+			add_action(
+				'init',
+				function () {
+					LoadContentViaAjax::catch_lp_ajax();
+					LessonAjax::catch_lp_ajax();
+					EditCurriculumAjax::catch_lp_ajax();
+					EditQuizAjax::catch_lp_ajax();
+					EditQuestionAjax::catch_lp_ajax();
+				},
+				11
+			);
+
 			// Add links setting|document|addon on plugins page.
 			add_filter( 'plugin_action_links_' . LP_PLUGIN_BASENAME, array( $this, 'plugin_links' ) );
 
@@ -743,7 +768,7 @@ if ( ! class_exists( 'LearnPress' ) ) {
 		 */
 		public function plugin_links( array $links ): array {
 			$links[] = sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=learn-press-settings' ), __( 'Settings', 'learnpress' ) );
-			$links[] = sprintf( '<a href="%s" target="_blank">%s</a>', 'https://docspress.thimpress.com/learnpress-4-0/', __( 'Documentation', 'learnpress' ) );
+			$links[] = sprintf( '<a href="%s" target="_blank">%s</a>', 'https://docs.thimpress.com/learnpress/', __( 'Documentation', 'learnpress' ) );
 			$links[] = sprintf( '<a href="%s" target="_blank">%s</a>', get_admin_url() . '/admin.php?page=learn-press-addons', __( 'Add-ons', 'learnpress' ) );
 
 			return $links;

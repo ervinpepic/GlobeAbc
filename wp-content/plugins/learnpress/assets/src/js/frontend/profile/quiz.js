@@ -17,7 +17,7 @@ const profileQuizTab = () => {
 				return;
 			}
 
-			const elLoadingChange = elLPTarget.closest( '.lp-load-ajax-element' ).querySelector( '.lp-loading-change' );
+			window.lpAJAXG.showHideLoading( elLPTarget, 1 );
 			const dataSendJson = elLPTarget?.dataset?.send || {};
 			const dataSend = JSON.parse( dataSendJson );
 
@@ -28,7 +28,6 @@ const profileQuizTab = () => {
 				return;
 			}
 
-			elLoadingChange.style.display = 'block';
 			liActive.classList.remove( 'active' );
 			const liTarget = target.closest( 'li' );
 			liTarget.classList.add( 'active' );
@@ -48,7 +47,7 @@ const profileQuizTab = () => {
 					console.log( error );
 				},
 				completed: () => {
-					elLoadingChange.style.display = 'none';
+					window.lpAJAXG.showHideLoading( elLPTarget, 0 );
 				},
 			};
 
