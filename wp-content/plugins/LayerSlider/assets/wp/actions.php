@@ -9,6 +9,21 @@ add_action('init', function() {
 
 	if(current_user_can(get_option('layerslider_custom_capability', 'manage_options'))) {
 
+		// Handle large uploads where the post content length exceeds post_max_size
+		if( $_SERVER['REQUEST_METHOD'] === 'POST' && strpos( $_SERVER['REQUEST_URI'], 'page=layerslider' ) !== false ) {
+
+			$maxStr = @ini_get('post_max_size');
+			$limitBytes = ! empty( $maxStr ) ? ls_string_to_bytes( $maxStr ) : 0;
+
+			$bytes = isset( $_SERVER['CONTENT_LENGTH'] ) ? (int) $_SERVER['CONTENT_LENGTH'] : 0;
+			$isChunked = ( isset( $_SERVER['HTTP_TRANSFER_ENCODING'] ) && stripos($_SERVER['HTTP_TRANSFER_ENCODING'], 'chunked') !== false );
+
+			if( $limitBytes > 0 && ! $isChunked && $bytes > $limitBytes && empty( $_POST ) && empty( $_FILES ) ) {
+				wp_redirect( admin_url('admin.php?page=layerslider&message=uploadErrorSize&error') );
+				exit;
+			}
+		}
+
 		// Preview iframe contents
 		if( ! empty( $_GET['page'] ) && $_GET['page'] === 'layerslider' && ! empty( $_GET['action'] ) && $_GET['action'] === 'preview-iframe-html') {
 			include LS_ROOT_PATH.'/templates/tmpl-project-preview-iframe.php';
@@ -65,13 +80,6 @@ add_action('init', function() {
 			if( check_admin_referer('export-sliders') ) {
 				$_POST['sliders'] = [ (int) $_GET['id'] ];
 				$_POST['ls-export'] = true;
-			}
-		}
-
-		// Export as HTML
-		if(isset($_GET['page']) && $_GET['page'] == 'layerslider' && isset($_GET['action']) && $_GET['action'] == 'export-html') {
-			if( check_admin_referer('export-sliders') ) {
-				ls_export_as_html( (int) $_GET['id'] );
 			}
 		}
 
@@ -503,9 +511,6 @@ function ls_sliders_bulk_action() {
 	if( $_POST['action'] === 'export' ) {
 		ls_export_sliders();
 
-	} elseif( $_POST['action'] === 'export-html' ) {
-		ls_export_as_html( (int) $_POST['sliders'][0] );
-
 	} elseif( $_POST['action'] === 'duplicate') {
 		layerslider_duplicateslider( $_POST['sliders'][0] );
 
@@ -847,7 +852,7 @@ function ls_extract_slider_data_from_request() {
 		wp_send_json_error([
 			'errCode' => 'ERR_UPLOAD_ERROR',
 			'title' => __('Save Error', 'LayerSlider'),
-			'message' => __('There was an error uploading the slider data file.', 'LayerSlider'),
+			'message' => __('There was an error uploading the project data file.', 'LayerSlider'),
 		]);
 	}
 
@@ -858,7 +863,7 @@ function ls_extract_slider_data_from_request() {
 		wp_send_json_error( [
 			'errCode' => 'ERR_INVALID_JSON',
 			'title' => __('Save Error', 'LayerSlider'),
-			'message' => __('Couldn’t parse slider data file as JSON. It threw the following error: ' . json_last_error_msg(), 'LayerSlider'),
+			'message' => __('Couldn’t parse the project data file as JSON. It threw the following error: ' . json_last_error_msg(), 'LayerSlider'),
 		]);
 	}
 
@@ -1337,21 +1342,42 @@ function ls_import_online() {
 //-------------------------------------------------------
 function ls_import_sliders() {
 
-	// Check export file if any
-	if(!is_uploaded_file($_FILES['import_file']['tmp_name'])) {
+	if( ! isset( $_FILES['import_file'] ) ) {
 		wp_redirect( admin_url('admin.php?page=layerslider&error=1&message=importSelectError' ) );
-		die('No data received.');
+		exit;
+	}
+
+	$file = $_FILES['import_file'];
+
+	// Didn't choose a file
+	if( $file['error'] === UPLOAD_ERR_NO_FILE ) {
+		wp_redirect( admin_url('admin.php?page=layerslider&error=1&message=importSelectError') );
+		exit;
+	}
+
+	// Too large file
+	if( $file['error'] === UPLOAD_ERR_INI_SIZE || $file['error'] === UPLOAD_ERR_FORM_SIZE ) {
+		wp_redirect( admin_url('admin.php?page=layerslider&error=1&message=uploadErrorSize') );
+		exit;
+	}
+
+	// Other error
+	if( $file['error'] !== UPLOAD_ERR_OK ) {
+		wp_redirect( admin_url('admin.php?page=layerslider&error=1&message=uploadError') );
+		exit;
+	}
+
+	// Sec-check
+	if( ! is_uploaded_file( $file['tmp_name'] ) ) {
+		wp_redirect( admin_url('admin.php?page=layerslider&error=1&message=uploadError' ) );
+		exit;
 	}
 
 	require_once LS_ROOT_PATH.'/classes/class.ls.importutil.php';
 
-	$import = new LS_ImportUtil(
-		$_FILES['import_file']['tmp_name'],
-		$_FILES['import_file']['name'],
-		__('Imported Group', 'LayerSlider')
-	);
+	$import = new LS_ImportUtil( $file['tmp_name'], $file['name'], __('Imported Group', 'LayerSlider') );
 
-	if( ! empty( $import->lastErrorCode) ) {
+	if( ! empty( $import->lastErrorCode ) ) {
 		if( $import->lastErrorCode === 'LR_PARTIAL_IMPORT' ) {
 			wp_redirect( admin_url('admin.php?page=layerslider&message=importLRPartial&error') );
 			exit;
@@ -1892,14 +1918,6 @@ function layerslider_do_register_wpml_strings( $data, $sliderID, $currentLang, $
 	}
 }
 
-
-function ls_export_as_html( $sliderID ) {
-
-	// Markup export uses PHP 5.3 features (namespaces, callbacks, etc),
-	// thus we cannot use the code directly on the global scope in order
-	// to avoid parsing errors on pre 5.3 PHP versions.
-	include LS_ROOT_PATH . '/includes/slider_markup_export.php';
-}
 
 
 function ls_empty_3rd_party_caches() {

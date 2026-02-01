@@ -343,9 +343,36 @@ $lsDefaults = [
 			'keys' => 'stickTo',
 			'desc' => __('The portion of the viewport (browser window) where the slider should stick to until visitors scrolls beyond the scene height.', 'LayerSlider'),
 			'options' => [
-				'top' => __('Top', 'LayerSlider'),
-				'center' => __('Center', 'LayerSlider'),
-				'bottom' => __('Bottom', 'LayerSlider')
+				'top' => __('Viewport Top', 'LayerSlider'),
+				'center' => __('Viewport Center', 'LayerSlider'),
+				'bottom' => __('Viewport Bottom', 'LayerSlider')
+			]
+		],
+
+		'stickDuration' => [
+			'value' => '',
+			'name' => __('Stick Duration', 'LayerSlider'),
+			'keys' => 'stickDuration',
+			'desc' => __('Specifies how much of the slider’s total timeline duration it is allowed to stay in sticked state. This value is in milliseconds. A second is 1000 milliseconds. 0 ms means it will not stick at all.', 'LayerSlider'),
+			'unit' => 'ms',
+			'advanced' => true,
+			'attrs' => [
+				'type' => 'number',
+				'step' => 100,
+				'min' => 0
+			],
+		],
+
+		'playFrom' => [
+			'value' => 'stick',
+			'name' => __('Play From', 'LayerSlider'),
+			'keys' => 'playFrom',
+			'desc' => __('Controls when the scene’s animations start playing. Except for Stick Point, all options trigger when the scene’s top edge reaches the specified point of the viewport.', 'LayerSlider'),
+			'options' => [
+				'stick' => __('Stick Point', 'LayerSlider'),
+				'top' => __('Viewport Top', 'LayerSlider'),
+				'center' => __('Viewport Center', 'LayerSlider'),
+				'bottom' => __('Viewport Bottom', 'LayerSlider')
 			]
 		],
 
@@ -357,6 +384,17 @@ $lsDefaults = [
 				'type' => 'number',
 				'placeholder' => 1000,
 				'min' => 0
+			]
+		],
+
+		'scrollPerSlideEmbeds' => [
+			'value' => false,
+			'name'  => __('Create Per-Slide Embeds', 'LayerSlider'),
+			'keys'  => 'scrollPerSlideEmbeds',
+			'desc'  => __('Scroll scenes always use a single slide. However, if this project contains multiple slides, you can enable this option to automatically create additional embeds for the other slides. You still need to embed the project manually using any of the supported methods, but this option saves you from repeating that step for each slide by generating the remaining embeds automatically.', 'LayerSlider'),
+			'advanced' => true,
+			'props' => [
+				'meta' => true
 			]
 		],
 
@@ -1806,6 +1844,15 @@ $lsDefaults = [
 			]
 		],
 
+		'scrollSlideDuration' => [
+			'value' => 2,
+			'keys' => 'scrollSlideDuration',
+			'props' => [
+				'meta' => true,
+				'forceoutput' => true
+			]
+		],
+
 		'2dTransitions' => [
 			'value' => '',
 			'keys' => ['2d_transitions', 'transition2d']
@@ -2144,6 +2191,17 @@ $lsDefaults = [
  			]
 		],
 
+		'parallaxDurationEnter' => [
+			'value' => 1500,
+			'name' => __('Enter Duration', 'LayerSlider'),
+			'keys' => 'parallaxdurationenter',
+			'attrs' => [
+				'type' => 'number',
+				'step' => 100,
+				'min' => 0
+			]
+		],
+
 		'parallaxDurationLeave' => [
 			'value' => 1200,
 			'name' => __('Leave Duration', 'LayerSlider'),
@@ -2265,16 +2323,16 @@ $lsDefaults = [
 				'meta' => true
 			],
 			'options' => [
-				'ls-layer' => '&lt;ls-layer&gt;',
-				'div' => '&lt;div&gt;',
-				'span' => '&lt;span&gt;',
-				'p' => '&lt;p&gt;',
-				'h1' => '&lt;h1&gt;',
-				'h2' => '&lt;h2&gt;',
-				'h3' => '&lt;h3&gt;',
-				'h4' => '&lt;h4&gt;',
-				'h5' => '&lt;h5&gt;',
-				'h6' => '&lt;h6&gt;',
+				'ls-layer' => '<ls-layer>',
+				'div' => '<div>',
+				'span' => '<span>',
+				'p' => '<p>',
+				'h1' => '<h1>',
+				'h2' => '<h2>',
+				'h3' => '<h3>',
+				'h4' => '<h4>',
+				'h5' => '<h5>',
+				'h6' => '<h6>',
 			]
 		],
 
@@ -2417,7 +2475,7 @@ $lsDefaults = [
 			'options' => [
 				'auto' => __('Automatic', 'LayerSlider'),
 				'enabled' => __('Enabled', 'LayerSlider'),
-				'manual' => _x('Manual (&lt;br&gt;)', 'Displays as "Manual (<br>)". Plase don’t change the HTML entities.', 'LayerSlider')
+				'manual' => __('Manual (<br>)', 'LayerSlider')
 			],
 			'props' => [
 				'meta' => true
@@ -2760,6 +2818,13 @@ $lsDefaults = [
 			]
 		],
 
+		'effects' => [
+			'value' => '',
+			'keys' => 'effects',
+			'props' => [
+				'meta' => true
+			]
+		],
 
 		'actions' => [
 			'value' => '',
@@ -3365,6 +3430,12 @@ $lsDefaults = [
 			'attrs' => ['type' => 'text']
 		],
 
+		'textClipIn' => [
+			'value' => '',
+			'name' => __('Mask', 'LayerSlider'),
+			'keys' => 'textclipin'
+		],
+
 		'textDurationIn' => [
 			'value' => 1000,
 			'name' => __('Duration', 'LayerSlider'),
@@ -3561,6 +3632,12 @@ $lsDefaults = [
 			'name' => __('Offset Y', 'LayerSlider'),
 			'keys'  => 'textoffsetyout',
 			'attrs' => ['type' => 'text']
+		],
+
+		'textClipOut' => [
+			'value' => '',
+			'name' => __('Mask', 'LayerSlider'),
+			'keys' => 'textclipout'
 		],
 
 		'textDurationOut' => [
@@ -3889,8 +3966,22 @@ $lsDefaults = [
 
 		'loopWait' => [
 			'value' => '0',
-			'name' => __('Wait', 'LayerSlider'),
+			'name' => __('Repeat Wait', 'LayerSlider'),
 			'keys' => 'looprepeatdelay',
+			'attrs' => [ 'min' => 0, 'step' => 100 ]
+		],
+
+		'loopTweenWait' => [
+			'value' => '0',
+			'name' => __('Step Wait', 'LayerSlider'),
+			'keys' => 'looptweendelay',
+			'attrs' => [ 'min' => 0, 'step' => 100 ]
+		],
+
+		'loopYoyoWait' => [
+			'value' => '0',
+			'name' => __('Yoyo Wait', 'LayerSlider'),
+			'keys' => 'loopyoyodelay',
 			'attrs' => [ 'min' => 0, 'step' => 100 ]
 		],
 
@@ -3898,6 +3989,12 @@ $lsDefaults = [
 			'value' => false,
 			'name' => __('Yoyo', 'LayerSlider'),
 			'keys' => 'loopyoyo'
+		],
+
+		'loopResume' => [
+			'value' => false,
+			'name' => __('Resume', 'LayerSlider'),
+			'keys' => 'loopresume'
 		],
 
 		'loopPerspective' => [
@@ -4238,6 +4335,18 @@ $lsDefaults = [
 				'19' => __('18x', 'LayerSlider'),
 				'20' => __('19x', 'LayerSlider'),
 				'21' => __('20x', 'LayerSlider')
+			]
+		],
+
+		'parallaxDurationEnter' => [
+			'value' => '',
+			'name' => __('Enter Duration', 'LayerSlider'),
+			'keys' => 'parallaxdurationenter',
+			'attrs' => [
+				'type' => 'number',
+				'step' => 100,
+				'min' => 0,
+				'placeholder' => __('Inherit', 'LayerSlider')
 			]
 		],
 
@@ -5005,7 +5114,7 @@ $lsDefaults = [
 		],
 
 		'boxShadow' => [
-			'value' => '',
+			'value' => ' 0 0 0 0 currentColor', // LEAVE the space at the beginning
 			'name' => __('Box Shadow', 'LayerSlider'),
 			'keys' => 'box-shadow',
 			'props' => [
@@ -5014,7 +5123,7 @@ $lsDefaults = [
 		],
 
 		'textStroke' => [
-			'value' => '',
+			'value' => '0 currentColor',
 			'name' => __('Text Stroke', 'LayerSlider'),
 			'keys' => '-webkit-text-stroke',
 			'props' => [
@@ -5023,7 +5132,7 @@ $lsDefaults = [
 		],
 
 		'textShadow' => [
-			'value' => '',
+			'value' => '0 0 0 currentColor',
 			'name' => __('Text Shadow', 'LayerSlider'),
 			'keys' => 'text-shadow',
 			'props' => [
@@ -5117,6 +5226,24 @@ $lsDefaults = [
 			'value' => 'left',
 			'name' => __('Text Align', 'LayerSlider'),
 			'keys' => 'text-align',
+			'props' => [
+				'meta' => true
+			]
+		],
+
+		'textAlignLast' => [
+			'value' => '',
+			'name' => __('Align Last Line', 'LayerSlider'),
+			'keys' => 'text-align-last',
+			'options' => [
+				'' => __('Auto', 'LayerSlider'),
+				'left' => __('Left', 'LayerSlider'),
+				'center' => __('Center', 'LayerSlider'),
+				'right' => __('Right', 'LayerSlider'),
+				'justiy' => __('Justify', 'LayerSlider'),
+				'start' => __('Start', 'LayerSlider'),
+				'end' => __('End', 'LayerSlider')
+			],
 			'props' => [
 				'meta' => true
 			]
@@ -5252,6 +5379,12 @@ $lsDefaults = [
 				'inoutloop' => __('Dynamic for Opening/Ending/Loop Transitions', 'LayerSlider'),
 				'inoutloopparallax' => __('Dynamic for Opening/Ending/Loop/Parallax Transitions', 'LayerSlider')
 			]
+		],
+
+		'smartBGEase' => [
+			'value' => 'inherit',
+			'name' => __('Smart Background Easing', 'LayerSlider'),
+			'keys' => 'smartBGEase'
 		],
 
 		'backgroundRepeat' => [
@@ -5425,6 +5558,12 @@ $lsDefaults = [
 			]
 		],
 
+		'useSliderRatioForPositions' => [
+			'value' => false,
+			'name' => __('Skip min. and max. ratios for positioning', 'LayerSlider'),
+			'keys' => 'usesliderratio'
+		],
+
 		'zIndex' => [
 			'value' => '',
 			'name' => __('Stacking Order', 'LayerSlider'),
@@ -5593,6 +5732,696 @@ $lsDefaults = [
 			]
 		]
 
+	],
+
+	'layerEffects' => [
+
+		'borderize' => [
+
+			'applyTo' => [
+				'value' => 'all',
+				'name' => __('Apply To', 'LayerSlider'),
+				'keys' => 'sides',
+				'options' => [
+					'all' => __('All Sides', 'LayerSlider'),
+					'h' => __('Top & Bottom', 'LayerSlider'),
+					'v' => __('Left & Right', 'LayerSlider'),
+					't' => __('Top', 'LayerSlider'),
+					'r' => __('Right', 'LayerSlider'),
+					'b' => __('Bottom', 'LayerSlider'),
+					'l' => __('Left', 'LayerSlider')
+				]
+			],
+
+			'color' => [
+				'value' => 'currentColor',
+				'name' => __('Color', 'LayerSlider'),
+				'keys' => 'color'
+			],
+
+			'thickness' => [
+				'value' => 5,
+				'name' => __('Thickness', 'LayerSlider'),
+				'keys' => 'size',
+				'attrs' => [
+					'type' => 'number',
+					'min' => 1,
+					'step' => 1
+				]
+			],
+
+			'placement' => [
+				'value' => 'o',
+				'name' => __( 'Placement', 'LayerSlider' ),
+				'keys' => 'placement',
+				'options' => [
+					'i' => __( 'Inside', 'LayerSlider' ),
+					'o' => __( 'Outside', 'LayerSlider' )
+				]
+			],
+
+			'offset' => [
+				'value' => '',
+				'name' => __('Offset', 'LayerSlider'),
+				'keys' => 'offset',
+				'attrs' => [
+					'placeholder' => '0',
+					'type' => 'number',
+					'step' => 1
+				]
+			],
+
+			'mode' => [
+				'value' => 'seq',
+				'name' => __( 'Mode', 'LayerSlider' ),
+				'keys' => 'mode',
+				'options' => [
+					'seq' => __( 'Sequential', 'LayerSlider' ),
+					'sim' => __( 'Simultaneous', 'LayerSlider' )
+				]
+			],
+
+			'direction' => [
+				'value' => 'cw',
+				'name' => __( 'Direction', 'LayerSlider' ),
+				'keys' => 'direction',
+				'options' => [
+					'cw'  => __( 'Clockwise', 'LayerSlider' ),
+					'ccw' => __( 'Counterclockwise', 'LayerSlider' ),
+					't'   => __( 'Top', 'LayerSlider' ),
+					'r'   => __( 'Right', 'LayerSlider' ),
+					'b'   => __( 'Bottom', 'LayerSlider' ),
+					'l'   => __( 'Left', 'LayerSlider' ),
+					'c'   => __( 'Center', 'LayerSlider' )
+				]
+			],
+
+			'filter' => [
+				'value' => '',
+				'name' => __('Filter', 'LayerSlider'),
+				'keys' => 'filter'
+			],
+
+			'duration' => [
+				'value' => 1500,
+				'name' => __( 'Duration', 'LayerSlider' ),
+				'keys' => 'duration',
+				'attrs' => [
+					'type' => 'number',
+					'min' => 0,
+					'step' => 100
+				]
+			],
+
+			'easing' => [
+				'value' => 'linear',
+				'name' => __( 'Easing', 'LayerSlider' ),
+				'keys' => 'easing'
+			],
+
+			'startAt' => [
+				'value' => 'transitioninend',
+				'name' => __( 'Start At', 'LayerSlider' ),
+				'keys' => 'startAt',
+				'options' => [
+					'transitioninstart' => __( 'Opening Transition starts', 'LayerSlider' ),
+					'transitioninend'   => __( 'Opening Transition completes', 'LayerSlider' )
+				]
+			],
+
+			'delay' => [
+				'value' => 0,
+				'name' => __( 'Delay', 'LayerSlider' ),
+				'keys' => 'delay',
+				'attrs' => [
+					'type' => 'number',
+					'min' => 0,
+					'step' => 100
+				]
+			]
+
+		],
+
+		'liquify' => [
+
+			'axes' => [
+				'value'   => 'both',
+				'name'    => __('Axes', 'LayerSlider'),
+				'keys'    => 'axes',
+				'options' => [
+					'both'  => __('Both', 'LayerSlider'),
+					'x'   => __('X', 'LayerSlider'),
+					'y'   => __('Y', 'LayerSlider')
+				]
+			],
+
+			'scaleMaxX' => [
+				'value' => 1.3,
+				'name'  => __('Max Scale X', 'LayerSlider'),
+				'keys'  => 'scaleMaxX',
+				'attrs' => [
+					'type' => 'number',
+					'step' => 0.01,
+					'min'  => 1
+				]
+			],
+
+			'scaleMaxY' => [
+				'value' => '',
+				'name'  => __('Max Scale Y', 'LayerSlider'),
+				'keys'  => 'scaleMaxY',
+				'attrs' => [
+					'placeholder' => __('auto', 'LayerSlider'),
+					'type' => 'number',
+					'step' => 0.01,
+					'min'  => 1
+				]
+			],
+
+			'skewMaxX' => [
+				'value' => 10,
+				'name'  => __('Max Skew', 'LayerSlider'),
+				'keys'  => 'skewMaxX',
+				'attrs' => [
+					'type' => 'number',
+					'step' => 1
+				]
+			],
+
+			'rotationMax' => [
+				'value' => 10,
+				'name'  => __('Max Rotation', 'LayerSlider'),
+				'keys'  => 'rotationMax',
+				'attrs' => [
+					'type' => 'number',
+					'step' => 1
+				]
+			],
+
+			'intensity' => [
+				'value' => 1,
+				'name'  => __('Intensity', 'LayerSlider'),
+				'keys'  => 'intensity',
+				'attrs' => [
+					'type' => 'number',
+					'step' => 0.1,
+					'min'  => 0.1
+				]
+			],
+
+			'duration' => [
+				'value' => 500,
+				'name'  => __('Duration', 'LayerSlider'),
+				'keys'  => 'duration',
+				'attrs' => [
+					'type' => 'number',
+					'min'  => 0,
+					'step' => 50
+				]
+			],
+
+			'ease' => [
+				'value' => 'easeOutQuart',
+				'name'  => __('Easing', 'LayerSlider'),
+				'keys'  => 'ease'
+			],
+
+			'durationOut' => [
+				'value' => 1500,
+				'name'  => __('Duration Out', 'LayerSlider'),
+				'keys'  => 'durationOut',
+				'attrs' => [
+					'type' => 'number',
+					'min'  => 0,
+					'step' => 50
+				]
+			],
+
+			'easeOut' => [
+				'value' => 'easeOutElastic',
+				'name'  => __('Easing Out', 'LayerSlider'),
+				'keys'  => 'easeOut'
+			],
+
+			'releaseEffect' => [
+				'value' => 'tethered',
+				'name' => __( 'Release Effect', 'LayerSlider' ),
+				'keys' => 'releaseEffect',
+				'options' => [
+					'tethered'      => __( 'Tethered', 'LayerSlider' ),
+					'natural'  => __( 'Natural', 'LayerSlider' ),
+					'bouncy'  => __( 'Bouncy', 'LayerSlider' )
+				]
+			],
+		],
+
+		'replicator' => [
+
+			'clones' => [
+				'value' => 4,
+				'name' => __( 'Copies', 'LayerSlider' ),
+				'keys' => 'clones',
+				'attrs' => [
+					'type' => 'number',
+					'min' => 1,
+					'step' => 1,
+					'max' => 50
+				]
+			],
+
+			'delay' => [
+				'value' => 50,
+				'name' => __( 'Delay', 'LayerSlider' ),
+				'keys' => 'delay',
+				'attrs' => [
+					'type' => 'number',
+					'min' => 0,
+					'step' => 100
+				]
+			],
+
+			'offsetX' => [
+				'value' => '-5',
+				'name' => __( 'Offset X', 'LayerSlider' ),
+				'keys' => 'offsetX'
+			],
+
+			'offsetY' => [
+				'value' => '-5',
+				'name' => __( 'Offset Y', 'LayerSlider' ),
+				'keys' => 'offsetY'
+			],
+
+			'minOpacity' => [
+				'value' => 0.1,
+				'name' => __( 'Min. Opacity', 'LayerSlider' ),
+				'keys' => 'minOpacity',
+				'attrs' => [
+					'type' => 'number',
+					'min' => 0,
+					'max' => 1,
+					'step' => 0.05
+				]
+			],
+
+			'maxOpacity' => [
+				'value' => 0.5,
+				'name' => __( 'Max. Opacity', 'LayerSlider' ),
+				'keys' => 'maxOpacity',
+				'attrs' => [
+					'type' => 'number',
+					'min' => 0,
+					'max' => 1,
+					'step' => 0.05
+				]
+			],
+
+			'fadeMethod' => [
+				'value' => 'linear',
+				'name' => __( 'Fade Method', 'LayerSlider' ),
+				'keys' => 'fadeMethod',
+				'options' => [
+					'linear'      => __( 'Linear', 'LayerSlider' ),
+					'sinusoidal'  => __( 'Sine Wave', 'LayerSlider' ),
+					'exponential' => __( 'Exponential', 'LayerSlider' )
+				]
+			],
+
+			'blendMode' => [
+				'value' => 'unset',
+				'name' => __('Blend Mode', 'LayerSlider'),
+				'keys' => 'blendMode',
+				'options' => [
+					'unset' => __('Default', 'LayerSlider'),
+					'normal' => 'Normal',
+					'multiply' => 'Multiply',
+					'screen' => 'Screen',
+					'overlay' => 'Overlay',
+					'darken' => 'Darken',
+					'lighten' => 'Lighten',
+					'color-dodge' => 'Color-dodge',
+					'color-burn' => 'Color-burn',
+					'hard-light' => 'Hard-light',
+					'soft-light' => 'Soft-light',
+					'difference' => 'Difference',
+					'exclusion' => 'Exclusion',
+					'hue' => 'Hue',
+					'saturation' => 'Saturation',
+					'color' => 'Color',
+					'luminosity' => 'Luminosity'
+				]
+			],
+
+			'filter' => [
+				'value' => '',
+				'name' => __('Filter', 'LayerSlider'),
+				'keys' => 'filter'
+			],
+
+			'scaleStep' => [
+				'value' => '0',
+				'name' => __( 'Scale Step', 'LayerSlider' ),
+				'keys' => 'scaleStep'
+			],
+
+			'rotationStep' => [
+				'value' => '0',
+				'name' => __( 'Rotation Step', 'LayerSlider' ),
+				'keys' => 'rotationStep'
+			],
+
+			'widthStep' => [
+				'value' => 0,
+				'name' => __( 'Width Step', 'LayerSlider' ),
+				'keys' => 'widthStep',
+				'attrs' => [
+					'type' => 'number'
+				]
+			],
+
+			'heightStep' => [
+				'value' => 0,
+				'name' => __( 'Height Step', 'LayerSlider' ),
+				'keys' => 'heightStep',
+				'attrs' => [
+					'type' => 'number'
+				]
+			],
+
+			'parallaxLevelStep' => [
+				'value' => 1,
+				'name' => __( 'Parallax Level Step', 'LayerSlider' ),
+				'keys' => 'parallaxLevelStep',
+				'attrs' => [
+					'type' => 'number',
+					'step' => 1
+				]
+			],
+
+			'parallaxDurationStep' => [
+				'value' => 0,
+				'name' => __( 'Parallax Move Duration Step', 'LayerSlider' ),
+				'keys' => 'parallaxDurationStep',
+				'attrs' => [
+					'type' => 'number',
+					'step' => 10
+				]
+			],
+
+			'reverseOrder' => [
+				'value' => false,
+				'name' => __( 'Reverse Order', 'LayerSlider' ),
+				'keys' => 'reverseOrder'
+			],
+
+			'reverseParallax' => [
+				'value' => false,
+				'name' => __( 'Reverse Parallax', 'LayerSlider' ),
+				'keys' => 'reverseParallax'
+			]
+
+		],
+
+		'reveal' => [
+
+			'animation' => [
+				'value' => 'l',
+				'name'  => __( 'Animation', 'LayerSlider' ),
+				'keys'  => 'animation',
+				'options' => [
+					[
+						'label'   => __( 'Basic Directions', 'LayerSlider' ),
+						'options' => [
+							'l'             => __( 'From Left', 'LayerSlider' ),
+							't'             => __( 'From Top', 'LayerSlider' ),
+							'r'             => __( 'From Right', 'LayerSlider' ),
+							'b'             => __( 'From Bottom', 'LayerSlider' ),
+							'from-middle-c' => __( 'From Middle', 'LayerSlider' ),
+							'to-middle-c'   => __( 'To Middle', 'LayerSlider' )
+						]
+					],
+					[
+						'label'   => __( 'Corner Directions', 'LayerSlider' ),
+						'options' => [
+							'tl' => __( 'From Top Left', 'LayerSlider' ),
+							'tr' => __( 'From Top Right', 'LayerSlider' ),
+							'br' => __( 'From Bottom Right', 'LayerSlider' ),
+							'bl' => __( 'From Bottom Left', 'LayerSlider' )
+						]
+					],
+					[
+						'label'   => __( 'Origami Animations', 'LayerSlider' ),
+						'options' => [
+							'obr'                   => __( 'Origami From Top Left', 'LayerSlider' ),
+							'obl'                   => __( 'Origami From Top Right', 'LayerSlider' ),
+							'otl'                   => __( 'Origami From Bottom Right', 'LayerSlider' ),
+							'otr'                   => __( 'Origami From Bottom Left', 'LayerSlider' ),
+							'origami-from-middle-q' => __( 'Origami From Middle', 'LayerSlider' ),
+							'origami-to-middle-q'   => __( 'Origami To Middle', 'LayerSlider' )
+						]
+					],
+					[
+						'label'   => __( 'Center & Side Splits', 'LayerSlider' ),
+						'options' => [
+							'sides-h'  => __( 'From Sides Horizontal', 'LayerSlider' ),
+							'center-h' => __( 'From Center Horizontal', 'LayerSlider' ),
+							'sides-v'  => __( 'From Sides Vertical', 'LayerSlider' ),
+							'center-v' => __( 'From Center Vertical', 'LayerSlider' )
+						]
+					],
+					[
+						'label'   => __( 'Mirror Animations', 'LayerSlider' ),
+						'options' => [
+							'mirror-h'     => __( 'Mirror From Horizontal Center', 'LayerSlider' ),
+							'mirror-h-rev' => __( 'Mirror From Horizontal Center (Reverse)', 'LayerSlider' ),
+							'mirror-v'     => __( 'Mirror From Vertical Center', 'LayerSlider' ),
+							'mirror-v-rev' => __( 'Mirror From Vertical Center (Reverse)', 'LayerSlider' )
+						]
+					],
+					[
+						'label'   => __( 'Quad Animations', 'LayerSlider' ),
+						'options' => [
+							'from-sides-q'  => __( 'Quad From Sides', 'LayerSlider' ),
+							'to-sides-q'    => __( 'Quad To Sides', 'LayerSlider' ),
+							'from-middle-q' => __( 'Quad From Middle', 'LayerSlider' ),
+							'to-middle-q'   => __( 'Quad To Middle', 'LayerSlider' )
+						]
+					],
+					[
+						'label'   => __( 'Multi-Column & Multi-Row', 'LayerSlider' ),
+						'options' => [
+							'columns-l' => __( 'Columns From Left', 'LayerSlider' ),
+							'columns-r' => __( 'Columns From Right', 'LayerSlider' ),
+							'rows-t'    => __( 'Rows From Top', 'LayerSlider' ),
+							'rows-b'    => __( 'Rows From Bottom', 'LayerSlider' )
+						]
+					]
+				]
+			],
+
+			'background' => [
+				'value' => 'currentColor',
+				'name' => __( 'Fill Color', 'LayerSlider' ),
+				'keys' => 'background'
+			],
+
+			'durationFill' => [
+				'value' => 800,
+				'name' => __( 'Fill Duration', 'LayerSlider' ),
+				'keys' => 'durationFill',
+				'attrs' => [
+					'type' => 'number',
+					'min' => 0,
+					'step' => 100
+				]
+			],
+
+			'wait' => [
+				'value' => 300,
+				'name' => __( 'Wait Duration', 'LayerSlider' ),
+				'keys' => 'wait',
+				'attrs' => [
+					'type' => 'number',
+					'min' => 0,
+					'step' => 100
+				]
+			],
+
+			'durationHide' => [
+				'value' => 300,
+				'name' => __( 'Hide Duration', 'LayerSlider' ),
+				'keys' => 'durationHide',
+				'attrs' => [
+					'type' => 'number',
+					'min' => 0,
+					'step' => 100
+				]
+			],
+
+			'easing' => [
+				'value' => 'easeOutQuart',
+				'name' => __( 'Easing', 'LayerSlider' ),
+				'keys' => 'easing'
+			],
+
+			'tileDelay' => [
+				'value' => 0,
+				'name' => __( 'Tile Delay', 'LayerSlider' ),
+				'keys' => 'tileDelay',
+				'attrs' => [
+					'type' => 'number',
+					'min' => 0,
+					'step' => 10
+				]
+			],
+
+			'skipFillAtFirst' => [
+				'value' => false,
+				'name' => __( 'Skip Fill & Wait At First', 'LayerSlider' ),
+				'keys' => 'skipFillAtFirst'
+			],
+
+			'skipOpening' => [
+				'value' => true,
+				'name' => __( 'Skip Opening Transition', 'LayerSlider' ),
+				'keys' => 'skipOpening'
+			],
+
+			'mirrorTransition' => [
+				'value' => true,
+				'name' => __( 'Mirror Transition', 'LayerSlider' ),
+				'keys' => 'mirrorTransition'
+			],
+
+			'endingTransition' => [
+				'value' => false,
+				'name' => __( 'Use As Ending Transition', 'LayerSlider' ),
+				'keys' => 'endingTransition'
+			]
+
+		],
+
+		'typewriter' => [
+
+			'startAt' => [
+				'value' => 'transitioninstart',
+				'name' => __( 'Start At', 'LayerSlider' ),
+				'keys' => 'startAt',
+				'options' => [
+					'transitioninstart' => __( 'Opening Transition starts', 'LayerSlider' ),
+					'transitioninend' => __( 'Opening Transition completes', 'LayerSlider' )
+				]
+			],
+
+			'delay' => [
+				'value' => 0,
+				'name' => __( 'Delay', 'LayerSlider' ),
+				'keys' => 'delay',
+				'attrs' => [
+					'type' => 'number',
+					'min' => 0,
+					'step' => 100
+				]
+			],
+
+			'speed' => [
+				'value' => '3',
+				'name' => __( 'Typing Speed', 'LayerSlider' ),
+				'keys' => 'speed',
+				'options' => [
+					'1' => __( 'Very Slow', 'LayerSlider' ),
+					'2' => __( 'Slow', 'LayerSlider' ),
+					'3' => __( 'Normal', 'LayerSlider' ),
+					'4' => __( 'Fast', 'LayerSlider' ),
+					'5' => __( 'Very Fast', 'LayerSlider' )
+				]
+			],
+
+			'style' => [
+				'value' => 'natural',
+				'name' => __( 'Typing Style', 'LayerSlider' ),
+				'keys' => 'style',
+				'options' => [
+					'natural' => __( 'Natural', 'LayerSlider' ),
+					'constant' => __( 'Constant', 'LayerSlider' )
+				]
+			],
+
+			'cursor' => [
+				'value' => true,
+				'name' => __( 'Show Cursor', 'LayerSlider' ),
+				'keys' => 'cursor'
+			],
+
+			'cursorType' => [
+				'value' => 'block',
+				'name' => __( 'Cursor Type', 'LayerSlider' ),
+				'keys' => 'cursorType',
+				'options' => [
+					'block' => __( 'Block', 'LayerSlider' ),
+					'line' => __( 'Line', 'LayerSlider' ),
+					'underscore' => __( 'Underscore', 'LayerSlider' ),
+					'nextl' => __( 'Next Letter', 'LayerSlider' ),
+					'randoml' => __( 'Random Letter', 'LayerSlider' )
+				]
+			],
+
+			'cursorColor' => [
+				'value' => 'currentColor',
+				'name' => __( 'Cursor Color', 'LayerSlider' ),
+				'keys' => 'cursorColor'
+			],
+
+			'cursorSize' => [
+				'value' => '1',
+				'name' => __( 'Cursor Size', 'LayerSlider' ),
+				'keys' => 'cursorSize',
+				'options' => [
+					'0.5' => __( 'Very Small', 'LayerSlider' ),
+					'0.75' => __( 'Small', 'LayerSlider' ),
+					'1' => __( 'Normal', 'LayerSlider' ),
+					'1.25' => __( 'Large', 'LayerSlider' ),
+					'1.5' => __( 'Very Large', 'LayerSlider' )
+				]
+			],
+
+			'cursorHide' => [
+				'value' => false,
+				'name' => __( 'Hide After Animation', 'LayerSlider' ),
+				'keys' => 'cursorHide'
+			],
+
+			'cursorHideDelay' => [
+				'value' => 1000,
+				'name' => __( 'Hide Delay', 'LayerSlider' ),
+				'keys' => 'cursorHideDelay',
+				'attrs' => [
+					'type' => 'number',
+					'min' => 0,
+					'step' => 100
+				]
+			],
+
+			'blinkSpeed' => [
+				'value' => '3',
+				'name' => __( 'Blink Effect', 'LayerSlider' ),
+				'keys' => 'blinkSpeed',
+				'options' => [
+					'0' => __( 'No Blinking', 'LayerSlider' ),
+					'1' => __( 'Very Slow', 'LayerSlider' ),
+					'2' => __( 'Slow', 'LayerSlider' ),
+					'3' => __( 'Normal', 'LayerSlider' ),
+					'4' => __( 'Fast', 'LayerSlider' ),
+					'5' => __( 'Very Fast', 'LayerSlider' )
+				]
+			],
+
+			'skipOpening' => [
+				'value' => true,
+				'name' => __( 'Skip Opening Transition', 'LayerSlider' ),
+				'keys' => 'skipOpening'
+			]
+		]
 	],
 
 	'easings' => [

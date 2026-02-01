@@ -890,6 +890,31 @@
 
 	</div>
 
+	<div data-smart-help="maskText">
+
+		<lse-b class="lse-anim lse-jcse">
+			<lse-ib class="lse-anim-box-21 lse-anim-box">
+				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
+				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
+			</lse-ib>
+			<lse-ib class="lse-anim-box-23 lse-anim-box">
+				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
+				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
+			</lse-ib>
+			<lse-ib class="lse-anim-box-22 lse-anim-box">
+				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
+				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
+			</lse-ib>
+			<lse-ib class="lse-anim-box-20 lse-anim-box">
+				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
+				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
+			</lse-ib>
+		</lse-b>
+
+		<?= __('Clips (cuts off) the sides of each text fragment by the given amount specified in pixels or percentages. The four values are in order: top, right, bottom, and left. A four-point polygonal cutout can also be used by providing 4 pairs of coordinates, separated by commas. Refer to the provided examples for acceptable values.', 'LayerSlider') ?>
+
+	</div>
+
 
 	<div data-smart-help="maskStyle">
 
@@ -1012,6 +1037,11 @@
 		<?= __('The length of the transition in milliseconds. A second equals to 1000 milliseconds.', 'LayerSlider') ?>
 	</div>
 
+	<div data-smart-options="loopduration">
+		<?= __('The length of the transition in milliseconds. A second is 1000 milliseconds. Supports special - randomized or cycled - values. Special values are chosen at every step/repeat start.', 'LayerSlider') ?>
+	</div>
+
+
 
 	<div data-smart-help="textshiftduration">
 		<?= __('Delays the transition of each text fragment relative to each other. A second equals to 1000 milliseconds.', 'LayerSlider') ?>
@@ -1039,6 +1069,10 @@
 		<?= __('Sets the intensity of the parallax effect. Use negative values to shift layers in the opposite direction.', 'LayerSlider') ?>
 	</div>
 
+
+	<div data-smart-help="parallaxenterduration">
+		<?= __('Controls how quickly layers move into position when the mouse first enters the slider area.<br><br> If you set a low or zero Move Duration, layers would normally react instantly to the cursor’s position. With Enter Duration, you can create a smoother entry by defining a separate timing for this initial movement, after which the regular Move Duration will take effect.', 'LayerSlider') ?>
+	</div>
 
 	<div data-smart-help="parallaxmoveduration">
 		<?= __('Controls the speed of layer movement. This value is in milliseconds (1 second = 1000 milliseconds).', 'LayerSlider') ?>
@@ -1100,7 +1134,7 @@
 
 
 	<div data-smart-help="filter">
-		<?= __('Filters provide effects like blurring, color shifting, or changing the brightness, contrast, saturation of your layers, among many others. Use the below options to easily apply multiple filters on your layers.', 'LayerSlider') ?>
+		<?= __('Filters provide effects like blurring, color shifting, or changing the brightness, contrast, saturation of your layers, among many others. Use the below options to easily apply multiple filters.', 'LayerSlider') ?>
 	</div>
 
 
@@ -1118,9 +1152,23 @@
 	</div>
 
 	<div data-smart-help="loopwait">
-		<?= __('Wait time between repeats in milliseconds. A second is 1000 milliseconds. Supports randomized values. Random values are chosen once at every slide start and remain the same for all repeats.', 'LayerSlider') ?>
+		<?= __('Wait time between repeats in milliseconds. A second is 1000 milliseconds. Supports special - randomized or cycled - values. Special values are chosen at every repeat start.<br><br>
+
+				This setting depends on the number of repeats. When using with Yoyo, it applies to both the forward and backward (Yoyo) animations. If you only want the wait time to occur after the Yoyo animation, use the Yoyo Wait setting instead.', 'LayerSlider') ?>
 	</div>
 
+	<div data-smart-help="loopyoyowait">
+		<?= __('Yoyo Wait time between repeats in milliseconds. A second is 1000 milliseconds. Supports special - randomized or cycled - values. Special values are chosen at every Yoyo start.<br><br>
+
+				If you are using Repeat Wait with Yoyo but don’t want the repeat wait time to apply after the Yoyo animation completes, enter a negative value here. For example, if Repeat Wait is set to 1000ms, you can specify -1000ms for this option.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="loopstepwait">
+		<?= __('Step Wait time between repeats in milliseconds. A second is 1000 milliseconds. Supports special - randomized or cycled - values. Special values are chosen at every step start.<br><br>
+
+				This setting is only available when using cycled values for transition properties, and it only applies between steps. It will not be applied after the final step.
+		', 'LayerSlider') ?>
+	</div>
 
 	<div data-smart-help="static">
 		<?= __('Layers can be kept at their place across multiple slides. Here you can select the slide on which this layer should animate out.', 'LayerSlider') ?>
@@ -1191,6 +1239,32 @@
 			<a class="lse-button lse-link" target="_blank" href="https://layerslider.com/blog/introducing-smart-background/"><?= __('Explore Live Examples', 'LayerSlider') ?> </a>
 	</div>
 
+	<div data-smart-help="smartbgease">
+
+		<lse-b class="lse-anim lse-jcse">
+			<lse-ib class="lse-anim-box-16 lse-anim-box">
+				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
+				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
+			</lse-ib>
+			<lse-ib class="lse-anim-box-17 lse-anim-box">
+				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
+				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
+			</lse-ib>
+			<lse-ib class="lse-anim-box-18 lse-anim-box">
+				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
+				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
+			</lse-ib>
+			<lse-ib class="lse-anim-box-19 lse-anim-box">
+				<lse-anim-block class="lse-anim-rect lse-anim-orig"></lse-anim-block>
+				<lse-anim-block class="lse-anim-rect lse-anim-moved"></lse-anim-block>
+			</lse-ib>
+		</lse-b>
+
+		<p><?= __('With this option, you can customize the easing of the Smart Background animation for supported transition types, such as Loop and Parallax. By adjusting the easing, you can control how smoothly or dynamically the background content moves in relation to the layer. This gives you even more flexibility to fine-tune the visual flow of your animations.', 'LayerSlider') ?></p>
+
+		<p><?= __('An easing is the timing function of the animation. With it, you can manipulate the movement of the animated object. Please click on the link to open <a href="https://easings.net/" target="_blank">easings.net</a> for more information and more detailed examples.', 'LayerSlider') ?></p>
+	</div>
+
 
 
 	<div data-smart-help="deeplink">
@@ -1223,6 +1297,152 @@
 		<?= __('The timeline position to animate to or the amount to play forward/backward. Supported units: <br><br> <b>%:</b> Percentage of the slide duration. 0% means the beginning, while 100% means the end of the slide timeline. <br><br> <b>ms:</b> A specific point or amount of time in milliseconds. A second is 1000 milliseconds.', 'LayerSlider') ?>
 	</div>
 
+
+	<div data-smart-help="le-borderize-thickness">
+		<?= __('Adjusts the width of the border in pixels. Larger values create a thicker, more prominent border.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="le-borderize-position">
+		<?= __('Specifies whether the border is drawn inside or outside the layer’s edges.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="le-borderize-offset">
+		<?= __('Adjusts the distance between the border and the layer’s edges. You can use positive and negative values.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="le-borderize-mode">
+		<?= __('Determines whether the border animation plays sequentially around the selected sides or all at once.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="le-borderize-direction">
+		<?= __('Controls the border animation’s movement.', 'LayerSlider') ?>
+	</div>
+
+	<div data-smart-help="le-borderize-duration">
+		<p><?= __('Sets how long the border animation takes from beginning to end in milliseconds. A second equals to 1000 milliseconds.', 'LayerSlider') ?></p>
+		<p><?= __('In Sequential mode, this time is divided among the selected sides, so each side animates more quickly to fit within the overall length.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-borderize-delay">
+		<p><?= __('Sets how long to wait before the border animation begins, in milliseconds, relative to the selected <b>START AT</b> option. A second equals to 1000 milliseconds.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-liquify-axes">
+		<p><?= __('Specifies which axes can be deformed when reacting to pointer movement.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-liquify-scale-max-x">
+		<p><?= __('Adjusts the maximum horizontal stretching applied to the layer while following the pointer. Larger values create more pronounced deformation.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-liquify-scale-max-y">
+		<p><?= __('Adjusts the maximum vertical stretching applied to the layer. Leave this field empty to automatically calculate a proportional value based on the X setting and the layer’s dimensions.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-liquify-skew-max-x">
+		<p><?= __('Sets how much the layer can skew as it reacts to pointer movement. Higher values create a more noticeable distortion.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-liquify-rotation-max">
+		<p><?= __('Controls the maximum rotation applied during deformation. Larger values allow the layer to tilt more while following the pointer.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-liquify-intensity">
+		<p><?= __('Determines how strongly the layer reacts to pointer movement. Higher values make the layer reach its maximum deformation more quickly, requiring smaller pointer movements to achieve the full effect.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-liquify-duration">
+		<p><?= __('Sets how long it takes for the layer to reach its deformed state while following the pointer, measured in milliseconds. One second equals 1000 milliseconds.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-liquify-duration-out">
+		<p><?= __('Sets how long it takes for the layer to return to its original shape after the pointer leaves the layer, measured in milliseconds. One second equals 1000 milliseconds.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-liquify-release-effect">
+	<p><?= __('Determines how the layer behaves when moving back to its original position after the pointer leaves the layer. <ul><li><b>Tethered:</b> Returns without noticeable overshoot.<br><br></li><li><b>Natural:</b> Adds a small amount of overshoot for a subtle, smoother feel.<br><br></li><li><b>Bouncy:</b> Applies a stronger overshoot, creating a more pronounced spring-like motion.</li></ul>', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-replicator-copies">
+		<p><?= __('Sets the number of copies to generate from the original layer.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-replicator-delay">
+		<p><?= __('Delays each copy’s animation by a set number of milliseconds. This delay is added on top of the previous one, so it accumulates for each additional copy. One second equals 1000 milliseconds.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-replicator-offset-x">
+		<p><?= __('Shifts each copy’s position horizontally by the specified amount, as if they were created at an offset location from the original. The shift is cumulative when using fixed values, so each copy is placed further from the previous one. When using randomized values or expressions, however, each copy is calculated independently and the shift is not cumulative. You can use positive and negative values. Randomized values are also supported, but avoid mixing units. Supported units: <ul><li><b>px:</b> A fixed value specified in pixels.<br><br></li><li><b>sw:</b> Percentage of the slider width. 1sw equals to 1% of the slider width. This value scales dynamically when the slider’s size changes.<br><br></li><li><b>lw:</b> Percentage of the layer width. 1lw equals to 1% of the layer width. This value scales dynamically when the layer’s size changes.</li></ul>', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-replicator-offset-y">
+		<p><?= __('Shifts each copy’s position vertically by the specified amount, as if they were created at an offset location from the original. The shift is cumulative when using fixed values, so each copy is placed further from the previous one. When using randomized values or expressions, however, each copy is calculated independently and the shift is not cumulative. You can use positive and negative values. Randomized values are also supported, but avoid mixing units. Supported units: <ul><li><b>px:</b> A fixed value specified in pixels.<br><br></li><li><b>sh:</b> Percentage of the slider height. 1sh equals to 1% of the slider height. This value scales dynamically when the slider’s size changes.<br><br></li><li><b>lh:</b> Percentage of the layer height. 1lh equals to 1% of the layer height. This value scales dynamically when the layer’s size changes.</li></ul>', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-replicator-min-opacity">
+		<p><?= __('Defines the lower limit of the opacity applied across copies. By default, copies gradually fade between the Max and Min values, and the distribution is controlled by the Fade Method setting.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-replicator-max-opacity">
+		<p><?= __('Defines the upper limit of the opacity applied across copies. By default, copies gradually fade between the Max and Min values, and the distribution is controlled by the Fade Method setting.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-replicator-fade-method">
+		<p><?= __('Determines how opacity values are distributed between the Max and Min settings across copies. Different methods use various curves to define the progression, creating either even or non-linear value sequences.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-replicator-scale-step">
+		<p><?= __('Adjusts the scale transformation for each additional copy by the specified step value. Positive values progressively enlarge copies, while negative values shrink them. When using random values, each copy will receive a randomly chosen value from the defined range. When using cycle values, copies will take the defined values in order, one after another.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-replicator-rotation-step">
+		<p><?= __('Adjusts the rotation for each additional copy by the specified step value. Positive values progressively rotate copies clockwise, while negative values rotate them counterclockwise. When using random values, each copy will receive a randomly chosen value from the defined range. When using cycle values, copies will take the defined values in order, one after another.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-replicator-width-step">
+		<p><?= __('Adjusts the width of each additional copy by the specified step value. Positive values progressively increase the width, while negative values decrease it.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-replicator-height-step">
+		<p><?= __('Adjusts the height of each additional copy by the specified step value. Positive values progressively increase the height, while negative values decrease it.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-replicator-parallax-step">
+		<p><?= __('Adjusts the parallax level of the Parallax Transition for each additional copy by the specified step value. Positive values progressively increase the parallax effect, while negative values decrease it.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-replicator-parallax-duration-step">
+		<p><?= __('Adjusts the movement duration of the Parallax Transition for each additional copy by the specified step value. Positive values progressively increase the duration, while negative values shorten it.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-typewriter-delay">
+		<p><?= __('Sets how long to wait before the typing animation begins, in milliseconds, relative to the selected <b>START AT</b> option. A second equals to 1000 milliseconds.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-typewriter-hide-delay">
+		<p><?= __('Sets the delay before the cursor gets hidden after the animation finishes, in milliseconds. This only applies when Hide After Animation is enabled. A second equals 1000 milliseconds.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-reveal-fill-duration">
+		<p><?= __('Sets the time for the mask to expand and fully cover the layer, in milliseconds. A second equals 1000 milliseconds.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-reveal-wait-duration">
+		<p><?= __('Sets how long the mask stays fully covering the layer before collapsing, in milliseconds. A second equals 1000 milliseconds.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-reveal-hide-duration">
+		<p><?= __('Sets the time for the mask to collapse and reveal the layer’s content, in milliseconds. A second equals 1000 milliseconds.', 'LayerSlider') ?></p>
+	</div>
+
+	<div data-smart-help="le-reveal-tile-delay">
+		<p><?= __('Sets the time offset between individual tiles when the selected animation consists of multiple segments. This delay is cumulative, so each subsequent tile starts later than the previous one by the specified amount. Measured in milliseconds, where one second equals 1000 milliseconds.', 'LayerSlider') ?></p>
+	</div>
+
+
+
+
+
 </lse-smart-help-contents>
 
 <lse-smart-options-contents>
@@ -1231,8 +1451,8 @@
 
 		<lse-ul class="lse-smart-inject">
 			<lse-li data-smart-inject="0%"><?= __('Left', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="50%"><?= __('Center', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="100%"><?= __('Right', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="50%"><?= __('Center', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="100%"><?= __('Right', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 	</div>
 
@@ -1240,8 +1460,8 @@
 
 		<lse-ul class="lse-smart-inject">
 			<lse-li data-smart-inject="0%"><?= __('Top', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="50%"><?= __('Middle', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="100%"><?= __('Bottom', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="50%"><?= __('Middle', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="100%"><?= __('Bottom', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 	</div>
 
@@ -1249,33 +1469,38 @@
 
 		<lse-ul class="lse-smart-inject">
 			<lse-li data-smart-inject="100px"><?= __('100px', 'LayerSlider') ?></lse-li>
-			<lse-li class="_in-x _textin-x" data-smart-inject="left"><?= __('Enter the stage from left', 'LayerSlider') ?></lse-li>
-			<lse-li class="_in-x _textin-x" data-smart-inject="right"><?= __('Enter the stage from right', 'LayerSlider') ?></lse-li>
-			<lse-li class="_out-x _textout-x"data-smart-inject="left"><?= __('Leave the stage on left', 'LayerSlider') ?></lse-li>
-			<lse-li class="_out-x _textout-x" data-smart-inject="right"><?= __('Leave the stage on right', 'LayerSlider') ?></lse-li>
-			<lse-li class="_in-y _textin-y" data-smart-inject="top"><?= __('Enter the stage from top', 'LayerSlider') ?></lse-li>
-			<lse-li class="_in-y _textin-y" data-smart-inject="bottom"><?= __('Enter the stage from bottom', 'LayerSlider') ?></lse-li>
-			<lse-li class="_out-y _textout-y" data-smart-inject="top"><?= __('Leave the stage on top', 'LayerSlider') ?></lse-li>
-			<lse-li class="_out-y _textout-y" data-smart-inject="bottom"><?= __('Leave the stage on bottom', 'LayerSlider') ?></lse-li>
-			<lse-li class="_loop-x"data-smart-inject="left"><?= __('Move out of stage on left', 'LayerSlider') ?></lse-li>
-			<lse-li class="_loop-x" data-smart-inject="right"><?= __('Move out of stage on right', 'LayerSlider') ?></lse-li>
-			<lse-li class="_loop-y" data-smart-inject="top"><?= __('Move out of stage on top', 'LayerSlider') ?></lse-li>
-			<lse-li class="_loop-y" data-smart-inject="bottom"><?= __('Move out of stage on bottom', 'LayerSlider') ?></lse-li>
-			<lse-li class="_in-x _textin-x _out-x _textout-x _loop-x" data-smart-inject="100lw"><?= __('100% layer width', 'LayerSlider') ?></lse-li>
-			<lse-li class="_in-x _textin-x _out-x _textout-x _loop-x" data-smart-inject="-100lw"><?= __('-100% layer width', 'LayerSlider') ?></lse-li>
-			<lse-li class="_in-x _textin-x _out-x _textout-x _loop-x" data-smart-inject="50sw"><?= __('50% slider width', 'LayerSlider') ?></lse-li>
-			<lse-li class="_in-x _textin-x _out-x _textout-x _loop-x" data-smart-inject="-50sw"><?= __('-50% slider width', 'LayerSlider') ?></lse-li>
-			<lse-li class="_in-y _textin-y _out-y _textout-y _loop-y" data-smart-inject="100lh"><?= __('100% layer height', 'LayerSlider') ?></lse-li>
-			<lse-li class="_in-y _textin-y _out-y _textout-y _loop-y" data-smart-inject="-100lh"><?= __('-100% layer height', 'LayerSlider') ?></lse-li>
-			<lse-li class="_in-y _textin-y _out-y _textout-y _loop-y" data-smart-inject="50sh"><?= __('50% slider height', 'LayerSlider') ?></lse-li>
-			<lse-li class="_in-y _textin-y _out-y _textout-y _loop-y" data-smart-inject="-50sh"><?= __('-50% slider height', 'LayerSlider') ?></lse-li>
-			<lse-li class="_hover-x" data-smart-inject="20lw"><?= __('20% layer width', 'LayerSlider') ?></lse-li>
-			<lse-li class="_hover-x" data-smart-inject="-20lw"><?= __('-20% layer width', 'LayerSlider') ?></lse-li>
-			<lse-li class="_hover-y" data-smart-inject="20lh"><?= __('20% layer height', 'LayerSlider') ?></lse-li>
-			<lse-li class="_hover-y" data-smart-inject="-20lh"><?= __('-20% layer height', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="[-100..100]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="[-90|10|70]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
-			<lse-li class="_textin-x _textin-y _textout-x _textout-y" data-smart-inject="50|-50|25|-25"><?= __('Cycle through multiple values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in-x _textin-x" data-smart-inject="left"><?= __('Enter the stage from left', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in-x _textin-x" data-smart-inject="right"><?= __('Enter the stage from right', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_out-x _textout-x"data-smart-inject="left"><?= __('Leave the stage on left', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_out-x _textout-x" data-smart-inject="right"><?= __('Leave the stage on right', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in-y _textin-y" data-smart-inject="top"><?= __('Enter the stage from top', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in-y _textin-y" data-smart-inject="bottom"><?= __('Enter the stage from bottom', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_out-y _textout-y" data-smart-inject="top"><?= __('Leave the stage on top', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_out-y _textout-y" data-smart-inject="bottom"><?= __('Leave the stage on bottom', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_loop-x"data-smart-inject="left"><?= __('Move out of stage on left', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_loop-x" data-smart-inject="right"><?= __('Move out of stage on right', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_loop-y" data-smart-inject="top"><?= __('Move out of stage on top', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_loop-y" data-smart-inject="bottom"><?= __('Move out of stage on bottom', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in-x _textin-x _out-x _textout-x _loop-x" data-smart-inject="100lw"><?= __('100% layer width', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in-x _textin-x _out-x _textout-x _loop-x" data-smart-inject="-100lw"><?= __('-100% layer width', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in-x _textin-x _out-x _textout-x _loop-x" data-smart-inject="50sw"><?= __('50% slider width', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in-x _textin-x _out-x _textout-x _loop-x" data-smart-inject="-50sw"><?= __('-50% slider width', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in-y _textin-y _out-y _textout-y _loop-y" data-smart-inject="100lh"><?= __('100% layer height', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in-y _textin-y _out-y _textout-y _loop-y" data-smart-inject="-100lh"><?= __('-100% layer height', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in-y _textin-y _out-y _textout-y _loop-y" data-smart-inject="50sh"><?= __('50% slider height', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in-y _textin-y _out-y _textout-y _loop-y" data-smart-inject="-50sh"><?= __('-50% slider height', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_hover-x" data-smart-inject="20lw"><?= __('20% layer width', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_hover-x" data-smart-inject="-20lw"><?= __('-20% layer width', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_hover-y" data-smart-inject="20lh"><?= __('20% layer height', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_hover-y" data-smart-inject="-20lh"><?= __('-20% layer height', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[-100..100]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[-90|10|70]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_loop-x _loop-y" data-smart-inject="100|-100|250"><?= __('Multi-step animation cycling through the specified values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_textin-x _textin-y _textout-x _textout-y" data-smart-inject="50|-50|25|-25"><?= __('Cycle values between text nodes', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_textin-x _textin-y _textout-x _textout-y" data-smart-inject="[+10]"><?= __('Create a cycle of values using arithmethic operation: 0|10|20|30 ...', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_textin-x _textin-y _textout-x _textout-y" data-smart-inject="[2*2]"><?= __('Create a cycle with a starting value using arithmethic operation: 2|4|8|16 ...', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_loop-x _loop-y" data-smart-inject="+=50"><?= __('Increase the value by 50 on each step/repeat if Resume is enabled', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_loop-x _loop-y" data-smart-inject="-=25"><?= __('Decrease the value by 25 on each step/repeat if Resume is enabled', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 
 	</div>
@@ -1283,12 +1508,19 @@
 	<div data-smart-options="rotate">
 
 		<lse-ul class="lse-smart-inject">
-			<lse-li class="_in _out" data-smart-inject="="><?= __('Inherit value from style settings', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="[-5..40]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="[-5|9|60]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
-			<lse-li class="_text" data-smart-inject="30|60|90"><?= __('Cycle through multiple values', 'LayerSlider') ?></lse-li>
-			<lse-li class="_in _out" data-smart-inject="+=60"><?= __('Add 60 to style settings value', 'LayerSlider') ?></lse-li>
-			<lse-li class="_in _out" data-smart-inject="/=2"><?= __('Divide style settings value by 2', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in _out" data-smart-inject="="><?= __('Inherit value from style settings', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[-5..40]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[-5|9|60]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_loop" data-smart-inject="30|60|90"><?= __('Multi-step animation cycling through the specified values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_text" data-smart-inject="30|60|90"><?= __('Cycle values between text nodes', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_text" data-smart-inject="[+5]"><?= __('Create a cycle of values using arithmethic operation: 0|5|10|15 ...', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_text" data-smart-inject="[2*2]"><?= __('Create a cycle with a starting value using arithmethic operation: 2|4|8|16 ...', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in _out" data-smart-inject="+=60"><?= __('Add 60 to style settings value', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in _out" data-smart-inject="-=50"><?= __('Subtract 50 from style settings value', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in _out" data-smart-inject="*=1.5"><?= __('Multiply style settings value by 1.5', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in _out" data-smart-inject="/=2"><?= __('Divide style settings value by 2', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_loop" data-smart-inject="+=60"><?= __('Increase the value by 60 on each step/repeat if Resume is enabled', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_loop" data-smart-inject="-=30"><?= __('Decrease the value by 30 on each step/repeat if Resume is enabled', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 
 	</div>
@@ -1296,16 +1528,22 @@
 	<div data-smart-options="scale">
 
 		<lse-ul class="lse-smart-inject">
-			<lse-li class="_in _out" data-smart-inject="="><?= __('Inherit value from style settings', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="1"><?= __('Original size', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="2"><?= __('Enlarge layer to double size', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="0.5"><?= __('Shrink layer to half size', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="-1"><?= __('Flip layer', 'LayerSlider') ?></lse-li>
-			<lse-li class="_transition" data-smart-inject="[2..3]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
-			<lse-li class="_transition" data-smart-inject="[0.5|1.5|2]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
-			<lse-li class="_text" data-smart-inject="3|2|1.5"><?= __('Cycle through multiple values', 'LayerSlider') ?></lse-li>
-			<lse-li class="_in _out" data-smart-inject="*=1.5"><?= __('Multiply style settings value by 1.5', 'LayerSlider') ?></lse-li>
-			<lse-li class="_in _out" data-smart-inject="/=2"><?= __('Divide style settings value by 2', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in _out" data-smart-inject="="><?= __('Inherit value from style settings', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="1"><?= __('Original size', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="2"><?= __('Enlarge layer to double size', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="0.5"><?= __('Shrink layer to half size', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="-1"><?= __('Flip layer', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_transition" data-smart-inject="[2..3]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_transition" data-smart-inject="[0.5|1.5|2]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_loop" data-smart-inject="3|2|1.5"><?= __('Multi-step animation cycling through the specified values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_text" data-smart-inject="3|2|1.5"><?= __('Cycle values between text nodes', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_text" data-smart-inject="[1+0.1]"><?= __('Create a cycle with a starting value using arithmethic operation: 1|1.1|1.2|1.3 ...', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in _out" data-smart-inject="+=0.5"><?= __('Add 0.5 to style settings value', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in _out" data-smart-inject="-=0.3"><?= __('Subtract 0.3 from style settings value', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in _out" data-smart-inject="*=1.5"><?= __('Multiply style settings value by 1.5', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in _out" data-smart-inject="/=2"><?= __('Divide style settings value by 2', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_loop" data-smart-inject="+=0.2"><?= __('Increase the value by 0.2 on each step/repeat if Resume is enabled', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_loop" data-smart-inject="-=0.1"><?= __('Decrease the value by 0.1 on each step/repeat if Resume is enabled', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 
 	</div>
@@ -1313,11 +1551,19 @@
 	<div data-smart-options="skew">
 
 		<lse-ul class="lse-smart-inject">
-			<lse-li class="_in _out" data-smart-inject="="><?= __('Inherit value from style settings', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="[-10..10]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="[5|10|15]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
-			<lse-li class="_text" data-smart-inject="10|20|30"><?= __('Cycle through multiple values', 'LayerSlider') ?></lse-li>
-			<lse-li class="_in _out" data-smart-inject="+=30"><?= __('Add 30 to style settings value', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in _out" data-smart-inject="="><?= __('Inherit value from style settings', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[-10..10]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[5|10|15]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_loop" data-smart-inject="10|20|30"><?= __('Multi-step animation cycling through the specified values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_text" data-smart-inject="10|20|30"><?= __('Cycle values between text nodes', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_text" data-smart-inject="[+5]"><?= __('Create a cycle of values using arithmethic operation: 0|5|10|15 ...', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_text" data-smart-inject="[2*2]"><?= __('Create a cycle with a starting value using arithmethic operation: 2|4|8|16 ...', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in _out" data-smart-inject="+=30"><?= __('Add 30 to style settings value', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in _out" data-smart-inject="-=10"><?= __('Subtract 10 from style settings value', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in _out" data-smart-inject="*=1.5"><?= __('Multiply style settings value by 1.5', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_in _out" data-smart-inject="/=2"><?= __('Divide style settings value by 2', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_loop" data-smart-inject="+=10"><?= __('Increase the value by 10 on each step/repeat if Resume is enabled', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_loop" data-smart-inject="-=20"><?= __('Decrease the value by 20 on each step/repeat if Resume is enabled', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 
 	</div>
@@ -1327,9 +1573,9 @@
 		<lse-ul class="lse-smart-inject">
 			<lse-li data-smart-inject="300px"><?= __('300px', 'LayerSlider') ?></lse-li>
 			<lse-li data-smart-inject="50%"><?= __('50%', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="[0..500]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="[0..500]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="[10|50|100]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[0..500]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[0..500]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[10|50|100]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 	</div>
 
@@ -1338,8 +1584,8 @@
 		<lse-ul class="lse-smart-inject">
 			<lse-li data-smart-inject="100px"><?= __('100px', 'LayerSlider') ?></lse-li>
 			<lse-li data-smart-inject="50%"><?= __('50%', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="[0..200]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="[10|50|100]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[0..200]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[10|50|100]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 	</div>
 
@@ -1388,13 +1634,17 @@
 	<div data-smart-options="maskin">
 
 		<lse-ul class="lse-smart-inject">
-			<lse-li data-smart-inject="="><?= __('Inherit value from style settings', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="0 0 100% 0"><?= __('From top', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="0 0 0 100%"><?= __('From right', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="100% 0 0 0"><?= __('From bottom', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="0 100% 0 0"><?= __('From left', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="50% 0 50% 0"><?= __('From middle (vertically)', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="0 50% 0 50%"><?= __('From center (horizontally', 'LayerSlider') ?></lse-li>
+			<lse-li class="_in _out" data-smart-inject="="><?= __('Inherit value from style settings', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="0% 0%, 100% 0%, 100% 0%, 0% 0%"><?= __('From top', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="100% 0%, 100% 0%, 100% 100%, 100% 100%"><?= __('From right', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="0% 100%, 100% 100%, 100% 100%, 0% 100%"><?= __('From bottom', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="0% 0%, 0% 0%, 0% 100%, 0% 100%"><?= __('From left', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="0% 0%, 100% 0%, 0% 0%, 0% 100%"><?= __('From top left', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="0% 0%, 100% 0%, 100% 100%, 100% 0%"><?= __('From top right', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="100% 100%, 100% 0%, 100% 100%, 0% 100%"><?= __('From bottom right', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="0% 0%, 0% 100%, 100% 100%, 0% 100%"><?= __('From bottom left', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="0% 50%, 100% 50%, 100% 50%, 0% 50%"><?= __('From middle (vertically)', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="50% 0%, 50% 0%, 50% 100%, 50% 100%"><?= __('From center (horizontally', 'LayerSlider') ?></lse-li>
 			<lse-li data-smart-inject="50% 50%, 50% 50%, 50% 50%, 50% 50%"><?= __('From absolute center point', 'LayerSlider') ?></lse-li>
 			<lse-li data-smart-inject="50% 0, 100% 50%, 50% 100%, 0 50%"><?= __('Parallelogram', 'LayerSlider') ?></lse-li>
 			<lse-li data-smart-inject="100% 0, 100% 100%, 0 100%, 0 0"><?= __('Rotate 90deg', 'LayerSlider') ?></lse-li>
@@ -1422,13 +1672,17 @@
 	<div data-smart-options="maskout">
 
 		<lse-ul class="lse-smart-inject">
-			<lse-li data-smart-inject="="><?= __('Inherit value from style settings', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="0 0 100% 0"><?= __('To top', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="0 0 0 100%"><?= __('To right', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="100% 0 0 0"><?= __('To bottom', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="0 100% 0 0"><?= __('To left', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="50% 0 50% 0"><?= __('To middle (vertically)', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="0 50% 0 50%"><?= __('To center (horizontally', 'LayerSlider') ?></lse-li>
+			<lse-li class="_in _out" data-smart-inject="="><?= __('Inherit value from style settings', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="0% 0%, 100% 0%, 100% 0%, 0% 0%"><?= __('To top', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="100% 0%, 100% 0%, 100% 100%, 100% 100%"><?= __('To right', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="0% 100%, 100% 100%, 100% 100%, 0% 100%"><?= __('To bottom', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="0% 0%, 0% 0%, 0% 100%, 0% 100%"><?= __('To left', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="0% 0%, 100% 0%, 0% 0%, 0% 100%"><?= __('To top left', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="0% 0%, 100% 0%, 100% 100%, 100% 0%"><?= __('To top right', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="100% 100%, 100% 0%, 100% 100%, 0% 100%"><?= __('To bottom right', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="0% 0%, 0% 100%, 100% 100%, 0% 100%"><?= __('To bottom left', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="0% 50%, 100% 50%, 100% 50%, 0% 50%"><?= __('To middle (vertically)', 'LayerSlider') ?></lse-li>
+			<lse-li data-smart-inject="50% 0%, 50% 0%, 50% 100%, 50% 100%"><?= __('To center (horizontally', 'LayerSlider') ?></lse-li>
 			<lse-li data-smart-inject="50% 50%, 50% 50%, 50% 50%, 50% 50%"><?= __('To absolute center point', 'LayerSlider') ?></lse-li>
 			<lse-li data-smart-inject="50% 0, 100% 50%, 50% 100%, 0 50%"><?= __('Parallelogram', 'LayerSlider') ?></lse-li>
 			<lse-li data-smart-inject="100% 0, 100% 100%, 0 100%, 0 0"><?= __('Rotate 90deg', 'LayerSlider') ?></lse-li>
@@ -1500,11 +1754,12 @@
 
 	<div data-smart-options="opacity">
 		<lse-ul class="lse-smart-inject">
-			<lse-li data-smart-inject="1"><?= __('Fully opaque', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="0.5"><?= __('Semi-transparent', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="0"><?= __('Invisible', 'LayerSlider') ?></lse-li>
-			<lse-li class="_transition" data-smart-inject="[0.5..1]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
-			<lse-li class="_transition" data-smart-inject="[0.3|0.5|0.7]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="1"><?= __('Fully opaque', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="0.5"><?= __('Semi-transparent', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="0"><?= __('Invisible', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_transition" data-smart-inject="[0.5..1]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_transition" data-smart-inject="[0.3|0.5|0.7]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt class="_loop" data-smart-inject="0|1|0|0.5"><?= __('Multi-step animation cycling through the specified values', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 	</div>
 
@@ -1545,16 +1800,16 @@
 	<div data-smart-options="minresponsiveratio">
 		<lse-ul class="lse-smart-inject">
 			<lse-li data-smart-inject="0"><?= __('No limitation', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="0.5"><?= __('Half the layer’s original size', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="1"><?= __('Don’t allow shrinking', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="0.5"><?= __('Half the layer’s original size', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="1"><?= __('Don’t allow shrinking', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 	</div>
 
 	<div data-smart-options="maxresponsiveratio">
 		<lse-ul class="lse-smart-inject">
 			<lse-li data-smart-inject=""><?= __('No limitation', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="2"><?= __('Double the layer’s original size', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="1"><?= __('Don’t allow enlarging', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="2"><?= __('Double the layer’s original size', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="1"><?= __('Don’t allow enlarging', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 	</div>
 
@@ -1588,66 +1843,96 @@
 	</div>
 
 	<div data-smart-options="startatin">
-
 		<lse-ul class="lse-smart-inject">
 			<lse-li data-smart-inject="650"><?= __('650ms', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="[500..1000]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="[50|450|850]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[500..1000]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[50|450|850]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 	</div>
 
 	<div data-smart-options="duration">
-
 		<lse-ul class="lse-smart-inject">
 			<lse-li data-smart-inject="3000"><?= __('3s', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="[900..1800]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="[1000|2000|3000]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[900..1800]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[1000|2000|3000]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+		</lse-ul>
+	</div>
+
+	<div data-smart-options="loopduration">
+		<lse-ul class="lse-smart-inject">
+			<lse-li data-smart-inject="2000"><?= __('2s', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[900..1800]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[1000|2000|3000]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="500|1000|1500"><?= __('Cycle through listed values when using multi-step animation', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 	</div>
 
 	<div data-smart-options="random-parallax-x">
-
 		<lse-ul class="lse-smart-inject">
-		<lse-li data-smart-inject="[-50sw..50sw]"><?= __('Full Width', 'LayerSlider') ?></lse-li>
-		<lse-li data-smart-inject="[-35sw..35sw]"><?= __('Centered 70%', 'LayerSlider') ?></lse-li>
-		<lse-li data-smart-inject="[-25sw..25sw]"><?= __('Centered 50%', 'LayerSlider') ?></lse-li>
-		<lse-li data-smart-inject="[-15sw..15sw]"><?= __('Centered 30%', 'LayerSlider') ?></lse-li>
-		<lse-li data-smart-inject="[-50sw..0]"><?= __('Left Half', 'LayerSlider') ?></lse-li>
-		<lse-li data-smart-inject="[0..50sw]"><?= __('Right Half', 'LayerSlider') ?></lse-li>
-		<lse-li data-smart-inject="[-50sw|-25sw|0|25sw|50sw]"><?= __('Fixed Points Wide', 'LayerSlider') ?></lse-li>
-		<lse-li data-smart-inject="[-20sw|0|20sw]"><?= __('Fixed Points Centered', 'LayerSlider') ?></lse-li>
+		<lse-li data-tt data-smart-inject="[-50sw..50sw]"><?= __('Full Width', 'LayerSlider') ?></lse-li>
+		<lse-li data-tt data-smart-inject="[-35sw..35sw]"><?= __('Centered 70%', 'LayerSlider') ?></lse-li>
+		<lse-li data-tt data-smart-inject="[-25sw..25sw]"><?= __('Centered 50%', 'LayerSlider') ?></lse-li>
+		<lse-li data-tt data-smart-inject="[-15sw..15sw]"><?= __('Centered 30%', 'LayerSlider') ?></lse-li>
+		<lse-li data-tt data-smart-inject="[-50sw..0]"><?= __('Left Half', 'LayerSlider') ?></lse-li>
+		<lse-li data-tt data-smart-inject="[0..50sw]"><?= __('Right Half', 'LayerSlider') ?></lse-li>
+		<lse-li data-tt data-smart-inject="[-50sw|-25sw|0|25sw|50sw]"><?= __('Fixed Points Wide', 'LayerSlider') ?></lse-li>
+		<lse-li data-tt data-smart-inject="[-20sw|0|20sw]"><?= __('Fixed Points Centered', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 	</div>
 	<div data-smart-options="random-parallax-y">
 
 		<lse-ul class="lse-smart-inject">
-		<lse-li data-smart-inject="[-50sh..50sh]"><?= __('Full Height', 'LayerSlider') ?></lse-li>
-		<lse-li data-smart-inject="[-35sh..35sh]"><?= __('Centered 70%', 'LayerSlider') ?></lse-li>
-		<lse-li data-smart-inject="[-25sh..25sh]"><?= __('Centered 50%', 'LayerSlider') ?></lse-li>
-		<lse-li data-smart-inject="[-15sh..15sh]"><?= __('Centered 30%', 'LayerSlider') ?></lse-li>
-		<lse-li data-smart-inject="[-50sh..0]"><?= __('Top Half', 'LayerSlider') ?></lse-li>
-		<lse-li data-smart-inject="[0..50sh]"><?= __('Bottom Half', 'LayerSlider') ?></lse-li>
-		<lse-li data-smart-inject="[-50sh|-25sh|0|25sh|50sh]"><?= __('Fixed Points Tall', 'LayerSlider') ?></lse-li>
-		<lse-li data-smart-inject="[-20sh|0|20sh]"><?= __('Fixed Points Centered', 'LayerSlider') ?></lse-li>
+		<lse-li data-tt data-smart-inject="[-50sh..50sh]"><?= __('Full Height', 'LayerSlider') ?></lse-li>
+		<lse-li data-tt data-smart-inject="[-35sh..35sh]"><?= __('Centered 70%', 'LayerSlider') ?></lse-li>
+		<lse-li data-tt data-smart-inject="[-25sh..25sh]"><?= __('Centered 50%', 'LayerSlider') ?></lse-li>
+		<lse-li data-tt data-smart-inject="[-15sh..15sh]"><?= __('Centered 30%', 'LayerSlider') ?></lse-li>
+		<lse-li data-tt data-smart-inject="[-50sh..0]"><?= __('Top Half', 'LayerSlider') ?></lse-li>
+		<lse-li data-tt data-smart-inject="[0..50sh]"><?= __('Bottom Half', 'LayerSlider') ?></lse-li>
+		<lse-li data-tt data-smart-inject="[-50sh|-25sh|0|25sh|50sh]"><?= __('Fixed Points Tall', 'LayerSlider') ?></lse-li>
+		<lse-li data-tt data-smart-inject="[-20sh|0|20sh]"><?= __('Fixed Points Centered', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 	</div>
 
 	<div data-smart-options="parallaxrandomduration">
-
 		<lse-ul class="lse-smart-inject">
 			<lse-li data-smart-inject="5000"><?= __('5s', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="[1500..4500]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="[50|500|900]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[1500..4500]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[50|500|900]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
 		</lse-ul>
+	</div>
 
+	<div data-smart-options="parallaxrandomwait">
+		<lse-ul class="lse-smart-inject">
+			<lse-li data-smart-inject="2000"><?= __('2s', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[1500..3000]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[1000|1500|2000]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+		</lse-ul>
 	</div>
 
 	<div data-smart-options="loopwait">
+		<lse-ul class="lse-smart-inject">
+			<lse-li data-smart-inject="2000"><?= __('2s', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[1500..3000]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[1000|1500|2000]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="500|1000|1500"><?= __('Cycle through listed values when using multi-step animation', 'LayerSlider') ?></lse-li>
+		</lse-ul>
+	</div>
 
+	<div data-smart-options="loopyoyowait">
 		<lse-ul class="lse-smart-inject">
 			<lse-li data-smart-inject="2500"><?= __('2.5s', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="[1000..4000]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="[500|1000|1500]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[1000..4000]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[100|2000|3000]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="1000|1500|2000"><?= __('Cycle through listed values when using multi-step animation', 'LayerSlider') ?></lse-li>
+		</lse-ul>
+	</div>
+
+	<div data-smart-options="loopstepwait">
+		<lse-ul class="lse-smart-inject">
+			<lse-li data-smart-inject="500"><?= __('0.5s', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[0..1000]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[100|200|300]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="400|600|800"><?= __('Cycle through listed values when using multi-step animation', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 	</div>
 
@@ -1666,8 +1951,8 @@
 		<lse-ul class="lse-smart-inject">
 			<lse-li data-smart-inject=""><?= __('auto (Calculated automatically based on slide duration and slider height)', 'LayerSlider') ?></lse-li>
 			<lse-li data-smart-inject="2000px"><?= __('2000px', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="250sh"><?= __('250sh (250% of slider height)', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="150vh"><?= __('150vh (150% of viewport height)', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="250sh"><?= __('250sh (250% of slider height)', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="150vh"><?= __('150vh (150% of viewport height)', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 	</div>
 
@@ -1675,8 +1960,8 @@
 
 		<lse-ul class="lse-smart-inject">
 			<lse-li data-smart-inject="200px"><?= __('200px', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="60sh"><?= __('60sh (60% of slider height)', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="90vh"><?= __('90vh (90% of viewport height)', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="60sh"><?= __('60sh (60% of slider height)', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="90vh"><?= __('90vh (90% of viewport height)', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 	</div>
 
@@ -1692,8 +1977,8 @@
 
 		<lse-ul class="lse-smart-inject">
 			<lse-li data-smart-inject=""><?= __('Default', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="0"><?= __('Activate immediately once the slider leaves the viewport', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="100vh"><?= __('Activate once the slider moves by a screen distance away from the viewport', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="0"><?= __('Activate immediately once the slider leaves the viewport', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="100vh"><?= __('Activate once the slider moves by a screen distance away from the viewport', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 	</div>
 
@@ -1710,8 +1995,51 @@
 		<lse-ul class="lse-smart-inject">
 			<lse-li data-smart-inject="50%"><?= __('50% (Animate to the halfway point of the slide duration)', 'LayerSlider') ?></lse-li>
 			<lse-li data-smart-inject="675ms"><?= __('675ms (Animates exactly to 675ms)', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="+200ms"><?= __('+200ms (Plays forward by 200ms)', 'LayerSlider') ?></lse-li>
-			<lse-li data-smart-inject="-30%"><?= __('-30% (Plays backward by 30%)', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="+200ms"><?= __('+200ms (Plays forward by 200ms)', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="-30%"><?= __('-30% (Plays backward by 30%)', 'LayerSlider') ?></lse-li>
+		</lse-ul>
+	</div>
+
+	<div data-smart-options="le-replicator-offset-x">
+		<lse-ul class="lse-smart-inject">
+			<lse-li data-smart-inject="10"><?= __('10px', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="-50lw"><?= __('-50% layer width', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="10sw"><?= __('10% slider width', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[-200..100]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[-20sw|-10sw|10sw|20sw]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="-300|-200|-100"><?= __('Cycle values between copies', 'LayerSlider') ?></lse-li>
+		</lse-ul>
+	</div>
+
+	<div data-smart-options="le-replicator-offset-y">
+		<lse-ul class="lse-smart-inject">
+			<lse-li data-smart-inject="30"><?= __('30px', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="30lh"><?= __('30% layer height', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="-15sh"><?= __('-15% slider height', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[-100..300]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[-200lh|-100lh|100lh|200lh]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="100|200|300"><?= __('Cycle values between copies', 'LayerSlider') ?></lse-li>
+		</lse-ul>
+	</div>
+
+	<div data-smart-options="le-replicator-scale-step">
+		<lse-ul class="lse-smart-inject">
+			<lse-li data-tt data-smart-inject="0.01"><?= __('Scale up by 0.01 compared to the previous copy', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="-0.2"><?= __('Scale down by 0.2 compared to the previous copy', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[0.5..1.1]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[0.5|1.2|0.9]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="0.8|1|1.2"><?= __('Cycle values between copies', 'LayerSlider') ?></lse-li>
+		</lse-ul>
+	</div>
+
+	<div data-smart-options="le-replicator-rotation-step">
+
+		<lse-ul class="lse-smart-inject">
+			<lse-li data-tt data-smart-inject="5"><?= __('Rotate by 5 degrees compared to the previous copy', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="-15"><?= __('Rotate by -15 degrees compared to the previous copy', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[-10..20]"><?= __('Random between two values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="[-20|-10|10|20]"><?= __('Random from listed values', 'LayerSlider') ?></lse-li>
+			<lse-li data-tt data-smart-inject="10|20|10|0"><?= __('Cycle values between copies', 'LayerSlider') ?></lse-li>
 		</lse-ul>
 	</div>
 

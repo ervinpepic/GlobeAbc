@@ -38,6 +38,30 @@
 				</ls-p>
 			</ls-b>
 
+			<!-- Layer Effects -->
+			<ls-b data-tab="layer-effects">
+
+				<ls-box class="ls--show-if-not-registered ls-show-activation-box">
+					<ls-b>
+					<?= __('Register license to use this feature.', 'LayerSlider') ?>
+					</ls-b>
+				</ls-box>
+
+				<ls-b class="ls--addon-desc">
+					<ls-p><?= sprintf( __('%sUnleash your creativity with a growing collection of Layer Effects%s, each designed to transform your layers into captivating visual experiences.', 'LayerSlider'), '<b class="ls--text-highlight">', '</b>' ) ?></ls-p>
+
+					<ls-ul>
+						<ls-li><?= sprintf(__('%sBorderize:%s Frame your layers with animated borders and stylish outlines.', 'LayerSlider'), '<b class="ls--text-highlight">', '</b>') ?></ls-li>
+						<ls-li><?= sprintf(__('%sLiquify:%s Add a playful, elastic twist that makes layers bend and ripple like soft jelly when you interact with them.', 'LayerSlider'), '<b class="ls--text-highlight">', '</b>') ?></ls-li>
+						<ls-li><?= sprintf(__('%sReplicator:%s Turn a single layer into many, creating everything from depth effects and motion trails to bold visual patterns.', 'LayerSlider'), '<b class="ls--text-highlight">', '</b>') ?></ls-li>
+						<ls-li><?= sprintf(__('%sReveal:%s Unveil your layers with a rich set of mask transitions that expand and collapse to reveal content underneath, naturally drawing attention as they unfold.', 'LayerSlider'), '<b class="ls--text-highlight">', '</b>') ?></ls-li>
+						<ls-li><?= sprintf(__('%sTypewriter:%s Bring your designs to life with the timeless charm of typewriter-style text and cursor animation.', 'LayerSlider'), '<b class="ls--text-highlight">', '</b>') ?></ls-li>
+					</ls-ul>
+
+					<ls-p><?= __('This is just the beginning. More effects are coming soon!', 'LayerSlider') ?></ls-p>
+				</ls-b>
+
+			</ls-b>
 
 			<!-- Counter -->
 			<ls-b data-tab="counter">
@@ -479,6 +503,19 @@
 
 			<ls-row class="km-tabs-list" data-target="#ls-addons-content" data-disable-auto-rename>
 
+				<ls-col class="kmw-menuitem ls--col1-3"  data-tab-target="layer-effects">
+					<ls-box>
+						<ls-b class="ls--container">
+							<video class="ls--video ls--allowstop" muted src="https://layerslider.com/media/premium/layer-effects.mp4"></video>
+						</ls-b>
+					</ls-box>
+					<ls-b class="ls--title">
+						<?= __('Layer Effects', 'LayerSlider') ?>
+					</ls-b>
+					<lse-badge class="ls--show-if-registered"><?= __('NEW', 'LayerSlider') ?></lse-badge>
+					<lse-badge class="ls--show-if-not-registered ls-show-activation-box"><?= lsGetSVGIcon('lock-keyhole') ?></lse-badge>
+				</ls-col>
+
 				<ls-col class="kmw-menuitem ls--col1-3"  data-tab-target="counter">
 					<ls-box>
 						<ls-b class="ls--container">
@@ -488,7 +525,6 @@
 					<ls-b class="ls--title">
 						<?= __('Counter', 'LayerSlider') ?>
 					</ls-b>
-					<lse-badge class="ls--show-if-registered"><?= __('NEW', 'LayerSlider') ?></lse-badge>
 					<lse-badge class="ls--show-if-not-registered ls-show-activation-box"><?= lsGetSVGIcon('lock-keyhole') ?></lse-badge>
 				</ls-col>
 
@@ -501,11 +537,10 @@
 					<ls-b class="ls--title">
 						<?= __('Maintenance & Coming Soon', 'LayerSlider') ?>
 					</ls-b>
-					<lse-badge class="ls--show-if-registered"><?= __('NEW', 'LayerSlider') ?></lse-badge>
 					<lse-badge class="ls--show-if-not-registered ls-show-activation-box"><?= lsGetSVGIcon('lock-keyhole') ?></lse-badge>
 				</ls-col>
 
-				<ls-col class="kmw-menuitem ls--col1-3"  data-tab-target="countdown">
+				<ls-col class="kmw-menuitem ls--col1-4"  data-tab-target="countdown">
 					<ls-box>
 						<ls-b class="ls--container">
 							<video class="ls--video" muted src="https://layerslider.com/media/premium/countdown.mp4"></video>
@@ -514,7 +549,6 @@
 					<ls-b class="ls--title">
 						<?= __('Countdown', 'LayerSlider') ?>
 					</ls-b>
-					<lse-badge class="ls--show-if-registered"><?= __('NEW', 'LayerSlider') ?></lse-badge>
 					<lse-badge class="ls--show-if-not-registered ls-show-activation-box"><?= lsGetSVGIcon('lock-keyhole') ?></lse-badge>
 				</ls-col>
 

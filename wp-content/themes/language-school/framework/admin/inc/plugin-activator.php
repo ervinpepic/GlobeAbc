@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version 	1.3.9
+ * @version 	1.4.1
  * 
  * TGM-Plugin-Activation 2.6.1
  * Created by CMSMasters
@@ -22,7 +22,7 @@ function language_school_register_theme_plugins() {
 			'slug'					=> 'cmsmasters-content-composer', 
 			'source'				=> get_template_directory() . '/framework/admin/inc/plugins/cmsmasters-content-composer.zip', 
 			'required'				=> true, 
-			'version'				=> '2.5.7', 
+			'version'				=> '2.5.8', 
 			'force_activation'		=> false, 
 			'force_deactivation' 	=> true 
 		), 
@@ -67,7 +67,7 @@ function language_school_register_theme_plugins() {
 			'slug' 					=> 'revslider', 
 			'source'				=> get_template_directory() . '/framework/admin/inc/plugins/revslider.zip', 
 			'required'				=> false, 
-			'version'				=> '6.7.35', 
+			'version'				=> '6.7.38', 
 			'force_activation'		=> false, 
 			'force_deactivation' 	=> false 
 		), 
@@ -76,7 +76,7 @@ function language_school_register_theme_plugins() {
 			'slug'					=> 'timetable', 
 			'source'				=> get_template_directory() . '/framework/admin/inc/plugins/timetable.zip', 
 			'required'				=> false, 
-			'version'				=> '7.5', 
+			'version'				=> '7.6', 
 			'force_activation'		=> false, 
 			'force_deactivation' 	=> true 
 		), 

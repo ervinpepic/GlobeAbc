@@ -89,7 +89,7 @@ $googleFonts = get_option( 'ls-google-fonts', [] );
 							<tr>
 								<td><?php _e('Language:', 'LayerSlider') ?></td>
 								<td>
-									<select name="ls_custom_locale">
+									<select name="ls_custom_locale" data-confirm="<?= __('The selected language has been changed. Reload the page to apply the new language?', 'LayerSlider') ?>">
 										<option value="auto" <?php echo ( $custom_locale === 'auto' ) ? 'selected' : ''?>><?php _e('Site default', 'LayerSlider') ?></option>
 										<option value="en_US" <?php echo ( $custom_locale === 'en_US' ) ? 'selected' : ''?>>English (United States)</option>
 										<option value="fr_FR" <?php echo ( $custom_locale === 'fr_FR' ) ? 'selected' : ''?>>Français</option>

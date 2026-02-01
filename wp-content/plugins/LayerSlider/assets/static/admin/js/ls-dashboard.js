@@ -103,6 +103,14 @@ jQuery(function($) {
 	});
 
 
+	$(document).on('change', '#ls-plugin-settings-content select[name="ls_custom_locale"]', function( event ) {
+
+		lsCommon.smartAlert.confirm( $( this ).data('confirm'), () => {
+			window.location.reload( true );
+		});
+
+	});
+
 	$( document ).on('click', '#ls-plugin-settings-content input, #ls-addons-modal-sidebar input', function( event ) {
 
 		const 	$checkbox 	= $( this ),
@@ -148,6 +156,7 @@ jQuery(function($) {
 
 		}, 500 );
 	});
+
 
 	$( document ).on('click', '.ls-show-canceled-activation-modal', function() {
 		kmw.modal.open({
@@ -1584,13 +1593,6 @@ jQuery(function($) {
 			case 'export':
 				$bulkSelect.val('export');
 				$form.submit();
-				break;
-
-			case 'export-html':
-				if( exportSliderAsHTML() ) {
-					$bulkSelect.val('export-html');
-					$form.submit();
-				}
 				break;
 
 			case 'duplicate':

@@ -894,6 +894,8 @@ $sProps =& $slider['properties'];
 
 										<?php
 											lsOptionRow('select', $sDefs['stickTo'], $sProps, [], 'lse-only-scene' );
+											lsOptionRow('input', $sDefs['stickDuration'], $sProps, [], 'lse-only-scroll-scene' );
+											lsOptionRow('select', $sDefs['playFrom'], $sProps, [], 'lse-only-scroll-scene' );
 										?>
 
 										<tr class="lse-only-scroll-scene">
@@ -912,6 +914,7 @@ $sProps =& $slider['properties'];
 												<?= __('Controls the smooth scrolling animation behavior. This value is in milliseconds. A second is 1000 milliseconds. Lower values result in faster reaction times.', 'LayerSlider') ?>
 											</td>
 										</tr>
+										<?php lsOptionRow('checkbox', $sDefs['scrollPerSlideEmbeds'], $sProps, [], 'lse-only-scroll-scene' ); ?>
 									</tbody>
 								</table>
 							</lse-table-wrapper>

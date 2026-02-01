@@ -4,31 +4,31 @@
 defined( 'LS_ROOT_FILE' ) || exit;
 
 // Popup
-if( ! empty( $slides['properties']['attrs']['type'] ) && $slides['properties']['attrs']['type'] === 'popup' ) {
-	$slides['properties']['props']['width']  = ! empty( $slides['properties']['props']['popupWidth'] ) ? $slides['properties']['props']['popupWidth'] : 640;
-	$slides['properties']['props']['height'] = ! empty( $slides['properties']['props']['popupHeight']) ? $slides['properties']['props']['popupHeight'] : 360;
+if( $projectLayout === 'popup' ) {
+	$projectProps['width']  = ! empty( $projectProps['popupWidth'] ) ? $projectProps['popupWidth'] : 640;
+	$projectProps['height'] = ! empty( $projectProps['popupHeight']) ? $projectProps['popupHeight'] : 360;
 }
 
 // Get slider style
-$sliderStyleAttr[] = 'width:'.layerslider_check_unit($slides['properties']['props']['width']).';';
+$sliderStyleAttr[] = 'width:'.layerslider_check_unit($projectProps['width']).';';
 
-if( ( !empty($slides['properties']['attrs']['type']) && $slides['properties']['attrs']['type'] === 'fullsize' ) && ( empty($slides['properties']['attrs']['fullSizeMode']) || $slides['properties']['attrs']['fullSizeMode'] !== 'fitheight' ) ) {
+if( $projectLayout === 'fullsize' && ( empty($projectAttrs['fullSizeMode']) || $projectAttrs['fullSizeMode'] !== 'fitheight' ) ) {
 	$sliderStyleAttr[] = 'height:100vh;';
 } else {
-	$sliderStyleAttr[] = 'height:'.layerslider_check_unit($slides['properties']['props']['height']).';';
+	$sliderStyleAttr[] = 'height:'.layerslider_check_unit($projectProps['height']).';';
 }
 
-if(!empty($slides['properties']['props']['maxwidth'])) {
-	$sliderStyleAttr[] = 'max-width:'.layerslider_check_unit($slides['properties']['props']['maxwidth']).';';
+if(!empty($projectProps['maxwidth'])) {
+	$sliderStyleAttr[] = 'max-width:'.layerslider_check_unit($projectProps['maxwidth']).';';
 }
 
 $sliderStyleAttr[] = 'margin:0 auto;';
-if(isset($slides['properties']['props']['sliderStyle'])) {
-	$sliderStyleAttr[] = str_replace('\n', ' ', $slides['properties']['props']['sliderStyle'] );
+if(isset($projectProps['sliderStyle'])) {
+	$sliderStyleAttr[] = str_replace('\n', ' ', $projectProps['sliderStyle'] );
 }
 
 // Border radius
-$borderRadius = ! empty( $slides['properties']['props']['borderRadius'] ) ? $slides['properties']['props']['borderRadius'] : '';
+$borderRadius = ! empty( $projectProps['borderRadius'] ) ? $projectProps['borderRadius'] : '';
 if( ! empty( $borderRadius ) && $borderRadius !== '0px' && $borderRadius !== '0%' && $borderRadius !== '0' ) {
 	$sliderStyleAttr[] = 'border-radius:'.layerslider_check_unit($borderRadius).';overflow: hidden;';
 }
@@ -45,14 +45,14 @@ if(has_action('layerslider_before_slider_content')) {
 }
 
 // Wrap Popups
-if( !empty($slides['properties']['attrs']['type']) && $slides['properties']['attrs']['type'] === 'popup' ) {
-	$popupClasses = ! empty( $slides['properties']['props']['popupScrollable'] ) ? 'ls-popup-scrollable' : '';
+if( $projectLayout === 'popup' ) {
+	$popupClasses = ! empty( $projectProps['popupScrollable'] ) ? 'ls-popup-scrollable' : '';
 	$lsContainer[] = '<div class="ls-popup '.$popupClasses.'">';
 }
 
 $customClasses = '';
-if( ! empty( $slides['properties']['props']['sliderclass'] ) ) {
-	$customClasses = ' '.$slides['properties']['props']['sliderclass'];
+if( ! empty( $projectProps['sliderclass'] ) ) {
+	$customClasses = ' '.$projectProps['sliderclass'];
 }
 
 if( ! empty( $embed['className'] ) ) {
@@ -60,83 +60,83 @@ if( ! empty( $embed['className'] ) ) {
 }
 
 // v7.10.0: Class to control new user-select option
-if( empty( $slides['properties']['props']['noUserSelect']) ) {
+if( empty( $projectProps['noUserSelect']) ) {
 	$customClasses .= ' ls-selectable';
 }
 
 // Use srcset
 $useSrcset = (bool) get_option('ls_use_srcset', true );
-if( isset( $slides['properties']['attrs']['useSrcset'] ) ) {
+if( isset( $projectAttrs['useSrcset'] ) ) {
 
-	if( is_bool( $slides['properties']['attrs']['useSrcset'] ) ) {
-		$useSrcset = $slides['properties']['attrs']['useSrcset'];
+	if( is_bool( $projectAttrs['useSrcset'] ) ) {
+		$useSrcset = $projectAttrs['useSrcset'];
 
-	} elseif( $slides['properties']['attrs']['useSrcset'] === 'enabled' ||
-			  $slides['properties']['attrs']['useSrcset'] === '1' ) {
+	} elseif( $projectAttrs['useSrcset'] === 'enabled' ||
+			  $projectAttrs['useSrcset'] === '1' ) {
 		$useSrcset = true;
 
-	} elseif( $slides['properties']['attrs']['useSrcset'] === 'disabled') {
+	} elseif( $projectAttrs['useSrcset'] === 'disabled') {
 		$useSrcset = false;
 	}
 }
 
-$slides['properties']['attrs']['useSrcset'] = $useSrcset;
+$projectAttrs['useSrcset'] = $useSrcset;
 
 
 // Enhanced lazy load
 $enhancedLazyLoad = (bool) get_option('ls_enhanced_lazy_load', false );
-if( isset( $slides['properties']['props']['enhancedLazyLoad'] ) ) {
+if( isset( $projectProps['enhancedLazyLoad'] ) ) {
 
-	if( is_bool( $slides['properties']['props']['enhancedLazyLoad'] ) ) {
-		$enhancedLazyLoad = $slides['properties']['props']['enhancedLazyLoad'];
+	if( is_bool( $projectProps['enhancedLazyLoad'] ) ) {
+		$enhancedLazyLoad = $projectProps['enhancedLazyLoad'];
 
-	} elseif( $slides['properties']['props']['enhancedLazyLoad'] === 'enabled' ||
-			  $slides['properties']['props']['enhancedLazyLoad'] === '1') {
+	} elseif( $projectProps['enhancedLazyLoad'] === 'enabled' ||
+			  $projectProps['enhancedLazyLoad'] === '1') {
 		$enhancedLazyLoad = true;
 
-	} elseif( $slides['properties']['props']['enhancedLazyLoad'] === 'disabled') {
+	} elseif( $projectProps['enhancedLazyLoad'] === 'disabled') {
 		$enhancedLazyLoad = false;
 	}
 }
 
-$slides['properties']['props']['enhancedLazyLoad'] = $enhancedLazyLoad;
+$projectProps['enhancedLazyLoad'] = $enhancedLazyLoad;
 
 
 // Performance mode
 $performanceMode = (bool) get_option('ls_performance_mode', true );
-if( isset( $slides['properties']['attrs']['performanceMode'] ) ) {
+if( isset( $projectAttrs['performanceMode'] ) ) {
 
-	if( is_bool( $slides['properties']['attrs']['performanceMode'] ) ) {
-		$performanceMode = $slides['properties']['attrs']['performanceMode'];
+	if( is_bool( $projectAttrs['performanceMode'] ) ) {
+		$performanceMode = $projectAttrs['performanceMode'];
 
-	} elseif( $slides['properties']['attrs']['performanceMode'] === 'enabled' ||
-			  $slides['properties']['attrs']['performanceMode'] === '1') {
+	} elseif( $projectAttrs['performanceMode'] === 'enabled' ||
+			  $projectAttrs['performanceMode'] === '1') {
 		$performanceMode = true;
 
-	} elseif( $slides['properties']['attrs']['performanceMode'] === 'disabled' ||
-			  empty( $slides['properties']['attrs']['performanceMode'] ) ) {
+	} elseif( $projectAttrs['performanceMode'] === 'disabled' ||
+			  empty( $projectAttrs['performanceMode'] ) ) {
 		$performanceMode = false;
 	}
 }
 
-$slides['properties']['attrs']['performanceMode'] = $performanceMode;
+$projectAttrs['performanceMode'] = $performanceMode;
 
 
 
 // Project-level Google Fonts
 if( get_option('layerslider-google-fonts-enabled', true ) ) {
 
-	$slides = ls_merge_google_fonts( $slides );
+	$projectData = ls_merge_google_fonts( $projectData );
 
-	if( ! empty( $slides['googlefonts'] ) ) {
+	if( ! empty( $projectData['googlefonts'] ) ) {
 
 		$fontManager = new LS_GoogleFontsManager();
-		$lsContainer[] = $fontManager->getInlineStyle( $slides['googlefonts'] );
+		$lsContainer[] = $fontManager->getInlineStyle( $projectData['googlefonts'] );
 	}
 }
 
-$sliderCreatedWith = ! empty( $slides['properties']['attrs']['createdWith'] ) ? $slides['properties']['attrs']['createdWith'] : null;
-$sliderImportedWith = ! empty( $slides['properties']['props']['importVersion'] ) ? $slides['properties']['props']['importVersion'] : null;
+$sliderCreatedWith = ! empty( $projectAttrs['createdWith'] ) ? $projectAttrs['createdWith'] : null;
+$sliderImportedWith = ! empty( $projectProps['importVersion'] ) ? $projectProps['importVersion'] : null;
 $lsWPML = [
 	'useStringPackages' => ls_should_use_wpml_string_packages( $sliderCreatedWith, $sliderImportedWith ),
 	'useStringTranslation' => ls_should_use_string_translation(),
@@ -144,33 +144,40 @@ $lsWPML = [
 	'package' => [
 		'kind'  	=> LS_WPML_SP_TITLE,
 		'kind_slug' => LS_WPML_SP_SLUG,
-		'name'  	=> "project-{$id}"
+		'name'  	=> "project-{$projectId}"
 	]
 ];
 
 
 // STICKY + SCROLL SCENE
-
-$type 					= ! empty( $slides['properties']['attrs']['type'] ) ? $slides['properties']['attrs']['type'] : 'responsive';
-$scene 					= ! empty( $slides['properties']['attrs']['scene'] ) ? $slides['properties']['attrs']['scene'] : '';
-$needsSceneWrapper 		= ( $type !== 'popup' && ! empty( $scene ) );
-$sceneWrapperHeight 	= '';
+$needsSceneWrapper = ( $projectLayout !== 'popup' && ! empty( $projectScene ) );
 
 if( $needsSceneWrapper ) {
 
-	$sceneDuration 	= ! empty( $slides['properties']['attrs']['sceneDuration'] ) ? (float) $slides['properties']['attrs']['sceneDuration'] : 1;
-	$sceneSpeed 	= ! empty( $slides['properties']['attrs']['sceneSpeed'] ) ? (float) $slides['properties']['attrs']['sceneSpeed'] : 100;
+	$slideDuration 	= ! empty( $slider['slides'][0]['props']['scrollSlideDuration'] ) ? (float) $slider['slides'][0]['props']['scrollSlideDuration'] : 0;
+	$sceneDuration 	= ! empty( $projectAttrs['sceneDuration'] ) ? (float) $projectAttrs['sceneDuration'] : 2;
+	$sceneDuration 	= ! empty( $slideDuration ) ? $slideDuration : $sceneDuration;
+
+	$sceneSpeed 	= ! empty( $projectAttrs['sceneSpeed'] ) ? (float) $projectAttrs['sceneSpeed'] : 100;
 	$sceneSpeed 	= max( 10, $sceneSpeed );
 	$sceneSpeed 	= min( 999, $sceneSpeed );
-	$sceneHeight 	= ! empty( $slides['properties']['attrs']['sceneHeight'] ) ? $slides['properties']['attrs']['sceneHeight'] : '200%';
-	$canvasHeight 	= (float) $slides['properties']['props']['height'];
+	$playFrom 		= ! empty( $projectAttrs['playFrom'] ) ? $projectAttrs['playFrom'] : 'stick';
+	$stickTo 		= ! empty( $projectAttrs['stickTo'] ) ? $projectAttrs['stickTo'] : 'center';
+	$stickDuration 	= ( isset( $projectAttrs['stickDuration'] ) && $projectAttrs['stickDuration'] !== '' )
+						? ((int) $projectAttrs['stickDuration']) / 1000
+						: 'unset';
+	$sceneHeight 	= ! empty( $projectAttrs['sceneHeight'] ) ? $projectAttrs['sceneHeight'] : '200%';
+	$canvasHeight 	= (float) $projectProps['height'];
 
-	if( in_array( $type, ['fixedsize', 'responsive', 'fullwidth'] ) ) {
+	$sceneWrapperHeight 	= '';
+	$sceneSpacerHeight		= '';
+	$sceneStyle 			= '';
+	$sceneClassNames		= '';
+	$sceneAttrs				= [];
 
-		if( $scene === 'scroll' ) {
-			$sceneWrapperHeight = round( $canvasHeight + ( $canvasHeight * $sceneDuration / ( $sceneSpeed / 100 ) ) ) . 'px';
+	if( $projectScene === 'sticky' ) {
 
-		} elseif( $scene === 'sticky' ) {
+		if( in_array( $projectLayout, ['fixedsize', 'responsive', 'fullwidth'] ) ) {
 
 			if( strpos( $sceneHeight, '%') !== false || strpos( $sceneHeight, 'sh') !== false  ) {
 				$sceneWrapperHeight = round( $canvasHeight * ( (float) $sceneHeight / 100 ) ) . 'px';
@@ -179,14 +186,8 @@ if( $needsSceneWrapper ) {
 			} else {
 				$sceneWrapperHeight = $sceneHeight;
 			}
-		}
 
-	} else {
-
-		if( $scene === 'scroll' ) {
-			$sceneWrapperHeight = 100 + ( 100 * $sceneDuration / ( $sceneSpeed / 100 ) ) . 'vh';
-
-		} elseif( $scene === 'sticky' ) {
+		} else {
 
 			if( strpos( $sceneHeight, '%') !== false || strpos( $sceneHeight, 'sh') !== false  ) {
 				$sceneWrapperHeight = max( 100, 100 * ( (float) $sceneHeight / 100 ) ) . 'vh';
@@ -196,43 +197,55 @@ if( $needsSceneWrapper ) {
 				$sceneWrapperHeight = max( 100, (float) $sceneHeight ) . 'vh';
 			}
 		}
+
+	} elseif( $projectScene === 'scroll' ) {
+		$sceneAttrs[] = 'data-scene-pre-duration="'.$sceneDuration.'"';
+		$sceneSpacerHeight = 100 * $sceneDuration / ( $sceneSpeed / 100 ) . 'vh';
+
+	}
+
+	// Sticky + Scroll Scene wrapper START
+	if( ! empty( $sceneWrapperHeight ) ){
+		$sceneStyle = 'height: '.$sceneWrapperHeight.';';
+	} elseif( !empty( $sceneSpacerHeight ) ){
+		$sceneStyle = '--ls-duration: '.$sceneSpacerHeight.';';
+	}
+
+	if( $stickDuration !== 'unset' && $stickDuration < $sceneDuration ) {
+		$sceneStyle .= '--ls-stickduration: '.($stickDuration*100).'vh;';
 	}
 
 
+	if( $projectLayout === 'responsive' || $projectLayout === 'fullwidth' ) {
+		$sceneStyle .= '--ls-ratio: '.$projectProps['width']/$projectProps['height'].';';
+	}
 
+	if( $projectLayout === 'fixedsize' ) {
+		$sceneStyle .= '--ls-height: '.$projectProps['height'].'px;';
+	}
 
-	// Sticky + Scroll Scene wrapper START
-	$lsContainer[] = '<ls-scene-wrapper '.( !empty( $sceneWrapperHeight ) ? 'style="height: '.$sceneWrapperHeight.'"' : '').'>';
+	$sceneClassNames = 'ls-playfrom-'.$playFrom;
+	$sceneClassNames .= ' ls-stickto-'.$stickTo;
+	$sceneClassNames .= ' ls-layout-'.$projectLayout;
+
+	if( !empty($sceneClassNames) ){
+		$sceneAttrs[] = 'class="' . $sceneClassNames . '"';
+	}
+
+	if( !empty($sceneStyle) ){
+		$sceneAttrs[] = 'style="' . $sceneStyle . '"';
+	}
+
+	$lsContainer[] = '<ls-scene-wrapper ' . implode(' ', $sceneAttrs) . '>';
 }
 
 
 // Start of slider container
-$lsContainer[] = '<div id="'.$sliderID.'" '.( ! empty( $sliderSlug ) ? 'data-ls-slug="'.$sliderSlug.'"' : '' ).' class="ls-wp-container fitvidsignore'.$customClasses.'" style="'.implode('', $sliderStyleAttr).'">';
+$lsContainer[] = '<div id="'.$projectInitId.'" '.( ! empty( $projectSlug ) ? 'data-ls-slug="'.$projectSlug.'"' : '' ).' class="ls-wp-container fitvidsignore'.$customClasses.'" style="'.implode('', $sliderStyleAttr).'">';
 
 // Add slides
 if(!empty($slider['slides']) && is_array($slider['slides'])) {
 	foreach($slider['slides'] as $slidekey => $slide) {
-
-		// Skip this slide?
-		if( ! empty( $slide['props']['skip'] ) ) {
-			continue;
-		}
-
-		// Schedule start
-		if( ! empty( $slide['props']['schedule_start'] ) && (int) $slide['props']['schedule_start'] > time() ) {
-			continue;
-		}
-
-		// Schedule end
-		if( ! empty( $slide['props']['schedule_end'] ) && (int) $slide['props']['schedule_end'] < time() ) {
-			continue;
-		}
-
-		// First slide only for Scroll Scene
-		if( ( $scene === 'scroll' && $type !== 'popup' ) && $slidekey > 0 ) {
-			break;
-		}
-
 
 		// Get slide attributes
 		$slideId = !empty($slide['props']['id']) ? ' id="'.$slide['props']['id'].'"' : '';
@@ -268,26 +281,26 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 				$queryArgs['offset'] = $slide['props']['post_offset'];
 			}
 
-			if(!empty($slides['properties']['props']['post_type'])) {
-				$queryArgs['post_type'] = $slides['properties']['props']['post_type']; }
+			if(!empty($projectProps['post_type'])) {
+				$queryArgs['post_type'] = $projectProps['post_type']; }
 
-			if(!empty($slides['properties']['props']['post_orderby'])) {
-				$queryArgs['orderby'] = $slides['properties']['props']['post_orderby']; }
+			if(!empty($projectProps['post_orderby'])) {
+				$queryArgs['orderby'] = $projectProps['post_orderby']; }
 
-			if(!empty($slides['properties']['props']['post_order'])) {
-				$queryArgs['order'] = $slides['properties']['props']['post_order']; }
+			if(!empty($projectProps['post_order'])) {
+				$queryArgs['order'] = $projectProps['post_order']; }
 
-			if(!empty($slides['properties']['props']['post_categories'][0])) {
-				$queryArgs['category__in'] = $slides['properties']['props']['post_categories']; }
+			if(!empty($projectProps['post_categories'][0])) {
+				$queryArgs['category__in'] = $projectProps['post_categories']; }
 
-			if(!empty($slides['properties']['props']['post_tags'][0])) {
-				$queryArgs['tag__in'] = $slides['properties']['props']['post_tags']; }
+			if(!empty($projectProps['post_tags'][0])) {
+				$queryArgs['tag__in'] = $projectProps['post_tags']; }
 
-			if(!empty($slides['properties']['props']['post_taxonomy']) && !empty($slides['properties']['props']['post_tax_terms'])) {
+			if(!empty($projectProps['post_taxonomy']) && !empty($projectProps['post_tax_terms'])) {
 				$queryArgs['tax_query'][] = [
-					'taxonomy' => $slides['properties']['props']['post_taxonomy'],
+					'taxonomy' => $projectProps['post_taxonomy'],
 					'field' => 'id',
-					'terms' => $slides['properties']['props']['post_tax_terms']
+					'terms' => $projectProps['post_tax_terms']
 				];
 			}
 
@@ -343,7 +356,7 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 		}
 
 		// Add slide thumbnail
-		if(!isset($slides['properties']['attrs']['thumbnailNavigation']) || $slides['properties']['attrs']['thumbnailNavigation'] != 'disabled') {
+		if(!isset($projectAttrs['thumbnailNavigation']) || $projectAttrs['thumbnailNavigation'] != 'disabled') {
 			if( ! empty( $slide['props']['thumbnail'] ) && ls_assets_cond( $slide['props'], 'thumbnail') ) {
 
 				$lsTN = '';
@@ -438,6 +451,7 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 					}
 				}
 
+
 				// WPML support
 				if( $lsWPML['useStringTranslation'] ) {
 
@@ -449,12 +463,12 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 					// should we use. This property was added in v6.5.5 along with the
 					// new WPML implementation, so no version comparison required.
 					} elseif( $sliderCreatedWith ) {
-						$string_name = "slider-{$id}-layer-{$layer['props']['uuid']}-html";
+						$string_name = "slider-{$projectId}-layer-{$layer['props']['uuid']}-html";
 						$layer['props']['html'] = apply_filters( 'wpml_translate_single_string', $layer['props']['html'], 'LayerSlider Sliders', $string_name );
 
 					// Old implementation
 					} else {
-						$string_name = '<'.$layer['props']['type'].':'.substr(sha1($layer['props']['html']), 0, 10).'> layer on slide #'.($slidekey+1).' in slider #'.$id.'';
+						$string_name = '<'.$layer['props']['type'].':'.substr(sha1($layer['props']['html']), 0, 10).'> layer on slide #'.($slidekey+1).' in slider #'.$projectId.'';
 						$layer['props']['html'] = apply_filters( 'wpml_translate_single_string', $layer['props']['html'], 'LayerSlider WP', $string_name);
 					}
 
@@ -667,7 +681,7 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 
 						} else {
 
-							$layerIMG = '<img src="'.$layer['props']['image'].'">';
+							$layerIMG = '<img src="'.do_shortcode( $layer['props']['image'] ).'">';
 
 							if(!empty($layer['props']['alt'])) {
 							$innerAttributes['alt'] = $layer['props']['alt']; }
@@ -793,6 +807,12 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 					if( ! ls_assets_cond( $layer['attrs'], 'poster') ) {
 						unset( $layer['attrs']['poster'] );
 					}
+				} elseif( ! empty( $layer['attrs']['poster'] ) ) {
+					$layer['attrs']['poster'] = do_shortcode( $layer['attrs']['poster'] );
+
+					if( ! ls_assets_cond( $layer['attrs'], 'poster') ) {
+						unset( $layer['attrs']['poster'] );
+					}
 				}
 
 
@@ -880,7 +900,7 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 					]));
 
 					ls_apply_affix_properties( $layer['props'], $innerAttributes, [
-						'sliderID' => $id,
+						'sliderID' => $projectId,
 						'wpml' => $lsWPML
 					]);
 				}
@@ -936,7 +956,7 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 
 					$innerAttributes['data-counter'] = json_encode($counterData);
 					ls_apply_affix_properties( $layer['props'], $innerAttributes, [
-						'sliderID' => $id,
+						'sliderID' => $projectId,
 						'wpml' => $lsWPML
 					]);
 
@@ -995,6 +1015,7 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 					}
 				}
 
+				// Layer Actions
 				if( ! empty( $layer['props']['actions'] ) ) {
 
 					$actionsString = json_encode( $layer['props']['actions']);
@@ -1004,6 +1025,16 @@ if(!empty($slider['slides']) && is_array($slider['slides'])) {
 					if( strpos( $actionsString, 'openPopup' ) !== false ) {
 						$GLOBALS['lsInitAjaxURL'] = true;
 						$GLOBALS['lsLoadPlugins'][] = 'popup';
+					}
+				}
+
+				// Layer Effects
+				if( $GLOBALS['lsIsActivatedSite'] && ! empty( $layer['props']['effects'] ) ) {
+					$inner->attr('data-ls-effects', json_encode( $layer['props']['effects'] ) );
+					foreach( $layer['props']['effects'] as $effect ) {
+						if( ! in_array( $effect['effect'], $lsPlugins ) ) {
+							$lsPlugins[] = $effect['effect'];
+						}
 					}
 				}
 
@@ -1100,11 +1131,12 @@ $lsMarkup[] = '</div>';
 
 // End of scene wrapper
 if( $needsSceneWrapper ) {
+
 	$lsMarkup[] = '</ls-scene-wrapper>';
 }
 
 // End of Popup wrapper
-if( !empty($slides['properties']['attrs']['type']) && $slides['properties']['attrs']['type'] === 'popup' ) {
+if( $projectLayout === 'popup' ) {
 	$lsMarkup[] = '</div>';
 }
 

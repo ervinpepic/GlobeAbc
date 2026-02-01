@@ -1,5 +1,7 @@
 <?php
 
+use LearnPress\Databases\UserItemsDB;
+use LearnPress\Filters\UserItemsFilter;
 use LearnPress\Helpers\Config;
 use LearnPress\Models\Courses;
 use LearnPress\Models\UserItems\UserCourseModel;
@@ -186,6 +188,13 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 			return $this->_user;
 		}
 
+		/**
+		 * Get current user viewing profile.
+		 *
+		 * @return bool|LP_User
+		 * @since 3.0.0
+		 * @version 1.0.2
+		 */
 		public function get_user_current() {
 			return $this->user_current;
 		}
@@ -555,8 +564,12 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 		 *
 		 * @return array
 		 * @since 3.0.0
+		 * @deprecated 4.2.3.x
 		 */
 		public function get_user_orders( $args = '' ) {
+			_deprecated_function( __METHOD__, '4.2.3.x' );
+			return [];
+
 			$args = wp_parse_args(
 				$args,
 				array(
@@ -616,7 +629,12 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 					'post_type'      => LP_ORDER_CPT,
 					'posts_per_page' => $args['limit'],
 					'offset'         => $offset,
-					'post_status'    => [ LP_ORDER_COMPLETED_DB, LP_ORDER_PENDING_DB, LP_ORDER_PROCESSING_DB, LP_ORDER_CANCELLED_DB ],
+					'post_status'    => [
+						LP_ORDER_COMPLETED_DB,
+						LP_ORDER_PENDING_DB,
+						LP_ORDER_PROCESSING_DB,
+						LP_ORDER_CANCELLED_DB,
+					],
 					//'post__in'       => array_keys( $order_ids ),
 					//'orderby'        => 'post__in',
 					'fields'         => 'ids',
@@ -675,6 +693,7 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 		 * @param array $args - Optional.
 		 *
 		 * @return LP_Query_List_Table
+		 * @throws Exception
 		 */
 		public function query_courses( string $type = 'own', array $args = array() ): LP_Query_List_Table {
 			$lp_user_items_db = LP_User_Items_DB::getInstance();
@@ -682,28 +701,37 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 
 			switch ( $type ) {
 				case 'purchased':
-					// $query = $this->_curd->query_purchased_courses( $this->get_user_data( 'id' ), $args );
-					$filter              = new LP_User_Items_Filter();
+					$filter              = new UserItemsFilter();
 					$filter->only_fields = array( 'DISTINCT (item_id) AS item_id', 'ui.user_item_id' );
 					$filter->field_count = 'ui.item_id';
 					$filter->user_id     = $this->get_user_data( 'id' );
 					$filter->order_by    = 'ui.user_item_id';
 					$filter->order       = 'DESC';
+					$filter->item_type   = LP_COURSE_CPT;
 					$status              = $args['status'] ?? '';
-					if ( $status != LP_COURSE_FINISHED ) {
-						$filter->graduation = $status;
-						$filter->where[]    = $lp_user_items_db->wpdb->prepare(
-							"AND ui.status != '%s'",
-							UserItemModel::STATUS_CANCEL
-						);
-					} else {
-						$filter->status = $status;
+
+					switch ( $status ) {
+						case '':
+							$filter->where[] = $lp_user_items_db->wpdb->prepare(
+								"AND ui.status != '%s'",
+								UserItemModel::STATUS_CANCEL
+							);
+							break;
+						case UserItemModel::STATUS_FINISHED:
+							$filter->status = UserItemModel::STATUS_FINISHED;
+							break;
+						case UserItemModel::GRADUATION_IN_PROGRESS:
+						case UserItemModel::GRADUATION_PASSED:
+						case UserItemModel::GRADUATION_FAILED:
+							$filter->graduation = $status;
+							break;
 					}
+
 					$filter->page   = $args['paged'] ?? 1;
 					$filter->limit  = $args['limit'] ?? $filter->limit;
 					$total_rows     = 0;
 					$filter         = apply_filters( 'lp/api/profile/courses/purchased/filter', $filter, $args );
-					$result_courses = LP_User_Item_Course::get_user_courses( $filter, $total_rows );
+					$result_courses = UserItemsDB::getInstance()->get_user_items( $filter, $total_rows );
 
 					$course_ids = LP_Database::get_values_by_key( $result_courses, 'item_id' );
 
@@ -859,8 +887,10 @@ if ( ! class_exists( 'LP_Profile' ) ) {
 		 *
 		 * @return false|WP_User
 		 * @since 3.0.0
+		 * @deprecated 4.2.9.1
 		 */
 		public static function get_queried_user( $return = '' ) {
+			_deprecated_function( __METHOD__, '4.2.9.1', 'LP_Profile::instance()->get_user_current()' );
 			global $wp_query;
 
 			if ( isset( $wp_query->query['user'] ) ) {

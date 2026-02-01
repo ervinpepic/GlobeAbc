@@ -49,6 +49,94 @@
 		margin: 0 auto;
 		display: block !important;
 		position: relative !important;
+		--ls-progress: min( var(--ls-duration), var(--ls-stickduration, var(--ls-duration)) );
+	}
+
+	ls-scene-wrapper:not(.ls-layout-fixedsize) {
+		--ls-ratio-base: calc(100% / var(--ls-ratio, 999999999));
+	}
+
+	ls-scene-wrapper.ls-layout-fixedsize {
+		--ls-ratio-base: var(--ls-height);
+	}
+
+	ls-scene-wrapper {
+		--ls-offset-full: calc(100vh - var(--ls-ratio-base));
+		--ls-offset-half: calc(var(--ls-offset-full) / 2);
+		--ls-p-minus-50: calc(var(--ls-progress) - 50vh);
+		--ls-p-minus-100: calc(var(--ls-progress) - 100vh);
+	}
+
+
+	/* Scroll Scene Wrapper Height Calculation */
+
+	/* Stick to Center */
+	ls-scene-wrapper.ls-stickto-center.ls-playfrom-stick:after {
+		--ls-padding: var(--ls-progress);
+	}
+
+	ls-scene-wrapper.ls-stickto-center.ls-playfrom-top:after {
+		--ls-padding: calc(var(--ls-progress) + var(--ls-offset-half));
+	}
+
+	ls-scene-wrapper.ls-stickto-center.ls-playfrom-center:after {
+		--ls-padding: calc(var(--ls-p-minus-50) + var(--ls-offset-half));
+	}
+
+	ls-scene-wrapper.ls-stickto-center.ls-playfrom-bottom:after {
+		--ls-padding: calc(var(--ls-p-minus-100) + var(--ls-offset-half));
+	}
+
+	/* Stick to Top */
+	ls-scene-wrapper.ls-stickto-top.ls-playfrom-stick:after,
+	ls-scene-wrapper.ls-stickto-top.ls-playfrom-top:after {
+		--ls-padding: var(--ls-progress);
+	}
+
+	ls-scene-wrapper.ls-stickto-top.ls-playfrom-center:after {
+		--ls-padding: var(--ls-p-minus-50);
+	}
+
+	ls-scene-wrapper.ls-stickto-top.ls-playfrom-bottom:after {
+		--ls-padding: var(--ls-p-minus-100);
+	}
+
+	/* Stick to Bottom */
+	ls-scene-wrapper.ls-stickto-bottom.ls-playfrom-stick:after {
+		--ls-padding: var(--ls-progress);
+	}
+
+	ls-scene-wrapper.ls-stickto-bottom.ls-playfrom-top:after {
+		--ls-padding: calc(var(--ls-progress) + var(--ls-offset-full));
+	}
+
+	ls-scene-wrapper.ls-stickto-bottom.ls-playfrom-center:after {
+		--ls-padding: calc(var(--ls-p-minus-50) + var(--ls-offset-full));
+	}
+
+	ls-scene-wrapper.ls-stickto-bottom.ls-playfrom-bottom:after {
+		--ls-padding: calc(var(--ls-p-minus-100) + var(--ls-offset-full));
+	}
+
+	/* Full Size Layout */
+	ls-scene-wrapper.ls-playfrom-stick.ls-layout-fullsize:after,
+	ls-scene-wrapper.ls-playfrom-top.ls-layout-fullsize:after {
+		--ls-padding: var(--ls-progress);
+	}
+
+	ls-scene-wrapper.ls-playfrom-center.ls-layout-fullsize:after {
+		--ls-padding: var(--ls-p-minus-50);
+	}
+
+	ls-scene-wrapper.ls-playfrom-bottom.ls-layout-fullsize:after {
+		--ls-padding: var(--ls-p-minus-100);
+	}
+
+	ls-scene-wrapper:after {
+		content: '';
+		display: block;
+		width: 100%;
+		padding-bottom: var(--ls-padding,0px);
 	}
 
 	ls-scene-wrapper .ls-container {
@@ -70,6 +158,10 @@
 
 	ls-scene-wrapper[data-disabled-scene] {
 		height: auto !important;
+	}
+
+	ls-scene-wrapper[data-disabled-scene]:after {
+		display: none !important;
 	}
 
 
@@ -118,7 +210,8 @@
 	}
 
 	.ls-wrapper.ls-fix-textnodes .ls-ln,
-	.ls-wrapper.ls-fix-textnodes .ls-wd {
+	.ls-wrapper.ls-fix-textnodes .ls-wd,
+	.ls-wrapper.ls-fix-textnodes .ls-ch {
 		position: static !important;
 		transform: none !important;
 	}
@@ -328,6 +421,7 @@
 	}
 
 	.ls-wrapper > .ls-layer,
+	ls-liquify-wrapper > ls-layer,
 	.ls-wrapper > a > .ls-layer {
 		position: static !important;
 		display: block !important;
@@ -351,7 +445,8 @@
 		overflow: hidden !important;
 	}
 
-	.ls-wrapper > a.ls-layer-link {
+	.ls-wrapper > a.ls-layer-link,
+	ls-liquify-wrapper > a.ls-layer-link {
 		cursor: pointer !important;
 		display: block !important;
 		position: absolute !important;

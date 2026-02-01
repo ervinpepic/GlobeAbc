@@ -119,9 +119,17 @@
 	z-index: 10;
 }
 
-.ls-origami-image-holder > img {
-	position: relative;
+.ls-origami-image-holder > ls-grad {
+	display: block;
+	position: absolute;
 	z-index: 1;
+}
+
+.ls-origami-image-holder > img {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 2;
 }
 
 .ls-origami-tile .ls-white {

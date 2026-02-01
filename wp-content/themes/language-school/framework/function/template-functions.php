@@ -2,7 +2,7 @@
 /**
  * @package 	WordPress
  * @subpackage 	Language School
- * @version		1.3.5
+ * @version		1.4.0
  * 
  * Template Functions
  * Created by CMSMasters
@@ -910,12 +910,24 @@ function language_school_theme_page_heading_styles() {
 		
 		
 		if ($cmsmasters_heading_bg_img_enable == 'true' && $cmsmasters_heading_bg_img != '') {
-			$out .= ".headline_outer {
-				background-image:url(" . ((is_numeric($options_img[0])) ? $options_img_url[0] : $options_img[1]) . ");
-				background-repeat:{$cmsmasters_heading_bg_rep};
-				background-attachment:{$cmsmasters_heading_bg_att};
-				background-size:{$cmsmasters_heading_bg_size};
-			}" . "\n";
+			$bg_url = '';
+
+			if (!empty($options_img) && is_array($options_img)) {
+				if (is_numeric($options_img[0]) && !empty($options_img_url[0])) {
+					$bg_url = esc_url($options_img_url[0]);
+				} elseif (!empty($options_img[1])) {
+					$bg_url = esc_url($options_img[1]);
+				}
+			}
+
+			if ($bg_url !== '') {
+				$out .= ".headline_outer {
+					background-image:url({$bg_url});
+					background-repeat:{$cmsmasters_heading_bg_rep};
+					background-attachment:{$cmsmasters_heading_bg_att};
+					background-size:{$cmsmasters_heading_bg_size};
+				}" . "\n";
+			}
 		}
 		
 		

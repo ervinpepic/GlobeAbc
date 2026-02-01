@@ -6,6 +6,9 @@
  * @since 3.2.7.5
  * @version 2.0.3
  */
+
+use LearnPress\Filters\FilterBase;
+
 defined( 'ABSPATH' ) || exit();
 
 class LP_Database {
@@ -102,8 +105,12 @@ class LP_Database {
 	 *
 	 * @return int
 	 * @since 3.2.8
+	 * @deprecated 4.2.9.3
 	 */
 	public function get_count_post_of_user( LP_Post_Type_Filter $filter ): int {
+		_deprecated_function( __METHOD__, '4.2.9.3' );
+		return 0;
+
 		$query_append = '';
 
 		$cache_key = _count_posts_cache_key( $filter->post_type );
@@ -575,10 +582,12 @@ class LP_Database {
 	/**
 	 * Get query string single row
 	 *
+	 * @param LP_Filter|FilterBase $filter
+	 *
 	 * @since 4.2.5
-	 * @version 1.0.0
+	 * @version 1.0.1
 	 */
-	public function get_query_single_row( LP_Filter &$filter ) {
+	public function get_query_single_row( &$filter ) {
 		$filter->limit               = 1;
 		$filter->return_string_query = true;
 		$filter->run_query_count     = false;
@@ -587,13 +596,16 @@ class LP_Database {
 	/**
 	 * Get result query
 	 *
+	 * @param LP_Filter|FilterBase $filter
+	 * @param int $total_rows
+	 *
 	 * @return array|object|null|int|string
 	 * @throws Exception
 	 * @author tungnx
-	 * @version 1.0.1
+	 * @version 1.0.2
 	 * @since 4.1.6
 	 */
-	public function execute( LP_Filter $filter, int &$total_rows = 0 ) {
+	public function execute( $filter, int &$total_rows = 0 ) {
 		$result = null;
 
 		// Where
@@ -735,11 +747,13 @@ class LP_Database {
 	/**
 	 * Query update
 	 *
+	 * @param LP_Filter|FilterBase $filter
+	 *
 	 * @throws Exception
 	 * @since 4.1.7
-	 * @version 1.0.0
+	 * @version 1.0.1
 	 */
-	public function update_execute( LP_Filter $filter ) {
+	public function update_execute( $filter ) {
 
 		$COLLECTION = $filter->collection;
 
@@ -769,11 +783,15 @@ class LP_Database {
 	/**
 	 * Query delete
 	 *
+	 * @param LP_Filter|FilterBase $filter
+	 * @param string $table
+	 *
+	 * @return bool|int|mysqli_result|string|null
 	 * @throws Exception
 	 * @since 4.1.7
-	 * @version 1.0.1
+	 * @version 1.0.2
 	 */
-	public function delete_execute( LP_Filter $filter, string $table = '' ) {
+	public function delete_execute( $filter, string $table = '' ) {
 		$COLLECTION = $filter->collection;
 
 		// Where
@@ -843,9 +861,9 @@ class LP_Database {
 			throw new Exception( __( 'Data must be an array!', 'learnpress' ) . ' | ' . __FUNCTION__ );
 		}
 
-		if ( ! $filter instanceof LP_Filter ) {
+		/*if ( ! $filter instanceof LP_Filter ) {
 			throw new Exception( __( 'Invalid filter!', 'learnpress' ) . ' | ' . __FUNCTION__ );
-		}
+		}*/
 
 		if ( empty( $filter->all_fields ) ) {
 			throw new Exception( __( 'Filter must have property all_fields!', 'learnpress' ) . ' | ' . __FUNCTION__ );
@@ -884,7 +902,7 @@ class LP_Database {
 	 *
 	 * @throws Exception
 	 * @since 4.2.9
-	 * @version 1.0.0
+	 * @version 1.0.1
 	 */
 	public function update_data( array $args ): bool {
 		$data       = $args['data'] ?? [];
@@ -893,9 +911,9 @@ class LP_Database {
 		$where_key  = $args['where_key'] ?? '';
 		$where_key  = sanitize_key( $where_key );
 
-		if ( ! $filter instanceof LP_Filter ) {
+		/*if ( ! $filter instanceof LP_Filter ) {
 			throw new Exception( __( 'Invalid filter!', 'learnpress' ) . ' | ' . __FUNCTION__ );
-		}
+		}*/
 
 		if ( empty( $filter->all_fields ) ) {
 			throw new Exception( __( 'Filter must have property all_fields!', 'learnpress' ) . ' | ' . __FUNCTION__ );

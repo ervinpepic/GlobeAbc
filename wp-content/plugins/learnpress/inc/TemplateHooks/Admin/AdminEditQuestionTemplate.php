@@ -92,6 +92,9 @@ class AdminEditQuestionTemplate {
 			throw new Exception( __( 'Question not found', 'learnpress' ) );
 		}
 
+		// Check permission
+		$questionPostModel->check_capabilities_create_item_course();
+
 		$content          = new stdClass();
 		$content->content = self::instance()->html_edit_question( $questionPostModel );
 
@@ -454,7 +457,13 @@ class AdminEditQuestionTemplate {
 		}
 
 		$section = [
-			'header'  => '<div class="lp-question-choice-header"><span>Answers</span><span>Correct</span></div>',
+			'header'  => sprintf(
+				'<div class="lp-question-choice-header">
+				<span>%s</span><span>%s</span>
+			</div>',
+				__( 'Answers', 'learnpress' ),
+				__( 'Corrects', 'learnpress' )
+			),
 			'answers' => $html_answers,
 		];
 
@@ -510,15 +519,22 @@ class AdminEditQuestionTemplate {
 		$html_answers .= sprintf(
 			'<div class="lp-question-answer-item-add-new">
 				<span class="lp-icon-plus" title="Add answer option"></span>
-				<input type="text" class="%1$s" name="%1$s" value="" />
-				<button type="button" class="button lp-btn-add-question-answer lp-btn-edit-primary">%2$s</button>
+				<input type="text" class="%1$s" name="%1$s" value="" data-mess-empty-title="%2$s" />
+				<button type="button" class="button lp-btn-add-question-answer lp-btn-edit-primary">%3$s</button>
 			</div>',
 			'lp-question-answer-title-new-input',
+			esc_attr__( 'Answer title is required', 'learnpress' ),
 			__( 'Add Option', 'learnpress' )
 		);
 
 		$section = [
-			'header'  => '<div class="lp-question-choice-header"><span>Answers</span><span>Correct</span></div>',
+			'header'  => sprintf(
+				'<div class="lp-question-choice-header">
+				<span>%s</span><span>%s</span>
+			</div>',
+				__( 'Answers', 'learnpress' ),
+				__( 'Corrects', 'learnpress' )
+			),
 			'answers' => $html_answers,
 		];
 
@@ -583,7 +599,13 @@ class AdminEditQuestionTemplate {
 		);
 
 		$section = [
-			'header'  => '<div class="lp-question-choice-header"><span>Answers</span><span>Correct</span></div>',
+			'header'  => sprintf(
+				'<div class="lp-question-choice-header">
+				<span>%s</span><span>%s</span>
+			</div>',
+				__( 'Answers', 'learnpress' ),
+				__( 'Corrects', 'learnpress' )
+			),
 			'answers' => $html_answers,
 		];
 
@@ -641,7 +663,13 @@ class AdminEditQuestionTemplate {
 		);
 
 		$section = [
-			'header'  => '<div class="lp-question-choice-header"><span>Answers</span><span>Correct</span></div>',
+			'header'  => sprintf(
+				'<div class="lp-question-choice-header">
+				<span>%s</span><span>%s</span>
+			</div>',
+				__( 'Answers', 'learnpress' ),
+				__( 'Corrects', 'learnpress' )
+			),
 			'answers' => $html_answers,
 		];
 

@@ -68,6 +68,9 @@ class LP_Template_Course extends LP_Abstract_Template {
 	 * @throws Exception
 	 */
 	public function button_retry( $course = null ) {
+		_deprecated_function( __METHOD__, '4.3.2.4', 'UserCourseTemplate::html_btn_retake' );
+		return;
+
 		$user = learn_press_get_current_user();
 		if ( empty( $course ) ) {
 			$course = learn_press_get_course();
@@ -183,66 +186,13 @@ class LP_Template_Course extends LP_Abstract_Template {
 	 * @version 4.0.2
 	 */
 	public function course_purchase_button( $course = null ) {
+		_deprecated_function( __METHOD__, '4.3.2', 'SingleCourseTemplate::html_btn_purchase_course' );
+		return;
+
 		$singleCourseTemplate = SingleCourseTemplate::instance();
 		$course               = CourseModel::find( get_the_ID(), true );
 		$user                 = UserModel::find( get_current_user_id(), true );
 		echo $singleCourseTemplate->html_btn_purchase_course( $course, $user );
-		return;
-
-		$can_show = true;
-		if ( empty( $course ) ) {
-			$course = learn_press_get_course();
-		}
-
-		if ( ! $course ) {
-			return;
-		}
-
-		$user = learn_press_get_current_user();
-
-		if ( ! $user || ! $course ) {
-			$can_show = false;
-		}
-
-		if ( $course->is_free() ) {
-			return;
-		}
-
-		$can_purchase = $user->can_purchase_course( $course->get_id() );
-		if ( is_wp_error( $can_purchase ) ) {
-			if ( in_array(
-				$can_purchase->get_error_code(),
-				[ 'order_processing', 'course_out_of_stock', 'course_is_no_required_enroll_not_login' ]
-			) ) {
-				Template::print_message( $can_purchase->get_error_message(), 'warning' );
-			}
-
-			$can_show = false;
-		}
-
-		// Hook since 4.1.3
-		$can_show = apply_filters( 'learnpress/course/template/button-purchase/can-show', $can_show, $user, $course );
-		if ( ! $can_show ) {
-			return;
-		}
-
-		$args_load_tmpl = array(
-			'template_name' => 'single-course/buttons/purchase.php',
-			'template_path' => '',
-			'default_path'  => '',
-		);
-
-		$args_load_tmpl = apply_filters( 'learn-press/tmpl-button-purchase-course', $args_load_tmpl, $course );
-
-		learn_press_get_template(
-			$args_load_tmpl['template_name'],
-			array(
-				'user'   => $user,
-				'course' => $course,
-			),
-			$args_load_tmpl['template_path'],
-			$args_load_tmpl['default_path']
-		);
 	}
 
 	/**
@@ -254,6 +204,9 @@ class LP_Template_Course extends LP_Abstract_Template {
 	 * @version 4.0.3
 	 */
 	public function course_enroll_button( $course = null ) {
+		_deprecated_function( __METHOD__, '4.3.2.4', 'SingleCourseTemplate::html_btn_enroll_course' );
+		return;
+
 		$singleCourseTemplate = SingleCourseTemplate::instance();
 		$course               = CourseModel::find( get_the_ID(), true );
 		$user                 = UserModel::find( get_current_user_id(), true );
@@ -392,6 +345,9 @@ class LP_Template_Course extends LP_Abstract_Template {
 	 * @since  4.0.0
 	 */
 	public static function course_continue_button( $args = [] ) {
+		_deprecated_function( __METHOD__, '4.3.2.4', 'UserCourseTemplate::html_btn_continue' );
+		return;
+
 		$course_id_param = $args['course-id'] ?? 0;
 		$course_id       = ! empty( $course_id_param ) ? $course_id_param : get_the_ID();
 		$courseModel     = CourseModel::find( $course_id, true );
@@ -434,6 +390,9 @@ class LP_Template_Course extends LP_Abstract_Template {
 	}
 
 	public function course_finish_button( $course = null ) {
+		_deprecated_function( __METHOD__, '4.3.2.4', 'UserCourseTemplate::html_btn_finish' );
+		return;
+
 		$user = learn_press_get_current_user();
 		if ( empty( $course ) ) {
 			$course = learn_press_get_course();
@@ -471,6 +430,9 @@ class LP_Template_Course extends LP_Abstract_Template {
 	 * @modify 4.1.3
 	 */
 	public function course_external_button( $course = null ) {
+		_deprecated_function( __METHOD__, '4.3.2.4', 'SingleCourseTemplate::html_btn_external' );
+		return;
+
 		if ( empty( $course ) ) {
 			$course = learn_press_get_course();
 		}
@@ -490,8 +452,9 @@ class LP_Template_Course extends LP_Abstract_Template {
 
 		if ( $user && ! $user->has_enrolled_or_finished( $course->get_id() ) ) {
 			// Remove all another buttons
-			learn_press_remove_course_buttons();
+			// learn_press_remove_course_buttons();
 			learn_press_get_template( 'single-course/buttons/external-link.php' );
+
 			// Add back other buttons for other courses
 			add_action( 'learn-press/after-course-buttons', 'learn_press_add_course_buttons' );
 		}
@@ -686,7 +649,7 @@ class LP_Template_Course extends LP_Abstract_Template {
 
 		if ( ! empty( $shortcodes_custom_css ) ) {
 			$shortcodes_custom_css = strip_tags( $shortcodes_custom_css );
-			echo '<style type="text/css" data-type="vc_shortcodes-custom-css">';
+			echo '<style data-type="vc_shortcodes-custom-css">';
 			echo wp_kses_post( $shortcodes_custom_css );
 			echo '</style>';
 		}
@@ -736,24 +699,6 @@ class LP_Template_Course extends LP_Abstract_Template {
 	}
 
 	/**
-	 * @deprecated 4.1.7.2
-	 */
-	/*public function item_quiz_content() {
-		$item = LP_Global::course_item();
-
-		learn_press_get_template( 'content-quiz/js.php' );
-	}*/
-
-	/**
-	 * @deprecated 4.1.7.2
-	 */
-	public function item_lesson_content_blocked() {
-		$item = LP_Global::course_item();
-
-		learn_press_get_template( 'global/block-content.php' );
-	}
-
-	/**
 	 * Get template button complete lesson
 	 */
 	public function item_lesson_complete_button() {
@@ -788,66 +733,12 @@ class LP_Template_Course extends LP_Abstract_Template {
 	}
 
 	public function item_lesson_material() {
-		$user   = learn_press_get_current_user();
-		$course = learn_press_get_course();
-
-		$file_per_page = LP_Settings::get_option( 'material_file_per_page', - 1 );
-		if ( ! $course || (int) $file_per_page === 0 ) {
-			return;
-		}
 		try {
-			$item                  = LP_Global::course_item();
-			$can_show_tab_material = false;
-			if ( $course->is_no_required_enroll()
-				|| $user->has_enrolled_or_finished( $course->get_id() )
-				|| $user->is_instructor() || $user->is_admin() ) {
-				$can_show_tab_material = true;
-			}
-			if ( ! $can_show_tab_material ) {
-				return;
-			}
-
-			// The complete button is not displayed when the course is locked --hungkv--
-			if ( $user->can_view_content_course( $course->get_id() )->key === LP_BLOCK_COURSE_DURATION_EXPIRE ) {
-				return;
-			}
-			$item_id   = $item->get_id();
-			$material  = LP_Material_Files_DB::getInstance();
-			$materials = $material->get_material_by_item_id( $item_id );
-			if ( ! $materials ) {
-				return;
-			}
-
-			echo wp_kses_post( do_shortcode( '[learn_press_course_materials]' ) );
+			do_action( 'learn-press/course-material/layout', [] );
 		} catch ( Throwable $e ) {
 			error_log( $e->getMessage() );
 		}
 	}
-
-	/**
-	 * @deprecated 4.1.6.9
-	 */
-	/*public function lesson_comment_form() {
-		$course = learn_press_get_course();
-		if ( ! $course ) {
-			return;
-		}
-
-		$lesson = LP_Global::course_item();
-		if ( ! $lesson ) {
-			return;
-		}
-
-		if ( $lesson->setup_postdata() ) {
-
-			if ( comments_open() || get_comments_number() ) {
-				add_filter( 'deprecated_file_trigger_error', '__return_false' );
-				comments_template();
-				remove_filter( 'deprecated_file_trigger_error', '__return_false' );
-			}
-			$lesson->reset_postdata();
-		}
-	}*/
 
 	/**
 	 * Template show count items
@@ -936,9 +827,9 @@ class LP_Template_Course extends LP_Abstract_Template {
 		}
 	}
 
-	public function metarials() {
+	/*public function metarials() {
 		echo wp_kses_post( do_shortcode( '[learn_press_course_materials]' ) );
-	}
+	}*/
 
 	public function faqs() {
 		$course = LP_Course::get_course( get_the_ID() );
@@ -980,18 +871,6 @@ class LP_Template_Course extends LP_Abstract_Template {
 			)
 		);
 	}
-
-	/**
-	 * @deprecated 4.1.7.2
-	 */
-	/*public function instructor_socials() {
-		$instructor = $this->course->get_instructor();
-		$socials    = $instructor->get_profile_socials( $instructor->get_id() );
-
-		foreach ( $socials as $social ) {
-			echo wp_kses_post( $social );
-		}
-	}*/
 
 	public function has_sidebar() {
 		$actions = array(
@@ -1123,7 +1002,7 @@ class LP_Template_Course extends LP_Abstract_Template {
 
 		if ( LP_LAZY_LOAD_ANIMATION ) {
 			echo '<div class="lp-course-progress-wrapper">';
-			echo lp_skeleton_animation_html( 3 );
+			lp_skeleton_animation_html();
 			echo '</div>';
 		} else {
 			$course_data = $user->get_course_data( $course->get_id() );

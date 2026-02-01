@@ -38,6 +38,8 @@ $l10n_ls = [
 	'scalable_a' 	=> _x('Scalable (Auto Size)', 'Asset size', 'LayerSlider'),
 	'scalable_o' 	=> _x('Scalable (Original Size)', 'Asset size', 'LayerSlider'),
 
+	'currentColor' 	=> __('Current Text Color', 'LayerSlider'),
+
 	// Notifications
 	'notifyProjectSaved' 			=> __('Project saved as draft', 'LayerSlider'),
 	'notifyProjectPublished' 		=> __('Published & changes are now live', 'LayerSlider'),
@@ -49,7 +51,8 @@ $l10n_ls = [
 	'notifyMissingPopup' 			=> __('This is a Popup project, which requires license registration to use.', 'LayerSlider'),
 	'notifyMissingPopupMT' 			=> __('Register your LayerSlider license to use Popups.', 'LayerSlider'),
 	'notifyMissingScene' 			=> __('This is a Sticky or Scroll Scene project, which requires license registration to use on front-end pages.', 'LayerSlider'),
-	'notifyScrollSceneSlides' 		=> __('This is a Scroll Scene project, which will display and animate the first slide only.', 'LayerSlider'),
+	'notifyScrollSceneSlides' 		=> __('Choose how Scroll Scenes should behave when using multiple slides.', 'LayerSlider'),
+	'notifyScrollSceneSlidesButton' => __('Configure', 'LayerSlider'),
 	'notifyMissingEndingTr' 		=> __('Missing Ending Transitions can lead to overlapping layers.', 'LayerSlider'),
 	'confirmMissingEndingTrFix' 		=> sprintf(__('To avoid overlapping issues, %sEnding Transition%s will be enabled on layers missing both Ending Transition and Ending Text Transition. You should manually save the project after the changes have been applied.', 'LayerSlider'), '<b>', '</b>'),
 	'confirmMissingEndingTrDismiss' 	=> __('Are you sure you want to dismiss this notification without fixing potential issues?', 'LayerSlider'),
@@ -292,6 +295,11 @@ $l10n_ls = [
 			'icon' 	=> lsGetSVGIcon('bullseye-pointer', 'regular', [ 'class' => 'lse-mirror-h' ])
 		],
 
+		'LAYER_EFFECTS' 		=> [
+			'title' => __('Layer effects', 'LayerSlider'),
+			'icon' 	=> lsGetSVGIcon('sparkles')
+		],
+
 	],
 
 	// Slider Builder
@@ -303,6 +311,7 @@ $l10n_ls = [
 	'SBSlideCopyTitle' 			=> __('Slide #%d copy', 'LayerSlider'),
 	'SBLayerTitle' 				=> __('Layer #%d', 'LayerSlider'),
 	'SBLayerCopyTitle' 			=> __('Layer #%d copy', 'LayerSlider'),
+	'SBMultiSelectLayerCount' 	=> __('(%d layers)', 'LayerSlider'),
 
 	// Search
 	'SBSearchTitle' 			=> __('Search', 'LayerSlider'),
@@ -387,6 +396,19 @@ $l10n_ls = [
 	'SBLayerTypeCountdownSeconds' 	=> __('Countdown %d (Secs)', 'LayerSlider'),
 	'SBLayerTypeCounter' 			=> __('Counter', 'LayerSlider'),
 
+	'SBPremiumLayerWarnings' 		=> [
+		'countdown' 		=> __('Countdown', 'LayerSlider'),
+		'counter' 			=> __('Counter', 'LayerSlider'),
+		'shape' 			=> __('Shape', 'LayerSlider'),
+		'icon' 				=> __('Premium Icon', 'LayerSlider'),
+		'effects' 			=> __('Effects', 'LayerSlider'),
+		'backgroundClip' 	=> __('Background Clip', 'LayerSlider'),
+		'assetImage' 		=> __('Asset Image', 'LayerSlider'),
+		'assetBackground'	=> __('Asset Background', 'LayerSlider'),
+		'assetVideo' 		=> __('Asset Video', 'LayerSlider'),
+		'scrollTransition' => __('Scroll Transition', 'LayerSlider')
+	],
+
 	'SBInvalidSVGSource' 		=> __('The entered SVG code doesn’t seem to be valid.', 'LayerSlider'),
 	'SBInsertObjectTitle' 		=> __('Insert SVG', 'LayerSlider'),
 	'SBModifyObjectTitle' 		=> __('Modify SVG', 'LayerSlider'),
@@ -394,6 +416,8 @@ $l10n_ls = [
 	'SBInsertShapeTitle' 		=> __('Insert Shape', 'LayerSlider'),
 	'SBModifyShapeTitle' 		=> __('Modify Shape', 'LayerSlider'),
 	'SBShapeOptionsTitle' 		=> _x('%s Options', 'Shape Options (e.g. Wave Options, etc.)', 'LayerSlider'),
+
+	'SBLayerEffectTextOnly'	=> __('The selected layer effect cannot be applied because one or more layers in the selection are incompatible.', 'LayerSlider'),
 
 	'SBRevisionsLoading' 		=> __('Loading, please wait...', 'LayerSlider'),
 	'SBRevisionsDeleteTitle' 	=> __('Delete saved revisions?', 'LayerSlider'),

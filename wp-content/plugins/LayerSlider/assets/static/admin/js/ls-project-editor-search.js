@@ -132,7 +132,7 @@ const LS_SearchActions = [
 				icon: 'plus',
 				keywords: 'create',
 				action: function() {
-					jQuery('.lse-add-layer-button').click();
+					jQuery('#lse-add-layer-button').trigger('click');
 				}
 			},
 

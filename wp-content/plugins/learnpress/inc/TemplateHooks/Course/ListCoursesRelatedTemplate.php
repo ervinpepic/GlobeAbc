@@ -12,20 +12,11 @@ use LearnPress\Helpers\Singleton;
 use LearnPress\Helpers\Template;
 use LearnPress\Models\CourseModel;
 use LearnPress\Models\Courses;
-use LearnPress\Models\UserItems\UserCourseModel;
 use LearnPress\TemplateHooks\TemplateAJAX;
-use LP_Course;
 use LP_Course_Filter;
 use LP_Database;
-use LP_Request;
-use LP_Settings;
-use LP_Settings_Courses;
-use LP_User_Items_DB;
-use LP_User_Items_Filter;
 use stdClass;
 use Throwable;
-use WP_Term;
-use function Symfony\Component\String\s;
 
 class ListCoursesRelatedTemplate {
 	use Singleton;
@@ -82,7 +73,7 @@ class ListCoursesRelatedTemplate {
 	 *
 	 * @return stdClass { content: string_html }
 	 * @since 4.2.7
-	 * @version 1.0.2
+	 * @version 1.0.3
 	 */
 	public static function render_courses( array $settings = [] ): stdClass {
 		$content          = new stdClass();
@@ -108,6 +99,7 @@ class ListCoursesRelatedTemplate {
 
 		$total_rows          = 0;
 		$filter->only_fields = [ 'DISTINCT(ID) AS ID' ];
+		$filter->post_status = [ 'publish' ];
 		$filter->limit       = $settings['limit'] ?? 4;
 		$filter->term_ids    = $term_ids;
 		$filter->query_count = false;
